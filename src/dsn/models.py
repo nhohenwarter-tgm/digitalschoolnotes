@@ -9,9 +9,18 @@ class Food(Document):
     votes = IntField(default=0)
 """
 
+"""
+class Heft(Document):
+    name = models.CharField(max_length=100)
+    auto_creat = models.BooleanField()
+    share_with = models.
+    date =
+    titels =
+"""
+
+
 #TODO Add model for notebook
 #TODO Add model for timetable
-#TODO Add model for user
 
 
 class AuthUser(User):

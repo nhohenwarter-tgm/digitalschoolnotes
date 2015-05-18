@@ -2,6 +2,9 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.core.urlresolvers import reverse
 from dsn.authentication.registration import register_user
+from dsn.models import AuthUser
+from django.contrib.auth import authenticate, login
+
 
 def view_mainpage(request):
     """
@@ -25,7 +28,18 @@ def view_login(request):
     :param request: HTTP-Request
     :return: ein gerendertes Template
     """
-    return render(request, 'login.html', {})
+    if request.method == "POST":
+        user = authenticate(username=request.POST['email'], password=request.POST['password'])
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return render(request, 'management/management_timetable.html', {})
+            else:
+                return render(request, 'mainpage/login.html', {"error_message" : "disabled account"})
+        else:
+            return render(request, 'mainpage/login.html', {"error_message" : "invalid login"})
+    #return render(request, 'mainpage/login.html', {"error_message" : "invalid login"})
+    return render(request, 'mainpage/login.html', {})
 
 def view_registration(request):
     """
