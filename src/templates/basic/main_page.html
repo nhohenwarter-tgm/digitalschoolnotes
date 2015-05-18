@@ -38,7 +38,8 @@
                             $scope.content = data;
                         }).
                         error(function(data, status, headers, config) {
-                            // log error
+                            alert(data);
+                            alert(status);
                         });
             }
             // LOAD CONTENT TIMETABLE
@@ -64,7 +65,7 @@
     </script>
     <!-- NAVBAR END -->
     <!-- CONTENT START -->
-    <div style="padding-top: 100px;" ng-bind-html="content | sanitize">
+    <div style="padding-top: 10px;" ng-bind-html="content | sanitize">
     </div>
     <!-- CONTENT END -->
 </div>
