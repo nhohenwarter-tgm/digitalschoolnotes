@@ -25,6 +25,13 @@ managementApp.config(function($stateProvider, $urlRouterProvider, $locationProvi
         controller: 'notebooksCtrl'
     });
 
+    // PROFILE
+    $stateProvider.state('profile', {
+        url: '/management/profile',
+        templateUrl: '/management/management_profile.html',
+        controller: 'profileCtrl'
+    });
+
     $locationProvider.html5Mode(true);
 
 });
@@ -58,4 +65,20 @@ managementApp.controller('logoutCtrl', function($scope, $http){
 
             });
     }
+});
+
+managementApp.controller('profileCtrl', function($scope, $http){
+    $http({
+        method: 'GET',
+        url: '/api/profile'
+    }).success(function(data){
+            $scope.first_name = data['first_name'];
+            $scope.last_name = data['last_name'];
+            $scope.email = data['email'];
+            $scope.date_joined = data['date_joined'];
+            console.log(data);
+        }
+
+    )
+
 });
