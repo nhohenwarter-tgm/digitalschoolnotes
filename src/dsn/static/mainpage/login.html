@@ -1,1 +1,26 @@
-I'm a login page!
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <form ng-submit="submitLogin()" method="POST">
+            <div class="row" style="padding-left: 15px; color: red;" ng-show="error">{{ login_error }}</div>
+            <div class="row" style="padding-top: 10px;">
+                <div class="col-md-12">
+                    <input type="text" name="email" placeholder="E-Mail Adresse" ng-model="email" style="width: 100%;"/>
+                </div>
+            </div>
+            <div class="row" style="padding-top: 10px;">
+                <div class="col-md-12">
+                    <input type="password" name="pwd" placeholder="Passwort" ng-model="password" style="width: 100%;"/>
+                </div>
+            </div>
+            <div class="row" style="padding-top: 10px;">
+                <div class="col-md-6">
+                    <button type="submit" id="submit" class="btn btn-success">Login</button>
+                </div>
+                <div class="col-md-6">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-4"></div>
+</div>
