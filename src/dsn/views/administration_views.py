@@ -8,7 +8,7 @@ def view_administration(request):
     :param request: HTTP-Request
     :return: ein gerendertes Template
     """
-    return render(request, 'basic/administration.html', {})
+    return render(request, 'basic/../static/admin.html', {})
 
 def view_usermanagement(request):
     """
@@ -16,7 +16,7 @@ def view_usermanagement(request):
     :param request: HTTP-Request
     :return: ein gerendertes Template
     """
-    return render(request, 'administration/admin_usermanagement.html', {})
+    return render(request, '../static/admin/admin_usermanagement.html', {})
 
 def view_bills(request):
     """
@@ -24,7 +24,7 @@ def view_bills(request):
     :param request: HTTP-Request
     :return: ein gerendertes Template
     """
-    return render(request, 'administration/admin_bills.html', {})
+    return render(request, '../static/admin/admin_bills.html', {})
 
 def view_ldap_configuration(request):
     """
@@ -32,7 +32,7 @@ def view_ldap_configuration(request):
     :param request: HTTP-Request
     :return: ein gerendertes Template
     """
-    return render(request, 'administration/admin_ldapConfiguration.html', {})
+    return render(request, '../static/admin/admin_ldapConfiguration.html', {})
 
 def view_userquotas(request):
     """
@@ -40,7 +40,7 @@ def view_userquotas(request):
     :param request: HTTP-Request
     :return: ein gerendertes Template
     """
-    return render(request, 'administration/admin_userquotas.html', {})
+    return render(request, '../static/admin/admin_userquotas.html', {})
 
 def view_statistics(request):
     """
@@ -48,4 +48,4 @@ def view_statistics(request):
     :param request: HTTP-Request
     :return: ein gerendertes Template
     """
-    return render(request, 'administration/admin_statistics.html', {})
+    return render(request, '../static/admin/admin_statistics.html', {})

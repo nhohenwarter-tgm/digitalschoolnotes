@@ -23,6 +23,8 @@ urlpatterns = [
     url(r'^mainpage/content', 'dsn.views.mainpage_views.view_mainpage_content', name="mainpage_content"),
     url(r'^login', 'dsn.views.mainpage_views.view_login', name="login"),
     url(r'^register', 'dsn.views.mainpage_views.view_registration', name="register"),
+    url(r'^resetPassword', 'dsn.views.mainpage_views.view_resetPassword', name="resetPassword"),
+    url(r'^test', 'dsn.views.mainpage_views.view_test', name="test"),
 
     #Management
     url(r'^management/timetable', 'dsn.views.management_views.view_timetable', name="management_timetable"),
@@ -37,8 +39,8 @@ urlpatterns = [
     url(r'^admin/statistics', 'dsn.views.administration_views.view_statistics', name="admin_statistics"),
 
     #Basic
-    url(r'^$', 'dsn.views.mainpage_views.view_mainpage', name="mainpage"),
+    url(r'^api', 'dsn.views.mainpage_views.view_mainpage', name="mainpage"),
     url(r'^management', 'dsn.views.management_views.view_management', name="management"),
     url(r'^notebook', 'dsn.views.notebook_views.view_notebook', name="notebook"),
-    url(r'^administration', 'dsn.views.administration_views.view_administration', name="administration"),
+    url(r'^admin', 'dsn.views.administration_views.view_administration', name="admin"),
 ]

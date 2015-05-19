@@ -1,0 +1,52 @@
+<div>
+    <!-- VIDEO -->
+    <div class="col-md-8">
+        <!-- Tutorial: https://jonsuh.com/blog/responsive-youtube-vimeo-embed-and-html5-video-with-css/ -->
+        <div class="js-video [widescreen]">
+            <iframe src="https://www.youtube.com/embed/uh4dTLJ9q9o" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+    <!-- REGISTRATION -->
+    <div class="col-md-4">
+        <!-- TODO Registration -->
+        <form ng-submit="submitRegform()" method="POST">
+            {% csrf_token %}
+            <div class="row" style="padding-top: 10px;">
+                <div class="col-md-6">
+                    <input type="text" name="firstname" placeholder="Vorname" ng-model="regform.firstname" style="width: 100%;"/>
+                </div>
+                <div class="col-md-6">
+                    <input type="text" name="lastname" placeholder="Nachname" ng-model="regform.lastname" style="width: 100%;"/>
+                </div>
+            </div>
+            <div class="row" style="padding-top: 10px;">
+                <div class="col-md-12">
+                    <input type="text" name="email" placeholder="E-Mail Adresse" ng-model="regform.email" style="width: 100%;"/>
+                </div>
+            </div>
+            <div class="row" style="padding-top: 10px;">
+                <div class="col-md-12">
+                    <input type="text" name="pwd" placeholder="Passwort" ng-model="regform.password" style="width: 100%;"/>
+                </div>
+            </div>
+            <div class="row" style="padding-top: 10px;">
+                <div class="col-md-12">
+                    <input type="text" name="pwd_repeat" placeholder="Passwort Wiederholung" ng-model="regform.password_repeat" style="width: 100%;"/>
+                </div>
+            </div>
+            <div class="row" style="padding-top: 10px;">
+                <div class="col-md-12">
+                    <input type="checkbox" name="accept" ng-model="regform.accept"/>
+                    Ich akzeptiere die Nutzungsbedingungen
+                </div>
+            </div>
+            <div class="row" style="padding-top: 10px;">
+                <div class="col-md-6">
+                    <button type="submit" id="submit" class="btn btn-success">Registrieren</button>
+                </div>
+                <div class="col-md-6">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
