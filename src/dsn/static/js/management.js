@@ -40,3 +40,22 @@ managementApp.controller('notebooksCtrl', function($scope){
 managementApp.controller('timetableCtrl', function($scope){
     $scope.a = '3';
 });
+
+managementApp.controller('logoutCtrl', function($scope, $http){
+    $scope.logout = function(){
+        $http({
+            method  : 'GET',
+            url     : '/api/logout',
+            data    : {}
+        })
+            .success(function(data){
+                if (data['logout_error'] != null) {
+                    $scope.error = true;
+                    $scope.logout_error = data['logout_error'];
+                }
+            })
+            .error(function(data){
+
+            });
+    }
+});
