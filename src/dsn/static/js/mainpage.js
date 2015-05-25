@@ -18,6 +18,13 @@ mainpageApp.config(function($stateProvider, $urlRouterProvider, $locationProvide
         controller: 'loginCtrl'
     });
 
+    // RESET PASSWORD REQUEST
+    $stateProvider.state('reset_pwd_req', {
+        url: '/',
+        templateUrl: '/mainpage/reset_password_req.html',
+        controller: 'resetPwdCtrl'
+    });
+
     // RESET PASSWORD
     $stateProvider.state('reset_pwd', {
         url: '/',
@@ -33,19 +40,19 @@ mainpageApp.config(function($stateProvider, $urlRouterProvider, $locationProvide
 
 });
 
-mainpageApp.controller('contentCtrl', function($scope, $http, $cookies){
+mainpageApp.controller('contentCtrl', function($scope, $http, $cookies, $state){
     $http({
-            method  : 'GET',
-            url     : '/api/csrf',
-            headers : {'Content-Type': 'application/json'},
-            data    : {}
+        method  : 'GET',
+        url     : '/api/csrf',
+        headers : {'Content-Type': 'application/json'},
+        data    : {}
+    })
+        .success(function(data){
+            console.log($cookies['csrftoken']);
         })
-            .success(function(data){
-                console.log($cookies['csrftoken']);
-            })
-            .error(function(data){
+        .error(function(data){
 
-            });
+        });
 
     $scope.error = false;
 
@@ -89,6 +96,9 @@ mainpageApp.controller('contentCtrl', function($scope, $http, $cookies){
                     if (data['registration_error'] != null) {
                         $scope.error = true;
                         $scope.registration_error = data['registration_error'];
+                    }else{
+                        alert('Vielen Dank für deine Registrierung!\n' +
+                            'Sobald du deine E-Mail Adresse bestätigt hast kannst du dich einloggen und sofort starten!');
                     }
                 })
                 .error(function (data) {
@@ -98,7 +108,7 @@ mainpageApp.controller('contentCtrl', function($scope, $http, $cookies){
     }
 });
 
-mainpageApp.controller('loginCtrl', function($scope, $http){
+mainpageApp.controller('loginCtrl', function($scope, $http, $window){
     $scope.submitLogin = function(){
         var email = $scope.email;
         var password = $scope.password;
@@ -112,6 +122,8 @@ mainpageApp.controller('loginCtrl', function($scope, $http){
                 if (data['login_error'] != null) {
                     $scope.error = true;
                     $scope.login_error = data['login_error'];
+                }else{
+                    $window.location.href = '/management';
                 }
             })
             .error(function(data){
@@ -120,6 +132,24 @@ mainpageApp.controller('loginCtrl', function($scope, $http){
     }
 });
 
-mainpageApp.controller('resetPwdCtrl', function($scope){
-    $scope.a = '3';
+mainpageApp.controller('resetPwdCtrl', function($scope, $http){
+    $scope.resetPasswordReq = function() {
+        var email = $scope.email;
+        $http({
+            method  : 'POST',
+            url     : '/api/resetpasswordrequest',
+            headers : {'Content-Type': 'application/json'},
+            data    : {email: email}
+        })
+            .success(function(data){
+                if (data['reset_error'] != null) {
+                    $scope.error = true;
+                    $scope.reset_error = data['reset_error'];
+                }
+            })
+            .error(function(data){
+
+            });
+    }
+
 });

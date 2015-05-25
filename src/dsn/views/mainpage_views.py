@@ -2,9 +2,10 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import ensure_csrf_cookie
 import json
 from django.contrib.auth import login, logout
-
-from dsn.authentication.registration import register_user, validate_registration
-from dsn.forms import RegistrationForm
+from dsn.authentication.registration import validate_registration
+from dsn.authentication.password_reset import validate_passwordreset, create_passwordreset_token
+from dsn.authentication.email import passwordresetmail
+from dsn.forms import RegistrationForm, PasswordResetForm
 from dsn.models import User
 
 
@@ -16,6 +17,17 @@ def view_csrf_get(request):
     :return:
     """
     return JsonResponse({'message':'successssss'})
+
+
+def view_getLoggedInUser(request):
+    """
+
+    :param request:
+    :return:
+    """
+    user = request.user
+    return JsonResponse({'user': {'email': user.email, 'first_name': user.first_name, 'last_name': user.last_name,
+                                  'is_admin': user.is_superuser, 'is_prouser': user.is_prouser}})
 
 
 def view_registration(request):
@@ -36,7 +48,7 @@ def view_registration(request):
         val = validate_registration(form.email, form.password, form.password_repeat)
         if val is True:
             User.create_user(email=params['email'], password=params['password'], first_name=params['firstname'], last_name=params['lastname'])
-            return JsonResponse({'message': u'Danke für\'s Registrieren!'})
+            return JsonResponse({})
         else:
             return JsonResponse({'registration_error': val})
 
@@ -52,6 +64,7 @@ def view_login(request):
             user = User.objects.get(email=params['email'])
         except:
             user = None
+        print(params['password'])
         if user is not None and user.check_password(params['password']):
             user.backend = 'mongoengine.django.auth.MongoEngineBackend'
             login(request, user)
@@ -61,6 +74,20 @@ def view_login(request):
             return JsonResponse({'login_error': u'E-Mail Adresse oder Passwort falsch!'})
     else:
         return JsonResponse({'login_error': u'Fehler beim Login!'})
+
+def view_resetpasswordrequest(request):
+    if request.method=='POST':
+        params = json.loads(request.body.decode('utf-8'))
+        form = PasswordResetForm()
+        form.email = params['email']
+        val = validate_passwordreset(form.email)
+        user = User.objects.get(email=form.email)
+        if val is True:
+            token = create_passwordreset_token(form.email)
+            passwordresetmail(form.email,user.first_name,token)
+            return JsonResponse({'reset_error': 'success'})
+        else:
+            return JsonResponse({'reset_error': val})
 
 def view_logout(request):
     logout(request)

@@ -1,6 +1,6 @@
 var managementApp = angular.module('managementApp', ['ui.router']);
 
-managementApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
+managementApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
 
     $urlRouterProvider.otherwise('/management');
 
@@ -20,9 +20,16 @@ managementApp.config(function($stateProvider, $urlRouterProvider, $locationProvi
 
     // NOTEBOOKS
     $stateProvider.state('notebooks', {
-        url: '/management',
+        url: '/management/notebooks',
         templateUrl: '/management/management_notebooks.html',
         controller: 'notebooksCtrl'
+    });
+
+    // NOTEBOOKS
+    $stateProvider.state('notebooks_create', {
+        url: '/management/notebooks_create',
+        templateUrl: '/management/management_notebooks_create.html',
+        controller: 'notebooksCtrl_create'
     });
 
     // PROFILE
@@ -34,6 +41,10 @@ managementApp.config(function($stateProvider, $urlRouterProvider, $locationProvi
 
     $locationProvider.html5Mode(true);
 
+    // CSRF TOKEN
+    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+
 });
 
 managementApp.controller('accsettingsCtrl', function($scope){
@@ -44,8 +55,78 @@ managementApp.controller('notebooksCtrl', function($scope){
     $scope.a = '2';
 });
 
-managementApp.controller('timetableCtrl', function($scope){
+managementApp.controller('timetableCtrl', function($scope, $window, loggedIn){
     $scope.a = '3';
+    if(!loggedIn.isAdmin()){
+        $window.location.href = '/';
+    }
+});
+
+managementApp.service('loggedIn', function ($http) {
+    this.isAdmin = function () {
+        var user = null;
+        $http({
+            method  : 'POST',
+            url     : '/api/loggedInUser',
+            headers : {'Content-Type': 'application/json'},
+            data    : {}
+        })
+            .success(function(data){
+                alert("Success");
+                user = data['user'];
+                if(user == null){
+                    return false;
+                }else{
+                    return user.is_admin;
+                }
+            })
+            .error(function(data){
+                alert("Error");
+            });
+
+    }
+})
+
+managementApp.controller('notebooksCtrl_create', function($scope){
+    var name = $scope.name;
+    var public = $scope.public;
+
+    $scope.submitCreateNotebook = function() {
+        if (!$scope.error) {
+            $http({
+                method: 'POST',
+                url: '/api/notebooks_create',
+                headers: {'Content-Type': 'application/json'},
+                data: {
+                    name: name,
+                    public: public
+                }
+
+            });
+        }
+    }
+});
+
+managementApp.controller('timetableCtrl', function($scope,$http){
+    $scope.submitTimeTable= function(){
+        alert("hh");
+        var gegenstand = $scope.gegenstand;
+        var lehrer = $scope.lehrer;
+        var anfangszeit = $scope.anfang;
+        var endzeit = $scope.ende;
+        var raum = $scope.raum;
+        $http({
+            method  : 'POST',
+            url     : '/api/timetable',
+            headers : {'Content-Type': 'application/json'},
+            data    : {gegenstand: gegenstand, lehrer: lehrer, anfang: anfangszeit, ende:endzeit,raum:raum}
+        })
+            .success(function(data){
+            })
+            .error(function(data){
+
+            });
+    }
 });
 
 managementApp.controller('logoutCtrl', function($scope, $http){

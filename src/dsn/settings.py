@@ -163,3 +163,10 @@ LOCALE_PATHS = (
 #STATICFILES_DIRS = (
 #    os.path.join(BASE_DIR, "dsn/static"),
 #)
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'mxf92d.netcup.net'
+EMAIL_HOST_USER = 'noreply@digitalschoolnotes.com'
+EMAIL_HOST_PASSWORD = 'dRYG3uS%rau2'
+EMAIL_PORT = 25
+EMAIL_USE_TLS = False
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
