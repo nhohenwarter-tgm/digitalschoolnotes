@@ -43,6 +43,36 @@ administrationApp.config(function($stateProvider, $urlRouterProvider, $locationP
 
 });
 
+administrationApp.controller('usermanagementCtrl', function($scope, $http){
+    $http({
+        method  : 'GET',
+        url     : '/api/admin_user',
+        data    : {}
+    })
+        .success(function(data){
+            $scope.users = data;
+        })
+        .error(function(data){
+
+        });
+});
+
+administrationApp.controller('deleteCtrl', function($scope, $http){
+    $scope.delete = function(){
+        $http({
+            method  : 'GET',
+            url     : '/api/delete',
+            data    : {}
+        })
+            .success(function(data){
+                alert("A")
+            })
+            .error(function(data){
+                alert("B")
+            });
+    }
+});
+
 administrationApp.controller('billsCtrl', function($scope){
     $scope.a = '1';
 });
@@ -53,4 +83,23 @@ administrationApp.controller('ldapConfigurationCtrl', function($scope){
 
 administrationApp.controller('statisticsCtrl', function($scope){
     $scope.a = '3';
+});
+
+administrationApp.controller('logoutCtrl', function($scope, $http){
+    $scope.logout = function(){
+        $http({
+            method  : 'GET',
+            url     : '/api/logout',
+            data    : {}
+        })
+            .success(function(data){
+                if (data['logout_error'] != null) {
+                    $scope.error = true;
+                    $scope.logout_error = data['logout_error'];
+                }
+            })
+            .error(function(data){
+
+            });
+    }
 });

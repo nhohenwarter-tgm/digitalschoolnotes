@@ -26,4 +26,5 @@ urlpatterns = [
     url(r'^api/register', 'dsn.views.mainpage_views.view_registration', name="register"),
     url(r'^api/admin_user', 'dsn.views.administration_views.view_users', name="admin_user"),
     url(r'^api/profile', 'dsn.views.management_views.view_getProfile', name="profile"),
+    url(r'^api/delete', 'dsn.views.administration_views.view_deleteUser', name="delete"),
 ]

@@ -1,2 +1,37 @@
 <!-- TODO Add usermanagement view -->
-Usermanagement
+<div class="container">
+  <h2>Usermanagement</h2>
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+          <th>Email-Adresse</th>
+          <th>Vorname</th>
+          <th>Nachname</th>
+          <th>Berechtigungsstufe</th>
+          <th>Speichervolumen</th>
+          <th>Rechnung</th>
+          <th>Löschen</th>
+      </tr>
+    </thead>
+    <tbody ng-repeat="(key, value) in users">
+            <tr>
+                    <td>{{ value.email }}</td>
+                    <td>{{ value.first_name }}</td>
+                    <td>{{ value.last_name }}</td>
+                    <td><select class="form-control">
+                        <option ng-selected="{{value.security_level == 1}}" value="1">Benutzer</option>
+                        <option ng-selected="{{value.security_level == 2}}" value="2">Pro Benutzer</option>
+                        <option ng-selected="{{value.security_level == 3}}" value="3">Administrator</option>
+                        {{ value.security_level }}
+                    </select></td>
+                    <td>{{ value.storage }}</td>
+                    <td>{{ value.bill }}</td>
+                    <td>
+                        <div ng-controller="deleteCtrl">
+                            <button type="button" ng-click="delete()" class="btn btn-danger">Account löschen</button>
+                        </div>
+                    </td>
+            </tr>
+    </tbody>
+  </table>
+</div>
