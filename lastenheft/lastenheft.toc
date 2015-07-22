@@ -1,0 +1,67 @@
+\select@language {ngerman}
+\contentsline {section}{\numberline {1}Changelog}{3}
+\contentsline {section}{\numberline {2}Zielbestimmung}{5}
+\contentsline {section}{\numberline {3}Produkteinsatz}{5}
+\contentsline {section}{\numberline {4}Produktfunktionen}{6}
+\contentsline {subsection}{\numberline {4.1}Benutzerfunktionen}{6}
+\contentsline {subsubsection}{\numberline {4.1.1}Benutzer registrieren \hfill LF-10-010}{6}
+\contentsline {subsubsection}{\numberline {4.1.2}E-Mail Adresse validieren \hfill LF-10-020}{6}
+\contentsline {subsubsection}{\numberline {4.1.3}Benutzer einloggen \hfill LF-10-030}{6}
+\contentsline {subsubsection}{\numberline {4.1.4}Benutzer \IeC {\"u}ber OAuth anmelden \hfill LF-10-040}{6}
+\contentsline {subsubsection}{\numberline {4.1.5}Benutzer ausloggen \hfill LF-10-050}{6}
+\contentsline {subsubsection}{\numberline {4.1.6}Passwort zur\IeC {\"u}cksetzen \hfill LF-10-060}{6}
+\contentsline {subsubsection}{\numberline {4.1.7}Benutzer l\IeC {\"o}schen \hfill LF-10-070}{7}
+\contentsline {subsubsection}{\numberline {4.1.8}Benutzer suchen \hfill LF-10-080}{7}
+\contentsline {subsection}{\numberline {4.2}Funktionen zur Mitschriftverwaltung}{7}
+\contentsline {subsubsection}{\numberline {4.2.1}Stundenplan eintragen \hfill LF-20-010}{7}
+\contentsline {subsubsection}{\numberline {4.2.2}Stundenplan importieren \hfill LF-20-020}{7}
+\contentsline {subsubsection}{\numberline {4.2.3}Stundenplan anzeigen \hfill LF-20-030}{7}
+\contentsline {subsubsection}{\numberline {4.2.4}Neues Heft erstellen \hfill LF-20-040}{7}
+\contentsline {subsubsection}{\numberline {4.2.5}Heft/Heftseiten mit anderen Benutzern teilen \hfill LF-20-050}{7}
+\contentsline {subsubsection}{\numberline {4.2.6}Hefte/Heftseiten in PDF-Format herunterladen \hfill LF-20-060}{8}
+\contentsline {subsubsection}{\numberline {4.2.7}Heftseiten aus geteilten Heften in eigenes Heft importieren \hfill LF-20-070}{8}
+\contentsline {subsubsection}{\numberline {4.2.8}Heft im System anzeigen \hfill LF-20-080}{8}
+\contentsline {subsubsection}{\numberline {4.2.9}Heft bewerten \hfill LF-20-090}{8}
+\contentsline {subsubsection}{\numberline {4.2.10}Heftsichtbarkeit \IeC {\"a}ndern \hfill LF-20-100}{8}
+\contentsline {subsection}{\numberline {4.3}Funktionen zur Heftbearbeitung}{8}
+\contentsline {subsubsection}{\numberline {4.3.1}Eintrag zu Stunde hinzuf\IeC {\"u}gen \hfill LF-30-010}{8}
+\contentsline {subsubsection}{\numberline {4.3.2}Eintrag au\IeC {\ss }erhalb einer Stunde hinzuf\IeC {\"u}gen \hfill LF-30-020}{8}
+\contentsline {subsubsection}{\numberline {4.3.3}Text zu Eintrag verfassen \hfill LF-30-030}{8}
+\contentsline {subsubsection}{\numberline {4.3.4}Programmcode zu Eintrag hinzuf\IeC {\"u}gen \hfill LF-30-040}{9}
+\contentsline {subsubsection}{\numberline {4.3.5}Skizze zu Eintrag zeichnen \hfill LF-30-050}{9}
+\contentsline {subsubsection}{\numberline {4.3.6}Bild zu Eintrag hinzuf\IeC {\"u}gen \hfill LF-30-060}{9}
+\contentsline {subsubsection}{\numberline {4.3.7}Videoreferenz zu Eintrag hinzuf\IeC {\"u}gen \hfill LF-30-070}{9}
+\contentsline {subsubsection}{\numberline {4.3.8}Folien aus Foliensatz zu Eintrag hinzuf\IeC {\"u}gen \hfill LF-30-080}{9}
+\contentsline {subsubsection}{\numberline {4.3.9}Dateienreferenzen von Filehostern hinzuf\IeC {\"u}gen \hfill LF-30-090}{9}
+\contentsline {subsubsection}{\numberline {4.3.10}Eintrag bearbeiten \hfill LF-30-100}{9}
+\contentsline {subsubsection}{\numberline {4.3.11}Komponenten eines Eintrages anordnen \hfill LF-30-110}{9}
+\contentsline {subsubsection}{\numberline {4.3.12}Bilder zu Text umwandeln \hfill LF-30-120}{10}
+\contentsline {subsubsection}{\numberline {4.3.13}Inhalt verlinken \hfill LF-30-130}{10}
+\contentsline {subsubsection}{\numberline {4.3.14}Datei \IeC {\"u}ber URL hinzuf\IeC {\"u}gen \hfill LF-30-140}{10}
+\contentsline {subsection}{\numberline {4.4}Funktionen zur Finanzierung}{10}
+\contentsline {subsubsection}{\numberline {4.4.1}Werbung anzeigen \hfill LF-40-010}{10}
+\contentsline {subsubsection}{\numberline {4.4.2}Account upgraden \hfill LF-40-020}{10}
+\contentsline {subsubsection}{\numberline {4.4.3}Pro Account bezahlen \hfill LF-40-030}{10}
+\contentsline {subsubsection}{\numberline {4.4.4}Rechnungen generieren \hfill LF-40-040}{10}
+\contentsline {subsection}{\numberline {4.5}Administrationsfunktionen}{10}
+\contentsline {subsubsection}{\numberline {4.5.1}Berechtigungen verwalten \hfill LF-50-010}{11}
+\contentsline {subsubsection}{\numberline {4.5.2}Rechnungen verwalten \hfill LF-50-020}{11}
+\contentsline {subsubsection}{\numberline {4.5.3}Benutzerkontingente anzeigen \hfill LF-50-030}{11}
+\contentsline {subsubsection}{\numberline {4.5.4}Benutzer l\IeC {\"o}schen \hfill LF-50-040}{11}
+\contentsline {subsubsection}{\numberline {4.5.5}Benutzer kontaktieren \hfill LF-50-060}{11}
+\contentsline {subsubsection}{\numberline {4.5.6}Automatische Systemmeldungen \hfill LF-50-060}{11}
+\contentsline {section}{\numberline {5}Produktdaten}{11}
+\contentsline {subsection}{\numberline {5.1}Benutzerdaten}{11}
+\contentsline {subsection}{\numberline {5.2}Stundenplan}{12}
+\contentsline {subsection}{\numberline {5.3}Heftdaten}{12}
+\contentsline {subsection}{\numberline {5.4}Rechnungsdaten}{12}
+\contentsline {section}{\numberline {6}Nichtfunktionale Anforderungen}{12}
+\contentsline {subsection}{\numberline {6.1}Usability/User Experience}{12}
+\contentsline {subsection}{\numberline {6.2}Performance}{13}
+\contentsline {subsection}{\numberline {6.3}Frontend-Testing}{13}
+\contentsline {subsection}{\numberline {6.4}Dokumentation}{13}
+\contentsline {subsection}{\numberline {6.5}Sicherheit}{13}
+\contentsline {section}{\numberline {7}Erg\IeC {\"a}nzungen}{13}
+\contentsline {subsection}{\numberline {7.1}Marketing}{13}
+\contentsline {subsection}{\numberline {7.2}Vertrieb}{13}
+\contentsline {subsection}{\numberline {7.3}Beta-Testing}{13}

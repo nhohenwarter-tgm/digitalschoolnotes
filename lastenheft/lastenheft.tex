@@ -1,0 +1,529 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Document Class
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[12pt,a4paper,oneside,ngerman]{scrartcl}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[nottoc,numbib]{tocbibind}
+\usepackage[T1]{fontenc}
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage[page]{totalcount}
+\usepackage{tikz}
+\usepackage{color, colortbl}
+\usepackage{url}
+\usepackage{tabularx}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{lmodern}
+\usepackage{geometry}
+\usepackage{ragged2e}
+\usepackage[nonumberlist, nopostdot]{glossaries}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Colors
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{g1}{RGB}{46,184,46}
+\definecolor{g2}{RGB}{37,147,37}
+\definecolor{g3}{RGB}{29,114,29}
+\definecolor{g4}{RGB}{20,82,20}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Page Margin
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{
+  left=2.5cm,
+  right=2.5cm,
+  top=2.5cm,
+  bottom=2.5cm
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Own Commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\raggedright
+\newcommand{\tabhvent}[1]{\noindent\parbox[c]{\hsize}{#1}}
+\newcolumntype{b}{X}
+\newcolumntype{s}{>{\hsize=.5\hsize}X}
+\setlength{\parindent}{0pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Glossar
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%makeglossaries lastenheft
+
+\makeglossaries
+
+\newglossaryentry{oauth}
+{
+  name=OAuth,
+  description={OAuth ist ein offenes Protokoll welches eine sichere Autorisierung für Desktop-, Web- und Mobile-Applikationen 			erlaubt}
+}
+
+\newglossaryentry{WebUntis}
+{
+  name=WebUntis,
+  description={Online Stundenplansystem}
+}
+
+\newglossaryentry{ProUser}
+{
+  name=Pro User,
+  description={Ein Pro User ist ein Benutzer welcher durch eine monatliche Gebühr erweiterte Funktionalität geboten bekommt}
+}
+
+\newglossaryentry{FairUse}
+{
+  name=Fair Use,
+  description={Fair Use limitiert ein Pauschalangebot. Dabei wird bei übermäßigem Verbrauch der User benachrichtigt und/oder gedrosselt.}
+}
+
+\newglossaryentry{SQLInjection}
+{
+  name=SQL Injection,
+  description={Ein Angriffsszenario bei welchem Angriffe auf die Datenbank durch mangelnde Überprüfung der 					Benutzereingaben möglich sind}
+}
+
+\newglossaryentry{Bots}
+{
+  name=Bots,
+  description={Bots sind Programme oder Skripte welche automatisiert Webseiten aufrufen. Ein Bot könnte z.B. 			Useraccounts automatisch erstellen.}
+}
+
+\newglossaryentry{Captcha}
+{
+  name=Captcha,
+  description={Ein Captcha stellt sicher, dass die Programmanfrage von einem Menschen kommt. Damit wird versucht, 			automatische Programminteraktionen mittels Bots zu verhindern.}
+}
+
+\newglossaryentry{url}
+{
+  name=URL,
+  description={Uniform Resource Locator - Adresse zu einer Ressource im Internet}
+}
+
+\newglossaryentry{SSL}
+{
+  name=SSL,
+  description={Secure Sockets Layer - Verschlüsselte Übertragung von Daten über das Internet}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Document Start
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Title Page
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\thispagestyle{empty}
+\vspace*{2cm}
+
+%Rectangle
+\begin{center}
+\begin{LARGE}
+\begin{tikzpicture}
+\draw[g1, line width=1mm, text=black, align=center] (0,5) rectangle (10,10) node[midway] {\textbf{Lastenheft}\\ \textbf{Projekt: DigitalSchoolNotes}};
+\end{tikzpicture}
+\end{LARGE}
+\end{center}
+\vspace{8cm}
+
+\textit{\textbf{Projektgruppe: Adler, Brinnich, Hohenwarter, Karic, Stedronsky}}
+\vspace{10mm}
+
+\textbf{{\color{g4}Version 6.0 \hfill 04.06.2015 \hfill Status: [RELEASE]}}
+%Table
+\begin{table}[h]
+\renewcommand{\arraystretch}{2.0}
+\centering
+\begin{tabularx}{\textwidth}{|s|s|b|b|}
+\hline
+\rowcolor{g1} 
+\tabhvent{}&\tabhvent{\textbf{Datum}} & \tabhvent{\textbf{Name}} & \tabhvent{\textbf{Unterschrift}} \\ \hline
+\tabhvent{\textbf{Erstellt}} & \tabhvent{01.05.2015} & \tabhvent{Niklas Hohenwarter} &  \tabhvent{}            \\ \hline
+\tabhvent{\textbf{Geprüft}} & \tabhvent{04.06.2015} & \tabhvent{Selina Brinnich} &  \tabhvent{}            \\ \hline
+\tabhvent{\textbf{Freigegeben}} & \tabhvent{} & \tabhvent{} &  \tabhvent{}            \\ \hline
+\specialrule{0.07em}{0em}{0em}
+\multicolumn{4}{|l|}{\textbf{Git-Pfad:} - \hfill \textbf{Dokument:} lastenheft.tex}                    \\ \hline
+\end{tabularx}
+\end{table}
+\newpage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Header & Footer
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\setlength\headheight{15pt}
+\lhead{DigitalSchoolNotes}
+\rhead{Version 6.0}
+\lfoot{Adler, Brinnich, Hohenwarter, Karic, Stedronsky}
+\cfoot{}
+\rfoot{Seite \thepage \hspace{1pt} von \totalpages}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Table of Contents
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setcounter{tocdepth}{2}
+\tableofcontents\thispagestyle{fancy}
+\newpage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Changelog
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Changelog}
+
+%Table
+\begin{table}[h]
+\renewcommand{\arraystretch}{3.0}
+\centering
+\begin{tabularx}{\textwidth}{|s|s|s|s|b|}
+\hline
+\rowcolor{g1} 
+
+%Header
+\tabhvent{\textbf{Version}} &\tabhvent{\textbf{Datum}} & \tabhvent{\textbf{Status}} & \tabhvent{\textbf{Bearbeiter}} & \tabhvent{\textbf{Kommentar}}  \\ \hline
+
+%Lines
+\tabhvent{\textbf{0.1}} & \tabhvent{01.05.2015} & \tabhvent{Erstellt} &  \tabhvent{Hohenwarter} &  \tabhvent{Zielbestimmung}         \\ \hline
+
+\tabhvent{\textbf{0.2}} & \tabhvent{02.05.2015} & \tabhvent{Bearbeitet} & 
+\tabhvent{Brinnich} & \tabhvent{Produkteinsatz, Produktfunktionen, Produktdaten, Nichtfunktionale Anforderungen} \\ \hline
+
+\tabhvent{\textbf{1.0}} & \tabhvent{02.05.2015} & \tabhvent{Geprüft} &  \tabhvent{Hohenwarter} &  \tabhvent{Rechtschreibfehler ausgebessert}         \\ \hline
+
+\tabhvent{\textbf{1.1}} & \tabhvent{04.05.2015} & \tabhvent{Bearbeitet} &  \tabhvent{Hohenwarter} &  \tabhvent{Vorschläge von Prof. Raffeiner-Magor umgesetzt}         \\ \hline
+
+\tabhvent{\textbf{2.0}} & \tabhvent{04.05.2015} & \tabhvent{Geprüft} &  \tabhvent{Brinnich} &  \tabhvent{Formatierung von Glossar verbessert}         \\ \hline
+
+\tabhvent{\textbf{2.1}} & \tabhvent{05.05.2015} & \tabhvent{Bearbeitet} &  \tabhvent{Hohenwarter} &  \tabhvent{Vorschläge von Prof. Borko umgesetzt}         \\ \hline
+
+\tabhvent{\textbf{3.0}} & \tabhvent{05.05.2015} & \tabhvent{Geprüft} &  \tabhvent{Brinnich} &  \tabhvent{Rechtschreibfehler ausgebessert}         \\ \hline
+
+\tabhvent{\textbf{3.1}} & \tabhvent{06.05.2015} & \tabhvent{Bearbeitet} &  \tabhvent{Hohenwarter} &  \tabhvent{Vorschläge von Prof. List umgesetzt}         \\ \hline
+
+\tabhvent{\textbf{4.0}} & \tabhvent{06.05.2015} & \tabhvent{Geprüft} &  \tabhvent{Brinnich} &  \tabhvent{Rechtschreibfehler ausgebessert}         \\ \hline
+
+\tabhvent{\textbf{4.1}} & \tabhvent{27.05.2015} & \tabhvent{Bearbeitet} &  \tabhvent{Hohenwarter} &  \tabhvent{Produkteinsatz Auftraggeber}         \\ \hline
+
+\tabhvent{\textbf{5.0}} & \tabhvent{27.05.2015} & \tabhvent{Geprüft} &  \tabhvent{Brinnich} &  \tabhvent{Rechtschreibfehler ausgebessert}         \\ \hline
+
+
+\end{tabularx}
+\end{table}
+\newpage
+
+%Table
+\begin{table}[h]
+\renewcommand{\arraystretch}{3.0}
+\centering
+\begin{tabularx}{\textwidth}{|s|s|s|s|b|}
+\hline
+\rowcolor{g1} 
+
+%Header
+\tabhvent{\textbf{Version}} &\tabhvent{\textbf{Datum}} & \tabhvent{\textbf{Status}} & \tabhvent{\textbf{Bearbeiter}} & \tabhvent{\textbf{Kommentar}}  \\ \hline
+
+%Lines
+\tabhvent{\textbf{5.1}} & \tabhvent{03.06.2015} & \tabhvent{Bearbeitet} &  \tabhvent{Hohenwarter} &  \tabhvent{Beta-Testing hinzugefügt, Formulierungen verbessert}         \\ \hline
+
+\tabhvent{\textbf{6.0}} & \tabhvent{04.06.2015} & \tabhvent{Geprüft} & 
+\tabhvent{Brinnich} & \tabhvent{Rechtschreibfehler ausgebessert} \\ \hline
+
+
+\end{tabularx}
+\end{table}
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Content Start
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\justify
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Zielbestimmung
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Zielbestimmung}
+Es soll eine Web Applikation zur Führung einer digitalen Mitschrift erstellt werden. Der Zugriff und das Bearbeiten soll von Desktop Systemen, Laptops und Tablets über eine Website möglich sein. Des weiteren soll die Applikation mit Ausnahme der Heftbearbeitung auch auf Handys verfügbar sein. \\
+
+Das Produkt soll Schülern eine einfache Möglichkeit zur Führung einer digitalen Mitschrift bieten, wodurch sich einige Vorteile ergeben. Beispielsweise erhält der Schüler eine einfache und gute Übersicht über seine komplette Mitschrift. Mithilfe der Applikation ist es zudem wesentlich einfacher, externe Medien wie z.B. ein Bild oder Video einzubinden. Sollte ein Schüler einen Tag fehlen, so kann ein anderer Mitschüler ganz einfach seine Mitschrift teilen. Des weiteren werden Teamarbeiten durch gemeinsam geführte Hefte, welche z.B. Notizen enthalten, vereinfacht.\\
+
+Der Schüler soll seinen Stundenplan entweder händisch eintragen oder über externe Quellen importieren können. Durch einen Klick auf eine Stunde im Stundenplan kann der Schüler einen Eintrag im Heft zur entsprechenden Stunde hinzufügen. Ebenfalls soll der Schüler vom Stundenplan unabhängige Einträge erstellen können. Die Einträge im Heft können aus Text, Bildern, Skizzen, Videos und Foliensätzen bestehen. Dem Schüler ist es möglich, diese beliebig im Heft anzuordnen. Händische Mitschriften oder Tafelfotos des Schülers sollen mittels Schrifterkennung von Bild zu Text umgewandelt werden können.\\
+
+Ein Schüler hat die Möglichkeit, zusätzliche Hefte zu erstellen und diese mit anderen Schülern im System zu teilen. In den
+geteilten Heften ist ein gemeinsames gleichzeitiges Arbeiten möglich.\\
+
+Der Schüler hat die Möglichkeit, sich bei der Applikation mittels \gls{oauth} anzumelden. Über die verknüpften sozialen Netzwerke
+kann der Schüler Hefte, Heftseiten und in Heften eingebundene Medien teilen. Der Schüler kann Dateien von bekannten Filehostern einbinden und diese in seine Hefte einfügen.\\
+
+Der Schüler kann ganze Hefte oder einzelne Heftseiten exportieren, um diese auszudrucken. Der Schüler kann Heftseiten aus anderen Heften importieren.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Produkteinsatz
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Produkteinsatz}
+Das Produkt soll sich nicht auf eine bestimmte Schule mit deren speziellen Unterrichtsgegenständen spezialisieren. Die Applikation wird hauptsächlich für Schüler der Oberstufe aller Schulformen entwickelt, kann jedoch auch von Schülern niedrigerer Schulstufen sinnvoll genutzt werden.\\
+
+Das Produkt wird standardmäßig in deutscher Sprache verfügbar sein, kann aber einfach in beliebige Sprachen übersetzt werden.\\
+
+Voraussetzung für die Verwendung ist ein Laptop, PC oder Tablet und eine Internetverbindung. Sollte aktuell keine Internetverbindung vorhanden sein, kann der Schüler dennoch im aktuellen Heft arbeiten. Die Änderungen im Heft werden mit dem Server synchronisiert, sobald der Benutzer wieder eine Internetverbindung hat.\\
+
+Eine Kooperation mit mehreren Schulen ist geplant. Diese Schulen haben dann die Möglichkeit, Vorschläge zur Verbesserung des Produktes einzubringen. Dadurch soll das Produkt besser an den Unterricht angepasst und die Verbreitung erhöht werden.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Produktfunktionen
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Produktfunktionen}
+\subsection[Benutzerfunktionen]{Benutzerfunktionen \hfill LF-10}
+Hier sind alle Funktionen zusammengefasst, die sich mit der Verwaltung eines Benutzers im System befassen.
+\subsubsection{Benutzer registrieren \hfill LF-10-010}
+Ein Benutzer kann sich am System registrieren. Nur angemeldete Benutzer können neue Hefte erstellen und ihre aktuellen Hefte anzeigen und bearbeiten. Bei der Registrierung muss der Benutzer einen vollständigen Namen, eine valide E-Mail Adresse sowie ein Passwort angeben.
+
+\subsubsection{E-Mail Adresse validieren \hfill LF-10-020}
+Ein Benutzer soll nach der Registrierung seine E-Mail Adresse bestätigen. Dazu wird ein entsprechender Link an seine E-Mail Adresse versendet, über die er seine E-Mail Adresse validiert. Erst wenn der Benutzer validiert wurde, kann er alle Funktionen des Systems nutzen.
+
+\subsubsection{Benutzer einloggen \hfill LF-10-030}
+Ein bereits registrierter Benutzer kann sich am System unter Angabe seiner E-Mail Adresse und seines Passwortes einloggen. Des Weiteren ist eine Anmeldung über ein bereits bestehendes Authentifikationssystem, wie z.B. LDAP, möglich.
+Sobald der Benutzer eingeloggt ist, kann er seine Hefte einsehen und bearbeiten sowie neue Hefte erstellen.
+
+\subsubsection{Benutzer über OAuth anmelden \hfill LF-10-040}
+Alternativ zu einer Registrierung am System kann sich ein Benutzer direkt über gängige OAuth-Provider (Google+, Facebook, ...) am System anmelden. Hierbei wird automatisch anhand der Daten des OAuth-Providers ein neuer Benutzer im System angelegt und mit dem entsprechenden sozialen Netzwerk verknüpft. Der Benutzer kann nun jedes Mal, wenn er sich mit diesem OAuth-Provider anmeldet auf seine eigenen Hefte zugreifen.
+
+\subsubsection{Benutzer ausloggen \hfill LF-10-050}
+Ein am System eingeloggter Benutzer kann sich am System ausloggen. Sobald er ausgeloggt wurde, kann er nicht mehr auf seine Hefte zugreifen, bis er sich wieder anmeldet.
+
+\subsubsection{Passwort zurücksetzen \hfill LF-10-060}
+Sollte ein Benutzer sein Passwort vergessen haben, so kann er es über seine E-Mail Adresse zurücksetzen. Dazu wird ein entsprechender Link an seine E-Mail Adresse versendet, über den der Benutzer ein neues Passwort setzen kann.
+
+\subsubsection{Benutzer löschen \hfill LF-10-070}
+Ein Benutzer kann sich selbst vom System löschen. Alle seine Hefte werden vom System gelöscht und danach kann er sich nicht mehr am System anmelden. Bei geteilten Heften wird der Besitz des Heftes auf einen anderen zum Schreiben in diesem Heft berechtigten Benutzer übertragen. Ein Administrator hat ebenfalls Zugriff auf diese Funktion und kann jeden Benutzer im System löschen.
+
+\subsubsection{Benutzer suchen \hfill LF-10-080}
+Ein Benutzer kann andere Benutzer anhand ihres Vor- und/oder Nachnamens suchen und sich seine öffentlichen Hefte ansehen. Diese können dann nur gelesen und Seiten daraus importiert werden.
+
+\subsection[Funktionen zur Mitschriftverwaltung]{Funktionen zur Mitschriftverwaltung \hfill LF-20}
+Hier sind alle Funktionen zusammengefasst, welche die Verwaltung der gesamten Mitschrift bzw. der Hefte eines Benutzers betreffen.
+
+\subsubsection{Stundenplan eintragen \hfill LF-20-010}
+Ein Benutzer soll seinen Stundenplan händisch ins System eintragen können, damit das System automatisch Hefte zu allen Unterrichtsgegenständen generieren kann und der Benutzer durch einen einfachen Klick auf eine Stunde einen neuen Eintrag verfassen kann.
+
+\subsubsection{Stundenplan importieren \hfill LF-20-020}
+Ein Benutzer soll seinen Stundenplan automatisch von \gls{WebUntis} importieren können. Dazu soll der Benutzer seine Anmeldedaten (Benutzername, Passwort, Schule, \gls{url}), sowie die gewünschte Klasse angeben können. Der Stundenplan wird dann automatisch ins System eingetragen.
+
+\subsubsection{Stundenplan anzeigen \hfill LF-20-030}
+Ein Benutzer kann sich im System seinen Stundenplan anzeigen lassen. Dieser reagiert auf Klicks und erstellt automatisch einen neuen Eintrag für die jeweilige Stunde in einem Heft, sobald auf eine Stunde geklickt wurde.
+
+\subsubsection{Neues Heft erstellen \hfill LF-20-040}
+Ein Benutzer kann zusätzlich zu den automatisch erstellten Heften neue Hefte erstellen.
+
+\subsubsection{Heft/Heftseiten mit anderen Benutzern teilen \hfill LF-20-050}
+Ein Benutzer kann zusätzlich erstellte Hefte für mehrere Benutzer des Systems freigeben. Diese können dann alle gleichzeitig im Heft arbeiten. Automatisch erstellte Hefte können nicht als Gesamtes geteilt werden. Bei automatisch erstellten Heften soll es dem Benutzer lediglich möglich sein, einzelne Heftseiten für andere Benutzer freizugeben. Der entsprechende Benutzer kann dann wählen, in welches Heft und an welche Seite er die für ihn freigegebene Seite einfügen will.
+
+\subsubsection{Hefte/Heftseiten in PDF-Format herunterladen \hfill LF-20-060}
+Ein Benutzer soll ein Heft oder einzelne Heftseiten im PDF-Format herunterladen können, um sie später z.B. ausdrucken zu können.
+
+\subsubsection{Heftseiten aus geteilten Heften in eigenes Heft importieren \hfill LF-20-070}
+Ein Benutzer kann einzelne Heftseiten aus einem geteilten Heft, auf das er Zugriff hat, in eines seiner eigenen Heften importieren.
+
+\subsubsection{Heft im System anzeigen \hfill LF-20-080}
+Ein Benutzer kann sich seine eigenen Hefte direkt im System ansehen. Angezeigt werden immer zwei Seiten eines Heftes. Es soll durch Zoom Funktionen auch möglich sein, nur einen Teil dieser zwei Seiten anzusehen. Durch Weiterblättern kommt man zu den nächsten Seiten.
+
+\subsubsection{Heft bewerten \hfill LF-20-090}
+Ein Benutzer kann öffentliche Hefte eines anderen Benutzers bewerten. Dies soll die Qualität der Mitschrift für die Benutzer schnell ersichtlich machen.
+
+\subsubsection{Heftsichtbarkeit ändern \hfill LF-20-100}
+Ein Benutzer kann die Sichtbarkeit von nicht geteilten Heften ändern. Automatisch erstellte Hefte sind standardmäßig für andere Nutzer nicht sichtbar. Freigegebene Hefte können auf dem Profil des Benutzers eingesehen werden. Das Benutzerprofil ist durch die Benutzersuche aufrufbar.
+
+\subsection[Funktionen zur Heftbearbeitung]{Funktionen zur Heftbearbeitung \hfill LF-30}
+Hier sind alle Funktionen zusammengefasst, die das Bearbeiten der Mitschrift in einem einzelnen Heft eines Benutzers betreffen.
+
+\subsubsection{Eintrag zu Stunde hinzufügen \hfill LF-30-010}
+Ein Benutzer kann per Klick auf eine Stunde in seinem Stundenplan einen neuen Eintrag im entsprechenden Heft des gewählten Unterrichtsgegenstandes erstellen. Dieser Eintrag wird automatisch mit dem Datum der gewählten Stunde versehen und der Benutzer kann eine Überschrift für die Stunde eingeben.
+
+\subsubsection{Eintrag außerhalb einer Stunde hinzufügen \hfill LF-30-020}
+Ein Benutzer kann in seinen Heften unabhängig von Stunden im Stundenplan  Einträge hinzufügen. Dazu muss er ein Datum sowie eine Überschrift für den Eintrag wählen.
+
+\subsubsection{Text zu Eintrag verfassen \hfill LF-30-030}
+Ein Benutzer kann zu einem Eintrag einen Text verfassen. Dazu werden einzelne Textboxen verwendet, die beliebigen Text enthalten können.
+
+\subsubsection{Programmcode zu Eintrag hinzufügen \hfill LF-30-040}
+Ein Benutzer kann Teile von Programmcode zu einem Eintrag hinzufügen. Dieser wird wie bei normalem Text in Textboxen dargestellt jedoch anders formatiert. Es soll eine Zeilennummerierung verfügbar sein und die Syntax soll hervorgehoben werden.
+
+\subsubsection{Skizze zu Eintrag zeichnen \hfill LF-30-050}
+Ein Benutzer kann zu einem Eintrag eine Skizze zeichnen. Diese werden in Boxen gezeichnet. Der Benutzer kann für seine Skizze mehrere unterschiedliche Farben wählen.
+
+\subsubsection{Bild zu Eintrag hinzufügen \hfill LF-30-060}
+Ein Benutzer kann zu einem Eintrag ein Bild hinzufügen. Dieses wird bei der Anzeige eines Heftes direkt angezeigt. Ebenso ist es dem Benutzer möglich, ganze Galerien einzubinden. Bei Galerien wird bei der Anzeige des Heftes das erste Bild direkt angezeigt. Mit einem Klick auf dieses Bild kann die Galerie geöffnet werden, wo der Benutzer dann alle Bilder sehen kann.\\
+
+Es soll des weiteren möglich sein ein Bild vom Handy aus hochzuladen. Bilder können ausschließlich in einen Ordner hochgeladen werden. Es sollen mehrere Bilder gleichzeitig hochgeladen werden können. Die Fotos können nachher in einem Heft eingefügt werden.
+
+\subsubsection{Videoreferenz zu Eintrag hinzufügen \hfill LF-30-070}
+Ein Benutzer kann zu einem Eintrag ein Video aus Drittquellen (Youtube, Vimeo,...)  referenzieren. Dieses kann bei der Anzeige eines Heftes per Klick direkt im System abgespielt werden.
+
+\subsubsection{Folien aus Foliensatz zu Eintrag hinzufügen \hfill LF-30-080}
+Ein Benutzer kann Folien aus Foliensätzen zu einem Eintrag hinzufügen. Bei mehreren Folien, wird nur die erste angezeigt und per Klick auf diese können alle anderen Folien wie bei einer Galerie ebenfalls eingesehen werden.
+
+\subsubsection{Dateienreferenzen von Filehostern hinzufügen \hfill LF-30-090}
+Ein Benutzer kann zu einem Eintrag Dateien von bekannten Filehostern (Dropbox, Google Drive,...) referenzieren. Dazu wird der Benutzer aufgefordert, sich bei dem entsprechenden Filehoster via Web oder OAuth anzumelden und die gewünschte Datei auszuwählen. Das System bindet diese Datei automatisch in den Eintrag ein.
+
+\subsubsection{Eintrag bearbeiten \hfill LF-30-100}
+Ein Benutzer kann von der Anzeige eines Heftes aus einen einzelnen Eintrag bearbeiten.
+
+\subsubsection{Komponenten eines Eintrages anordnen \hfill LF-30-110}
+Ein Benutzer kann die einzelnen Komponenten eines Eintrages (Text, Skizzen, Bilder, Videos,...) beliebig im Heft anordnen.
+
+\subsubsection{Bilder zu Text umwandeln \hfill LF-30-120}
+Ein Benutzer kann Fotos von seinem Heft oder der Tafel machen und diese dann hochladen. Diese Bilder sollen dann mittels Schrifterkennung automatisch zu Text umgewandelt werden können.
+
+\subsubsection{Inhalt verlinken \hfill LF-30-130}
+Ein Benutzer kann innerhalb eines Eintrages auf andere Einträge verweisen. Diese Verweise werden dann im Eintrag als Link angezeigt. Man kann hiermit z.B. für eine Erklärung zu einem Begriff auf ein anderes Heft oder Eintrag verweisen. 
+
+\subsubsection{Datei über URL hinzufügen \hfill LF-30-140}
+Ein Benutzer kann eine Datei über eine URL hinzufügen. Durch z.B. einen Link auf ein Bild kann der Benutzer dieses direkt einbinden. 
+
+
+\subsection[Funktionen zur Finanzierung]{Funktionen zur Finanzierung \hfill LF-40}
+Hier sind alle Funktionen zusammengefasst, die zur Finanzierung der Webseite benötigt werden.
+
+\subsubsection{Werbung anzeigen \hfill LF-40-010}
+Auf der Webseite soll Werbung in Form von Werbebannern angezeigt werden. Die Werbung soll durch das Google AdSense Werbenetzwerk bezogen werden.
+
+\subsubsection{Account upgraden \hfill LF-40-020}
+Der Benutzer soll durch eine geringe monatliche Zahlung eine erweiterte Funktionalität geboten bekommen. Normale Benutzer haben eine Speicherbeschränkung von 500MB. Diese Beschränkung entfällt für den \gls{ProUser} (\gls{FairUse}). Ein normaler Benutzer kann zusätzlich zu den aus dem Stundenplan erstellen Heften drei weitere Hefte erstellen. Für den Pro User gibt es keine Beschränkung bezüglich der Heftanzahl. Die Werbung wird für den Pro User nicht dargestellt.
+
+\subsubsection{Pro Account bezahlen \hfill LF-40-030}
+Der Benutzer soll seinen Account durch eine geringe monatliche Zahlung zu einem Pro Account aufwerten können. Diese Bezahlung soll über bekannte Online-Bezahlungsmethoden (Paypal, Google Wallet, Amazon Payments,...) abgewickelt werden.
+
+\subsubsection{Rechnungen generieren \hfill LF-40-040}
+Der Benutzer kann sich nach erfolgter Bezahlung für einen Pro Account eine Rechnung generieren lassen. Diese Rechnung ist für den Benutzer jederzeit über das System abrufbar.
+
+\subsection[Administrationsfunktionen]{Administrationsfunktionen \hfill LF-50}
+Hier sind alle Funktionen zusammengefasst, die nur für den Administrator zugänglich sind.
+
+\subsubsection{Berechtigungen verwalten \hfill LF-50-010}
+Es gibt drei verschieden Berechtigungsstufen, die das System berücksichtigt: Benutzer, Pro Benutzer und Administrator. Ein Administrator kann die Berechtigungsstufe aller User verwalten.
+
+\subsubsection{Rechnungen verwalten \hfill LF-50-020}
+Ein Administrator kann sich alle Rechnungen anzeigen lassen, diese ausdrucken oder herunterladen und extern sichern.
+
+\subsubsection{Benutzerkontingente anzeigen \hfill LF-50-030}
+Der Administrator soll eine Liste aller User sehen können, in welcher die verbrauchten Hefte und das verbrauchte Speichervolumen der Benutzer angezeigt werden. Dieses Feature ist nötig, um den Fair Use Verbrauch zu überprüfen.
+
+\subsubsection{Benutzer löschen \hfill LF-50-040}
+Der Administrator soll in der Lage sein Benutzer zu löschen. Dies ist wichtig, um Regelverstöße ahnden zu können.
+
+\subsubsection{Benutzer kontaktieren \hfill LF-50-060}
+Der Administrator soll die Kontaktdaten des Benutzers einsehen können, um diesen im Falle von Problemen oder Regelverstößen kontaktieren zu können.
+
+\subsubsection{Automatische Systemmeldungen \hfill LF-50-060}
+Das System soll einem User kurz vor der Überschreitung seiner Kontingente dies mitteilen und ihn über Pro Accounts informieren. Der Administrator soll bei der Verletzung von Fair Use eines Benutzers automatisch benachrichtigt werden (z.B. mehr als 2GB Daten verwendet).
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Produktdaten
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Produktdaten}
+\subsection[Benutzerdaten]{Benutzerdaten \hfill LD-10}
+Für einen Benutzer werden mindestens folgende Daten benötigt:
+\begin{itemize}
+\item Vorname
+\item Nachname
+\item E-Mail Adresse
+\item Passwort (verschlüsselt)
+\item Berechtigungsstufe
+\end{itemize}
+
+\subsection[Stundenplan]{Stundenplan \hfill LD-20}
+Für einen Stundenplan werden mindestens folgende Daten benötigt:
+\begin{itemize}
+\item Wochentag
+\item Stundenbeginn
+\item Stundenende
+\item Fach
+\item Woche (A-/B-Woche)
+\end{itemize}
+
+\subsection[Heftdaten]{Heftdaten \hfill LD-30}
+Für eine Heft werden mindestens folgende Daten benötigt:
+\begin{itemize}
+\item Heftname
+\item automatisch erstellt oder händisch erstellt
+\item geteilt mit
+\item Datum der einzelnen Einträge
+\item Überschrift der einzelnen Einträge
+\item verwendete Komponenten
+\item Inhalt der Komponenten
+\item Anordnung der Komponenten eines Eintrages
+\end{itemize}
+
+\subsection[Rechnungsdaten]{Rechnungsdaten \hfill LD-40}
+Für eine Rechnung werden mindestens folgende Daten benötigt:
+\begin{itemize}
+\item Rechnungsnummer
+\item Name des Empfängers
+\item E-Mail Adresse des Empfängers
+\item Rechnungsdatum bzw. -zeitraum
+\item Rechnungsposten
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Nichtfunktionale Anforderungen
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Nichtfunktionale Anforderungen}
+\subsection[Usability/User Experience]{Usability/User Experience \hfill LL-10}
+Die Oberfläche soll benutzerfreundlich gestaltet werden. Ein Benutzer soll sich schnell zurechtfinden und einfach auf der Webseite navigieren können. 
+
+\subsection[Performance]{Performance \hfill LL-20}
+Die Funktionalitäten der Webseite sollen dem Benutzer innerhalb von maximal zwei Sekunden zur Verfügung stehen. Medien können nach Bedarf nachgeladen werden, sofern dem User dies erkenntlich gemacht wird.
+
+\subsection[Frontend-Testing]{Frontend-Testing \hfill LL-30}
+Das Frontend wird ausführlich mit einem GUI-Test-Framework getestet, um Fehler zu minimieren und dem Benutzer eine möglichst gute Oberfläche zur Verfügung zu stellen.
+
+\subsection[Dokumentation]{Dokumentation \hfill LL-40}
+Der Source-Code wird ausreichend dokumentiert, um die Verständlichkeit für andere Team-Mitglieder zu maximieren und die Wiederverwendbarkeit von Code-Teilen zu steigern.
+
+\subsection[Sicherheit]{Sicherheit \hfill LL-50}
+Das gesamte System muss vor Angriffen geschützt werden. Dies wird durch Verhinderung von \gls{SQLInjection}, sowie stoppen von \gls{Bots} durch ein \gls{Captcha} bei der Registrierung und nach mehreren Anmeldeversuchen erreicht. Die Daten sollen über \gls{SSL} übertragen werden. Hierzu muss ein SSL Zertifikat gekauft werden.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Ergänzungen
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Ergänzungen}
+\subsection{Marketing}
+Das Produkt soll über eine Webseite vermarktet werden. Um Interessenten die Applikation vorzustellen, soll ein kurzes Video auf der Startseite gezeigt werden, welches die Vorteile und Funktionen der Applikation erläutert.
+
+\subsection{Vertrieb}
+Das Produkt soll nur über die eigene Webseite vertrieben werden. Ziel ist es, die Kosten für das Hosting der Server mithilfe der Werbung bzw. der monatlichen Gebühren für Pro Accounts zu decken.
+
+\subsection{Beta-Testing}
+Damit die Applikation bestmöglich an den Schulunterricht angepasst werden kann, ist ein Beta-Test innerhalb einer Klasse des TGM-IT geplant. Diese Testphase soll eine Woche dauern und mit einer kurzen Umfrage zum Produkt enden.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Glossar
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\glossarystyle{altlist}
+\setglossarysection{section}
+\printglossary[numberedsection]
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Content End
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Document End
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
