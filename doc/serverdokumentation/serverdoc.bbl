@@ -5,4 +5,14 @@ Netcup, ``netcup - webhosting, vserver, servermanagement.'' \url
   {http://netcup.de/}.
 \newblock zuletzt besucht: 09.09.2015.
 
+\bibitem{NETCUP:2}
+Netcup, ``netcup - webhosting, vserver, servermanagement.'' \url
+  {https://www.netcup.de/vserver/#features}.
+\newblock zuletzt besucht: 09.09.2015.
+
+\bibitem{HOWTO:1}
+T.~Krenn, ``Ssh login unter debian mit fail2ban absichern.'' \url
+  {https://www.thomas-krenn.com/de/wiki/SSH_Login_unter_Debian_mit_fail2ban_absichern}.
+\newblock zuletzt besucht: 09.09.2015.
+
 \end{thebibliography}

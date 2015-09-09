@@ -5,36 +5,40 @@ The style file: ieeetr.bst
 Database file #1: serverdoc.bib
 Warning--entry type for "NETCUP:1" isn't style-file defined
 --line 3 of file serverdoc.bib
-You've used 1 entry,
+Warning--entry type for "NETCUP:2" isn't style-file defined
+--line 10 of file serverdoc.bib
+Warning--entry type for "HOWTO:1" isn't style-file defined
+--line 17 of file serverdoc.bib
+You've used 3 entries,
             1876 wiz_defined-function locations,
-            482 strings with 3587 characters,
-and the built_in function-call counts, 154 in all, are:
-= -- 13
-> -- 4
+            490 strings with 3809 characters,
+and the built_in function-call counts, 418 in all, are:
+= -- 39
+> -- 12
 < -- 0
-+ -- 2
-- -- 1
-* -- 6
-:= -- 30
-add.period$ -- 2
-call.type$ -- 1
-change.case$ -- 1
++ -- 6
+- -- 3
+* -- 14
+:= -- 68
+add.period$ -- 6
+call.type$ -- 3
+change.case$ -- 3
 chr.to.int$ -- 0
-cite$ -- 1
-duplicate$ -- 4
-empty$ -- 19
-format.name$ -- 1
-if$ -- 35
+cite$ -- 3
+duplicate$ -- 12
+empty$ -- 55
+format.name$ -- 3
+if$ -- 103
 int.to.chr$ -- 0
-int.to.str$ -- 1
+int.to.str$ -- 3
 missing$ -- 0
-newline$ -- 7
-num.names$ -- 1
-pop$ -- 7
+newline$ -- 15
+num.names$ -- 3
+pop$ -- 21
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 3
+skip$ -- 9
 stack$ -- 0
 substring$ -- 0
 swap$ -- 0
@@ -43,7 +47,7 @@ text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 1
-width$ -- 2
-write$ -- 11
-(There was 1 warning)
+while$ -- 3
+width$ -- 4
+write$ -- 29
+(There were 3 warnings)

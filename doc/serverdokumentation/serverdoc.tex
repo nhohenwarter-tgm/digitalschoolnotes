@@ -163,18 +163,19 @@ Das Projektteam hat einen Email-Verteiler mit der Adresse info@digitalschoolnote
 Aus Sicherheitsgründen wurde die Anmeldung mit Passwort verboten und es können hierfür nurnoch SSH Keys verwendet werden. Der SSH Port wurde auf 44 geändert.
 
 \section{Firewall}
-Es werden prinzipiell alle eingehenden Ports (INPUT Chain) geschlossen. Ausnahmen sind hier aufzulisten. Bei Änderungswünschen ist der Serveradministrator zu kontaktieren.
+Es werden prinzipiell alle eingehenden Ports geschlossen. Ausnahmen sind hier aufzulisten. Bei Änderungswünschen ist der Serveradministrator zu kontaktieren.\\
 
 Ausnahmen:
 \begin{itemize}
 \item 44	SSH
+\item 53	DNS
 \item 80	HTTP
 \item 443	HTTPS
 \end{itemize}
 \section{Bruteforce Prevention}
-\section{Rootkit Prevention}
+Um den SSH Zugang gegen Brute Force Attacken abzusichern wurde fail2ban installiert. Dieses Paket versucht Bruteforce Attacken zu verhindern. \cite{HOWTO:1}
 \section{Dienstüberwachung}
-
+Monit ToDo
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
