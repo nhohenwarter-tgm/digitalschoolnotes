@@ -67,16 +67,16 @@
 \begin{center}
 \begin{Huge}
 \begin{tikzpicture}
-\draw[g1, line width=1mm, text=black, align=center] (0,5) rectangle (10,10) node[midway] {Lastenheft\\ Projekt: DigitalSchoolNotes};
+\draw[g1, line width=1mm, text=black, align=center] (0,5) rectangle (10,10) node[midway] {Serverdokumentation\\ Projekt: DigitalSchoolNotes};
 \end{tikzpicture}
 \end{Huge}
 \end{center}
 \vspace{8cm}
 
-\textit{\textbf{Projektgruppe: Adler, Brinnich, Hohenwarter, Karic}}
+\textit{\textbf{Projektgruppe: Adler, Brinnich, Hohenwarter, Karic, Stedronsky}}
 \vspace{10mm}
 
-\textbf{{\color{g4}Version 0.1 \hfill 01.01.0000 \hfill Status: [ALPHA]}}
+\textbf{{\color{g4}Version 0.1 \hfill 09.09.2015 \hfill Status: [ALPHA]}}
 %Table
 \begin{table}[h]
 \renewcommand{\arraystretch}{2.0}
@@ -85,11 +85,11 @@
 \hline
 \rowcolor{g1} 
 \tabhvent{}&\tabhvent{\textbf{Datum}} & \tabhvent{\textbf{Name}} & \tabhvent{\textbf{Unterschrift}} \\ \hline
-\tabhvent{\textbf{Erstellt}} & \tabhvent{} & \tabhvent{} &  \tabhvent{}            \\ \hline
+\tabhvent{\textbf{Erstellt}} & \tabhvent{09.09.2015} & \tabhvent{Niklas Hohenwarter} &  \tabhvent{}            \\ \hline
 \tabhvent{\textbf{Geprüft}} & \tabhvent{} & \tabhvent{} &  \tabhvent{}            \\ \hline
 \tabhvent{\textbf{Freigegeben}} & \tabhvent{} & \tabhvent{} &  \tabhvent{}            \\ \hline
 \specialrule{0.07em}{0em}{0em}
-\multicolumn{4}{|l|}{\textbf{Git-Pfad:} /doc/loremipsum \hfill \textbf{Dokument:} loremipsum.tex}                    \\ \hline
+\multicolumn{4}{|l|}{\textbf{Git-Pfad:} /doc/serverdokumentation \hfill \textbf{Dokument:} serverdoc.tex}                    \\ \hline
 \end{tabularx}
 \end{table}
 \newpage
@@ -102,9 +102,9 @@
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
 \setlength\headheight{15pt}
-\lhead{Lorem}
+\lhead{Serverdokumentation}
 \rhead{Version 0.1}
-\lfoot{Adler, Brinnich, Hohenwarter, Karic}
+\lfoot{Adler, Brinnich, Hohenwarter, Karic, Stedronsky}
 \cfoot{}
 \rfoot{Seite \thepage \hspace{1pt} von \totalpages}
 
@@ -133,7 +133,7 @@
 \tabhvent{\textbf{Version}} &\tabhvent{\textbf{Datum}} & \tabhvent{\textbf{Status}} & \tabhvent{\textbf{Bearbeiter}} & \tabhvent{\textbf{Kommentar}}  \\ \hline
 
 %Lines
-\tabhvent{\textbf{0.1}} & \tabhvent{01.01.0000} & \tabhvent{Erstellt} &  \tabhvent{Lorem}    &  \tabhvent{Ipsum}         \\ \hline
+\tabhvent{\textbf{0.1}} & \tabhvent{09.09.2015} & \tabhvent{Erstellt} &  \tabhvent{Hohenwarter}    &  \tabhvent{Draft}         \\ \hline
 
 \end{tabularx}
 \end{table}
@@ -147,19 +147,40 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Übersicht
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Übersicht}
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.\cite{DUMMY:1}
-\subsection{Unterüberschrift}
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.\cite{DUMMY:2}
-\subsubsection{UnterUnterÜberschrift}
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.\cite{DUMMY:3}
-\newpage
+\section{Hosting}
+Unser Projektserver ist beim in Deutschland ansässigen Unternehmen Netcup\cite{NETCUP:1} gehostet. Hier haben wir den Root-Server M angemietet(2 Cores Intel®Xeon® E5-26xxV3
+(min. 2,3 GHz je Kern), 6 GB DDR4(ECC),120GB SSD, 1 GBit/s)\cite{NETCUP:2}. Dieser ist unter der IP Adresse \textbf{37.120.161.195} erreichbar.\\
+
+Auf den Server ist die Domain digitalschoolnotes.com geschaltet. Diese ist ebenfalls bei netcup gemietet.
+
+\section{User}
+Jedes Projektteam Mitglied hat einen eigenen Unix Account auf dem Projektserver. Der Vorname der Person ist der Benutzername. Eine SSH Anmeldung mit Passwort ist nicht möglich und kann nur mit SSH Key erfolgen. Das Benutzerpasswort folgt dem Schema vorname123 (z.B. adin123). Alle Teammitglieder haben sudo rechte. Verantwortlich für die Serververwaltung ist Niklas Hohenwarter. Bei Problemen mit der Anmeldung oder anderem sind diese ihm bekannt zu geben.
+
+\section{Mailsystem}
+Das Projektteam hat einen Email-Verteiler mit der Adresse info@digitalschoolnotes.com. Dieser ist für alle Registrierungen und ähnliches zu verwenden. Alle Emails die an der oben genannte Adresse einlangen, werden an alle Teammitglieder weitergeleitet.
+
+\section{SSH}
+Aus Sicherheitsgründen wurde die Anmeldung mit Passwort verboten und es können hierfür nurnoch SSH Keys verwendet werden. Der SSH Port wurde auf 44 geändert.
+
+\section{Firewall}
+Es werden prinzipiell alle eingehenden Ports (INPUT Chain) geschlossen. Ausnahmen sind hier aufzulisten. Bei Änderungswünschen ist der Serveradministrator zu kontaktieren.
+
+Ausnahmen:
+\begin{itemize}
+\item 44	SSH
+\item 80	HTTP
+\item 443	HTTPS
+\end{itemize}
+\section{Bruteforce Prevention}
+\section{Rootkit Prevention}
+\section{Dienstüberwachung}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Bibliography
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\bibliography{project} 
+\bibliography{serverdoc} 
 \bibliographystyle{ieeetr}
 
 
