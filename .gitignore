@@ -81,3 +81,6 @@ target/
 *.mtc1
 *.out
 *.synctex.gz
+
+#Mac
+Thumbs.db
