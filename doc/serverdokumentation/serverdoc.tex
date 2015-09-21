@@ -22,6 +22,7 @@
 \usepackage{lmodern}
 \usepackage{geometry}
 \usepackage{ragged2e}
+\usepackage{listings}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -54,6 +55,15 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Code Lists
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\lstset{breaklines=true,
+		frame=single,
+		language=bash}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Document Start
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -76,7 +86,7 @@
 \textit{\textbf{Projektgruppe: Adler, Brinnich, Hohenwarter, Karic, Stedronsky}}
 \vspace{10mm}
 
-\textbf{{\color{g4}Version 0.1 \hfill 09.09.2015 \hfill Status: [ALPHA]}}
+\textbf{{\color{g4}Version 1.0 \hfill 21.09.2015 \hfill Status: [RELEASE]}}
 %Table
 \begin{table}[h]
 \renewcommand{\arraystretch}{2.0}
@@ -86,7 +96,7 @@
 \rowcolor{g1} 
 \tabhvent{}&\tabhvent{\textbf{Datum}} & \tabhvent{\textbf{Name}} & \tabhvent{\textbf{Unterschrift}} \\ \hline
 \tabhvent{\textbf{Erstellt}} & \tabhvent{09.09.2015} & \tabhvent{Niklas Hohenwarter} &  \tabhvent{}            \\ \hline
-\tabhvent{\textbf{Geprüft}} & \tabhvent{} & \tabhvent{} &  \tabhvent{}            \\ \hline
+\tabhvent{\textbf{Geprüft}} & \tabhvent{21.09.2015} & \tabhvent{Selina Brinnich} &  \tabhvent{}            \\ \hline
 \tabhvent{\textbf{Freigegeben}} & \tabhvent{} & \tabhvent{} &  \tabhvent{}            \\ \hline
 \specialrule{0.07em}{0em}{0em}
 \multicolumn{4}{|l|}{\textbf{Git-Pfad:} /doc/serverdokumentation \hfill \textbf{Dokument:} serverdoc.tex}                    \\ \hline
@@ -103,7 +113,7 @@
 \renewcommand{\footrulewidth}{0.4pt}
 \setlength\headheight{15pt}
 \lhead{Serverdokumentation}
-\rhead{Version 0.1}
+\rhead{Version 1.0}
 \lfoot{Adler, Brinnich, Hohenwarter, Karic, Stedronsky}
 \cfoot{}
 \rfoot{Seite \thepage \hspace{1pt} von \totalpages}
@@ -134,6 +144,8 @@
 
 %Lines
 \tabhvent{\textbf{0.1}} & \tabhvent{09.09.2015} & \tabhvent{Erstellt} &  \tabhvent{Hohenwarter}    &  \tabhvent{Draft}         \\ \hline
+\tabhvent{\textbf{0.2}} & \tabhvent{21.09.2015} & \tabhvent{Bearbeitet} &  \tabhvent{Hohenwarter}    &  \tabhvent{Alles verbessert}         \\ \hline
+\tabhvent{\textbf{1.0}} & \tabhvent{21.09.2015} & \tabhvent{QA} &  \tabhvent{Brinnich}    &  \tabhvent{Rechtschreibung}         \\ \hline
 
 \end{tabularx}
 \end{table}
@@ -151,16 +163,26 @@
 Unser Projektserver ist beim in Deutschland ansässigen Unternehmen Netcup\cite{NETCUP:1} gehostet. Hier haben wir den Root-Server M angemietet(2 Cores Intel®Xeon® E5-26xxV3
 (min. 2,3 GHz je Kern), 6 GB DDR4(ECC),120GB SSD, 1 GBit/s)\cite{NETCUP:2}. Dieser ist unter der IP Adresse \textbf{37.120.161.195} erreichbar.\\
 
-Auf den Server ist die Domain digitalschoolnotes.com geschaltet. Diese ist ebenfalls bei netcup gemietet.
+Auf den Server ist die Domain digitalschoolnotes.com geschaltet. Diese ist ebenfalls bei netcup gemietet.\\
+
+Folgende Subdomains existieren:
+
+\begin{itemize}
+\item time.digitalschoolnotes.com \hfill Zeitaufzeichnung
+\item git.digitalschoolnotes.com \hfill Repository
+\item taiga.digitalschoolnotes.com \hfill Scrum Tool
+\item ci.digitalschoolnotes.com \hfill CI Tool
+\end{itemize}
 
 \section{User}
-Jedes Projektteam Mitglied hat einen eigenen Unix Account auf dem Projektserver. Der Vorname der Person ist der Benutzername. Eine SSH Anmeldung mit Passwort ist nicht möglich und kann nur mit SSH Key erfolgen. Das Benutzerpasswort folgt dem Schema vorname123 (z.B. adin123). Alle Teammitglieder haben sudo rechte. Verantwortlich für die Serververwaltung ist Niklas Hohenwarter. Bei Problemen mit der Anmeldung oder anderem sind diese ihm bekannt zu geben.
+Jedes Projektteam Mitglied hat einen eigenen Unix Account auf dem Projektserver. Der Vorname der Person ist der Benutzername. Das Benutzerpasswort ist von jedem Teammitglied selbst gewählt. Alle Teammitglieder haben sudo rechte. Verantwortlich für die Serververwaltung ist Niklas Hohenwarter. Bei Problemen mit der Anmeldung oder anderem sind diese ihm bekannt zu geben.
 
 \section{Mailsystem}
-Das Projektteam hat einen Email-Verteiler mit der Adresse info@digitalschoolnotes.com. Dieser ist für alle Registrierungen und ähnliches zu verwenden. Alle Emails die an der oben genannte Adresse einlangen, werden an alle Teammitglieder weitergeleitet.
+Das Projektteam hat einen Email-Verteiler mit der Adresse info@digitalschoolnotes.com. Jedes Teammitglied hat eine E-Mail Adresse nach dem Schema des TGMs. Der Scrummaster ist unter scrummaster@digitalschoolnotes.com erreichbar.
 
 \section{SSH}
 Aus Sicherheitsgründen wurde die Anmeldung mit Passwort verboten und es können hierfür nurnoch SSH Keys verwendet werden.
+\newpage
 
 \section{Firewall}
 Es werden prinzipiell alle eingehenden Ports geschlossen. Ausnahmen sind hier aufzulisten. Bei Änderungswünschen ist der Serveradministrator zu kontaktieren.\\
@@ -172,15 +194,89 @@ Ausnahmen:
 \item 80	HTTP
 \item 443	HTTPS
 \end{itemize}
-\section{Bruteforce Prevention}
-Um den SSH Zugang gegen Brute Force Attacken abzusichern wurde fail2ban installiert. Dieses Paket versucht Bruteforce Attacken zu verhindern. \cite{HOWTO:1}
 
-\section{Monitoring}
-ToDo Servermonitoring
+\subsection{Konfiguration}
+Die Firewall wird mittels folgenden Befehlen aufgesetzt:
+\begin{lstlisting}
+# Flush the tables to apply changes
+iptables -F
+
+# Default policy to drop 'everything' but our output to internet
+iptables -P FORWARD DROP
+iptables -P INPUT   DROP
+iptables -P OUTPUT  ACCEPT
+
+# Allow established connections (the responses to our outgoing traffic)
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+# Allow local programs that use loopback (Unix sockets)
+iptables -A INPUT -s 127.0.0.0/8 -d 127.0.0.0/8 -i lo -j ACCEPT
+iptables -A FORWARD -s 127.0.0.0/8 -d 127.0.0.0/8 -i lo -j ACCEPT
+
+#Allowed Ports
+iptables -A INPUT -p tcp --dport 22 -m state --state NEW -j ACCEPT
+iptables -A INPUT -p tcp --dport 80 -m state --state NEW -j ACCEPT
+iptables -A INPUT -p tcp --dport 443 -m state --state NEW -j ACCEPT
+iptables -A INPUT -p tcp --dport 53 -m state --state NEW -j ACCEPT
+iptables -A INPUT -p udp --dport 53 -m state --state NEW -j ACCEPT
+\end{lstlisting}
+\newpage
+
+
+Die Firewallrules werden beim Reboot automatisch wiederhergestellt. Dies geschieht durch das Paket \textbf{\textit{iptables-persistent}}. Konfiguration\cite{HOWTO:2}:
+
+\begin{lstlisting}
+# Install
+sudo apt-get install iptables-persistent
+
+# Save Rules
+iptables-save > /etc/iptables/rules.v4
+\end{lstlisting}
+
+\section{Bruteforce Prevention}
+Um den SSH Zugang gegen Brute Force Attacken abzusichern wurde fail2ban installiert. Dieses Paket versucht Bruteforce Attacken zu verhindern. \cite{HOWTO:1} \\
+
+\subsection{Konfiguration}
+Das Paket wurde mittels \textbf{\textit{sudo apt-get install fail2ban}} installiert. Die Standardkonfiguration wird verwendet.
 
 \section{Webserver}
-Als Webserver wird nginx verwendet. Aktuell existieren auf dem Server nur Weiterleitungen zu unserem Github Repository, Taiga, der Zeitaufzeichnung und dem CI Tool.
+Als Webserver wird nginx verwendet. Aktuell existieren auf dem Server nur Weiterleitungen zu unserem Github Repository, Taiga, der Zeitaufzeichnung und dem CI Tool (Subdomains, siehe oben).
 
+\subsection{Konfiguration}
+Die Konfiguration ist in \textbf{\textit{/etc/nginc/sites-available/redirects}} zu finden. Sie enthält folgendes:
+
+\begin{lstlisting}
+server {
+	listen 80; #Port
+	server_name git.digitalschoolnotes.com; # Subdomain
+
+    	location / {
+	   rewrite ^ https://github.com/nhohenwarter-tgm/digitalschoolnotes permanent; # zieladresse der Weiterleitung
+    	}
+}
+
+server {
+        listen 80;
+        server_name taiga.digitalschoolnotes.com;
+
+        location / {
+           rewrite ^ https://tree.taiga.io/project/selina-digital-school-notes/ permanent;
+        }
+}
+
+
+server {
+        listen 80;
+        server_name time.digitalschoolnotes.com;
+
+        location / {
+           rewrite ^ https://goo.gl/IWrE2j permanent;
+        }
+}
+
+\end{lstlisting}
+
+Um die Weiterleitung zu aktivieren muss ein Link nach \textbf{\textit{/etc/nginx/sites-enabled}} gesetzt werden. Dies geht mit dem Befehl \textbf{\textit{ln -s /etc/nginx/sites-available/redirects /etc/nginx/sites-enabled/redirects}}. Dannach muss der Nginx Service neu gestartet werden.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Bibliography
