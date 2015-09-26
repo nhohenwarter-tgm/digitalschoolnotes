@@ -170,7 +170,7 @@ Folgende Subdomains existieren:
 \begin{itemize}
 \item time.digitalschoolnotes.com \hfill Zeitaufzeichnung
 \item git.digitalschoolnotes.com \hfill Repository
-\item taiga.digitalschoolnotes.com \hfill Scrum Tool
+\item ontime.digitalschoolnotes.com \hfill Scrum Tool
 \item ci.digitalschoolnotes.com \hfill CI Tool
 \end{itemize}
 
@@ -260,7 +260,7 @@ server {
         server_name taiga.digitalschoolnotes.com;
 
         location / {
-           rewrite ^ https://tree.taiga.io/project/selina-digital-school-notes/ permanent;
+           rewrite ^ tgm.axosoft.com permanent;
         }
 }
 
