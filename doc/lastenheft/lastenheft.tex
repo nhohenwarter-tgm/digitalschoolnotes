@@ -242,6 +242,11 @@
 \tabhvent{\textbf{6.0}} & \tabhvent{04.06.2015} & \tabhvent{Geprüft} & 
 \tabhvent{Brinnich} & \tabhvent{Rechtschreibfehler ausgebessert} \\ \hline
 
+\tabhvent{\textbf{7.0}} & \tabhvent{28.09.2015} & \tabhvent{Bearbeitet} &  \tabhvent{Adler} &  \tabhvent{Funktionen angepasst}         \\ \hline
+
+\tabhvent{\textbf{7.1}} & \tabhvent{28.09.2015} & \tabhvent{Geprüft} & 
+\tabhvent{Karic} & \tabhvent{Formulierung angepasst} \\ \hline
+
 
 \end{tabularx}
 \end{table}
@@ -317,7 +322,7 @@ Ein Benutzer kann andere Benutzer anhand ihres Vor- und/oder Nachnamens suchen u
 Hier sind alle Funktionen zusammengefasst, welche die Verwaltung der gesamten Mitschrift bzw. der Hefte eines Benutzers betreffen.
 
 \subsubsection{Stundenplan eintragen \hfill LF-20-010}
-Ein Benutzer soll seinen Stundenplan händisch ins System eintragen können, damit das System automatisch Hefte zu allen Unterrichtsgegenständen generieren kann und der Benutzer durch einen einfachen Klick auf eine Stunde einen neuen Eintrag verfassen kann.
+Ein Benutzer soll seinen Stundenplan händisch ins System eintragen können, der Schüler hat eine gewisse Anzahl an freien Heften zur Verfügung, diese kann er seinen Fächern im Stundenplan zuordnen. Durch einen einfachen Klick kann der Benutzer einen neuen Eintrag verfassen.
 
 \subsubsection{Stundenplan importieren \hfill LF-20-020}
 Ein Benutzer soll seinen Stundenplan automatisch von \gls{WebUntis} importieren können. Dazu soll der Benutzer seine Anmeldedaten (Benutzername, Passwort, Schule, \gls{url}), sowie die gewünschte Klasse angeben können. Der Stundenplan wird dann automatisch ins System eingetragen.
@@ -346,51 +351,48 @@ Ein Benutzer kann öffentliche Hefte eines anderen Benutzers bewerten. Dies soll
 \subsubsection{Heftsichtbarkeit ändern \hfill LF-20-100}
 Ein Benutzer kann die Sichtbarkeit von nicht geteilten Heften ändern. Automatisch erstellte Hefte sind standardmäßig für andere Nutzer nicht sichtbar. Freigegebene Hefte können auf dem Profil des Benutzers eingesehen werden. Das Benutzerprofil ist durch die Benutzersuche aufrufbar.
 
+\subsubsection{Heft löschen \hfill LF-20-110}
+Ein Benutzer kann einzelne Hefte (nur eigene) löschen.
+
 \subsection[Funktionen zur Heftbearbeitung]{Funktionen zur Heftbearbeitung \hfill LF-30}
 Hier sind alle Funktionen zusammengefasst, die das Bearbeiten der Mitschrift in einem einzelnen Heft eines Benutzers betreffen.
 
 \subsubsection{Eintrag zu Stunde hinzufügen \hfill LF-30-010}
-Ein Benutzer kann per Klick auf eine Stunde in seinem Stundenplan einen neuen Eintrag im entsprechenden Heft des gewählten Unterrichtsgegenstandes erstellen. Dieser Eintrag wird automatisch mit dem Datum der gewählten Stunde versehen und der Benutzer kann eine Überschrift für die Stunde eingeben.
+Ein Benutzer kann per Klick auf eine Stunde in seinem Stundenplan die letzte Seite des entsprechenden Heftes öffnen und bearbeiten.
 
-\subsubsection{Eintrag außerhalb einer Stunde hinzufügen \hfill LF-30-020}
-Ein Benutzer kann in seinen Heften unabhängig von Stunden im Stundenplan  Einträge hinzufügen. Dazu muss er ein Datum sowie eine Überschrift für den Eintrag wählen.
+\subsubsection{Textelement erstellen \hfill LF-30-020}
+Ein Benutzer kann Textelemente in seinem Heft erstellen. Dazu werden einzelne Textboxen verwendet, die beliebigen Text enthalten können.
 
-\subsubsection{Text zu Eintrag verfassen \hfill LF-30-030}
-Ein Benutzer kann zu einem Eintrag einen Text verfassen. Dazu werden einzelne Textboxen verwendet, die beliebigen Text enthalten können.
+\subsubsection{Programmcode-Element erstellen \hfill LF-30-030}
+Ein Benutzer kann Teile von Programmcode im Heft hinzufügen. Dieser wird wie bei normalem Text in Textboxen dargestellt jedoch anders formatiert. Es soll eine Zeilennummerierung verfügbar sein und die Syntax soll hervorgehoben werden.
 
-\subsubsection{Programmcode zu Eintrag hinzufügen \hfill LF-30-040}
-Ein Benutzer kann Teile von Programmcode zu einem Eintrag hinzufügen. Dieser wird wie bei normalem Text in Textboxen dargestellt jedoch anders formatiert. Es soll eine Zeilennummerierung verfügbar sein und die Syntax soll hervorgehoben werden.
+\subsubsection{Skizze-Element erstellen \hfill LF-30-040}
+Ein Benutzer kann im Heft eine Skizze zeichnen. Diese werden in Boxen gezeichnet. Der Benutzer kann für seine Skizze mehrere unterschiedliche Farben wählen.
 
-\subsubsection{Skizze zu Eintrag zeichnen \hfill LF-30-050}
-Ein Benutzer kann zu einem Eintrag eine Skizze zeichnen. Diese werden in Boxen gezeichnet. Der Benutzer kann für seine Skizze mehrere unterschiedliche Farben wählen.
-
-\subsubsection{Bild zu Eintrag hinzufügen \hfill LF-30-060}
-Ein Benutzer kann zu einem Eintrag ein Bild hinzufügen. Dieses wird bei der Anzeige eines Heftes direkt angezeigt. Ebenso ist es dem Benutzer möglich, ganze Galerien einzubinden. Bei Galerien wird bei der Anzeige des Heftes das erste Bild direkt angezeigt. Mit einem Klick auf dieses Bild kann die Galerie geöffnet werden, wo der Benutzer dann alle Bilder sehen kann.\\
+\subsubsection{Bild-Element erstellen \hfill LF-30-050}
+Ein Benutzer kann im Heft ein Bild hinzufügen. Dieses wird bei der Anzeige eines Heftes direkt angezeigt. Ebenso ist es dem Benutzer möglich, ganze Galerien einzubinden. Bei Galerien wird bei der Anzeige des Heftes das erste Bild direkt angezeigt. Mit einem Klick auf dieses Bild kann die Galerie geöffnet werden, wo der Benutzer dann alle Bilder sehen kann.\\
 
 Es soll des weiteren möglich sein ein Bild vom Handy aus hochzuladen. Bilder können ausschließlich in einen Ordner hochgeladen werden. Es sollen mehrere Bilder gleichzeitig hochgeladen werden können. Die Fotos können nachher in einem Heft eingefügt werden.
 
-\subsubsection{Videoreferenz zu Eintrag hinzufügen \hfill LF-30-070}
-Ein Benutzer kann zu einem Eintrag ein Video aus Drittquellen (Youtube, Vimeo,...)  referenzieren. Dieses kann bei der Anzeige eines Heftes per Klick direkt im System abgespielt werden.
+\subsubsection{Videoreferenz hinzufügen \hfill LF-30-060}
+Ein Benutzer kann im Heft ein Video aus Drittquellen (Youtube, Vimeo,...)  referenzieren. Dieses kann bei der Anzeige eines Heftes per Klick direkt im System abgespielt werden.
 
-\subsubsection{Folien aus Foliensatz zu Eintrag hinzufügen \hfill LF-30-080}
-Ein Benutzer kann Folien aus Foliensätzen zu einem Eintrag hinzufügen. Bei mehreren Folien, wird nur die erste angezeigt und per Klick auf diese können alle anderen Folien wie bei einer Galerie ebenfalls eingesehen werden.
+\subsubsection{Folien aus Foliensatz hinzufügen \hfill LF-30-070}
+Ein Benutzer kann Folien aus Foliensätzen im Heft hinzufügen. Bei mehreren Folien, wird nur die erste angezeigt und per Klick auf diese können alle anderen Folien wie bei einer Galerie ebenfalls eingesehen werden.
 
-\subsubsection{Dateienreferenzen von Filehostern hinzufügen \hfill LF-30-090}
-Ein Benutzer kann zu einem Eintrag Dateien von bekannten Filehostern (Dropbox, Google Drive,...) referenzieren. Dazu wird der Benutzer aufgefordert, sich bei dem entsprechenden Filehoster via Web oder OAuth anzumelden und die gewünschte Datei auszuwählen. Das System bindet diese Datei automatisch in den Eintrag ein.
+\subsubsection{Dateienreferenzen von Filehostern hinzufügen \hfill LF-30-080}
+Ein Benutzer kann im Heft Dateien von bekannten Filehostern (Dropbox, Google Drive,...) referenzieren. Dazu wird der Benutzer aufgefordert, sich bei dem entsprechenden Filehoster via Web oder OAuth anzumelden und die gewünschte Datei auszuwählen. Das System bindet diese Datei automatisch in den Eintrag ein.
 
-\subsubsection{Eintrag bearbeiten \hfill LF-30-100}
-Ein Benutzer kann von der Anzeige eines Heftes aus einen einzelnen Eintrag bearbeiten.
-
-\subsubsection{Komponenten eines Eintrages anordnen \hfill LF-30-110}
+\subsubsection{Komponenten eines Eintrages anordnen \hfill LF-30-90}
 Ein Benutzer kann die einzelnen Komponenten eines Eintrages (Text, Skizzen, Bilder, Videos,...) beliebig im Heft anordnen.
 
-\subsubsection{Bilder zu Text umwandeln \hfill LF-30-120}
+\subsubsection{Bilder zu Text umwandeln \hfill LF-30-100}
 Ein Benutzer kann Fotos von seinem Heft oder der Tafel machen und diese dann hochladen. Diese Bilder sollen dann mittels Schrifterkennung automatisch zu Text umgewandelt werden können.
 
-\subsubsection{Inhalt verlinken \hfill LF-30-130}
-Ein Benutzer kann innerhalb eines Eintrages auf andere Einträge verweisen. Diese Verweise werden dann im Eintrag als Link angezeigt. Man kann hiermit z.B. für eine Erklärung zu einem Begriff auf ein anderes Heft oder Eintrag verweisen. 
+\subsubsection{Inhalt verlinken \hfill LF-30-110}
+Ein Benutzer kann innerhalb eines Heftes auf andere Heftseiten verweisen. Diese Verweise werden dann im Heft als Link angezeigt. Man kann hiermit z.B. für eine Erklärung zu einem Begriff auf ein anderes Heftseite verweisen. 
 
-\subsubsection{Datei über URL hinzufügen \hfill LF-30-140}
+\subsubsection{Datei über URL hinzufügen \hfill LF-30-120}
 Ein Benutzer kann eine Datei über eine URL hinzufügen. Durch z.B. einen Link auf ein Bild kann der Benutzer dieses direkt einbinden. 
 
 
@@ -401,7 +403,7 @@ Hier sind alle Funktionen zusammengefasst, die zur Finanzierung der Webseite ben
 Auf der Webseite soll Werbung in Form von Werbebannern angezeigt werden. Die Werbung soll durch das Google AdSense Werbenetzwerk bezogen werden.
 
 \subsubsection{Account upgraden \hfill LF-40-020}
-Der Benutzer soll durch eine geringe monatliche Zahlung eine erweiterte Funktionalität geboten bekommen. Normale Benutzer haben eine Speicherbeschränkung von 500MB. Diese Beschränkung entfällt für den \gls{ProUser} (\gls{FairUse}). Ein normaler Benutzer kann zusätzlich zu den aus dem Stundenplan erstellen Heften drei weitere Hefte erstellen. Für den Pro User gibt es keine Beschränkung bezüglich der Heftanzahl. Die Werbung wird für den Pro User nicht dargestellt.
+\textbf{Der Benutzer soll durch eine geringe monatliche Zahlung eine erweiterte Funktionalität geboten bekommen. Normale Benutzer haben eine Speicherbeschränkung von 500MB. Diese Beschränkung entfällt für den \gls{ProUser} (\gls{FairUse}). Ein normaler Benutzer kann zusätzlich zu den aus dem Stundenplan erstellen Heften drei weitere Hefte erstellen. Für den Pro User gibt es keine Beschränkung bezüglich der Heftanzahl. Die Werbung wird für den Pro User nicht dargestellt.}
 
 \subsubsection{Pro Account bezahlen \hfill LF-40-030}
 Der Benutzer soll seinen Account durch eine geringe monatliche Zahlung zu einem Pro Account aufwerten können. Diese Bezahlung soll über bekannte Online-Bezahlungsmethoden (Paypal, Google Wallet, Amazon Payments,...) abgewickelt werden.
