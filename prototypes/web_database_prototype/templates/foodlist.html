@@ -1,0 +1,20 @@
+<h2>Favorite Food List</h2>
+<ul>
+{% for food in foodlist %}
+    <li>{{ food.name }}<br />{{ food.votes }} 
+	<a href="{% url 'vote' foodname=food.name votetype='+' %}">+1</a> 
+	<a href="{% url 'vote' foodname=food.name votetype='-' %}">-1</a>
+	<a href="{% url 'delete_food' foodname=food.name %}">Remove Food</a>
+    </li>
+{% endfor %}
+</ul>
+
+<h2>Insert New Food</h2>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'insert_food' %}" method="post">
+{% csrf_token %}
+Food name: <input type="text" name="name" value="" />
+<input type="submit" value="Insert" />
+</form>
