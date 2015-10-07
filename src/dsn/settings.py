@@ -88,13 +88,13 @@ DATABASES = {
         'ENGINE': '',
     },
 }
+
 SESSION_ENGINE = 'mongoengine.django.sessions'
 
 _MONGODB_HOST = 'localhost' #Hostname
 _MONGODB_NAME = 'testy' #DB-Name
 _MONGODB_DATABASE_HOST = 'mongodb://%s' % (_MONGODB_HOST)
 mongoengine.connect(_MONGODB_NAME, host=_MONGODB_DATABASE_HOST)
-
 
 
 # Internationalization
