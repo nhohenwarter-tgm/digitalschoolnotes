@@ -86,7 +86,7 @@
 \textit{\textbf{Projektgruppe: Adler, Brinnich, Hohenwarter, Karic, Stedronsky}}
 \vspace{10mm}
 
-\textbf{{\color{g4}Version 1.0 \hfill 21.09.2015 \hfill Status: [RELEASE]}}
+\textbf{{\color{g4}Version 1.1 \hfill 07.10.2015 \hfill Status: [RELEASE]}}
 %Table
 \begin{table}[h]
 \renewcommand{\arraystretch}{2.0}
@@ -113,7 +113,7 @@
 \renewcommand{\footrulewidth}{0.4pt}
 \setlength\headheight{15pt}
 \lhead{Serverdokumentation}
-\rhead{Version 1.0}
+\rhead{Version 1.1}
 \lfoot{Adler, Brinnich, Hohenwarter, Karic, Stedronsky}
 \cfoot{}
 \rfoot{Seite \thepage \hspace{1pt} von \totalpages}
@@ -146,6 +146,7 @@
 \tabhvent{\textbf{0.1}} & \tabhvent{09.09.2015} & \tabhvent{Erstellt} &  \tabhvent{Hohenwarter}    &  \tabhvent{Draft}         \\ \hline
 \tabhvent{\textbf{0.2}} & \tabhvent{21.09.2015} & \tabhvent{Bearbeitet} &  \tabhvent{Hohenwarter}    &  \tabhvent{Alles verbessert}         \\ \hline
 \tabhvent{\textbf{1.0}} & \tabhvent{28.09.2015} & \tabhvent{QA} &  \tabhvent{Stedronsky}    &  \tabhvent{Rechtschreibung}         \\ \hline
+\tabhvent{\textbf{1.1}} & \tabhvent{07.10.2015} & \tabhvent{Bearbeitet} &  \tabhvent{Hohenwarter}    &  \tabhvent{Django Ports}         \\ \hline
 
 \end{tabularx}
 \end{table}
@@ -193,6 +194,7 @@ Ausnahmen:
 \item 53	DNS
 \item 80	HTTP
 \item 443	HTTPS
+\item 5001-5005 Django Development
 \end{itemize}
 
 \subsection{Konfiguration}
@@ -219,8 +221,12 @@ iptables -A INPUT -p tcp --dport 80 -m state --state NEW -j ACCEPT
 iptables -A INPUT -p tcp --dport 443 -m state --state NEW -j ACCEPT
 iptables -A INPUT -p tcp --dport 53 -m state --state NEW -j ACCEPT
 iptables -A INPUT -p udp --dport 53 -m state --state NEW -j ACCEPT
+iptables -A INPUT -p tcp --dport 5001 -m state --state NEW -j ACCEPT
+iptables -A INPUT -p tcp --dport 5002 -m state --state NEW -j ACCEPT
+iptables -A INPUT -p tcp --dport 5003 -m state --state NEW -j ACCEPT
+iptables -A INPUT -p tcp --dport 5004 -m state --state NEW -j ACCEPT
+iptables -A INPUT -p tcp --dport 5005 -m state --state NEW -j ACCEPT
 \end{lstlisting}
-\newpage
 
 
 Die Firewallrules werden beim Reboot automatisch wiederhergestellt. Dies geschieht durch das Paket \textbf{\textit{iptables-persistent}}. Konfiguration\cite{HOWTO:2}:
