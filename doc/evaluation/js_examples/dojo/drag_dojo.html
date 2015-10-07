@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>dojoConfig = {async: true, parseOnLoad: false}</script>
+    <script src="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js"></script>
+    <script>
+      require(["dojo/dnd/Moveable", "dojo/dom", "dojo/on", "dojo/domReady!"],
+      function(Moveable, dom, on){
+	on(dom.byId("doIt"), "click", function(){
+	  var dnd = new Moveable(dom.byId("dndOne"));
+	});
+      });
+    </script>
+  </head>
+  <body class="claro">
+    <div id="dndArea">
+    <div id="dndOne">
+      <img src="http://www.w3schools.com/images/w3schools_green.jpg" alt="W3Schools.com"></div>
+    </div>
+    <p><button id="doIt" type="button">Make moveable</button></p>
+  </body>
+</html>
