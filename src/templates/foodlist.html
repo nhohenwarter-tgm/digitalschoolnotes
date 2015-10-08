@@ -1,7 +1,11 @@
 <h2>Favorite Food List</h2>
 <ul>
-{% for food in foodlist %}
-    <li>{{ food.name }}<br />{{ food.votes }}
-    </li>
-{% endfor %}
+{%  if foodlist %}
+    {% for food in foodlist %}
+        <li>{{ food.name }}<br />{{ food.votes }}
+        </li>
+    {% endfor %}
+{% else %}
+    Nothing to display...
+{% endif %}
 </ul>
