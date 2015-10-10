@@ -18,5 +18,8 @@ from django.contrib import admin
 
 urlpatterns = [
     #url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', 'dsn.views.show_food', name='show_food'),
+    url(r'^$', 'dsn.views.mainpage', name="mainpage"),
+    url(r'^management', 'dsn.views.management', name="management"),
+    url(r'^notebook', 'dsn.views.notebook', name="notebook"),
+    url(r'^administration', 'dsn.views.administration', name="administration"),
 ]
