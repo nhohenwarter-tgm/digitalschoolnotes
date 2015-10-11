@@ -2,7 +2,7 @@
 {% load staticfiles %}
 {% load i18n %}
 {% block content %}
-    <div class="container">
+    <div class="container" ng-app="MyApp" ng-controller="TestyCtrl">
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
@@ -18,7 +18,7 @@
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="">{% trans "Timetable" %}</a></li>
+                        <li><a ng-click="testy()" href="">{% trans "Timetable" %}</a></li>
                         <li><a href="">{% trans "Notebooks" %}</a></li>
                         <li><a href="">{% trans "Account Settings" %}</a></li>
                         <li><a href="">{% trans "Upgrade now" %}</a></li>
@@ -39,5 +39,33 @@
                 </div>
             </div>
         </nav>
+    <div style="padding-top: 100px;" ng-bind-html="content | sanitize">
     </div>
+    </div>
+    <script>
+    var app = angular.module("MyApp", []);
+
+app.controller("TestyCtrl", function($scope, $http) {
+  $http.get('/management/timetable').
+    success(function(data, status, headers, config) {
+      $scope.content = data;
+    }).
+    error(function(data, status, headers, config) {
+      // log error
+    });
+});
+    app.filter("sanitize", ['$sce', function($sce) {
+  return function(htmlCode){
+    return $sce.trustAsHtml(htmlCode);
+  }
+}]);
+
+    $scope.testy = function(){
+        alert("testy");
+    }
+    </script>
+{% endblock %}
+
+{% block scripts %}
+
 {% endblock %}
