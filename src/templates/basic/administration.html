@@ -2,7 +2,7 @@
 {% load staticfiles %}
 {% load i18n %}
 {% block content %}
-    <div class="container">
+    <div class="container" ng-app="App" ng-controller="Ctrl">
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
@@ -18,11 +18,11 @@
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="">{% trans "User Management" %}</a></li>
-                        <li><a href="">{% trans "Bills" %}</a></li>
-                        <li><a href="">{% trans "LDAP Server Management" %}</a></li>
-                        <li><a href="">{% trans "User Quotas" %}</a></li>
-                        <li><a href="">{% trans "Statistics" %}</a></li>
+                        <li><a ng-click="viewUsermanagement()" href="">{% trans "User Management" %}</a></li>
+                        <li><a ng-click="viewBills()" href="">{% trans "Bills" %}</a></li>
+                        <li><a ng-click="viewLdapConfiguration()" href="">{% trans "LDAP Server Management" %}</a></li>
+                        <li><a ng-click="viewUserquotas()" href="">{% trans "User Quotas" %}</a></li>
+                        <li><a ng-click="viewStatistics()" href="">{% trans "Statistics" %}</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="">{% trans "Logout" %}</a></li>
@@ -31,4 +31,67 @@
             </div>
         </nav>
     </div>
+    <script>
+        var app = angular.module("App", []);
+
+        app.controller("Ctrl", function($scope, $http) {
+            $scope.viewUsermanagement = function(){
+                $http.get('/admin/usermanagement').
+                        success(function(data, status, headers, config) {
+                            $scope.content = data;
+                        }).
+                        error(function(data, status, headers, config) {
+                            // log error
+                        });
+            }
+            $scope.viewBills = function(){
+                $http.get('/admin/bills').
+                        success(function(data, status, headers, config) {
+                            $scope.content = data;
+                        }).
+                        error(function(data, status, headers, config) {
+                            // log error
+                        });
+            }
+            $scope.viewLdapConfiguration = function(){
+                $http.get('/admin/ldap').
+                        success(function(data, status, headers, config) {
+                            $scope.content = data;
+                        }).
+                        error(function(data, status, headers, config) {
+                            // log error
+                        });
+            }
+            $scope.viewUserquotas = function(){
+                $http.get('/admin/quotas').
+                        success(function(data, status, headers, config) {
+                            $scope.content = data;
+                        }).
+                        error(function(data, status, headers, config) {
+                            // log error
+                        });
+            }
+            $scope.viewStatistics = function(){
+                $http.get('/admin/statistics').
+                        success(function(data, status, headers, config) {
+                            $scope.content = data;
+                        }).
+                        error(function(data, status, headers, config) {
+                            // log error
+                        });
+            }
+            $scope.viewUsermanagement();
+        });
+
+
+        app.filter("sanitize", ['$sce', function($sce) {
+            return function(htmlCode){
+                return $sce.trustAsHtml(htmlCode);
+            }
+        }]);
+
+        $scope.testy = function(){
+            alert("testy");
+        }
+    </script>
 {% endblock %}

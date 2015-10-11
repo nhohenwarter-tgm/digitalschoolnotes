@@ -19,12 +19,21 @@ from django.contrib import admin
 urlpatterns = [
     #url(r'^admin/', include(admin.site.urls)),
 
+    #Management
     url(r'^management/timetable', 'dsn.views.management_views.timetable', name="management_timetable"),
     url(r'^management/notebooks', 'dsn.views.management_views.notebooks', name="management_notebooks"),
     url(r'^management/settings', 'dsn.views.management_views.accsettings', name="management_accsettings"),
 
-    url(r'^$', 'dsn.views.mainpage_views.mainpage', name="mainpage"),
-    url(r'^management', 'dsn.views.management_views.management', name="management"),
-    url(r'^notebook', 'dsn.views.notebook_views.notebook', name="notebook"),
-    url(r'^administration', 'dsn.views.administration_views.administration', name="administration"),
+    #Administration
+    url(r'^admin/usermanagement', 'dsn.views.administration_views.view_usermanagement', name="admin_usermanagement"),
+    url(r'^admin/bills', 'dsn.views.administration_views.view_bills', name="admin_bills"),
+    url(r'^admin/ldap', 'dsn.views.administration_views.view_ldap_configuration', name="admin_ldap"),
+    url(r'^admin/quotas', 'dsn.views.administration_views.view_userquotas', name="admin_userquotas"),
+    url(r'^admin/statistics', 'dsn.views.administration_views.view_statistics', name="admin_statistics"),
+
+    #Basic
+    url(r'^$', 'dsn.views.mainpage_views.view_mainpage', name="mainpage"),
+    url(r'^management', 'dsn.views.management_views.view_management', name="management"),
+    url(r'^notebook', 'dsn.views.notebook_views.view_notebook', name="notebook"),
+    url(r'^administration', 'dsn.views.administration_views.view_administration', name="administration"),
 ]
