@@ -5,8 +5,11 @@ from django.core.urlresolvers import reverse
 def management(request):
     return render(request, 'basic/management.html', {})
 
-def notebook(request):
-    return render(request, 'management_notebook.html', {})
+def notebooks(request):
+    return render(request, 'management/management_notebooks.html', {})
 
 def timetable(request):
-    return render(request, 'management_timetable.html', {})
+    return render(request, 'management/management_timetable.html', {})
+
+def accsettings(request):
+    return render(request, 'management/management_accsettings.html', {})
