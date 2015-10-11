@@ -1,5 +1,6 @@
-{% extends "base.html" %}
+{% extends "basic/base.html" %}
 {% load staticfiles %}
+{% load i18n %}
 {% block content %}
     <div class="container">
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -17,10 +18,10 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="">Features</a></li>
-                    <li><a href="">Pricing</a></li>
-                    <li><a href="">About</a></li>
-                    <li class="active"><a href="">Login</a></li>
+                    <li><a href="">{% trans "Features" %}</a></li>
+                    <li><a href="">{% trans "Pricing" %}</a></li>
+                    <li><a href="">{% trans "About" %}</a></li>
+                    <li class="active"><a href="">{% trans "Login" %}</a></li>
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
@@ -34,7 +35,6 @@
         </div>
         <div class="col-md-4">
             <!-- TODO Registration -->
-            Registration
         </div>
     </div>
     </div>
