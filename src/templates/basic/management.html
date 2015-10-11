@@ -19,7 +19,7 @@
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li><a ng-click="testy()" href="">{% trans "Timetable" %}</a></li>
-                        <li><a href="">{% trans "Notebooks" %}</a></li>
+                        <li><a ng-click="viewNotebook()"href="">{% trans "Notebooks" %}</a></li>
                         <li><a href="">{% trans "Account Settings" %}</a></li>
                         <li><a href="">{% trans "Upgrade now" %}</a></li>
                     </ul>
@@ -45,20 +45,26 @@
     <script>
     var app = angular.module("MyApp", []);
 
-app.controller("TestyCtrl", function($scope, $http) {
-  $http.get('/management/timetable').
-    success(function(data, status, headers, config) {
-      $scope.content = data;
-    }).
-    error(function(data, status, headers, config) {
-      // log error
-    });
-});
+    app.controller("TestyCtrl", function($scope, $http) {
+
+        $http.get('/management/timetable').
+                success(function(data, status, headers, config) {
+                    $scope.content = data;
+                }).
+                error(function(data, status, headers, config) {
+                    // log error
+                });
+
+    $scope.viewNotebook = function(){
+        alert("testy");
+    }});
+
+
     app.filter("sanitize", ['$sce', function($sce) {
-  return function(htmlCode){
-    return $sce.trustAsHtml(htmlCode);
-  }
-}]);
+        return function(htmlCode){
+            return $sce.trustAsHtml(htmlCode);
+        }
+    }]);
 
     $scope.testy = function(){
         alert("testy");
