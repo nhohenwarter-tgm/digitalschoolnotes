@@ -2,7 +2,8 @@
 {% load staticfiles %}
 {% load i18n %}
 {% block content %}
-    <div class="container">
+<div class="container">
+    <!-- NAVBAR START -->
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -23,19 +24,24 @@
                     <li><a href="">{% trans "About" %}</a></li>
                     <li class="active"><a href="">{% trans "Login" %}</a></li>
                 </ul>
-            </div><!--/.nav-collapse -->
+            </div>
         </div>
     </nav>
+    <!-- NAVBAR END -->
+    <!-- CONTENT START -->
     <div style="padding-top: 80px;">
+        <!-- VIDEO -->
         <div class="col-md-8">
             <!-- Tutorial: https://jonsuh.com/blog/responsive-youtube-vimeo-embed-and-html5-video-with-css/ -->
             <div class="js-video [widescreen]">
                 <iframe src="https://www.youtube.com/embed/uh4dTLJ9q9o" frameborder="0" allowfullscreen></iframe>
             </div>
         </div>
+        <!-- REGISTRATION -->
         <div class="col-md-4">
             <!-- TODO Registration -->
         </div>
     </div>
-    </div>
+    <!-- CONTENT END -->
+</div>
 {% endblock %}

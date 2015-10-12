@@ -2,6 +2,7 @@
 {% load staticfiles %}
 {% load i18n %}
 {% block content %}
+    <!-- NAVBAR START -->
     <div class="container" ng-app="App" ng-controller="Ctrl">
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container">
@@ -39,13 +40,16 @@
                 </div>
             </div>
         </nav>
+        <!-- CONTENT START -->
         <div style="padding-top: 100px;" ng-bind-html="content | sanitize">
         </div>
+        <!-- CONTENT END -->
     </div>
     <script>
         var app = angular.module("App", []);
 
         app.controller("Ctrl", function($scope, $http) {
+            // LOAD CONTENT NOTEBOOKS
             $scope.viewNotebook = function(){
                 $http.get('/management/notebooks').
                         success(function(data, status, headers, config) {
@@ -55,6 +59,7 @@
                             // log error
                         });
             }
+            // LOAD CONTENT TIMETABLE
             $scope.viewTimetable = function(){
                 $http.get('/management/timetable').
                         success(function(data, status, headers, config) {
@@ -64,6 +69,7 @@
                             // log error
                         });
             }
+            // LOAD CONTENT ACCOUNT SETTINGS
             $scope.viewAccSettings = function(){
                 $http.get('/management/settings').
                         success(function(data, status, headers, config) {
@@ -73,20 +79,18 @@
                             // log error
                         });
             }
+            // First view: show timetable
             $scope.viewTimetable();
         });
 
-
+        // Filter for displaying html-content correctly
         app.filter("sanitize", ['$sce', function($sce) {
             return function(htmlCode){
                 return $sce.trustAsHtml(htmlCode);
             }
         }]);
-
-        $scope.testy = function(){
-            alert("testy");
-        }
     </script>
+    <!-- NAVBAR END -->
 {% endblock %}
 
 {% block scripts %}

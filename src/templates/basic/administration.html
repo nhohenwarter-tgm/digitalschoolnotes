@@ -2,6 +2,7 @@
 {% load staticfiles %}
 {% load i18n %}
 {% block content %}
+    <!-- NAVBAR START -->
     <div class="container" ng-app="App" ng-controller="Ctrl">
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
@@ -30,11 +31,16 @@
                 </div>
             </div>
         </nav>
+        <!-- CONTENT START -->
+        <div style="padding-top: 100px;" ng-bind-html="content | sanitize">
+        </div>
+        <!-- CONTENT END -->
     </div>
     <script>
         var app = angular.module("App", []);
 
         app.controller("Ctrl", function($scope, $http) {
+            // LOAD CONTENT USERMANAGEMENT
             $scope.viewUsermanagement = function(){
                 $http.get('/admin/usermanagement').
                         success(function(data, status, headers, config) {
@@ -44,6 +50,7 @@
                             // log error
                         });
             }
+            // LOAD CONTENT BILLS
             $scope.viewBills = function(){
                 $http.get('/admin/bills').
                         success(function(data, status, headers, config) {
@@ -53,6 +60,7 @@
                             // log error
                         });
             }
+            // LOAD CONTENT LDAP CONFIGURATION
             $scope.viewLdapConfiguration = function(){
                 $http.get('/admin/ldap').
                         success(function(data, status, headers, config) {
@@ -62,6 +70,7 @@
                             // log error
                         });
             }
+            // LOAD CONTENT USERQUOTAS
             $scope.viewUserquotas = function(){
                 $http.get('/admin/quotas').
                         success(function(data, status, headers, config) {
@@ -71,6 +80,7 @@
                             // log error
                         });
             }
+            // LOAD CONTENT STATISTICS
             $scope.viewStatistics = function(){
                 $http.get('/admin/statistics').
                         success(function(data, status, headers, config) {
@@ -80,18 +90,16 @@
                             // log error
                         });
             }
+            // First view: show usermanagement
             $scope.viewUsermanagement();
         });
 
-
+        // Filter for displaying html-content correctly
         app.filter("sanitize", ['$sce', function($sce) {
             return function(htmlCode){
                 return $sce.trustAsHtml(htmlCode);
             }
         }]);
-
-        $scope.testy = function(){
-            alert("testy");
-        }
     </script>
+    <!-- NAVBAR END -->
 {% endblock %}
