@@ -86,7 +86,7 @@
 \textit{\textbf{Projektgruppe: Adler, Brinnich, Hohenwarter, Karic, Stedronsky}}
 \vspace{10mm}
 
-\textbf{{\color{g4}Version 1.1 \hfill 07.10.2015 \hfill Status: [RELEASE]}}
+\textbf{{\color{g4}Version 1.2 \hfill 12.10.2015 \hfill Status: [RELEASE]}}
 %Table
 \begin{table}[h]
 \renewcommand{\arraystretch}{2.0}
@@ -113,7 +113,7 @@
 \renewcommand{\footrulewidth}{0.4pt}
 \setlength\headheight{15pt}
 \lhead{Serverdokumentation}
-\rhead{Version 1.1}
+\rhead{Version 1.2}
 \lfoot{Adler, Brinnich, Hohenwarter, Karic, Stedronsky}
 \cfoot{}
 \rfoot{Seite \thepage \hspace{1pt} von \totalpages}
@@ -147,7 +147,7 @@
 \tabhvent{\textbf{0.2}} & \tabhvent{21.09.2015} & \tabhvent{Bearbeitet} &  \tabhvent{Hohenwarter}    &  \tabhvent{Alles verbessert}         \\ \hline
 \tabhvent{\textbf{1.0}} & \tabhvent{28.09.2015} & \tabhvent{QA} &  \tabhvent{Stedronsky}    &  \tabhvent{Rechtschreibung}         \\ \hline
 \tabhvent{\textbf{1.1}} & \tabhvent{07.10.2015} & \tabhvent{Bearbeitet} &  \tabhvent{Hohenwarter}    &  \tabhvent{Django Ports}         \\ \hline
-
+\tabhvent{\textbf{1.1}} & \tabhvent{12.10.2015} & \tabhvent{Bearbeitet} &  \tabhvent{Hohenwarter}    &  \tabhvent{Deployment}         \\ \hline
 \end{tabularx}
 \end{table}
 \newpage
@@ -284,6 +284,80 @@ server {
 
 Um die Weiterleitung zu aktivieren muss ein Link nach \textbf{\textit{/etc/nginx/sites-enabled}} gesetzt werden. Dies geht mit dem Befehl \textbf{\textit{ln -s /etc/nginx/sites-available/redirects /etc/nginx/sites-enabled/redirects}}. Dannach muss der Nginx Service neu gestartet werden.
 
+\section{Deployment}
+\subsection{SSL}
+Um die Daten verschlüsselt übertragen zu können wird ein SSL Zertifikat benötigt. Dieses kaufen wir bei unserem Hoster. Wir haben uns für das Thwawte SSL123 Zertifikat\cite{CERT:1} für 1 Jahr entschieden. Bei dem Kauf des Zertifikates muss auf dem Server zuerst eine Zertifikatsanfrage erstellt werden(CSR).\\
+
+Dies geschieht wie folgt\cite{CERT:2}:
+\begin{lstlisting}
+openssl req -new -newkey rsa:2048 -nodes -sha256 -keyout dsn.key -out dsn.csr
+Generating a 2048 bit RSA private key
+.................................................................+++
+..........+++
+writing new private key to 'dsn.key'
+-----
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [AU]:AT
+State or Province Name (full name) [Some-State]:Wien
+Locality Name (eg, city) []:Wien
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:DigitalSchoolNotes
+Organizational Unit Name (eg, section) []:
+Common Name (e.g. server FQDN or YOUR name) []:digitalschoolnotes.com
+Email Address []:root@digitalschoolnotes.com
+
+Please enter the following 'extra' attributes
+to be sent with your certificate request
+A challenge password []:
+An optional company name []:
+\end{lstlisting}
+Nach dem beantworten der Fragen wird das CSR generiert. Dieses muss dann beim Kauf angegeben werden. Dannach muss das Zertifikat bezahlt werden. Nun bekommt man das Zertifikat per Email.
+
+\subsection{Nginx}
+Nun muss das Zertifikat auf Nginx eingerichtet werden\cite{CERT:3}:
+Man benötigt das Zertifikat, das öffentliche Zertifikat von Thawte und den Private Key.
+Diese müssen nun zusammengefügt werden.
+\begin{lstlisting}
+cat digitalschoonotes.com.crt intermediate.crt > digitalschoolnotes.com.chain.crt
+\end{lstlisting}
+Nun muss Nginx konfiguriert werden.
+\begin{lstlisting}
+#/etc/nginx/sites-available/default
+server {
+        listen 80;
+        listen 443 ssl;
+
+        root /var/www/html;
+
+        # Add index.php to the list if you are using PHP
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name digitalschoolnotes.com;
+        ssl_certificate /home/niklas/ssl/digitalschoolnotes.com.chained.crt;
+        ssl_certificate_key /home/niklas/ssl/digitalschoolnotes.com.key;
+
+        ssl_protocols TLSv1.2;
+        ssl_prefer_server_ciphers on;
+        ssl_ciphers AES256+EECDH:AES256+EDH:!aNULL;
+        ssl_verify_depth 3;
+
+        if ($ssl_protocol = "") {
+            rewrite ^   https://$server_name$request_uri? permanent;
+        }
+
+        location / {
+                # First attempt to serve request as file, then
+                # as directory, then fall back to displaying a 404.
+                try_files $uri $uri/ =404;
+        }
+}
+\end{lstlisting}
+Es werden nun alle HTTP Anfragen nach HTTPS umgeleitet.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Bibliography
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

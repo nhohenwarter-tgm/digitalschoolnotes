@@ -19,10 +19,14 @@ from django.contrib import admin
 urlpatterns = [
     #url(r'^admin/', include(admin.site.urls)),
 
+    #Mainpage
+    url(r'^mainpage/content', 'dsn.views.mainpage_views.view_mainpage_content', name="mainpage_content"),
+    url(r'^login', 'dsn.views.mainpage_views.view_login', name="login"),
+
     #Management
     url(r'^management/timetable', 'dsn.views.management_views.view_timetable', name="management_timetable"),
     url(r'^management/notebooks', 'dsn.views.management_views.view_notebooks', name="management_notebooks"),
-    url(r'^management/settings', 'dsn.views.management_views.view_accsettings', name="management_accsettings"),
+    url(r'^management/settings', 'dsn.views.management_views.accsettings', name="management_accsettings"),
 
     #Administration
     url(r'^admin/usermanagement', 'dsn.views.administration_views.view_usermanagement', name="admin_usermanagement"),
