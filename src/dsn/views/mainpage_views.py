@@ -1,5 +1,5 @@
 from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.core.urlresolvers import reverse
 from dsn.authentication.registration import register_user
 
@@ -33,5 +33,8 @@ def view_registration(request):
     :param request: HTTP-Request
     :return: ein gerendertes Template
     """
-    register_user("asd","asd","asd","asd")
-    return render(request, 'login.html', {})
+    if request.method == "POST":
+        register_user("asd","asd","asd","asd")
+        return redirect('view_mainpage')
+    else:
+        return redirect('view_mainpage')
