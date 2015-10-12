@@ -20,9 +20,9 @@ urlpatterns = [
     #url(r'^admin/', include(admin.site.urls)),
 
     #Management
-    url(r'^management/timetable', 'dsn.views.management_views.timetable', name="management_timetable"),
-    url(r'^management/notebooks', 'dsn.views.management_views.notebooks', name="management_notebooks"),
-    url(r'^management/settings', 'dsn.views.management_views.accsettings', name="management_accsettings"),
+    url(r'^management/timetable', 'dsn.views.management_views.view_timetable', name="management_timetable"),
+    url(r'^management/notebooks', 'dsn.views.management_views.view_notebooks', name="management_notebooks"),
+    url(r'^management/settings', 'dsn.views.management_views.view_accsettings', name="management_accsettings"),
 
     #Administration
     url(r'^admin/usermanagement', 'dsn.views.administration_views.view_usermanagement', name="admin_usermanagement"),
