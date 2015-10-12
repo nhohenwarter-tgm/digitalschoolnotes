@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'mongoengine.django.mongo_auth',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -96,6 +97,13 @@ _MONGODB_NAME = 'testy' #DB-Name
 _MONGODB_DATABASE_HOST = 'mongodb://%s' % (_MONGODB_HOST)
 mongoengine.connect(_MONGODB_NAME, host=_MONGODB_DATABASE_HOST)
 
+#Authentication
+AUTHENTICATION_BACKENDS = (
+    'mongoengine.django.auth.MongoEngineBackend',
+)
+
+AUTH_USER_MODEL=('mongo_auth.MongoUser')
+MONGOENGINE_USER_DOCUMENT = 'dsn.models.AuthUser'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
