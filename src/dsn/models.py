@@ -8,4 +8,5 @@ class Food(Document):
 """
 
 #TODO Add model for notebook
+#TODO Add model for timetable
 #TODO Add model for user
