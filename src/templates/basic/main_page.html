@@ -2,7 +2,7 @@
 {% load staticfiles %}
 {% load i18n %}
 {% block content %}
-<div class="container">
+<div class="container" ng-app="App" ng-controller="Ctrl">
     <!-- NAVBAR START -->
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
@@ -22,25 +22,50 @@
                     <li><a href="">{% trans "Features" %}</a></li>
                     <li><a href="">{% trans "Pricing" %}</a></li>
                     <li><a href="">{% trans "About" %}</a></li>
-                    <li class="active"><a href="">{% trans "Login" %}</a></li>
+                    <li class="active"><a ng-click="viewLogin()" href="">{% trans "Login" %}</a></li>
                 </ul>
             </div>
         </div>
     </nav>
+    <script>
+        var app = angular.module("App", []);
+
+        app.controller("Ctrl", function($scope, $http) {
+            // LOAD CONTENT NOTEBOOKS
+            $scope.viewMainpage = function(){
+                $http.get('/mainpage/content').
+                        success(function(data, status, headers, config) {
+                            $scope.content = data;
+                        }).
+                        error(function(data, status, headers, config) {
+                            alert(data);
+                            alert(status);
+                        });
+            }
+            // LOAD CONTENT TIMETABLE
+            $scope.viewLogin = function(){
+                $http.get('/login').
+                        success(function(data, status, headers, config) {
+                            $scope.content = data;
+                        }).
+                        error(function(data, status, headers, config) {
+                            // log error
+                        });
+            }
+            // First view: show timetable
+            $scope.viewMainpage();
+        });
+
+        // Filter for displaying html-content correctly
+        app.filter("sanitize", ['$sce', function($sce) {
+            return function(htmlCode){
+                return $sce.trustAsHtml(htmlCode);
+            }
+        }]);
+    </script>
     <!-- NAVBAR END -->
     <!-- CONTENT START -->
-    <div style="padding-top: 80px;">
-        <!-- VIDEO -->
-        <div class="col-md-8">
-            <!-- Tutorial: https://jonsuh.com/blog/responsive-youtube-vimeo-embed-and-html5-video-with-css/ -->
-            <div class="js-video [widescreen]">
-                <iframe src="https://www.youtube.com/embed/uh4dTLJ9q9o" frameborder="0" allowfullscreen></iframe>
-            </div>
-        </div>
-        <!-- REGISTRATION -->
-        <div class="col-md-4">
-            <!-- TODO Registration -->
-        </div>
+    <div style="padding-top: 10px;" ng-bind-html="content | sanitize">
     </div>
     <!-- CONTENT END -->
 </div>
