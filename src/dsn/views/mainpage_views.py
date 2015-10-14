@@ -37,4 +37,16 @@ def view_registration(request):
         register_user("asd","asd","asd","asd")
         return redirect('view_mainpage')
     else:
-        return redirect('view_mainpage')
+        return redirect('mainpage')
+
+def view_resetPassword(request):
+    """
+    Rendert das Teil-Template für die Account Einstellungen der Management-Seite (nur Inhalt - ohne Header, Footer)
+    :param request: HTTP-Request
+    :return: ein gerendertes Template
+    """
+    if request.method == 'POST':
+        # TODO Validate & Create Token
+        pass
+    else:
+        return render(request, 'main_page/reset_password.html', {})
