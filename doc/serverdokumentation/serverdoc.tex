@@ -96,7 +96,7 @@
 \rowcolor{g1} 
 \tabhvent{}&\tabhvent{\textbf{Datum}} & \tabhvent{\textbf{Name}} & \tabhvent{\textbf{Unterschrift}} \\ \hline
 \tabhvent{\textbf{Erstellt}} & \tabhvent{09.09.2015} & \tabhvent{Niklas Hohenwarter} &  \tabhvent{}            \\ \hline
-\tabhvent{\textbf{Geprüft}} & \tabhvent{28.09.2015} & \tabhvent{Thomas Stedronsky} &  \tabhvent{}            \\ \hline
+\tabhvent{\textbf{Geprüft}} & \tabhvent{} & \tabhvent{} &  \tabhvent{}            \\ \hline
 \tabhvent{\textbf{Freigegeben}} & \tabhvent{} & \tabhvent{} &  \tabhvent{}            \\ \hline
 \specialrule{0.07em}{0em}{0em}
 \multicolumn{4}{|l|}{\textbf{Git-Pfad:} /doc/serverdokumentation \hfill \textbf{Dokument:} serverdoc.tex}                    \\ \hline
@@ -148,6 +148,7 @@
 \tabhvent{\textbf{1.0}} & \tabhvent{28.09.2015} & \tabhvent{QA} &  \tabhvent{Stedronsky}    &  \tabhvent{Rechtschreibung}         \\ \hline
 \tabhvent{\textbf{1.1}} & \tabhvent{07.10.2015} & \tabhvent{Bearbeitet} &  \tabhvent{Hohenwarter}    &  \tabhvent{Django Ports}         \\ \hline
 \tabhvent{\textbf{1.1}} & \tabhvent{12.10.2015} & \tabhvent{Bearbeitet} &  \tabhvent{Hohenwarter}    &  \tabhvent{Deployment}         \\ \hline
+\tabhvent{\textbf{1.2}} & \tabhvent{14.10.2015} & \tabhvent{Bearbeitet} &  \tabhvent{Stedronsky}    &  \tabhvent{Rechtschreibfehler}         \\ \hline
 \end{tabularx}
 \end{table}
 \newpage
@@ -162,9 +163,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Hosting}
 Unser Projektserver ist beim in Deutschland ansässigen Unternehmen Netcup\cite{NETCUP:1} gehostet. Hier haben wir den Root-Server M angemietet(2 Cores Intel®Xeon® E5-26xxV3
-(min. 2,3 GHz je Kern), 6 GB DDR4(ECC),120GB SSD, 1 GBit/s)\cite{NETCUP:2}. Dieser ist unter der IP Adresse \textbf{37.120.161.195} erreichbar.\\
+(min. 2,3 GHz je Kern), 6 GB DDR4(ECC),120GB SSD, 1 GBit/s)\cite{NETCUP:2} mit dem OS Debian 8 und mit der Kernel Version 3.16.0-4-amd64. Dieser ist unter der IP Adresse \textbf{37.120.161.195} erreichbar.\\
 
-Auf den Server ist die Domain digitalschoolnotes.com geschaltet. Diese ist ebenfalls bei netcup gemietet.\\
+Auf dem Server ist die Domain digitalschoolnotes.com geschaltet. Diese ist ebenfalls bei netcup gemietet.\\
 
 Folgende Subdomains existieren:
 
@@ -243,7 +244,7 @@ iptables-save > /etc/iptables/rules.v4
 Um den SSH Zugang gegen Brute Force Attacken abzusichern wurde fail2ban installiert. Dieses Paket versucht Bruteforce Attacken zu verhindern. \cite{HOWTO:1} \\
 
 \subsection{Konfiguration}
-Das Paket wurde mittels \textbf{\textit{sudo apt-get install fail2ban}} installiert. Die Standardkonfiguration wird verwendet.
+Das Paket wurde mittels \textbf{\textit{sudo apt-get install fail2ban}} installiert. Die Standardkonfiguration wurde angepasst, um all unsere Services zu schützen.
 
 \section{Webserver}
 Als Webserver wird nginx verwendet. Aktuell existieren auf dem Server nur Weiterleitungen zu unserem Github Repository, Taiga, der Zeitaufzeichnung und dem CI Tool (Subdomains, siehe oben).
@@ -282,7 +283,7 @@ server {
 
 \end{lstlisting}
 
-Um die Weiterleitung zu aktivieren muss ein Link nach \textbf{\textit{/etc/nginx/sites-enabled}} gesetzt werden. Dies geht mit dem Befehl \textbf{\textit{ln -s /etc/nginx/sites-available/redirects /etc/nginx/sites-enabled/redirects}}. Dannach muss der Nginx Service neu gestartet werden.
+Um die Weiterleitung zu aktivieren muss ein Link nach \textbf{\textit{/etc/nginx/sites-enabled}} gesetzt werden. Dies geht mit dem Befehl \textbf{\textit{ln -s /etc/nginx/sites-available/redirects /etc/nginx/sites-enabled/redirects}}. Dannach muss der Nginx Service neu gestartet werden. Diese geschieht mit dem Befehl \textbf{\textit{service nginx reload}}.
 
 \section{Deployment}
 \subsection{SSL}
