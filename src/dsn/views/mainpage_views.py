@@ -56,3 +56,15 @@ def view_registration(request):
     else:
         form = RegistrationForm()
         return {'registration_form': form}
+
+def view_resetPassword(request):
+    """
+    Rendert das Teil-Template für die Account Einstellungen der Management-Seite (nur Inhalt - ohne Header, Footer)
+    :param request: HTTP-Request
+    :return: ein gerendertes Template
+    """
+    if request.method == 'POST':
+        # TODO Validate & Create Token
+        pass
+    else:
+        return render(request, 'main_page/reset_password.html', {})
