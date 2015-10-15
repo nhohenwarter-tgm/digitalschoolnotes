@@ -10,40 +10,49 @@
     <!-- REGISTRATION -->
     <div class="col-md-4">
         <!-- TODO Registration -->
-        <form action="{% url 'register' %}" method="post">
-            {% csrf_token %}
+        <form ng-controller="RegformCtrl"><!--action="{% url 'mainpage_content' %}" method="post"-->
+            <!--{% csrf_token %}-->
+            {% if registration_error %}
+                <div class="row" style="padding-top: 10px;">
+                    <div class="col-md-12">
+                        {{ registration_error }}
+                    </div>
+                </div>
+            {% endif %}
+            <!--{{ registration_form }}-->
+
             <div class="row" style="padding-top: 10px;">
                 <div class="col-md-6">
-                    <input type="text" name="firstname" placeholder="{% trans "Vorname" %}"  style="width: 100%;"/>
+                    <input type="text" name="firstname" placeholder="{% trans "Vorname" %}"  ng-model="regform.firstname" style="width: 100%;"/>
                 </div>
                 <div class="col-md-6">
-                    <input type="text" name="lastname" placeholder="{% trans "Nachname" %}"  style="width: 100%;"/>
+                    <input type="text" name="lastname" placeholder="{% trans "Nachname" %}" ng-model="regform.lastname" style="width: 100%;"/>
                 </div>
             </div>
             <div class="row" style="padding-top: 10px;">
                 <div class="col-md-12">
-                    <input type="text" name="email" placeholder="{% trans "E-Mail Adresse" %}"  style="width: 100%;"/>
+                    <input type="text" name="email" placeholder="{% trans "E-Mail Adresse" %}" ng-model="regform.email" style="width: 100%;"/>
                 </div>
             </div>
             <div class="row" style="padding-top: 10px;">
                 <div class="col-md-12">
-                    <input type="text" name="pwd" placeholder="{% trans "Passwort" %}" style="width: 100%;"/>
+                    <input type="text" name="pwd" placeholder="{% trans "Passwort" %}" ng-model="regform.password" style="width: 100%;"/>
                 </div>
             </div>
             <div class="row" style="padding-top: 10px;">
                 <div class="col-md-12">
-                    <input type="text" name="pwd_repeat" placeholder="{% trans "Passwort Wiederholung" %}"  style="width: 100%;"/>
+                    <input type="text" name="pwd_repeat" placeholder="{% trans "Passwort Wiederholung" %}" ng-model="regform.password_repeat" style="width: 100%;"/>
                 </div>
             </div>
             <div class="row" style="padding-top: 10px;">
                 <div class="col-md-12">
-                    <input type="checkbox" name="name" />
+                    <input type="checkbox" name="accept" ng-model="regform.accept"/>
                     {% trans "Ich akzeptiere die Nutzungsbedingungen" %}
                 </div>
             </div>
             <div class="row" style="padding-top: 10px;">
                 <div class="col-md-6">
-                    <button class="btn btn-success" type="submit">{% trans "Registrieren" %}</button>
+                    <button ng-click="submitRegform()" class="btn btn-success">{% trans "Registrieren" %}</button>
                 </div>
                 <div class="col-md-6">
                 </div>

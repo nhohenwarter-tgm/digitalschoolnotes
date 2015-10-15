@@ -27,11 +27,12 @@
             </div>
         </div>
     </nav>
+    <div style="padding-top: 100px;">{{ registration_form }}</div>
     <script>
         var app = angular.module("App", []);
 
         app.controller("Ctrl", function($scope, $http) {
-            // LOAD CONTENT NOTEBOOKS
+            // LOAD CONTENT MAINPAGE
             $scope.viewMainpage = function(){
                 $http.get('/mainpage/content').
                         success(function(data, status, headers, config) {
@@ -42,7 +43,7 @@
                             alert(status);
                         });
             }
-            // LOAD CONTENT TIMETABLE
+            // LOAD CONTENT LOGIN
             $scope.viewLogin = function(){
                 $http.get('/login').
                         success(function(data, status, headers, config) {
@@ -52,8 +53,36 @@
                             // log error
                         });
             }
-            // First view: show timetable
+            // First view: show Mainpage
             $scope.viewMainpage();
+        });
+
+        app.controller("RegformCtrl", function($scope, $http) {
+            // LOAD CONTENT MAINPAGE
+
+            $scope.submitRegform = function() {
+                var request = $http({
+                    method: "POST",
+                    url: "/mainpage/content",
+                    data: $scope.regform
+                });
+                request.success(
+                    function(data, status, headers, config) {
+                        $scope.content = data;
+                    }
+                );
+
+                /**
+                 $http.post('/mainpage/content', {params: {'form': regform},
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}}).
+                    success(function (data, status, headers, config) {
+                        $scope.content = data;
+                    }).
+                    error(function (data, status, headers, config) {
+                        alert(data);
+                        alert(status);
+                    });*/
+                }
         });
 
         // Filter for displaying html-content correctly
