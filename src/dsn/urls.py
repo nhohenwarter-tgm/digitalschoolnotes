@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^login', 'dsn.views.mainpage_views.view_login', name="login"),
     url(r'^register', 'dsn.views.mainpage_views.view_registration', name="register"),
     url(r'^resetPassword', 'dsn.views.mainpage_views.view_resetPassword', name="resetPassword"),
+    url(r'^test', 'dsn.views.mainpage_views.view_test', name="test"),
 
     #Management
     url(r'^management/timetable', 'dsn.views.management_views.view_timetable', name="management_timetable"),

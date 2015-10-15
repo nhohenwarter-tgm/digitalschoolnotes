@@ -1,9 +1,9 @@
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.core.urlresolvers import reverse
 from dsn.authentication.registration import register_user, validate_registration
 from dsn.forms import RegistrationForm
-
+import json
 def view_mainpage(request):
     """
     Rendert das Template für die Haupt-Seite (ohne Inhalt - nur Header, Footer)
@@ -68,3 +68,13 @@ def view_resetPassword(request):
         pass
     else:
         return render(request, 'main_page/reset_password.html', {})
+
+def view_test(request):
+    """
+    Rendert das Teil-Template für die Account Einstellungen der Management-Seite (nur Inhalt - ohne Header, Footer)
+    :param request: HTTP-Request
+    :return: ein gerendertes Template
+    """
+    if request.method=='POST':
+        return JsonResponse({'message':'success'})
+    return render(request, 'test.html', {})
