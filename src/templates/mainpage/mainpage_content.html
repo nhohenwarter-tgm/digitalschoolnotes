@@ -38,6 +38,7 @@
     <div class="col-md-4">
         <!-- TODO Registration -->
         <form ng-controller="RegformCtrl" ng-submit="submitRegform()">
+            {% csrf_token %}
 
             <div class="row" style="padding-top: 10px;">
                 <div class="col-md-6">
@@ -70,7 +71,7 @@
             </div>
             <div class="row" style="padding-top: 10px;">
                 <div class="col-md-6">
-                    <button class="btn btn-success">{% trans "Registrieren" %}</button>
+                    <button type="submit" id="submit" class="btn btn-success">{% trans "Registrieren" %}</button>
                 </div>
                 <div class="col-md-6">
                 </div>
