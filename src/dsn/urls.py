@@ -20,27 +20,7 @@ urlpatterns = [
     #url(r'^admin/', include(admin.site.urls)),
 
     #Mainpage
-    url(r'^mainpage/content', 'dsn.views.mainpage_views.view_mainpage_content', name="mainpage_content"),
-    url(r'^login', 'dsn.views.mainpage_views.view_login', name="login"),
-    url(r'^register', 'dsn.views.mainpage_views.view_registration', name="register"),
-    url(r'^resetPassword', 'dsn.views.mainpage_views.view_resetPassword', name="resetPassword"),
-    url(r'^test', 'dsn.views.mainpage_views.view_test', name="test"),
-
-    #Management
-    url(r'^management/timetable', 'dsn.views.management_views.view_timetable', name="management_timetable"),
-    url(r'^management/notebooks', 'dsn.views.management_views.view_notebooks', name="management_notebooks"),
-    url(r'^management/settings', 'dsn.views.management_views.view_accsettings', name="management_accsettings"),
-
-    #Administration
-    url(r'^admin/usermanagement', 'dsn.views.administration_views.view_usermanagement', name="admin_usermanagement"),
-    url(r'^admin/bills', 'dsn.views.administration_views.view_bills', name="admin_bills"),
-    url(r'^admin/ldap', 'dsn.views.administration_views.view_ldap_configuration', name="admin_ldap"),
-    url(r'^admin/quotas', 'dsn.views.administration_views.view_userquotas', name="admin_userquotas"),
-    url(r'^admin/statistics', 'dsn.views.administration_views.view_statistics', name="admin_statistics"),
-
-    #Basic
-    url(r'^api', 'dsn.views.mainpage_views.view_mainpage', name="mainpage"),
-    url(r'^management', 'dsn.views.management_views.view_management', name="management"),
-    url(r'^notebook', 'dsn.views.notebook_views.view_notebook', name="notebook"),
-    url(r'^admin', 'dsn.views.administration_views.view_administration', name="admin"),
+    url(r'^api/csrf', 'dsn.views.mainpage_views.view_csrf_get', name="csrf"),
+    url(r'^api/login', 'dsn.views.mainpage_views.view_login', name="login"),
+    url(r'^api/register', 'dsn.views.mainpage_views.view_registration', name="register"),
 ]

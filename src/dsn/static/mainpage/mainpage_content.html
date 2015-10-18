@@ -9,34 +9,34 @@
     <!-- REGISTRATION -->
     <div class="col-md-4">
         <!-- TODO Registration -->
-        <form ng-submit="submitRegform()" method="POST">
-            {% csrf_token %}
+        <form ng-submit="submitRegister()" method="POST">
+            <div class="row" style="padding-left: 10px; color: red;" ng-show="error">{{ registration_error }}</div>
             <div class="row" style="padding-top: 10px;">
                 <div class="col-md-6">
-                    <input type="text" name="firstname" placeholder="Vorname" ng-model="regform.firstname" style="width: 100%;"/>
+                    <input type="text" name="firstname" placeholder="Vorname" ng-model="firstname" style="width: 100%;"/>
                 </div>
                 <div class="col-md-6">
-                    <input type="text" name="lastname" placeholder="Nachname" ng-model="regform.lastname" style="width: 100%;"/>
+                    <input type="text" name="lastname" placeholder="Nachname" ng-model="lastname" style="width: 100%;"/>
                 </div>
             </div>
             <div class="row" style="padding-top: 10px;">
                 <div class="col-md-12">
-                    <input type="text" name="email" placeholder="E-Mail Adresse" ng-model="regform.email" style="width: 100%;"/>
+                    <input type="text" name="email" placeholder="E-Mail Adresse" ng-model="email" style="width: 100%;"/>
                 </div>
             </div>
             <div class="row" style="padding-top: 10px;">
                 <div class="col-md-12">
-                    <input type="text" name="pwd" placeholder="Passwort" ng-model="regform.password" style="width: 100%;"/>
+                    <input type="password" name="pwd" placeholder="Passwort" ng-model="password" style="width: 100%;"/>
                 </div>
             </div>
             <div class="row" style="padding-top: 10px;">
                 <div class="col-md-12">
-                    <input type="text" name="pwd_repeat" placeholder="Passwort Wiederholung" ng-model="regform.password_repeat" style="width: 100%;"/>
+                    <input type="password" name="pwd_repeat" placeholder="Passwort Wiederholung" ng-model="password_repeat" style="width: 100%;"/>
                 </div>
             </div>
             <div class="row" style="padding-top: 10px;">
                 <div class="col-md-12">
-                    <input type="checkbox" name="accept" ng-model="regform.accept"/>
+                    <input type="checkbox" name="accept" ng-model="accept"/>
                     Ich akzeptiere die Nutzungsbedingungen
                 </div>
             </div>

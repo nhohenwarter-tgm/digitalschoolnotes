@@ -22,8 +22,39 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '$x1fx=j3n*h$+ecrh#^9&kf*!i^rlhlj71iyyesqee)4$53wh3'
 
+# SALT
+SALT = '#Rmq#jzsG0gkJyix(@)IPMPpAQBVl0-tLH2B7e)%'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(asctime)s %(message)s'
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR,'django.log'),
+            'formatter': 'simple'
+        },
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
 
 ALLOWED_HOSTS = []
 
@@ -36,7 +67,7 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
+#   'django.contrib.staticfiles',
     'mongoengine.django.mongo_auth',
     'djangular',
 )
@@ -104,7 +135,7 @@ AUTHENTICATION_BACKENDS = (
 )
 
 AUTH_USER_MODEL=('mongo_auth.MongoUser')
-MONGOENGINE_USER_DOCUMENT = 'dsn.models.AuthUser'
+MONGOENGINE_USER_DOCUMENT = 'dsn.models.User'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
