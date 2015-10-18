@@ -8,4 +8,4 @@ def view_notebook(request):
     :param request: HTTP-Request
     :return: ein gerendertes Template
     """
-    return render(request, 'basic/notebook.html', {})
+    return render(request, 'basic/../static/notebook.html', {})

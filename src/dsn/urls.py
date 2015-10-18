@@ -39,8 +39,8 @@ urlpatterns = [
     url(r'^admin/statistics', 'dsn.views.administration_views.view_statistics', name="admin_statistics"),
 
     #Basic
-    url(r'^$', 'dsn.views.mainpage_views.view_mainpage', name="mainpage"),
+    url(r'^api', 'dsn.views.mainpage_views.view_mainpage', name="mainpage"),
     url(r'^management', 'dsn.views.management_views.view_management', name="management"),
     url(r'^notebook', 'dsn.views.notebook_views.view_notebook', name="notebook"),
-    url(r'^administration', 'dsn.views.administration_views.view_administration', name="administration"),
+    url(r'^admin', 'dsn.views.administration_views.view_administration', name="admin"),
 ]

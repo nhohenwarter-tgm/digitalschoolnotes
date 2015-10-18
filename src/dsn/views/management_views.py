@@ -8,7 +8,7 @@ def view_management(request):
     :param request: HTTP-Request
     :return: ein gerendertes Template
     """
-    return render(request, 'basic/management.html', {})
+    return render(request, 'basic/../static/index.html', {})
 
 def view_notebooks(request):
     """
@@ -16,7 +16,7 @@ def view_notebooks(request):
     :param request: HTTP-Request
     :return: ein gerendertes Template
     """
-    return render(request, 'management/management_notebooks.html', {})
+    return render(request, '../static/management/management_notebooks.html', {})
 
 def view_timetable(request):
     """
@@ -24,7 +24,7 @@ def view_timetable(request):
     :param request: HTTP-Request
     :return: ein gerendertes Template
     """
-    return render(request, 'management/management_timetable.html', {})
+    return render(request, '../static/management/management_timetable.html', {})
 
 def view_accsettings(request):
     """
@@ -32,4 +32,4 @@ def view_accsettings(request):
     :param request: HTTP-Request
     :return: ein gerendertes Template
     """
-    return render(request, 'management/management_accsettings.html', {})
+    return render(request, '../static/management/management_accsettings.html', {})

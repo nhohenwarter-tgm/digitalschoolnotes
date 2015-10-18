@@ -1,16 +1,17 @@
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
-from django.shortcuts import get_object_or_404, render, redirect
-from django.core.urlresolvers import reverse
+from django.shortcuts import get_object_or_404, render, redirect, render_to_response
 from dsn.authentication.registration import register_user, validate_registration
 from dsn.forms import RegistrationForm
 import json
+
 def view_mainpage(request):
     """
     Rendert das Template für die Haupt-Seite (ohne Inhalt - nur Header, Footer)
     :param request: HTTP-Request
     :return: ein gerendertes Template
     """
-    return render(request, 'basic/main_page.html', {})
+    #return render_to_response('/../static/templates/index.html')
+    return JsonResponse({'message': 'success'})
 
 def view_mainpage_content(request):
     """
@@ -20,7 +21,7 @@ def view_mainpage_content(request):
     """
     reg = view_registration(request)
     print(request.method)
-    return render(request, 'mainpage/mainpage_content.html', reg)
+    return render(request, '../static/templates/mainpage/mainpage_content.html', reg)
 
 def view_login(request):
     """
@@ -67,7 +68,7 @@ def view_resetPassword(request):
         # TODO Validate & Create Token
         pass
     else:
-        return render(request, 'main_page/reset_password.html', {})
+        return render(request, 'main_page/../../templates/mainpage/reset_password.html', {})
 
 def view_test(request):
     """
