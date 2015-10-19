@@ -33,7 +33,7 @@ mainpageApp.config(function($stateProvider, $urlRouterProvider, $locationProvide
 
 });
 
-mainpageApp.controller('contentCtrl', function($scope, $http, $cookies){
+mainpageApp.controller('contentCtrl', function($scope, $http, $cookies, $state){
     $http({
             method  : 'GET',
             url     : '/api/csrf',
@@ -89,6 +89,9 @@ mainpageApp.controller('contentCtrl', function($scope, $http, $cookies){
                     if (data['registration_error'] != null) {
                         $scope.error = true;
                         $scope.registration_error = data['registration_error'];
+                    }else{
+                        alert('Vielen Dank für deine Registrierung!\n' +
+                            'Sobald du deine E-Mail Adresse bestätigt hast kannst du dich einloggen und sofort starten!');
                     }
                 })
                 .error(function (data) {
@@ -98,7 +101,7 @@ mainpageApp.controller('contentCtrl', function($scope, $http, $cookies){
     }
 });
 
-mainpageApp.controller('loginCtrl', function($scope, $http){
+mainpageApp.controller('loginCtrl', function($scope, $http, $window){
     $scope.submitLogin = function(){
         var email = $scope.email;
         var password = $scope.password;
@@ -112,6 +115,8 @@ mainpageApp.controller('loginCtrl', function($scope, $http){
                 if (data['login_error'] != null) {
                     $scope.error = true;
                     $scope.login_error = data['login_error'];
+                }else{
+                    $window.location.href = '/management';
                 }
             })
             .error(function(data){

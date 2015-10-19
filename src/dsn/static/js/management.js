@@ -1,9 +1,9 @@
 var managementApp = angular.module('managementApp', ['ui.router']);
 
-managementApp.config(function($stateProvider, $urlRouterProvider, $locationProvider,$httpProvider) {
+managementApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
 
     $urlRouterProvider.otherwise('/management');
-   // $urlRouterProvider.otherwise('/');
+
     // TIMETABLE
     $stateProvider.state('timetable', {
         url: '/management',
@@ -41,9 +41,9 @@ managementApp.config(function($stateProvider, $urlRouterProvider, $locationProvi
 
     $locationProvider.html5Mode(true);
 
-     // CSRF TOKEN  wenn das eingefügt wird dann verschwindet das form..
-     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
-     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+    // CSRF TOKEN
+    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
 
 });
 
@@ -52,8 +52,40 @@ managementApp.controller('accsettingsCtrl', function($scope){
 });
 
 managementApp.controller('notebooksCtrl', function($scope){
-
+    $scope.a = '2';
 });
+
+managementApp.controller('timetableCtrl', function($scope, $window, loggedIn){
+    $scope.a = '3';
+    if(!loggedIn.isAdmin()){
+        $window.location.href = '/';
+    }
+});
+
+managementApp.service('loggedIn', function ($http) {
+    this.isAdmin = function () {
+        var user = null;
+        $http({
+            method  : 'POST',
+            url     : '/api/loggedInUser',
+            headers : {'Content-Type': 'application/json'},
+            data    : {}
+        })
+            .success(function(data){
+                alert("Success");
+                user = data['user'];
+                if(user == null){
+                    return false;
+                }else{
+                    return user.is_admin;
+                }
+            })
+            .error(function(data){
+                alert("Error");
+            });
+
+    }
+})
 
 managementApp.controller('notebooksCtrl_create', function($scope){
     var name = $scope.name;

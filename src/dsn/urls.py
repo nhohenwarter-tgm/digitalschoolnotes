@@ -21,6 +21,7 @@ urlpatterns = [
 
     #Mainpage
     url(r'^api/csrf', 'dsn.views.mainpage_views.view_csrf_get', name="csrf"),
+    url(r'^api/loggedInUser', 'dsn.views.mainpage_views.view_getLoggedInUser', name="loggedInUser"),
     url(r'^api/login', 'dsn.views.mainpage_views.view_login', name="login"),
     url(r'^api/logout', 'dsn.views.mainpage_views.view_logout', name="logout"),
     url(r'^api/register', 'dsn.views.mainpage_views.view_registration', name="register"),

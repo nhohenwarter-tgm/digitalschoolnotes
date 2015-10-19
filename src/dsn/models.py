@@ -266,7 +266,7 @@ class Notebook(Document):
         return self._profile_cache
 
 
-class TimeTableElem():
+class TimeTableElem(Document):
     gegenstand = StringField(max_length=30) #englsich
     lehrer = StringField(max_length=50)
     anfang = StringField()

@@ -1,6 +1,7 @@
 from django.http import JsonResponse
-from dsn.forms import TimeElemForm
-from dsn.models import TimeTableElem
+from dsn.forms import TimeElemForm#, NotebookForm
+from dsn.models import TimeTableElem, User, Notebook
+from bson import ObjectId
 import json
 
 
@@ -23,15 +24,12 @@ def view_timetable(request):
        # val = validate_registration(form.email, form.password, form.password_repeat)
         #if val is True:
         # te = TimeTableElem(gegenstand=form.gegenstand,lehrer=form.lehrer,anfang=form.anfang,ende=form.ende,raum=form.raum)#alles englisch
-        te = TimeTableElem.create(form.gegenstand,form.lehrer,form.anfang,form.ende,form.raum)
-        #te.save()
+        te = TimeTableElem(gegenstand=form.gegenstand,lehrer=form.lehrer,anfang=form.anfang,ende=form.ende,raum=form.raum)
+        print(te)
+        te.save()
         return JsonResponse({'message': 'Danke fuers Eintragen'})
        # else:
            # return JsonResponse({'registration_error': val})import json
-from dsn.models import User
-from dsn.models import Notebook
-from dsn.forms import NotebookForm
-from bson import ObjectId
 
 def view_getProfile(request):
 
@@ -40,6 +38,7 @@ def view_getProfile(request):
         profile = User.objects(id=ObjectId("5624a5d7da532b17b626baa9"))
 
         return JsonResponse({"first_name":profile[0].first_name, "last_name":profile[0].last_name, "email":profile[0].email, "date_joined":profile[0].date_joined})
+
 
 def view_createNotebook(request):
         params = json.loads(request.body.decode('utf-8'))

@@ -3,7 +3,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 import json
 from django.contrib.auth import login, logout
 
-from dsn.authentication.registration import register_user, validate_registration
+from dsn.authentication.registration import validate_registration
 from dsn.forms import RegistrationForm
 from dsn.models import User
 
@@ -16,6 +16,17 @@ def view_csrf_get(request):
     :return:
     """
     return JsonResponse({'message':'successssss'})
+
+
+def view_getLoggedInUser(request):
+    """
+
+    :param request:
+    :return:
+    """
+    user = request.user
+    return JsonResponse({'user': {'email': user.email, 'first_name': user.first_name, 'last_name': user.last_name,
+                                  'is_admin': user.is_superuser, 'is_prouser': user.is_prouser}})
 
 
 def view_registration(request):
@@ -36,7 +47,7 @@ def view_registration(request):
         val = validate_registration(form.email, form.password, form.password_repeat)
         if val is True:
             User.create_user(email=params['email'], password=params['password'], first_name=params['firstname'], last_name=params['lastname'])
-            return JsonResponse({'message': u'Danke für\'s Registrieren!'})
+            return JsonResponse({})
         else:
             return JsonResponse({'registration_error': val})
 
@@ -52,6 +63,7 @@ def view_login(request):
             user = User.objects.get(email=params['email'])
         except:
             user = None
+        print(params['password'])
         if user is not None and user.check_password(params['password']):
             user.backend = 'mongoengine.django.auth.MongoEngineBackend'
             login(request, user)
