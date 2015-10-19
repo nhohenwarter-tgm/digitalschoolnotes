@@ -3,7 +3,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 import json
 from django.contrib.auth import login, logout
 from dsn.authentication.registration import validate_registration
-from dsn.authentication.password_reset import validate_passwordreset
+from dsn.authentication.password_reset import validate_passwordreset, create_passwordreset_token
 from dsn.authentication.email import passwordresetmail
 from dsn.forms import RegistrationForm, PasswordResetForm
 from dsn.models import User
@@ -75,16 +75,17 @@ def view_login(request):
     else:
         return JsonResponse({'login_error': u'Fehler beim Login!'})
 
-def view_resetpassword(request):
+def view_resetpasswordrequest(request):
     if request.method=='POST':
         params = json.loads(request.body.decode('utf-8'))
         form = PasswordResetForm()
         form.email = params['email']
         val = validate_passwordreset(form.email)
+        user = User.objects.get(email=form.email)
         if val is True:
-            passwordresetmail("akaric@student.tgm.ac.at","Niklas","foo.bar")
+            token = create_passwordreset_token(form.email)
+            passwordresetmail(form.email,user.first_name,token)
             return JsonResponse({'reset_error': 'success'})
-            #TODO Create reset password token
         else:
             return JsonResponse({'reset_error': val})
 

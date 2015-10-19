@@ -18,6 +18,13 @@ mainpageApp.config(function($stateProvider, $urlRouterProvider, $locationProvide
         controller: 'loginCtrl'
     });
 
+    // RESET PASSWORD REQUEST
+    $stateProvider.state('reset_pwd_req', {
+        url: '/',
+        templateUrl: '/mainpage/reset_password_req.html',
+        controller: 'resetPwdCtrl'
+    });
+
     // RESET PASSWORD
     $stateProvider.state('reset_pwd', {
         url: '/',
@@ -126,11 +133,11 @@ mainpageApp.controller('loginCtrl', function($scope, $http, $window){
 });
 
 mainpageApp.controller('resetPwdCtrl', function($scope, $http){
-    $scope.resetPassword = function() {
+    $scope.resetPasswordReq = function() {
         var email = $scope.email;
         $http({
             method  : 'POST',
-            url     : '/api/resetpassword',
+            url     : '/api/resetpasswordrequest',
             headers : {'Content-Type': 'application/json'},
             data    : {email: email}
         })
