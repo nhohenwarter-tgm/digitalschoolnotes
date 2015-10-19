@@ -27,4 +27,7 @@ class TimeElemForm(Form):
     lehrer = CharField(max_length=100, required=True)
     anfang = TimeField(required=True)
     ende = TimeField(required=True)
-    raum = CharField(max_length=15, required=True)
+    raum = CharField(max_length=15, required=True)    accepted = CheckboxInput(check_test=True)
+
+class PasswordResetForm(Form):
+    email = EmailField(required=True)

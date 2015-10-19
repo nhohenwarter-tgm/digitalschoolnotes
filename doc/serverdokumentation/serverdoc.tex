@@ -148,7 +148,9 @@
 \tabhvent{\textbf{1.0}} & \tabhvent{28.09.2015} & \tabhvent{QA} &  \tabhvent{Stedronsky}    &  \tabhvent{Rechtschreibung}         \\ \hline
 \tabhvent{\textbf{1.1}} & \tabhvent{07.10.2015} & \tabhvent{Bearbeitet} &  \tabhvent{Hohenwarter}    &  \tabhvent{Django Ports}         \\ \hline
 \tabhvent{\textbf{1.1}} & \tabhvent{12.10.2015} & \tabhvent{Bearbeitet} &  \tabhvent{Hohenwarter}    &  \tabhvent{Deployment}         \\ \hline
-\tabhvent{\textbf{1.2}} & \tabhvent{14.10.2015} & \tabhvent{Bearbeitet} &  \tabhvent{Stedronsky}    &  \tabhvent{Rechtschreibfehler}         \\ \hline
+\tabhvent{\textbf{1.2}} & \tabhvent{14.10.2015} & \tabhvent{QA} &  \tabhvent{Stedronsky}    &  \tabhvent{Rechtschreibfehler}         \\ \hline
+\\ \hline
+\tabhvent{\textbf{1.2}} & \tabhvent{14.10.2015} & \tabhvent{Bearbeitet} &  \tabhvent{Hohenwarter}    &  \tabhvent{uWsgi}         \\ \hline
 \end{tabularx}
 \end{table}
 \newpage
@@ -319,7 +321,6 @@ An optional company name []:
 \end{lstlisting}
 Nach dem beantworten der Fragen wird das CSR generiert. Dieses muss dann beim Kauf angegeben werden. Dannach muss das Zertifikat bezahlt werden. Nun bekommt man das Zertifikat per Email.
 
-\subsection{Nginx}
 Nun muss das Zertifikat auf Nginx eingerichtet werden\cite{CERT:3}:
 Man benötigt das Zertifikat, das öffentliche Zertifikat von Thawte und den Private Key.
 Diese müssen nun zusammengefügt werden.
@@ -359,6 +360,70 @@ server {
 }
 \end{lstlisting}
 Es werden nun alle HTTP Anfragen nach HTTPS umgeleitet.
+
+\subsection{Gunicorn}
+Wir haben uns dazu entschieden in Entwicklung und Produktiveinsatz Django mit gunicorn zu deployen. Nginx beantwortet alle statischen Anfragen. Fall etwas von Django abgefragt werden muss, leitet Nginx die Anfrage an Djano weiter. Die Konfiguration läuft wie folgt ab\cite{GUNICORN:1}:\\
+Als erstes muss gunicorn installiert werden:
+\begin{lstlisting}
+sudo pip3 install gunicorn
+\end{lstlisting}
+Nun verwenden wir Supervisor um gunicorn\cite{GUNICORN:2} auszuführen. Supervisor kann das ganze dann über einen Kommander starten und stoppen. Zunächst erstellen wir ein Konfigurationsfile:
+\begin{lstlisting}
+sudo vim /etc/supervisor/conf.d/dsnselina.conf
+
+[program:dsnselina]
+directory=/home/selina/dsn
+user=selina
+command=gunicorn --bind 0.0.0.0:8001 dsn.wsgi:application
+autostart=true
+autorestart=true
+\end{lstlisting}
+
+Nun können wir über den Kommander das Programm dsnselina starten oder beenden.
+\begin{lstlisting}
+sudo supervisorctl
+
+start dsnselina #Starten
+stop dsnselina #Stoppen
+status #Status aller Programme
+\end{lstlisting}
+
+Zuletzt fehlt noch die Konfiguration von Nginx. Hierzu legen wir ein neues Konfigurationsfile an:
+\begin{lstlisting}
+cd /etc/nginx/sites-available
+cp default selina
+vim selina
+
+server {
+        listen 5001;
+
+        root /home/selina/dsn/dsn/static;
+
+        # Add index.php to the list if you are using PHP
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name digitalschoolnotes.com;
+
+        location / {
+                # First attempt to serve request as file, then
+                # as directory, then fall back to displaying a 404.
+                try_files $uri $uri/ =404;
+        }
+
+        location /api/ {
+                proxy_pass  http://127.0.0.1:8001;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+}
+
+ln -s selina ../sites-enabled/selina
+
+\end{lstlisting}
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Bibliography
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
