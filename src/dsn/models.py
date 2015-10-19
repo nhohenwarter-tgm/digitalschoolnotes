@@ -88,6 +88,7 @@ class User(Document):
     last_name = StringField(max_length=30)
     password = StringField(max_length=128)
     is_staff = BooleanField(default=False)
+    is_prouser = BooleanField(default=False)
     is_active = BooleanField(default=True)
     is_superuser = BooleanField(default=False)
     last_login = DateTimeField(default=datetime.datetime.now())
