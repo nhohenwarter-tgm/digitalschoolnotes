@@ -35,17 +35,17 @@ mainpageApp.config(function($stateProvider, $urlRouterProvider, $locationProvide
 
 mainpageApp.controller('contentCtrl', function($scope, $http, $cookies){
     $http({
-            method  : 'GET',
-            url     : '/api/csrf',
-            headers : {'Content-Type': 'application/json'},
-            data    : {}
+        method  : 'GET',
+        url     : '/api/csrf',
+        headers : {'Content-Type': 'application/json'},
+        data    : {}
+    })
+        .success(function(data){
+            console.log($cookies['csrftoken']);
         })
-            .success(function(data){
-                console.log($cookies['csrftoken']);
-            })
-            .error(function(data){
+        .error(function(data){
 
-            });
+        });
 
     $scope.error = false;
 
@@ -120,6 +120,24 @@ mainpageApp.controller('loginCtrl', function($scope, $http){
     }
 });
 
-mainpageApp.controller('resetPwdCtrl', function($scope){
-    $scope.a = '3';
+mainpageApp.controller('resetPwdCtrl', function($scope, $http){
+    $scope.resetPassword = function() {
+        var email = $scope.email;
+        $http({
+            method  : 'POST',
+            url     : '/api/resetpassword',
+            headers : {'Content-Type': 'application/json'},
+            data    : {email: email}
+        })
+            .success(function(data){
+                if (data['reset_error'] != null) {
+                    $scope.error = true;
+                    $scope.reset_error = data['reset_error'];
+                }
+            })
+            .error(function(data){
+
+            });
+    }
+
 });
