@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^api/login', 'dsn.views.mainpage_views.view_login', name="login"),
     url(r'^api/register', 'dsn.views.mainpage_views.view_registration', name="register"),
     url(r'^api/profile', 'dsn.views.management_views.view_getProfile', name="profile"),
+    url(r'^api/notebooks_create', 'dsn.views.management_views.view_createNotebook', name="createNotebook"),
 ]

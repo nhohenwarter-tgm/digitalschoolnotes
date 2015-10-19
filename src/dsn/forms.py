@@ -1,4 +1,4 @@
-from django.forms import Form, CharField, EmailField, PasswordInput, CheckboxInput
+from django.forms import Form, CharField, EmailField, PasswordInput, CheckboxInput, ObjectIdField, StringField, DateTimeField, BooleanField
 
 
 class RegistrationForm(Form):
@@ -9,3 +9,13 @@ class RegistrationForm(Form):
     password = PasswordInput(render_value=True)
     password_repeat = PasswordInput()
     accepted = CheckboxInput(check_test=True)
+
+
+class NotebookForm(Form):
+
+    id = ObjectIdField(unique=True, required=True, primary_key=True)
+    name = StringField(max_length=30)
+    is_public = BooleanField(default=False)
+    create_date = DateTimeField(default=datetime.datetime.now())
+    last_change = DateTimeField(default=datetime.datetime.now())
+

@@ -235,3 +235,21 @@ class User(Document):
             except (ImportError, ImproperlyConfigured):
                 raise SiteProfileNotAvailable
         return self._profile_cache
+
+class Notebook(Document):
+    id = ObjectIdField(unique=True, required=True, primary_key=True)
+    name = StringField(max_length=30)
+    is_public = BooleanField(default=False)
+    create_date = DateTimeField(default=datetime.datetime.now())
+    last_change = DateTimeField(default=datetime.datetime.now())
+
+    @classmethod
+    def create_notebook(cls, name, public):
+        """Create (and save) a new user with the given password and
+        email address.
+        """
+        now = datetime.datetime.now()
+
+        notebook = cls(id=ObjectId(), name=name, public=public, create_date=now, last_change=now)
+        notebook.save()
+        return notebook
