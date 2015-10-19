@@ -245,3 +245,21 @@ class User(Document):
             except (ImportError, ImproperlyConfigured):
                 raise SiteProfileNotAvailable
         return self._profile_cache
+
+
+class TimeTableElem():
+    gegenstand = StringField(max_length=30) #englsich
+    lehrer = StringField(max_length=50)
+    anfang = StringField()
+    ende = StringField()
+    raum = StringField(max_length=40)
+
+    @classmethod
+    def create(self,gegenstand,lehrer,anfang,ende,raum):
+        self.gegenstand=gegenstand
+        self.lehrer=lehrer
+        self.anfang=anfang
+        self.ende=ende
+        self.raum=raum
+
+

@@ -1,2 +1,38 @@
 <!-- TODO Add Timetable view-->
-Timetable
+<h3>Stundenplan</h3>
+
+<form ng-submit="submitTimeTable()" method="POST">
+    <h3>Stundenplan</h3>
+    <div class="row" style="padding-top: 10px;">
+        <div class="col-md-12">
+            <input type="text" name="Gegenstand" placeholder="Gegenstand" ng-model="gegenstand" style="width: 100%;"/>
+        </div>
+    </div>
+    <div class="row" style="padding-top: 10px;">
+        <div class="col-md-12">
+            <input type="text" name="Lehrer" placeholder="Lehrer" ng-model="lehrer" style="width: 100%;"/>
+        </div>
+    </div>
+    <div class="row" style="padding-top: 10px;">
+        <div class="col-md-12">
+            <input type="text" name="Anfangszeit" placeholder="Anfangszeit (hh:mm)" ng-model="anfang" style="width: 100%;"/>
+        </div>
+    </div>
+    <div class="row" style="padding-top: 10px;">
+        <div class="col-md-12">
+            <input type="text" name="Endzeit" placeholder="Endzeit (hh:mm)" ng-model="ende" style="width: 100%;"/>
+        </div>
+    </div>
+    <div class="row" style="padding-top: 10px;">
+        <div class="col-md-12">
+            <input type="text" name="Raum" placeholder="Raum" ng-model="raum" style="width: 100%;"/>
+        </div>
+    </div>
+    <div class="row" style="padding-top: 10px;">
+        <div class="col-md-6">
+            <button type="submit" id="submit" class="btn btn-success">Fertig</button>
+        </div>
+        <div class="col-md-6">
+        </div>
+    </div>
+</form>
