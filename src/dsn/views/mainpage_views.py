@@ -61,3 +61,7 @@ def view_login(request):
             return JsonResponse({'login_error': u'E-Mail Adresse oder Passwort falsch!'})
     else:
         return JsonResponse({'login_error': u'Fehler beim Login!'})
+
+def view_logout(request):
+    logout(request)
+    return JsonResponse({'message': u'Erfolgreich ausgeloggt'})

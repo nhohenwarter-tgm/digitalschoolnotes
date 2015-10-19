@@ -15,6 +15,16 @@ class Food(Document):
     votes = IntField(default=0)
 """
 
+"""
+class Heft(Document):
+    name = models.CharField(max_length=100)
+    auto_creat = models.BooleanField()
+    share_with = models.
+    date =
+    titels =
+"""
+
+
 #TODO Add model for notebook
 #TODO Add model for timetable
 
@@ -253,3 +263,22 @@ class Notebook(Document):
         notebook = cls(id=ObjectId(), name=name, public=public, create_date=now, last_change=now)
         notebook.save()
         return notebook
+        return self._profile_cache
+
+
+class TimeTableElem():
+    gegenstand = StringField(max_length=30) #englsich
+    lehrer = StringField(max_length=50)
+    anfang = StringField()
+    ende = StringField()
+    raum = StringField(max_length=40)
+
+    @classmethod
+    def create(self,gegenstand,lehrer,anfang,ende,raum):
+        self.gegenstand=gegenstand
+        self.lehrer=lehrer
+        self.anfang=anfang
+        self.ende=ende
+        self.raum=raum
+
+

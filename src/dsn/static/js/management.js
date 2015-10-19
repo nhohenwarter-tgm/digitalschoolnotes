@@ -1,9 +1,9 @@
 var managementApp = angular.module('managementApp', ['ui.router']);
 
-managementApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
+managementApp.config(function($stateProvider, $urlRouterProvider, $locationProvider,$httpProvider) {
 
     $urlRouterProvider.otherwise('/management');
-
+   // $urlRouterProvider.otherwise('/');
     // TIMETABLE
     $stateProvider.state('timetable', {
         url: '/management',
@@ -41,6 +41,10 @@ managementApp.config(function($stateProvider, $urlRouterProvider, $locationProvi
 
     $locationProvider.html5Mode(true);
 
+     // CSRF TOKEN  wenn das eingefügt wird dann verschwindet das form..
+     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+
 });
 
 managementApp.controller('accsettingsCtrl', function($scope){
@@ -71,8 +75,45 @@ managementApp.controller('notebooksCtrl_create', function($scope){
     }
 });
 
-managementApp.controller('timetableCtrl', function($scope){
-    $scope.a = '3';
+managementApp.controller('timetableCtrl', function($scope,$http){
+    $scope.submitTimeTable= function(){
+        alert("hh");
+        var gegenstand = $scope.gegenstand;
+        var lehrer = $scope.lehrer;
+        var anfangszeit = $scope.anfang;
+        var endzeit = $scope.ende;
+        var raum = $scope.raum;
+        $http({
+            method  : 'POST',
+            url     : '/api/timetable',
+            headers : {'Content-Type': 'application/json'},
+            data    : {gegenstand: gegenstand, lehrer: lehrer, anfang: anfangszeit, ende:endzeit,raum:raum}
+        })
+            .success(function(data){
+            })
+            .error(function(data){
+
+            });
+    }
+});
+
+managementApp.controller('logoutCtrl', function($scope, $http){
+    $scope.logout = function(){
+        $http({
+            method  : 'GET',
+            url     : '/api/logout',
+            data    : {}
+        })
+            .success(function(data){
+                if (data['logout_error'] != null) {
+                    $scope.error = true;
+                    $scope.logout_error = data['logout_error'];
+                }
+            })
+            .error(function(data){
+
+            });
+    }
 });
 
 managementApp.controller('profileCtrl', function($scope, $http){
