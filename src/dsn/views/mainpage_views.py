@@ -92,6 +92,9 @@ def view_resetpasswordrequest(request):
         else:
             return JsonResponse({'reset_error': val})
 
+def view_resetpassword(request):
+    pass
+
 
 def view_logout(request):
     logout(request)
