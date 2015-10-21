@@ -103,3 +103,18 @@ administrationApp.controller('logoutCtrl', function($scope, $http){
             });
     }
 });
+
+administrationApp.run(function($rootScope, $state, $http){
+    $http({
+        method  : 'GET',
+        url     : '/api/csrf',
+        headers : {'Content-Type': 'application/json'},
+        data    : {}
+    })
+        .success(function(data){
+
+        })
+        .error(function(data){
+
+        });
+});
