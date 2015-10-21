@@ -188,6 +188,7 @@ mainApp.run(function($rootScope, $state, $http, $window, loggedIn){
         var authorization = toState.data.authorization;
 
         if (authorization){
+            /**
             var auth = loggedIn.isAuthenticated().getData();
             var isAuth = auth.then(function(result){
                 var user = result['user'];
@@ -204,7 +205,7 @@ mainApp.run(function($rootScope, $state, $http, $window, loggedIn){
                 event.preventDefault();
                 //$state.go('mainpage.login');
                 $window.location.href = '/login';
-            }
+            }*/
         }
     });
 });
