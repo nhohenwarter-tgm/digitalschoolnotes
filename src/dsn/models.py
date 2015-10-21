@@ -103,6 +103,7 @@ class User(Document):
     is_superuser = BooleanField(default=False)
     last_login = DateTimeField(default=datetime.datetime.now())
     date_joined = DateTimeField(default=datetime.datetime.now())
+    passwordreset= ListField(default=None)
 
     user_permissions = ListField(ReferenceField(Permission))
 

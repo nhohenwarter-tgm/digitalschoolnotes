@@ -32,3 +32,7 @@ class TimeElemForm(Form):
 
 class PasswordResetForm(Form):
     email = EmailField(required=True)
+
+class PasswordSetForm(Form):
+    password = PasswordInput()
+    password_repeat = PasswordInput()

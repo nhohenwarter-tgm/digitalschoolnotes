@@ -9,6 +9,7 @@ from dsn.forms import RegistrationForm, PasswordResetForm
 from dsn.models import User
 
 
+
 @ensure_csrf_cookie
 def view_csrf_get(request):
     """
