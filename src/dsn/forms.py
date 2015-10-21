@@ -23,11 +23,11 @@ class RegistrationForm(Form):
 
 class TimeElemForm(Form):
 
-    gegenstand = CharField(label="Gegenstand", max_length=30, required=True)
-    lehrer = CharField(max_length=100, required=True)
-    anfang = TimeField(required=True)
-    ende = TimeField(required=True)
-    raum = CharField(max_length=15, required=True)
+    subject = CharField(label="Gegenstand", max_length=30, required=True)
+    teacher = CharField(max_length=100, required=True)
+    begin = TimeField(required=True)
+    end = TimeField(required=True)
+    room = CharField(max_length=15, required=True)
     accepted = CheckboxInput(check_test=True)
 
 class PasswordResetForm(Form):

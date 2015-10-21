@@ -267,18 +267,18 @@ class Notebook(Document):
 
 
 class TimeTableElem(Document):
-    gegenstand = StringField(max_length=30) #englsich
-    lehrer = StringField(max_length=50)
-    anfang = StringField()
-    ende = StringField()
-    raum = StringField(max_length=40)
+    subject = StringField(max_length=30)
+    teacher = StringField(max_length=50)
+    begin = StringField()
+    end = StringField()
+    room = StringField(max_length=40)
 
     @classmethod
-    def create(self,gegenstand,lehrer,anfang,ende,raum):
-        self.gegenstand=gegenstand
-        self.lehrer=lehrer
-        self.anfang=anfang
-        self.ende=ende
-        self.raum=raum
+    def create(self,subject,teacher,begin,end,room):
+        self.subject=subject
+        self.teacher=teacher
+        self.begin=begin
+        self.end=end
+        self.room=room
 
 
