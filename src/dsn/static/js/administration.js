@@ -1,6 +1,6 @@
 var administrationApp = angular.module('administrationApp', ['ui.router']);
 
-administrationApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
+administrationApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
 
     $urlRouterProvider.otherwise('/admin');
 
@@ -59,20 +59,17 @@ administrationApp.controller('usermanagementCtrl', function($scope, $http){
         .error(function(data){
 
         });
-});
 
-administrationApp.controller('deleteCtrl', function($scope, $http){
-    $scope.delete = function(){
+    $scope.delete = function(email){
         $http({
-            method  : 'GET',
+            method  : 'POST',
             url     : '/api/delete',
-            data    : {}
+            headers : {'Content-Type': 'application/json'},
+            data    : {email: email}
         })
             .success(function(data){
-                alert("A")
             })
             .error(function(data){
-                alert("B")
             });
     }
 });

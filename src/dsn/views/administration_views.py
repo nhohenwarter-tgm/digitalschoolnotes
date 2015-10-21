@@ -20,19 +20,13 @@ def view_users(request):
     return JsonResponse(u)
 
 def view_deleteUser(request):
-    print("A")
-    try:
-        user = User.objects.get(email=params['email'])
-    except:
-        print("B")
     if request.method == "POST":
-        print("B")
         params = json.loads(request.body.decode('utf-8'))
         try:
             user = User.objects.get(email=params['email'])
+            user.delete()
         except:
             user = None
-        user.delete()
         return JsonResponse({})
     else:
         return JsonResponse({})
