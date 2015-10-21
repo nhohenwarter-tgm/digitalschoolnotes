@@ -41,6 +41,10 @@ administrationApp.config(function($stateProvider, $urlRouterProvider, $locationP
 
     $locationProvider.html5Mode(true);
 
+    // CSRF TOKEN
+    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+
 });
 
 administrationApp.controller('usermanagementCtrl', function($scope, $http){
