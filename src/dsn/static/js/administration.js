@@ -41,6 +41,10 @@ administrationApp.config(function($stateProvider, $urlRouterProvider, $locationP
 
     $locationProvider.html5Mode(true);
 
+    // CSRF TOKEN
+    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+
 });
 
 administrationApp.controller('usermanagementCtrl', function($scope, $http){
@@ -102,4 +106,19 @@ administrationApp.controller('logoutCtrl', function($scope, $http){
 
             });
     }
+});
+
+administrationApp.run(function($rootScope, $state, $http){
+    $http({
+        method  : 'GET',
+        url     : '/api/csrf',
+        headers : {'Content-Type': 'application/json'},
+        data    : {}
+    })
+        .success(function(data){
+
+        })
+        .error(function(data){
+
+        });
 });

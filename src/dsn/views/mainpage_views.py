@@ -27,8 +27,11 @@ def view_getLoggedInUser(request):
     :return:
     """
     user = request.user
-    return JsonResponse({'user': {'email': user.email, 'first_name': user.first_name, 'last_name': user.last_name,
-                                  'is_admin': user.is_superuser, 'is_prouser': user.is_prouser}})
+    if user is not None and not user.is_anonymous():
+        return JsonResponse({'user': {'email': user.email, 'first_name': user.first_name, 'last_name': user.last_name,
+                                  'is_active': user.is_active, 'is_admin': user.is_superuser, 'is_prouser': user.is_prouser}})
+    else:
+        return JsonResponse({'user': None})
 
 
 def view_registration(request):
@@ -65,7 +68,6 @@ def view_login(request):
             user = User.objects.get(email=params['email'])
         except:
             user = None
-        print(params['password'])
         if user is not None and user.check_password(params['password']):
             user.backend = 'mongoengine.django.auth.MongoEngineBackend'
             login(request, user)
@@ -90,6 +92,7 @@ def view_resetpasswordrequest(request):
         else:
             return JsonResponse({'reset_error': val})
 
+
 def view_logout(request):
     logout(request)
-    return JsonResponse({'message': u'Erfolgreich ausgeloggt'})
+    return JsonResponse({})

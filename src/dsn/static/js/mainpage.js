@@ -1,59 +1,10 @@
-var mainpageApp = angular.module('mainpageApp', ['ui.router','ngCookies']);
+var mainApp = angular.module('mainApp');
 
-mainpageApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
-
-    $urlRouterProvider.otherwise('/');
-
-    // CONTENT
-    $stateProvider.state('content', {
-        url: '/',
-        templateUrl: '/mainpage/mainpage_content.html',
-        controller: 'contentCtrl'
-    });
-
-    // LOGIN
-    $stateProvider.state('login', {
-        url: '/',
-        templateUrl: '/mainpage/login.html',
-        controller: 'loginCtrl'
-    });
-
-    // RESET PASSWORD REQUEST
-    $stateProvider.state('reset_pwd_req', {
-        url: '/',
-        templateUrl: '/mainpage/reset_password_req.html',
-        controller: 'resetPwdCtrl'
-    });
-
-    // RESET PASSWORD
-    $stateProvider.state('reset_pwd', {
-        url: '/',
-        templateUrl: '/mainpage/reset_password.html',
-        controller: 'resetPwdCtrl'
-    });
-
-    $locationProvider.html5Mode(true);
-
-    // CSRF TOKEN
-    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
-    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+mainApp.controller('mainpageCtrl', function(){
 
 });
 
-mainpageApp.controller('contentCtrl', function($scope, $http, $cookies, $state){
-    $http({
-        method  : 'GET',
-        url     : '/api/csrf',
-        headers : {'Content-Type': 'application/json'},
-        data    : {}
-    })
-        .success(function(data){
-            console.log($cookies['csrftoken']);
-        })
-        .error(function(data){
-
-        });
-
+mainApp.controller('contentCtrl', function($scope, $http, $cookies){
     $scope.error = false;
 
     $scope.submitRegister = function(){
@@ -108,7 +59,7 @@ mainpageApp.controller('contentCtrl', function($scope, $http, $cookies, $state){
     }
 });
 
-mainpageApp.controller('loginCtrl', function($scope, $http, $window){
+mainApp.controller('loginCtrl', function($scope, $http, $state){
     $scope.submitLogin = function(){
         var email = $scope.email;
         var password = $scope.password;
@@ -123,7 +74,7 @@ mainpageApp.controller('loginCtrl', function($scope, $http, $window){
                     $scope.error = true;
                     $scope.login_error = data['login_error'];
                 }else{
-                    $window.location.href = '/management';
+                    $state.go('management.timetable');
                 }
             })
             .error(function(data){
@@ -132,7 +83,7 @@ mainpageApp.controller('loginCtrl', function($scope, $http, $window){
     }
 });
 
-mainpageApp.controller('resetPwdCtrl', function($scope, $http){
+mainApp.controller('resetPwdCtrl', function($scope, $http){
     $scope.resetPasswordReq = function() {
         var email = $scope.email;
         $http({
