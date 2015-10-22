@@ -12,7 +12,7 @@ mainApp.controller('notebooksCtrl', function($scope){
     $scope.a = '2';
 });
 
-mainApp.controller('timetableCtrl', function($scope, $window, $rootScope, loggedIn){
+mainApp.controller('timetableCtrl', function($scope, $http){
 
     $scope.submitTimeTable= function(){
         var gegenstand = $scope.gegenstand;
@@ -34,23 +34,20 @@ mainApp.controller('timetableCtrl', function($scope, $window, $rootScope, logged
     }
 });
 
-mainApp.controller('notebooksCreateCtrl', function($scope){
-    var name = $scope.name;
-    var public = $scope.public;
+mainApp.controller('notebooksCreateCtrl', function($scope, $http){
 
     $scope.submitCreateNotebook = function() {
-        if (!$scope.error) {
-            $http({
-                method: 'POST',
-                url: '/api/notebooks_create',
-                headers: {'Content-Type': 'application/json'},
-                data: {
-                    name: name,
-                    public: public
-                }
-
-            });
-        }
+        var name = $scope.name;
+        var is_public = $scope.is_public;
+        $http({
+            method: 'POST',
+            url: '/api/notebooks_create',
+            headers: {'Content-Type': 'application/json'},
+            data: {
+                name: name,
+                is_public: is_public
+            }
+        });
     }
 });
 

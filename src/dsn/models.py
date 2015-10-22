@@ -247,23 +247,18 @@ class User(Document):
         return self._profile_cache
 
 class Notebook(Document):
-    id = ObjectIdField(unique=True, required=True, primary_key=True)
     name = StringField(max_length=30)
     is_public = BooleanField(default=False)
     create_date = DateTimeField(default=datetime.datetime.now())
     last_change = DateTimeField(default=datetime.datetime.now())
 
     @classmethod
-    def create_notebook(cls, name, public):
-        """Create (and save) a new user with the given password and
-        email address.
-        """
-        now = datetime.datetime.now()
+    def create_notebook(self, name, is_public, create_date, last_change):
+        self.name = name
+        self.is_public=is_public
+        self.create_date=create_date
+        self.last_change=last_change
 
-        notebook = cls(id=ObjectId(), name=name, public=public, create_date=now, last_change=now)
-        notebook.save()
-        return notebook
-        return self._profile_cache
 
 
 class TimeTableElem(Document):

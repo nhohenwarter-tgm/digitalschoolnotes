@@ -1,4 +1,4 @@
-from django.forms import Form, CharField, EmailField, PasswordInput, CheckboxInput, DateTimeField, BooleanField, TimeField
+from django.forms import Form, CharField, EmailField, PasswordInput, CheckboxInput, DateTimeField, BooleanField, CharField, TimeField
 import datetime
 
 class RegistrationForm(Form):
@@ -11,15 +11,13 @@ class RegistrationForm(Form):
     accepted = CheckboxInput(check_test=True)
 
 
-#class NotebookForm(Form):
+class NotebookForm(Form):
 
-    #id = ObjectIdField(unique=True, required=True, primary_key=True)
-    #name = StringField(max_length=30)
-    #is_public = BooleanField(default=False)
-    #create_date = DateTimeField(default=datetime.datetime.now())
-    #last_change = DateTimeField(default=datetime.datetime.now())
+    name = CharField(label="name", max_length=30, required=True)
+    is_public = BooleanField()
+    create_date = DateTimeField()
+    last_change = DateTimeField()
 
-    #accepted = CheckboxInput(check_test=True)
 
 class TimeElemForm(Form):
 
