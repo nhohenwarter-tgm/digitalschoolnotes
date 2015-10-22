@@ -17,6 +17,7 @@ class NotebookForm(Form):
     is_public = BooleanField()
     create_date = DateTimeField()
     last_change = DateTimeField()
+    email = EmailField()
 
 
 class TimeElemForm(Form):

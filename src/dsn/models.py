@@ -252,15 +252,15 @@ class Notebook(Document):
     is_public = BooleanField(default=False)
     create_date = DateTimeField(default=datetime.datetime.now())
     last_change = DateTimeField(default=datetime.datetime.now())
+    email = EmailField()
 
     @classmethod
-    def create_notebook(self, name, is_public, create_date, last_change):
+    def create_notebook(self, name, is_public, create_date, last_change, email):
         self.name = name
         self.is_public=is_public
         self.create_date=create_date
         self.last_change=last_change
-
-
+        self.email = email
 
 class TimeTableElem(Document):
     subject = StringField(max_length=30)

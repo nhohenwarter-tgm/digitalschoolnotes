@@ -34,18 +34,23 @@ mainApp.controller('timetableCtrl', function($scope, $http){
     }
 });
 
-mainApp.controller('notebooksCreateCtrl', function($scope, $http){
+mainApp.controller('notebooksCreateCtrl', function($scope, $http, loggedIn){
 
     $scope.submitCreateNotebook = function() {
         var name = $scope.name;
         var is_public = $scope.is_public;
+        var email = null
+        loggedIn.getUser().then(function(data){
+            var email = data['email'];
+        });
         $http({
             method: 'POST',
             url: '/api/notebooks_create',
             headers: {'Content-Type': 'application/json'},
             data: {
                 name: name,
-                is_public: is_public
+                is_public: is_public,
+                email: email
             }
         });
     }
