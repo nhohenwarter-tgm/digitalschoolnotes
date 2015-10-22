@@ -1,6 +1,6 @@
 var administrationApp = angular.module('administrationApp', ['ui.router']);
 
-administrationApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+administrationApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
 
     $urlRouterProvider.otherwise('/admin');
 
@@ -67,59 +67,171 @@ administrationApp.config(function($stateProvider, $urlRouterProvider, $locationP
 
 });
 
-administrationApp.controller('usermanagementCtrl', function($scope, $http){
+administrationApp.controller('usermanagementCtrl', function ($scope, $http, $filter) {
+
     $http({
-        method  : 'GET',
-        url     : '/api/admin_user',
-        data    : {}
+        method: 'GET',
+        url: '/api/admin_user',
+        data: {}
     })
-        .success(function(data){
-            $scope.users = data;
+        .success(function (data) {
+            $scope.security_list = [{name: 'Benutzer', security_level: 1},
+                {name: 'Pro User', security_level: 2},{name: 'Administrator', security_level: 3}];
+            $scope.users = data['test']
+            //$scope.items = JSON.stringify(data['test']);
+            $scope.items = data['test'];
+            $scope.sort = {
+                sortingOrder: 'email'
+            };
+            $scope.filteredItems = [];
+            $scope.itemsPerPage = 2;
+            $scope.pagedItems = [];
+            $scope.currentPage = 0;
+
+
+            var searchMatch = function (haystack, needle) {
+                if (!needle) {
+                    return true;
+                }
+                return haystack.toLowerCase().indexOf(needle.toLowerCase()) !== -1;
+            };
+
+            $scope.search = function () {
+
+                $scope.filteredItems = $filter('filter')($scope.items, function (item) {
+                    for (var attr in item) {
+                        if (searchMatch(item[attr], $scope.query))
+                            return true;
+                    }
+                    return false;
+                });
+                $scope.filteredItems = $scope.items
+                // take care of the sorting order
+                if ($scope.sort.sortingOrder !== '') {
+                    $scope.filteredItems = $filter('orderBy')($scope.filteredItems, $scope.sort.sortingOrder, $scope.sort.reverse);
+                }
+                $scope.currentPage = 0;
+                // now group by pages
+                $scope.groupToPages();
+            };
+
+            $scope.groupToPages = function () {
+                $scope.pagedItems = [];
+
+                for (var i = 0; i < $scope.filteredItems.length; i++) {
+                    if (i % $scope.itemsPerPage === 0) {
+                        $scope.pagedItems[Math.floor(i / $scope.itemsPerPage)] = [$scope.filteredItems[i]];
+                    } else {
+                        $scope.pagedItems[Math.floor(i / $scope.itemsPerPage)].push($scope.filteredItems[i]);
+                    }
+                }
+            };
+
+            $scope.range = function (size, start, end) {
+                var ret = [];
+                if (size < end) {
+                    end = size;
+                    start = size;
+                }
+                for (var i = start; i < end; i++) {
+                    ret.push(i);
+                }
+                return ret;
+            };
+
+            $scope.firstPage = function () {
+                    $scope.currentPage = 0;
+            };
+
+            $scope.prevPage = function () {
+                if ($scope.currentPage > 0) {
+                    $scope.currentPage--;
+                }
+            };
+
+            $scope.nextPage = function () {
+                if ($scope.currentPage < $scope.pagedItems.length - 1) {
+                    $scope.currentPage++;
+                }
+            };
+
+            $scope.lastPage = function () {
+                    $scope.currentPage = $scope.pagedItems.length-1;
+            };
+
+            $scope.setPage = function () {
+                $scope.currentPage = this.n;
+            };
+
+            $scope.search();
+
         })
-        .error(function(data){
+        .error(function (data) {
 
         });
 
-    $scope.delete = function(email){
+    $scope.send = function (email, subject, body) {
+        var link = "mailto:" + email
+            + "?subject=New%20email " + escape(subject)
+            + "&body=" + escape(body);
+
+        window.location.href = link;
+    }
+
+    $scope.delete = function (email) {
         $http({
-            method  : 'POST',
-            url     : '/api/delete',
-            headers : {'Content-Type': 'application/json'},
-            data    : {email: email}
+            method: 'POST',
+            url: '/api/delete',
+            headers: {'Content-Type': 'application/json'},
+            data: {email: email}
         })
-            .success(function(data){
+            .success(function (data) {
             })
-            .error(function(data){
+            .error(function (data) {
+            });
+    }
+
+    $scope.update = function(email, securty_level){
+        $http({
+            method: 'POST',
+            url: '/api/admin_user_update',
+            headers: {'Content-Type': 'application/json'},
+            data: {email: email, security_level: securty_level}
+        })
+            .success(function (data) {
+            })
+            .error(function (data) {
             });
     }
 });
 
-administrationApp.controller('billsCtrl', function($scope){
+
+administrationApp.controller('billsCtrl', function ($scope) {
     $scope.a = '1';
 });
 
-administrationApp.controller('ldapConfigurationCtrl', function($scope){
+administrationApp.controller('ldapConfigurationCtrl', function ($scope) {
     $scope.a = '2';
 });
 
-administrationApp.controller('statisticsCtrl', function($scope){
+administrationApp.controller('statisticsCtrl', function ($scope) {
     $scope.a = '3';
 });
 
-administrationApp.controller('logoutCtrl', function($scope, $http){
-    $scope.logout = function(){
+administrationApp.controller('logoutCtrl', function ($scope, $http) {
+    $scope.logout = function () {
         $http({
-            method  : 'GET',
-            url     : '/api/logout',
-            data    : {}
+            method: 'GET',
+            url: '/api/logout',
+            data: {}
         })
-            .success(function(data){
+            .success(function (data) {
                 if (data['logout_error'] != null) {
                     $scope.error = true;
                     $scope.logout_error = data['logout_error'];
                 }
             })
-            .error(function(data){
+            .error(function (data) {
 
             });
     }
@@ -143,17 +255,17 @@ administrationApp.service('loggedIn', function ($http, $q) {
     };
 });
 
-administrationApp.run(function($rootScope, $state, $http){
+administrationApp.run(function ($rootScope, $state, $http) {
     $http({
-        method  : 'GET',
-        url     : '/api/csrf',
-        headers : {'Content-Type': 'application/json'},
-        data    : {}
+        method: 'GET',
+        url: '/api/csrf',
+        headers: {'Content-Type': 'application/json'},
+        data: {}
     })
-        .success(function(data){
+        .success(function (data) {
 
         })
-        .error(function(data){
+        .error(function (data) {
 
         });
 
