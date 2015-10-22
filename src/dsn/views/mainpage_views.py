@@ -9,6 +9,7 @@ from dsn.forms import RegistrationForm, PasswordResetForm
 from dsn.models import User
 
 
+
 @ensure_csrf_cookie
 def view_csrf_get(request):
     """
@@ -90,6 +91,9 @@ def view_resetpasswordrequest(request):
             return JsonResponse({'reset_error': 'success'})
         else:
             return JsonResponse({'reset_error': val})
+
+def view_resetpassword(request):
+    pass
 
 
 def view_logout(request):

@@ -12,19 +12,19 @@ mainApp.controller('notebooksCtrl', function($scope){
     $scope.a = '2';
 });
 
-mainApp.controller('timetableCtrl', function($scope, $window, $rootScope, loggedIn){
+mainApp.controller('timetableCtrl', function($scope, $http){
 
     $scope.submitTimeTable= function(){
-        var gegenstand = $scope.gegenstand;
-        var lehrer = $scope.lehrer;
-        var anfangszeit = $scope.anfang;
-        var endzeit = $scope.ende;
-        var raum = $scope.raum;
+        var subject = $scope.subject;
+        var teacher = $scope.teacher;
+        var begin = $scope.begin;
+        var end = $scope.end;
+        var room = $scope.room;
         $http({
             method  : 'POST',
             url     : '/api/timetable',
             headers : {'Content-Type': 'application/json'},
-            data    : {gegenstand: gegenstand, lehrer: lehrer, anfang: anfangszeit, ende:endzeit,raum:raum}
+            data    : {subject: subject, teacher: teacher, begin: begin, end:end,room:room}
         })
             .success(function(data){
             })

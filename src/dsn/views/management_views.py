@@ -16,15 +16,15 @@ def view_timetable(request):
         params = json.loads(request.body.decode('utf-8'))
         print(params)
         form = TimeElemForm()
-        form.gegenstand = params['gegenstand']
-        form.lehrer = params['lehrer']
-        form.anfang = params['anfang']
-        form.ende = params['ende']
-        form.raum = params['raum']
+        form.subject = params['subject']
+        form.teacher = params['teacher']
+        form.begin = params['begin']
+        form.end = params['end']
+        form.room = params['room']
        # val = validate_registration(form.email, form.password, form.password_repeat)
         #if val is True:
         # te = TimeTableElem(gegenstand=form.gegenstand,lehrer=form.lehrer,anfang=form.anfang,ende=form.ende,raum=form.raum)#alles englisch
-        te = TimeTableElem(gegenstand=form.gegenstand,lehrer=form.lehrer,anfang=form.anfang,ende=form.ende,raum=form.raum)
+        te = TimeTableElem(subject=form.subject,teacher=form.teacher,begin=form.begin,end=form.end,room=form.room)
         print(te)
         te.save()
         return JsonResponse({'message': 'Danke fuers Eintragen'})

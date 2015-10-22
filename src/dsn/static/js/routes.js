@@ -52,7 +52,7 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
 
     // RESET PASSWORD REQUEST
     $stateProvider.state('mainpage.reset_pwd_req', {
-        url: '/',
+        url: '/resetpassword',
         templateUrl: '/mainpage/reset_password_req.html',
         controller: 'resetPwdCtrl',
         data: {
@@ -63,7 +63,7 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
 
     // RESET PASSWORD
     $stateProvider.state('mainpage.reset_pwd', {
-        url: '/',
+        url: '/resetpassword/:hash',
         templateUrl: '/mainpage/reset_password.html',
         controller: 'resetPwdCtrl',
         data: {
