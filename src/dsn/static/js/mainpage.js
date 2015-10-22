@@ -101,6 +101,24 @@ mainApp.controller('resetPwdCtrl', function($scope, $http){
             .error(function(data){
 
             });
-    }
+    };
+
+    $scope.resetPassword = function(hash) {
+        $http({
+            method  : 'POST',
+            url     : '/api/resetpassword',
+            headers : {'Content-Type': 'application/json'},
+            data    : {hash: hash}
+        })
+            .success(function(data){
+                if (data['reset_error'] != null) {
+                    $scope.error = true;
+                    $scope.reset_error = data['reset_error'];
+                }
+            })
+            .error(function(data){
+
+            });
+    };
 
 });

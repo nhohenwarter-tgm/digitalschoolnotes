@@ -8,9 +8,8 @@
           <th>Vorname</th>
           <th>Nachname</th>
           <th>Berechtigungsstufe</th>
-          <th>Speichervolumen</th>
-          <th>Rechnung</th>
           <th>Löschen</th>
+          <th>E-Mail</th>
       </tr>
     </thead>
     <tbody ng-repeat="(key, value) in users">
@@ -24,12 +23,15 @@
                         <option ng-selected="{{value.security_level == 3}}" value="3">Administrator</option>
                         {{ value.security_level }}
                     </select></td>
-                    <td>{{ value.storage }}</td>
-                    <td>{{ value.bill }}</td>
                     <td>
-                        <div ng-controller="deleteCtrl">
-                            <button type="button" ng-click="delete()" class="btn btn-danger">Account löschen</button>
-                        </div>
+
+                        <button type="button" ng-click="delete(value.email)" class="btn btn-danger">Account löschen</button>
+                    </td>
+                    <td>
+                        <form action="mailto:{{value.email}}" enctype="text/plain" >
+                            <input type="submit" class="btn btn-info" value="Send Mail" />
+                            </form>
+
                     </td>
             </tr>
     </tbody>
