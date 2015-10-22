@@ -136,27 +136,7 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
 });
 
 mainApp.service('loggedIn', function ($http, $q) {
-    this.isAdmin = function () {
-        $http({
-            method  : 'POST',
-            url     : '/api/loggedInUser',
-            headers : {'Content-Type': 'application/json'},
-            data    : {}
-        })
-            .success(function(data){
-                var user = data['user'];
-                if(user == null){
-                    return false;
-                }else{
-                    return user.is_admin;
-                }
-            })
-            .error(function(data){
-                return false
-            });
-
-    };
-    this.isAuthenticated = function () {
+    this.getUser = function () {
         var d = $q.defer();
         $http({
             method  : 'POST',
@@ -192,8 +172,7 @@ mainApp.run(function($rootScope, $state, $http, $window, loggedIn){
         var auth = false;
 
         if (authorization){
-            alert('authorize');
-            loggedIn.isAuthenticated().then(function(data){
+            loggedIn.getUser().then(function(data){
                 var user = data['user'];
                 if(user == null){
                     auth = false;
@@ -206,7 +185,6 @@ mainApp.run(function($rootScope, $state, $http, $window, loggedIn){
                     $state.go('mainpage.login');
                 }
             }, function(data){
-                alert('Error!');
                 alert('Bitte melde dich zuerst an!');
                 event.preventDefault();
                 $state.go('mainpage.login');

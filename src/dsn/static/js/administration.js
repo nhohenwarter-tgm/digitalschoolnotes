@@ -8,35 +8,55 @@ administrationApp.config(function($stateProvider, $urlRouterProvider, $locationP
     $stateProvider.state('usermanagement', {
         url: '/admin',
         templateUrl: '/admin/admin_usermanagement.html',
-        controller: 'usermanagementCtrl'
+        controller: 'usermanagementCtrl',
+        data: {
+            authorization: true,
+            admin: true
+        }
     });
 
     // BILLS
     $stateProvider.state('bills', {
         url: '/admin',
         templateUrl: '/admin/admin_bills.html',
-        controller: 'billsCtrl'
+        controller: 'billsCtrl',
+        data: {
+            authorization: true,
+            admin: true
+        }
     });
 
     // LDAP CONFIGURATION
     $stateProvider.state('ldapConfiguration', {
         url: '/admin',
         templateUrl: '/admin/admin_ldapConfiguration.html',
-        controller: 'ldapConfigurationCtrl'
+        controller: 'ldapConfigurationCtrl',
+        data: {
+            authorization: true,
+            admin: true
+        }
     });
 
     // USER QUOTAS
     $stateProvider.state('userquotas', {
         url: '/admin',
         templateUrl: '/admin/admin_userquotas.html',
-        controller: 'userquotasCtrl'
+        controller: 'userquotasCtrl',
+        data: {
+            authorization: true,
+            admin: true
+        }
     });
 
     // STATISTICS
     $stateProvider.state('statistics', {
         url: '/admin',
         templateUrl: '/admin/admin_statistics.html',
-        controller: 'statisticsCtrl'
+        controller: 'statisticsCtrl',
+        data: {
+            authorization: true,
+            admin: true
+        }
     });
 
     $locationProvider.html5Mode(true);
@@ -105,6 +125,24 @@ administrationApp.controller('logoutCtrl', function($scope, $http){
     }
 });
 
+administrationApp.service('loggedIn', function ($http, $q) {
+    this.getUser = function () {
+        var d = $q.defer();
+        $http({
+            method  : 'POST',
+            url     : '/api/loggedInUser',
+            headers : {'Content-Type': 'application/json'},
+            data    : {}
+        }).success(function (data) {
+            d.resolve(data);
+        }).error(function (data) {
+            d.reject(data);
+        });
+        return d.promise;
+
+    };
+});
+
 administrationApp.run(function($rootScope, $state, $http){
     $http({
         method  : 'GET',
@@ -118,4 +156,29 @@ administrationApp.run(function($rootScope, $state, $http){
         .error(function(data){
 
         });
+
+    $rootScope.$on('$stateChangeStart',function(event, toState, toParams, fromState, fromParams){
+        var authorization = toState.data.authorization;
+        var auth = false;
+
+        if (authorization){
+            loggedIn.getUser().then(function(data){
+                var user = data['user'];
+                if(user == null){
+                    auth = false;
+                }else{
+                    auth = user['is_admin'];
+                }
+                if(auth == false){
+                    alert('Bitte melde dich zuerst an!');
+                    event.preventDefault();
+                    $state.go('mainpage.login');
+                }
+            }, function(data){
+                alert('Bitte melde dich zuerst an!');
+                event.preventDefault();
+                $state.go('mainpage.login');
+            });
+        }
+    });
 });
