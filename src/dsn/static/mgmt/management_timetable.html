@@ -1,8 +1,127 @@
 <!-- TODO Add Timetable view-->
-<h3>Stundenplan</h3>
+<h2>Stundenplan</h2>
 
 <form ng-submit="submitTimeTable()" method="POST">
     <h3>Stundenplan</h3>
+    <!doctype html>
+<html>
+<head>
+    <title>Timetable</title>
+    <style type="text/css">
+    body
+    {
+        font-family: arial;
+    }
+
+    th,td
+    {
+        margin: 0;
+        text-align: center;
+        border-collapse: collapse;
+        outline: 1px solid #e3e3e3;
+    }
+
+    td
+    {
+        padding: 5px 10px;
+    }
+
+    th
+    {
+        background: #666;
+        color: white;
+        padding: 5px 10px;
+    }
+
+    td:hover
+    {
+        cursor: pointer;
+        background: #666;
+        color: white;
+    }
+    </style>
+
+</head>
+<body>
+    <table width="80%" align="center" >
+    <div id="head_nav">
+    <tr>
+        <th>Zeit</th>
+        <th>Montag</th>
+        <th>Dienstag</th>
+        <th>Mittwoch</th>
+        <th>Donnerstag</th>
+        <th>Freitag</th>
+        <th>Samstag</th>
+    </tr>
+</div>
+
+    <tr>
+        <th>08:50 - 09:40</th>
+
+            <td>Physics-1</td>
+            <td>English</td>
+            <td title="No Class" class="Holiday"></td>
+            <td>Chemestry-1</td>
+            <td>Alzebra</td>
+            <td>Physical</td>
+        </div>
+    </tr>
+
+    <tr>
+        <th>9:50 - 10:40</td>
+
+            <td>Math-2</td>
+            <td>Chemestry-2</td>
+            <td>Physics-1</td>
+            <td>Hindi</td>
+            <td>English</td>
+            <td>Soft Skill</td>
+        </div>
+    </tr>
+
+    <tr>
+        <th>10:40 - 11:30</td>
+
+            <td>Hindi</td>
+            <td>English</td>
+            <td>Math-1</td>
+            <td>Chemistry</td>
+            <td>Physics</td>
+            <td>Chem.Lab</td>
+
+        </div>
+    </tr>
+
+    <tr>
+        <th>11:30 - 12:20</td>
+
+            <td>Cumm. Skill</td>
+            <td>Sports</td>
+            <td>English</td>
+            <td>Computer Lab</td>
+            <td>Header</td>
+            <td>Header</td>
+
+        </div>
+    </tr>
+
+    <tr>
+        <th>13:20 - 14:10</td>
+
+            <td>Header</td>
+            <td>Header</td>
+            <td>Header</td>
+            <td>Header</td>
+            <td>Header</td>
+            <td>Header</td>
+        </div>
+    </tr>
+</table><br>
+    <h4>Neuer Gegenstand</h4>
+    <!-- Zeiten in der tabelle händisch eintragen und user klickt dann auf die leeren felder wo fächer hingehören
+        ganz am anfang soll der user alle fächer und lehrerkürzel eintragen die er dann bei klick auf die fächer per dropdown auswählen kann
+         mouseover buttons ansehen -->
     <div class="row" style="padding-top: 10px;">
         <div class="col-md-12">
             <input type="text" name="Gegenstand" placeholder="Gegenstand" ng-model="subject" style="width: 100%;"/>
