@@ -84,8 +84,8 @@ def view_resetpasswordrequest(request):
         form = PasswordResetForm()
         form.email = params['email']
         val = validate_passwordreset(form.email)
-        user = User.objects.get(email=form.email)
         if val is True:
+            user = User.objects.get(email=form.email)
             token = create_passwordreset_token(form.email)
             passwordresetmail(form.email,user.first_name,token)
             return JsonResponse({'reset_error': 'success'})

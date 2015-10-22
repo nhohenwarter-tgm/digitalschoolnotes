@@ -89,6 +89,9 @@ class AuthUser(User):
     def get_short_name(self):
         return self.username
 """
+class PasswordReset(EmbeddedDocument):
+    hash = StringField(required=True)
+    date = DateTimeField(required=True)
 
 
 class User(Document):
@@ -103,7 +106,7 @@ class User(Document):
     is_superuser = BooleanField(default=False)
     last_login = DateTimeField(default=datetime.datetime.now())
     date_joined = DateTimeField(default=datetime.datetime.now())
-    passwordreset= DictField()
+    passwordreset= EmbeddedDocumentField(PasswordReset)
 
     user_permissions = ListField(ReferenceField(Permission))
 
@@ -246,6 +249,8 @@ class User(Document):
             except (ImportError, ImproperlyConfigured):
                 raise SiteProfileNotAvailable
         return self._profile_cache
+
+
 
 class Notebook(Document):
     name = StringField(max_length=30)

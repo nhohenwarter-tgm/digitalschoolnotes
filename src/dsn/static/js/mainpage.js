@@ -84,8 +84,10 @@ mainApp.controller('loginCtrl', function($scope, $http, $state){
 });
 
 mainApp.controller('resetPwdCtrl', function($scope, $http){
+    console.log("da")
     $scope.resetPasswordReq = function() {
         var email = $scope.email;
+
         $http({
             method  : 'POST',
             url     : '/api/resetpasswordrequest',
@@ -93,6 +95,8 @@ mainApp.controller('resetPwdCtrl', function($scope, $http){
             data    : {email: email}
         })
             .success(function(data){
+                $scope.error = false;
+                $scope.registration_error = '';
                 if (data['reset_error'] != null) {
                     $scope.error = true;
                     $scope.reset_error = data['reset_error'];
@@ -111,6 +115,8 @@ mainApp.controller('resetPwdCtrl', function($scope, $http){
             data    : {hash: hash}
         })
             .success(function(data){
+
+                alert(hash);
                 if (data['reset_error'] != null) {
                     $scope.error = true;
                     $scope.reset_error = data['reset_error'];
