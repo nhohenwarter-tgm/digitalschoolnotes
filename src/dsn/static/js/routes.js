@@ -11,7 +11,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         templateUrl: '/mainpage/mainpage.html',
         controller: 'mainpageCtrl',
         data: {
-            authorization: false
+            authorization: false,
+            admin: false
         }
     });
 
@@ -22,7 +23,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         templateUrl: '/mgmt/management.html',
         controller: 'managementCtrl',
         data: {
-            authorization: true
+            authorization: true,
+            admin: false
         }
     });
 
@@ -32,7 +34,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         templateUrl: '/mainpage/mainpage_content.html',
         controller: 'contentCtrl',
         data: {
-            authorization: false
+            authorization: false,
+            admin: false
         }
     });
 
@@ -42,7 +45,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         templateUrl: '/mainpage/login.html',
         controller: 'loginCtrl',
         data: {
-            authorization: false
+            authorization: false,
+            admin: false
         }
     });
 
@@ -52,7 +56,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         templateUrl: '/mainpage/reset_password_req.html',
         controller: 'resetPwdCtrl',
         data: {
-            authorization: false
+            authorization: false,
+            admin: false
         }
     });
 
@@ -62,7 +67,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         templateUrl: '/mainpage/reset_password.html',
         controller: 'resetPwdCtrl',
         data: {
-            authorization: false
+            authorization: false,
+            admin: false
         }
     });
 
@@ -72,7 +78,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         templateUrl: '/mgmt/management_timetable.html',
         controller: 'timetableCtrl',
         data: {
-            authorization: true
+            authorization: true,
+            admin: false
         }
     });
 
@@ -82,7 +89,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         templateUrl: '/mgmt/management_accsettings.html',
         controller: 'accsettingsCtrl',
         data: {
-            authorization: true
+            authorization: true,
+            admin: false
         }
     });
 
@@ -92,7 +100,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         templateUrl: '/mgmt/management_notebooks.html',
         controller: 'notebooksCtrl',
         data: {
-            authorization: true
+            authorization: true,
+            admin: false
         }
     });
 
@@ -102,7 +111,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         templateUrl: '/mgmt/management_notebooks_create.html',
         controller: 'notebooksCtrl_create',
         data: {
-            authorization: true
+            authorization: true,
+            admin: false
         }
     });
 
@@ -112,7 +122,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         templateUrl: '/mgmt/management_profile.html',
         controller: 'profileCtrl',
         data: {
-            authorization: true
+            authorization: true,
+            admin: false
         }
     });
 
@@ -124,7 +135,7 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
 
 });
 
-mainApp.service('loggedIn', function ($http) {
+mainApp.service('loggedIn', function ($http, $q) {
     this.isAdmin = function () {
         $http({
             method  : 'POST',
@@ -144,30 +155,22 @@ mainApp.service('loggedIn', function ($http) {
                 return false
             });
 
-    }
+    };
     this.isAuthenticated = function () {
-        var getData = function() {
-            $http({
-                method  : 'POST',
-                url     : '/api/loggedInUser',
-                headers : {'Content-Type': 'application/json'},
-                data    : {}
-            }).then(function (result) {
-                return result.data;
-            });
-            /**
-            var user = data['user'];
-            if(user == null){
-                return false;
-            }else{
-                return user['is_active'];
-            }
-        }, function errorCallback(response) {
-            return false;*/
-        };
-        return {getData: getData};
+        var d = $q.defer();
+        $http({
+            method  : 'POST',
+            url     : '/api/loggedInUser',
+            headers : {'Content-Type': 'application/json'},
+            data    : {}
+        }).success(function (data) {
+            d.resolve(data);
+        }).error(function (data) {
+            d.reject(data);
+        });
+        return d.promise;
 
-    }
+    };
 });
 
 mainApp.run(function($rootScope, $state, $http, $window, loggedIn){
@@ -186,25 +189,28 @@ mainApp.run(function($rootScope, $state, $http, $window, loggedIn){
 
     $rootScope.$on('$stateChangeStart',function(event, toState, toParams, fromState, fromParams){
         var authorization = toState.data.authorization;
+        var auth = false;
 
         if (authorization){
-            var auth = loggedIn.isAuthenticated().getData();
-            var isAuth = auth.then(function(result){
-                var user = result['user'];
+            alert('authorize');
+            loggedIn.isAuthenticated().then(function(data){
+                var user = data['user'];
                 if(user == null){
-                    alert("Not authenticated!");
-                    return false;
+                    auth = false;
                 }else{
-                    return user['is_active'];
+                    auth = user['is_active'];
                 }
-            });
-            alert(toState.name + ": " + isAuth);
-            if(!isAuth){
+                if(auth == false){
+                    alert('Bitte melde dich zuerst an!');
+                    event.preventDefault();
+                    $state.go('mainpage.login');
+                }
+            }, function(data){
+                alert('Error!');
                 alert('Bitte melde dich zuerst an!');
                 event.preventDefault();
-                //$state.go('mainpage.login');
-                $window.location.href = '/login';
-            }
+                $state.go('mainpage.login');
+            });
         }
     });
 });
