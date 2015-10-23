@@ -83,8 +83,7 @@ mainApp.controller('loginCtrl', function($scope, $http, $state){
     }
 });
 
-mainApp.controller('resetPwdCtrl', function($scope, $http){
-    console.log("da")
+mainApp.controller('resetPwdCtrl', function($scope, $http, $state){
     $scope.resetPasswordReq = function() {
         var email = $scope.email;
 
@@ -107,12 +106,12 @@ mainApp.controller('resetPwdCtrl', function($scope, $http){
             });
     };
 
-    $scope.resetPassword = function(hash) {
+    $scope.resetPassword = function() {
         $http({
             method  : 'POST',
             url     : '/api/resetpassword',
             headers : {'Content-Type': 'application/json'},
-            data    : {hash: hash}
+            data    : {hash: $state.params.hash}
         })
             .success(function(data){
 
