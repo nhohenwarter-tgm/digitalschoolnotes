@@ -28,7 +28,8 @@ mainApp.controller('contentCtrl', function($scope, $http, $cookies){
             $scope.error = true;
             $scope.registration_error += 'Passwörter stimmen nicht überein!\n';
         }
-
+        password=CryptoJS.SHA256(password)
+        password_repeat=CryptoJS.SHA256(password_repeat)
         if(!$scope.error) {
             $http({
                 method: 'POST',
@@ -36,8 +37,8 @@ mainApp.controller('contentCtrl', function($scope, $http, $cookies){
                 headers: {'Content-Type': 'application/json'},
                 data: {
                     email: email,
-                    password: CryptoJS.SHA256(password),
-                    password_repeat: CryptoJS.SHA256(password_repeat),
+                    password: password.toString(),
+                    password_repeat: password_repeat.toString(),
                     firstname: first_name,
                     lastname: last_name,
                     accept: accept
@@ -62,12 +63,12 @@ mainApp.controller('contentCtrl', function($scope, $http, $cookies){
 mainApp.controller('loginCtrl', function($scope, $http, $state){
     $scope.submitLogin = function(){
         var email = $scope.email;
-        var password = $scope.password;
+        var password = CryptoJS.SHA256($scope.password);
         $http({
             method  : 'POST',
             url     : '/api/login',
             headers : {'Content-Type': 'application/json'},
-            data    : {email: email, password: CryptoJS.SHA256(password)}
+            data    : {email: email, password: password.toString()}
         })
             .success(function(data){
                 if (data['login_error'] != null) {
@@ -84,6 +85,8 @@ mainApp.controller('loginCtrl', function($scope, $http, $state){
 });
 
 mainApp.controller('resetPwdCtrl', function($scope, $http, $state){
+    $scope.error = false;
+
     $scope.resetPasswordReq = function() {
         var email = $scope.email;
 
@@ -107,23 +110,45 @@ mainApp.controller('resetPwdCtrl', function($scope, $http, $state){
     };
 
     $scope.resetPassword = function() {
-        $http({
-            method  : 'POST',
-            url     : '/api/resetpassword',
-            headers : {'Content-Type': 'application/json'},
-            data    : {hash: $state.params.hash}
-        })
-            .success(function(data){
-
-                alert(hash);
-                if (data['reset_error'] != null) {
-                    $scope.error = true;
-                    $scope.reset_error = data['reset_error'];
+        var password = $scope.pwd;
+        var password_repeat = $scope.pwdrepeat;
+        var hash = $state.params.hash;
+        $scope.error = false;
+        $scope.reset_error = '';
+        if(password == null || password_repeat == null){
+            $scope.error = true;
+            $scope.reset_error = 'Bitte beide Felder ausfüllen.\n';
+        }
+        if(password != password_repeat) {
+            $scope.error = true;
+            $scope.reset_error = 'Passwörter stimmen nicht überein\n';
+        }
+        password = CryptoJS.SHA256(password)
+        password_repeat = CryptoJS.SHA256(password_repeat)
+        if(!$scope.error) {
+            $http({
+                method: 'POST',
+                url: '/api/resetpassword',
+                headers: {'Content-Type': 'application/json'},
+                data: {
+                    hash: hash,
+                    password: password.toString(),
+                    password_repeat: password_repeat.toString()
                 }
             })
-            .error(function(data){
+                .success(function (data) {
+                    if (data['reset_error'] != null) {
+                        $scope.error = true;
+                        $scope.reset_error = data['reset_error'];
+                    }
+                    if(data['reset_error'] == true){
+                        $state.go('mainpage.login')
+                    }
+                })
+                .error(function (data) {
 
-            });
+                });
+        }
     };
 
 });

@@ -3,9 +3,9 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 import json
 from django.contrib.auth import login, logout
 from dsn.authentication.registration import validate_registration
-from dsn.authentication.password_reset import validate_passwordreset, create_passwordreset_token
+from dsn.authentication.password_reset import validate_passwordreset, create_passwordreset_token, validate_newpassword
 from dsn.authentication.email import passwordresetmail
-from dsn.forms import RegistrationForm, PasswordResetForm
+from dsn.forms import RegistrationForm, PasswordResetForm, PasswordSetForm
 from dsn.models import User
 
 
@@ -93,7 +93,14 @@ def view_resetpasswordrequest(request):
             return JsonResponse({'reset_error': val})
 
 def view_resetpassword(request):
-    pass
+    if request.method=='POST':
+        params = json.loads(request.body.decode('utf-8'))
+        print(params)
+        form = PasswordSetForm
+        form.password = params['password']
+        form.password_repeat = params['password_repeat']
+        val = validate_newpassword(form, params['hash'])
+        return JsonResponse({'reset_error': val})
 
 
 def view_logout(request):
