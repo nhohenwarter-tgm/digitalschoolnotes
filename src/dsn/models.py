@@ -71,24 +71,7 @@ class AuthUserManager(UserManager):
         else:
             return None
 
-"""
-class AuthUser(User):
 
-    email = EmailField(required=True, primary_key=True)
-    is_active = models.BooleanField(default=False)
-    is_prouser = models.BooleanField(default=False)
-
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name'] #must be list or tuple
-
-    objects = AuthUserManager()
-
-    def get_full_name(self):
-        return self.username
-
-    def get_short_name(self):
-        return self.username
-"""
 class PasswordReset(EmbeddedDocument):
     hash = StringField(required=True)
     date = DateTimeField(required=True)
