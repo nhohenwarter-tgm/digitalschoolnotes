@@ -67,7 +67,7 @@ administrationApp.config(function ($stateProvider, $urlRouterProvider, $location
 
 });
 
-administrationApp.controller('usermanagementCtrl', function ($scope, $http, $filter) {
+administrationApp.controller('usermanagementCtrl', function ($scope, $http, $filter, $window) {
 
     $http({
         method: 'GET',
@@ -77,8 +77,8 @@ administrationApp.controller('usermanagementCtrl', function ($scope, $http, $fil
         .success(function (data) {
             $scope.security_list = [{name: 'Benutzer', security_level: 1},
                 {name: 'Pro User', security_level: 2},{name: 'Administrator', security_level: 3}];
+
             $scope.users = data['test']
-            //$scope.items = JSON.stringify(data['test']);
             $scope.items = data['test'];
             $scope.sort = {
                 sortingOrder: 'email'
@@ -178,20 +178,26 @@ administrationApp.controller('usermanagementCtrl', function ($scope, $http, $fil
         window.location.href = link;
     }
 
-    $scope.delete = function (email) {
-        $http({
+    $scope.delete = function (email,currentPage) {
+
+        deleteUser = $window.confirm('Wollen Sie den User '+email+' wirklich löschen?');
+        if(deleteUser){
+            alert('Der User '+email+' wurde erfolgreich gelöscht');
+            $http({
             method: 'POST',
             url: '/api/delete',
             headers: {'Content-Type': 'application/json'},
             data: {email: email}
         })
             .success(function (data) {
+                $window.location.href = '/admin';
             })
             .error(function (data) {
             });
+        }
     }
 
-    $scope.update = function(email, securty_level){
+    $scope.update = function(email, securty_level, page, index){
         $http({
             method: 'POST',
             url: '/api/admin_user_update',
@@ -199,6 +205,7 @@ administrationApp.controller('usermanagementCtrl', function ($scope, $http, $fil
             data: {email: email, security_level: securty_level}
         })
             .success(function (data) {
+                $scope.pagedItems[page][index].security_level = securty_level;
             })
             .error(function (data) {
             });
@@ -284,7 +291,7 @@ administrationApp.run(function ($rootScope, $state, $http, loggedIn, $window) {
                 if(auth == false){
                     alert('Bitte melde dich zuerst an!');
                     event.preventDefault();
-                    $window.location.href = '/login';
+                    //$window.location.href = '/login';
                 }
             }, function(data){
                 alert('Bitte melde dich zuerst an!');

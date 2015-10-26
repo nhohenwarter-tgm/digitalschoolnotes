@@ -21,25 +21,20 @@ def view_users(request):
     return JsonResponse({'test': u})
 
 def view_saveUserchange(request):
-    print("A")
     if request.method == "POST":
         params = json.loads(request.body.decode('utf-8'))
         try:
             user = User.objects.get(email=params['email'])
             if params['security_level'] == '1':
-                print("1")
                 user.is_prouser = False
                 user.is_superuser = False
             elif params['security_level'] == '2':
-                print("2")
                 user.is_prouser = True
                 user.is_superuser = False
             elif params['security_level'] == '3':
-                print("3")
                 user.is_prouser = False
                 user.is_superuser = True
-            else:
-                print("X")
+
             user.save()
         except:
             user = None

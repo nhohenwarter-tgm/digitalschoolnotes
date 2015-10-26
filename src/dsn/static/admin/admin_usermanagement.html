@@ -63,22 +63,23 @@
         </tfoot>
 
         <tbody>
-        <tr ng-repeat="user in pagedItems[currentPage] | filter:q|orderBy:orderByField:reverseSort">
+        <tr ng-repeat="user in users | filter:q | orderBy:orderByField:reverseSort"
+            ng-if='$index>=currentPage*itemsPerPage && $index < (currentPage+1)*itemsPerPage'>
             <td>{{ user.email }}</td>
             <td>{{ user.first_name }}</td>
             <td>{{ user.last_name }}</td>
             <td>
-                <select class="form-control" ng-model="selectedItem" ng-change="update(user.email,selectedItem)">
+                <select class="form-control" ng-model="selectedItem" ng-init="selectedItem='2'" ng-change="update(user.email,selectedItem,currentPage,$index)">
                     <option ng-selected="user.security_level == item.security_level" ng-repeat="item in security_list"
                             value="{{ item.security_level }}">{{ item.name }}</option>
                 </select>
             </td>
             <td>
 
-                <button type="button" ng-click="delete(value.email)" class="btn btn-danger">Account löschen</button>
+                <button type="button" ng-click="delete(user.email, currentPage)" class="btn btn-danger">Account löschen</button>
             </td>
             <td>
-                <button type="button" ng-click="send(value.email, 'Test', 'blbl')" class="btn btn-info">Mail senden
+                <button type="button" ng-click="send(user.email, 'Test', user.last_name)" class="btn btn-info">Mail senden
                 </button>
             </td>
         </tr>
