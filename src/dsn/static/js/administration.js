@@ -255,7 +255,7 @@ administrationApp.service('loggedIn', function ($http, $q) {
     };
 });
 
-administrationApp.run(function ($rootScope, $state, $http) {
+administrationApp.run(function ($rootScope, $state, $http, loggedIn, $window) {
     $http({
         method: 'GET',
         url: '/api/csrf',
@@ -284,12 +284,12 @@ administrationApp.run(function ($rootScope, $state, $http) {
                 if(auth == false){
                     alert('Bitte melde dich zuerst an!');
                     event.preventDefault();
-                    $state.go('mainpage.login');
+                    $window.location.href = '/login';
                 }
             }, function(data){
                 alert('Bitte melde dich zuerst an!');
                 event.preventDefault();
-                $state.go('mainpage.login');
+                $window.location.href = '/login';
             });
         }
     });
