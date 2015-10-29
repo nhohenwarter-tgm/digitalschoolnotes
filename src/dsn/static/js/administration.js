@@ -69,106 +69,88 @@ administrationApp.config(function ($stateProvider, $urlRouterProvider, $location
 
 administrationApp.controller('usermanagementCtrl', function ($scope, $http, $filter, $window) {
 
+    $scope.itemsPerPage = 2;
+    $scope.security_list = [{name: 'Benutzer', security_level: 1},
+                {name: 'Pro User', security_level: 2},{name: 'Administrator', security_level: 3}];
+    $scope.currentPage = 0;
+    $scope.l = 0;
+    $scope.sort = {
+        sortingOrder: 'email'
+    };
+
+    $scope.next = function (current) {
+        $http({
+            method: 'POST',
+            url: '/api/admin_user',
+            headers : {'Content-Type': 'application/json'},
+            data    : {Page: current, counter: $scope.itemsPerPage}
+        })
+            .success(function (data) {
+                $scope.users = data['test'];
+            })
+            .error(function (data) {
+            });
+    }
+
+
     $http({
         method: 'GET',
         url: '/api/admin_user',
         data: {}
     })
         .success(function (data) {
-            $scope.security_list = [{name: 'Benutzer', security_level: 1},
-                {name: 'Pro User', security_level: 2},{name: 'Administrator', security_level: 3}];
-
-            $scope.users = data['test']
-            $scope.items = data['test'];
-            $scope.sort = {
-                sortingOrder: 'email'
-            };
-            $scope.filteredItems = [];
-            $scope.itemsPerPage = 2;
-            $scope.pagedItems = [];
+            $scope.users = data['test'];
+            $scope.len = data['len'];
             $scope.currentPage = 0;
-
-
-            var searchMatch = function (haystack, needle) {
-                if (!needle) {
-                    return true;
-                }
-                return haystack.toLowerCase().indexOf(needle.toLowerCase()) !== -1;
-            };
-
-            $scope.search = function () {
-
-                $scope.filteredItems = $filter('filter')($scope.items, function (item) {
-                    for (var attr in item) {
-                        if (searchMatch(item[attr], $scope.query))
-                            return true;
-                    }
-                    return false;
-                });
-                $scope.filteredItems = $scope.items
-                // take care of the sorting order
-                if ($scope.sort.sortingOrder !== '') {
-                    $scope.filteredItems = $filter('orderBy')($scope.filteredItems, $scope.sort.sortingOrder, $scope.sort.reverse);
-                }
-                $scope.currentPage = 0;
-                // now group by pages
-                $scope.groupToPages();
-            };
-
-            $scope.groupToPages = function () {
-                $scope.pagedItems = [];
-
-                for (var i = 0; i < $scope.filteredItems.length; i++) {
-                    if (i % $scope.itemsPerPage === 0) {
-                        $scope.pagedItems[Math.floor(i / $scope.itemsPerPage)] = [$scope.filteredItems[i]];
-                    } else {
-                        $scope.pagedItems[Math.floor(i / $scope.itemsPerPage)].push($scope.filteredItems[i]);
-                    }
-                }
-            };
-
-            $scope.range = function (size, start, end) {
-                var ret = [];
-                if (size < end) {
-                    end = size;
-                    start = size;
-                }
-                for (var i = start; i < end; i++) {
-                    ret.push(i);
-                }
-                return ret;
-            };
-
-            $scope.firstPage = function () {
-                    $scope.currentPage = 0;
-            };
-
-            $scope.prevPage = function () {
-                if ($scope.currentPage > 0) {
-                    $scope.currentPage--;
-                }
-            };
-
-            $scope.nextPage = function () {
-                if ($scope.currentPage < $scope.pagedItems.length - 1) {
-                    $scope.currentPage++;
-                }
-            };
-
-            $scope.lastPage = function () {
-                    $scope.currentPage = $scope.pagedItems.length-1;
-            };
-
-            $scope.setPage = function () {
-                $scope.currentPage = this.n;
-            };
-
-            $scope.search();
+            $scope.l = Math.floor($scope.len / $scope.itemsPerPage) + $scope.len % $scope.itemsPerPage;
 
         })
         .error(function (data) {
 
         });
+
+    var searchMatch = function (haystack, needle) {
+        if (!needle) {
+            return true;
+        }
+        return haystack.toLowerCase().indexOf(needle.toLowerCase()) !== -1;
+    };
+
+    $scope.range = function (size, start, end) {
+        var ret = [];
+        if (size < end) {
+            end = size;
+            start = size;
+        }
+        for (var i = start; i < end; i++) {
+            ret.push(i);
+        }
+        return ret;
+    };
+
+    $scope.firstPage = function () {
+        $scope.currentPage = 0;
+    };
+
+    $scope.prevPage = function () {
+        if ($scope.currentPage > 0) {
+            $scope.currentPage--;
+        }
+    };
+
+    $scope.nextPage = function () {
+        if ($scope.currentPage < $scope.l- 1) {
+            $scope.currentPage++;
+        }
+    };
+
+    $scope.lastPage = function () {
+        $scope.currentPage = $scope.l-1;
+    };
+
+    $scope.setPage = function () {
+        $scope.currentPage = this.n;
+    };
 
     $scope.send = function (email, subject, body) {
         var link = "mailto:" + email
@@ -197,7 +179,7 @@ administrationApp.controller('usermanagementCtrl', function ($scope, $http, $fil
         }
     }
 
-    $scope.update = function(email, securty_level, page, index){
+    $scope.update = function(email, securty_level, index){
         $http({
             method: 'POST',
             url: '/api/admin_user_update',
@@ -205,7 +187,38 @@ administrationApp.controller('usermanagementCtrl', function ($scope, $http, $fil
             data: {email: email, security_level: securty_level}
         })
             .success(function (data) {
-                $scope.pagedItems[page][index].security_level = securty_level;
+                alert($scope.users[index].security_level);
+                $scope.users[index].security_level = securty_level;
+            })
+            .error(function (data) {
+            });
+    }
+
+     $scope.search = function(text){
+         alert(text);
+        $http({
+            method: 'POST',
+            url: '/api/admin_user_search',
+            headers: {'Content-Type': 'application/json'},
+            data: {text: text}
+        })
+            .success(function (data) {
+                alert("A");
+                $scope.users = data['test'];
+            })
+            .error(function (data) {
+            });
+    }
+
+    $scope.sort = function(spalte){
+        $http({
+            method: 'POST',
+            url: '/api/admin_user_sort',
+            headers: {'Content-Type': 'application/json'},
+            data: {spalte: spalte}
+        })
+            .success(function (data) {
+                //
             })
             .error(function (data) {
             });
@@ -279,7 +292,6 @@ administrationApp.run(function ($rootScope, $state, $http, loggedIn, $window) {
     $rootScope.$on('$stateChangeStart',function(event, toState, toParams, fromState, fromParams){
         var authorization = toState.data.authorization;
         var auth = false;
-
         if (authorization){
             loggedIn.getUser().then(function(data){
                 var user = data['user'];
@@ -291,7 +303,7 @@ administrationApp.run(function ($rootScope, $state, $http, loggedIn, $window) {
                 if(auth == false){
                     alert('Bitte melde dich zuerst an!');
                     event.preventDefault();
-                    //$window.location.href = '/login';
+                    $window.location.href = '/login';
                 }
             }, function(data){
                 alert('Bitte melde dich zuerst an!');
