@@ -2,10 +2,9 @@
 <div class="row">
 
     <h2>Usermanagement</h2>
-
     <div class="col-xs-4">
         <label for="search">Search:</label>
-        <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+        <input ng-model="q" ng-change="search('A')" id="search" class="form-control" placeholder="Filter text">
     </div>
     <table class="table table-striped table-hover">
         <thead>
@@ -37,25 +36,25 @@
             <div class="text-center">
                 <ul class="pagination" align="center">
                     <li ng-class="{disabled: currentPage == 0}">
-                        <a href ng-click="firstPage()"> < </a>
+                        <a href ng-click="firstPage(); next(currentPage+1)"> < </a>
                     </li>
 
                     <li ng-class="{disabled: currentPage == 0}">
-                        <a href ng-click="prevPage()">« Prev</a>
+                        <a href ng-click="prevPage(); next(currentPage+1)">« Prev</a>
                     </li>
 
-                    <li ng-repeat="n in range(pagedItems.length, 0, pagedItems.length) "
+                    <li ng-repeat="n in range(pagedItems.length, 0, l) "
                         ng-class="{active: n == currentPage}"
-                        ng-click="setPage()">
+                        ng-click="setPage(); next(currentPage+1)">
                         <a href ng-bind="n + 1">1</a>
                     </li>
 
-                    <li ng-class="{disabled: (currentPage) == pagedItems.length - 1}">
-                        <a href ng-click="nextPage()">Next »</a>
+                    <li ng-class="{disabled: (currentPage) == l - 1}">
+                        <a href ng-click="nextPage(); next(currentPage+1)">Next »</a>
                     </li>
 
-                    <li ng-class="{disabled: currentPage == pagedItems.length-1}">
-                        <a href ng-click="lastPage()"> > </a>
+                    <li ng-class="{disabled: currentPage == l-1}">
+                        <a href ng-click="lastPage(); next(currentPage+1)"> > </a>
                     </li>
                 </ul>
             </div>
@@ -63,13 +62,12 @@
         </tfoot>
 
         <tbody>
-        <tr ng-repeat="user in users | filter:q | orderBy:orderByField:reverseSort"
-            ng-if='$index>=currentPage*itemsPerPage && $index < (currentPage+1)*itemsPerPage'>
+        <tr ng-repeat="user in users | orderBy:orderByField:reverseSort">
             <td>{{ user.email }}</td>
             <td>{{ user.first_name }}</td>
             <td>{{ user.last_name }}</td>
             <td>
-                <select class="form-control" ng-model="selectedItem" ng-init="selectedItem='2'" ng-change="update(user.email,selectedItem,currentPage,$index)">
+                <select class="form-control" ng-model="selectedItem" ng-init="selectedItem='0'" ng-change="update(user.email,selectedItem,$index)">
                     <option ng-selected="user.security_level == item.security_level" ng-repeat="item in security_list"
                             value="{{ item.security_level }}">{{ item.name }}</option>
                 </select>
