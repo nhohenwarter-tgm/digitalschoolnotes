@@ -58,7 +58,6 @@ mainApp.controller('notebooksCreateCtrl', function($scope, $http, loggedIn){
 
 mainApp.controller('logoutCtrl', function($scope, $http, $state){
     $scope.logout = function(){
-        alert("Test");
         $http({
             method  : 'GET',
             url     : '/api/logout',

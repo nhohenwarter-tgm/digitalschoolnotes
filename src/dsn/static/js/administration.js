@@ -4,9 +4,20 @@ administrationApp.config(function ($stateProvider, $urlRouterProvider, $location
 
     $urlRouterProvider.otherwise('/admin');
 
-    // USERMANAGEMENT
-    $stateProvider.state('usermanagement', {
+    // HEADER
+    $stateProvider.state('admin', {
         url: '/admin',
+        templateUrl: '/admin/admin.html',
+        controller: 'adminCtrl',
+        data: {
+            authorization: true,
+            admin: true
+        }
+    });
+
+    // USERMANAGEMENT
+    $stateProvider.state('admin.usermanagement', {
+        url: '',
         templateUrl: '/admin/admin_usermanagement.html',
         controller: 'usermanagementCtrl',
         data: {
@@ -16,8 +27,8 @@ administrationApp.config(function ($stateProvider, $urlRouterProvider, $location
     });
 
     // BILLS
-    $stateProvider.state('bills', {
-        url: '/admin',
+    $stateProvider.state('admin.bills', {
+        url: '',
         templateUrl: '/admin/admin_bills.html',
         controller: 'billsCtrl',
         data: {
@@ -27,8 +38,8 @@ administrationApp.config(function ($stateProvider, $urlRouterProvider, $location
     });
 
     // LDAP CONFIGURATION
-    $stateProvider.state('ldapConfiguration', {
-        url: '/admin',
+    $stateProvider.state('admin.ldapConfiguration', {
+        url: '',
         templateUrl: '/admin/admin_ldapConfiguration.html',
         controller: 'ldapConfigurationCtrl',
         data: {
@@ -38,8 +49,8 @@ administrationApp.config(function ($stateProvider, $urlRouterProvider, $location
     });
 
     // USER QUOTAS
-    $stateProvider.state('userquotas', {
-        url: '/admin',
+    $stateProvider.state('admin.userquotas', {
+        url: '',
         templateUrl: '/admin/admin_userquotas.html',
         controller: 'userquotasCtrl',
         data: {
@@ -49,8 +60,8 @@ administrationApp.config(function ($stateProvider, $urlRouterProvider, $location
     });
 
     // STATISTICS
-    $stateProvider.state('statistics', {
-        url: '/admin',
+    $stateProvider.state('admin.statistics', {
+        url: '',
         templateUrl: '/admin/admin_statistics.html',
         controller: 'statisticsCtrl',
         data: {
@@ -64,6 +75,10 @@ administrationApp.config(function ($stateProvider, $urlRouterProvider, $location
     // CSRF TOKEN
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+
+});
+
+administrationApp.controller('adminCtrl', function(){
 
 });
 
@@ -151,7 +166,7 @@ administrationApp.controller('usermanagementCtrl', function ($scope, $http, $fil
     $scope.setPage = function () {
         $scope.currentPage = this.n;
     };
-
+    
     $scope.send = function (email, subject, body) {
         var link = "mailto:" + email
             + "?subject=New%20email " + escape(subject)
@@ -227,18 +242,22 @@ administrationApp.controller('usermanagementCtrl', function ($scope, $http, $fil
 
 
 administrationApp.controller('billsCtrl', function ($scope) {
-    $scope.a = '1';
+
 });
 
 administrationApp.controller('ldapConfigurationCtrl', function ($scope) {
-    $scope.a = '2';
+
+});
+
+administrationApp.controller('userquotasCtrl', function ($scope) {
+
 });
 
 administrationApp.controller('statisticsCtrl', function ($scope) {
-    $scope.a = '3';
+
 });
 
-administrationApp.controller('logoutCtrl', function ($scope, $http) {
+administrationApp.controller('logoutCtrl', function ($scope, $http, $window) {
     $scope.logout = function () {
         $http({
             method: 'GET',
@@ -246,13 +265,10 @@ administrationApp.controller('logoutCtrl', function ($scope, $http) {
             data: {}
         })
             .success(function (data) {
-                if (data['logout_error'] != null) {
-                    $scope.error = true;
-                    $scope.logout_error = data['logout_error'];
-                }
+                $window.location.href = '/';
             })
             .error(function (data) {
-
+                alert('Beim ausloggen ist ein Fehler aufgetreten! Bitte versuche es erneut!');
             });
     }
 });
@@ -275,7 +291,8 @@ administrationApp.service('loggedIn', function ($http, $q) {
     };
 });
 
-administrationApp.run(function ($rootScope, $state, $http, loggedIn, $window) {
+administrationApp.run(function ($rootScope, $state, $http, $window, loggedIn) {
+    $rootScope.show_header = false;
     $http({
         method: 'GET',
         url: '/api/csrf',
@@ -289,27 +306,20 @@ administrationApp.run(function ($rootScope, $state, $http, loggedIn, $window) {
 
         });
 
-    $rootScope.$on('$stateChangeStart',function(event, toState, toParams, fromState, fromParams){
-        var authorization = toState.data.authorization;
-        var auth = false;
-        if (authorization){
-            loggedIn.getUser().then(function(data){
-                var user = data['user'];
-                if(user == null){
-                    auth = false;
-                }else{
-                    auth = user['is_admin'];
-                }
-                if(auth == false){
-                    alert('Bitte melde dich zuerst an!');
-                    event.preventDefault();
-                    $window.location.href = '/login';
-                }
-            }, function(data){
-                alert('Bitte melde dich zuerst an!');
-                event.preventDefault();
-                $window.location.href = '/login';
-            });
+    loggedIn.getUser().then(function(data){
+        var user = data['user'];
+        if(user == null){
+            auth = false;
+        }else{
+            auth = user['is_admin'];
         }
+        if(auth == false){
+            $window.location.href = '/login';
+        }else{
+            $rootScope.show_header = true;
+            $state.go('admin.usermanagement');
+        }
+    }, function(data){
+        $window.location.href = '/login';
     });
 });
