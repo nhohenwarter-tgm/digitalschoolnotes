@@ -1,0 +1,31 @@
+<nav class="navbar navbar-inverse navbar-fixed-top" ng-show="show_header">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://digitalschoolnotes.com:5001" style="padding-top: 5px; padding-bottom: 5px;" ng-click="$event.stopPropagation()">
+                <img alt="DigitalSchoolNotes" src="../../img/logo_small.png" style="max-height: 100%; height: 100%;">
+            </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a ui-sref="admin.usermanagement">User Management</a></li>
+                <li><a ui-sref="admin.bills">Bills</a></li>
+                <li><a ui-sref="admin.ldapConfiguration">LDAP Server Management</a></li>
+                <li><a ui-sref="admin.userquotas">User Quotas</a></li>
+                <li><a ui-sref="admin.statistics">Statistics</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="" ng-controller="logoutCtrl" ng-click="logout()">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- NAVBAR END -->
+<!-- CONTENT START -->
+<div style="padding-top: 80px;" ui-view></div>
+<!-- CONTENT END -->

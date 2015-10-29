@@ -54,7 +54,7 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
     $stateProvider.state('mainpage.validate_email', {
         url: '/validate/{hash:[0-9a-z]{64,64}}', //
         templateUrl: '/mainpage/validate_email.html',
-        controller: 'validateEmailCtrl',
+        controller: 'resetPwdCtrl',
         data: {
             authorization: false,
             admin: false
@@ -164,7 +164,8 @@ mainApp.service('loggedIn', function ($http, $q) {
     };
 });
 
-mainApp.run(function($rootScope, $state, $http, $window, loggedIn){
+mainApp.run(function($rootScope, $state, $http, $window, $urlRouter, loggedIn){
+    authenticated = false;
     $http({
         method  : 'GET',
         url     : '/api/csrf',
@@ -179,10 +180,19 @@ mainApp.run(function($rootScope, $state, $http, $window, loggedIn){
         });
 
     $rootScope.$on('$stateChangeStart',function(event, toState, toParams, fromState, fromParams){
+        if(toState.name != 'mainpage.login') {
+            $rootScope.error = false;
+            $rootScope.login_error = '';
+        }
+        if(authenticated == true){
+            authenticated = false;
+            var auth = true;
+        }else{
+            var auth = false;
+        }
         var authorization = toState.data.authorization;
-        var auth = false;
-
-        if (authorization){
+        if (authorization && !auth){
+            event.preventDefault();
             loggedIn.getUser().then(function(data){
                 var user = data['user'];
                 if(user == null){
@@ -190,14 +200,17 @@ mainApp.run(function($rootScope, $state, $http, $window, loggedIn){
                 }else{
                     auth = user['is_active'];
                 }
-                if(auth == false){
-                    alert('Bitte melde dich zuerst an!');
-                    event.preventDefault();
+                if(auth == true){
+                    authenticated = true;
+                    $state.go(toState, toParams);
+                }else{
+                    $rootScope.error = true;
+                    $rootScope.login_error = 'Bitte melde dich zuerst an!';
                     $state.go('mainpage.login');
                 }
             }, function(data){
-                alert('Bitte melde dich zuerst an!');
-                event.preventDefault();
+                $rootScope.error = true;
+                $rootScope.login_error = 'Bitte melde dich zuerst an!';
                 $state.go('mainpage.login');
             });
         }

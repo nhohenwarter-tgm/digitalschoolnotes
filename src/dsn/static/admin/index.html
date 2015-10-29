@@ -4,53 +4,25 @@
     <title>Digital School Notes</title>
     <meta name="viewport" content="width=device-width">
     <meta charset='utf-8'>
-    <link rel="stylesheet" href="../../style.css">
-    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../../style.css">
+    <link rel="shortcut icon" href="../../../favicon.ico">
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
     <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-cookies.js"></script>
+    <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js"></script>
 
-    <script src="../../js/administration.js"></script>
+    <script src="../../../js/administration.js"></script>
 
     <base href="/admin">
 </head>
 <body>
     <!-- NAVBAR START -->
     <div class="container" ng-app="administrationApp">
-        <nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="http://digitalschoolnotes.com:5001" style="padding-top: 5px; padding-bottom: 5px;" ng-click="$event.stopPropagation()">
-                        <img alt="DigitalSchoolNotes" src="../../img/logo_small.png" style="max-height: 100%; height: 100%;">
-                    </a>
-                </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a ui-sref="usermanagement">User Management</a></li>
-                        <li><a ui-sref="bills">Bills</a></li>
-                        <li><a ui-sref="ldapConfiguration">LDAP Server Management</a></li>
-                        <li><a ui-sref="userquotas">User Quotas</a></li>
-                        <li><a ui-sref="statistics">Statistics</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="" ng-controller="logoutCtrl" ng-click="logout()">Logout</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <!-- NAVBAR END -->
-        <!-- CONTENT START -->
-        <div style="padding-top: 80px;" ui-view></div>
-        <!-- CONTENT END -->
+        <div ui-view></div>
     </div>
 </body>
 </html>
