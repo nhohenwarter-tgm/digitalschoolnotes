@@ -106,4 +106,4 @@ def view_getOtherProfile(request):
                     })
             return JsonResponse({"profiles":profiles, 'len': length})
         except KeyError:
-            return JsonResponse({"profiles":profiles})
+            return JsonResponse({"profiles":profiles, 'len': 0})
