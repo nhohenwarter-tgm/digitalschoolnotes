@@ -1,4 +1,4 @@
-var mainApp = angular.module('mainApp', ['ui.router','ngCookies']);
+var mainApp = angular.module('mainApp', ['ui.router','ngCookies','vcRecaptcha']);
 
 mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
 
@@ -63,7 +63,7 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
 
     // RESET PASSWORD
     $stateProvider.state('mainpage.reset_pwd', {
-        url: '/resetpassword/{hash:[0-9a-z]{64,64}}', //
+        url: '/resetpassword/{hash:[0-9a-z]{64,64}}',
         templateUrl: '/mainpage/reset_password.html',
         controller: 'resetPwdCtrl',
         data: {

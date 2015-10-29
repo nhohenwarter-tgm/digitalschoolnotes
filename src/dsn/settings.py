@@ -173,3 +173,6 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 #Timezone
 os.environ['TZ'] = 'Europe/Vienna'
+
+#Captcha
+RECAPTCHA_SECRET_KEY = '6Ldj4A8TAAAAADcnvqZl12haS-4wVOrSwehHCjUa'

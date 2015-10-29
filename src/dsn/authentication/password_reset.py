@@ -3,13 +3,19 @@ from mongoengine import DoesNotExist
 from dsn.forms import PasswordSetForm
 import hashlib
 from datetime import datetime, timedelta
+from dsn.authentication.captcha import validate_captcha
 
-def validate_passwordreset(email):
-    try:
-        User.objects.get(email=email)
-        return True
-    except DoesNotExist:
-        return "E-Mail Adresse ist nicht korrekt."
+
+def validate_passwordreset(email, recaptcha, ip):
+    val = validate_captcha(recaptcha, ip)
+    if val is True:
+        try:
+            User.objects.get(email=email)
+            return True
+        except DoesNotExist:
+            return "E-Mail Adresse ist nicht korrekt."
+    else:
+        return val
 
 def create_passwordreset_token(email):
     user = User.objects.get(email=email)
