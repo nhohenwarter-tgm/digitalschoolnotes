@@ -1,7 +1,18 @@
 var mainApp = angular.module('mainApp');
 
-mainApp.controller('mainpageCtrl', function(){
+mainApp.controller('mainpageCtrl', function($scope, $http, loggedIn){
+    loggedIn.getUser().then(function(data){
+            var user = data['user'];
+            if(user == null){
+                $scope.menu_toapp = false;
+                $scope.menu_login = true;
+            }else{
+                $scope.menu_toapp = true;
+                $scope.menu_login = false;
+            }
+        }, function(data){
 
+        });
 });
 
 mainApp.controller('contentCtrl', function($scope, $http, $cookies){
