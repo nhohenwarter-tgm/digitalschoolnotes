@@ -50,6 +50,17 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         }
     });
 
+    // VALIDATE EMAIL
+    $stateProvider.state('mainpage.validate_email', {
+        url: '/validate/{hash:[0-9a-z]{64,64}}', //
+        templateUrl: '/mainpage/validate_email.html',
+        controller: 'validateEmailCtrl',
+        data: {
+            authorization: false,
+            admin: false
+        }
+    });
+
     // RESET PASSWORD
     $stateProvider.state('mainpage.reset_pwd', {
         url: '/resetpassword/{hash:[0-9a-z]{64,64}}', //

@@ -84,9 +84,28 @@ mainApp.controller('loginCtrl', function($scope, $http, $state){
     }
 });
 
+mainApp.controller('validateEmailCtrl', function($scope, $http, $state){
+    var hash = $state.params.hash;
+    $http({
+        method: 'POST',
+        url: '/api/validate_email',
+        headers: {'Content-Type': 'application/json'},
+        data: {
+            hash: hash
+        }
+    })
+        .success(function (data) {
+            $scope.message = data['message'];
+        })
+        .error(function (data) {
+
+        });
+
+});
+
 mainApp.controller('resetPwdCtrl', function($scope, $http, $state){
     $scope.error = false;
-
+    
     $scope.resetPasswordReq = function() {
         var email = $scope.email;
 

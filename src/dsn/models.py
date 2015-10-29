@@ -85,11 +85,12 @@ class User(Document):
     password = StringField(max_length=128)
     is_staff = BooleanField(default=False)
     is_prouser = BooleanField(default=False)
-    is_active = BooleanField(default=True)
+    is_active = BooleanField(default=False)
     is_superuser = BooleanField(default=False)
     last_login = DateTimeField(default=datetime.datetime.now())
     date_joined = DateTimeField(default=datetime.datetime.now())
-    passwordreset= EmbeddedDocumentField(PasswordReset)
+    passwordreset = EmbeddedDocumentField(PasswordReset)
+    validatetoken = StringField()
 
     user_permissions = ListField(ReferenceField(Permission))
 

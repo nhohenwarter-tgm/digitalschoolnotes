@@ -1,0 +1,10 @@
+Hallo {{firstname}},
+klicke hier auf den Link um deine E-Mail Adresse zu bestätigen.
+
+{{link}}
+
+Liebe Grüße
+DigitalSchoolNotes
+
+----------
+Bitte antworte nicht auf diese automatisch generierte E-Mail!

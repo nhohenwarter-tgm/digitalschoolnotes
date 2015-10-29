@@ -1,10 +1,11 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import ensure_csrf_cookie
+from mongoengine import DoesNotExist
 import json
 from django.contrib.auth import login, logout
-from dsn.authentication.registration import validate_registration
+from dsn.authentication.registration import validate_registration, create_validation_token
 from dsn.authentication.password_reset import validate_passwordreset, create_passwordreset_token, validate_newpassword
-from dsn.authentication.email import passwordresetmail
+from dsn.authentication.email import passwordresetmail, validationmail
 from dsn.forms import RegistrationForm, PasswordResetForm, PasswordSetForm
 from dsn.models import User
 
@@ -52,6 +53,8 @@ def view_registration(request):
         val = validate_registration(form.email, form.password, form.password_repeat)
         if val is True:
             User.create_user(email=params['email'], password=params['password'], first_name=params['firstname'], last_name=params['lastname'])
+            link = create_validation_token(params['email'])
+            validationmail(params['email'], params['firstname'], link)
             return JsonResponse({})
         else:
             return JsonResponse({'registration_error': val})
@@ -68,11 +71,13 @@ def view_login(request):
             user = User.objects.get(email=params['email'])
         except:
             user = None
-        if user is not None and user.check_password(params['password']):
+        if user is not None and user.is_active is True and user.check_password(params['password']):
             user.backend = 'mongoengine.django.auth.MongoEngineBackend'
             login(request, user)
             request.session.set_expiry(60 * 60 * 1) # 1 hour timeout
             return JsonResponse({})
+        elif user.is_active is False:
+            return JsonResponse({'login_error': u'Bitte bestätige zuerst deine E-Mail Adresse!'})
         else:
             return JsonResponse({'login_error': u'E-Mail Adresse oder Passwort falsch!'})
     else:
@@ -101,6 +106,18 @@ def view_resetpassword(request):
         form.password_repeat = params['password_repeat']
         val = validate_newpassword(form, params['hash'])
         return JsonResponse({'reset_error': val})
+
+def view_validate_account(request):
+    if request.method == 'POST':
+        params = json.loads(request.body.decode('utf-8'))
+        try:
+            user = User.objects.get(validatetoken=params['hash'])
+            user.is_active = True
+            user.validatetoken = ''
+            user.save()
+            return JsonResponse({'message':'Deine E-Mail Adresse wurde erfolgreich bestätigt!'})
+        except DoesNotExist:
+            return JsonResponse({'message':'Dieser Link ist nicht gültig!'})
 
 
 def view_logout(request):

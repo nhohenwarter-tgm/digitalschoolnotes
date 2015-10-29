@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^api/login', 'dsn.views.mainpage_views.view_login', name="login"),
     url(r'^api/logout', 'dsn.views.mainpage_views.view_logout', name="logout"),
     url(r'^api/register', 'dsn.views.mainpage_views.view_registration', name="register"),
+    url(r'^api/validate_email', 'dsn.views.mainpage_views.view_validate_account', name="validateEmail"),
     url(r'^api/resetpasswordrequest', 'dsn.views.mainpage_views.view_resetpasswordrequest', name="resetpasswordrequest"),
     url(r'^api/resetpassword', 'dsn.views.mainpage_views.view_resetpassword', name="resetpassword"),
     url(r'^api/timetable', 'dsn.views.management_views.view_timetable', name="timetable"),
