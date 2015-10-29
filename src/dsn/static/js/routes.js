@@ -65,7 +65,7 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
     $stateProvider.state('mainpage.validate_email', {
         url: '/validate/{hash:[0-9a-z]{64,64}}', //
         templateUrl: '/mainpage/validate_email.html',
-        controller: 'resetPwdCtrl',
+        controller: 'validateEmailCtrl',
         data: {
             authorization: false,
             admin: false

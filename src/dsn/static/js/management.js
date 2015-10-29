@@ -22,10 +22,9 @@ mainApp.controller('notebooksCtrl', function ($scope, $http) {
     $http({
         method: 'POST',
         url: '/api/get_notebooks'
-    }).success(function (data) {
-            $scope.notebooks = JSON.parse(data['notebooks']);
-        }
-    )
+    }).success(function(data){
+                $scope.notebooks = JSON.parse(data['notebooks']);
+            })
 });
 
 mainApp.controller('timetableCtrl', function ($scope, $http) {
@@ -104,8 +103,6 @@ mainApp.controller('profileCtrl', function($scope, $http, $stateParams){
         url: '/api/profile',
         data: {id: $stateParams.id}
     }).success(function(data){
-        url: '/api/profile'
-    }).success(function (data) {
             $scope.first_name = data['first_name'];
             $scope.last_name = data['last_name'];
             $scope.email = data['email'];
