@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^api/resetpasswordrequest', 'dsn.views.mainpage_views.view_resetpasswordrequest', name="resetpasswordrequest"),
     url(r'^api/resetpassword', 'dsn.views.mainpage_views.view_resetpassword', name="resetpassword"),
     url(r'^api/timetable', 'dsn.views.management_views.view_timetable', name="timetable"),
+    url(r'^api/admin_user_update', 'dsn.views.administration_views.view_saveUserchange', name="admin_user_update"),
     url(r'^api/admin_user', 'dsn.views.administration_views.view_users', name="admin_user"),
     url(r'^api/profile', 'dsn.views.management_views.view_getProfile', name="profile"),
     url(r'^api/notebooks_create', 'dsn.views.management_views.view_createNotebook', name="createNotebook"),

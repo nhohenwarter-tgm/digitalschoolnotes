@@ -1,39 +1,88 @@
 <!-- TODO Add usermanagement view -->
-<div class="container">
-  <h2>Usermanagement</h2>
-  <table class="table table-striped table-hover">
-    <thead>
-      <tr>
-          <th>Email-Adresse</th>
-          <th>Vorname</th>
-          <th>Nachname</th>
-          <th>Berechtigungsstufe</th>
-          <th>Löschen</th>
-          <th>E-Mail</th>
-      </tr>
-    </thead>
-    <tbody ng-repeat="(key, value) in users">
-            <tr>
-                    <td>{{ value.email }}</td>
-                    <td>{{ value.first_name }}</td>
-                    <td>{{ value.last_name }}</td>
-                    <td><select class="form-control">
-                        <option ng-selected="{{value.security_level == 1}}" value="1">Benutzer</option>
-                        <option ng-selected="{{value.security_level == 2}}" value="2">Pro Benutzer</option>
-                        <option ng-selected="{{value.security_level == 3}}" value="3">Administrator</option>
-                        {{ value.security_level }}
-                    </select></td>
-                    <td>
+<div class="row">
 
-                        <button type="button" ng-click="delete(value.email)" class="btn btn-danger">Account löschen</button>
-                    </td>
-                    <td>
-                        <form action="mailto:{{value.email}}" enctype="text/plain" >
-                            <input type="submit" class="btn btn-info" value="Send Mail" />
-                            </form>
+    <h2>Usermanagement</h2>
 
-                    </td>
-            </tr>
-    </tbody>
-  </table>
+    <div class="col-xs-4">
+        <label for="search">Search:</label>
+        <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+    </div>
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th>
+                <a href="#" ng-click="orderByField='email'; reverseSort = !reverseSort">Email-Adresse</a>
+                <span ng-show="orderByField == 'email'"><span ng-show="!reverseSort">^</span>
+                    <span ng-show="reverseSort">v</span></span>
+            </th>
+            <th>
+                <a href="#" ng-click="orderByField='first_name'; reverseSort = !reverseSort">Vorname</a>
+                <span ng-show="orderByField == 'first_name'"><span ng-show="!reverseSort">^</span>
+                    <span ng-show="reverseSort">v</span></span>
+            </th>
+            <th>
+                <a href="#" ng-click="orderByField='last_name'; reverseSort = !reverseSort">Nachname</a>
+                <span ng-show="orderByField == 'last_name'"><span ng-show="!reverseSort">^</span>
+                    <span ng-show="reverseSort">v</span></span>
+            </th>
+            <th><a href="#" ng-click="orderByField='security_level'; reverseSort = !reverseSort">Berechtigungsstufe</a>
+                <span ng-show="orderByField == 'security_level'"><span ng-show="!reverseSort">^</span>
+                    <span ng-show="reverseSort">v</span></span></th>
+            <th>Löschen</th>
+            <th>E-Mail</th>
+        </tr>
+        </thead>
+        <tfoot>
+        <td colspan="6">
+            <div class="text-center">
+                <ul class="pagination" align="center">
+                    <li ng-class="{disabled: currentPage == 0}">
+                        <a href ng-click="firstPage()"> < </a>
+                    </li>
+
+                    <li ng-class="{disabled: currentPage == 0}">
+                        <a href ng-click="prevPage()">« Prev</a>
+                    </li>
+
+                    <li ng-repeat="n in range(pagedItems.length, 0, pagedItems.length) "
+                        ng-class="{active: n == currentPage}"
+                        ng-click="setPage()">
+                        <a href ng-bind="n + 1">1</a>
+                    </li>
+
+                    <li ng-class="{disabled: (currentPage) == pagedItems.length - 1}">
+                        <a href ng-click="nextPage()">Next »</a>
+                    </li>
+
+                    <li ng-class="{disabled: currentPage == pagedItems.length-1}">
+                        <a href ng-click="lastPage()"> > </a>
+                    </li>
+                </ul>
+            </div>
+        </td>
+        </tfoot>
+
+        <tbody>
+        <tr ng-repeat="user in users | filter:q | orderBy:orderByField:reverseSort"
+            ng-if='$index>=currentPage*itemsPerPage && $index < (currentPage+1)*itemsPerPage'>
+            <td>{{ user.email }}</td>
+            <td>{{ user.first_name }}</td>
+            <td>{{ user.last_name }}</td>
+            <td>
+                <select class="form-control" ng-model="selectedItem" ng-init="selectedItem='2'" ng-change="update(user.email,selectedItem,currentPage,$index)">
+                    <option ng-selected="user.security_level == item.security_level" ng-repeat="item in security_list"
+                            value="{{ item.security_level }}">{{ item.name }}</option>
+                </select>
+            </td>
+            <td>
+
+                <button type="button" ng-click="delete(user.email, currentPage)" class="btn btn-danger">Account löschen</button>
+            </td>
+            <td>
+                <button type="button" ng-click="send(user.email, 'Test', user.last_name)" class="btn btn-info">Mail senden
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
