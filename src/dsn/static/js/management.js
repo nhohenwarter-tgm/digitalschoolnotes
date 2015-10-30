@@ -34,6 +34,17 @@ mainApp.controller('timetableCtrl', function($scope, $http){
     }
 });
 
+mainApp.controller('notebooksShowCtrl', function($scope, $http){
+    $http({
+        method: 'GET',
+        url: '/api/notebooks_show'
+    }).success(function(data){
+            $scope.notebooks = JSON.parse(data['notebooks']);
+            console.log(data);
+        }
+    )
+});
+
 mainApp.controller('notebooksCreateCtrl', function($scope, $http, loggedIn){
 
     $scope.submitCreateNotebook = function() {
@@ -76,7 +87,7 @@ mainApp.controller('profileCtrl', function($scope, $http){
             $scope.last_name = data['last_name'];
             $scope.email = data['email'];
             $scope.date_joined = data['date_joined'].substring(0,10);
-            $scope.notebooks = data['notebooks'];
+            $scope.notebooks = JSON.parse(data['notebooks']);
             console.log(data);
         }
     )
