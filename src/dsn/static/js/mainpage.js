@@ -27,10 +27,10 @@ mainApp.controller('contentCtrl', ['vcRecaptchaService','$scope','$http',functio
         var first_name = $scope.firstname;
         var last_name = $scope.lastname;
         var accept = $scope.accept;
-        $scope.error = false;
+        $scope.captchaerror = false;
         $scope.emailerror = false;
         $scope.passworderror = false;
-        $scope.registration_error = '';
+        $scope.email_error = '';
         $scope.password_error = '';
         $scope.captcha_error = ''
         if(vcRecaptchaService.getResponse() === ""){
