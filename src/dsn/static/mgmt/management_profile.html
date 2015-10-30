@@ -7,17 +7,18 @@
                 </tr>
             </table>
 
-            <div ng-bind='first_name' style="">
+            <div>
+                <h2>
+                    <span ng-bind='first_name'></span>
+                    <span ng-bind='last_name'></span>
+                </h2>
             </div>
 
-            <div ng-bind='last_name'>
+            <h3 ng-bind='email'></h3>
+            <div>
+                joined on <span ng-bind='date_joined'></span>
             </div>
-
-            <div ng-bind='email'>
-            </div>
-
-            <div ng-bind='date_joined'>
-            </div>
+            <span ng-bind='notebooks'></span>
         </td>
         <td width="100"></td>
         <td>

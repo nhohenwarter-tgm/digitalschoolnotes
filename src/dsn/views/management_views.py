@@ -37,9 +37,10 @@ def view_getProfile(request):
 
     if request.method == "GET":
         #params = json.loads(request.body.decode('utf-8'))
-        profile = User.objects(id=ObjectId("5624a5d7da532b17b626baa9"))
+        profile = request.user
+        notebooks = Notebook.objects.filter(email=profile.email)
 
-        return JsonResponse({"first_name":profile[0].first_name, "last_name":profile[0].last_name, "email":profile[0].email, "date_joined":profile[0].date_joined})
+        return JsonResponse({"first_name":profile.first_name, "last_name":profile.last_name, "email":profile.email, "date_joined":profile.date_joined, "notebooks":notebooks})
 
 
 def view_createNotebook(request):
@@ -50,7 +51,7 @@ def view_createNotebook(request):
         form.is_public = params['is_public']
         form.create_date = datetime.now()
         form.last_change = datetime.now()
-        form.email = params['email']
+        form.email = request.user.email
         nb = Notebook(name=form.name, is_public=form.is_public, create_date= form.create_date,last_change=form.last_change, email=form.email)
         nb.save()
         return JsonResponse({'message': 'Ihr Heft wurde erstellt!'})
