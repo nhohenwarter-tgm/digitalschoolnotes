@@ -17,7 +17,7 @@ mainApp.controller('mainpageCtrl', function($scope, $http, loggedIn){
 
 mainApp.controller('contentCtrl', ['vcRecaptchaService','$scope','$http',function(vcRecaptchaService, $scope, $http){
     $scope.error = false;
-    $scope.publicKey = "6Ldj4A8TAAAAAANFOMC0XlVx3AG3KvX5vKhCXqQc"
+    $scope.publicKey = "6Ldj4A8TAAAAAANFOMC0XlVx3AG3KvX5vKhCXqQc";
 
     $scope.submitRegister = function(){
         $scope.submitted = true;
@@ -32,7 +32,7 @@ mainApp.controller('contentCtrl', ['vcRecaptchaService','$scope','$http',functio
         $scope.passworderror = false;
         $scope.email_error = '';
         $scope.password_error = '';
-        $scope.captcha_error = ''
+        $scope.captcha_error = '';
         if(vcRecaptchaService.getResponse() === ""){
             $scope.captchaerror = true;
             $scope.captcha_error = "Bitte löse das Captcha.\n";
@@ -41,9 +41,9 @@ mainApp.controller('contentCtrl', ['vcRecaptchaService','$scope','$http',functio
             $scope.passworderror = true;
             $scope.password_error = "Die Passwörter stimmen nicht überein.\n";
         }
-        password=CryptoJS.SHA256(password)
-        password_repeat=CryptoJS.SHA256(password_repeat)
-        if(!$scope.register.$valid && !$scope.captcha_error) {
+        password=CryptoJS.SHA256(password);
+        password_repeat=CryptoJS.SHA256(password_repeat);
+        if($scope.register.$valid && !$scope.captcha_error) {
             $http({
                 method: 'POST',
                 url: '/api/register',
