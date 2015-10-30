@@ -44,13 +44,16 @@ def view_registration(request):
     """
     if request.method == "POST":
         params = json.loads(request.body.decode('utf-8'))
-        form = RegistrationForm()
-        form.accepted = params['accept']
-        form.email = params['email']
-        form.firstname = params['firstname']
-        form.lastname = params['lastname']
-        form.password = params['password']
-        form.password_repeat = params['password_repeat']
+        try:
+            form = RegistrationForm()
+            form.accepted = params['accept']
+            form.email = params['email']
+            form.firstname = params['firstname']
+            form.lastname = params['lastname']
+            form.password = params['password']
+            form.password_repeat = params['password_repeat']
+        except KeyError:
+            print("----Someone broke the Registration!!!!---")
         val = validate_registration(form.email, form.password, form.password_repeat, params['recaptcha'],get_ip(request))
         if val is True:
             User.create_user(email=params['email'], password=params['password'], first_name=params['firstname'], last_name=params['lastname'])
