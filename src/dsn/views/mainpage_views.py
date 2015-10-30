@@ -2,13 +2,14 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import ensure_csrf_cookie
 from mongoengine import DoesNotExist
 import json
+import requests
 from django.contrib.auth import login, logout
 from dsn.authentication.registration import validate_registration, create_validation_token
 from dsn.authentication.password_reset import validate_passwordreset, create_passwordreset_token, validate_newpassword
 from dsn.authentication.email import passwordresetmail, validationmail
 from dsn.forms import RegistrationForm, PasswordResetForm, PasswordSetForm
 from dsn.models import User
-
+from ipware.ip import get_ip
 
 
 @ensure_csrf_cookie
@@ -50,7 +51,7 @@ def view_registration(request):
         form.lastname = params['lastname']
         form.password = params['password']
         form.password_repeat = params['password_repeat']
-        val = validate_registration(form.email, form.password, form.password_repeat)
+        val = validate_registration(form.email, form.password, form.password_repeat, params['recaptcha'],get_ip(request))
         if val is True:
             User.create_user(email=params['email'], password=params['password'], first_name=params['firstname'], last_name=params['lastname'])
             link = create_validation_token(params['email'])
@@ -88,7 +89,9 @@ def view_resetpasswordrequest(request):
         params = json.loads(request.body.decode('utf-8'))
         form = PasswordResetForm()
         form.email = params['email']
-        val = validate_passwordreset(form.email)
+        form.recaptcha = params['recaptcha']
+        # http://stackoverflow.com/a/16203978 get ip
+        val = validate_passwordreset(form.email, form.recaptcha, get_ip(request))
         if val is True:
             user = User.objects.get(email=form.email)
             token = create_passwordreset_token(form.email)

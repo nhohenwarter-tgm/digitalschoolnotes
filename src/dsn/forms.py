@@ -31,6 +31,7 @@ class TimeElemForm(Form):
 
 class PasswordResetForm(Form):
     email = EmailField(required=True)
+    recaptcha = CharField(required=True)
 
 class PasswordSetForm(Form):
     password = PasswordInput()
