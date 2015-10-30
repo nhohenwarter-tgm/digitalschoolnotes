@@ -35,5 +35,6 @@ urlpatterns = [
     url(r'^api/admin_user', 'dsn.views.administration_views.view_users', name="admin_user"),
     url(r'^api/profile', 'dsn.views.management_views.view_getProfile', name="profile"),
     url(r'^api/notebooks_create', 'dsn.views.management_views.view_createNotebook', name="createNotebook"),
+    url(r'^api/notebooks_show', 'dsn.views.management_views.view_showNotebook', name="showNotebook"),
     url(r'^api/delete', 'dsn.views.administration_views.view_deleteUser', name="delete"),
 ]

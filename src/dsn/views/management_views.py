@@ -6,7 +6,6 @@ from bson import ObjectId
 import json
 from datetime import datetime
 
-
 def view_timetable(request):
     """
     Stundenplan-Daten
@@ -23,7 +22,7 @@ def view_timetable(request):
         form.begin = params['begin']
         form.end = params['end']
         form.room = params['room']
-       # val = validate_registration(form.email, form.password, form.password_repeat)
+        # val = validate_registration(form.email, form.password, form.password_repeat)
         #if val is True:
         # te = TimeTableElem(gegenstand=form.gegenstand,lehrer=form.lehrer,anfang=form.anfang,ende=form.ende,raum=form.raum)#alles englisch
         te = TimeTableElem(subject=form.subject,teacher=form.teacher,begin=form.begin,end=form.end,room=form.room)
@@ -34,12 +33,9 @@ def view_timetable(request):
         # return JsonResponse({'registration_error': val})import json
 
 def view_getProfile(request):
-
     if request.method == "GET":
-        #params = json.loads(request.body.decode('utf-8'))
-        profile = User.objects(id=ObjectId("5624a5d7da532b17b626baa9"))
-
-        return JsonResponse({"first_name":profile[0].first_name, "last_name":profile[0].last_name, "email":profile[0].email, "date_joined":profile[0].date_joined})
+        notebooks = Notebook.objects.filter(email=request.user.email, is_public=True).to_json()
+    return JsonResponse({"first_name":request.user.first_name, "last_name":request.user.last_name, "email":request.user.email,"date_joined":request.user.date_joined, "notebooks":notebooks})
 
 
 def view_createNotebook(request):
@@ -50,9 +46,15 @@ def view_createNotebook(request):
         form.is_public = params['is_public']
         form.create_date = datetime.now()
         form.last_change = datetime.now()
-        form.email = params['email']
+        form.email = request.user.email
         nb = Notebook(name=form.name, is_public=form.is_public, create_date= form.create_date,last_change=form.last_change, email=form.email)
         nb.save()
         return JsonResponse({'message': 'Ihr Heft wurde erstellt!'})
-    # else:
-    # return JsonResponse({'registration_error': val})import json
+        # else:
+        # return JsonResponse({'registration_error': val})import json
+
+def view_showNotebook(request):
+    if request.method == "GET":
+        notebooks = Notebook.objects.filter(email=request.user.email).to_json()
+    return JsonResponse({"notebooks":notebooks})
+

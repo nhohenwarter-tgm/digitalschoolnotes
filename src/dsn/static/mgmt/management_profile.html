@@ -1,27 +1,25 @@
 <table>
     <tr>
-        <td>
-            <table border="1" width="300">
-                <tr>
-                    <td height="300" align="center">Bild folgt</td>
-                </tr>
-            </table>
 
-            <div ng-bind='first_name' style="">
-            </div>
+        <div>
+            <h2>
+                <span ng-bind='first_name'></span>
+                <span ng-bind='last_name'></span>
+            </h2>
+        </div>
 
-            <div ng-bind='last_name'>
-            </div>
+        <h3 ng-bind='email'></h3>
+        <div>
+            joined on <span ng-bind='date_joined'></span>
+        </div>
 
-            <div ng-bind='email'>
-            </div>
-
-            <div ng-bind='date_joined'>
-            </div>
-        </td>
         <td width="100"></td>
         <td>
             <h2>öffentliche Hefte</h2>
+            <ul ng-repeat='n in notebooks'>
+            <li>{{ n.name }}</li>
+        </ul>
         </td>
-    <tr>
+    </tr>
+
 </table>
