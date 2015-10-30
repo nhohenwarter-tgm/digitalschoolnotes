@@ -1,21 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Digital School Notes</title>
-    <meta name="viewport" content="width=device-width">
-    <meta charset='utf-8'>
-    <link rel="stylesheet" href="../../style.css">
-    <link rel="shortcut icon" href="../../favicon.ico">
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
 
-    <script src="../../js/mainpage.js"></script>
-</head>
-<body>
+        <div class="row">
+            <div class="col-md-4">
+                <h3><a ui-sref="management.notebooks" class="glyphicon glyphicon-arrow-left" style="text-decoration: none; color: black;"></a></h3>
+            </div>
+            <div class="col-md-4" style="text-align: center;">
+                <h3>{{ notebook.name }}</h3>
+            </div>
+        </div>
+        <div class="row" style="padding-top: 50px;">
+            <div id="book" style="text-align: center;">
+                <div>
+                    <h3>Yay, Page 1!</h3>
+                </div>
+                <div>
+                    <h3>Yay, Page 2!</h3>
+                </div>
+                <div>
+                    <h3>Yay, Page 3!</h3>
+                </div>
+                <div>
+                    <h3>Yay, Page 4!</h3>
+                </div>
+            </div>
+        </div>
 
-</body>
-</html>
+    </div>
+    <div class="col-md-1"></div>
+</div>

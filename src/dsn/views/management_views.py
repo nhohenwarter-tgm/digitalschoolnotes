@@ -6,6 +6,7 @@ from bson import ObjectId
 import json
 from datetime import datetime
 
+
 def view_timetable(request):
     """
     Stundenplan-Daten
@@ -33,7 +34,7 @@ def view_timetable(request):
         # return JsonResponse({'registration_error': val})import json
 
 def view_getProfile(request):
-    if request.method == "GET":
+    if request.method == "POST":
         notebooks = Notebook.objects.filter(email=request.user.email, is_public=True).to_json()
     return JsonResponse({"first_name":request.user.first_name, "last_name":request.user.last_name, "email":request.user.email,"date_joined":request.user.date_joined, "notebooks":notebooks})
 
@@ -50,11 +51,18 @@ def view_createNotebook(request):
         nb = Notebook(name=form.name, is_public=form.is_public, create_date= form.create_date,last_change=form.last_change, email=form.email)
         nb.save()
         return JsonResponse({'message': 'Ihr Heft wurde erstellt!'})
-        # else:
-        # return JsonResponse({'registration_error': val})import json
+    # else:
+    # return JsonResponse({'registration_error': val})import json
 
-def view_showNotebook(request):
-    if request.method == "GET":
+
+def view_get_notebooks(request):
+    if request.method == "POST":
         notebooks = Notebook.objects.filter(email=request.user.email).to_json()
-    return JsonResponse({"notebooks":notebooks})
+        return JsonResponse({"notebooks":notebooks})
 
+
+def view_get_notebook(request):
+    if request.method == "POST":
+        params = json.loads(request.body.decode('utf-8'))
+        notebook = Notebook.objects.get(id=params['id']).to_json()
+        return JsonResponse({"notebook":notebook})

@@ -5,11 +5,17 @@ mainApp.controller('managementCtrl', function(){
 });
 
 mainApp.controller('accsettingsCtrl', function($scope){
-    $scope.a = '1';
+
 });
 
-mainApp.controller('notebooksCtrl', function($scope){
-    $scope.a = '2';
+mainApp.controller('notebooksCtrl', function($scope, $http){
+    $http({
+        method: 'POST',
+        url: '/api/get_notebooks'
+    }).success(function(data){
+            $scope.notebooks = JSON.parse(data['notebooks']);
+        }
+    )
 });
 
 mainApp.controller('timetableCtrl', function($scope, $http){
@@ -32,17 +38,6 @@ mainApp.controller('timetableCtrl', function($scope, $http){
 
             });
     }
-});
-
-mainApp.controller('notebooksShowCtrl', function($scope, $http){
-    $http({
-        method: 'GET',
-        url: '/api/notebooks_show'
-    }).success(function(data){
-            $scope.notebooks = JSON.parse(data['notebooks']);
-            console.log(data);
-        }
-    )
 });
 
 mainApp.controller('notebooksCreateCtrl', function($scope, $http, loggedIn){
@@ -80,7 +75,7 @@ mainApp.controller('logoutCtrl', function($scope, $http, $state){
 
 mainApp.controller('profileCtrl', function($scope, $http){
     $http({
-        method: 'GET',
+        method: 'POST',
         url: '/api/profile'
     }).success(function(data){
             $scope.first_name = data['first_name'];
@@ -90,5 +85,7 @@ mainApp.controller('profileCtrl', function($scope, $http){
             $scope.notebooks = JSON.parse(data['notebooks']);
             console.log(data);
         }
+
     )
+
 });
