@@ -127,6 +127,17 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         }
     });
 
+        // NOTEBOOKS
+    $stateProvider.state('management.notebooks_edit', {
+        url: '/notebooks_edit',
+        templateUrl: '/mgmt/management_notebooks_edit.html',
+        controller: 'notebooksEditCtrl',
+        data: {
+            authorization: true,
+            admin: false
+        }
+    });
+
     // PROFILE
     $stateProvider.state('management.profile', {
         url: '/profile',

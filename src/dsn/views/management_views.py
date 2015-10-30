@@ -58,3 +58,14 @@ def view_showNotebook(request):
         notebooks = Notebook.objects.filter(email=request.user.email).to_json()
     return JsonResponse({"notebooks":notebooks})
 
+def view_editNotebook(request):
+    if request.method == "POST":
+        params = json.loads(request.body.decode('utf-8'))
+        form = NotebookForm()
+        form.name = params['name']
+        form.is_public = params['is_public']
+        form.last_change = datetime.now()
+        nb = Notebook(name=form.name, is_public=form.is_public, last_change=form.last_change)
+        nb.save()
+    return JsonResponse({'message': 'Ihr Heft wurde erfolgreich bearbeitet'})
+
