@@ -86,19 +86,21 @@ administrationApp.controller('usermanagementCtrl', function ($scope, $http, $fil
 
     $scope.itemsPerPage = 2;
     $scope.security_list = [{name: 'Benutzer', security_level: 1},
-                {name: 'Pro User', security_level: 2},{name: 'Administrator', security_level: 3}];
+                {name: 'Pro User', security_level: 2},{name: 'Administrator', security_level: 3},{name: 'Speeren', security_level: 4}];
     $scope.currentPage = 0;
     $scope.l = 0;
     $scope.sort = {
         sortingOrder: 'email'
     };
+    $scope.order = null;
+    $scope.spalte = null;
 
     $scope.next = function (current) {
         $http({
             method: 'POST',
             url: '/api/admin_user',
             headers : {'Content-Type': 'application/json'},
-            data    : {Page: current, counter: $scope.itemsPerPage}
+            data    : {spalte: $scope.spalte, text: $scope.q, Page: current, counter: $scope.itemsPerPage, order: $scope.order}
         })
             .success(function (data) {
                 $scope.users = data['test'];
@@ -195,45 +197,62 @@ administrationApp.controller('usermanagementCtrl', function ($scope, $http, $fil
     }
 
     $scope.update = function(email, securty_level, index){
-        $http({
-            method: 'POST',
-            url: '/api/admin_user_update',
-            headers: {'Content-Type': 'application/json'},
-            data: {email: email, security_level: securty_level}
-        })
-            .success(function (data) {
-                alert($scope.users[index].security_level);
-                $scope.users[index].security_level = securty_level;
+        securty_level_old = $scope.users[index].security_level;
+        Userup = $window.confirm('Soll der User '+email+' wirklich auf die Berechtigungsstufe ' +$scope.security_list[securty_level-1].name+' geändert werden?');
+        if(Userup) {
+            alert('Der User ' + email + ' wurde erfolgreich auf ' + $scope.security_list[securty_level-1].name + 'geändert');
+            $http({
+                method: 'POST',
+                url: '/api/admin_user_update',
+                headers: {'Content-Type': 'application/json'},
+                data: {email: email, security_level: securty_level}
             })
-            .error(function (data) {
-            });
+                .success(function (data) {
+                    $scope.users[index].security_level = securty_level;
+                    document.getElementById(email).selectedIndex = ""+securty_level-1;
+                })
+                .error(function (data) {
+                });
+        }else{
+            $scope.selectedDay;
+            document.getElementById(email).selectedIndex = ""+securty_level_old-1;
+        }
     }
 
-     $scope.search = function(text){
-         alert(text);
+     $scope.search = function(current){
         $http({
             method: 'POST',
-            url: '/api/admin_user_search',
-            headers: {'Content-Type': 'application/json'},
-            data: {text: text}
+            url: '/api/admin_user',
+            headers : {'Content-Type': 'application/json'},
+            data    : {text: $scope.q, Page: current, counter: $scope.itemsPerPage}
         })
             .success(function (data) {
-                alert("A");
                 $scope.users = data['test'];
+                $scope.len = data['len'];
+                $scope.currentPage = 0;
+                $scope.l = Math.floor($scope.len / $scope.itemsPerPage) + $scope.len % $scope.itemsPerPage;
             })
             .error(function (data) {
             });
     }
 
-    $scope.sort = function(spalte){
+    $scope.sort = function(spalte, current){
+        if($scope.order == null) {
+            $scope.order = true;
+        }else{
+             $scope.order = !$scope.order
+        }
+        $scope.spalte = spalte
         $http({
             method: 'POST',
-            url: '/api/admin_user_sort',
+            url: '/api/admin_user',
             headers: {'Content-Type': 'application/json'},
-            data: {spalte: spalte}
+            data: {spalte: $scope.spalte, Page: current, counter: $scope.itemsPerPage, order: $scope.order}
         })
             .success(function (data) {
-                //
+                $scope.users = data['test'];
+                $scope.len = data['len'];
+                $scope.l = Math.floor($scope.len / $scope.itemsPerPage) + $scope.len % $scope.itemsPerPage;
             })
             .error(function (data) {
             });
