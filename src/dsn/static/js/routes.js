@@ -28,6 +28,17 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         }
     });
 
+    // NOTEBOOK EDIT PAGE
+    $stateProvider.state('notebookedit', {
+        url: '/notebook/{id}',
+        templateUrl: '/notebook.html',
+        controller: 'notebookEditCtrl',
+        data: {
+            authorization: true,
+            admin: false
+        }
+    });
+
     // CONTENT
     $stateProvider.state('mainpage.content', {
         url: '/',

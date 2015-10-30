@@ -1,5 +1,12 @@
-<a ui-sref="management.notebooks_create">Heft erstellen</a>
-
-<ul ng-repeat='n in notebooks'>
-    <li>{{ n.name }}</li>
-</ul>
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <div ng-repeat='n in notebooks'>
+            <a href="/notebook/{{ n._id['$oid'] }}">
+                <div style="border: 1px dashed black;text-align: center;">{{ n.name }}</div><br />
+            </a>
+        </div>
+        <a style="border: 1px dashed black; padding-top: 10px;" ui-sref="management.notebooks_create">Heft erstellen</a>
+    </div>
+    <div class="col-md-4"></div>
+</div>

@@ -6,6 +6,7 @@ from bson import ObjectId
 import json
 from datetime import datetime
 
+
 def view_timetable(request):
     """
     Stundenplan-Daten
@@ -69,3 +70,9 @@ def view_editNotebook(request):
         nb.save()
     return JsonResponse({'message': 'Ihr Heft wurde erfolgreich bearbeitet'})
 
+
+def view_get_notebook(request):
+    if request.method == "POST":
+        params = json.loads(request.body.decode('utf-8'))
+        notebook = Notebook.objects.get(id=params['id']).to_json()
+        return JsonResponse({"notebook":notebook})
