@@ -17,10 +17,10 @@ mainApp.controller('mainpageCtrl', function($scope, $http, loggedIn){
 
 mainApp.controller('contentCtrl', ['vcRecaptchaService','$scope','$http',function(vcRecaptchaService, $scope, $http){
     $scope.error = false;
-    $scope.emailregex = "/[a-z0-9!#$%&'*+=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/";
     $scope.publicKey = "6Ldj4A8TAAAAAANFOMC0XlVx3AG3KvX5vKhCXqQc"
 
     $scope.submitRegister = function(){
+        $scope.submitted = true;
         var email = $scope.email;
         var password = $scope.password;
         var password_repeat = $scope.password_repeat;
@@ -28,26 +28,22 @@ mainApp.controller('contentCtrl', ['vcRecaptchaService','$scope','$http',functio
         var last_name = $scope.lastname;
         var accept = $scope.accept;
         $scope.error = false;
+        $scope.emailerror = false;
+        $scope.passworderror = false;
         $scope.registration_error = '';
+        $scope.password_error = '';
+        $scope.captcha_error = ''
         if(vcRecaptchaService.getResponse() === ""){
-            $scope.error = true;
-            $scope.registration_error = "Bitte löse das Captcha.\n";
-        }
-        if(email == null || password == null || password_repeat == null || first_name == null || last_name == null) {
-            $scope.error = true;
-            $scope.registration_error += 'Bitte füll alle Felder aus!\n';
-        }
-        if(!accept){
-            $scope.error = true;
-            $scope.registration_error += 'Bitte akzeptiere unsere Nutzungsbedingungen!\n';
+            $scope.captchaerror = true;
+            $scope.captcha_error = "Bitte löse das Captcha.\n";
         }
         if(password != password_repeat){
-            $scope.error = true;
-            $scope.registration_error += 'Passwörter stimmen nicht überein!\n';
+            $scope.passworderror = true;
+            $scope.password_error = "Die Passwörter stimmen nicht überein.\n";
         }
         password=CryptoJS.SHA256(password)
         password_repeat=CryptoJS.SHA256(password_repeat)
-        if(!$scope.error) {
+        if(!$scope.register.$valid && !$scope.captcha_error) {
             $http({
                 method: 'POST',
                 url: '/api/register',
@@ -64,8 +60,8 @@ mainApp.controller('contentCtrl', ['vcRecaptchaService','$scope','$http',functio
             })
                 .success(function (data) {
                     if (data['registration_error'] != null) {
-                        $scope.error = true;
-                        $scope.registration_error = data['registration_error'];
+                        $scope.emailerror = true;
+                        $scope.email_error = data['registration_error'];
                         vcRecaptchaService.reload();
                     }else{
                         alert('Vielen Dank für deine Registrierung!\n' +
