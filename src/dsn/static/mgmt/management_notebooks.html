@@ -1,11 +1,11 @@
 <div class="row">
     <div class="col-md-1"></div>
     <div class="col-md-10">
-        <div ng-repeat='itemtmp in notebooks|limitTo:(notebooks.length/3)+1'>
+        <div ng-repeat='itemtmp in notebooks|limitTo:(notebooks.length/booksinrow)+1'>
             <div class="row" style="padding-top: 10px;">
-                <span ng-repeat="n in notebooks.slice($index*3,($index*3+3))" style="display: inline-block; padding-right: 30px;">
+                <span ng-repeat="n in notebooks.slice($index*booksinrow,($index*booksinrow+booksinrow))" style="display: inline-block; padding-right: 30px;">
                     <a href="/notebook/{{ n._id['$oid'] }}" style="text-decoration: none;">
-                        <div style="border: 1px dashed black; text-align: center; color:black; width: 120px;;
+                        <div style="border-style: solid ridge ridge solid; border-width: 2px 5px 5px 2px; text-align: center; color:black; width: 120px;;
                         height: 160px; padding-top: 30px;">{{ n.name }}</div>
                     </a>
                 </span>
