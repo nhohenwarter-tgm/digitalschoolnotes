@@ -35,8 +35,11 @@ def view_timetable(request):
 
 def view_getProfile(request):
     if request.method == "POST":
-        notebooks = Notebook.objects.filter(email=request.user.email, is_public=True).to_json()
-    return JsonResponse({"first_name":request.user.first_name, "last_name":request.user.last_name, "email":request.user.email,"date_joined":request.user.date_joined, "notebooks":notebooks})
+        params = json.loads(request.body.decode('utf-8'))
+        user = User.objects.get(id=params['id'])
+        notebooks = Notebook.objects.filter(email=user.email, is_public=True).to_json()
+        return JsonResponse({"first_name": user.first_name, "last_name": user.last_name,
+                             "email": user.email, "date_joined": user.date_joined, "notebooks": notebooks})
 
 
 def view_createNotebook(request):
@@ -48,18 +51,33 @@ def view_createNotebook(request):
         form.create_date = datetime.now()
         form.last_change = datetime.now()
         form.email = request.user.email
-        nb = Notebook(name=form.name, is_public=form.is_public, create_date= form.create_date,last_change=form.last_change, email=form.email)
+        nb = Notebook(name=form.name, is_public=form.is_public, create_date= form.create_date, last_change=form.last_change, email=form.email, numpages=2)
         nb.save()
         return JsonResponse({'message': 'Ihr Heft wurde erstellt!'})
-    # else:
-    # return JsonResponse({'registration_error': val})import json
+        # else:
+        # return JsonResponse({'registration_error': val})import json
+
+def view_showNotebook(request):
+    if request.method == "GET":
+        notebooks = Notebook.objects.filter(email=request.user.email).to_json()
+    return JsonResponse({"notebooks":notebooks})
+
+def view_editNotebook(request):
+    if request.method == "POST":
+        params = json.loads(request.body.decode('utf-8'))
+        form = NotebookForm()
+        form.name = params['name']
+        form.is_public = params['is_public']
+        form.last_change = datetime.now()
+        nb = Notebook(name=form.name, is_public=form.is_public, last_change=form.last_change)
+        nb.save()
+    return JsonResponse({'message': 'Ihr Heft wurde erfolgreich bearbeitet'})
 
 
 def view_get_notebooks(request):
     if request.method == "POST":
         notebooks = Notebook.objects.filter(email=request.user.email).to_json()
         return JsonResponse({"notebooks":notebooks})
-
 
 def view_get_notebook(request):
     if request.method == "POST":
