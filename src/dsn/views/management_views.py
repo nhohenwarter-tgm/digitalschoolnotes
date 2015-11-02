@@ -34,9 +34,11 @@ def view_timetable(request):
         # return JsonResponse({'registration_error': val})import json
 
 def view_getProfile(request):
-    if request.method == "GET":
-        notebooks = Notebook.objects.filter(email=request.user.email, is_public=True).to_json()
-    return JsonResponse({"first_name":request.user.first_name, "last_name":request.user.last_name, "email":request.user.email,"date_joined":request.user.date_joined, "notebooks":notebooks})
+    if request.method == "POST":
+        params = json.loads(request.body.decode('utf-8'))
+        user = User.objects.get(id=params['id']).to_json()
+        notebooks = Notebook.objects.filter(email=user.email, is_public=True).to_json()
+    return JsonResponse({"first_name":user.first_name, "last_name":user.last_name, "email":user.email,"date_joined":user.date_joined, "notebooks":notebooks})
 
 
 def view_createNotebook(request):
@@ -70,6 +72,11 @@ def view_editNotebook(request):
         nb.save()
     return JsonResponse({'message': 'Ihr Heft wurde erfolgreich bearbeitet'})
 
+
+def view_get_notebooks(request):
+    if request.method == "POST":
+        notebooks = Notebook.objects.filter(email=request.user.email).to_json()
+        return JsonResponse({"notebooks":notebooks})
 
 def view_get_notebook(request):
     if request.method == "POST":

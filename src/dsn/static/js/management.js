@@ -90,10 +90,11 @@ mainApp.controller('logoutCtrl', function($scope, $http, $state){
     }
 });
 
-mainApp.controller('profileCtrl', function($scope, $http){
+mainApp.controller('profileCtrl', function($scope, $http, $stateParams){
     $http({
         method: 'POST',
-        url: '/api/profile'
+        url: '/api/profile',
+        data: {id: $stateParams.id}
     }).success(function(data){
             $scope.first_name = data['first_name'];
             $scope.last_name = data['last_name'];

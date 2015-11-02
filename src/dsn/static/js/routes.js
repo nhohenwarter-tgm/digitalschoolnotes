@@ -151,7 +151,7 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
 
     // PROFILE
     $stateProvider.state('management.profile', {
-        url: '/profile',
+        url: '/profile/{id}',
         templateUrl: '/mgmt/management_profile.html',
         controller: 'profileCtrl',
         data: {
