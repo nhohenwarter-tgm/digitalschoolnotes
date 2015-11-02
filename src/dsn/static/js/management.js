@@ -108,6 +108,8 @@ mainApp.controller('profileCtrl', function($scope, $http, $stateParams){
             $scope.last_name = data['last_name'];
             $scope.email = data['email'];
             $scope.date_joined = data['date_joined'].substring(0, 10);
+            $scope.is_prouser = data['is_prouser'];
+            $scope.is_admin = data['is_superuser'];
             $scope.notebooks = JSON.parse(data['notebooks']);
             console.log(data);
         }

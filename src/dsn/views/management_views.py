@@ -40,6 +40,7 @@ def view_getProfile(request):
         user = User.objects.get(id=params['id'])
         notebooks = Notebook.objects.filter(email=user.email, is_public=True).to_json()
         return JsonResponse({"first_name": user.first_name, "last_name": user.last_name,
+                             "is_superuser": user.is_superuser, "is_prouser": user.is_prouser,
                              "email": user.email, "date_joined": user.date_joined, "notebooks": notebooks})
 
 
