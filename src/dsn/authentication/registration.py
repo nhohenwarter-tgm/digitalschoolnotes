@@ -13,7 +13,7 @@ def validate_registration(email, password, password_repeat, recaptcha, ip):
         except DoesNotExist:
             pass
         if password != password_repeat:
-            return False
+            return "Passwörter stimmen nicht überein!"
         else:
             return True
     else:
