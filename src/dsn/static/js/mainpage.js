@@ -76,27 +76,39 @@ mainApp.controller('contentCtrl', ['vcRecaptchaService','$scope','$http',functio
     }
 }]);
 
-mainApp.controller('loginCtrl', function($scope, $http, $state){
+mainApp.controller('loginCtrl', function($scope, $http, $state, loggedIn){
+    loggedIn.getUser().then(function(data){
+        var user = data['user'];
+        if(user != null && user.is_active){
+            $state.go('management.timetable');
+        }
+    }, function(data){
+        $state.go('mainpage.content');
+    });
+
     $scope.submitLogin = function(){
+        $scope.submitted = true;
         var email = $scope.email;
         var password = CryptoJS.SHA256($scope.password);
-        $http({
-            method  : 'POST',
-            url     : '/api/login',
-            headers : {'Content-Type': 'application/json'},
-            data    : {email: email, password: password.toString()}
-        })
-            .success(function(data){
-                if (data['login_error'] != null) {
-                    $scope.error = true;
-                    $scope.login_error = data['login_error'];
-                }else{
-                    $state.go('management.timetable');
-                }
+        if($scope.login.$valid){
+            $http({
+                method  : 'POST',
+                url     : '/api/login',
+                headers : {'Content-Type': 'application/json'},
+                data    : {email: email, password: password.toString()}
             })
-            .error(function(data){
+                .success(function(data){
+                    if (data['login_error'] != null) {
+                        $scope.error = true;
+                        $scope.login_error = data['login_error'];
+                    }else{
+                        $state.go('management.timetable');
+                    }
+                })
+                .error(function(data){
 
-            });
+                });
+        }
     }
 });
 
@@ -112,6 +124,7 @@ mainApp.controller('validateEmailCtrl', function($scope, $http, $state){
     })
         .success(function (data) {
             $scope.message = data['message'];
+            $scope.success = data['success'];
         })
         .error(function (data) {
 
@@ -120,9 +133,10 @@ mainApp.controller('validateEmailCtrl', function($scope, $http, $state){
 });
 
 mainApp.controller('resetPwdCtrl', ['vcRecaptchaService','$scope','$http','$state',function(vcRecaptchaService, $scope, $http, $state){
-
-
-    $scope.publicKey = "6Ldj4A8TAAAAAANFOMC0XlVx3AG3KvX5vKhCXqQc"
+    $scope.success = false;
+    $scope.linkInvalid = false;
+    //$scope.publicKey = "6Ldj4A8TAAAAAANFOMC0XlVx3AG3KvX5vKhCXqQc"; Echter Key
+    $scope.publicKey = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"; // Testing
 
     $scope.resetPasswordReq = function() {
         $scope.error = false;
@@ -153,6 +167,8 @@ mainApp.controller('resetPwdCtrl', ['vcRecaptchaService','$scope','$http','$stat
                         $scope.error = true;
                         $scope.reset_error += data['reset_error']+"\n";
                         vcRecaptchaService.reload();
+                    }else{
+                        $scope.success = true;
                     }
                 })
                 .error(function (data) {
@@ -189,12 +205,12 @@ mainApp.controller('resetPwdCtrl', ['vcRecaptchaService','$scope','$http','$stat
                 }
             })
                 .success(function (data) {
-                    if (data['reset_error'] != null) {
+                    if (data['reset_error'] != null && data['reset_error'] != true) {
                         $scope.error = true;
                         $scope.reset_error = data['reset_error'];
                     }
                     if(data['reset_error'] == true){
-                        $state.go('mainpage.login')
+                        $scope.success = true;
                     }
                 })
                 .error(function (data) {
@@ -203,4 +219,22 @@ mainApp.controller('resetPwdCtrl', ['vcRecaptchaService','$scope','$http','$stat
         }
     };
 
+    if($state.params.hash != null){
+    $http({
+        method: 'GET',
+        url: '/api/resetpassword',
+        headers: {'Content-Type': 'application/json'},
+        data: {
+            hash: $state.params.hash
+        }
+    })
+        .success(function (data) {
+            if (data['reset_error'] != null) {
+                $scope.linkInvalid = true;
+            }
+        })
+        .error(function (data) {
+
+        });
+    }
 }]);

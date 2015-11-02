@@ -100,19 +100,27 @@ def view_resetpasswordrequest(request):
             user = User.objects.get(email=form.email)
             token = create_passwordreset_token(form.email)
             passwordresetmail(form.email,user.first_name,token)
-            return JsonResponse({'reset_error': 'success'})
+            return JsonResponse({})
         else:
             return JsonResponse({'reset_error': val})
 
+
 def view_resetpassword(request):
-    if request.method=='POST':
+    if request.method == 'POST':
         params = json.loads(request.body.decode('utf-8'))
-        print(params)
         form = PasswordSetForm
         form.password = params['password']
         form.password_repeat = params['password_repeat']
         val = validate_newpassword(form, params['hash'])
         return JsonResponse({'reset_error': val})
+    elif request.method == 'GET':
+        params = request.GET.get('hash', '')
+        try:
+            user = User.objects.get(passwordreset__hash=params)
+            return JsonResponse()
+        except DoesNotExist:
+            return JsonResponse({'reset_error':'Der Link ist nicht mehr gültig.\n'})
+
 
 def view_validate_account(request):
     if request.method == 'POST':
@@ -122,9 +130,9 @@ def view_validate_account(request):
             user.is_active = True
             user.validatetoken = ''
             user.save()
-            return JsonResponse({'message':'Deine E-Mail Adresse wurde erfolgreich bestätigt!'})
+            return JsonResponse({'message':'Deine E-Mail Adresse wurde erfolgreich bestätigt!', 'success': True})
         except DoesNotExist:
-            return JsonResponse({'message':'Dieser Link ist nicht gültig!'})
+            return JsonResponse({'message':'Dieser Link ist nicht gültig!', 'success': False})
 
 
 def view_logout(request):

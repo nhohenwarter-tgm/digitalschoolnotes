@@ -1,16 +1,24 @@
 <div class="row">
     <div class="col-md-4"></div>
     <div class="col-md-4">
-        <form ng-submit="submitLogin()" method="POST">
+        <form ng-submit="submitLogin()" method="POST" name="login" novalidate>
             <div class="row" style="padding-left: 15px; color: red;" ng-show="error">{{ login_error }}</div>
+            <div class="row" style="padding-left:20px; color: red;"
+                 ng-show="(submitted || login.email.$dirty) && login.email.$error.required">
+                Bitte gib deine E-Mail Adresse ein.
+            </div>
+            <div class="row" style="padding-left:20px; color: red;"
+                 ng-show="(submitted || login.pwd.$dirty) && login.pwd.$error.required">
+                Bitte gib dein Passwort ein.
+            </div>
             <div class="row" style="padding-top: 10px;">
                 <div class="col-md-12">
-                    <input type="text" name="email" placeholder="E-Mail Adresse" ng-model="email" style="width: 100%;"/>
+                    <input type="text" name="email" placeholder="E-Mail Adresse" ng-model="email" style="width: 100%;" required/>
                 </div>
             </div>
             <div class="row" style="padding-top: 10px;">
                 <div class="col-md-12">
-                    <input type="password" name="pwd" placeholder="Passwort" ng-model="password" style="width: 100%;"/>
+                    <input type="password" name="pwd" placeholder="Passwort" ng-model="password" style="width: 100%;" required/>
                 </div>
             </div>
             <div class="row" style="padding-top: 10px;">

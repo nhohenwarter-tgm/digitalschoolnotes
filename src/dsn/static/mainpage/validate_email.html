@@ -1,1 +1,11 @@
-<b ng-bind="message"></b>
+<span style="text-align: center;">
+    <div class="row" ng-hide="success">
+        <img src="../img/error.jpg" style="height: auto; width: auto;"/>
+    </div>
+    <div class="row" ng-show="success">
+        <img src="../img/success.jpg" style="height: auto; width: auto;"/>
+    </div>
+    <div class="row">
+        <b ng-bind="message" style="font-size: 22px;"></b>
+    </div>
+</span>

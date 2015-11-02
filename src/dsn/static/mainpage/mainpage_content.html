@@ -1,13 +1,15 @@
 <div>
     <!-- VIDEO -->
+    <div class="col-md-2" ng-show="$parent.menu_toapp"></div>
     <div class="col-md-8">
         <!-- Tutorial: https://jonsuh.com/blog/responsive-youtube-vimeo-embed-and-html5-video-with-css/ -->
         <div class="js-video [widescreen]">
             <iframe src="https://www.youtube.com/embed/93aXzeeolkY" frameborder="0" allowfullscreen></iframe>
         </div>
     </div>
+    <div class="col-md-2" ng-show="$parent.menu_toapp"></div>
     <!-- REGISTRATION -->
-    <div class="col-md-4">
+    <div class="col-md-4" ng-hide="$parent.menu_toapp">
         <!-- TODO Registration -->
         <form ng-submit="submitRegister()" method="POST" name="register" novalidate >
 
@@ -15,11 +17,13 @@
                 <div class="form-group">
                     <p  style="padding-left:20px; color: red;" ng-show="(submitted || register.firstname.$dirty) && register.firstname.$error.required">Bitte gib deinen Vornamen an.</p>
                     <p  style="padding-left:20px; color: red;" ng-show="(submitted || register.lastname.$dirty) && register.lastname.$error.required">Bitte gib deinen Nachnamen an.</p>
+                    <p  style="color: red;" ng-show="(submitted || register.firstname.$dirty) && register.firstname.$error.maxlength">Dein Vorname ist zu lang (max. 30 Zeichen).</p>
+                    <p  style="color: red;" ng-show="(submitted || register.lastname.$dirty) && register.lastname.$error.maxlength">Dein Nachname ist zu lang (max. 30 Zeichen).</p>
                     <div class="col-md-6"  ng-class="{ 'has-error': register.firstname.$dirty && register.firstname.$invalid }">
-                        <input class="form-control" type="text" name="firstname" placeholder="Vorname*" ng-model="firstname" style="height: 50px;" required/>
+                        <input class="form-control" type="text" name="firstname" placeholder="Vorname*" ng-model="firstname" style="height: 50px;" ng-maxlength="30" required/>
                     </div>
                     <div class="col-md-6" ng-class="{ 'has-error': register.lastname.$dirty && register.lastname.$invalid }">
-                        <input class="form-control" type="text" name="lastname" placeholder="Nachname*" ng-model="lastname" style="height: 50px;" required/>
+                        <input class="form-control" type="text" name="lastname" placeholder="Nachname*" ng-model="lastname" style="height: 50px;" ng-maxlength="30" required/>
                     </div>
                 </div>
             </div>
@@ -32,8 +36,9 @@
             <div class="form-group" ng-class="{ 'has-error': register.pwd.$dirty && register.pwd.$invalid }">
                 <p  style="color: red;" ng-show="(submitted || register.pwd.$dirty) && register.pwd.$error.required">Bitte gib dein Passwort an.</p>
                 <p  style="color: red;" ng-show="(submitted || register.pwd.$dirty) && register.pwd.$error.minlength">Das Passwort ist zu kurz (mind. 8 Zeichen).</p>
+                <p  style="color: red;" ng-show="(submitted || register.pwd.$dirty) && register.pwd.$error.maxlength">Das Passwort ist zu lang (max. 128 Zeichen).</p>
                 <p style="color: red;" ng-show="passworderror">{{ password_error }}</p>
-                <input class="form-control" type="password" ng-minlength="8" name="pwd" placeholder="Passwort*" ng-model="password" style="height: 50px;" required/>
+                <input class="form-control" type="password" ng-minlength="8" ng-maxlength="128" name="pwd" placeholder="Passwort*" ng-model="password" style="height: 50px;" required/>
             </div>
             <div class="form-group" ng-class="{ 'has-error': register.pwd_repeat.$dirty && register.pwd_repeat.$invalid }">
                 <p  style="color: red;" ng-show="(submitted || register.pwd_repeat.$dirty) && register.pwd_repeat.$error.required">Bitte gib deinen Passwort nochmal an.</p>
