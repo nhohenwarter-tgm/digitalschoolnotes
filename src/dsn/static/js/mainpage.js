@@ -60,7 +60,7 @@ mainApp.controller('contentCtrl', ['vcRecaptchaService','$scope','$http',functio
                 }
             })
                 .success(function (data) {
-                    if (data['registration_error'] != true) {
+                    if (data['registration_error'] != null) {
                         $scope.emailerror = true;
                         $scope.email_error = data['registration_error'];
                         vcRecaptchaService.reload();
