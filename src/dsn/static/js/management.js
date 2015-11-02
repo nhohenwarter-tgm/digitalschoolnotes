@@ -1,6 +1,5 @@
 var mainApp = angular.module('mainApp');
-mainApp.controller('managementCtrl', function ($scope, $http) {
-    $scope.see = false;
+mainApp.controller('managementCtrl', function ($scope, $http, $state) {
     $scope.search = function () {
         $http({
             method: 'POST',
@@ -10,7 +9,7 @@ mainApp.controller('managementCtrl', function ($scope, $http) {
         })
             .success(function (data) {
                 $scope.profiles = data['profiles'];
-                $scope.see = true;
+                $state.go('management.search');
             })
             .error(function (data) {
             });
@@ -24,10 +23,9 @@ mainApp.controller('notebooksCtrl', function ($scope, $http) {
     $http({
         method: 'POST',
         url: '/api/get_notebooks'
-    }).success(function (data) {
-            $scope.notebooks = JSON.parse(data['notebooks']);
-        }
-    )
+    }).success(function(data){
+                $scope.notebooks = JSON.parse(data['notebooks']);
+            })
 });
 
 mainApp.controller('timetableCtrl', function ($scope, $http) {
@@ -106,8 +104,6 @@ mainApp.controller('profileCtrl', function($scope, $http, $stateParams){
         url: '/api/profile',
         data: {id: $stateParams.id}
     }).success(function(data){
-        url: '/api/profile'
-    }).success(function (data) {
             $scope.first_name = data['first_name'];
             $scope.last_name = data['last_name'];
             $scope.email = data['email'];
@@ -116,5 +112,7 @@ mainApp.controller('profileCtrl', function($scope, $http, $stateParams){
             console.log(data);
         }
     )
+});
 
+mainApp.controller('searchCtrl', function ($scope,$http) {
 });
