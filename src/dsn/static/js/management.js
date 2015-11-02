@@ -21,7 +21,6 @@ mainApp.controller('accsettingsCtrl', function ($scope) {
 });
 
 mainApp.controller('notebooksCtrl', function ($scope, $http) {
-    $scope.booksinrow = 5;
     $http({
         method: 'POST',
         url: '/api/get_notebooks'

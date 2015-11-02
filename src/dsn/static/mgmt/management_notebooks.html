@@ -1,20 +1,17 @@
 <div class="row">
     <div class="col-md-1"></div>
     <div class="col-md-10">
-        <div ng-repeat='itemtmp in notebooks|limitTo:(notebooks.length/booksinrow)+1'>
-            <div class="row" style="padding-top: 10px;">
-                <span ng-repeat="n in notebooks.slice($index*booksinrow,($index*booksinrow+booksinrow))" style="display: inline-block; padding-right: 30px;">
+        <div class="row" style="padding-bottom: 10px;">
+                <span ng-repeat="n in notebooks" style="display: inline-block; padding-right: 30px; padding-top: 10px;">
                     <a href="/notebook/{{ n._id['$oid'] }}" style="text-decoration: none;">
-                        <div style="border-style: solid ridge ridge solid; border-width: 2px 5px 5px 2px; text-align: center; color:black; width: 120px;;
+                        <div style="border-style: solid ridge ridge solid; border-width: 2px 5px 5px 2px; text-align: center; color:black; width: 120px;
                         height: 160px; padding-top: 30px;">{{ n.name }}</div>
                     </a>
                 </span>
-            </div>
-        </div>
-        <div class="row" style="padding-top: 10px;">
-            <a style="border: 1px dashed black; text-align: center; color:black; width: 120px;; height: 160px;
-                padding-top: 60px; font-size: 20px; text-decoration: none;" ui-sref="management.notebooks_create"
-                class="glyphicon glyphicon-plus"></a>
+            <span style="display: inline-block; padding-right: 30px; padding-top: 10px;">
+                <a ui-sref="management.notebooks_create" style="border: 1px dashed black; text-align: center; color:black; width: 115px; height: 160px;
+                padding-top: 80px; font-size: 20px; text-decoration: none; padding-top: 30px;" class="glyphicon glyphicon-plus"></a>
+            </span>
         </div>
     </div>
     <div class="col-md-1"></div>
