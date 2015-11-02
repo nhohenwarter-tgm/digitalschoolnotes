@@ -1,11 +1,12 @@
 import junit.framework.Test;
 import junit.framework.TestSuite;
+import mainpage.RegisterUser;
 
 public class Suite {
 
     public static Test suite() {
         TestSuite suite = new TestSuite();
-        suite.addTestSuite(TestSample.class);
+        suite.addTestSuite(RegisterUser.class);
         return suite;
     }
 

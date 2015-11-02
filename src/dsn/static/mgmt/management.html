@@ -24,9 +24,9 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li style="padding-top: 10px;"><div id="custom-search-input">
                         <div class="input-group">
-                            <input type="text" class="form-control input-lg" placeholder="Search..." />
+                            <input type="text" ng-model="q" id="search" class="form-control input-lg" placeholder="Search..." />
                     <span class="input-group-btn">
-                        <button class="btn btn-info btn-lg" type="button">
+                        <button class="btn btn-info btn-lg" ng-click="search()" type="button">
                             <i class="glyphicon glyphicon-search"></i>
                         </button>
                     </span>
@@ -39,6 +39,18 @@
     </nav>
     <!-- NAVBAR END -->
     <!-- CONTENT START -->
-    <div style="padding-top: 80px;" ui-view></div>
+    <div ng-hide="see">
+        <div style="padding-top: 80px;" ui-view></div>
+    </div>
+    <div ng-show="see">
+        <div style="padding-top: 80px">
+            <h2>{{ see }}</h2>
+            <ul ng-repeat='n in profiles'>
+                <li><a href="/management/profile/{{ n.id }}">{{ n.email }}</a></li>
+            </ul>
+            <div ng-controller="managementCtrl" ng-init="see='false'" />
+            <h2>{{ see }}</h2>
+        </div>
+    </div>
     <!-- CONTENT END -->
 </div>
