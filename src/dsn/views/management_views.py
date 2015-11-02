@@ -5,6 +5,7 @@ from dsn.forms import NotebookForm
 from bson import ObjectId
 import json
 from datetime import datetime
+from mongoengine.queryset.visitor import Q
 
 
 def view_timetable(request):
@@ -84,3 +85,23 @@ def view_get_notebook(request):
         params = json.loads(request.body.decode('utf-8'))
         notebook = Notebook.objects.get(id=params['id']).to_json()
         return JsonResponse({"notebook":notebook})
+
+def view_getOtherProfile(request):
+    if request.method == "POST":
+        params = json.loads(request.body.decode('utf-8'))
+        try:
+            if bool(params['searchtext'] and params['searchtext'].strip()):
+                users = User.objects(Q(email__icontains=params['searchtext']) | Q(first_name__icontains=params['searchtext']) | Q(last_name__icontains=params['searchtext']))
+            else:
+                users = None
+            profiles = []
+            for user in users:
+                profiles.append({
+                    "email": user.email,
+                    "first_name": user.first_name,
+                    "last_name": user.last_name,
+                    "id": str(user.id),
+                })
+            return JsonResponse({"profiles":profiles})
+        except KeyError:
+            return JsonResponse({})

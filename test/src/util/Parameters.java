@@ -1,3 +1,5 @@
+package util;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;;
 import org.openqa.selenium.safari.SafariDriver;
@@ -19,7 +21,7 @@ public class Parameters{
 
     public static String os = LINUX; //HIER OS AENDERN
     public static int browser = FIREFOX; //HIER BROWSER AENDERN
-    public static int port = 5001; //HIER PORT AENDERN
+    public static int port = 5004; //HIER PORT AENDERN
 
     public static String baseUrl = "http://digitalschoolnotes.com:"+port;
 

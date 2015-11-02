@@ -17,7 +17,8 @@ mainApp.controller('mainpageCtrl', function($scope, $http, loggedIn){
 
 mainApp.controller('contentCtrl', ['vcRecaptchaService','$scope','$http',function(vcRecaptchaService, $scope, $http){
     $scope.error = false;
-    $scope.publicKey = "6Ldj4A8TAAAAAANFOMC0XlVx3AG3KvX5vKhCXqQc";
+    //$scope.publicKey = "6Ldj4A8TAAAAAANFOMC0XlVx3AG3KvX5vKhCXqQc"; Echter Key
+    $scope.publicKey = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"; // Testing
 
     $scope.submitRegister = function(){
         $scope.submitted = true;
@@ -43,7 +44,7 @@ mainApp.controller('contentCtrl', ['vcRecaptchaService','$scope','$http',functio
         }
         password=CryptoJS.SHA256(password);
         password_repeat=CryptoJS.SHA256(password_repeat);
-        if($scope.register.$valid && !$scope.captcha_error) {
+        if($scope.register.$valid && !$scope.captcha_error && !$scope.passworderror) {
             $http({
                 method: 'POST',
                 url: '/api/register',

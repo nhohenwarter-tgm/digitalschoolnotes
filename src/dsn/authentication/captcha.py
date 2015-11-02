@@ -6,7 +6,8 @@ def validate_captcha(recaptcha, ip):
     url = "https://www.google.com/recaptcha/api/siteverify"
 
     params = {
-        'secret': settings.RECAPTCHA_SECRET_KEY,
+        #'secret': settings.RECAPTCHA_SECRET_KEY, # echter key
+        'secret':'6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe', #Testing
         'response': recaptcha,
         'remoteip': ip
     }
