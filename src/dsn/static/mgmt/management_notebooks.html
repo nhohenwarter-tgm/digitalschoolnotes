@@ -1,12 +1,21 @@
 <div class="row">
-    <div class="col-md-4"></div>
-    <div class="col-md-4">
-        <div ng-repeat='n in notebooks'>
-            <a href="/notebook/{{ n._id['$oid'] }}">
-                <div style="border: 1px dashed black;text-align: center;">{{ n.name }}</div><br />
-            </a>
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <div ng-repeat='itemtmp in notebooks|limitTo:(notebooks.length/3)+1'>
+            <div class="row" style="padding-top: 10px;">
+                <span ng-repeat="n in notebooks.slice($index*3,($index*3+3))" style="display: inline-block; padding-right: 30px;">
+                    <a href="/notebook/{{ n._id['$oid'] }}" style="text-decoration: none;">
+                        <div style="border: 1px dashed black; text-align: center; color:black; width: 120px;;
+                        height: 160px; padding-top: 30px;">{{ n.name }}</div>
+                    </a>
+                </span>
+            </div>
         </div>
-        <a style="border: 1px dashed black; padding-top: 10px;" ui-sref="management.notebooks_create">Heft erstellen</a>
+        <div class="row" style="padding-top: 10px;">
+            <a style="border: 1px dashed black; text-align: center; color:black; width: 120px;; height: 160px;
+                padding-top: 60px; font-size: 20px; text-decoration: none;" ui-sref="management.notebooks_create"
+                class="glyphicon glyphicon-plus"></a>
+        </div>
     </div>
-    <div class="col-md-4"></div>
+    <div class="col-md-1"></div>
 </div>

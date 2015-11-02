@@ -13,9 +13,8 @@ mainApp.controller('notebooksCtrl', function($scope, $http){
         method: 'POST',
         url: '/api/get_notebooks'
     }).success(function(data){
-            $scope.notebooks = JSON.parse(data['notebooks']);
-        }
-    )
+                $scope.notebooks = JSON.parse(data['notebooks']);
+            })
 });
 
 mainApp.controller('timetableCtrl', function($scope, $http){
