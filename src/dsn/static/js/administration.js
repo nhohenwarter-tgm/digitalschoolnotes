@@ -84,7 +84,7 @@ administrationApp.controller('adminCtrl', function(){
 
 administrationApp.controller('usermanagementCtrl', function ($scope, $http, $filter, $window) {
 
-    $scope.itemsPerPage = 2;
+    $scope.itemsPerPage = 20;
     $scope.security_list = [{name: 'Benutzer', security_level: 1},
                 {name: 'Pro User', security_level: 2},{name: 'Administrator', security_level: 3},{name: 'Speeren', security_level: 4}];
     $scope.currentPage = 0;

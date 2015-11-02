@@ -75,6 +75,7 @@ def view_login(request):
             user = User.objects.get(email=params['email'])
         except:
             user = None
+            return JsonResponse({'login_error': u'E-Mail Adresse oder Passwort falsch!'})
         if user is not None and user.is_active is True and user.check_password(params['password']):
             user.backend = 'mongoengine.django.auth.MongoEngineBackend'
             login(request, user)

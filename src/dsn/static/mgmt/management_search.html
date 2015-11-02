@@ -1,3 +1,4 @@
+<h3>{{ len }} Users wurden gefunden</h3>
 <div class="container">
     <div class="list-group" ng-repeat='n in profiles'>
         <a href="/management/profile/{{ n.id }}" target="_self" class="list-group-item">
@@ -6,4 +7,32 @@
         </a>
     </div>
 </div>
+<tfoot>
+        <td colspan="6">
+            <div class="text-center">
+                <ul class="pagination" align="center">
+                    <li ng-class="{disabled: currentPage == 0}">
+                        <a href ng-click="firstPage(); next(currentPage+1)"> < </a>
+                    </li>
 
+                    <li ng-class="{disabled: currentPage == 0}">
+                        <a href ng-click="prevPage(); next(currentPage+1)">« Prev</a>
+                    </li>
+
+                    <li ng-repeat="n in range(pagedItems.length, 0, l) "
+                        ng-class="{active: n == currentPage}"
+                        ng-click="setPage(); next(currentPage+1)">
+                        <a href ng-bind="n + 1">1</a>
+                    </li>
+
+                    <li ng-class="{disabled: (currentPage) == l - 1}">
+                        <a href ng-click="nextPage(); next(currentPage+1)">Next »</a>
+                    </li>
+
+                    <li ng-class="{disabled: currentPage == l-1}">
+                        <a href ng-click="lastPage(); next(currentPage+1)"> > </a>
+                    </li>
+                </ul>
+            </div>
+        </td>
+        </tfoot>

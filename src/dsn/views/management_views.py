@@ -89,20 +89,22 @@ def view_get_notebook(request):
 
 def view_getOtherProfile(request):
     if request.method == "POST":
+        profiles = []
         params = json.loads(request.body.decode('utf-8'))
+        von = (params['Page']-1)*params['counter']
+        bis = params['counter']*params['Page']
         try:
             if bool(params['searchtext'] and params['searchtext'].strip()):
                 users = User.objects(Q(email__icontains=params['searchtext']) | Q(first_name__icontains=params['searchtext']) | Q(last_name__icontains=params['searchtext']))
-            else:
-                users = None
-            profiles = []
-            for user in users:
-                profiles.append({
-                    "email": user.email,
-                    "first_name": user.first_name,
-                    "last_name": user.last_name,
-                    "id": str(user.id),
-                })
-            return JsonResponse({"profiles":profiles})
+                length = len(users)
+                users = users[von:bis]
+                for user in users:
+                    profiles.append({
+                        "email": user.email,
+                        "first_name": user.first_name,
+                        "last_name": user.last_name,
+                        "id": str(user.id),
+                    })
+            return JsonResponse({"profiles":profiles, 'len': length})
         except KeyError:
-            return JsonResponse({})
+            return JsonResponse({"profiles":profiles, 'len': 0})

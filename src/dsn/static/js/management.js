@@ -1,19 +1,86 @@
 var mainApp = angular.module('mainApp');
 mainApp.controller('managementCtrl', function ($scope, $http, $state) {
+
     $scope.search = function () {
+        $scope.itemsPerPage = 5;
+        $scope.currentPage = 1;
+        $scope.l = 0;
+        $scope.sort = {
+            sortingOrder: 'email'
+        };
         $http({
             method: 'POST',
             url: '/api/otherprofile',
             headers: {'Content-Type': 'application/json'},
-            data: {searchtext: $scope.q}
+            data: {searchtext: $scope.q, Page: $scope.currentPage, counter: $scope.itemsPerPage,}
         })
             .success(function (data) {
                 $scope.profiles = data['profiles'];
+                $scope.len = data['len'];
+                $scope.currentPage = 0;
+                $scope.l = Math.floor($scope.len / $scope.itemsPerPage) + $scope.len % $scope.itemsPerPage;
                 $state.go('management.search');
             })
             .error(function (data) {
             });
     }
+    $scope.next = function (current) {
+        $http({
+            method: 'POST',
+            url: '/api/otherprofile',
+            headers: {'Content-Type': 'application/json'},
+            data: {searchtext: $scope.q, Page: current, counter: $scope.itemsPerPage,}
+        })
+            .success(function (data) {
+                $scope.profiles = data['profiles'];
+            })
+            .error(function (data) {
+            });
+    }
+
+
+    var searchMatch = function (haystack, needle) {
+        if (!needle) {
+            return true;
+        }
+        return haystack.toLowerCase().indexOf(needle.toLowerCase()) !== -1;
+    };
+
+    $scope.range = function (size, start, end) {
+        var ret = [];
+        if (size < end) {
+            end = size;
+            start = size;
+        }
+        for (var i = start; i < end; i++) {
+            ret.push(i);
+        }
+        return ret;
+    };
+
+    $scope.firstPage = function () {
+        $scope.currentPage = 0;
+    };
+
+    $scope.prevPage = function () {
+        if ($scope.currentPage > 0) {
+            $scope.currentPage--;
+        }
+    };
+
+    $scope.nextPage = function () {
+        if ($scope.currentPage < $scope.l- 1) {
+            $scope.currentPage++;
+        }
+    };
+
+    $scope.lastPage = function () {
+        $scope.currentPage = $scope.l-1;
+    };
+
+    $scope.setPage = function () {
+        $scope.currentPage = this.n;
+    };
 });
 
 mainApp.controller('accsettingsCtrl', function ($scope) {
@@ -49,10 +116,16 @@ mainApp.controller('timetableCtrl', function ($scope, $http) {
     }
 });
 
-mainApp.controller('notebooksCreateCtrl', function ($scope, $http, loggedIn) {
+mainApp.controller('notebooksCreateCtrl', function ($scope, $http, loggedIn, $state) {
     $scope.submitCreateNotebook = function () {
         var name = $scope.name;
-        var is_public = $scope.is_public;
+        if($scope.is_public == true){
+             var is_public = true;
+        }
+        else {
+            var is_public = false;
+        }
+
         $http({
             method: 'POST',
             url: '/api/notebooks_create',
@@ -62,17 +135,19 @@ mainApp.controller('notebooksCreateCtrl', function ($scope, $http, loggedIn) {
                 is_public: is_public
             }
         });
+        alert('2134');
+        $state.go('management.notebooks'); //sollte gehen
     }
 });
 
-mainApp.controller('notebooksEditCtrl', function($scope, $http, loggedIn){
+mainApp.controller('notebookEditCtrl', function($scope, $http, loggedIn){
 
     $scope.submitEditNotebook = function() {
         var name = $scope.name;
         var is_public = $scope.is_public;
         $http({
             method: 'POST',
-            url: '/api/notebooks_edit',
+            url: '/api/notebook_edit',
             headers: {'Content-Type': 'application/json'},
             data: {
                 name: name,
