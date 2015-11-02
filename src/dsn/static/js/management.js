@@ -1,5 +1,5 @@
 var mainApp = angular.module('mainApp');
-mainApp.controller('managementCtrl', function ($scope, $http) {
+mainApp.controller('managementCtrl', function ($scope, $http, $state) {
     $scope.search = function () {
         $http({
             method: 'POST',
@@ -9,6 +9,7 @@ mainApp.controller('managementCtrl', function ($scope, $http) {
         })
             .success(function (data) {
                 $scope.profiles = data['profiles'];
+                $state.go('management.search');
             })
             .error(function (data) {
             });
