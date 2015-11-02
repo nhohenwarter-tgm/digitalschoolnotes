@@ -50,7 +50,7 @@ def view_createNotebook(request):
         form.create_date = datetime.now()
         form.last_change = datetime.now()
         form.email = request.user.email
-        nb = Notebook(name=form.name, is_public=form.is_public, create_date= form.create_date,last_change=form.last_change, email=form.email)
+        nb = Notebook(name=form.name, is_public=form.is_public, create_date= form.create_date, last_change=form.last_change, email=form.email, numpages=2)
         nb.save()
         return JsonResponse({'message': 'Ihr Heft wurde erstellt!'})
         # else:
