@@ -36,9 +36,10 @@ def view_timetable(request):
 def view_getProfile(request):
     if request.method == "POST":
         params = json.loads(request.body.decode('utf-8'))
-        user = User.objects.get(id=params['id']).to_json()
+        user = User.objects.get(id=params['id'])
         notebooks = Notebook.objects.filter(email=user.email, is_public=True).to_json()
-    return JsonResponse({"first_name":user.first_name, "last_name":user.last_name, "email":user.email,"date_joined":user.date_joined, "notebooks":notebooks})
+        return JsonResponse({"first_name": user.first_name, "last_name": user.last_name,
+                             "email": user.email, "date_joined": user.date_joined, "notebooks": notebooks})
 
 
 def view_createNotebook(request):
