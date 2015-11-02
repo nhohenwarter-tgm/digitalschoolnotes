@@ -21,17 +21,16 @@
                     <li><a ui-sref="management.notebooks">Notebooks</a></li>
                     <li><a ui-sref="management.accsettings">Account Settings</a></li>
                     <li><a ui-sref="management.profile">Profile</a></li>
-                    <li><a ui-sref="management.search">Search</a></li>
                     <li><a href="">Upgrade now</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li style="padding-top: 10px;">
                         <div id="custom-search-input">
                             <div class="input-group">
-                                <input type="text" ng-model="q" id="search" class="form-control input-lg"
+                                <input type="text" ng-model="q" id="search" class="form-control input-lg" ng-keydown="$event.which === 13 && search()"
                                        placeholder="Search..."/>
                     <span class="input-group-btn">
-                        <button class="btn btn-info btn-lg" ng-click="search()" ui-keypress="{'enter':'search()'}" type="button">
+                        <button class="btn btn-info btn-lg" ng-click="search()" type="button">
                             <i class="glyphicon glyphicon-search"></i>
                         </button>
                     </span>
