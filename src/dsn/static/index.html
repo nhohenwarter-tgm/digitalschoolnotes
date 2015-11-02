@@ -28,9 +28,21 @@
 
     <base href="/">
 </head>
-<body>
-<div ng-app="mainApp">
-    <div ui-view></div>
+<body ng-app="mainApp">
+
+<div id="wrap">
+    <div>
+        <div ui-view></div>
+    </div>
 </div>
+
+<!-- FOOTER START -->
+<footer class="footer">
+    <div class="container">
+        <span style="margin: 20px 0px; float: left;">&copy; 2015 - DigitalSchoolNotes - All Rights Reserved</span>
+        <a ui-sref="mainpage.impressum" style="margin: 20px 0px; float: right; text-decoration: none; color: black;">Impressum</a>
+    </div>
+</footer>
+<!-- FOOTER END -->
 </body>
 </html>

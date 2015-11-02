@@ -233,3 +233,7 @@ mainApp.controller('resetPwdCtrl', ['vcRecaptchaService','$scope','$http','$stat
         });
     }
 }]);
+
+mainApp.controller('impressumCtrl', function($scope, $http, $state){
+
+});

@@ -39,6 +39,17 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         }
     });
 
+    // IMPRESSUM
+    $stateProvider.state('mainpage.impressum', {
+        url: '/impressum',
+        templateUrl: '/mainpage/impressum.html',
+        controller: 'impressumCtrl',
+        data: {
+            authorization: false,
+            admin: false
+        }
+    });
+
     // CONTENT
     $stateProvider.state('mainpage.content', {
         url: '/',
