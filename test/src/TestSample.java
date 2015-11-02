@@ -1,6 +1,7 @@
 import junit.framework.TestCase;
 import org.junit.*;
 import org.openqa.selenium.*;
+import util.Parameters;
 
 public class TestSample extends TestCase{
     private WebDriver driver;
