@@ -139,10 +139,10 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
     });
 
         // NOTEBOOKS
-    $stateProvider.state('management.notebooks_edit', {
-        url: '/notebooks_edit',
-        templateUrl: '/mgmt/management_notebooks_edit.html',
-        controller: 'notebooksEditCtrl',
+    $stateProvider.state('management.notebook_edit', {
+        url: '/notebook_edit',
+        templateUrl: '/mgmt/management_notebook_edit.html',
+        controller: 'notebookEditCtrl',
         data: {
             authorization: true,
             admin: false

@@ -57,14 +57,14 @@ mainApp.controller('notebooksCreateCtrl', function($scope, $http, loggedIn){
     }
 });
 
-mainApp.controller('notebooksEditCtrl', function($scope, $http, loggedIn){
+mainApp.controller('notebookEditCtrl', function($scope, $http, loggedIn){
 
     $scope.submitEditNotebook = function() {
         var name = $scope.name;
         var is_public = $scope.is_public;
         $http({
             method: 'POST',
-            url: '/api/notebooks_edit',
+            url: '/api/notebook_edit',
             headers: {'Content-Type': 'application/json'},
             data: {
                 name: name,
