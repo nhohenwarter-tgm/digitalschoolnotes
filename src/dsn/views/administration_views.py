@@ -3,7 +3,10 @@ from dsn.models import User
 import json
 from mongoengine.queryset.visitor import Q
 
+
 def view_users(request):
+    if not request.user.is_authenticated() or not request.user.is_superuser:
+        return JsonResponse({})
     u = []
     length = 0
     weiter = False
@@ -54,6 +57,8 @@ def view_users(request):
 
 
 def view_sortUser(request):
+    if not request.user.is_authenticated() or not request.user.is_superuser:
+        return JsonResponse({})
     u = []
     length = 0
     if request.method == "POST":
@@ -81,6 +86,8 @@ def view_sortUser(request):
 
 
 def view_saveUserchange(request):
+    if not request.user.is_authenticated() or not request.user.is_superuser:
+        return JsonResponse({})
     if request.method == "POST":
         params = json.loads(request.body.decode('utf-8'))
         try:
@@ -107,7 +114,10 @@ def view_saveUserchange(request):
             user = None
     return JsonResponse({})
 
+
 def view_deleteUser(request):
+    if not request.user.is_authenticated() or not request.user.is_superuser:
+        return JsonResponse({})
     if request.method == "POST":
         params = json.loads(request.body.decode('utf-8'))
         try:

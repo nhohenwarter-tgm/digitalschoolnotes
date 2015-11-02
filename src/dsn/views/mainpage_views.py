@@ -117,7 +117,7 @@ def view_resetpassword(request):
         params = request.GET.get('hash', '')
         try:
             user = User.objects.get(passwordreset__hash=params)
-            return JsonResponse()
+            return JsonResponse({'reset_error': None})
         except DoesNotExist:
             return JsonResponse({'reset_error':'Der Link ist nicht mehr gültig.\n'})
 

@@ -1,8 +1,13 @@
 <div class="row">
     <div class="col-md-4"></div>
     <div class="col-md-4">
+        <div class="row" style="padding-bottom: 10px; padding-left:15px;">
+            <h2 style="text-align:center">Login</h2>
+        </div>
         <form ng-submit="submitLogin()" method="POST" name="login" novalidate>
-            <div class="row" style="padding-left: 15px; color: red;" ng-show="error">{{ login_error }}</div>
+            <div class="row alert alert-warning" style="margin-left: 3px; margin-right: 3px;" ng-show="error">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {{ login_error }}
+            </div>
             <div class="row" style="padding-left:20px; color: red;"
                  ng-show="(submitted || login.email.$dirty) && login.email.$error.required">
                 Bitte gib deine E-Mail Adresse ein.
@@ -13,12 +18,12 @@
             </div>
             <div class="row" style="padding-top: 10px;">
                 <div class="col-md-12">
-                    <input type="text" name="email" placeholder="E-Mail Adresse" ng-model="email" style="width: 100%;" required/>
+                    <input class="form-control" type="text" name="email" placeholder="E-Mail Adresse" ng-model="email" style="width: 100%;" required/>
                 </div>
             </div>
             <div class="row" style="padding-top: 10px;">
                 <div class="col-md-12">
-                    <input type="password" name="pwd" placeholder="Passwort" ng-model="password" style="width: 100%;" required/>
+                    <input class="form-control" type="password" name="pwd" placeholder="Passwort" ng-model="password" style="width: 100%;" required/>
                 </div>
             </div>
             <div class="row" style="padding-top: 10px;">

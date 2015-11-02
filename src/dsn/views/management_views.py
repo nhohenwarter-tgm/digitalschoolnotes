@@ -14,7 +14,8 @@ def view_timetable(request):
     :param request: HTTP-Request
     :return: ein gerendertes Template
     """
-    print("geht")
+    if not request.user.is_authenticated():
+        return JsonResponse({})
     if request.method == "POST":
         params = json.loads(request.body.decode('utf-8'))
         print(params)
@@ -24,17 +25,15 @@ def view_timetable(request):
         form.begin = params['begin']
         form.end = params['end']
         form.room = params['room']
-        # val = validate_registration(form.email, form.password, form.password_repeat)
-        #if val is True:
-        # te = TimeTableElem(gegenstand=form.gegenstand,lehrer=form.lehrer,anfang=form.anfang,ende=form.ende,raum=form.raum)#alles englisch
         te = TimeTableElem(subject=form.subject,teacher=form.teacher,begin=form.begin,end=form.end,room=form.room)
         print(te)
         te.save()
         return JsonResponse({'message': 'Danke fuers Eintragen'})
-        # else:
-        # return JsonResponse({'registration_error': val})import json
+
 
 def view_getProfile(request):
+    if not request.user.is_authenticated():
+        return JsonResponse({})
     if request.method == "POST":
         params = json.loads(request.body.decode('utf-8'))
         user = User.objects.get(id=params['id'])
@@ -45,6 +44,8 @@ def view_getProfile(request):
 
 
 def view_createNotebook(request):
+    if not request.user.is_authenticated():
+        return JsonResponse({})
     if request.method == "POST":
         params = json.loads(request.body.decode('utf-8'))
         form = NotebookForm()
@@ -56,15 +57,19 @@ def view_createNotebook(request):
         nb = Notebook(name=form.name, is_public=form.is_public, create_date= form.create_date, last_change=form.last_change, email=form.email, numpages=2)
         nb.save()
         return JsonResponse({'message': 'Ihr Heft wurde erstellt!'})
-        # else:
-        # return JsonResponse({'registration_error': val})import json
+
 
 def view_showNotebook(request):
+    if not request.user.is_authenticated():
+        return JsonResponse({})
     if request.method == "GET":
         notebooks = Notebook.objects.filter(email=request.user.email).to_json()
     return JsonResponse({"notebooks":notebooks})
 
+
 def view_editNotebook(request):
+    if not request.user.is_authenticated():
+        return JsonResponse({})
     if request.method == "POST":
         params = json.loads(request.body.decode('utf-8'))
         form = NotebookForm()
@@ -77,17 +82,25 @@ def view_editNotebook(request):
 
 
 def view_get_notebooks(request):
+    if not request.user.is_authenticated():
+        return JsonResponse({})
     if request.method == "POST":
         notebooks = Notebook.objects.filter(email=request.user.email).to_json()
         return JsonResponse({"notebooks":notebooks})
 
+
 def view_get_notebook(request):
+    if not request.user.is_authenticated():
+        return JsonResponse({})
     if request.method == "POST":
         params = json.loads(request.body.decode('utf-8'))
         notebook = Notebook.objects.get(id=params['id']).to_json()
         return JsonResponse({"notebook":notebook})
 
+
 def view_getOtherProfile(request):
+    if not request.user.is_authenticated():
+        return JsonResponse({})
     if request.method == "POST":
         profiles = []
         params = json.loads(request.body.decode('utf-8'))

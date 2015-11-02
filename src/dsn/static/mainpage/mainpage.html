@@ -15,11 +15,11 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="">Features</a></li>
-                    <li><a href="">Pricing</a></li>
-                    <li><a href="">About</a></li>
-                    <li ng-show="menu_login"><a ui-sref="mainpage.login">Login</a></li>
-                    <li ng-show="menu_toapp"><a ui-sref="management.timetable">Zur App</a></li>
+                    <li><a href=""><span class="glyphicon glyphicon-flash"></span> Features</a></li>
+                    <li><a href=""><span class="glyphicon glyphicon-piggy-bank"></span> Pricing</a></li>
+                    <li><a href=""><span class="glyphicon glyphicon-info-sign"></span> About</a></li>
+                    <li ng-show="menu_login" class="active"><a ui-sref="mainpage.login"><span class="glyphicon glyphicon-user"></span> Login</a></li>
+                    <li ng-show="menu_toapp" class="active"><a ui-sref="management.timetable"><span class="glyphicon glyphicon-home"></span> Zur App</a></li>
                 </ul>
             </div>
         </div>

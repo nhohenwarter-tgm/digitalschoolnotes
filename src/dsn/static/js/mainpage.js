@@ -16,6 +16,7 @@ mainApp.controller('mainpageCtrl', function($scope, $http, loggedIn){
 });
 
 mainApp.controller('contentCtrl', ['vcRecaptchaService','$scope','$http',function(vcRecaptchaService, $scope, $http){
+    $scope.registerSuccess = false;
     $scope.error = false;
     //$scope.publicKey = "6Ldj4A8TAAAAAANFOMC0XlVx3AG3KvX5vKhCXqQc"; Echter Key
     $scope.publicKey = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"; // Testing
@@ -65,8 +66,9 @@ mainApp.controller('contentCtrl', ['vcRecaptchaService','$scope','$http',functio
                         $scope.email_error = data['registration_error'];
                         vcRecaptchaService.reload();
                     }else{
-                        alert('Vielen Dank für deine Registrierung!\n' +
-                            'Sobald du deine E-Mail Adresse bestätigt hast kannst du dich einloggen und sofort starten!');
+                        $scope.registerSuccess = true;
+                        $scope.message = 'Vielen Dank für deine Registrierung! \n' +
+                            'Sobald du deine E-Mail Adresse bestätigt hast kannst du dich einloggen und sofort starten!';
                     }
                 })
                 .error(function (data) {
@@ -139,6 +141,7 @@ mainApp.controller('resetPwdCtrl', ['vcRecaptchaService','$scope','$http','$stat
     $scope.publicKey = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"; // Testing
 
     $scope.resetPasswordReq = function() {
+        $scope.submitted = true;
         $scope.error = false;
         $scope.reset_error = "";
         var email = $scope.email;
@@ -148,12 +151,7 @@ mainApp.controller('resetPwdCtrl', ['vcRecaptchaService','$scope','$http','$stat
             $scope.reset_error += "Bitte löse das Captcha.\n";
         }
 
-        if(email == null){
-            $scope.error = true;
-            $scope.reset_error += "Bitte gib deine E-Mail Adresse an.\n";
-        }
-
-        if(!$scope.error) {
+        if(!$scope.error && $scope.resetpwdreq.$valid) {
             $http({
                 method: 'POST',
                 url: '/api/resetpasswordrequest',
@@ -178,22 +176,19 @@ mainApp.controller('resetPwdCtrl', ['vcRecaptchaService','$scope','$http','$stat
     };
 
     $scope.resetPassword = function() {
+        $scope.submitted = true;
         var password = $scope.pwd;
         var password_repeat = $scope.pwdrepeat;
         var hash = $state.params.hash;
         $scope.error = false;
         $scope.reset_error = '';
-        if(password == null || password_repeat == null){
-            $scope.error = true;
-            $scope.reset_error = 'Bitte beide Felder ausfüllen.\n';
-        }
         if(password != password_repeat) {
             $scope.error = true;
             $scope.reset_error = 'Passwörter stimmen nicht überein\n';
         }
         password = CryptoJS.SHA256(password)
         password_repeat = CryptoJS.SHA256(password_repeat)
-        if(!$scope.error) {
+        if(!$scope.error && $scope.resetpwd.$valid) {
             $http({
                 method: 'POST',
                 url: '/api/resetpassword',
@@ -224,7 +219,7 @@ mainApp.controller('resetPwdCtrl', ['vcRecaptchaService','$scope','$http','$stat
         method: 'GET',
         url: '/api/resetpassword',
         headers: {'Content-Type': 'application/json'},
-        data: {
+        params: {
             hash: $state.params.hash
         }
     })
