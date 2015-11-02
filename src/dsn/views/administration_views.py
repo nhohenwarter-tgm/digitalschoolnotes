@@ -8,7 +8,7 @@ def view_users(request):
     length = 0
     weiter = False
     if request.method == "GET":
-        users = User.objects[0:2]
+        users = User.objects[0:20]
         length = len(User.objects)
     elif request.method == "POST":
         params = json.loads(request.body.decode('utf-8'))

@@ -3,14 +3,16 @@
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                        aria-expanded="false" aria-controls="navbar">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" ui-sref="mainpage.content" style="padding-top: 5px; padding-bottom: 5px;">
-                    <img alt="DigitalSchoolNotes" src="../../img/logo_small.png" style="max-height: 100%; height: 100%;">
+                    <img alt="DigitalSchoolNotes" src="../../img/logo_small.png"
+                         style="max-height: 100%; height: 100%;">
                 </a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
@@ -22,16 +24,20 @@
                     <li><a href="">Upgrade now</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li style="padding-top: 10px;"><div id="custom-search-input">
-                        <div class="input-group">
-                            <input type="text" ng-model="q" id="search" class="form-control input-lg" placeholder="Search..." />
+                    <li style="padding-top: 10px;">
+                        <div id="custom-search-input">
+                            <div class="input-group">
+                                <input type="text" ng-model="q" id="search" class="form-control input-lg" ng-keydown="$event.which === 13 && search()"
+                                       placeholder="Search..."/>
                     <span class="input-group-btn">
                         <button class="btn btn-info btn-lg" ng-click="search()" type="button">
+                        <button class="btn btn-info btn-lg" ng-click="search()"  type="button">
                             <i class="glyphicon glyphicon-search"></i>
                         </button>
                     </span>
+                            </div>
                         </div>
-                    </div></li>
+                    </li>
                     <li><a href="" ng-controller="logoutCtrl" ng-click="logout()">Logout</a></li>
                 </ul>
             </div>
@@ -39,18 +45,7 @@
     </nav>
     <!-- NAVBAR END -->
     <!-- CONTENT START -->
-    <div ng-hide="see">
-        <div style="padding-top: 80px;" ui-view></div>
-    </div>
-    <div ng-show="see">
-        <div style="padding-top: 80px">
-            <h2>{{ see }}</h2>
-            <ul ng-repeat='n in profiles'>
-                <li><a href="/management/profile/{{ n.id }}">{{ n.email }}</a></li>
-            </ul>
-            <div ng-controller="managementCtrl" ng-init="see='false'" />
-            <h2>{{ see }}</h2>
-        </div>
-    </div>
-    <!-- CONTENT END -->
+
+    <div style="padding-top: 80px;" ui-view></div>
+<!-- CONTENT END -->
 </div>

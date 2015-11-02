@@ -116,6 +116,17 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         }
     });
 
+    // SEARCH RESULTS
+    $stateProvider.state('management.search', {
+        url: '/results',
+        templateUrl: '/mgmt/management_search.html',
+        controller: 'searchCtrl',
+        data: {
+            authorization: true,
+            admin: false
+        }
+    });
+
     // NOTEBOOKS
     $stateProvider.state('management.notebooks', {
         url: '/notebooks',
