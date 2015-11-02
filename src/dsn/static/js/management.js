@@ -50,10 +50,16 @@ mainApp.controller('timetableCtrl', function ($scope, $http) {
     }
 });
 
-mainApp.controller('notebooksCreateCtrl', function ($scope, $http, loggedIn) {
+mainApp.controller('notebooksCreateCtrl', function ($scope, $http, loggedIn, $state) {
     $scope.submitCreateNotebook = function () {
         var name = $scope.name;
-        var is_public = $scope.is_public;
+        if($scope.is_public == true){
+             var is_public = true;
+        }
+        else {
+            var is_public = false;
+        }
+
         $http({
             method: 'POST',
             url: '/api/notebooks_create',
@@ -63,6 +69,8 @@ mainApp.controller('notebooksCreateCtrl', function ($scope, $http, loggedIn) {
                 is_public: is_public
             }
         });
+        alert('2134');
+        $state.go('management.notebooks'); //sollte gehen
     }
 });
 
