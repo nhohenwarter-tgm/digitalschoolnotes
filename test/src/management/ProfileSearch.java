@@ -52,6 +52,7 @@ public class ProfileSearch extends TestCase{
 
     @After
     public void tearDown() throws Exception {
+        driver.get(baseUrl + "/logout");
         driver.quit();
         String verificationErrorString = verificationErrors.toString();
         if (!"".equals(verificationErrorString)) {
