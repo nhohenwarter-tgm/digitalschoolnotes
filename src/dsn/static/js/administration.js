@@ -86,7 +86,7 @@ administrationApp.controller('usermanagementCtrl', function ($scope, $http, $fil
 
     $scope.itemsPerPage = 20;
     $scope.security_list = [{name: 'Benutzer', security_level: 1},
-                {name: 'Pro User', security_level: 2},{name: 'Administrator', security_level: 3},{name: 'Speeren', security_level: 4}];
+                {name: 'Pro User', security_level: 2},{name: 'Administrator', security_level: 3},{name: 'Inaktiv', security_level: 4}];
     $scope.currentPage = 0;
     $scope.l = 0;
     $scope.sort = {
@@ -119,8 +119,7 @@ administrationApp.controller('usermanagementCtrl', function ($scope, $http, $fil
             $scope.users = data['test'];
             $scope.len = data['len'];
             $scope.currentPage = 0;
-            $scope.l = Math.floor($scope.len / $scope.itemsPerPage) + $scope.len % $scope.itemsPerPage;
-
+            $scope.l = Math.ceil($scope.len/$scope.itemsPerPage);
         })
         .error(function (data) {
 
@@ -189,7 +188,8 @@ administrationApp.controller('usermanagementCtrl', function ($scope, $http, $fil
             data: {email: email}
         })
             .success(function (data) {
-                $window.location.href = '/admin';
+                    //$scope.users = data['test'];
+                //$window.location.href = '/admin';
             })
             .error(function (data) {
             });
@@ -224,13 +224,13 @@ administrationApp.controller('usermanagementCtrl', function ($scope, $http, $fil
             method: 'POST',
             url: '/api/admin_user',
             headers : {'Content-Type': 'application/json'},
-            data    : {text: $scope.q, Page: current, counter: $scope.itemsPerPage}
+            data    : {text: $scope.q, spalte: $scope.spalte, Page: current, counter: $scope.itemsPerPage, order: $scope.order}
         })
             .success(function (data) {
                 $scope.users = data['test'];
                 $scope.len = data['len'];
                 $scope.currentPage = 0;
-                $scope.l = Math.floor($scope.len / $scope.itemsPerPage) + $scope.len % $scope.itemsPerPage;
+                $scope.l = Math.ceil($scope.len/$scope.itemsPerPage);
             })
             .error(function (data) {
             });
@@ -247,12 +247,12 @@ administrationApp.controller('usermanagementCtrl', function ($scope, $http, $fil
             method: 'POST',
             url: '/api/admin_user',
             headers: {'Content-Type': 'application/json'},
-            data: {spalte: $scope.spalte, Page: current, counter: $scope.itemsPerPage, order: $scope.order}
+            data: {text: $scope.q, spalte: $scope.spalte, Page: current, counter: $scope.itemsPerPage, order: $scope.order}
         })
             .success(function (data) {
                 $scope.users = data['test'];
                 $scope.len = data['len'];
-                $scope.l = Math.floor($scope.len / $scope.itemsPerPage) + $scope.len % $scope.itemsPerPage;
+                $scope.l = Math.ceil($scope.len/$scope.itemsPerPage);
             })
             .error(function (data) {
             });

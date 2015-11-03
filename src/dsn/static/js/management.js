@@ -2,7 +2,7 @@ var mainApp = angular.module('mainApp');
 mainApp.controller('managementCtrl', function ($scope, $http, $state) {
 
     $scope.search = function () {
-        $scope.itemsPerPage = 5;
+        $scope.itemsPerPage = 10;
         $scope.currentPage = 1;
         $scope.l = 0;
         $scope.sort = {
@@ -18,7 +18,7 @@ mainApp.controller('managementCtrl', function ($scope, $http, $state) {
                 $scope.profiles = data['profiles'];
                 $scope.len = data['len'];
                 $scope.currentPage = 0;
-                $scope.l = Math.floor($scope.len / $scope.itemsPerPage) + $scope.len % $scope.itemsPerPage;
+                $scope.l = Math.ceil($scope.len/$scope.itemsPerPage);
                 $state.go('management.search');
             })
             .error(function (data) {

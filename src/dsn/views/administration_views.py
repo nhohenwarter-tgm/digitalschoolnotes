@@ -17,25 +17,25 @@ def view_users(request):
         params = json.loads(request.body.decode('utf-8'))
         von = (params['Page']-1)*params['counter']
         bis = params['counter']*params['Page']
+        users = User.objects()
         try:
+            """ Search """
             if bool(params['text'] and params['text'].strip()):
-                users = User.objects(Q(email__icontains=params['text']) | Q(first_name__icontains=params['text']) | Q(last_name__icontains=params['text']))
-            else:
-                weiter = True
-                users = User.objects()
+                users = users(Q(email__icontains=params['text']) | Q(first_name__icontains=params['text']) | Q(last_name__icontains=params['text']))
+                print("A")
         except KeyError:
-            weiter = True
-            users = User.objects()
+            pass
 
-        if weiter:
-            try:
-                if params['order'] is not None:
-                    if params['order']:
-                        users = User.objects().order_by(params['spalte'])
-                    else:
-                        users = User.objects().order_by('-'+str(params['spalte']))
-            except KeyError:
-                users = User.objects()
+        try:
+            """ Sort """
+            if params['order'] is not None:
+                if params['order']:
+                    users = users.order_by(params['spalte'])
+                else:
+                    users = users.order_by('-'+str(params['spalte']))
+            print("B")
+        except KeyError:
+            pass
 
         length = len(users)
         users = users[von:bis]
