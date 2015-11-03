@@ -23,6 +23,7 @@ public class RegisterUser extends TestCase{
         Parameters.setUpBrowser();
         this.driver = Parameters.driver;
         this.baseUrl = Parameters.baseUrl;
+        driver.get(baseUrl + "/");
     }
 
     /**
