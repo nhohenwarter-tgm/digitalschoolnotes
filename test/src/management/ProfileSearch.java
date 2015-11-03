@@ -40,7 +40,7 @@ public class ProfileSearch extends TestCase{
      * @throws Exception
      */
     @Test
-    public void testSearch() throws Exception {
+    public void testProfileSearch() throws Exception {
         driver.get(baseUrl + "/management");
         driver.findElement(By.id("search")).clear();
         driver.findElement(By.id("search")).sendKeys("test@test.test");
