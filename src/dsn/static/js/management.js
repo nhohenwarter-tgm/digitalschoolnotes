@@ -1,6 +1,11 @@
 var mainApp = angular.module('mainApp');
 mainApp.controller('managementCtrl', function ($scope, $http, $state) {
-
+    $scope.len = localStorage.getItem('len');
+    $scope.q = localStorage.getItem('search');
+    $scope.profiles = localStorage.getItem('profiles');
+    $scope.l = localStorage.getItem('l');
+    $scope.currentPage = localStorage.getItem('currentPage');
+    alert($scope.profiles);
     $scope.search = function () {
         $scope.itemsPerPage = 10;
         $scope.currentPage = 1;
@@ -15,10 +20,15 @@ mainApp.controller('managementCtrl', function ($scope, $http, $state) {
             data: {searchtext: $scope.q, Page: $scope.currentPage, counter: $scope.itemsPerPage,}
         })
             .success(function (data) {
+                localStorage.setItem('search', document.getElementById('search').value);
                 $scope.profiles = data['profiles'];
+                localStorage.setItem('profiles', data['profiles']);
                 $scope.len = data['len'];
+                localStorage.setItem('len', $scope.len);
                 $scope.currentPage = 0;
+                localStorage.setItem('currentPage', $scope.currentPage);
                 $scope.l = Math.ceil($scope.len/$scope.itemsPerPage);
+                localStorage.setItem('l', $scope.l);
                 $state.go('management.search');
             })
             .error(function (data) {
@@ -33,6 +43,8 @@ mainApp.controller('managementCtrl', function ($scope, $http, $state) {
         })
             .success(function (data) {
                 $scope.profiles = data['profiles'];
+                localStorage.setItem('profiles', data['profiles']);
+                localStorage.setItem('currentPage', $scope.currentPage);
             })
             .error(function (data) {
             });

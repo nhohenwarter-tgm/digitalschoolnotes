@@ -22,7 +22,6 @@ def view_users(request):
             """ Search """
             if bool(params['text'] and params['text'].strip()):
                 users = users(Q(email__icontains=params['text']) | Q(first_name__icontains=params['text']) | Q(last_name__icontains=params['text']))
-                print("A")
         except KeyError:
             pass
 
@@ -33,7 +32,6 @@ def view_users(request):
                     users = users.order_by(params['spalte'])
                 else:
                     users = users.order_by('-'+str(params['spalte']))
-            print("B")
         except KeyError:
             pass
 
