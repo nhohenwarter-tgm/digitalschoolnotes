@@ -32,7 +32,7 @@ public class Profile extends TestCase{
         driver.findElement(By.name("email")).sendKeys("test@test.test");
         driver.findElement(By.name("pwd")).sendKeys("12341234");
         driver.findElement(By.id("submit")).click();
-        Thread.sleep(2500);
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
     }
 
     /**
@@ -45,14 +45,13 @@ public class Profile extends TestCase{
         driver.findElement(By.id("search")).clear();
         driver.findElement(By.id("search")).sendKeys("test@test.test");
         driver.findElement(By.id("searchbtn")).click();
-        Thread.sleep(2500);
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
         driver.findElement(By.partialLinkText("test@test.test")).click();
-        Thread.sleep(2500);
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
         String page = driver.getPageSource();
         int matches = 0;
         Matcher matcher = Pattern.compile("\\bTest\\b").matcher(page);
         while (matcher.find()) matches++;
-        System.out.println(matches);
         if(matches != 2) throw new NotFoundException();
         if(!page.contains("test@test.test")) throw new NotFoundException();
         if(!page.contains("Test1")) throw new NotFoundException();

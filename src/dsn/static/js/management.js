@@ -5,7 +5,7 @@ mainApp.controller('managementCtrl', function ($scope, $http, $state) {
     $scope.profiles = localStorage.getItem('profiles');
     $scope.l = localStorage.getItem('l');
     $scope.currentPage = localStorage.getItem('currentPage');
-    alert($scope.profiles);
+    //alert($scope.profiles);
     $scope.search = function () {
         $scope.itemsPerPage = 10;
         $scope.currentPage = 1;
@@ -147,7 +147,6 @@ mainApp.controller('notebooksCreateCtrl', function ($scope, $http, loggedIn, $st
                 is_public: is_public
             }
         });
-        alert('2134');
         $state.go('management.notebooks'); //sollte gehen
     }
 });

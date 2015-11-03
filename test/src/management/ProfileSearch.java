@@ -32,7 +32,7 @@ public class ProfileSearch extends TestCase{
         driver.findElement(By.name("email")).sendKeys("test@test.test");
         driver.findElement(By.name("pwd")).sendKeys("12341234");
         driver.findElement(By.id("submit")).click();
-        Thread.sleep(2500);
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
     }
 
     /**
@@ -45,7 +45,7 @@ public class ProfileSearch extends TestCase{
         driver.findElement(By.id("search")).clear();
         driver.findElement(By.id("search")).sendKeys("test@test.test");
         driver.findElement(By.id("searchbtn")).click();
-        Thread.sleep(2500);
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
         String page = driver.getPageSource();
         if(!page.contains("test@test.test")) throw new NotFoundException();
     }
