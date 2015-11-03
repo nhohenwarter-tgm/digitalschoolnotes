@@ -3,7 +3,7 @@ import org.junit.*;
 import org.openqa.selenium.*;
 import util.Parameters;
 
-public class TestSample extends TestCase{
+public class TestSample {
     private WebDriver driver;
     private String baseUrl;
     private boolean acceptNextAlert = true;
@@ -14,6 +14,7 @@ public class TestSample extends TestCase{
         Parameters.setUpBrowser();
         this.driver = Parameters.driver;
         this.baseUrl = Parameters.baseUrl;
+        driver.get(baseUrl + "/");
     }
 
     @Test
