@@ -3,7 +3,7 @@ import org.junit.*;
 import org.openqa.selenium.*;
 import util.Parameters;
 
-public class TestSample {
+public class TestSample extends TestCase{
     private WebDriver driver;
     private String baseUrl;
     private boolean acceptNextAlert = true;
