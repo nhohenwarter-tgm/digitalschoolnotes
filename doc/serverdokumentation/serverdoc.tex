@@ -149,7 +149,6 @@
 \tabhvent{\textbf{1.1}} & \tabhvent{07.10.2015} & \tabhvent{Bearbeitet} &  \tabhvent{Hohenwarter}    &  \tabhvent{Django Ports}         \\ \hline
 \tabhvent{\textbf{1.1}} & \tabhvent{12.10.2015} & \tabhvent{Bearbeitet} &  \tabhvent{Hohenwarter}    &  \tabhvent{Deployment}         \\ \hline
 \tabhvent{\textbf{1.2}} & \tabhvent{14.10.2015} & \tabhvent{QA} &  \tabhvent{Stedronsky}    &  \tabhvent{Rechtschreibfehler}         \\ \hline
-\\ \hline
 \tabhvent{\textbf{1.2}} & \tabhvent{14.10.2015} & \tabhvent{Bearbeitet} &  \tabhvent{Hohenwarter}    &  \tabhvent{uWsgi}         \\ \hline
 \end{tabularx}
 \end{table}
@@ -175,7 +174,6 @@ Folgende Subdomains existieren:
 \item time.digitalschoolnotes.com \hfill Zeitaufzeichnung
 \item git.digitalschoolnotes.com \hfill Repository
 \item ontime.digitalschoolnotes.com \hfill Scrum Tool
-\item ci.digitalschoolnotes.com \hfill CI Tool
 \end{itemize}
 
 \section{User}
@@ -362,7 +360,7 @@ server {
 Es werden nun alle HTTP Anfragen nach HTTPS umgeleitet.
 
 \subsection{Gunicorn}
-Wir haben uns dazu entschieden in Entwicklung und Produktiveinsatz Django mit gunicorn zu deployen. Nginx beantwortet alle statischen Anfragen. Fall etwas von Django abgefragt werden muss, leitet Nginx die Anfrage an Djano weiter. Die Konfiguration läuft wie folgt ab\cite{GUNICORN:1}:\\
+Wir haben uns dazu entschieden im Produktiveinsatz Django mit gunicorn zu deployen. Nginx beantwortet alle statischen Anfragen. Fall etwas von Django abgefragt werden muss, leitet Nginx die Anfrage an Djano weiter. Die Konfiguration läuft wie folgt ab\cite{GUNICORN:1}:\\
 Als erstes muss gunicorn installiert werden:
 \begin{lstlisting}
 sudo pip3 install gunicorn
