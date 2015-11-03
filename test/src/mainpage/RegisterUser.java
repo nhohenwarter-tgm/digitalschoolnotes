@@ -42,7 +42,7 @@ public class RegisterUser extends TestCase{
         if(!bodyText.contains("Bitte gib deine E-Mail Adresse an.")) throw new NotFoundException();
         if(!bodyText.contains("Bitte gib dein Passwort an.")) throw new NotFoundException();
         if(!bodyText.contains("Bitte gib deinen Passwort nochmal an.")) throw new NotFoundException();
-        if(!bodyText.contains("Bitte akzeptiere unsere Nuztzungsbedingungen.")) throw new NotFoundException();
+        if(!bodyText.contains("Bitte akzeptiere unsere Nutzungsbedingungen.")) throw new NotFoundException();
         if(!bodyText.contains("Bitte löse das Captcha.")) throw new NotFoundException();
     }
 
@@ -69,9 +69,9 @@ public class RegisterUser extends TestCase{
                 "Bitte löse das Captcha. \n Du hast 5 Sekunden Zeit.",
                 "Action Required!",
                 JOptionPane.WARNING_MESSAGE);
-        Thread.sleep(5000);
+        Thread.sleep(Parameters.SLEEP_CAPTCHA);
         driver.findElement(By.name("submit")).click();
-        Thread.sleep(2500);
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
         String page = driver.getPageSource();
         if(!page.contains("E-Mail Adresse bereits vergeben!")) throw new NotFoundException();
     }
@@ -136,13 +136,11 @@ public class RegisterUser extends TestCase{
                 "Bitte löse das Captcha. \n Du hast 5 Sekunden Zeit.",
                 "Action Required!",
                 JOptionPane.WARNING_MESSAGE);
-        Thread.sleep(5000);
+        Thread.sleep(Parameters.SLEEP_CAPTCHA);
         driver.findElement(By.name("submit")).click();
-        isAlertPresent();
-        String alertText = closeAlertAndGetItsText();
-        if(!alertText.contains("Vielen Dank")){
-            throw new NotFoundException();
-        }
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        String page = driver.getPageSource();
+        if(!page.contains("Vielen Dank")) throw new NotFoundException();
     }
 
     @After
