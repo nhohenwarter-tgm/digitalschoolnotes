@@ -1,4 +1,4 @@
-<h3>{{ len }} Users wurden gefunden</h3>
+<h3>{{ len }} User wurden gefunden</h3>
 <div class="container">
     <div class="list-group" ng-repeat='n in profiles'>
         <a href="/management/profile/{{ n.id }}" target="_self" class="list-group-item">
@@ -25,11 +25,11 @@
                         <a href ng-bind="n + 1">1</a>
                     </li>
 
-                    <li ng-class="{disabled: (currentPage) == l - 1}">
+                    <li ng-class="{disabled: (currentPage) == l-1 || len == 0}">
                         <a href ng-click="nextPage(); next(currentPage+1)">Next »</a>
                     </li>
 
-                    <li ng-class="{disabled: currentPage == l-1}">
+                    <li ng-class="{disabled: currentPage == l-1 || len == 0}">
                         <a href ng-click="lastPage(); next(currentPage+1)"> > </a>
                     </li>
                 </ul>

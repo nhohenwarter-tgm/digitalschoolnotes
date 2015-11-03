@@ -118,6 +118,7 @@ def view_getOtherProfile(request):
                         "last_name": user.last_name,
                         "id": str(user.id),
                     })
-            return JsonResponse({"profiles":profiles, 'len': length})
+                return JsonResponse({"profiles":profiles, 'len': length})
+            return JsonResponse({"profiles":profiles, 'len': 0})
         except KeyError:
             return JsonResponse({"profiles":profiles, 'len': 0})
