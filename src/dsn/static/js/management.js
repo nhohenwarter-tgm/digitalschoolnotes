@@ -149,6 +149,9 @@ mainApp.controller('notebooksCreateCtrl', function ($scope, $http, loggedIn, $st
         if($scope.name.length>30){
             $scope.message = "Heftname zu lang maximal 30 Zeichen!";
         }
+        if(scope-name.length<1){
+            $scope.message = "Heftname muss mindestens 1 Zeichen haben!";
+        }
         else {
             $http({
                 method: 'POST',
@@ -198,6 +201,9 @@ mainApp.controller('editNotebookCtrl', function($scope, $http, $stateParams, $st
         var is_public = $scope.is_public;
         if($scope.name.length>30){
             $scope.message = "Heftname zu lang maximal 30 Zeichen!";
+        }
+        if(scope-name.length<1){
+            $scope.message = "Heftname muss mindestens 1 Zeichen haben!";
         }
         else {
             $http({
