@@ -1,20 +1,26 @@
-<form ng-submit="submitEditNotebook()" method="POST">
-    <div class="row" style="padding-left: 15px; color: red;" ng-show="error">{{ login_error }}</div>
-    <div class="row" style="padding-top: 10px;">
-        <div class="col-md-12">
-            <span ng-bind="message" style="color: red;"></span>
-            <input type="text" name="name" ng-model="name" style="width: 100%;" />
+<form class="row" ng-submit="submitEditNotebook()" method="POST" name="editNotebook" novalidate>
+    <span class="col-md-4"></span>
+    <span class="col-md-4">
+        <h2 class="row" style="text-align: center;">Hefteinstellungen</h2>
+        <h4 style="padding-top: 20px;">Heftname</h4>
+        <div class="row">
+            <div class="col-md-12">
+                <span ng-bind="message" style="color: red;"></span>
+                <p  style="color: red;" ng-show="(editNotebook.name.$dirty) && editNotebook.name.$error.required">Bitte gib einen Namen an.</p>
+                <p  style="color: red;" ng-show="(editNotebook.name.$dirty) && editNotebook.name.$error.maxlength">Der Name ist zu lang (max. 30 Zeichen).</p>
+                <input class="form-control" type="text" name="name" ng-model="name" ng-maxlength="30" required/>
+            </div>
         </div>
-    </div>
-    <div class="row" style="padding-top: 10px;">
-        <div class="col-md-12">
-            &Ouml;ffentlich: <input type="checkbox" name="is_public" ng-model="is_public" style="width: 100%;" ng-checked="is_public"/>
+        <h4 style="padding-top: 20px;">Sichtbarkeit</h4>
+        <div class="row">
+            <div class="col-md-12">
+                <input type="checkbox" name="is_public" ng-model="is_public" ng-checked="is_public"/> &Ouml;ffentlich
+            </div>
         </div>
-    </div>
-    <div class="row" style="padding-top: 10px;">
-        <div class="col-md-6">
-            <button type="submit" id="submit" class="btn btn-success">&Auml;nderungen speichern</button>
+        <div class="row" style="padding-top: 30px;">
+                <button type="submit" id="submit" class="btn btn-success" style="margin-left: 15px;">&Auml;nderungen speichern</button>
+                <button id="cancel" class="btn btn-danger" ng-click="cancelEdit()" style="float: right; margin-right: 15px;">Abbrechen</button>
         </div>
-        </div>
-    </div>
+    </span>
+    <span class="col-md-4"></span>
 </form>

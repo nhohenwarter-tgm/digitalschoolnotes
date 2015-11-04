@@ -12,7 +12,10 @@
                         <span ng-show="options" style="font-size: 18px; color:black; float: right; font-size: 18px; padding-top: 3px;"
                               class="glyphicon glyphicon-trash"></span>
                         <div ng-click="redirectNotebook(n._id['$oid'])" style="padding-top: 23px; width: auto; height: 100%;
-                             cursor: pointer; word-wrap: break-word;">{{ n.name }}
+                             cursor: pointer; word-wrap: break-word; background-color: #A0D4AE;">
+                            <div style="background-color: white; margin-left: 7px; margin-right: 7px;
+                            min-height: 66px; border: 1px groove black; display: flex;">
+                                <span style="align-items: center; margin: auto; justify-content: center; line-height: normal; min-width:0">{{ n.name }}</span></div>
                         </div>
                     </div>
                 </div>

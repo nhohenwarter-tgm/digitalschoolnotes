@@ -224,6 +224,11 @@ mainApp.run(function($rootScope, $state, $http, $window, $urlRouter, loggedIn){
         });
 
     $rootScope.$on('$stateChangeStart',function(event, toState, toParams, fromState, fromParams){
+        if(toState.name == 'notebookedit'){
+            $rootScope.notebookView = true;
+        }else{
+            $rootScope.notebookView = false;
+        }
         if(toState.name != 'mainpage.login') {
             $rootScope.error = false;
             $rootScope.login_error = '';
@@ -235,24 +240,24 @@ mainApp.run(function($rootScope, $state, $http, $window, $urlRouter, loggedIn){
             var auth = false;
         }
         var authorization = toState.data.authorization;
-        if (authorization && !auth){
+        if (authorization && !auth) {
             event.preventDefault();
-            loggedIn.getUser().then(function(data){
+            loggedIn.getUser().then(function (data) {
                 var user = data['user'];
-                if(user == null){
+                if (user == null) {
                     auth = false;
-                }else{
+                } else {
                     auth = user['is_active'];
                 }
-                if(auth == true){
+                if (auth == true) {
                     authenticated = true;
                     $state.go(toState, toParams);
-                }else{
+                } else {
                     $rootScope.error = true;
                     $rootScope.login_error = 'Bitte melde dich zuerst an!';
                     $state.go('mainpage.login');
                 }
-            }, function(data){
+            }, function (data) {
                 $rootScope.error = true;
                 $rootScope.login_error = 'Bitte melde dich zuerst an!';
                 $state.go('mainpage.login');
