@@ -2,21 +2,24 @@
     <div class="col-md-1"></div>
     <div class="col-md-10">
         <div class="row" style="padding-bottom: 10px;">
-                <span ng-repeat="n in notebooks" style="display: inline-block; padding-right: 30px; padding-top: 10px;">
-                    <div style="text-decoration: none;" ng-mouseenter="options=true" ng-mouseleave="options=false">
-                        <div style="border-style: solid ridge ridge solid; border-width: 2px 5px 5px 2px; text-align: center; color:black; width: 120px;
+            <span class="col-md-2" ng-repeat="n in notebooks" style="padding-top: 10px;">
+                <div style="text-decoration: none;" ng-mouseenter="options=true" ng-mouseleave="options=false">
+                    <div style="border-style: solid ridge ridge solid; border-width: 2px 5px 5px 2px; text-align: center; color:black; width: 120px;
                         height: 160px;">
-                            <span ng-show="options" ng-click="redirectEdit(n._id['$oid'])" style="font-size: 18px;
+                        <span ng-show="options" ng-click="redirectEdit(n._id['$oid'])" style="font-size: 18px; padding-top: 3px;
                             color:black; float: right; font-size: 18px; cursor: pointer;" class="glyphicon glyphicon-cog">
-                            </span>
-                            <span ng-show="options" style="font-size: 18px; color:black; float: right; font-size: 18px;" class="glyphicon glyphicon-trash"></span><br />
-                            <div ng-click="redirectNotebook(n._id['$oid'])" style="padding-top: 20px; width: 120px; height: 140px; cursor: pointer;word-wrap: break-word;">{{ n.name }}</div>
+                        </span>
+                        <span ng-show="options" style="font-size: 18px; color:black; float: right; font-size: 18px; padding-top: 3px;"
+                              class="glyphicon glyphicon-trash"></span>
+                        <div ng-click="redirectNotebook(n._id['$oid'])" style="padding-top: 23px; width: auto; height: auto;
+                             cursor: pointer; word-wrap: break-word;">{{ n.name }}
                         </div>
                     </div>
-                </span>
-            <span style="display: inline-block; padding-right: 30px; padding-top: 10px;">
-                <a ui-sref="management.notebooks_create" style="border: 1px dashed black; text-align: center; color:black; width: 115px; height: 160px;
-                padding-top: 80px; font-size: 20px; text-decoration: none; padding-top: 10px;" class="glyphicon glyphicon-plus"></a>
+                </div>
+            </span>
+            <span class="col-md-2" style="padding-top: 10px;">
+                <a ui-sref="management.notebooks_create" style="border: 1px dashed black; text-align: center; color:black; width: 118px; height: 160px;
+                padding-top: 60px; font-size: 20px; text-decoration: none;" class="glyphicon glyphicon-plus"></a>
             </span>
         </div>
     </div>
