@@ -100,7 +100,7 @@ def view_saveUserchange(request):
                 user.is_superuser = False
             elif params['security_level'] == '3':
                 user.is_active = True
-                user.is_prouser = False
+                user.is_prouser = True
                 user.is_superuser = True
             elif params['security_level'] == '4':
                 user.is_prouser = False
