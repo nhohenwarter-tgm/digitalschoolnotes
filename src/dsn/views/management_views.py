@@ -106,7 +106,10 @@ def view_get_notebook(request):
         return JsonResponse({})
     if request.method == "POST":
         params = json.loads(request.body.decode('utf-8'))
-        notebook = Notebook.objects.get(id=params['id']).to_json()
+        try:
+            notebook = Notebook.objects.get(id=params['id']).to_json()
+        except DoesNotExist:
+            return JsonResponse({"error":True})
         return JsonResponse({"notebook":notebook})
 
 

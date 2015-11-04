@@ -189,12 +189,15 @@ mainApp.controller('editNotebookCtrl', function($scope, $http, $stateParams, $st
             }
         })
             .success(function (data) {
-                $scope.name = JSON.parse(data['notebook'])['name'];
-                $scope.is_public = JSON.parse(data['notebook'])['is_public'];
+                if(data['error'] == true){
+                    $state.go('management.notebooks');
+                }else {
+                    $scope.name = JSON.parse(data['notebook'])['name'];
+                    $scope.is_public = JSON.parse(data['notebook'])['is_public'];
+                }
             })
             .error(function (data) {
-                $scope.name = "";
-                $scope.is_public = false;
+                $state.go('management.notebooks');
             });
 
 
