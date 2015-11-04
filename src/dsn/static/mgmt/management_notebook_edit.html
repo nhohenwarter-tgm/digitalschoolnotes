@@ -2,13 +2,13 @@
     <div class="row" style="padding-left: 15px; color: red;" ng-show="error">{{ login_error }}</div>
     <div class="row" style="padding-top: 10px;">
         <div class="col-md-12">
-            <input type="text" name="name" placeholder="{{notebookname}}" value= "{{notebookname}}" ng-model="name" style="width: 100%;" />
+            <span ng-bind="message" style="color: red;"></span>
+            <input type="text" name="name" ng-model="name" style="width: 100%;" />
         </div>
     </div>
     <div class="row" style="padding-top: 10px;">
         <div class="col-md-12">
-            &Ouml;ffentlich: <input ng-show="notebook_is_public" type="checkbox" name="is_public" ng-model="is_public" style="width: 100%;" checked/>
-            <input ng-hide="notebook_is_public" type="checkbox" name="is_public" ng-model="is_public" style="width: 100%;" />
+            &Ouml;ffentlich: <input type="checkbox" name="is_public" ng-model="is_public" style="width: 100%;" ng-checked="is_public"/>
         </div>
     </div>
     <div class="row" style="padding-top: 10px;">

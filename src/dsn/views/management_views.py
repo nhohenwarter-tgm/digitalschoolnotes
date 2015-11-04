@@ -78,18 +78,18 @@ def view_editNotebook(request):
         return JsonResponse({})
     if request.method == "POST":
         params = json.loads(request.body.decode('utf-8'))
-        notebook = Notebook.objects.get(id=params['id']).to_json()
-        if(params['name']!=notebook.name):
-            try:
+        notebook = Notebook.objects.get(id=params['id'])
+        try:
+            if(notebook.name!=params['name']):
                 Notebook.objects.get(name=params['name'], email=request.user.email)
                 return JsonResponse({"message":"Name bereits vergeben!"})
-            except DoesNotExist:
-                pass
+        except DoesNotExist:
+            pass
         notebook.name=params['name']
         notebook.is_public=params['is_public']
         notebook.last_change=datetime.now()
         notebook.save()
-    return JsonResponse({'message': None})
+        return JsonResponse({'message': None})
 
 
 def view_get_notebooks(request):

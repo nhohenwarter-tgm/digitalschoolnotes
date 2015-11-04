@@ -160,7 +160,7 @@ mainApp.controller('notebooksCreateCtrl', function ($scope, $http, loggedIn, $st
     }
 });
 
-mainApp.controller('editNotebookCtrl', function($scope, $http, $stateParams, loggedIn){
+mainApp.controller('editNotebookCtrl', function($scope, $http, $stateParams, $state, loggedIn){
 
     $http({
             method: 'POST',
@@ -171,18 +171,14 @@ mainApp.controller('editNotebookCtrl', function($scope, $http, $stateParams, log
             }
         })
             .success(function (data) {
-                $scope.notebookname = JSON.parse(data['notebook'])['name'];
-                $scope.notebook_is_public = JSON.parse(data['notebook'])['is_public'];
-                if(data['message'] != null){
-                    $scope.message = data['message'];
-                }else{
-                    $state.go('management.notebooks');
-                }
+                $scope.name = JSON.parse(data['notebook'])['name'];
+                $scope.is_public = JSON.parse(data['notebook'])['is_public'];
             })
             .error(function (data) {
-                $scope.notebookname = "";
-                $scope.notebook_is_public = "";
+                $scope.name = "";
+                $scope.is_public = false;
             });
+
 
     $scope.submitEditNotebook = function() {
         var name = $scope.name;
@@ -192,10 +188,20 @@ mainApp.controller('editNotebookCtrl', function($scope, $http, $stateParams, log
             url: '/api/notebook_edit',
             headers: {'Content-Type': 'application/json'},
             data: {
+                id: $stateParams.id,
                 name: name,
                 is_public: is_public
             }
-        });
+        })
+            .success(function (data) {
+                if(data['message'] != null){
+                    $scope.message = data['message'];
+                }else{
+                    $state.go('management.notebooks');
+                }
+            })
+            .error(function (data) {
+            });
     }
 });
 
