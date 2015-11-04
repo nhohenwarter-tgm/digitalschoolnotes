@@ -2,12 +2,14 @@
     <div class="row" style="padding-left: 15px; color: red;" ng-show="error">{{ login_error }}</div>
     <div class="row" style="padding-top: 10px;">
         <div class="col-md-12">
+            <span ng-bind="message" style="color: red;"></span>
+            <br>
             <input type="text" name="name" placeholder="Heftname" ng-model="name" style="width: 100%;"/>
         </div>
     </div>
     <div class="row" style="padding-top: 10px;">
         <div class="col-md-12">
-            öffentlich: <input type="checkbox" name="is_public" ng-model="is_public" style="width: 100%;" checked/>
+            Öffentlich: <input type="checkbox" name="is_public" ng-model="is_public" style="width: 100%;" checked/>
         </div>
     </div>
     <div class="row" style="padding-top: 10px;">

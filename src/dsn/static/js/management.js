@@ -146,12 +146,39 @@ mainApp.controller('notebooksCreateCtrl', function ($scope, $http, loggedIn, $st
                 name: name,
                 is_public: is_public
             }
-        });
-        $state.go('management.notebooks'); //sollte gehen
+        })
+            .success(function (data) {
+                if(data['message'] != null){
+                    $scope.message = data['message'];
+                }else{
+                    $state.go('management.notebooks');
+                }
+            })
+            .error(function (data) {
+
+            });
     }
 });
 
-mainApp.controller('notebookEditCtrl', function($scope, $http, loggedIn){
+mainApp.controller('editNotebookCtrl', function($scope, $http, $stateParams, $state, loggedIn){
+
+    $http({
+            method: 'POST',
+            url: '/api/get_notebook',
+            headers: {'Content-Type': 'application/json'},
+            data: {
+                id: $stateParams.id
+            }
+        })
+            .success(function (data) {
+                $scope.name = JSON.parse(data['notebook'])['name'];
+                $scope.is_public = JSON.parse(data['notebook'])['is_public'];
+            })
+            .error(function (data) {
+                $scope.name = "";
+                $scope.is_public = false;
+            });
+
 
     $scope.submitEditNotebook = function() {
         var name = $scope.name;
@@ -161,10 +188,20 @@ mainApp.controller('notebookEditCtrl', function($scope, $http, loggedIn){
             url: '/api/notebook_edit',
             headers: {'Content-Type': 'application/json'},
             data: {
+                id: $stateParams.id,
                 name: name,
                 is_public: is_public
             }
-        });
+        })
+            .success(function (data) {
+                if(data['message'] != null){
+                    $scope.message = data['message'];
+                }else{
+                    $state.go('management.notebooks');
+                }
+            })
+            .error(function (data) {
+            });
     }
 });
 

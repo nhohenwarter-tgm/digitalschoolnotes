@@ -160,11 +160,11 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         }
     });
 
-        // NOTEBOOKS
+        // EDIT NOTEBOOKS
     $stateProvider.state('management.notebook_edit', {
-        url: '/notebook_edit',
+        url: '/notebook_edit/{id}',
         templateUrl: '/mgmt/management_notebook_edit.html',
-        controller: 'notebookEditCtrl',
+        controller: 'editNotebookCtrl',
         data: {
             authorization: true,
             admin: false
