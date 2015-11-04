@@ -55,6 +55,7 @@ def view_createNotebook(request):
             return JsonResponse({"message":"Name bereits vergeben!"})
         except DoesNotExist:
             pass
+
         form.name = params['name']
         form.is_public = params['is_public']
         form.create_date = datetime.now()
