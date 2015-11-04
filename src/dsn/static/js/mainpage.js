@@ -164,10 +164,11 @@ mainApp.controller('resetPwdCtrl', ['vcRecaptchaService','$scope','$http','$stat
                     if (data['reset_error'] != null) {
                         $scope.error = true;
                         $scope.reset_error += data['reset_error']+"\n";
-                        vcRecaptchaService.reload();
+
                     }else{
                         $scope.success = true;
                     }
+                    vcRecaptchaService.reload();
                 })
                 .error(function (data) {
 

@@ -129,7 +129,7 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
 
     // SEARCH RESULTS
     $stateProvider.state('management.search', {
-        url: '/results',
+        url: '/searchresults',
         templateUrl: '/mgmt/management_search.html',
         controller: 'searchCtrl',
         data: {

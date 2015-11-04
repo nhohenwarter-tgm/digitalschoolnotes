@@ -26,6 +26,7 @@ public class Login extends TestCase{
         Parameters.setUpBrowser();
         this.driver = Parameters.driver;
         this.baseUrl = Parameters.baseUrl;
+        driver.get(baseUrl + "/");
     }
 
     /**
@@ -39,7 +40,7 @@ public class Login extends TestCase{
         driver.findElement(By.name("email")).sendKeys("testtesttest@test.inexistent");
         driver.findElement(By.name("pwd")).sendKeys("12341234");
         driver.findElement(By.id("submit")).click();
-        Thread.sleep(2500);
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
         String page = driver.getPageSource();
         if(!page.contains("E-Mail Adresse oder Passwort falsch!")) throw new NotFoundException();
     }
@@ -53,9 +54,9 @@ public class Login extends TestCase{
         driver.get(baseUrl + "/login");
         driver.findElement(By.name("pwd")).sendKeys("12341234");
         driver.findElement(By.id("submit")).click();
-        Thread.sleep(2500);
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
         String page = driver.getPageSource();
-        if(!page.contains("E-Mail Adresse oder Passwort falsch!")) throw new NotFoundException();
+        if(!page.contains("Bitte gib deine E-Mail Adresse ein.")) throw new NotFoundException();
     }
 
     /**
@@ -68,9 +69,9 @@ public class Login extends TestCase{
         driver.findElement(By.name("email")).clear();
         driver.findElement(By.name("email")).sendKeys("testtesttest@test.inexistent");
         driver.findElement(By.id("submit")).click();
-        Thread.sleep(2500);
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
         String page = driver.getPageSource();
-        if(!page.contains("E-Mail Adresse oder Passwort falsch!")) throw new NotFoundException();
+        if(!page.contains("Bitte gib dein Passwort ein.")) throw new NotFoundException();
     }
 
     /**
@@ -84,7 +85,7 @@ public class Login extends TestCase{
         driver.findElement(By.name("email")).sendKeys("testinactive@test.test");
         driver.findElement(By.name("pwd")).sendKeys("12341234");
         driver.findElement(By.id("submit")).click();
-        Thread.sleep(2500);
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
         String page = driver.getPageSource();
         if(!page.contains("Bitte bestätige zuerst deine E-Mail Adresse!")) throw new NotFoundException();
     }
@@ -100,7 +101,7 @@ public class Login extends TestCase{
         driver.findElement(By.name("email")).sendKeys("test@test.test");
         driver.findElement(By.name("pwd")).sendKeys("12341234");
         driver.findElement(By.id("submit")).click();
-        Thread.sleep(3500);
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
         String page = driver.getCurrentUrl();
         if(!page.equals(baseUrl+"/management")) throw new NotFound();
     }
@@ -118,7 +119,7 @@ public class Login extends TestCase{
         driver.findElement(By.id("submit")).click();
         driver.get(baseUrl + "/logout");
         driver.get(baseUrl + "/management");
-        Thread.sleep(3500);
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
         String page = driver.getPageSource();
         if(!page.contains("Bitte melde dich zuerst an!")) throw new NotFoundException();
     }
