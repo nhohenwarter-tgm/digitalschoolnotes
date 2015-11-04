@@ -45,7 +45,7 @@ public class Notebook extends TestCase{
     }
 
     /**
-     * Teste ob die Pagination im Notebook vorhanden ist
+     * Testet ob die Pagination im Notebook vorhanden ist
      * @throws Exception
      */
     @Test
@@ -61,7 +61,7 @@ public class Notebook extends TestCase{
     }
 
     /**
-     * Teste ob Seitennummern vorhanden sind
+     * Testet ob Seitennummern vorhanden sind
      * @throws Exception
      */
     @Test
@@ -79,7 +79,7 @@ public class Notebook extends TestCase{
     }
 
     /**
-     * Teste ob Seitennummern vorhanden sind
+     * Testet ob nach vorne geblättert werden kann
      * @throws Exception
      */
     @Test
@@ -99,7 +99,7 @@ public class Notebook extends TestCase{
     }
 
     /**
-     * Teste ob Seitennummern vorhanden sind
+     * Testet ob zurück geblättert werden kann
      * @throws Exception
      */
     @Test
@@ -112,6 +112,48 @@ public class Notebook extends TestCase{
         driver.findElement(By.id("goto-next")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
         driver.findElement(By.id("goto-prev")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        String page = driver.findElement(By.id("book")).getText();
+        // Testet ob im String die Seitennummern enthalten sind
+        // Es wird davon ausgegangen, dass man sich am Anfang des Heftes befindet
+        if(!(page.contains("1") && page.contains("2"))) throw new NotFoundException();
+
+    }
+
+    /**
+     * Testet ob zum Ende des Heftes geblättert werden kann
+     * @throws Exception
+     */
+    @Test
+    public void testNotebookJumpToEnd() throws Exception {
+        driver.get(baseUrl + "/management");
+        driver.findElement(By.partialLinkText("Notebooks")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.xpath("//*[contains(text(), 'Test1')]")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.id("goto-end")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        String page = driver.findElement(By.id("book")).getText();
+        // Testet ob im String die Seitennummern enthalten sind
+        // Es wird davon ausgegangen, dass man sich am Anfang des Heftes befindet
+        if(!(page.contains("5") && page.contains("6"))) throw new NotFoundException();
+
+    }
+
+    /**
+     * Testet ob zum Anfang des Heftes geblättert werden kann
+     * @throws Exception
+     */
+    @Test
+    public void testNotebookPageJumpToStart() throws Exception {
+        driver.get(baseUrl + "/management");
+        driver.findElement(By.partialLinkText("Notebooks")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.xpath("//*[contains(text(), 'Test1')]")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.id("goto-end")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.id("goto-start")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
         String page = driver.findElement(By.id("book")).getText();
         // Testet ob im String die Seitennummern enthalten sind
