@@ -96,7 +96,7 @@
 \rowcolor{g1} 
 \tabhvent{}&\tabhvent{\textbf{Datum}} & \tabhvent{\textbf{Name}} & \tabhvent{\textbf{Unterschrift}} \\ \hline
 \tabhvent{\textbf{Erstellt}} & \tabhvent{09.09.2015} & \tabhvent{Niklas Hohenwarter} &  \tabhvent{}            \\ \hline
-\tabhvent{\textbf{Geprüft}} & \tabhvent{04.11.2015} & \tabhvent{Selina Brinnich} &  \tabhvent{}            \\ \hline
+\tabhvent{\textbf{Geprüft}} & \tabhvent{04.11.2015} & \tabhvent{Thomas Stedronsky} &  \tabhvent{}            \\ \hline
 \tabhvent{\textbf{Freigegeben}} & \tabhvent{} & \tabhvent{} &  \tabhvent{}            \\ \hline
 \specialrule{0.07em}{0em}{0em}
 \multicolumn{4}{|l|}{\textbf{Git-Pfad:} /doc/serverdokumentation \hfill \textbf{Dokument:} serverdoc.tex}                    \\ \hline
@@ -150,7 +150,7 @@
 \tabhvent{\textbf{1.2}} & \tabhvent{12.10.2015} & \tabhvent{Bearbeitet} &  \tabhvent{Hohenwarter}    &  \tabhvent{Deployment}         \\ \hline
 \tabhvent{\textbf{2.0}} & \tabhvent{14.10.2015} & \tabhvent{QA} &  \tabhvent{Stedronsky}    &  \tabhvent{Rechtschreibfehler}         \\ \hline
 \tabhvent{\textbf{2.1}} & \tabhvent{14.10.2015} & \tabhvent{Bearbeitet} &  \tabhvent{Hohenwarter}    &  \tabhvent{uWsgi}         \\ \hline
-\tabhvent{\textbf{3.0}} & \tabhvent{04.11.2015} & \tabhvent{QA} &  \tabhvent{Brinnich}    &  \tabhvent{Rechtschreibfehler}         \\ \hline
+\tabhvent{\textbf{3.0}} & \tabhvent{04.11.2015} & \tabhvent{QA} &  \tabhvent{Stedronsky}    &  \tabhvent{Rechtschreibfehler}         \\ \hline
 \end{tabularx}
 \end{table}
 \newpage
@@ -245,13 +245,13 @@ iptables-save > /etc/iptables/rules.v4
 Um den SSH Zugang gegen Brute Force Attacken abzusichern wurde fail2ban installiert. Dieses Paket versucht Bruteforce Attacken zu verhindern. \cite{HOWTO:1} \\
 
 \subsection{Konfiguration}
-Das Paket wurde mittels \textbf{\textit{sudo apt-get install fail2ban}} installiert. Die Standardkonfiguration wurde angepasst, um all unsere Services zu schützen.
+Das Paket wurde mittels \textit{sudo apt-get install fail2ban} installiert. Die Standardkonfiguration wurde angepasst, um all unsere Services zu schützen.
 
 \section{Webserver}
 Als Webserver wird nginx verwendet. Aktuell existieren auf dem Server nur Weiterleitungen zu unserem Github Repository, Taiga, der Zeitaufzeichnung und dem CI Tool (Subdomains, siehe oben).
 
 \subsection{Konfiguration}
-Die Konfiguration ist in \textbf{\textit{/etc/nginc/sites-available/redirects}} zu finden. Sie enthält folgendes:
+Die Konfiguration ist in \textit{/etc/nginc/sites-available/redirects} zu finden. Sie enthält folgendes:
 
 \begin{lstlisting}
 server {
