@@ -98,13 +98,17 @@ mainApp.controller('managementCtrl', function ($scope, $http, $state) {
 mainApp.controller('accsettingsCtrl', function ($scope) {
 });
 
-mainApp.controller('notebooksCtrl', function ($scope, $http) {
+mainApp.controller('notebooksCtrl', function ($scope, $http, $state) {
     $http({
         method: 'POST',
         url: '/api/get_notebooks'
     }).success(function(data){
                 $scope.notebooks = JSON.parse(data['notebooks']);
             })
+
+    $scope.redirectEdit = function(id){
+        $state.go('management.notebook_edit', {'id': id})
+    }
 });
 
 mainApp.controller('timetableCtrl', function ($scope, $http) {

@@ -3,9 +3,13 @@
     <div class="col-md-10">
         <div class="row" style="padding-bottom: 10px;">
                 <span ng-repeat="n in notebooks" style="display: inline-block; padding-right: 30px; padding-top: 10px;">
-                    <a href="/notebook/{{ n._id['$oid'] }}" style="text-decoration: none;">
+                    <a href="/notebook/{{ n._id['$oid'] }}" style="text-decoration: none;" ng-mouseenter="options=true" ng-mouseleave="options=false">
                         <div style="border-style: solid ridge ridge solid; border-width: 2px 5px 5px 2px; text-align: center; color:black; width: 120px;
-                        height: 160px; padding-top: 30px;">{{ n.name }}</div>
+                        height: 160px;">
+                            <span ng-show="options" ng-click="redirectEdit({{ n._id['$oid'] }})" style="font-size: 18px; color:black; float: right; font-size: 18px;" class="glyphicon glyphicon-cog"></span>
+                            <span ng-show="options" style="font-size: 18px; color:black; float: right; font-size: 18px;" class="glyphicon glyphicon-trash"></span><br />
+                            <span style="padding-top: 30px;">{{ n.name }}</span>
+                        </div>
                     </a>
                 </span>
             <span style="display: inline-block; padding-right: 30px; padding-top: 10px;">
