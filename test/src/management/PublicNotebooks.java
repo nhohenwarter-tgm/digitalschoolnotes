@@ -44,7 +44,7 @@ public class PublicNotebooks extends TestCase{
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
         driver.findElement(By.partialLinkText("test@test.test")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
-        driver.findElement(By.partialLinkText("Test1")).click();
+        driver.findElement(By.xpath("//*[contains(text(), 'Test1')]")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
     }
 
@@ -61,7 +61,7 @@ public class PublicNotebooks extends TestCase{
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
         driver.findElement(By.partialLinkText("test@test.test")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
-        driver.findElement(By.partialLinkText("Test1")).click();
+        driver.findElement(By.xpath("//*[contains(text(), 'Test1')]")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
         String page = driver.getPageSource();
         if (!page.contains("Prev")) throw new NotFoundException();
