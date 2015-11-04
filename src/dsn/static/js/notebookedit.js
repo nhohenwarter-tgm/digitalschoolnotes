@@ -25,7 +25,8 @@ mainApp.controller('notebookEditCtrl', function($scope, $http, $stateParams, log
 	                easeOut: null,
                     shadows: false,
                     width: "",
-                    height: ""
+                    height: "",
+                    pagePadding: 0
                 });
             }, function(data){
                 $scope.notebook = JSON.parse(data['notebook']);

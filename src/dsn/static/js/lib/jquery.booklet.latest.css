@@ -10,7 +10,8 @@
  *	1) Charles Mangin (http://clickheredammit.com/pageflip/)
  */
 	.booklet         {width:800px; height:600px; position:relative; margin:0 auto 10px; overflow:visible !important;}
-	.booklet .b-page {left:0; top:0; position:absolute; overflow:hidden; padding:0; outline:1px solid rgba(0,0,0,0);}
+	.booklet .b-page {left:0; top:0; position:absolute; overflow:hidden; padding:0; outline:1px solid rgba(0, 0, 0, 0);
+						}
 	
 	.booklet .b-pN  {}
 	.booklet .b-p0  {}
@@ -21,8 +22,8 @@
 	   
    	/* Page Wrappers */
 	.booklet .b-wrap       {top:0; position:absolute;}
-	.booklet .b-wrap-left  {background:#fff;}
-	.booklet .b-wrap-right {background:#efefef;}
+	.booklet .b-wrap-left  {background:#fff; border-style: solid ridge solid groove; border-width: 2px 7px 2px 7px}
+	.booklet .b-wrap-right {background: #fbfbfb; border-style: solid ridge solid groove; border-width: 2px 7px 2px 7px}
 	
 	.booklet .b-pN .b-wrap,
 	.booklet .b-p1 .b-wrap,
@@ -42,11 +43,13 @@
 	.booklet .b-wrap-right .b-counter {right:10px;}
    
    	/* Page Shadows */
+	/*
 	.booklet .b-shadow-f  {right:0; top:0; position:absolute; opacity:0; background-image:url("images/shadow-top-forward.png"); background-repeat:repeat-y; background-position:100% 0;}
 	.booklet .b-shadow-b  {left:0;  top:0; position:absolute; opacity:0; background-image:url("images/shadow-top-back.png");    background-repeat:repeat-y; background-position:0 0;}
 	
 	.booklet .b-p0 {background-image:url("images/shadow.png"); background-repeat:repeat-y; background-position:100% 10px;}
 	.booklet .b-p3 {background-image:url("images/shadow.png"); background-repeat:repeat-y; background-position:0 10px;}
+	*/
 	
    	/* Overlay Controls */
 	.booklet .b-grab     {cursor: url("images/openhand.cur"), default;}
