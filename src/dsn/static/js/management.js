@@ -33,7 +33,6 @@ mainApp.controller('managementCtrl', function ($scope, $http, $state) {
     //$scope.profiles = localStorage.getItem('profiles');
     $scope.l = localStorage.getItem('l');
     $scope.currentPage = localStorage.getItem('currentPage');
-    $scope.search();
 
     $scope.next = function (current) {
         $http({
@@ -235,4 +234,5 @@ mainApp.controller('profileCtrl', function($scope, $http, $stateParams){
 });
 
 mainApp.controller('searchCtrl', function ($scope,$http) {
+    $scope.search();
 });
