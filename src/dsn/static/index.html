@@ -37,7 +37,7 @@
 
     <base href="/">
 </head>
-<body ng-app="mainApp">
+<body ng-app="mainApp" ng-style="notebookView && {'background-color': '#E7E7E7'}">
 
 <div id="wrap">
     <div>
@@ -45,10 +45,10 @@
     </div>
 </div>
 
-<div style="padding-top: 30px;"></div>
+<div ng-show="!notebookView" style="padding-top: 30px;"></div>
 
 <!-- FOOTER START -->
-<footer class="footer">
+<footer ng-show="!notebookView" class="footer">
     <div class="container">
         <span style="margin: 20px 0px; float: left;">&copy; 2015 - DigitalSchoolNotes - All Rights Reserved</span>
         <a ui-sref="mainpage.impressum" style="margin: 20px 0px; float: right; text-decoration: none; color: black;">Impressum</a>

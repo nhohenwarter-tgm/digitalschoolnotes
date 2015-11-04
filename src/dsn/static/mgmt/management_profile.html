@@ -16,10 +16,20 @@
     <div class="col-md-8">
         <h2>Öffentliche Hefte</h2>
         <div class="row" style="padding-bottom: 10px; padding-left: 15px;">
-            <span ng-repeat="n in notebooks" style="display: inline-block; padding-right: 30px; padding-top: 10px;" ng-hide="notebooks.length <= 0">
+            <span class="col-md-2" ng-repeat="n in notebooks" style="padding-right: 30px; padding-top: 10px;" ng-hide="notebooks.length <= 0">
                 <a href="/notebook/{{ n._id['$oid'] }}" style="text-decoration: none;">
-                    <div style="border-style: solid ridge ridge solid; border-width: 2px 5px 5px 2px; text-align: center; color:black; width: 90px;
-                        height: 120px; padding-top: 30px;word-wrap: break-word;">{{ n.name }}</div>
+                    <!--<div style="border-style: solid ridge ridge solid; border-width: 2px 5px 5px 2px; text-align: center; color:black; width: 90px;
+                        height: 120px; padding-top: 10px;word-wrap: break-word;">{{ n.name }}</div>-->
+                    <div style="border-style: solid ridge ridge solid; border-width: 2px 5px 5px 2px; text-align: center; color:black; width: 100px;
+                        height: 135px;">
+                        <div style="padding-top: 10px; width: auto; height: 100%;
+                             cursor: pointer; word-wrap: break-word; background-color: #A0D4AE;">
+                            <div style="background-color: white; margin-left: 5px; margin-right: 5px;
+                            min-height: 61px; border: 1px groove black; display: flex;">
+                                <span style="align-items: center; margin: auto; justify-content: center;
+                                line-height: normal; min-width:0; font-size: 12px;">{{ n.name }}</span></div>
+                        </div>
+                    </div>
                 </a>
             </span>
         </div>
