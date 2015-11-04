@@ -146,26 +146,30 @@ mainApp.controller('notebooksCreateCtrl', function ($scope, $http, loggedIn, $st
         else {
             var is_public = false;
         }
-
-        $http({
-            method: 'POST',
-            url: '/api/notebooks_create',
-            headers: {'Content-Type': 'application/json'},
-            data: {
-                name: name,
-                is_public: is_public
-            }
-        })
-            .success(function (data) {
-                if(data['message'] != null){
-                    $scope.message = data['message'];
-                }else{
-                    $state.go('management.notebooks');
+        if($scope.name.length>30){
+            $scope.message = "Heftname zu lang maximal 30 Zeichen!";
+        }
+        else {
+            $http({
+                method: 'POST',
+                url: '/api/notebooks_create',
+                headers: {'Content-Type': 'application/json'},
+                data: {
+                    name: name,
+                    is_public: is_public
                 }
             })
-            .error(function (data) {
+                .success(function (data) {
+                    if (data['message'] != null) {
+                        $scope.message = data['message'];
+                    } else {
+                        $state.go('management.notebooks');
+                    }
+                })
+                .error(function (data) {
 
-            });
+                });
+        }
     }
 });
 
@@ -192,25 +196,30 @@ mainApp.controller('editNotebookCtrl', function($scope, $http, $stateParams, $st
     $scope.submitEditNotebook = function() {
         var name = $scope.name;
         var is_public = $scope.is_public;
-        $http({
-            method: 'POST',
-            url: '/api/notebook_edit',
-            headers: {'Content-Type': 'application/json'},
-            data: {
-                id: $stateParams.id,
-                name: name,
-                is_public: is_public
-            }
-        })
-            .success(function (data) {
-                if(data['message'] != null){
-                    $scope.message = data['message'];
-                }else{
-                    $state.go('management.notebooks');
+        if($scope.name.length>30){
+            $scope.message = "Heftname zu lang maximal 30 Zeichen!";
+        }
+        else {
+            $http({
+                method: 'POST',
+                url: '/api/notebook_edit',
+                headers: {'Content-Type': 'application/json'},
+                data: {
+                    id: $stateParams.id,
+                    name: name,
+                    is_public: is_public
                 }
             })
-            .error(function (data) {
-            });
+                .success(function (data) {
+                    if (data['message'] != null) {
+                        $scope.message = data['message'];
+                    } else {
+                        $state.go('management.notebooks');
+                    }
+                })
+                .error(function (data) {
+                });
+        }
     }
 });
 

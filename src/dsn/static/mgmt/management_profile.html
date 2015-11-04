@@ -19,7 +19,7 @@
             <span ng-repeat="n in notebooks" style="display: inline-block; padding-right: 30px; padding-top: 10px;" ng-hide="notebooks.length <= 0">
                 <a href="/notebook/{{ n._id['$oid'] }}" style="text-decoration: none;">
                     <div style="border-style: solid ridge ridge solid; border-width: 2px 5px 5px 2px; text-align: center; color:black; width: 90px;
-                        height: 120px; padding-top: 30px;">{{ n.name }}</div>
+                        height: 120px; padding-top: 30px;word-wrap: break-word;">{{ n.name }}</div>
                 </a>
             </span>
         </div>
