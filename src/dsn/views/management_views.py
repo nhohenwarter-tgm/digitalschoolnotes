@@ -6,6 +6,7 @@ from bson import ObjectId
 import json
 from datetime import datetime
 from mongoengine.queryset.visitor import Q
+from mongoengine import DoesNotExist
 
 
 def view_timetable(request):
@@ -49,6 +50,11 @@ def view_createNotebook(request):
     if request.method == "POST":
         params = json.loads(request.body.decode('utf-8'))
         form = NotebookForm()
+        try:
+            Notebook.objects.get(name=params['name'], email=request.user.email)
+            return JsonResponse({"message":"Name bereits vergeben!"})
+        except DoesNotExist:
+            pass
         form.name = params['name']
         form.is_public = params['is_public']
         form.create_date = datetime.now()
@@ -56,7 +62,7 @@ def view_createNotebook(request):
         form.email = request.user.email
         nb = Notebook(name=form.name, is_public=form.is_public, create_date= form.create_date, last_change=form.last_change, email=form.email, numpages=2)
         nb.save()
-        return JsonResponse({'message': 'Ihr Heft wurde erstellt!'})
+        return JsonResponse({'message': None})
 
 
 def view_showNotebook(request):
@@ -72,13 +78,18 @@ def view_editNotebook(request):
         return JsonResponse({})
     if request.method == "POST":
         params = json.loads(request.body.decode('utf-8'))
-        form = NotebookForm()
-        form.name = params['name']
-        form.is_public = params['is_public']
-        form.last_change = datetime.now()
-        nb = Notebook(name=form.name, is_public=form.is_public, last_change=form.last_change)
-        nb.save()
-    return JsonResponse({'message': 'Ihr Heft wurde erfolgreich bearbeitet'})
+        notebook = Notebook.objects.get(id=params['id']).to_json()
+        if(params['name']!=notebook.name):
+            try:
+                Notebook.objects.get(name=params['name'], email=request.user.email)
+                return JsonResponse({"message":"Name bereits vergeben!"})
+            except DoesNotExist:
+                pass
+        notebook.name=params['name']
+        notebook.is_public=params['is_public']
+        notebook.last_change=datetime.now()
+        notebook.save()
+    return JsonResponse({'message': None})
 
 
 def view_get_notebooks(request):

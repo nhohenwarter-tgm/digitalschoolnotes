@@ -2,17 +2,18 @@
     <div class="row" style="padding-left: 15px; color: red;" ng-show="error">{{ login_error }}</div>
     <div class="row" style="padding-top: 10px;">
         <div class="col-md-12">
-            <input type="text" name="name" placeholder="" ng-model="name" style="width: 100%;"/>
+            <input type="text" name="name" placeholder="{{notebookname}}" value= "{{notebookname}}" ng-model="name" style="width: 100%;" />
         </div>
     </div>
     <div class="row" style="padding-top: 10px;">
         <div class="col-md-12">
-            o&umlffentlich: <input type="checkbox" name="is_public" ng-model="is_public" style="width: 100%;" checked/>
+            &Ouml;ffentlich: <input ng-show="notebook_is_public" type="checkbox" name="is_public" ng-model="is_public" style="width: 100%;" checked/>
+            <input ng-hide="notebook_is_public" type="checkbox" name="is_public" ng-model="is_public" style="width: 100%;" />
         </div>
     </div>
     <div class="row" style="padding-top: 10px;">
         <div class="col-md-6">
-            <button type="submit" id="submit" class="btn btn-success">A&umlnderungen speichern</button>
+            <button type="submit" id="submit" class="btn btn-success">&Auml;nderungen speichern</button>
         </div>
         </div>
     </div>

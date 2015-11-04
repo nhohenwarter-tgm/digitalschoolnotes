@@ -125,7 +125,6 @@ mainApp.controller('notebooksCreateCtrl', function ($scope, $http, loggedIn, $st
         else {
             var is_public = false;
         }
-
         $http({
             method: 'POST',
             url: '/api/notebooks_create',
@@ -134,13 +133,43 @@ mainApp.controller('notebooksCreateCtrl', function ($scope, $http, loggedIn, $st
                 name: name,
                 is_public: is_public
             }
-        });
-        alert('2134');
-        $state.go('management.notebooks'); //sollte gehen
+        })
+            .success(function (data) {
+                if(data['message'] != null){
+                    $scope.message = data['message'];
+                }else{
+                    $state.go('management.notebooks');
+                }
+            })
+            .error(function (data) {
+
+            });
     }
 });
 
-mainApp.controller('notebookEditCtrl', function($scope, $http, loggedIn){
+mainApp.controller('editNotebookCtrl', function($scope, $http, $stateParams, loggedIn){
+
+    $http({
+            method: 'POST',
+            url: '/api/get_notebook',
+            headers: {'Content-Type': 'application/json'},
+            data: {
+                id: $stateParams.id
+            }
+        })
+            .success(function (data) {
+                $scope.notebookname = JSON.parse(data['notebook'])['name'];
+                $scope.notebook_is_public = JSON.parse(data['notebook'])['is_public'];
+                if(data['message'] != null){
+                    $scope.message = data['message'];
+                }else{
+                    $state.go('management.notebooks');
+                }
+            })
+            .error(function (data) {
+                $scope.notebookname = "";
+                $scope.notebook_is_public = "";
+            });
 
     $scope.submitEditNotebook = function() {
         var name = $scope.name;
