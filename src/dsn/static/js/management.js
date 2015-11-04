@@ -106,6 +106,11 @@ mainApp.controller('notebooksCtrl', function ($scope, $http, $state) {
                 $scope.notebooks = JSON.parse(data['notebooks']);
             })
 
+
+    $scope.redirectNotebook = function(id){
+        $state.go('notebookedit', {'id': id})
+    }
+
     $scope.redirectEdit = function(id){
         $state.go('management.notebook_edit', {'id': id})
     }
