@@ -53,12 +53,12 @@ public class NotebookOptions extends TestCase{
     }
 
     /**
-     * Testet ob ein Heft verändert werden kann
+     * Testet ob ein Heftname verändert werden kann
      * @throws Exception
      */
     @Test
     public void testEdit() throws Exception {
-        driver.get(baseUrl + "/management/notebook_edit/563749feda532b693ff443e8");
+        driver.get(baseUrl + "/management/notebook_edit/5638ff97da532b131906e025");
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
         driver.findElement(By.name("name")).clear();
         driver.findElement(By.name("name")).sendKeys("TestEdit");
@@ -66,10 +66,34 @@ public class NotebookOptions extends TestCase{
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
         String page = driver.getPageSource();
         if (!page.contains("TestEdit")) throw new NotFoundException();
-        driver.get(baseUrl + "management/notebook_edit/563749feda532b693ff443e8");
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.get(baseUrl + "/management/notebook_edit/5638ff97da532b131906e025");
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
         driver.findElement(By.name("name")).clear();
         driver.findElement(By.name("name")).sendKeys("Test1");
+        driver.findElement(By.id("submit")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+    }
+
+    /**
+     * Testet ob die Sichtbarkeit eines Heftes verändert werden kann
+     * @throws Exception
+     */
+    @Test
+    public void testChangeVisibility() throws Exception {
+        driver.get(baseUrl + "/management/notebook_edit/5638ff97da532b131906e025");
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.name("is_public")).click();
+        driver.findElement(By.id("submit")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.get(baseUrl + "/management/profile/563749feda532b693ff443e8");
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        String page = driver.getPageSource();
+        if (page.contains("Test1")) throw new Exception("Sollte nicht visible sein");
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.get(baseUrl + "/management/notebook_edit/5638ff97da532b131906e025");
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.name("is_public")).click();
         driver.findElement(By.id("submit")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
     }
