@@ -1,11 +1,5 @@
 var mainApp = angular.module('mainApp');
 mainApp.controller('managementCtrl', function ($scope, $http, $state) {
-    $scope.len = localStorage.getItem('len');
-    $scope.q = localStorage.getItem('search');
-    $scope.profiles = localStorage.getItem('profiles');
-    $scope.l = localStorage.getItem('l');
-    $scope.currentPage = localStorage.getItem('currentPage');
-    //alert($scope.profiles);
     $scope.search = function () {
         $scope.itemsPerPage = 10;
         $scope.currentPage = 1;
@@ -34,6 +28,13 @@ mainApp.controller('managementCtrl', function ($scope, $http, $state) {
             .error(function (data) {
             });
     }
+    $scope.len = localStorage.getItem('len');
+    $scope.q = localStorage.getItem('search');
+    //$scope.profiles = localStorage.getItem('profiles');
+    $scope.l = localStorage.getItem('l');
+    $scope.currentPage = localStorage.getItem('currentPage');
+    $scope.search();
+
     $scope.next = function (current) {
         $http({
             method: 'POST',
