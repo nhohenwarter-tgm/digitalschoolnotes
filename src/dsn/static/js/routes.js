@@ -118,7 +118,7 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
 
     // ACCOUNT SETTINGS
     $stateProvider.state('management.accsettings', {
-        url: '',
+        url: '/settings',
         templateUrl: '/mgmt/management_accsettings.html',
         controller: 'accsettingsCtrl',
         data: {

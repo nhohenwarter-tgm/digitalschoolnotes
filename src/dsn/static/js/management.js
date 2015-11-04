@@ -102,18 +102,21 @@ mainApp.controller('notebooksCtrl', function ($scope, $http, $state) {
     $http({
         method: 'POST',
         url: '/api/get_notebooks'
-    }).success(function(data){
-                $scope.notebooks = JSON.parse(data['notebooks']);
-            })
+    })
+        .success(function (data) {
+            $scope.notebooks = JSON.parse(data['notebooks']);
+        })
+        .error(function (data) {
+        });
 
 
-    $scope.redirectNotebook = function(id){
-        $state.go('notebookedit', {'id': id})
-    }
+    $scope.redirectNotebook = function (id) {
+        $state.go('notebookedit', {'id': id});
+    };
 
-    $scope.redirectEdit = function(id){
-        $state.go('management.notebook_edit', {'id': id})
-    }
+    $scope.redirectEdit = function (id) {
+        $state.go('management.notebook_edit', {'id': id});
+    };
 });
 
 mainApp.controller('timetableCtrl', function ($scope, $http) {
@@ -255,7 +258,6 @@ mainApp.controller('profileCtrl', function($scope, $http, $stateParams){
             $scope.is_prouser = data['is_prouser'];
             $scope.is_admin = data['is_superuser'];
             $scope.notebooks = JSON.parse(data['notebooks']);
-            console.log(data);
         }
     )
 });
