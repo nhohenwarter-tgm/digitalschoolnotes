@@ -139,6 +139,7 @@ mainApp.controller('timetableCtrl', function ($scope, $http) {
 
 mainApp.controller('notebooksCreateCtrl', function ($scope, $http, loggedIn, $state) {
     $scope.submitCreateNotebook = function () {
+        $scope.submitted = true;
         var name = $scope.name;
         if($scope.is_public == true){
              var is_public = true;
@@ -146,13 +147,7 @@ mainApp.controller('notebooksCreateCtrl', function ($scope, $http, loggedIn, $st
         else {
             var is_public = false;
         }
-        if($scope.name.length>30){
-            $scope.message = "Heftname zu lang maximal 30 Zeichen!";
-        }
-        if(scope-name.length<1){
-            $scope.message = "Heftname muss mindestens 1 Zeichen haben!";
-        }
-        else {
+        if($scope.createNotebook.$valid) {
             $http({
                 method: 'POST',
                 url: '/api/notebooks_create',
@@ -173,6 +168,10 @@ mainApp.controller('notebooksCreateCtrl', function ($scope, $http, loggedIn, $st
 
                 });
         }
+    }
+
+    $scope.cancelCreate = function() {
+        $state.go('management.notebooks');
     }
 });
 
@@ -199,13 +198,7 @@ mainApp.controller('editNotebookCtrl', function($scope, $http, $stateParams, $st
     $scope.submitEditNotebook = function() {
         var name = $scope.name;
         var is_public = $scope.is_public;
-        if($scope.name.length>30){
-            $scope.message = "Heftname zu lang maximal 30 Zeichen!";
-        }
-        if(scope-name.length<1){
-            $scope.message = "Heftname muss mindestens 1 Zeichen haben!";
-        }
-        else {
+        if($scope.editNotebook.$valid) {
             $http({
                 method: 'POST',
                 url: '/api/notebook_edit',
@@ -226,6 +219,10 @@ mainApp.controller('editNotebookCtrl', function($scope, $http, $stateParams, $st
                 .error(function (data) {
                 });
         }
+    }
+
+    $scope.cancelEdit = function() {
+        $state.go('management.notebooks');
     }
 });
 
