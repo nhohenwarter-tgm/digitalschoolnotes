@@ -17,11 +17,15 @@ mainApp.controller('notebookEditCtrl', function($scope, $http, $stateParams, log
                 }
 
                 $('#book').booklet({
-                    width: "",
-                    height: "",
                     startingPage: $scope.notebook['numpages']-1,
                     next: '#goto-next',
-                    prev: '#goto-prev'
+                    prev: '#goto-prev',
+                    easing:  null,
+	                easeIn:  null,
+	                easeOut: null,
+                    shadows: false,
+                    width: "",
+                    height: ""
                 });
             }, function(data){
                 $scope.notebook = JSON.parse(data['notebook']);
