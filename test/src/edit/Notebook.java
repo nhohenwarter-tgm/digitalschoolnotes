@@ -1,4 +1,4 @@
-package management;
+package edit;
 
 import junit.framework.TestCase;
 import org.junit.After;
