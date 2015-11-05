@@ -1,0 +1,11 @@
+Hallo {{firstname}},
+Sie sind seit einem gewissen Zeitraum inactive. Falls Sie sich nicht in den kommenden Tagen bis {{ datum }} anmelden
+wird Ihr Account und alle dazugehörigen Accountdaten gelöscht.
+
+{{link}}
+
+Liebe Grüße
+DigitalSchoolNotes
+
+----------
+Bitte antworte nicht auf diese automatisch generierte E-Mail!
