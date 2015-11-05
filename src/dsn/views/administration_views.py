@@ -17,7 +17,17 @@ def view_users(request):
         params = json.loads(request.body.decode('utf-8'))
         von = (params['Page']-1)*params['counter']
         bis = params['counter']*params['Page']
+
+        try:
+            """ Delete """
+            user = User.objects.get(email=params['email'])
+            user.delete()
+        except KeyError:
+            print("Error")
+            pass
+
         users = User.objects()
+
         try:
             """ Search """
             if bool(params['text'] and params['text'].strip()):
@@ -111,18 +121,3 @@ def view_saveUserchange(request):
         except:
             user = None
     return JsonResponse({})
-
-
-def view_deleteUser(request):
-    if not request.user.is_authenticated() or not request.user.is_superuser:
-        return JsonResponse({})
-    if request.method == "POST":
-        params = json.loads(request.body.decode('utf-8'))
-        try:
-            user = User.objects.get(email=params['email'])
-            user.delete()
-        except:
-            user = None
-        return JsonResponse({})
-    else:
-        return JsonResponse({})
