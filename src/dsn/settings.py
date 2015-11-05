@@ -26,7 +26,7 @@ SECRET_KEY = '$x1fx=j3n*h$+ecrh#^9&kf*!i^rlhlj71iyyesqee)4$53wh3'
 SALT = '#Rmq#jzsG0gkJyix(@)IPMPpAQBVl0-tLH2B7e)%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 LOGGING = {
     'version': 1,
