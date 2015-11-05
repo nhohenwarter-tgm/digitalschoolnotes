@@ -1,48 +1,7 @@
 <!-- TODO Add Timetable view-->
 <h2>Stundenplan</h2>
 
-<form ng-submit="submitTimeTable()" method="POST">
-    <h3>Stundenplan</h3>
-    <!doctype html>
-<html>
-<head>
-    <title>Timetable</title>
-    <style type="text/css">
-    body
-    {
-        font-family: arial;
-    }
-
-    th,td
-    {
-        margin: 0;
-        text-align: center;
-        border-collapse: collapse;
-        outline: 1px solid #e3e3e3;
-    }
-
-    td
-    {
-        padding: 5px 10px;
-    }
-
-    th
-    {
-        background: #666;
-        color: white;
-        padding: 5px 10px;
-    }
-
-    td:hover
-    {
-        cursor: pointer;
-        background: #666;
-        color: white;
-    }
-    </style>
-
-</head>
-<body>
+<form ng-submit="" method="POST">
     <table width="80%" align="center" >
     <div id="head_nav">
     <tr>
@@ -57,101 +16,164 @@
 </div>
 
     <tr>
-        <th>08:50 - 09:40</th>
+        <th>
+            <div ng-click="showZ(1)">
+            <span ng-bind="times[1][0]"></span> - <span ng-bind="times[1][1]"></span></div>
+                <div ng-show="showDetails[1]"><input type="text" ng-bind="start" name="z1" style="color:black;" size="4"></input>-<input type="text" name="z2" ng-bind="end" style="color:black;" size="4"></input><button  ng-click="submitTimes()" name="zz1" value="Ok" class="btn btn-success"></div>
 
-            <td>Physics-1</td>
-            <td>English</td>
-            <td title="No Class" class="Holiday"></td>
-            <td>Chemestry-1</td>
-            <td>Alzebra</td>
-            <td>Physical</td>
+</th>
+
+            <td><div ng-bind="field[11][0]" ng-click="change = ! change;show(11)"></div>
+                <div ng-bind="field[11][1]" ng-click="change = ! change;show(11)"></div>
+            <div ng-bind="field[11][2]" ng-click="change = ! change;show(11)"></div></td>
+            <td><div ng-bind="field[12][0]" ng-click="change = ! change;show(12)"></div>
+                <div ng-bind="field[12][1]" ng-click="change = ! change;show(12)"></div>
+            <div ng-bind="field[12][2]" ng-click="change = ! change;show(12)"></div></td>
+            <td><div ng-bind="field[13][0]" ng-click="change = ! change;show(13)"></div>
+                <div ng-bind="field[13][1]" ng-click="change = ! change;show(13)"></div>
+            <div ng-bind="field[13][2]" ng-click="change = ! change;show(13)"></div></td>
+            <td><div ng-bind="field[14][0]" ng-click="change = ! change;show(14)"></div>
+                <div ng-bind="field[14][1]" ng-click="change = ! change;show(14)"></div>
+            <div ng-bind="field[14][2]" ng-click="change = ! change;show(14)"></div></td>
+            <td><div ng-bind="field[15][0]" ng-click="change = ! change;show(15)"></div>
+                <div ng-bind="field[15][1]" ng-click="change = ! change;show(15)"></div>
+            <div ng-bind="field[15][2]" ng-click="change = ! change;show(15)"></div></td>
+            <td><div ng-bind="field[16][0]" ng-click="change = ! change;show(16)"></div>
+                <div ng-bind="field[16][1]" ng-click="change = ! change;show(16)"></div>
+            <div ng-bind="field[16][2]" ng-click="change = ! change;show(16)"></div></td>
         </div>
     </tr>
 
     <tr>
-        <th>9:50 - 10:40</td>
+        <th><div ng-click="showZ(2)">
+            <span ng-bind="times[2][0]"></span> - <span ng-bind="times[2][1]"></span></div>
+        <div ng-show="showDetails[2]"><input type="text" name="z3" size="4" ng-bind="start" style="color:black;"></input>-<input type="text" name="z4" ng-bind="end" style="color:black;" size="4"></input><button  ng-click="submitTimes()" name="zz2" value="Ok" class="btn btn-success"></div>
+        </td>
 
-            <td>Math-2</td>
-            <td>Chemestry-2</td>
-            <td>Physics-1</td>
-            <td>Hindi</td>
-            <td>English</td>
-            <td>Soft Skill</td>
+            <td><div ng-bind="field[21][0]" ng-click="change = ! change;show(21)"></div>
+                <div ng-bind="field[21][1]" ng-click="change = ! change;show(21)"></div>
+            <div ng-bind="field[21][2]" ng-click="change = ! change;show(21)"></div></td>
+            <td><div ng-bind="field[22][0]" ng-click="change = ! change;show(22)"></div>
+                <div ng-bind="field[22][1]" ng-click="change = ! change;show(22)"></div>
+            <div ng-bind="field[22][2]" ng-click="change = ! change;show(22)"></div></td>
+            <td><div ng-bind="field[23][0]" ng-click="change = ! change;show(23)"></div>
+                <div ng-bind="field[23][1]" ng-click="change = ! change;show(23)"></div>
+            <div ng-bind="field[23][2]" ng-click="change = ! change;show(23)"></div></td>
+            <td><div ng-bind="field[24][0]" ng-click="change = ! change;show(24)"></div>
+                <div ng-bind="field[24][1]" ng-click="change = ! change;show(24)"></div>
+            <div ng-bind="field[24][2]" ng-click="change = ! change;show(24)"></div></td>
+            <td><div ng-bind="field[25][0]" ng-click="change = ! change;show(25)"></div>
+                <div ng-bind="field[25][1]" ng-click="change = ! change;show(25)"></div>
+            <div ng-bind="field[25][2]" ng-click="change = ! change;show(25)"></div></td>
+            <td><div ng-bind="field[26][0]" ng-click="change = ! change;show(26)"></div>
+                <div ng-bind="field[26][1]" ng-click="change = ! change;show(26)"></div>
+            <div ng-bind="field[26][2]" ng-click="change = ! change;show(26)"></div></td>
         </div>
     </tr>
 
     <tr>
-        <th>10:40 - 11:30</td>
+        <th><div ng-click="showZ(3)"><span ng-bind="times[3][0]"></span> - <span ng-bind="times[3][1]"></span></div>
+            <div ng-show="showDetails[3]"><input type="text" name="z5" ng-bind="start" style="color:black;" size="4"></input>-<input type="text" name="z6" style="color:black;" size="4"></input><button  ng-click="submitTimes()" name="zz3" value="Ok" class="btn btn-success"></div></td>
 
-            <td>Hindi</td>
-            <td>English</td>
-            <td>Math-1</td>
-            <td>Chemistry</td>
-            <td>Physics</td>
-            <td>Chem.Lab</td>
+            <td><div ng-bind="field[31][0]" ng-click="change = ! change;show(31)"></div>
+                <div ng-bind="field[31][1]" ng-click="change = ! change;show(31)"></div>
+            <div ng-bind="field[31][2]" ng-click="change = ! change;show(31)"></div></td>
+            <td><div ng-bind="field[32][0]" ng-click="change = ! change;show(32)"></div>
+                <div ng-bind="field[32][1]" ng-click="change = ! change;show(32)"></div>
+            <div ng-bind="field[32][2]" ng-click="change = ! change;show(32)"></div></td>
+            <td><div ng-bind="field[33][0]" ng-click="change = ! change;show(33)"></div>
+                <div ng-bind="field[33][1]" ng-click="change = ! change;show(33)"></div>
+            <div ng-bind="field[33][2]" ng-click="change = ! change;show(33)"></div></td>
+            <td><div ng-bind="field[34][0]" ng-click="change = ! change;show(34)"></div>
+                <div ng-bind="field[34][1]" ng-click="change = ! change;show(34)"></div>
+            <div ng-bind="field[34][2]" ng-click="change = ! change;show(34)"></div></td>
+            <td><div ng-bind="field[35][0]" ng-click="change = ! change;show(35)"></div>
+                <div ng-bind="field[35][1]" ng-click="change = ! change;show(35)"></div>
+            <div ng-bind="field[35][2]" ng-click="change = ! change;show(35)"></div></td>
+            <td><div ng-bind="field[36][0]" ng-click="change = ! change;show(36)"></div>
+                <div ng-bind="field[36][1]" ng-click="change = ! change;show(36)"></div>
+            <div ng-bind="field[36][2]" ng-click="change = ! change;show(36)"></div></td>
 
         </div>
     </tr>
 
     <tr>
-        <th>11:30 - 12:20</td>
+        <th><div ng-click="showZ(4)"><span ng-bind="times[4][0]"></span> - <span ng-bind="times[4][1]"></span></div>
+        <div ng-show="showDetails[4]"><input type="text" name="z7" style="color:black;" size="4"></input>-<input type="text" style="color:black;" name="z8" size="4"></input><button  ng-click="submitTimes()" name="zz4" value="Ok" class="btn btn-success"></div></td>
 
-            <td>Cumm. Skill</td>
-            <td>Sports</td>
-            <td>English</td>
-            <td>Computer Lab</td>
-            <td>Header</td>
-            <td>Header</td>
+            <td><div ng-bind="field[41][0]" ng-click="change = ! change;show(41)"></div>
+                <div ng-bind="field[41][1]" ng-click="change = ! change;show(41)"></div>
+            <div ng-bind="field[41][2]" ng-click="change = ! change;show(41)"></div></td>
+            <td><div ng-bind="field[42][0]" ng-click="change = ! change;show(42)"></div>
+                <div ng-bind="field[42][1]" ng-click="change = ! change;show(42)"></div>
+            <div ng-bind="field[42][2]" ng-click="change = ! change;show(42)"></div></td>
+            <td><div ng-bind="field[43][0]" ng-click="change = ! change;show(43)"></div>
+                <div ng-bind="field[43][1]" ng-click="change = ! change;show(43)"></div>
+            <div ng-bind="field[43][2]" ng-click="change = ! change;show(43)"></div></td>
+            <td><div ng-bind="field[44][0]" ng-click="change = ! change;show(44)"></div>
+                <div ng-bind="field[44][1]" ng-click="change = ! change;show(44)"></div>
+            <div ng-bind="field[44][2]" ng-click="change = ! change;show(44)"></div></td>
+            <td><div ng-bind="field[45][0]" ng-click="change = ! change;show(45)"></div>
+                <div ng-bind="field[45][1]" ng-click="change = ! change;show(45)"></div>
+            <div ng-bind="field[45][2]" ng-click="change = ! change;show(45)"></div></td>
+            <td><div ng-bind="field[46][0]" ng-click="change = ! change;show(46)"></div>
+                <div ng-bind="field[46][1]" ng-click="change = ! change;show(46)"></div>
+            <div ng-bind="field[46][2]" ng-click="change = ! change;show(46)"></div></td>
 
         </div>
     </tr>
 
     <tr>
-        <th>13:20 - 14:10</td>
+        <th><div ng-click="showZ(5)" ><span ng-bind="times[5][0]"></span> - <span ng-bind="times[5][1]"></span></div>
+        <div ng-show="showDetails[5]"><input type="text" name="z9" style="color:black;" size="4"></input>-<input type="text" name="z10" style="color:black;" size="4"></input><button  ng-click="submitTimes()" name="zz5" value="Ok" class="btn btn-success"></div></td>
 
-            <td>Header</td>
-            <td>Header</td>
-            <td>Header</td>
-            <td>Header</td>
-            <td>Header</td>
-            <td>Header</td>
+            <td><div ng-bind="field[51][0]" ng-click="change = ! change;show(51)"></div>
+                <div ng-bind="field[51][1]" ng-click="change = ! change;show(51)"></div>
+            <div ng-bind="field[51][2]" ng-click="change = ! change;show(51)"></div></td>
+            <td><div ng-bind="field[52][0]" ng-click="change = ! change;show(52)"></div>
+                <div ng-bind="field[52][1]" ng-click="change = ! change;show(52)"></div>
+            <div ng-bind="field[52][2]" ng-click="change = ! change;show(52)"></div></td>
+            <td><div ng-bind="field[53][0]" ng-click="change = ! change;show(53)"></div>
+                <div ng-bind="field[53][1]" ng-click="change = ! change;show(53)"></div>
+            <div ng-bind="field[53][2]" ng-click="change = ! change;show(53)"></div></td>
+            <td><div ng-bind="field[54][0]" ng-click="change = ! change;show(54)"></div>
+                <div ng-bind="field[54][1]" ng-click="change = ! change;show(54)"></div>
+            <div ng-bind="field[54][2]" ng-click="change = ! change;show(54)"></div></td>
+            <td><div ng-bind="field[55][0]" ng-click="change = ! change;show(55)"></div>
+                <div ng-bind="field[55][1]" ng-click="change = ! change;show(55)"></div>
+            <div ng-bind="field[55][2]" ng-click="change = ! change;show(55)"></div></td>
+            <td><div ng-bind="field[56][0]" ng-click="change = ! change;show(56)"></div>
+                <div ng-bind="field[56][1]" ng-click="change = ! change;show(56)"></div>
+            <div ng-bind="field[56][2]" ng-click="change = ! change;show(56)"></div></td>
         </div>
     </tr>
-</table><br>
+</table><br><div ng-show="change" align="center">
     <h4>Neuer Gegenstand</h4>
+        <span ng-bind="gegenstand"></span>
     <!-- Zeiten in der tabelle händisch eintragen und user klickt dann auf die leeren felder wo fächer hingehören
         ganz am anfang soll der user alle fächer und lehrerkürzel eintragen die er dann bei klick auf die fächer per dropdown auswählen kann
          mouseover buttons ansehen -->
     <div class="row" style="padding-top: 10px;">
         <div class="col-md-12">
-            <input type="text" name="Gegenstand" placeholder="Gegenstand" ng-model="subject" style="width: 100%;"/>
+            <input type="text" name="Gegenstand" ng-model="subject" style="width: 20%;"/>
         </div>
     </div>
     <div class="row" style="padding-top: 10px;">
         <div class="col-md-12">
-            <input type="text" name="Lehrer" placeholder="Lehrer" ng-model="teacher" style="width: 100%;"/>
+            <input type="text" name="Lehrer"  ng-model="teacher" style="width: 20%;"/>
         </div>
     </div>
     <div class="row" style="padding-top: 10px;">
         <div class="col-md-12">
-            <input type="text" name="Anfangszeit" placeholder="Anfangszeit (hh:mm)" ng-model="begin" style="width: 100%;"/>
+            <input type="text" name="Raum"  ng-model="room" style="width: 20%;"/>
         </div>
     </div>
-    <div class="row" style="padding-top: 10px;">
-        <div class="col-md-12">
-            <input type="text" name="Endzeit" placeholder="Endzeit (hh:mm)" ng-model="end" style="width: 100%;"/>
-        </div>
-    </div>
-    <div class="row" style="padding-top: 10px;">
-        <div class="col-md-12">
-            <input type="text" name="Raum" placeholder="Raum" ng-model="room" style="width: 100%;"/>
-        </div>
-    </div>
-    <div class="row" style="padding-top: 10px;">
+    <div class="row" style="padding-top: 10px;" align="center">
         <div class="col-md-6">
-            <button type="submit" id="submit" class="btn btn-success">Fertig</button>
+            <button type="submit" id="submit" class="btn btn-success" ng-click="submitTimeTable()">Fertig</button>
         </div>
         <div class="col-md-6">
         </div>
     </div>
 </form>
+</div>

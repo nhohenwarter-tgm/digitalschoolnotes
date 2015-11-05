@@ -259,4 +259,22 @@ class TimeTableElem(Document):
         self.end=end
         self.room=room
 
+class TimeTableTime(EmbeddedDocument):
+    row=IntField()
+    start= StringField()
+    end=StringField()
+
+class TimeTableField(EmbeddedDocument):
+    id=IntField()
+    subject= StringField()
+    teacher=StringField()
+    room=StringField()
+
+class TimeTable(Document):
+    email=EmailField()
+    times=EmbeddedDocumentListField(TimeTableTime)
+    fields=EmbeddedDocumentListField(TimeTableField)
+
+
+
 

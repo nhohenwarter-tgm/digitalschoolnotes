@@ -120,24 +120,114 @@ mainApp.controller('notebooksCtrl', function ($scope, $http, $state) {
 });
 
 mainApp.controller('timetableCtrl', function ($scope, $http) {
+    $scope.showDetails = new Array(5);
+
+    $scope.getFields=function($fieldlist){
+        var fields={};
+        console.log("length:"+$fieldlist.length);
+        for(var i = 0;i<$fieldlist.length;i++){
+            fields[$fieldlist[i]["id"]]=[$fieldlist[i]["subject"],$fieldlist[i]["teacher"],$fieldlist[i]["room"]];
+            console.log(i);
+        }
+
+        return fields;
+    };
+
+    $scope.getTimes=function($timelist){
+        var fields={};
+        for(var i = 0;i<$timelist.length;i++){
+            fields[$timelist[i]["row"]]=[$timelist[i]["start"],$timelist[i]["end"]];
+        }
+        return fields;
+    };
+
+    $http({
+            method: 'POST',
+            url: '/api/timetable',
+            headers: {'Content-Type': 'application/json'}
+        })
+            .success(function (data) {
+            var timetable=JSON.parse(data["timetable"]);
+            $scope.field=$scope.getFields(timetable["fields"]);
+            $scope.times=$scope.getTimes(timetable["times"]);
+            })
+            .error(function (data) {
+
+            });
+
     $scope.submitTimeTable = function () {
+        /** hier iwie fieldID reinkriegen **/
         var subject = $scope.subject;
         var teacher = $scope.teacher;
-        var begin = $scope.begin;
-        var end = $scope.end;
         var room = $scope.room;
         $http({
             method: 'POST',
-            url: '/api/timetable',
+            url: '/api/timetable_add',
             headers: {'Content-Type': 'application/json'},
-            data: {subject: subject, teacher: teacher, begin: begin, end: end, room: room}
+            data: {subject: subject, teacher: teacher, room: room,fieldId:$scope.activeID}
         })
             .success(function (data) {
             })
             .error(function (data) {
 
             });
+    };
+    $scope.show=function($feldId) {
+        $scope.subject=$scope.field[$feldId][0];
+        $scope.teacher=$scope.field[$feldId][1];
+        $scope.room=$scope.field[$feldId][2];
+        $scope.activeID=$feldId;
+        /**switch($feldId){
+            case 11:
+                //mittels dem feldId wird das feld im studnenplan definiert (feldId), im json sind die einträge pro schüler dann nach fileIds geordnet, dort wird es auch nach feldId verändert.
+                $scope.gegenstand= "Physicssss"; //aus db auslesen
+                $scope.lehrer="Frisches Wossa";
+                $scope.raum="H745";
+            break;
+            case 12:
+                $scope.gegenstand="Spanishh";
+                $scope.lehrer="Senior Burrito";
+                $scope.raum="H635";
+            break;
+        }
     }
+    $scope.getElem=function(feldId){ **/
+
+    };
+
+    $scope.showZ=function($rowId){
+        if($rowId == $scope.activeRow){
+            $scope.showDetails[$rowId] = false;
+            $scope.activeRow = null;
+            return;
+        }
+        $scope.start=$scope.times[$rowId][0];
+        $scope.end=$scope.times[$rowId][1];
+        $scope.activeRow=$rowId;
+
+        for(var i=0; i < Object.keys($scope.times).length; i++){
+            $scope.showDetails[i] = false;
+        }
+        $scope.showDetails[$rowId] = true;
+    };
+
+     $scope.submitTimes = function () {
+        /** hier iwie fieldID reinkriegen **/
+        var start = $scope.start;
+        var end = $scope.end;
+        $http({
+            method: 'POST',
+            url: '/api/timetabletimes',
+            headers: {'Content-Type': 'application/json'},
+            data: {start:start,end:end,rowId:$scope.activeRow}
+        })
+            .success(function (data) {
+            })
+            .error(function (data) {
+
+            });
+    };
+
 });
 
 mainApp.controller('notebooksCreateCtrl', function ($scope, $http, loggedIn, $state) {

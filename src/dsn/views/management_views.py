@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 from dsn.forms import TimeElemForm#, NotebookForm
-from dsn.models import TimeTableElem, User, Notebook
+from dsn.models import TimeTable,TimeTableTime,TimeTableField, User, Notebook
 from dsn.forms import NotebookForm
 from bson import ObjectId
 import json
@@ -9,7 +9,7 @@ from mongoengine.queryset.visitor import Q
 from mongoengine import DoesNotExist
 
 
-def view_timetable(request):
+def view_get_timetable(request):
     """
     Stundenplan-Daten
     :param request: HTTP-Request
@@ -18,19 +18,83 @@ def view_timetable(request):
     if not request.user.is_authenticated():
         return JsonResponse({})
     if request.method == "POST":
-        params = json.loads(request.body.decode('utf-8'))
-        print(params)
-        form = TimeElemForm()
-        form.subject = params['subject']
-        form.teacher = params['teacher']
-        form.begin = params['begin']
-        form.end = params['end']
-        form.room = params['room']
-        te = TimeTableElem(subject=form.subject,teacher=form.teacher,begin=form.begin,end=form.end,room=form.room)
-        print(te)
-        te.save()
-        return JsonResponse({'message': 'Danke fuers Eintragen'})
+        email = request.user.email
+        try:
+            timetable=TimeTable.objects.get(email=email)
+        except DoesNotExist:
+            timetable=TimeTable()
+            timetable.email = email
+            timetable.times=[TimeTableTime(row=1,start="08:00",end="08:50"),
+                             TimeTableTime(row=2,start="08:50",end="09:40"),
+                             TimeTableTime(row=3,start="09:50",end="10:40"),
+                             TimeTableTime(row=4,start="10:40",end="11:30"),
+                             TimeTableTime(row=5,start="11:30",end="12:20"),
+                             TimeTableTime(row=6,start="12:30",end="13:20")]
+            timetable.fields=[TimeTableField(id=11,subject="---",teacher="---",room="---"),
+                              TimeTableField(id=12,subject="---",teacher="---",room="---"),
+                              TimeTableField(id=13,subject="---",teacher="---",room="---"),
+                              TimeTableField(id=14,subject="---",teacher="---",room="---"),
+                              TimeTableField(id=15,subject="---",teacher="---",room="---"),
+                              TimeTableField(id=16,subject="---",teacher="---",room="---"),
+                              TimeTableField(id=21,subject="---",teacher="---",room="---"),
+                              TimeTableField(id=22,subject="---",teacher="---",room="---"),
+                              TimeTableField(id=23,subject="---",teacher="---",room="---"),
+                              TimeTableField(id=24,subject="---",teacher="---",room="---"),
+                              TimeTableField(id=25,subject="---",teacher="---",room="---"),
+                              TimeTableField(id=26,subject="---",teacher="---",room="---"),
+                              TimeTableField(id=31,subject="---",teacher="---",room="---"),
+                              TimeTableField(id=32,subject="---",teacher="---",room="---"),
+                              TimeTableField(id=33,subject="---",teacher="---",room="---"),
+                              TimeTableField(id=34,subject="---",teacher="---",room="---"),
+                              TimeTableField(id=35,subject="---",teacher="---",room="---"),
+                              TimeTableField(id=36,subject="---",teacher="---",room="---"),
+                              TimeTableField(id=41,subject="---",teacher="---",room="---"),
+                              TimeTableField(id=42,subject="---",teacher="---",room="---"),
+                              TimeTableField(id=43,subject="---",teacher="---",room="---"),
+                              TimeTableField(id=44,subject="---",teacher="---",room="---"),
+                              TimeTableField(id=45,subject="---",teacher="---",room="---"),
+                              TimeTableField(id=46,subject="---",teacher="---",room="---"),
+                              TimeTableField(id=51,subject="---",teacher="---",room="---"),
+                              TimeTableField(id=52,subject="---",teacher="---",room="---"),
+                              TimeTableField(id=53,subject="---",teacher="---",room="---"),
+                              TimeTableField(id=54,subject="---",teacher="---",room="---"),
+                              TimeTableField(id=55,subject="---",teacher="---",room="---"),
+                              TimeTableField(id=56,subject="---",teacher="---",room="---"),
+                              TimeTableField(id=61,subject="---",teacher="---",room="---"),
+                              TimeTableField(id=62,subject="---",teacher="---",room="---"),
+                              TimeTableField(id=63,subject="---",teacher="---",room="---"),
+                              TimeTableField(id=64,subject="---",teacher="---",room="---"),
+                              TimeTableField(id=65,subject="---",teacher="---",room="---"),
+                              TimeTableField(id=66,subject="---",teacher="---",room="---")
+                              ]
+            timetable.save()
+        return JsonResponse({'timetable': timetable.to_json()})
 
+def view_add_timetable(request):
+    if not request.user.is_authenticated():
+        return JsonResponse({})
+    if request.method == "POST":
+        params = json.loads(request.body.decode('utf-8'))
+        timetable=TimeTable.objects.get(email=request.user.email)
+        fields=timetable.fields.get(id=params["fieldId"])
+        fields.subject=params["subject"]
+        fields.teacher=params["teacher"]
+        fields.room=params["room"]
+        timetable.save()
+        return JsonResponse({})
+
+def view_add_times(request):
+    if not request.user.is_authenticated():
+        return JsonResponse({})
+    if request.method == "POST":
+        params = json.loads(request.body.decode('utf-8'))
+        timetable=TimeTable.objects.get(email=request.user.email)
+        times=timetable.times.get(row=params["rowId"])
+        times.start=params["start"]
+        times.end=params["end"]
+        print(timetable.times)
+        timetable.save()
+        return JsonResponse({})
 
 def view_getProfile(request):
     if not request.user.is_authenticated():
