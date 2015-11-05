@@ -93,6 +93,7 @@ public class ResetPassword extends TestCase{
     public void testResetAllWrong() throws Exception {
         driver.get(baseUrl + "/login");
         driver.findElement(By.linkText("Passwort vergessen?")).click();
+        Thread.sleep(Parameters.SLEEP_CAPTCHA);
         driver.findElement(By.name("email")).clear();
         driver.findElement(By.name("email")).sendKeys(Parameters.testingEmail);
         isElementPresent(By.id("captcha"));
