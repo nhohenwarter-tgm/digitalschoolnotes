@@ -26,6 +26,17 @@ administrationApp.config(function ($stateProvider, $urlRouterProvider, $location
         }
     });
 
+    // USERMANAGEMENT
+    $stateProvider.state('admin.usermanagementdetails', {
+        url: '/test',
+        templateUrl: '/admin/admin_usermanagement_details.html',
+        controller: 'usermanagementdetailsCtrl',
+        data: {
+            authorization: true,
+            admin: true
+        }
+    });
+
     // BILLS
     $stateProvider.state('admin.bills', {
         url: '',
@@ -78,7 +89,7 @@ administrationApp.config(function ($stateProvider, $urlRouterProvider, $location
 
 });
 
-administrationApp.controller('adminCtrl', function(){
+administrationApp.controller('adminCtrl', function () {
 
 });
 
@@ -86,7 +97,10 @@ administrationApp.controller('usermanagementCtrl', function ($scope, $http, $fil
 
     $scope.itemsPerPage = 20;
     $scope.security_list = [{name: 'Benutzer', security_level: 1},
-                {name: 'Pro User', security_level: 2},{name: 'Administrator', security_level: 3},{name: 'Inaktiv', security_level: 4}];
+        {name: 'Pro User', security_level: 2}, {name: 'Administrator', security_level: 3}, {
+            name: 'Inaktiv',
+            security_level: 4
+        }];
     $scope.currentPage = 0;
     $scope.l = 0;
     $scope.sort = {
@@ -99,8 +113,14 @@ administrationApp.controller('usermanagementCtrl', function ($scope, $http, $fil
         $http({
             method: 'POST',
             url: '/api/admin_user',
-            headers : {'Content-Type': 'application/json'},
-            data    : {spalte: $scope.spalte, text: $scope.q, Page: current, counter: $scope.itemsPerPage, order: $scope.order}
+            headers: {'Content-Type': 'application/json'},
+            data: {
+                spalte: $scope.spalte,
+                text: $scope.q,
+                Page: current,
+                counter: $scope.itemsPerPage,
+                order: $scope.order
+            }
         })
             .success(function (data) {
                 $scope.users = data['test'];
@@ -119,7 +139,7 @@ administrationApp.controller('usermanagementCtrl', function ($scope, $http, $fil
             $scope.users = data['test'];
             $scope.len = data['len'];
             $scope.currentPage = 0;
-            $scope.l = Math.ceil($scope.len/$scope.itemsPerPage);
+            $scope.l = Math.ceil($scope.len / $scope.itemsPerPage);
         })
         .error(function (data) {
 
@@ -155,19 +175,19 @@ administrationApp.controller('usermanagementCtrl', function ($scope, $http, $fil
     };
 
     $scope.nextPage = function () {
-        if ($scope.currentPage < $scope.l- 1) {
+        if ($scope.currentPage < $scope.l - 1) {
             $scope.currentPage++;
         }
     };
 
     $scope.lastPage = function () {
-        $scope.currentPage = $scope.l-1;
+        $scope.currentPage = $scope.l - 1;
     };
 
     $scope.setPage = function () {
         $scope.currentPage = this.n;
     };
-    
+
     $scope.send = function (email, subject, body) {
         var link = "mailto:" + email
             + "?subject=New%20email " + escape(subject)
@@ -176,83 +196,106 @@ administrationApp.controller('usermanagementCtrl', function ($scope, $http, $fil
         window.location.href = link;
     }
 
-    $scope.delete = function (email,currentPage) {
+    $scope.delete = function (email) {
 
-        deleteUser = $window.confirm('Wollen Sie den User '+email+' wirklich löschen?');
-        if(deleteUser){
-            alert('Der User '+email+' wurde erfolgreich gelöscht');
+        deleteUser = $window.confirm('Wollen Sie den User ' + email + ' wirklich löschen?');
+        if (deleteUser) {
+            alert('Der User ' + email + ' wurde erfolgreich gelöscht');
             $http({
-            method: 'POST',
-            url: '/api/delete',
-            headers: {'Content-Type': 'application/json'},
-            data: {email: email}
-        })
-            .success(function (data) {
-                    //$scope.users = data['test'];
-                //$window.location.href = '/admin';
+                method: 'POST',
+                url: '/api/admin_user',
+                headers: {'Content-Type': 'application/json'},
+                data: {
+                    email: email,
+                    text: $scope.q,
+                    spalte: $scope.spalte,
+                    Page: $scope.currentPage+1,
+                    counter: $scope.itemsPerPage,
+                    order: $scope.order
+                }
             })
-            .error(function (data) {
-            });
+                .success(function (data) {
+                    $scope.users = data['test'];
+                    $scope.len = data['len'];
+                    $scope.l = Math.ceil($scope.len / $scope.itemsPerPage);
+                })
+                .error(function (data) {
+                });
         }
     }
 
-    $scope.update = function(email, securty_level, index){
+    $scope.update = function (email, securty_level, index) {
         securty_level_old = $scope.users[index].security_level;
-        Userup = $window.confirm('Soll der User '+email+' wirklich auf die Berechtigungsstufe ' +$scope.security_list[securty_level-1].name+' geändert werden?');
-        if(Userup) {
-            alert('Der User ' + email + ' wurde erfolgreich auf ' + $scope.security_list[securty_level-1].name + 'geändert');
+        Userup = $window.confirm('Soll der User ' + email + ' wirklich auf die Berechtigungsstufe ' + $scope.security_list[securty_level - 1].name + ' geändert werden?');
+        if (Userup) {
+            alert('Der User ' + email + ' wurde erfolgreich auf ' + $scope.security_list[securty_level - 1].name + 'geändert');
             $http({
                 method: 'POST',
                 url: '/api/admin_user_update',
                 headers: {'Content-Type': 'application/json'},
-                data: {email: email, security_level: securty_level}
+                data: {
+                    email: email,
+                    security_level: securty_level
+                }
             })
                 .success(function (data) {
                     $scope.users[index].security_level = securty_level;
-                    document.getElementById(email).selectedIndex = ""+securty_level-1;
+                    document.getElementById(email).selectedIndex = "" + securty_level - 1;
                 })
                 .error(function (data) {
                 });
-        }else{
+        } else {
             $scope.selectedDay;
-            document.getElementById(email).selectedIndex = ""+securty_level_old-1;
+            document.getElementById(email).selectedIndex = "" + securty_level_old - 1;
         }
     }
 
-     $scope.search = function(current){
+    $scope.search = function (current) {
         $http({
             method: 'POST',
             url: '/api/admin_user',
-            headers : {'Content-Type': 'application/json'},
-            data    : {text: $scope.q, spalte: $scope.spalte, Page: current, counter: $scope.itemsPerPage, order: $scope.order}
+            headers: {'Content-Type': 'application/json'},
+            data: {
+                text: $scope.q,
+                spalte: $scope.spalte,
+                Page: current,
+                counter: $scope.itemsPerPage,
+                order: $scope.order
+            }
         })
             .success(function (data) {
                 $scope.users = data['test'];
                 $scope.len = data['len'];
                 $scope.currentPage = 0;
-                $scope.l = Math.ceil($scope.len/$scope.itemsPerPage);
+                $scope.l = Math.ceil($scope.len / $scope.itemsPerPage);
             })
             .error(function (data) {
             });
     }
 
-    $scope.sort = function(spalte, current){
-        if($scope.order == null) {
+    $scope.sort = function (spalte, current) {
+        if ($scope.order == null) {
             $scope.order = true;
-        }else{
-             $scope.order = !$scope.order
+        } else {
+            $scope.order = !$scope.order
         }
         $scope.spalte = spalte
         $http({
             method: 'POST',
             url: '/api/admin_user',
             headers: {'Content-Type': 'application/json'},
-            data: {text: $scope.q, spalte: $scope.spalte, Page: current, counter: $scope.itemsPerPage, order: $scope.order}
+            data: {
+                text: $scope.q,
+                spalte: $scope.spalte,
+                Page: current,
+                counter: $scope.itemsPerPage,
+                order: $scope.order
+            }
         })
             .success(function (data) {
                 $scope.users = data['test'];
                 $scope.len = data['len'];
-                $scope.l = Math.ceil($scope.len/$scope.itemsPerPage);
+                $scope.l = Math.ceil($scope.len / $scope.itemsPerPage);
             })
             .error(function (data) {
             });
@@ -272,6 +315,82 @@ administrationApp.controller('userquotasCtrl', function ($scope) {
 
 });
 
+/**
+administrationApp.controller('usermanagementdetailsCtrl', function ($scope) {
+    $scope.today = function () {
+        $scope.dt = new Date();
+    };
+    $scope.today();
+
+    $scope.clear = function () {
+        $scope.dt = null;
+    };
+
+    // Disable weekend selection
+    $scope.disabled = function (date, mode) {
+        return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+    };
+
+    $scope.toggleMin = function () {
+        $scope.minDate = $scope.minDate ? null : new Date();
+    };
+    $scope.toggleMin();
+    $scope.maxDate = new Date(2020, 5, 22);
+
+    $scope.open = function ($event) {
+        alert("A");
+        $scope.status.opened = true;
+    };
+
+    $scope.setDate = function (year, month, day) {
+        $scope.dt = new Date(year, month, day);
+    };
+
+    $scope.dateOptions = {
+        formatYear: 'yy',
+        startingDay: 1
+    };
+
+    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+    $scope.format = $scope.formats[0];
+
+    $scope.status = {
+        opened: false
+    };
+
+    var tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    var afterTomorrow = new Date();
+    afterTomorrow.setDate(tomorrow.getDate() + 2);
+    $scope.events =
+        [
+            {
+                date: tomorrow,
+                status: 'full'
+            },
+            {
+                date: afterTomorrow,
+                status: 'partially'
+            }
+        ];
+
+    $scope.getDayClass = function (date, mode) {
+        if (mode === 'day') {
+            var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
+
+            for (var i = 0; i < $scope.events.length; i++) {
+                var currentDay = new Date($scope.events[i].date).setHours(0, 0, 0, 0);
+
+                if (dayToCheck === currentDay) {
+                    return $scope.events[i].status;
+                }
+            }
+        }
+
+        return '';
+    };
+});
+**/
 administrationApp.controller('statisticsCtrl', function ($scope) {
 
 });
@@ -296,10 +415,10 @@ administrationApp.service('loggedIn', function ($http, $q) {
     this.getUser = function () {
         var d = $q.defer();
         $http({
-            method  : 'POST',
-            url     : '/api/loggedInUser',
-            headers : {'Content-Type': 'application/json'},
-            data    : {}
+            method: 'POST',
+            url: '/api/loggedInUser',
+            headers: {'Content-Type': 'application/json'},
+            data: {}
         }).success(function (data) {
             d.resolve(data);
         }).error(function (data) {
@@ -325,20 +444,20 @@ administrationApp.run(function ($rootScope, $state, $http, $window, loggedIn) {
 
         });
 
-    loggedIn.getUser().then(function(data){
+    loggedIn.getUser().then(function (data) {
         var user = data['user'];
-        if(user == null){
+        if (user == null) {
             auth = false;
-        }else{
+        } else {
             auth = user['is_admin'];
         }
-        if(auth == false){
+        if (auth == false) {
             $window.location.href = '/login';
-        }else{
+        } else {
             $rootScope.show_header = true;
             $state.go('admin.usermanagement');
         }
-    }, function(data){
+    }, function (data) {
         $window.location.href = '/login';
     });
 });
