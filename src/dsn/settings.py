@@ -56,7 +56,7 @@ LOGGING = {
     },
 }
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['digitalschoolnotes.com','www.digitalschoolnotes.com']
 
 
 # Application definition
