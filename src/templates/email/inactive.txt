@@ -1,6 +1,6 @@
 Hallo {{firstname}},
-Sie sind seit einem gewissen Zeitraum inactive. Falls Sie sich nicht in den kommenden Tagen bis {{ datum }} anmelden
-wird Ihr Account und alle dazugehörigen Accountdaten gelöscht.
+SDu bist seit einem gewissen Zeitraum inaktive. Falls du dich nicht bis {{ datum }} anmeldest
+wird dein Account und alle dazugehörigen Daten gelöscht.
 
 {{link}}
 

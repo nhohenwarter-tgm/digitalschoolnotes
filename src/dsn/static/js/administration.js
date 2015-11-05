@@ -137,16 +137,6 @@ administrationApp.controller('usermanagementCtrl', function ($scope, $http, $fil
     })
         .success(function (data) {
             $scope.users = data['test'];
-            /**for(var i = 0; i<$scope.users.length; i++){
-                var now =  new Date();
-                now.setHours(now.getHours() - 98);
-                var last =  new Date($scope.users[i].last_login);
-                var diff = new Date((now.getTime() - last.getTime()));
-                $scope.users[i].last_login = diff.getDay() + ' ' + diff.getHours() + ' ' + diff.getMinutes() + ' ' + diff.getSeconds();
-                if(diff.getDay() >= 6){
-                    alert("Write Mail to "+$scope.users[i].email);
-                }
-            }**/
             $scope.len = data['len'];
             $scope.currentPage = 0;
             $scope.l = Math.ceil($scope.len / $scope.itemsPerPage);
