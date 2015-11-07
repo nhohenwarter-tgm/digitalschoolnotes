@@ -209,6 +209,8 @@ mainApp.service('loggedIn', function ($http, $q) {
 });
 
 mainApp.run(function($rootScope, $state, $http, $window, $urlRouter, loggedIn){
+    $rootScope.loginFromState = null;
+    $rootScope.loginFromParams = null;
     authenticated = false;
     $http({
         method  : 'GET',
@@ -253,6 +255,8 @@ mainApp.run(function($rootScope, $state, $http, $window, $urlRouter, loggedIn){
                     authenticated = true;
                     $state.go(toState, toParams);
                 } else {
+                    $rootScope.loginFromState = toState;
+                    $rootScope.loginFromParams = toParams;
                     $rootScope.error = true;
                     $rootScope.login_error = 'Bitte melde dich zuerst an!';
                     $state.go('mainpage.login');

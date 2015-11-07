@@ -1,6 +1,7 @@
 var mainApp = angular.module('mainApp');
 
-mainApp.controller('mainpageCtrl', function($scope, $http, loggedIn){
+mainApp.controller('mainpageCtrl', function($scope, $http, $location, $anchorScroll, $window, $state, loggedIn){
+    scrollLocation = null;
     loggedIn.getUser().then(function(data){
             var user = data['user'];
             if(user == null){
@@ -13,9 +14,25 @@ mainApp.controller('mainpageCtrl', function($scope, $http, loggedIn){
         }, function(data){
 
         });
+
+    $scope.goto = function(locationId){
+        if($state.current.name != 'mainpage.login') {
+            var old = $location.hash();
+            $location.hash(locationId);
+            $anchorScroll();
+            $location.hash(old);
+        }else{
+            scrollLocation = locationId;
+            $state.go('mainpage.content');
+        }
+    }
 });
 
-mainApp.controller('contentCtrl', ['vcRecaptchaService','$scope','$http',function(vcRecaptchaService, $scope, $http){
+mainApp.controller('contentCtrl', ['vcRecaptchaService','$scope','$http', function(vcRecaptchaService, $scope, $http){
+    if(scrollLocation != null){
+        $scope.goto(scrollLocation);
+        scrollLocation = null;
+    }
     $scope.registerSuccess = false;
     $scope.error = false;
     //$scope.publicKey = "6Ldj4A8TAAAAAANFOMC0XlVx3AG3KvX5vKhCXqQc"; Echter Key
@@ -78,11 +95,19 @@ mainApp.controller('contentCtrl', ['vcRecaptchaService','$scope','$http',functio
     }
 }]);
 
-mainApp.controller('loginCtrl', function($scope, $http, $state, loggedIn){
+mainApp.controller('loginCtrl', function($scope, $window, $http, $state, $rootScope, loggedIn){
     loggedIn.getUser().then(function(data){
         var user = data['user'];
         if(user != null && user.is_active){
-            $state.go('management.timetable');
+            if($rootScope.loginFromState != null){
+                var toState = $rootScope.loginFromState;
+                var toParams = $rootScope.loginFromParams;
+                $rootScope.loginFromState = null;
+                $rootScope.loginFromParams = null;
+                $state.go(toState, toParams);
+            }else {
+                $state.go('management.timetable');
+            }
         }
     }, function(data){
         $state.go('mainpage.content');
@@ -104,7 +129,15 @@ mainApp.controller('loginCtrl', function($scope, $http, $state, loggedIn){
                         $scope.error = true;
                         $scope.login_error = data['login_error'];
                     }else{
-                        $state.go('management.timetable');
+                        if($rootScope.loginFromState != null){
+                            var toState = $rootScope.loginFromState;
+                            var toParams = $rootScope.loginFromParams;
+                            $rootScope.loginFromState = null;
+                            $rootScope.loginFromParams = null;
+                            $state.go(toState, toParams);
+                        }else {
+                            $state.go('management.timetable');
+                        }
                     }
                 })
                 .error(function(data){

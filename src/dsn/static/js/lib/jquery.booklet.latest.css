@@ -22,7 +22,7 @@
 	   
    	/* Page Wrappers */
 	.booklet .b-wrap       {top:0; position:absolute;}
-	.booklet .b-wrap-left  {background:#fff; border-style: solid ridge solid groove; border-width: 2px 7px 2px 7px}
+	.booklet .b-wrap-left  {background:#fbfbfb; border-style: solid ridge solid groove; border-width: 2px 7px 2px 7px}
 	.booklet .b-wrap-right {background: #fbfbfb; border-style: solid ridge solid groove; border-width: 2px 7px 2px 7px}
 	
 	.booklet .b-pN .b-wrap,
