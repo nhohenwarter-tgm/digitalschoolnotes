@@ -41,7 +41,7 @@ urlpatterns = [
     url(r'^api/get_notebooks', 'dsn.views.management_views.view_get_notebooks', name="getNotebooks"),
     url(r'^api/get_notebook', 'dsn.views.management_views.view_get_notebook', name="getNotebook"),
     url(r'^api/get_userSettings', 'dsn.views.management_views.view_getUserSettings', name="getUserSettings"),
-    url(r'^api/user_edit', 'dsn.views.management_views.view_editUser', name="setUser")
+    url(r'^api/user_edit', 'dsn.views.management_views.view_editUser', name="setUser"),
     url(r'^api/oauth/google/request', 'dsn.views.mainpage_views.view_google_oauth_request', name="googleOauthRequest"),
     url(r'^api/oauth/google/response', 'dsn.views.mainpage_views.view_google_oauth_response', name="googleOauthResponse"),
 ]
