@@ -18,3 +18,11 @@ def validationmail(email, firstname, link):
     msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
     msg.attach_alternative(html_content, "text/html")
     msg.send()
+
+def inactivemail(email, firstname, link, datum):
+    subject, from_email, to = 'Account löschen', '"DigitalSchoolNotes" <noreply@digitalschoolnotes.com>', email
+    text_content = render_to_string('email/inactive.txt',{'firstname':firstname, 'link':link, 'datum':datum})
+    html_content = render_to_string('email/inactive.html',{'firstname':firstname, 'link':link, 'datum':datum})
+    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
