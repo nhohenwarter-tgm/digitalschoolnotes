@@ -95,7 +95,55 @@ mainApp.controller('managementCtrl', function ($scope, $http, $state) {
     };
 });
 
-mainApp.controller('accsettingsCtrl', function ($scope) {
+mainApp.controller('accsettingsCtrl', function ($scope, $http, $state, loggedIn) {
+    $http({
+            method: 'POST',
+            url: '/api/get_userSettings',
+            headers: {'Content-Type': 'application/json'}
+        })
+            .success(function (data) {
+                if(data['error'] == true){
+                    $state.go('management.timetable');
+                }else {
+                    $scope.first_name = data['first_name'];
+                    $scope.last_name = data['last_name'];
+                    $scope.email = data['email'];
+                }
+            })
+            .error(function (data) {
+            });
+
+
+    $scope.submitEditUser = function() {
+        var first_name = $scope.first_name;
+        var last_name = $scope.last_name;
+        var email = $scope.email;
+        if($scope.editUser.$valid) {
+            $http({
+                method: 'POST',
+                url: '/api/user_edit',
+                headers: {'Content-Type': 'application/json'},
+                data: {
+                    first_name: first_name,
+                    last_name: last_name,
+                    email: email
+                }
+            })
+                .success(function (data) {
+                    if (data['message'] != null) {
+                        $scope.message = data['message'];
+                    } else {
+                        $state.go('management.timetable');
+                    }
+                })
+                .error(function (data) {
+                });
+        }
+    }
+
+    $scope.cancelEdit = function() {
+        $state.go('management.timetable');
+    }
 });
 
 mainApp.controller('notebooksCtrl', function ($scope, $http, $state) {
