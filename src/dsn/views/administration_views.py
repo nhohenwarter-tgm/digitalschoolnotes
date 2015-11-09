@@ -6,7 +6,6 @@ from dsn.authentication.email import inactivemail
 from dsn.authentication.registration import create_validation_token
 from datetime import *
 
-
 def view_users(request):
     if not request.user.is_authenticated() or not request.user.is_superuser:
         return JsonResponse({})
@@ -47,27 +46,14 @@ def view_users(request):
                     users = users.order_by('-'+str(params['spalte']))
         except KeyError:
             pass
-
         length = len(users)
         users = users[von:bis]
+    inform_delete_user(request)
     for user in users:
         security = 1
         if user.is_prouser: security = 2
         if user.is_superuser: security = 3
         if not user.is_active: security = 4
-        now = datetime.today()
-        second = abs(now.second - int(date.strftime(user.last_login, "%S")))
-        minute = abs(now.minute - int(date.strftime(user.last_login, "%M")))
-        hour = abs(now.hour - int(date.strftime(user.last_login, "%H")))
-        day = abs(now.day - int(date.strftime(user.last_login, "%d")))
-        month = abs(now.month - int(date.strftime(user.last_login, "%m")))
-        year = abs(now.year - int(date.strftime(user.last_login, "%Y")))
-        if month >= 1 | year >= 1:
-            nextmonth = (now.month % 12) + 1
-            nextyear = now.year + (now.month + 1 > 12)
-            until = date(nextyear, nextmonth, now.day)
-            inactivemail(user.email, user.first_name, "https://digitalschoolnotes.com/login", until)
-            print("send "+user.email)
         u.append({
             "email": user.email,
             "first_name": user.first_name,
@@ -110,11 +96,21 @@ def view_saveUserchange(request):
     return JsonResponse({})
 
 
-def aa(request):
-    params = json.loads(request.body.decode('utf-8'))
+def inform_delete_user(request):
     try:
-        user = User.objects.get(email=params['email'])
-        link = create_validation_token(params['email'])
-        inactivemail(params['email'], user.first_name, link, params['date'])
+        until = datetime.now() - timedelta(days=90)
+        users = User.objects(last_login__lte=until)
+        for user in users:
+            now = datetime.today()
+            day = abs(now.day - int(date.strftime(user.last_login, "%d")))
+            month = abs(now.month - int(date.strftime(user.last_login, "%m")))
+            if month == 3:# User inform
+                enddate = datetime.now()+ timedelta(days=7)
+                until = date(enddate.year, enddate.month, enddate.day)
+                #inactivemail(user.email, user.first_name, "https://digitalschoolnotes.com/login", until)
+                print("send "+user.email)
+            if month == 3 & day == 7:#User delete
+                #user.delete()
+                print("delete "+user.email)
     except KeyError:
         pass
