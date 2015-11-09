@@ -1,4 +1,17 @@
-<h2 style="text-align: center; padding-bottom: 30px;">Stundenplan</h2>
+<div ng-mouseenter="options=true" ng-mouseleave="options=false">
+<div>
+    <h2 style="text-align: center; padding-bottom: 15px;">
+        Stundenplan
+        <span ng-show="options" style="font-size: 15px; cursor: pointer; padding: 0px;" ng-click="setEditMode(true)">
+            <span class="glyphicon glyphicon-cog" style="padding-right: 5px;"></span>
+        </span>
+    </h2>
+</div>
+<div style="color: red; text-align: center; padding-bottom: 10px;" ng-show="editMode">
+    Bearbeitungsmodus aktiviert! <span style="cursor: pointer; text-decoration: underline;" ng-click="setEditMode(false)">Beenden</span>
+</div>
+<div style="color: red; text-align: center; padding-bottom: 10px;" ng-bind="timetableError">
+</div>
 
 <table width="80%" align="center" style="table-layout: fixed; word-wrap: break-word">
     <div id="head_nav">
@@ -13,202 +26,43 @@
         </tr>
     </div>
 
-    <tr>
+    <tr ng-repeat="x in getTimesNumberArray()">
         <th class="timetable-th">
-            <div ng-click="showZ(1)">
-                <span ng-bind="times[1][0]"></span> -
-                <span ng-bind="times[1][1]"></span>
+            <div ng-click="showZ(x)">
+                <span ng-bind="times[x][0]"></span> -
+                <span ng-bind="times[x][1]"></span>
             </div>
         </th>
 
-        <td class="timetable-td" ng-click="show(11)" ng-class="activeID == 11 && 'timetable-selected'">
-            <b><div ng-bind="field[11][0]"></div></b>
-            <div ng-bind="field[11][1]"></div>
-            <div ng-bind="field[11][2]"></div>
+        <td class="timetable-td" ng-click="show(x*10+1)" ng-class="activeID == {{ x*10+1}} && 'timetable-selected'">
+            <b><div ng-bind="field[{{ x*10+1}}][0]"></div></b>
+            <div ng-bind="field[{{ x*10+1}}][1]"></div>
+            <div ng-bind="field[{{ x*10+1}}][2]"></div>
         </td>
-        <td class="timetable-td" ng-click="show(12)" ng-class="activeID == 12 && 'timetable-selected'">
-            <b><div ng-bind="field[12][0]"></div></b>
-            <div ng-bind="field[12][1]"></div>
-            <div ng-bind="field[12][2]"></div>
+        <td class="timetable-td" ng-click="show(x*10+2)" ng-class="activeID == {{ x*10+2}} && 'timetable-selected'">
+            <b><div ng-bind="field[{{ x*10+2}}][0]"></div></b>
+            <div ng-bind="field[{{ x*10+2}}][1]"></div>
+            <div ng-bind="field[{{ x*10+2}}][2]"></div>
         </td>
-        <td class="timetable-td" ng-click="show(13)" ng-class="activeID == 13 && 'timetable-selected'">
-            <b><div ng-bind="field[13][0]"></div></b>
-            <div ng-bind="field[13][1]"></div>
-            <div ng-bind="field[13][2]"></div>
+        <td class="timetable-td" ng-click="show(x*10+3)" ng-class="activeID == {{ x*10+3}} && 'timetable-selected'">
+            <b><div ng-bind="field[{{ x*10+3}}][0]"></div></b>
+            <div ng-bind="field[{{ x*10+3}}][1]"></div>
+            <div ng-bind="field[{{ x*10+3}}][2]"></div>
         </td>
-        <td class="timetable-td" ng-click="show(14)" ng-class="activeID == 14 && 'timetable-selected'">
-            <b><div ng-bind="field[14][0]"></div></b>
-            <div ng-bind="field[14][1]"></div>
-            <div ng-bind="field[14][2]"></div>
+        <td class="timetable-td" ng-click="show(x*10+4)" ng-class="activeID == {{ x*10+4}} && 'timetable-selected'">
+            <b><div ng-bind="field[{{ x*10+4}}][0]"></div></b>
+            <div ng-bind="field[{{ x*10+4}}][1]"></div>
+            <div ng-bind="field[{{ x*10+4}}][2]"></div>
         </td>
-        <td class="timetable-td" ng-click="show(15)" ng-class="activeID == 15 && 'timetable-selected'">
-            <b><div ng-bind="field[15][0]"></div></b>
-            <div ng-bind="field[15][1]"></div>
-            <div ng-bind="field[15][2]"></div>
+        <td class="timetable-td" ng-click="show(x*10+5)" ng-class="activeID == {{ x*10+5}} && 'timetable-selected'">
+            <b><div ng-bind="field[{{ x*10+5}}][0]"></div></b>
+            <div ng-bind="field[{{ x*10+5}}][1]"></div>
+            <div ng-bind="field[{{ x*10+5}}][2]"></div>
         </td>
-        <td class="timetable-td" ng-click="show(16)" ng-class="activeID == 16 && 'timetable-selected'">
-            <b><div ng-bind="field[16][0]"></div></b>
-            <div ng-bind="field[16][1]"></div>
-            <div ng-bind="field[16][2]"></div>
-        </td>
-    </tr>
-
-    <tr>
-        <th class="timetable-th">
-            <div ng-click="showZ(2)">
-                <span ng-bind="times[2][0]"></span> -
-                <span ng-bind="times[2][1]"></span>
-            </div>
-        </th>
-
-        <td class="timetable-td" ng-click="show(21)" ng-class="activeID == 21 && 'timetable-selected'">
-            <b><div ng-bind="field[21][0]"></div></b>
-            <div ng-bind="field[21][1]"></div>
-            <div ng-bind="field[21][2]"></div>
-        </td>
-        <td class="timetable-td" ng-click="show(22)" ng-class="activeID == 22 && 'timetable-selected'">
-            <b><div ng-bind="field[22][0]"></div></b>
-            <div ng-bind="field[22][1]"></div>
-            <div ng-bind="field[22][2]"></div>
-        </td>
-        <td class="timetable-td" ng-click="show(23)" ng-class="activeID == 23 && 'timetable-selected'">
-            <b><div ng-bind="field[23][0]"></div></b>
-            <div ng-bind="field[23][1]"></div>
-            <div ng-bind="field[23][2]"></div>
-        </td>
-        <td class="timetable-td" ng-click="show(24)" ng-class="activeID == 24 && 'timetable-selected'">
-            <b><div ng-bind="field[24][0]"></div></b>
-            <div ng-bind="field[24][1]"></div>
-            <div ng-bind="field[24][2]"></div>
-        </td>
-        <td class="timetable-td" ng-click="show(25)" ng-class="activeID == 25 && 'timetable-selected'">
-            <b><div ng-bind="field[25][0]"></div></b>
-            <div ng-bind="field[25][1]"></div>
-            <div ng-bind="field[25][2]"></div>
-        </td>
-        <td class="timetable-td" ng-click="show(26)" ng-class="activeID == 26 && 'timetable-selected'">
-            <b><div ng-bind="field[26][0]"></div></b>
-            <div ng-bind="field[26][1]"></div>
-            <div ng-bind="field[26][2]"></div>
-        </td>
-    </tr>
-
-    <tr>
-        <th class="timetable-th">
-            <div ng-click="showZ(3)">
-                <span ng-bind="times[3][0]"></span> -
-                <span ng-bind="times[3][1]"></span>
-            </div>
-        </th>
-
-        <td class="timetable-td" ng-click="show(31)" ng-class="activeID == 31 && 'timetable-selected'">
-            <b><div ng-bind="field[31][0]"></div></b>
-            <div ng-bind="field[31][1]"></div>
-            <div ng-bind="field[31][2]"></div>
-        </td>
-        <td class="timetable-td" ng-click="show(32)" ng-class="activeID == 32 && 'timetable-selected'">
-            <b><div ng-bind="field[32][0]"></div></b>
-            <div ng-bind="field[32][1]"></div>
-            <div ng-bind="field[32][2]"></div>
-        </td>
-        <td class="timetable-td" ng-click="show(33)" ng-class="activeID == 33 && 'timetable-selected'">
-            <b><div ng-bind="field[33][0]"></div></b>
-            <div ng-bind="field[33][1]"></div>
-            <div ng-bind="field[33][2]"></div>
-        </td>
-        <td class="timetable-td" ng-click="show(34)" ng-class="activeID == 34 && 'timetable-selected'">
-            <b><div ng-bind="field[34][0]"></div></b>
-            <div ng-bind="field[34][1]"></div>
-            <div ng-bind="field[34][2]"></div>
-        </td>
-        <td class="timetable-td" ng-click="show(35)" ng-class="activeID == 35 && 'timetable-selected'">
-            <b><div ng-bind="field[35][0]"></div></b>
-            <div ng-bind="field[35][1]"></div>
-            <div ng-bind="field[35][2]"></div>
-        </td>
-        <td class="timetable-td" ng-click="show(36)" ng-class="activeID == 36 && 'timetable-selected'">
-            <b><div ng-bind="field[36][0]"></div></b>
-            <div ng-bind="field[36][1]"></div>
-            <div ng-bind="field[36][2]"></div>
-        </td>
-    </tr>
-
-    <tr>
-        <th class="timetable-th">
-            <div ng-click="showZ(4)">
-                <span ng-bind="times[4][0]"></span> -
-                <span ng-bind="times[4][1]"></span>
-            </div>
-        </th>
-
-        <td class="timetable-td" ng-click="show(41)" ng-class="activeID == 41 && 'timetable-selected'">
-            <b><div ng-bind="field[41][0]"></div></b>
-            <div ng-bind="field[41][1]"></div>
-            <div ng-bind="field[41][2]"></div></td>
-        <td class="timetable-td" ng-click="show(42)" ng-class="activeID == 42 && 'timetable-selected'">
-            <b><div ng-bind="field[42][0]"></div></b>
-            <div ng-bind="field[42][1]"></div>
-            <div ng-bind="field[42][2]"></div>
-        </td>
-        <td class="timetable-td" ng-click="show(43)" ng-class="activeID == 43 && 'timetable-selected'">
-            <b><div ng-bind="field[43][0]"></div></b>
-            <div ng-bind="field[43][1]"></div>
-            <div ng-bind="field[43][2]"></div>
-        </td>
-        <td class="timetable-td" ng-click="show(44)" ng-class="activeID == 44 && 'timetable-selected'">
-            <b><div ng-bind="field[44][0]"></div></b>
-            <div ng-bind="field[44][1]"></div>
-            <div ng-bind="field[44][2]"></div>
-        </td>
-        <td class="timetable-td" ng-click="show(45)" ng-class="activeID == 45 && 'timetable-selected'">
-            <b><div ng-bind="field[45][0]"></div></b>
-            <div ng-bind="field[45][1]"></div>
-            <div ng-bind="field[45][2]"></div>
-        </td>
-        <td class="timetable-td" ng-click="show(46)" ng-class="activeID == 46 && 'timetable-selected'">
-            <b><div ng-bind="field[46][0]"></div></b>
-            <div ng-bind="field[46][1]"></div>
-            <div ng-bind="field[46][2]"></div>
-        </td>
-    </tr>
-
-    <tr>
-        <th class="timetable-th">
-            <div ng-click="showZ(5)" >
-                <span ng-bind="times[5][0]"></span> -
-                <span ng-bind="times[5][1]"></span>
-            </div>
-        </th>
-
-        <td class="timetable-td" ng-click="show(51)" ng-class="activeID == 51 && 'timetable-selected'">
-            <b><div ng-bind="field[51][0]"></div></b>
-            <div ng-bind="field[51][1]"></div>
-            <div ng-bind="field[51][2]"></div>
-        </td>
-        <td class="timetable-td" ng-click="show(52)" ng-class="activeID == 52 && 'timetable-selected'">
-            <b><div ng-bind="field[52][0]"></div></b>
-            <div ng-bind="field[52][1]"></div>
-            <div ng-bind="field[52][2]"></div>
-        </td>
-        <td class="timetable-td" ng-click="show(53)" ng-class="activeID == 53 && 'timetable-selected'">
-            <b><div ng-bind="field[53][0]"></div></b>
-            <div ng-bind="field[53][1]"></div>
-            <div ng-bind="field[53][2]"></div>
-        </td>
-        <td class="timetable-td" ng-click="show(54)" ng-class="activeID == 54 && 'timetable-selected'">
-            <b><div ng-bind="field[54][0]"></div></b>
-            <div ng-bind="field[54][1]"></div>
-            <div ng-bind="field[54][2]"></div>
-        </td>
-        <td class="timetable-td" ng-click="show(55)" ng-class="activeID == 55 && 'timetable-selected'">
-            <b><div ng-bind="field[55][0]"></div></b>
-            <div ng-bind="field[55][1]"></div>
-            <div ng-bind="field[55][2]"></div>
-        </td>
-        <td class="timetable-td" ng-click="show(56)" ng-class="activeID == 56 && 'timetable-selected'">
-            <b><div ng-bind="field[56][0]"></div></b>
-            <div ng-bind="field[56][1]"></div>
-            <div ng-bind="field[56][2]"></div>
+        <td class="timetable-td" ng-click="show(x*10+6)" ng-class="activeID == {{ x*10+6}} && 'timetable-selected'">
+            <b><div ng-bind="field[{{ x*10+6}}][0]"></div></b>
+            <div ng-bind="field[{{ x*10+6}}][1]"></div>
+            <div ng-bind="field[{{ x*10+6}}][2]"></div>
         </td>
     </tr>
 </table><br />
@@ -233,12 +87,21 @@
                 <input class="form-control" type="text" name="room" placeholder="Raum" ng-model="room" ng-maxlength="30" style="width: 20%;"/>
             </div>
         </div>
+        <div class="row" style="padding-top: 10px;">
+            <div class="col-md-12">
+                <select class="form-control" name="notebook" ng-model="notebook" style="width: 20%;">
+                    <option value="">Kein Heft zugeordnet</option>
+                    <option ng-repeat="nb in notebooksList" value="{{nb.value}}">{{nb.name}}</option>
+                </select>
+            </div>
+        </div>
         <div class="row" style="padding-top: 10px;" align="center">
             <div class="col-md-12">
                 <button type="submit" id="submit" class="btn btn-success" ng-click="submitTimeTable()">Speichern</button>
             </div>
         </div>
     </form>
+</div>
 </div>
 
 <div ng-show="activeRow != null" align="center">

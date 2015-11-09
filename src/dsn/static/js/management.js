@@ -119,26 +119,54 @@ mainApp.controller('notebooksCtrl', function ($scope, $http, $state) {
     };
 });
 
-mainApp.controller('timetableCtrl', function ($scope, $http) {
+mainApp.controller('timetableCtrl', function ($scope, $http, $state) {
     $scope.activeRow = null;
     $scope.activeID = null;
+    $scope.editMode = false;
 
     $scope.getFields=function($fieldlist){
         var fields={};
         for(var i = 0;i<$fieldlist.length;i++){
-            fields[$fieldlist[i]["id"]]=[$fieldlist[i]["subject"],$fieldlist[i]["teacher"],$fieldlist[i]["room"]];
+            fields[$fieldlist[i]["id"]]=[$fieldlist[i]["subject"],$fieldlist[i]["teacher"],$fieldlist[i]["room"],$fieldlist[i]["notebook"]];
         }
 
         return fields;
     };
 
     $scope.getTimes=function($timelist){
+        $scope.timesNumber = $timelist.length;
         var fields={};
         for(var i = 0;i<$timelist.length;i++){
             fields[$timelist[i]["row"]]=[$timelist[i]["start"],$timelist[i]["end"]];
         }
         return fields;
     };
+
+    $scope.getTimesNumberArray=function(){
+        var n = new Array();
+        for(var i = 1; i < $scope.timesNumber+1; i++){
+            n.push(i);
+        }
+        return n;
+    };
+
+    $scope.getNotebooks=function(){
+        $http({
+            method: 'POST',
+            url: '/api/get_notebooks'
+        })
+            .success(function (data) {
+                var nbs = JSON.parse(data['notebooks']);
+                var nblist = [];
+                for(var i = 0; i < nbs.length; i++) {
+                    nblist.push({name: nbs[i]["name"], value: nbs[i]["name"]});
+                }
+                $scope.notebooksList = nblist;
+            })
+            .error(function (data) {
+                 $scope.notebooksList = [];
+            });
+    }
 
     $scope.getTimetable = function() {
         $http({
@@ -156,18 +184,20 @@ mainApp.controller('timetableCtrl', function ($scope, $http) {
             });
     };
 
+    $scope.getNotebooks();
     $scope.getTimetable();
 
     $scope.submitTimeTable = function () {
         var subject = $scope.subject;
         var teacher = $scope.teacher;
         var room = $scope.room;
+        var notebook = $scope.notebook;
         if($scope.timetable.$valid) {
             $http({
                 method: 'POST',
                 url: '/api/timetable_add',
                 headers: {'Content-Type': 'application/json'},
-                data: {subject: subject, teacher: teacher, room: room, fieldId: $scope.activeID}
+                data: {subject: subject, teacher: teacher, room: room, notebook: notebook, fieldId: $scope.activeID}
             })
                 .success(function (data) {
                     $scope.getTimetable();
@@ -179,26 +209,54 @@ mainApp.controller('timetableCtrl', function ($scope, $http) {
         }
     };
     $scope.show=function($feldId) {
-        if($feldId == $scope.activeID){
-            $scope.activeID = null;
-            return;
+        if($scope.editMode) {
+            if ($feldId == $scope.activeID) {
+                $scope.activeID = null;
+                return;
+            }
+            $scope.subject = $scope.field[$feldId][0];
+            $scope.teacher = $scope.field[$feldId][1];
+            $scope.room = $scope.field[$feldId][2];
+            $scope.notebook = $scope.field[$feldId][3];
+            $scope.activeID = $feldId;
+            $scope.activeRow = null;
+        }else{
+            if($scope.field[$feldId][3] != "") {
+                $http({
+                    method: 'POST',
+                    url: '/api/get_notebook',
+                    headers: {'Content-Type': 'application/json'},
+                    data: {
+                        name: $scope.field[$feldId][3]
+                    }
+                })
+                    .success(function (data) {
+                        if (data['error'] == true) {
+                            $scope.timetableError = "Das zugeordnete Heft konnte nicht gefunden werden!";
+                        } else if(data['notebook'] == null) {
+                            $scope.timetableError = "Dieser Stunde ist kein Heft zugeordnet!";
+                        }else{
+                            $state.go('notebookedit',{id: JSON.parse(data['notebook'])['_id']['$oid']});
+                        }
+                    })
+                    .error(function (data) {
+                        $scope.timetableError = "Das zugeordnete Heft konnte nicht gefunden werden!";
+                    });
+            }
         }
-        $scope.subject=$scope.field[$feldId][0];
-        $scope.teacher=$scope.field[$feldId][1];
-        $scope.room=$scope.field[$feldId][2];
-        $scope.activeID=$feldId;
-        $scope.activeRow=null;
     };
 
     $scope.showZ=function($rowId){
-        if($rowId == $scope.activeRow){
-            $scope.activeRow = null;
-            return;
+        if($scope.editMode) {
+            if ($rowId == $scope.activeRow) {
+                $scope.activeRow = null;
+                return;
+            }
+            $scope.start = $scope.times[$rowId][0];
+            $scope.end = $scope.times[$rowId][1];
+            $scope.activeRow = $rowId;
+            $scope.activeID = null;
         }
-        $scope.start=$scope.times[$rowId][0];
-        $scope.end=$scope.times[$rowId][1];
-        $scope.activeRow=$rowId;
-        $scope.activeID = null;
     };
 
     $scope.submitTimes = function () {
@@ -219,6 +277,12 @@ mainApp.controller('timetableCtrl', function ($scope, $http) {
                 });
             $scope.activeRow = null;
         }
+    };
+
+    $scope.setEditMode = function(edit){
+        $scope.editMode = edit;
+        $scope.activeID = null;
+        $scope.activeRow = null;
     };
 
 });
