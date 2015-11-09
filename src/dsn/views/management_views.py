@@ -11,6 +11,7 @@ from dsn.authentication.registration import create_validation_token
 from dsn.authentication.email import validationmail
 from django.contrib.auth import logout
 
+
 def view_get_timetable(request):
     """
     Stundenplan-Daten
@@ -195,7 +196,7 @@ def view_editUser(request):
     if request.method == "POST":
         params = json.loads(request.body.decode('utf-8'))
         user = request.user
-        #try und catch für email
+        #try und catch fï¿½r email
         user.first_name=params['first_name']
         user.last_name=params['last_name']
         user.save()
