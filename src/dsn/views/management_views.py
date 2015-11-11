@@ -1,12 +1,14 @@
 from django.http import JsonResponse
-from dsn.forms import TimeElemForm#, NotebookForm
 from dsn.models import TimeTable,TimeTableTime,TimeTableField, User, Notebook
 from dsn.forms import NotebookForm
+from dsn.authentication.account_delete import delete_account
+
 from bson import ObjectId
 import json
 from datetime import datetime
 from mongoengine.queryset.visitor import Q
 from mongoengine import DoesNotExist
+from django.contrib.auth import logout
 
 
 def view_get_timetable(request):
@@ -194,3 +196,12 @@ def view_delete_notebook(request):
             return JsonResponse({})
         except DoesNotExist:
             return JsonResponse({"error": True})
+
+def view_delete_account(request):
+    if not request.user.is_authenticated():
+        return JsonResponse({})
+    if request.method == "POST":
+        user = request.user
+        logout(request)
+        delete_account(user)
+        return JsonResponse({})

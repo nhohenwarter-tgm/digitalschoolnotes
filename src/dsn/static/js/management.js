@@ -95,7 +95,23 @@ mainApp.controller('managementCtrl', function ($scope, $http, $state) {
     };
 });
 
-mainApp.controller('accsettingsCtrl', function ($scope) {
+mainApp.controller('accsettingsCtrl', function ($scope, $window, $state, $http) {
+    $scope.deleteAccount = function(){
+        var confirm = $window.confirm("Bist du sicher, dass du deinen Account löschen möchtest?\n" +
+            "Diese Aktion kann nachher nicht mehr rückgängig gemacht werden! Deine Hefte werden endgültig gelöscht!");
+        if(confirm){
+            $http({
+                method: 'POST',
+                url: '/api/delete_account'
+            })
+                .success(function (data) {
+                    $state.go('mainpage.content');
+                })
+                .error(function (data) {
+                    $state.go('mainpage.content');
+                });
+        }
+    };
 });
 
 mainApp.controller('notebooksCtrl', function ($scope, $http, $state, $window) {
