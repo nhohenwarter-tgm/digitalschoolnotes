@@ -98,17 +98,39 @@ mainApp.controller('managementCtrl', function ($scope, $http, $state) {
 mainApp.controller('accsettingsCtrl', function ($scope) {
 });
 
-mainApp.controller('notebooksCtrl', function ($scope, $http, $state) {
-    $http({
-        method: 'POST',
-        url: '/api/get_notebooks'
-    })
-        .success(function (data) {
-            $scope.notebooks = JSON.parse(data['notebooks']);
+mainApp.controller('notebooksCtrl', function ($scope, $http, $state, $window) {
+    $scope.getNotebooks = function() {
+        $http({
+            method: 'POST',
+            url: '/api/get_notebooks'
         })
-        .error(function (data) {
-        });
+            .success(function (data) {
+                $scope.notebooks = JSON.parse(data['notebooks']);
+            })
+            .error(function (data) {
+            });
+    }
 
+    $scope.getNotebooks();
+
+    $scope.deleteNotebook = function(id){
+        var confirm = $window.confirm("Möchtest du dieses Heft wirklich löschen?");
+        if(confirm) {
+            $http({
+                method: 'POST',
+                url: '/api/delete_notebooks',
+                data: {
+                    id: id
+                }
+            })
+                .success(function (data) {
+                    $scope.getNotebooks();
+                })
+                .error(function (data) {
+                    $scope.getNotebooks();
+                });
+        }
+    };
 
     $scope.redirectNotebook = function (id) {
         $state.go('notebookedit', {'id': id});
@@ -318,7 +340,7 @@ mainApp.controller('notebooksCreateCtrl', function ($scope, $http, loggedIn, $st
 
                 });
         }
-    }
+    };
 
     $scope.cancelCreate = function() {
         $state.go('management.notebooks');

@@ -60,7 +60,6 @@ def view_add_times(request):
         times=timetable.times.get(row=params["rowId"])
         times.start=params["start"]
         times.end=params["end"]
-        print(timetable.times)
         timetable.save()
         return JsonResponse({})
 
@@ -177,3 +176,21 @@ def view_getOtherProfile(request):
             return JsonResponse({"profiles":profiles, 'len': 0})
         except KeyError:
             return JsonResponse({"profiles":profiles, 'len': 0})
+
+
+def view_delete_notebook(request):
+    if not request.user.is_authenticated():
+        return JsonResponse({})
+    if request.method == "POST":
+        params = json.loads(request.body.decode('utf-8'))
+        try:
+            notebook = Notebook.objects.get(id=params['id'])
+            tt = TimeTable.objects.get(email=request.user.email)
+            fields = tt.fields.filter(notebook=notebook.name)
+            for f in fields:
+                f.notebook = ""
+            tt.save()
+            notebook.delete()
+            return JsonResponse({})
+        except DoesNotExist:
+            return JsonResponse({"error": True})

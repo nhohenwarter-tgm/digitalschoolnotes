@@ -40,4 +40,5 @@ urlpatterns = [
     url(r'^api/notebooks_show', 'dsn.views.management_views.view_showNotebook', name="showNotebook"),
     url(r'^api/get_notebooks', 'dsn.views.management_views.view_get_notebooks', name="getNotebooks"),
     url(r'^api/get_notebook', 'dsn.views.management_views.view_get_notebook', name="getNotebook"),
+    url(r'^api/delete_notebook', 'dsn.views.management_views.view_delete_notebook', name="deleteNotebook"),
 ]
