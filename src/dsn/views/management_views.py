@@ -11,6 +11,7 @@ from dsn.authentication.registration import create_validation_token
 from dsn.authentication.email import validationmail
 from django.contrib.auth import logout
 
+
 def view_get_timetable(request):
     """
     Stundenplan-Daten

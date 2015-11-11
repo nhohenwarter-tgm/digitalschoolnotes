@@ -176,3 +176,9 @@ os.environ['TZ'] = 'Europe/Vienna'
 
 #Captcha
 RECAPTCHA_SECRET_KEY = '6Ldj4A8TAAAAADcnvqZl12haS-4wVOrSwehHCjUa'
+
+#OAuth
+OAUTH_GOOGLE_PUB = '491283494959-fcect9soavjtjsicrnm6j5lt8n7cfo7e.apps.googleusercontent.com'
+OAUTH_GOOGLE_PRIV = '8bZguU6VVVQ4OLotBb2UKfgj'
+OAUTH_FB_PUB = ''
+OAUTH_FB_PRIV = ''

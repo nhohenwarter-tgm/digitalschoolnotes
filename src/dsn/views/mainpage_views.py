@@ -4,6 +4,7 @@ from mongoengine import DoesNotExist
 import json
 import requests
 from django.contrib.auth import login, logout
+from dsn.authentication.oauth import oauth_google_request, oauth_google_callback
 from dsn.authentication.registration import validate_registration, create_validation_token
 from dsn.authentication.password_reset import validate_passwordreset, create_passwordreset_token, validate_newpassword
 from dsn.authentication.email import passwordresetmail, validationmail
@@ -138,3 +139,9 @@ def view_validate_account(request):
 def view_logout(request):
     logout(request)
     return JsonResponse({})
+
+def view_google_oauth_request(request):
+    return oauth_google_request(request)
+
+def view_google_oauth_response(request):
+    return oauth_google_callback(request)
