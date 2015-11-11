@@ -118,6 +118,7 @@ mainApp.controller('accsettingsCtrl', function ($scope, $http, $state, loggedIn)
         var first_name = $scope.first_name;
         var last_name = $scope.last_name;
         var email = $scope.email;
+
         if($scope.editUser.$valid) {
             $http({
                 method: 'POST',

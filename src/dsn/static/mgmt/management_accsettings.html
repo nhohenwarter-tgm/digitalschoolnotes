@@ -1,63 +1,61 @@
 <!-- TODO Add Account Settings view -->
 <form class="row" ng-submit="submitEditUser()" method="POST" name="editUser" novalidate>
     <span class="col-md-4"></span>
-    <span class="col-md-4">
-        <h2 class="row" style="text-align: center;">Account Einstellungen</h2>
-        <h4 style="padding-top: 20px;">Vornamen</h4>
-        <div class="row">
-            <div class="col-md-12">
-                <span ng-bind="message" style="color: red;"></span>
-                <p  style="color: red;" ng-show="(editUser.first_name.$dirty) && editUser.first_name.$error.required">Bitte gib einen Vornamen an.</p>
-                <p  style="color: red;" ng-show="(editUser.first_name.$dirty) && editUser.first_name.$error.maxlength">Der Name ist zu lang (max. 30 Zeichen).</p>
-                <input class="form-control" type="text" name="first_name" ng-model="first_name" ng-maxlength="30" required/>
-            </div>
-        </div>
-        <h4 style="padding-top: 20px;">Nachname</h4>
-        <div class="row">
-            <div class="col-md-12">
-                <span ng-bind="message" style="color: red;"></span>
-                <p  style="color: red;" ng-show="(editUser.last_name.$dirty) && editUser.last_name.$error.required">Bitte gib einen Nachnamen an.</p>
-                <p  style="color: red;" ng-show="(editUser.last_name.$dirty) && editUser.last_name.$error.maxlength">Der Name ist zu lang (max. 30 Zeichen).</p>
-                <input class="form-control" type="text" name="last_name" ng-model="last_name" ng-maxlength="30" required/>
-            </div>
-        </div>
-        <h4 style="padding-top: 20px;">E-Mail</h4>
-        <div class="row">
-            <div class="col-md-12">
-                <span ng-bind="message" style="color: red;"></span>
-                <p  style="color: red;" ng-show="(submitted || editUser.email.$dirty) && editUser.email.$error.required">Bitte gib deine E-Mail Adresse an.</p>
-                <p  style="color: red;" ng-show="(submitted || editUser.email.$dirty) && editUser.email.$error.pattern">Bitte gib eine valide E-Mail Adresse an.</p>
-                <input class="form-control" type="text" name="email" ng-model="email"
-                       ng-pattern="/[a-z0-9!#$%&'*+=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/" required/>
-            </div>
-        </div>
-        <!--
-        <h4 style="padding-top: 20px;">Passwort &auml;ndern</h4>
-        <h5 style="padding-top: 20px;">altes Passwort</h5>
-        <div class="row">
-            <div class="col-md-12">
-                <span ng-bind="message" style="color: red;"></span>
-                <input class="form-control" type="password" name="old_password" ng-maxlength="128" required/>
-            </div>
-        </div>
-        <h5 style="padding-top: 20px;">neues Passwort</h5>
-        <div class="row">
-            <div class="col-md-12">
-                <span ng-bind="message" style="color: red;"></span>
-                <input class="form-control" type="password" name="new_password" ng-maxlength="128" required/>
-            </div>
-        </div>
-        <h5 style="padding-top: 20px;">neues Passwort wiederholen</h5>
-        <div class="row">
-            <div class="col-md-12">
-                <span ng-bind="message" style="color: red;"></span>
-                <input class="form-control" type="password" name="new_password_check" ng-maxlength="128" required/>
-            </div>
-        </div>-->
-        <div class="row" style="padding-top: 30px;">
-                <button type="submit" id="submit" class="btn btn-success" style="margin-left: 15px;">&Auml;nderungen speichern</button>
-                <button id="cancel" class="btn btn-danger" ng-click="cancelEdit()" style="float: right; margin-right: 15px;">Abbrechen</button>
-        </div>
-    </span>
-    <span class="col-md-4"></span>
+                <span class="col-md-4">
+                    <h2 class="row" style="text-align: center;">Account Einstellungen</h2>
+                    <h4 style="padding-top: 20px;">Vornamen</h4>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <span ng-bind="message" style="color: red;"></span>
+                            <p  style="color: red;" ng-show="(editUser.first_name.$dirty) && editUser.first_name.$error.required">Bitte gib einen Vornamen an.</p>
+                            <p  style="color: red;" ng-show="(editUser.first_name.$dirty) && editUser.first_name.$error.maxlength">Der Name ist zu lang (max. 30 Zeichen).</p>
+                            <input class="form-control" type="text" name="first_name" ng-model="first_name" ng-maxlength="30" required/>
+                        </div>
+                    </div>
+                    <h4 style="padding-top: 20px;">Nachname</h4>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <span ng-bind="message" style="color: red;"></span>
+                            <p  style="color: red;" ng-show="(editUser.last_name.$dirty) && editUser.last_name.$error.required">Bitte gib einen Nachnamen an.</p>
+                            <p  style="color: red;" ng-show="(editUser.last_name.$dirty) && editUser.last_name.$error.maxlength">Der Name ist zu lang (max. 30 Zeichen).</p>
+                            <input class="form-control" type="text" name="last_name" ng-model="last_name" ng-maxlength="30" required/>
+                        </div>
+                    </div>
+                    <h4 style="padding-top: 20px;">E-Mail</h4>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <span ng-bind="message" style="color: red;"></span>
+                            <p  style="color: red;" ng-show="(submitted || editUser.email.$dirty) && editUser.email.$error.required">Bitte gib deine E-Mail Adresse an.</p>
+                            <p  style="color: red;" ng-show="(submitted || editUser.email.$dirty) && editUser.email.$error.pattern">Bitte gib eine valide E-Mail Adresse an.</p>
+                            <input class="form-control" type="text" name="email" ng-model="email"
+                                   ng-pattern="/[a-z0-9!#$%&'*+=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/" required/>
+                        </div>
+                    </div>
+                        <!--<h4 style="padding-top: 20px;">Passwort &auml;ndern</h4>
+                        <h5 style="padding-top: 20px;">altes Passwort</h5>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span ng-bind="message" style="color: red;"></span>
+                                <input class="form-control" type="password" name="old_password" ng-model="old_password" ng-maxlength="128" required/>
+                            </div>
+                        </div>
+                        <h5 style="padding-top: 20px;">neues Passwort</h5>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span ng-bind="message" style="color: red;"></span>
+                                <input class="form-control" type="password" name="new_password" ng-model="new_password"ng-maxlength="128" required/>
+                            </div>
+                        </div>
+                        <h5 style="padding-top: 20px;">neues Passwort wiederholen</h5>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span ng-bind="message" style="color: red;"></span>
+                                <input class="form-control" type="password" name="new_password_check" ng-model="new_password_check"ng-maxlength="128" required/>
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top: 30px;">
+                            <button type="submit" id="submit" class="btn btn-success" style="margin-left: 15px;">&Auml;nderungen speichern</button>
+                            <button id="cancel" class="btn btn-danger" ng-click="cancelEdit()" style="float: right; margin-right: 15px;">Abbrechen</button>
+                        </div>-->
+                </span>
 </form>

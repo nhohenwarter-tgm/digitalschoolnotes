@@ -195,7 +195,6 @@ def view_editUser(request):
     if request.method == "POST":
         params = json.loads(request.body.decode('utf-8'))
         user = request.user
-        #try und catch für email
         user.first_name=params['first_name']
         user.last_name=params['last_name']
         user.save()
