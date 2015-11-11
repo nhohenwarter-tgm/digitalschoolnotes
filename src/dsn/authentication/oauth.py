@@ -1,8 +1,11 @@
-from requests_oauthlib import OAuth2Session
 from django.shortcuts import redirect
 from django.http import JsonResponse
 from django.conf import settings
+from uuid import uuid4
+from django.contrib.sessions.backends.db import SessionStore
+import urllib
 
+"""
 # This information is obtained upon registration of a new GitHub
 google_authorization_base_url = 'https://accounts.google.com/o/oauth2/auth'
 google_token_url = 'https://accounts.google.com/o/oauth2/token'
@@ -30,6 +33,26 @@ def build_response_uri(request):
     state = request.GET.get('state')
     baseurl = "https://digitalschoolnotes.com:"+str(int(request.META['SERVER_PORT'])-3000) + "/api/oauth/google/response"
     baseurl += "?state="+state+"&code="+code+"#"
-
+"""
 def build_request_uri(request):
     return "https://digitalschoolnotes.com:"+str(int(request.META['SERVER_PORT'])-3000)
+
+def oauth_google_request(request):
+    uri = build_request_uri(request)+"/api/oauth/google/response"
+    state = str(uuid4())
+    scope = "https://accounts.google.com/o/oauth2/auth"
+    s = SessionStore()
+    s['state'] = state
+    s.save()
+    params = {
+        'client_id':settings.OAUTH_GOOGLE_PUB,
+        'response_type': 'code',
+        'redirect_uri': uri,
+        'state':state,
+        'scope':scope
+    }
+
+
+
+def oauth_google_callback(request):
+    pass
