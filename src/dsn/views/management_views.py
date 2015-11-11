@@ -9,6 +9,8 @@ from datetime import datetime
 from mongoengine.queryset.visitor import Q
 from mongoengine import DoesNotExist
 from django.contrib.auth import logout
+from dsn.authentication.registration import create_validation_token
+from dsn.authentication.email import validationmail
 
 
 def view_get_timetable(request):
@@ -178,6 +180,34 @@ def view_getOtherProfile(request):
             return JsonResponse({"profiles":profiles, 'len': 0})
         except KeyError:
             return JsonResponse({"profiles":profiles, 'len': 0})
+
+
+def view_getUserSettings(request):
+    if not request.user.is_authenticated():
+        return JsonResponse({})
+    if request.method == "POST":
+        user = request.user
+        return JsonResponse({"first_name": user.first_name, "last_name": user.last_name,
+                             "email": user.email})
+
+def view_editUser(request):
+    if not request.user.is_authenticated():
+        return JsonResponse({})
+    if request.method == "POST":
+        params = json.loads(request.body.decode('utf-8'))
+        user = request.user
+        #try und catch f�r email
+        user.first_name=params['first_name']
+        user.last_name=params['last_name']
+        user.save()
+        if user.email != params['email']:
+            user.email=params['email']
+            user.is_active=False;
+            user.save()
+            link = create_validation_token(params['email'])
+            validationmail(params['email'], params['first_name'], link)
+            logout(request)
+        return JsonResponse({'message': None})
 
 
 def view_delete_notebook(request):
