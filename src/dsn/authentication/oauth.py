@@ -1,49 +1,34 @@
 from django.shortcuts import redirect
-from django.http import JsonResponse
+from django.http import HttpResponseForbidden
 from django.conf import settings
 from uuid import uuid4
-from django.contrib.sessions.backends.db import SessionStore
 import urllib
+import requests
 
-"""
-# This information is obtained upon registration of a new GitHub
-google_authorization_base_url = 'https://accounts.google.com/o/oauth2/auth'
-google_token_url = 'https://accounts.google.com/o/oauth2/token'
-
-
-def oauth_google_request(request):
-    scope = ['https://www.googleapis.com/auth/userinfo.email',
-             'https://www.googleapis.com/auth/userinfo.profile']
-    google = OAuth2Session(settings.OAUTH_GOOGLE_PUB, scope=scope, redirect_uri = build_request_uri(request)+"/api/oauth/google/response")
-    authorization_url, state = google.authorization_url(google_authorization_base_url)
-    request.session['oauth_state']=state
-
-    return redirect(authorization_url)
-
-def oauth_google_callback(request):
-    build_response_uri(request)
-    google = OAuth2Session(settings.OAUTH_GOOGLE_PUB, state=request.session['oauth_state'])
-    token = google.fetch_token(google_token_url, client_secret=settings.OAUTH_GOOGLE_PRIV,
-                               authorization_code=build_response_uri(request))
-
-    return JsonResponse(google.get('https://api.github.com/user').json())
-
-def build_response_uri(request):
-    code = request.GET.get('code')
-    state = request.GET.get('state')
-    baseurl = "https://digitalschoolnotes.com:"+str(int(request.META['SERVER_PORT'])-3000) + "/api/oauth/google/response"
-    baseurl += "?state="+state+"&code="+code+"#"
-"""
 def build_request_uri(request):
+    """
+    Erstellt die Redirect URI abhängig vom Port der Anfrage
+    :param request:
+    :return: URI als String
+    """
     return "https://digitalschoolnotes.com:"+str(int(request.META['SERVER_PORT'])-3000)
 
 def oauth_google_request(request):
+    """
+    Fragt den User, ob er DSN rechte auf seinen Google Account geben will
+    :param request:
+    :return: Redirect zur Anfrage
+    """
     uri = build_request_uri(request)+"/api/oauth/google/response"
+
+    #state for csrf protection
     state = str(uuid4())
-    scope = "https://accounts.google.com/o/oauth2/auth"
-    s = SessionStore()
-    s['state'] = state
-    s.save()
+    request.session['state'] = state
+
+    #scope, welche daten will ich?
+    scope = 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile'
+
+    #build request
     params = {
         'client_id':settings.OAUTH_GOOGLE_PUB,
         'response_type': 'code',
@@ -52,7 +37,38 @@ def oauth_google_request(request):
         'scope':scope
     }
 
-
+    return redirect("https://accounts.google.com/o/oauth2/auth?" + urllib.parse.urlencode(params))
 
 def oauth_google_callback(request):
-    pass
+    """
+    Holt sich die Tokens und greift auf Googles daten zu
+    :param request:
+    :return: Daten als JSON oder 403
+    """
+
+    # csrf test
+    state = request.GET.get('state')
+    if state == request.session['state']:
+        uri = build_request_uri(request)+"/api/oauth/google/response"
+        code = request.GET.get('code')
+
+        #Anfrage nach Tokens bauen
+        data = {
+            'client_id':settings.OAUTH_GOOGLE_PUB,
+            'client_secret': settings.OAUTH_GOOGLE_PRIV,
+            'code':code,
+            'redirect_uri': uri,
+            'grant_type': 'authorization_code'
+        }
+        #Token holen
+        token_response = requests.post("https://www.googleapis.com/oauth2/v3/token", data=data).json()
+        access_token = str(token_response.get('access_token'))
+
+        #Google nach Userdaten fragen
+        headers = {'Authorization': "Bearer "+access_token}
+        response = requests.get("https://www.googleapis.com/oauth2/v2/userinfo", headers=headers).json()
+
+        return response
+
+    else:
+        return HttpResponseForbidden()
