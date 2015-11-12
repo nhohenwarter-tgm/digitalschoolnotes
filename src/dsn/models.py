@@ -285,6 +285,7 @@ class TimeTableField(EmbeddedDocument):
     subject= StringField()
     teacher=StringField()
     room=StringField()
+    notebook=StringField()
 
 class TimeTable(Document):
     email=EmailField()
