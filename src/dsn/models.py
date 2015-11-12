@@ -235,6 +235,18 @@ class User(Document):
         return self._profile_cache
 
 
+"""
+class NotebookElement(EmbeddedDocument):
+    id=0
+    name=""
+    positionx=5
+    positiony=5
+
+
+
+class CodeElement(NotebookElement):
+    content = ""
+"""
 
 class Notebook(Document):
     name = StringField(max_length=30)
@@ -243,6 +255,10 @@ class Notebook(Document):
     last_change = DateTimeField(default=datetime.datetime.now())
     email = EmailField()
     numpages = IntField(default=2)
+    #elements = NotebookElement()
+
+
+
 
 class TimeTableElem(Document):
     subject = StringField(max_length=30)

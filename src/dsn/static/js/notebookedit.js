@@ -2,6 +2,9 @@ var mainApp = angular.module('mainApp');
 
 mainApp.controller('notebookEditCtrl', function($scope, $http, $stateParams, loggedIn){
     $scope.publicViewed = true;
+    $scope.code=function(){
+        alert("hallo");
+    };
     $http({
         method: 'POST',
         url: '/api/get_notebook',
