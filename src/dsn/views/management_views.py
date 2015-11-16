@@ -1,15 +1,16 @@
 from django.http import JsonResponse
-from dsn.forms import TimeElemForm#, NotebookForm
 from dsn.models import TimeTable,TimeTableTime,TimeTableField, User, Notebook
 from dsn.forms import NotebookForm
+from dsn.authentication.account_delete import delete_account
+
 from bson import ObjectId
 import json
 from datetime import datetime
 from mongoengine.queryset.visitor import Q
 from mongoengine import DoesNotExist
+from django.contrib.auth import logout
 from dsn.authentication.registration import create_validation_token
 from dsn.authentication.email import validationmail
-from django.contrib.auth import logout
 
 
 def view_get_timetable(request):
@@ -63,7 +64,6 @@ def view_add_times(request):
         times=timetable.times.get(row=params["rowId"])
         times.start=params["start"]
         times.end=params["end"]
-        print(timetable.times)
         timetable.save()
         return JsonResponse({})
 
@@ -207,3 +207,30 @@ def view_editUser(request):
             validationmail(params['email'], params['first_name'], link)
             logout(request)
         return JsonResponse({'message': None})
+
+
+def view_delete_notebook(request):
+    if not request.user.is_authenticated():
+        return JsonResponse({})
+    if request.method == "POST":
+        params = json.loads(request.body.decode('utf-8'))
+        try:
+            notebook = Notebook.objects.get(id=params['id'])
+            tt = TimeTable.objects.get(email=request.user.email)
+            fields = tt.fields.filter(notebook=notebook.name)
+            for f in fields:
+                f.notebook = ""
+            tt.save()
+            notebook.delete()
+            return JsonResponse({})
+        except DoesNotExist:
+            return JsonResponse({"error": True})
+
+def view_delete_account(request):
+    if not request.user.is_authenticated():
+        return JsonResponse({})
+    if request.method == "POST":
+        user = request.user
+        logout(request)
+        delete_account(user)
+        return JsonResponse({})

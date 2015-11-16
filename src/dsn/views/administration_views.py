@@ -4,6 +4,7 @@ import json
 from mongoengine.queryset.visitor import Q
 from dsn.authentication.email import inactivemail
 from dsn.authentication.registration import create_validation_token
+from dsn.authentication.account_delete import delete_account
 from datetime import *
 
 def view_users(request):
@@ -23,9 +24,8 @@ def view_users(request):
         try:
             """ Delete """
             user = User.objects.get(email=params['email'])
-            user.delete()
+            delete_account(user)
         except KeyError:
-            print("Error")
             pass
 
         users = User.objects()
@@ -108,9 +108,8 @@ def inform_delete_user(request):
                 enddate = datetime.now()+ timedelta(days=7)
                 until = date(enddate.year, enddate.month, enddate.day)
                 #inactivemail(user.email, user.first_name, "https://digitalschoolnotes.com/login", until)
-                print("send "+user.email)
             if month == 3 & day == 7:#User delete
                 #user.delete()
-                print("delete "+user.email)
+                pass
     except KeyError:
         pass
