@@ -68,7 +68,7 @@ def oauth_google_callback(request):
         headers = {'Authorization': "Bearer "+access_token}
         response = requests.get("https://www.googleapis.com/oauth2/v2/userinfo", headers=headers).json()
 
-        return response
+        return redirect(build_request_uri(request)+"/management")
 
     else:
         return HttpResponseForbidden()
@@ -80,7 +80,6 @@ def oauth_fb_request(request):
     :return: Redirect zur Anfrage
     """
     uri = build_request_uri(request)+"/api/oauth/fb/response"
-    print("request: "+uri)
 
     #state for csrf protection
     state = str(uuid4())
@@ -97,7 +96,6 @@ def oauth_fb_request(request):
         'state':state,
         'scope':scope
     }
-    print("request: https://www.facebook.com/dialog/oauth/?"+ urllib.parse.urlencode(params))
     return redirect("https://www.facebook.com/dialog/oauth/?" + urllib.parse.urlencode(params))
 
 def oauth_fb_callback(request):
@@ -112,7 +110,6 @@ def oauth_fb_callback(request):
     if state == request.session['state']:
         uri = build_request_uri(request)+"/api/oauth/fb/response"
         code = request.GET.get('code')
-        print("callback: "+uri)
         #Anfrage nach Tokens bauen
         data = {
             'client_id':settings.OAUTH_FB_PUB,
@@ -124,12 +121,11 @@ def oauth_fb_callback(request):
         uri = "https://graph.facebook.com/v2.3/oauth/access_token?"+urllib.parse.urlencode(data)
         token_response = requests.get(uri).json()
         access_token = str(token_response.get('access_token'))
-        print(access_token)
 
         #FB nach Userdaten fragen
         response = requests.get("https://graph.facebook.com/me?fields=id,first_name,last_name,email&access_token="+access_token).json()
 
-        return JsonResponse({'response':response})
+        return redirect(build_request_uri(request)+"/management")
 
     else:
         return HttpResponseForbidden()
