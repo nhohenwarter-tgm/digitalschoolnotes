@@ -108,6 +108,9 @@ mainApp.controller('accsettingsCtrl', function ($scope, $http, $window, $state, 
                     $scope.first_name = data['first_name'];
                     $scope.last_name = data['last_name'];
                     $scope.email = data['email'];
+                    $scope.old_pwd="";
+                    $scope.pwd="";
+                    $scope.pwdrepeat="";
                 }
             })
             .error(function (data) {
@@ -115,11 +118,20 @@ mainApp.controller('accsettingsCtrl', function ($scope, $http, $window, $state, 
 
 
     $scope.submitEditUser = function() {
+        $scope.error = false;
         var first_name = $scope.first_name;
         var last_name = $scope.last_name;
         var email = $scope.email;
-
-        if($scope.editUser.$valid) {
+        var password_old = $scope.old_pwd;
+        var password_new = $scope.pwd;
+        var password_repeat = $scope.pwdrepeat;
+        if(password_new != password_repeat) {
+            $scope.error = true;
+            $scope.reset_error = 'Passw�rter stimmen nicht �berein\n';
+        }
+        password_new = CryptoJS.SHA256(password_new);
+        password_old = CryptoJS.SHA256(password_old);
+        if($scope.editUser.$valid && $scope.error ==false) {
             $http({
                 method: 'POST',
                 url: '/api/user_edit',
@@ -127,7 +139,9 @@ mainApp.controller('accsettingsCtrl', function ($scope, $http, $window, $state, 
                 data: {
                     first_name: first_name,
                     last_name: last_name,
-                    email: email
+                    email: email,
+                    password: password_new.toString(),
+                    password_old: password_old.toString()
                 }
             })
                 .success(function (data) {
@@ -145,7 +159,7 @@ mainApp.controller('accsettingsCtrl', function ($scope, $http, $window, $state, 
     $scope.cancelEdit = function() {
         $state.go('management.timetable');
     };
-    
+
     $scope.deleteAccount = function(){
         var confirm = $window.confirm("Bist du sicher, dass du deinen Account löschen möchtest?\n" +
             "Diese Aktion kann nachher nicht mehr rückgängig gemacht werden! Deine Hefte werden endgültig gelöscht!");
