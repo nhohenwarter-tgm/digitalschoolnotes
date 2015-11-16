@@ -1,0 +1,7 @@
+Storage: 5GB Traffic, 1000 PUT, 10000 GET, 2GB Storage
+Server: Netcup M v6a2
+
+Amazon:
+0,52 Storage
+0,04 Server
+0,56 Summe
