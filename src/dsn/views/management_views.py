@@ -11,8 +11,7 @@ from mongoengine import DoesNotExist
 from django.contrib.auth import logout
 from dsn.authentication.registration import create_validation_token
 from dsn.authentication.email import validationmail
-
-
+from django.contrib.auth.hashers import *
 def view_get_timetable(request):
     """
     Stundenplan-Daten
@@ -188,7 +187,7 @@ def view_getUserSettings(request):
     if request.method == "POST":
         user = request.user
         return JsonResponse({"first_name": user.first_name, "last_name": user.last_name,
-                             "email": user.email})
+                             "email": user.email, "password": user.password})
 
 def view_editUser(request):
     if not request.user.is_authenticated():
@@ -196,9 +195,12 @@ def view_editUser(request):
     if request.method == "POST":
         params = json.loads(request.body.decode('utf-8'))
         user = request.user
-        #try und catch f�r email
         user.first_name=params['first_name']
         user.last_name=params['last_name']
+        if user.check_password(params['password_old']) == True:
+            user.set_password(params['password'])
+        else:
+            return JsonResponse({'message': "Das alte Passwort wiederholen"})
         user.save()
         if user.email != params['email']:
             user.email=params['email']
