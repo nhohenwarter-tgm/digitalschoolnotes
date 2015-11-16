@@ -44,4 +44,6 @@ urlpatterns = [
     url(r'^api/user_edit', 'dsn.views.management_views.view_editUser', name="setUser"),
     url(r'^api/oauth/google/request', 'dsn.views.mainpage_views.view_google_oauth_request', name="googleOauthRequest"),
     url(r'^api/oauth/google/response', 'dsn.views.mainpage_views.view_google_oauth_response', name="googleOauthResponse"),
+    url(r'^api/oauth/fb/request', 'dsn.views.mainpage_views.view_fb_oauth_request', name="fbOauthRequest"),
+    url(r'^api/oauth/fb/response', 'dsn.views.mainpage_views.view_fb_oauth_response', name="fbOauthResponse"),
 ]
