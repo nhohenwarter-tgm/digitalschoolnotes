@@ -18,7 +18,7 @@ mainApp.controller('notebookEditCtrl', function($scope, $http, $stateParams, log
                     $scope.publicViewed = true;
                 }
 
-                $('#book').booklet({
+                angular.element('#book').booklet({
                     startingPage: $scope.notebook['numpages']-1,
                     next: '#goto-next',
                     prev: '#goto-prev',
@@ -26,18 +26,18 @@ mainApp.controller('notebookEditCtrl', function($scope, $http, $stateParams, log
 	                easeIn:  null,
 	                easeOut: null,
                     shadows: false,
-                    width: "",
-                    height: "",
+                    width: "1100",
+                    height: "700",
                     pagePadding: 0
                 });
 
-                $('#goto-start').click(function(e){
+                angular.element('#goto-start').click(function(e){
                     e.preventDefault();
-                    $('#book').booklet("gotopage", "start");
+                    angular.element('#book').booklet("gotopage", "start");
                 });
-                $('#goto-end').click(function(e){
+                angular.element('#goto-end').click(function(e){
                     e.preventDefault();
-                    $('#book').booklet("gotopage", "end");
+                    angular.element('#book').booklet("gotopage", "end");
                 });
 
                 $scope.makeDraggable('testy',1);
@@ -57,8 +57,10 @@ mainApp.controller('notebookEditCtrl', function($scope, $http, $stateParams, log
             });
         });
 
+    angular.element('.zoomTarget').zoomTarget();
+
     $scope.makeDraggable = function(id, page){
-        $("#"+id).draggable({
+        angular.element("#"+id).draggable({
             containment: '.b-page-'+(page-1),
             stop: function(){
                 // Aktuelle Position speichern
@@ -81,5 +83,3 @@ mainApp.controller('notebookEditCtrl', function($scope, $http, $stateParams, log
     };
 
 });
-
-
