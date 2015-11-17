@@ -76,6 +76,10 @@ class PasswordReset(EmbeddedDocument):
     hash = StringField(required=True)
     date = DateTimeField(required=True)
 
+class OAuth(EmbeddedDocument):
+    provider = StringField(required=True)
+    id = StringField(required=True)
+
 
 class User(Document):
     id = ObjectIdField(unique=True, required=True, primary_key=True)
@@ -90,6 +94,7 @@ class User(Document):
     last_login = DateTimeField(default=datetime.datetime.now())
     date_joined = DateTimeField(default=datetime.datetime.now())
     passwordreset = EmbeddedDocumentField(PasswordReset)
+    oauth = EmbeddedDocumentField(OAuth)
     validatetoken = StringField()
 
     user_permissions = ListField(ReferenceField(Permission))
