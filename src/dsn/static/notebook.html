@@ -71,18 +71,47 @@
                         <div class="zoomTarget" id="testy" style="position: absolute; border: 1px solid black; background-color: red; width: 100px; height: 100px; top: {{ yPos['testy'] }}px; left: {{ xPos['testy'] }}px;">Asdf</div>
                         <div class="zoomTarget" id="testy2" style="position: absolute; border: 1px solid black; background-color: blue; width: 100px; height: 100px; top: {{ yPos['testy2'] }}px; left: {{ xPos['testy2'] }}px;">Asdf2</div>
                         <h3>Yay, Page 1! adasd</h3>
-                        <textarea name="mytext" style="border:0; background:#fcfcfc;" value="">sdf</textarea >
-                        asasdasdsad
+
                      <!-- hier werden auf klick ins heft elemente eingefügt.. -->
                     </div>
                     <div>
                         <h3>Yay, Page 2!</h3>
+                        <!-- <section>
+  <div ui-codemirror="{
+      lineNumbers: true,
+      theme:'twilight',
+      readOnly: 'nocursor',
+      lineWrapping : true,
+      mode: 'xml'
+    }" >&lt;html style=&quot;color: green&quot;&gt;
+&lt;!-- this is a comment --&gt;
+&lt;head&gt;
+&lt;title&gt;HTML Example&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+The indentation tries to be &lt;em&gt;somewhat &amp;quot;do what
+I mean&amp;quot;&lt;/em&gt;... but might not match your style.
+&lt;/body&gt;
+&lt;/html&gt;</div>
+</section> -->
+
+                        <section >
+                            <textarea ui-codemirror="cmOption"></textarea>
+                            Mode : <select ng-model="mode" ng-options="m for m in modes" ng-change="modeChanged()"></select>
+                        </section>
                     </div>
                     <div>
                         <h3>Yay, Page 3!</h3>
+
+                        <input type="hidden" value="0" id="theValue" />
+
+<p><a href="javascript:;" ng-click="addElement();"></a></p>
+
+<div id="myDiv"> </div>
                     </div>
                     <div>
                         <h3>Yay, Page 4!</h3>
+                        <!-- <div ng-bind-html="thisCanBeusedInsideNgBindHtml"></div> -->
                     </div>
                     <div>
                         <h3>Yay, Page 5!</h3>
