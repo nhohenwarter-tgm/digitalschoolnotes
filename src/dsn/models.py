@@ -93,6 +93,7 @@ class User(Document):
     is_superuser = BooleanField(default=False)
     last_login = DateTimeField(default=datetime.datetime.now())
     date_joined = DateTimeField(default=datetime.datetime.now())
+    delete_date = DateTimeField()
     passwordreset = EmbeddedDocumentField(PasswordReset)
     oauth = EmbeddedDocumentField(OAuth)
     validatetoken = StringField()
