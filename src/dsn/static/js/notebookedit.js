@@ -1,9 +1,16 @@
 var mainApp = angular.module('mainApp');
+//var mainApp = angular.module('mainApp',['ngSanitize']);
 
 mainApp.controller('notebookEditCtrl', function($scope, $http, $stateParams, loggedIn){
     $scope.publicViewed = true;
     $scope.code=function(){
         //$scope.thisCanBeusedInsideNgBindHtml += "<html>hhhhh</html>";
+        //Methode1
+        var myEl = angular.element( document.querySelector( '#test' ) );
+myEl.append('<section > <textarea rows="6" cols="70" ui-codemirror="cmOption"></textarea> Mode : <select ng-model="mode" ng-options="m for m in modes" ng-change="modeChanged()"></select> </section>');
+
+
+        //Methode2
         var ni = document.getElementById('myDiv');
 
   var numi = document.getElementById('theValue');
@@ -21,6 +28,9 @@ mainApp.controller('notebookEditCtrl', function($scope, $http, $stateParams, log
   newdiv.innerHTML = '<section > <textarea rows="6" cols="70" ui-codemirror="cmOption"></textarea> Mode : <select ng-model="mode" ng-options="m for m in modes" ng-change="modeChanged()"></select> </section>';
 
   ni.appendChild(newdiv);
+
+        //Methode3
+         $scope.divHtmlVar = $scope.divHtmlVar + '<br/><i>appended text</i>';
     };
     $scope.xPos = {};
     $scope.yPos = {};
