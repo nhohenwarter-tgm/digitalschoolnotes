@@ -25,13 +25,14 @@ def view_users(request):
         try:
             """ Delete """
             user = User.objects.get(email=params['email'])
-            if user.delete_date == None:
+
+            if user != request.user and user.delete_date == None:
                 enddate = datetime.now() + timedelta(days=7)
                 until = date(enddate.year, enddate.month, enddate.day)
                 user.delete_date = until
                 user.save()
                 deleteemail(user.email, user.first_name, until)
-            else:
+            elif user != request.user:
                 user.delete_date = None
                 user.save()
         except KeyError:
@@ -88,6 +89,9 @@ def view_saveUserchange(request):
         params = json.loads(request.body.decode('utf-8'))
         try:
             user = User.objects.get(email=params['email'])
+            if user == request.user:
+                return JsonResponse({'error':'Fehler! Eigener Benutzeraccount kann nicht verändert werden!'})
+
             if params['security_level'] == '1':
                 user.is_active = True
                 user.is_prouser = False

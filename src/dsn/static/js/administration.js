@@ -194,7 +194,7 @@ administrationApp.controller('usermanagementCtrl', function ($scope, $http, $fil
             + "&body=" + escape(body);
 
         window.location.href = link;
-    }
+    };
 
     $scope.delete = function (email,index) {
         deleteUser = true;
@@ -228,13 +228,12 @@ administrationApp.controller('usermanagementCtrl', function ($scope, $http, $fil
                 .error(function (data) {
                 });
         }
-    }
+    };
 
     $scope.update = function (email, securty_level, index) {
         securty_level_old = $scope.users[index].security_level;
         Userup = $window.confirm('Soll der User ' + email + ' wirklich auf die Berechtigungsstufe ' + $scope.security_list[securty_level - 1].name + ' geändert werden?');
         if (Userup) {
-            alert('Der User ' + email + ' wurde erfolgreich auf ' + $scope.security_list[securty_level - 1].name + 'geändert');
             $http({
                 method: 'POST',
                 url: '/api/admin_user_update',
@@ -245,13 +244,18 @@ administrationApp.controller('usermanagementCtrl', function ($scope, $http, $fil
                 }
             })
                 .success(function (data) {
+                    if(data['error'] != null){
+                        alert(data['error']);
+                    }else{
+                        alert('Der User ' + email + ' wurde erfolgreich auf ' + $scope.security_list[securty_level - 1].name + 'geändert');
+                    }
                 })
                 .error(function (data) {
                 });
         } else {
             document.getElementById(email).selectedIndex = "" + securty_level_old - 1;
         }
-    }
+    };
 
     $scope.search = function (current) {
         $http({
