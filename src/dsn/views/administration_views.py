@@ -2,7 +2,7 @@ from django.http import JsonResponse
 from dsn.models import User
 import json
 from mongoengine.queryset.visitor import Q
-from dsn.authentication.email import inactivemail
+from dsn.authentication.email import deleteemail
 from dsn.authentication.registration import create_validation_token
 from dsn.authentication.account_delete import delete_account
 from datetime import *
@@ -13,6 +13,7 @@ def view_users(request):
     u = []
     length = 0
     weiter = False
+    delete = False
     if request.method == "GET":
         users = User.objects[0:20]
         length = len(User.objects)
@@ -24,7 +25,15 @@ def view_users(request):
         try:
             """ Delete """
             user = User.objects.get(email=params['email'])
-            delete_account(user)
+            if user.delete_date == None:
+                enddate = datetime.now() + timedelta(days=7)
+                until = date(enddate.year, enddate.month, enddate.day)
+                user.delete_date = until
+                user.save()
+                deleteemail(user.email, user.first_name, until)
+            else:
+                user.delete_date = None
+                user.save()
         except KeyError:
             pass
 
@@ -48,17 +57,23 @@ def view_users(request):
             pass
         length = len(users)
         users = users[von:bis]
-    inform_delete_user(request)
     for user in users:
         security = 1
         if user.is_prouser: security = 2
         if user.is_superuser: security = 3
         if not user.is_active: security = 4
+        if user.delete_date == None:
+            delete_state = 'Account löschen'
+        else:
+            days = abs(datetime.today().day - int(date.strftime(user.delete_date, "%d")))
+            delete_state = ' Löschung in %s Tagen' % (str(days))
+
         u.append({
             "email": user.email,
             "first_name": user.first_name,
             "last_name": user.last_name,
-            "security_level": security
+            "security_level": security,
+            "delete_account": delete_state
         })
     if length == 0:
         return JsonResponse({'test': u})
@@ -94,22 +109,3 @@ def view_saveUserchange(request):
         except:
             user = None
     return JsonResponse({})
-
-
-def inform_delete_user(request):
-    try:
-        until = datetime.now() - timedelta(days=90)
-        users = User.objects(last_login__lte=until)
-        for user in users:
-            now = datetime.today()
-            day = abs(now.day - int(date.strftime(user.last_login, "%d")))
-            month = abs(now.month - int(date.strftime(user.last_login, "%m")))
-            if month == 3:# User inform
-                enddate = datetime.now()+ timedelta(days=7)
-                until = date(enddate.year, enddate.month, enddate.day)
-                #inactivemail(user.email, user.first_name, "https://digitalschoolnotes.com/login", until)
-            if month == 3 & day == 7:#User delete
-                #user.delete()
-                pass
-    except KeyError:
-        pass

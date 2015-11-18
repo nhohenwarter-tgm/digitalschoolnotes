@@ -1,5 +1,5 @@
 Hallo {{firstname}},
-SDu bist seit einem gewissen Zeitraum inaktive. Falls du dich nicht bis {{ datum }} anmeldest
+Du bist seit einem gewissen Zeitraum inaktive. Falls du dich nicht bis {{ datum }} anmeldest
 wird dein Account und alle dazugehörigen Daten gelöscht.
 
 {{link}}
