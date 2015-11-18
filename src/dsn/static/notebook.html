@@ -63,16 +63,17 @@
                         <a class="glyphicon glyphicon-console" ng-click="code()"
                            style="text-decoration: none; color: black; cursor: pointer; cursor: hand;"></a>
                     </div>
+                    <div class="row">
+                        <a class="glyphicon glyphicon-bookmark" ng-click="createElementReference()"
+                           style="text-decoration: none; color: black; cursor: pointer; cursor: hand;"></a>
+                    </div>
                 </div>
             </div>
             <div class="col-md-10">
                 <div id="book" style="text-align: center;">
-                    <div>
-                        <div class="zoomTarget" id="testy" style="position: absolute; border: 1px solid black; background-color: red; width: 100px; height: 100px; top: {{ yPos['testy'] }}px; left: {{ xPos['testy'] }}px;">Asdf</div>
+                    <div compile="pages[1]">
+                        <div id="testy" style="position: absolute; border: 1px solid black; background-color: red; top: {{ yPos['testy'] }}px; left: {{ xPos['testy'] }}px;">Asdf</div>
                         <div class="zoomTarget" id="testy2" style="position: absolute; border: 1px solid black; background-color: blue; width: 100px; height: 100px; top: {{ yPos['testy2'] }}px; left: {{ xPos['testy2'] }}px;">Asdf2</div>
-                        <h3>Yay, Page 1! adasd</h3>
-
-                     <!-- hier werden auf klick ins heft elemente eingefügt.. -->
                     </div>
                     <div>
                         <h3>Yay, Page 2!</h3>
