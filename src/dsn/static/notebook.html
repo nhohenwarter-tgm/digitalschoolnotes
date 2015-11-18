@@ -1,10 +1,10 @@
 
-
+<script src="js/lib/ckeditor/ckeditor.js"></script>
+<script src="js/lib/ckeditor/samples/js/sample.js"></script>
 
 <div class="row">
     <div class="col-md-1"></div>
     <div class="col-md-10">
-
         <div class="row">
             <div class="col-md-4">
                 <h3><a ui-sref="management.notebooks" class="glyphicon glyphicon-arrow-left" style="text-decoration: none; color: black;"></a></h3>
@@ -13,6 +13,7 @@
                 <h3>{{ notebook.name }}</h3>
             </div>
         </div>
+
         <div class="row">
             <div class="col-md-1"></div>
             <div class="col-md-10" style="text-align: center;">
@@ -85,23 +86,18 @@
                     </div>
                     <div>
                         <h3>Yay, Page 5!</h3>
-                        <main>
-	                        <div class="adjoined-bottom">
-                                <div class="grid-container">
-			                        <div class="grid-width-100">
-				                        <div id="editor">
-					                        <h1>Hello world!</h1>
-				                        </div>
-			                        </div>
-		                        </div>
-	                        </div>
-                        </main>
-                        <script>
-	                        initSample();
-                        </script>
                     </div>
                     <div>
                         <h3>Yay, Page 6!</h3>
+                        <div data-ng-app="app" data-ng-controller="myCtrl">
+
+                            <h3>CKEditor 4.2:</h3>
+                            <div ng-repeat="editor in ckEditors">
+                                <textarea data-ng-model="editor.value" data-ck-editor></textarea>
+                                <br />
+                            </div>
+                            <button ng-click="addEditor()">New Editor</button>
+                        </div>
                     </div>
                 </div>
             </div>
