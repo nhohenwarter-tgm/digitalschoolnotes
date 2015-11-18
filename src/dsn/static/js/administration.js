@@ -196,11 +196,12 @@ administrationApp.controller('usermanagementCtrl', function ($scope, $http, $fil
         window.location.href = link;
     }
 
-    $scope.delete = function (email) {
-
-        deleteUser = $window.confirm('Wollen Sie den User ' + email + ' wirklich löschen?');
+    $scope.delete = function (email,index) {
+        deleteUser = true;
+        if($scope.users[index].delete_account == "Account löschen") {
+            deleteUser = $window.confirm('Wollen Sie den User ' + email + ' wirklich löschen?');
+        }
         if (deleteUser) {
-            alert('Der User ' + email + ' wurde erfolgreich gelöscht');
             $http({
                 method: 'POST',
                 url: '/api/admin_user',
@@ -218,6 +219,11 @@ administrationApp.controller('usermanagementCtrl', function ($scope, $http, $fil
                     $scope.users = data['test'];
                     $scope.len = data['len'];
                     $scope.l = Math.ceil($scope.len / $scope.itemsPerPage);
+                    if($scope.users[index].delete_account == "Account löschen"){
+                        alert('Löschen von User ' + email + ' wurde abgebrochen');
+                    }else{
+                        alert('Löschung vom User ' + email + ' wurde eingeleitet');
+                    }
                 })
                 .error(function (data) {
                 });
@@ -239,13 +245,10 @@ administrationApp.controller('usermanagementCtrl', function ($scope, $http, $fil
                 }
             })
                 .success(function (data) {
-                    $scope.users[index].security_level = securty_level;
-                    document.getElementById(email).selectedIndex = "" + securty_level - 1;
                 })
                 .error(function (data) {
                 });
         } else {
-            $scope.selectedDay;
             document.getElementById(email).selectedIndex = "" + securty_level_old - 1;
         }
     }
