@@ -1,5 +1,6 @@
 var mainApp = angular.module('mainApp');
 
+mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $sce, $window, loggedIn) {
 mainApp.controller('notebookEditCtrl', function($scope, $http, $stateParams, $sce, $window, loggedIn){
 
     $scope.code=function(){
@@ -69,6 +70,16 @@ myEl.append('<section > <textarea rows="6" cols="70" ui-codemirror="cmOption"></
         method: 'POST',
         url: '/api/get_notebook',
         data: {id: $stateParams.id}
+    }).success(function (data) {
+        $scope.notebook = JSON.parse(data['notebook']);
+        $scope.sites = $scope.notebook['content'];
+        loggedIn.getUser().then(function (data) {
+            var user = data['user'];
+            if ($scope.notebook['email'] == user['email']) {
+                $scope.publicViewed = false;
+            } else {
+                $scope.publicViewed = true;
+            }
     }).success(function(data){
         $scope.notebook = JSON.parse(data['notebook']);
         loggedIn.getUser().then(function(data){
@@ -79,6 +90,19 @@ myEl.append('<section > <textarea rows="6" cols="70" ui-codemirror="cmOption"></
                 $scope.publicViewed = true;
             }
 
+            angular.element('#book').booklet({
+                startingPage: $scope.notebook['numpages'] - 1,
+                next: '#goto-next',
+                prev: '#goto-prev',
+                easing: null,
+                easeIn: null,
+                easeOut: null,
+                shadows: false,
+                width: "1100",
+                height: "700",
+                pagePadding: 0
+            });
+            $scope.currentPage = $scope.notebook['numpages'] - 1;
             angular.element('#book').booklet({
                 startingPage: $scope.notebook['numpages']-1,
                 next: '#goto-next',
@@ -93,6 +117,14 @@ myEl.append('<section > <textarea rows="6" cols="70" ui-codemirror="cmOption"></
             });
             $scope.currentPage = $scope.notebook['numpages']-1;
 
+            angular.element('#goto-start').click(function (e) {
+                e.preventDefault();
+                angular.element('#book').booklet("gotopage", "start");
+            });
+            angular.element('#goto-end').click(function (e) {
+                e.preventDefault();
+                angular.element('#book').booklet("gotopage", "end");
+            });
             angular.element('#goto-start').click(function(e){
                 e.preventDefault();
                 angular.element('#book').booklet("gotopage", "start");
@@ -102,13 +134,24 @@ myEl.append('<section > <textarea rows="6" cols="70" ui-codemirror="cmOption"></
                 angular.element('#book').booklet("gotopage", "end");
             });
 
+            $scope.makeDraggable('testy', 1);
+            $scope.makeDraggable('testy2', 1);
             $scope.makeDraggable('testy',1);
             $scope.makeDraggable('testy2',1);
 
+        }, function (data) {
+            $scope.notebook = JSON.parse(data['notebook']);
+            $scope.publicViewed = true;
         }, function(data){
             $scope.notebook = JSON.parse(data['notebook']);
             $scope.publicViewed = true;
 
+            $('#book').booklet({
+                width: "",
+                height: "",
+                startingPage: $scope.notebook['numpages'] - 1,
+                next: '#goto-next',
+                prev: '#goto-prev'
             $('#book').booklet({
                 width: "",
                 height: "",
@@ -121,10 +164,10 @@ myEl.append('<section > <textarea rows="6" cols="70" ui-codemirror="cmOption"></
 
     angular.element('.zoomTarget').zoomTarget();
 
-    $scope.makeDraggable = function(id, page){
-        angular.element("#"+id).draggable({
-            containment: '.b-page-'+(page-1),
-            stop: function(){
+    $scope.makeDraggable = function (id, page) {
+        angular.element("#" + id).draggable({
+            containment: '.b-page-' + (page - 1),
+            stop: function () {
                 // Aktuelle Position speichern
                 /**
                  var finalPos = $(this).position();
@@ -132,7 +175,7 @@ myEl.append('<section > <textarea rows="6" cols="70" ui-codemirror="cmOption"></
                  sessionStorage.setItem('yPos_'+id, finalPos.top);
                  */
             },
-            create: function(){
+            create: function () {
                 // Position schon im Storage?
                 /**
                  if(sessionStorage.getItem('xPos_'+id) === null){
@@ -144,26 +187,64 @@ myEl.append('<section > <textarea rows="6" cols="70" ui-codemirror="cmOption"></
         });
 
         // Initiale Position von Div setzen
-        $scope.xPos[id] = sessionStorage.getItem('xPos_'+id);
-        $scope.yPos[id] = sessionStorage.getItem('yPos_'+id);
+        $scope.xPos[id] = sessionStorage.getItem('xPos_' + id);
+        $scope.yPos[id] = sessionStorage.getItem('yPos_' + id);
     };
 
-    $scope.toPage = function(page){
-        angular.element('#book').booklet("gotopage", page-1);
+    $scope.toPage = function (page) {
+        angular.element('#book').booklet("gotopage", page - 1);
         $scope.currentPage = page;
     };
 
+    $scope.createElementReference = function () {
+        var input = $window.prompt("Auf welche Seite mÃ¶chtest du referenzieren?", "");
+        if (input != null) {
     $scope.createElementReference = function(){
-        var input = $window.prompt("Auf welche Seite möchtest du referenzieren?","");
+        var input = $window.prompt("Auf welche Seite mï¿½chtest du referenzieren?","");
         if(input != null) {
             $scope.pages[1] = $scope.pages[1] + '<div id="reference_' + $scope.count['reference'] + '" ' +
                 'style="position: absolute;"><em>' +
-                '<a ng-click="toPage('+input+')">Siehe Seite '+input+'</a></em></div>';
+                '<a ng-click="toPage(' + input + ')">Siehe Seite ' + input + '</a></em></div>';
             $scope.makeDraggable('reference_' + $scope.count['reference'], 1);
             $scope.count['reference'] = $scope.count['reference'] + 1;
         }
     };
+
 });
+
+    $scope.deleteelement = function (id, art) {
+        $http({
+            method: 'POST',
+            url: '/api/delete_notebook_content',
+            data: {id: $stateParams.id, content_id: id, content_art: art}
+        }).success(function (data) {
+            $scope.notebook = JSON.parse(data['notebook']);
+            $scope.sites = $scope.notebook['content'];
+        });
+    };
+
+    $scope.addelement = function (art) {
+        $http({
+            method: 'POST',
+            url: '/api/add_notebook_content',
+            data: {id: $stateParams.id, content_art: art}
+        }).success(function (data) {
+            $scope.notebook = JSON.parse(data['notebook']);
+            $scope.sites = $scope.notebook['content'];
+        });
+    };
+
+
+    $scope.hoverIn = function () {
+        this.hoverEdit = true;
+    };
+
+    $scope.hoverOut = function () {
+        this.hoverEdit = false;
+    };
+
+})
+;
 
 mainApp.directive('compile', ['$compile', function ($compile) {
     return function(scope, element, attrs) {
@@ -173,6 +254,16 @@ mainApp.directive('compile', ['$compile', function ($compile) {
                 return scope.$eval(attrs.compile);
             },
             function(value) {
+                // when the 'compile' expression changes
+                // assign it into the current DOM
+                element.html(value);
+    return function (scope, element, attrs) {
+        scope.$watch(
+            function (scope) {
+                // watch the 'compile' expression for changes
+                return scope.$eval(attrs.compile);
+            },
+            function (value) {
                 // when the 'compile' expression changes
                 // assign it into the current DOM
                 element.html(value);
@@ -206,3 +297,12 @@ $scope.ckEditor = function() {
     }
 };
 
+                // compile the new DOM and link it to the current
+                // scope.
+                // NOTE: we only compile .childNodes so that
+                // we don't get into infinite loop compiling ourselves
+                $compile(element.contents())(scope);
+            }
+        );
+    };
+}]);

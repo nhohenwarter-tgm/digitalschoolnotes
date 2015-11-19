@@ -245,6 +245,13 @@ class User(Document):
                 raise SiteProfileNotAvailable
         return self._profile_cache
 
+class NotebookContent(EmbeddedDocument):
+    id = IntField()
+    art = StringField()
+    position_x = IntField()
+    position_y = IntField()
+    position_site = IntField()
+    data = StringField()
 
 """
 class NotebookElement(EmbeddedDocument):
@@ -270,6 +277,7 @@ class Notebook(Document):
 
 
 
+    content = EmbeddedDocumentListField(NotebookContent)
 
 class TimeTableElem(Document):
     subject = StringField(max_length=30)
