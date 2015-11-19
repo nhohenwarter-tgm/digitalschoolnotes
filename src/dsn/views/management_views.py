@@ -197,10 +197,11 @@ def view_editUser(request):
         user = request.user
         user.first_name=params['first_name']
         user.last_name=params['last_name']
-        if user.check_password(params['password_old']) == True:
-            user.set_password(params['password'])
-        else:
-            return JsonResponse({'message': "Das alte Passwort wiederholen"})
+        if params['password']!= "":
+            if user.check_password(params['password_old']) == True:
+                user.set_password(params['password'])
+            else:
+                return JsonResponse({'message': "Das alte Passwort wiederholen"})
         user.save()
         if user.email != params['email']:
             user.email=params['email']

@@ -1,6 +1,4 @@
 
-<script src="js/lib/ckeditor/ckeditor.js"></script>
-<script src="js/lib/ckeditor/samples/js/sample.js"></script>
 
 <div class="row">
     <div class="col-md-1"></div>
@@ -48,7 +46,7 @@
             <div class="col-md-1">
                 <div style="border: 1px solid black; font-size: 25px; text-align: center;" ng-hide="publicViewed">
                     <div class="row">
-                        <a class="glyphicon glyphicon-font"
+                        <a ng-click="addTextfield()" class="glyphicon glyphicon-font"
                            style="text-decoration: none; color: black; cursor: pointer; cursor: hand;"></a>
                     </div>
                     <div class="row">
@@ -93,20 +91,27 @@
                     </div>
                     <div>
                         <h3>Yay, Page 6!</h3>
-                        <div data-ng-app="app" data-ng-controller="myCtrl">
-
-                            <h3>CKEditor 4.2:</h3>
-                            <div ng-repeat="editor in ckEditors">
-                                <textarea data-ng-model="editor.value" data-ck-editor></textarea>
-                                <br />
+                        <main>
+                            <div class="adjoined-bottom">
+                                <div class="grid-container">
+                                    <div class="grid-width-100">
+                                        <div id="editor">
+                                            <h1>Text</h1>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <button ng-click="addEditor()">New Editor</button>
-                        </div>
+                        </main>
+                        <script>
+                            initSample();
+                        </script>
+                        <input type="button" ng-click="getValue()" name="re" value="click" />
                     </div>
                 </div>
             </div>
-            <div class="col-md-1"></div>
         </div>
+        <div class="col-md-1"></div>
     </div>
-    <div class="col-md-1"></div>
+</div>
+<div class="col-md-1"></div>
 </div>

@@ -21,19 +21,19 @@ mainApp.controller('notebookEditCtrl', function($scope, $http, $stateParams, $sc
                 $scope.publicViewed = true;
             }
 
-                angular.element('#book').booklet({
-                    startingPage: $scope.notebook['numpages']-1,
-                    next: '#goto-next',
-                    prev: '#goto-prev',
-                    easing:  null,
-	                easeIn:  null,
-	                easeOut: null,
-                    shadows: false,
-                    width: "1100",
-                    height: "700",
-                    pagePadding: 0
-                });
-                $scope.currentPage = $scope.notebook['numpages']-1;
+            angular.element('#book').booklet({
+                startingPage: $scope.notebook['numpages']-1,
+                next: '#goto-next',
+                prev: '#goto-prev',
+                easing:  null,
+                easeIn:  null,
+                easeOut: null,
+                shadows: false,
+                width: "1100",
+                height: "700",
+                pagePadding: 0
+            });
+            $scope.currentPage = $scope.notebook['numpages']-1;
 
             angular.element('#goto-start').click(function(e){
                 e.preventDefault();
@@ -69,15 +69,15 @@ mainApp.controller('notebookEditCtrl', function($scope, $http, $stateParams, $sc
             stop: function(){
                 // Aktuelle Position speichern
                 /**
-                var finalPos = $(this).position();
-                sessionStorage.setItem('xPos_'+id, finalPos.left);
-                sessionStorage.setItem('yPos_'+id, finalPos.top);
+                 var finalPos = $(this).position();
+                 sessionStorage.setItem('xPos_'+id, finalPos.left);
+                 sessionStorage.setItem('yPos_'+id, finalPos.top);
                  */
             },
             create: function(){
                 // Position schon im Storage?
                 /**
-                if(sessionStorage.getItem('xPos_'+id) === null){
+                 if(sessionStorage.getItem('xPos_'+id) === null){
                     sessionStorage.setItem('xPos_'+id, 0);
                     sessionStorage.setItem('yPos_'+id, 0);
                 }
@@ -110,49 +110,46 @@ mainApp.controller('notebookEditCtrl', function($scope, $http, $stateParams, $sc
 
 mainApp.directive('compile', ['$compile', function ($compile) {
     return function(scope, element, attrs) {
-      scope.$watch(
-        function(scope) {
-          // watch the 'compile' expression for changes
-          return scope.$eval(attrs.compile);
-        },
-        function(value) {
-          // when the 'compile' expression changes
-          // assign it into the current DOM
-          element.html(value);
+        scope.$watch(
+            function(scope) {
+                // watch the 'compile' expression for changes
+                return scope.$eval(attrs.compile);
+            },
+            function(value) {
+                // when the 'compile' expression changes
+                // assign it into the current DOM
+                element.html(value);
 
-          // compile the new DOM and link it to the current
-          // scope.
-          // NOTE: we only compile .childNodes so that
-          // we don't get into infinite loop compiling ourselves
-          $compile(element.contents())(scope);
-        }
-    );
-  };
-}]);    angular.element('app').app();
-    $scope.ckEditor = function() {
-        return {
-            require: '?ngModel',
-            link: function ($scope, elm, attr, ngModel) {
-
-                var ck = CKEDITOR.replace(elm[0]);
-
-                ck.on('pasteState', function () {
-                    $scope.$apply(function () {
-                        ngModel.$setViewValue(ck.getData());
-                    });
-                });
-
-                ngModel.$render = function (value) {
-                    ck.setData(ngModel.$modelValue);
-                };
+                // compile the new DOM and link it to the current
+                // scope.
+                // NOTE: we only compile .childNodes so that
+                // we don't get into infinite loop compiling ourselves
+                $compile(element.contents())(scope);
             }
-        }
+        );
     };
+}]);
+angular.element('app').app();
+$scope.ckEditor = function() {
+    return {
+        require: '?ngModel',
+        link: function ($scope, elm, attr, ngModel) {
 
-    $scope.myCtrl = function ($scope) {
-        $scope.ckEditors = [];
-        var rand = "" + (Math.random() * 10000);
-        $scope.ckEditors.push({value: rand});
+            var ck = CKEDITOR.replace(elm[0]);
+
+            ck.on('pasteState', function () {
+                $scope.$apply(function () {
+                    ngModel.$setViewValue(ck.getData());
+                });
+            });
+
+            ngModel.$render = function (value) {
+                ck.setData(ngModel.$modelValue);
+            };
+        }
     }
-});
+};
 
+$scope.addTextfield = function () {
+
+}

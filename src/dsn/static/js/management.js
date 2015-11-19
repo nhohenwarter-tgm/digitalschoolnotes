@@ -125,6 +125,10 @@ mainApp.controller('accsettingsCtrl', function ($scope, $http, $window, $state, 
         var password_old = $scope.old_pwd;
         var password_new = $scope.pwd;
         var password_repeat = $scope.pwdrepeat;
+        if(password_new == null){
+            password_new="";
+            password_old ="";
+        }
         if(password_new != password_repeat) {
             $scope.error = true;
             $scope.reset_error = 'Passwörter stimmen nicht überein\n';
