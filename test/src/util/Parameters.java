@@ -21,7 +21,7 @@ public class Parameters{
 
     public static String os = LINUX; //HIER OS AENDERN
     public static int browser = FIREFOX; //HIER BROWSER AENDERN
-    public static int port = 5003; //HIER PORT AENDERN
+    public static int port = 5004; //HIER PORT AENDERN
 
     public static boolean stable = false;
 
@@ -31,7 +31,7 @@ public class Parameters{
     // aktuelle Passwort des Users mit der obigen E-Mail Adresse
     public static String testingPwd = "12345678"; //HIER TEST-PASSWORT AENDERN
 
-    public static final int SLEEP_CAPTCHA = 20000; //HIER WARTEZEIT FUER CAPTCHA-EINGABE AENDERN
+    public static final int SLEEP_CAPTCHA = 5000; //HIER WARTEZEIT FUER CAPTCHA-EINGABE AENDERN
     public static final int SLEEP_PAGELOAD = 2500; //HIER WARTEZEIT FUER PAGE LOAD AENDERN
 
     public static String baseUrl = "";

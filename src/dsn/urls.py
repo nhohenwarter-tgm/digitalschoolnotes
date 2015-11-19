@@ -50,4 +50,7 @@ urlpatterns = [
     url(r'^api/oauth/google/response', 'dsn.views.mainpage_views.view_google_oauth_response', name="googleOauthResponse"),
     url(r'^api/oauth/fb/request', 'dsn.views.mainpage_views.view_fb_oauth_request', name="fbOauthRequest"),
     url(r'^api/oauth/fb/response', 'dsn.views.mainpage_views.view_fb_oauth_response', name="fbOauthResponse"),
+    url(r'^api/notebook/savefile', 'dsn.views.notebook_views.view_savefile', name="savefile"),
+    url(r'^api/notebook/deletefile', 'dsn.views.notebook_views.view_deletefile', name="deletefile"),
+    url(r'^api/notebook/getfileurl', 'dsn.views.notebook_views.view_getfileurl', name="getfileurl"),
 ]
