@@ -142,7 +142,6 @@ $scope.ckEditor = function() {
                     ngModel.$setViewValue(ck.getData());
                 });
             });
-
             ngModel.$render = function (value) {
                 ck.setData(ngModel.$modelValue);
             };
@@ -150,6 +149,3 @@ $scope.ckEditor = function() {
     }
 };
 
-$scope.addTextfield = function () {
-
-}
