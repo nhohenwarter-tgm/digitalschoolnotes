@@ -1,9 +1,12 @@
 var mainApp = angular.module('mainApp');
 
-mainApp.controller('notebookEditCtrl', function($scope, $http, $stateParams, loggedIn){
+mainApp.controller('notebookEditCtrl', function($scope, $http, $stateParams, $sce, $window, loggedIn){
     $scope.publicViewed = true;
     $scope.xPos = {};
     $scope.yPos = {};
+    $scope.pages = {};
+    $scope.count = {'reference': 0};
+    $scope.currentPage = 1;
     $http({
         method: 'POST',
         url: '/api/get_notebook',
@@ -30,6 +33,7 @@ mainApp.controller('notebookEditCtrl', function($scope, $http, $stateParams, log
                     height: "700",
                     pagePadding: 0
                 });
+                $scope.currentPage = $scope.notebook['numpages']-1;
 
                 angular.element('#goto-start').click(function(e){
                     e.preventDefault();
@@ -64,16 +68,20 @@ mainApp.controller('notebookEditCtrl', function($scope, $http, $stateParams, log
             containment: '.b-page-'+(page-1),
             stop: function(){
                 // Aktuelle Position speichern
+                /**
                 var finalPos = $(this).position();
                 sessionStorage.setItem('xPos_'+id, finalPos.left);
                 sessionStorage.setItem('yPos_'+id, finalPos.top);
+                 */
             },
             create: function(){
                 // Position schon im Storage?
+                /**
                 if(sessionStorage.getItem('xPos_'+id) === null){
                     sessionStorage.setItem('xPos_'+id, 0);
                     sessionStorage.setItem('yPos_'+id, 0);
                 }
+                 */
             }
         });
 
@@ -82,4 +90,42 @@ mainApp.controller('notebookEditCtrl', function($scope, $http, $stateParams, log
         $scope.yPos[id] = sessionStorage.getItem('yPos_'+id);
     };
 
+    $scope.toPage = function(page){
+        angular.element('#book').booklet("gotopage", page-1);
+        $scope.currentPage = page;
+    };
+
+    $scope.createElementReference = function(){
+        var input = $window.prompt("Auf welche Seite möchtest du referenzieren?","");
+        if(input != null) {
+            $scope.pages[1] = $scope.pages[1] + '<div id="reference_' + $scope.count['reference'] + '" ' +
+                'style="position: absolute;"><em>' +
+                '<a ng-click="toPage('+input+')">Siehe Seite '+input+'</a></em></div>';
+            $scope.makeDraggable('reference_' + $scope.count['reference'], 1);
+            $scope.count['reference'] = $scope.count['reference'] + 1;
+        }
+    };
+
 });
+
+mainApp.directive('compile', ['$compile', function ($compile) {
+    return function(scope, element, attrs) {
+      scope.$watch(
+        function(scope) {
+          // watch the 'compile' expression for changes
+          return scope.$eval(attrs.compile);
+        },
+        function(value) {
+          // when the 'compile' expression changes
+          // assign it into the current DOM
+          element.html(value);
+
+          // compile the new DOM and link it to the current
+          // scope.
+          // NOTE: we only compile .childNodes so that
+          // we don't get into infinite loop compiling ourselves
+          $compile(element.contents())(scope);
+        }
+    );
+  };
+}]);
