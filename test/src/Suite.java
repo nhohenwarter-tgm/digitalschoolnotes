@@ -5,10 +5,7 @@ import junit.framework.TestSuite;
 import mainpage.Login;
 import mainpage.RegisterUser;
 import mainpage.ResetPassword;
-import management.NotebookOptions;
-import management.Profile;
-import management.ProfileSearch;
-import management.PublicNotebooks;
+import management.*;
 
 public class Suite {
 
@@ -23,6 +20,7 @@ public class Suite {
         suite.addTestSuite(Notebook.class);
         suite.addTestSuite(NotebookOptions.class);
         suite.addTestSuite(PublicNotebooks.class);
+        suite.addTestSuite(EditAccount.class);
         return suite;
     }
 
