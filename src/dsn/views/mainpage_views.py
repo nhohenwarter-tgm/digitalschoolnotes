@@ -1,4 +1,4 @@
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.views.decorators.csrf import ensure_csrf_cookie
 from mongoengine import DoesNotExist
 import json
@@ -20,7 +20,7 @@ def view_csrf_get(request):
     :param request:
     :return:
     """
-    return JsonResponse({'message':'successssss'})
+    return JsonResponse({})
 
 
 def view_getLoggedInUser(request):
@@ -141,13 +141,15 @@ def view_logout(request):
     return JsonResponse({})
 
 def view_google_oauth_request(request):
-    return oauth_google_request(request)
+    return HttpResponseRedirect(oauth_google_request(request))
 
 def view_google_oauth_response(request):
-    return oauth_google_callback(request)
+    return HttpResponseRedirect(oauth_google_callback(request))
 
 def view_fb_oauth_request(request):
-    return oauth_fb_request(request)
+    url = oauth_fb_request(request)
+    return HttpResponseRedirect(url)
 
 def view_fb_oauth_response(request):
-    return oauth_fb_callback(request)
+    url = oauth_fb_callback(request)
+    return HttpResponseRedirect(url)
