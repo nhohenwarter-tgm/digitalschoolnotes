@@ -113,6 +113,12 @@ mainApp.controller('loginCtrl', function($scope, $window, $http, $state, $rootSc
         $state.go('mainpage.content');
     });
 
+    console.log($state.current.name)
+    if($state.current.name == 'mainpage.login.oautherror'){
+        $scope.error = true;
+        $scope.login_error = 'Diese E-Mail Adresse wird bereits verwendet!';
+    }
+
     $scope.submitLogin = function(){
         $scope.submitted = true;
         var email = $scope.email;

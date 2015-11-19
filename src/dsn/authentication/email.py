@@ -26,3 +26,11 @@ def inactivemail(email, firstname, link, datum):
     msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
     msg.attach_alternative(html_content, "text/html")
     msg.send()
+
+def deleteemail(email, firstname, datum):
+    subject, from_email, to = 'Account löschen', '"DigitalSchoolNotes" <noreply@digitalschoolnotes.com>', email
+    text_content = render_to_string('email/delete.txt',{'firstname':firstname, 'datum':datum})
+    html_content = render_to_string('email/delete.html',{'firstname':firstname, 'datum':datum})
+    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()

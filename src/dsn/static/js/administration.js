@@ -194,13 +194,14 @@ administrationApp.controller('usermanagementCtrl', function ($scope, $http, $fil
             + "&body=" + escape(body);
 
         window.location.href = link;
-    }
+    };
 
-    $scope.delete = function (email) {
-
-        deleteUser = $window.confirm('Wollen Sie den User ' + email + ' wirklich löschen?');
+    $scope.delete = function (email,index) {
+        deleteUser = true;
+        if($scope.users[index].delete_account == "Account löschen") {
+            deleteUser = $window.confirm('Wollen Sie den User ' + email + ' wirklich löschen?');
+        }
         if (deleteUser) {
-            alert('Der User ' + email + ' wurde erfolgreich gelöscht');
             $http({
                 method: 'POST',
                 url: '/api/admin_user',
@@ -218,17 +219,21 @@ administrationApp.controller('usermanagementCtrl', function ($scope, $http, $fil
                     $scope.users = data['test'];
                     $scope.len = data['len'];
                     $scope.l = Math.ceil($scope.len / $scope.itemsPerPage);
+                    if($scope.users[index].delete_account == "Account löschen"){
+                        alert('Löschen von User ' + email + ' wurde abgebrochen');
+                    }else{
+                        alert('Löschung vom User ' + email + ' wurde eingeleitet');
+                    }
                 })
                 .error(function (data) {
                 });
         }
-    }
+    };
 
     $scope.update = function (email, securty_level, index) {
         securty_level_old = $scope.users[index].security_level;
         Userup = $window.confirm('Soll der User ' + email + ' wirklich auf die Berechtigungsstufe ' + $scope.security_list[securty_level - 1].name + ' geändert werden?');
         if (Userup) {
-            alert('Der User ' + email + ' wurde erfolgreich auf ' + $scope.security_list[securty_level - 1].name + 'geändert');
             $http({
                 method: 'POST',
                 url: '/api/admin_user_update',
@@ -239,16 +244,18 @@ administrationApp.controller('usermanagementCtrl', function ($scope, $http, $fil
                 }
             })
                 .success(function (data) {
-                    $scope.users[index].security_level = securty_level;
-                    document.getElementById(email).selectedIndex = "" + securty_level - 1;
+                    if(data['error'] != null){
+                        alert(data['error']);
+                    }else{
+                        alert('Der User ' + email + ' wurde erfolgreich auf ' + $scope.security_list[securty_level - 1].name + 'geändert');
+                    }
                 })
                 .error(function (data) {
                 });
         } else {
-            $scope.selectedDay;
             document.getElementById(email).selectedIndex = "" + securty_level_old - 1;
         }
-    }
+    };
 
     $scope.search = function (current) {
         $http({

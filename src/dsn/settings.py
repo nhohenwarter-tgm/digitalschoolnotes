@@ -70,6 +70,7 @@ INSTALLED_APPS = (
 #   'django.contrib.staticfiles',
     'mongoengine.django.mongo_auth',
     'djangular',
+    'dsn',
 )
 
 MIDDLEWARE_CLASSES = (
