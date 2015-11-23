@@ -112,7 +112,7 @@ def view_createNotebook(request):
         form.last_change = datetime.now()
         form.email = request.user.email
         nb = Notebook(name=form.name, is_public=form.is_public, create_date=form.create_date,
-                      last_change=form.last_change, email=form.email, numpages=2)
+                      last_change=form.last_change, email=form.email, numpages=6)
         nb.save()
         return JsonResponse({'message': None})
 
@@ -165,9 +165,7 @@ def view_add_notebook_content(request):
                 id = notebook.content[0].id + 1
         except NoneType:
             id = 1
-        else:
-            id = notebook.content[0].id + 1
-        notebook.content.append(NotebookContent(id=id, art=params['content_art'], position_x = 1, position_y = 1, position_site = 1,  data = "E"))
+        notebook.content.append(NotebookContent(id=id, art=params['content_art'], position_x = 1, position_y = 1, position_site = params['content_site'],  data = "E"))
         notebook.save()
         notebook = Notebook.objects.get(id=params['id']).to_json()
         return JsonResponse({"notebook": notebook})
