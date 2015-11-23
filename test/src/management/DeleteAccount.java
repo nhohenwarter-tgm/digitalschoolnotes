@@ -14,7 +14,7 @@ import java.util.Random;
 /**
  * Testet ob der Benutzer seinen eigenen Account löschen kann
  */
-public class DelteAccount extends TestCase{
+public class DeleteAccount extends TestCase{
     private WebDriver driver;
     private String baseUrl;
     private boolean acceptNextAlert = true;
