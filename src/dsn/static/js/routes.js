@@ -72,6 +72,17 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         }
     });
 
+    // LOGIN OAUTHERROR
+    $stateProvider.state('mainpage.login.oautherror', {
+        url: '/oautherror',
+        templateUrl: '/mainpage/login.html',
+        controller: 'loginCtrl',
+        data: {
+            authorization: false,
+            admin: false
+        }
+    });
+
     // VALIDATE EMAIL
     $stateProvider.state('mainpage.validate_email', {
         url: '/validate/{hash:[0-9a-z]{64,64}}', //

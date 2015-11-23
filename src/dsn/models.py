@@ -7,27 +7,6 @@ from bson import ObjectId
 import datetime
 
 from dsn.settings import SALT
-"""
-Example:
-
-class Food(Document):
-    name = StringField(max_length=50)
-    votes = IntField(default=0)
-"""
-
-"""
-class Heft(Document):
-    name = models.CharField(max_length=100)
-    auto_creat = models.BooleanField()
-    share_with = models.
-    date =
-    titels =
-"""
-
-
-#TODO Add model for notebook
-#TODO Add model for timetable
-
 
 class AuthUserManager(UserManager):
 
@@ -161,6 +140,32 @@ class User(Document):
 
         user = cls(id=ObjectId(), email=email, date_joined=now, first_name=first_name, last_name=last_name)
         user.set_password(password)
+        user.save()
+        return user
+
+    @classmethod
+    def create_oauth_user(cls, email, first_name, last_name, provider, id):
+        """Create (and save) a new user with the given password and
+        email address.
+        """
+        now = datetime.datetime.now()
+
+        # Normalize the address by lowercasing the domain part of the email
+        # address.
+        if email is not None:
+            try:
+                email_name, domain_part = email.strip().split('@', 1)
+            except ValueError:
+                pass
+            else:
+                email = '@'.join([email_name.lower(), domain_part.lower()])
+
+        user = cls(id=ObjectId(), email=email, date_joined=now, first_name=first_name, last_name=last_name)
+        user.set_password("")
+
+        oauth = OAuth(provider=provider, id=id)
+        user.is_active=True
+        user.oauth=oauth
         user.save()
         return user
 

@@ -83,6 +83,16 @@ def view_createNotebook(request):
         return JsonResponse({})
     if request.method == "POST":
         params = json.loads(request.body.decode('utf-8'))
+
+        notebooks = Notebook.objects.filter(email=request.user.email).count()
+
+        if request.user.is_prouser:
+            if notebooks >= 20: #TODO Maximale Heftanzahl festlegen
+                return JsonResponse({'message': 'Maximale Anzahl an Heften bereits erreicht!'})
+        else:
+            if notebooks >= 10:
+                return JsonResponse({'message': 'Maximale Anzahl an Heften bereits erreicht!'})
+
         form = NotebookForm()
         try:
             Notebook.objects.get(name=params['name'], email=request.user.email)
@@ -197,10 +207,11 @@ def view_editUser(request):
         user = request.user
         user.first_name=params['first_name']
         user.last_name=params['last_name']
-        if user.check_password(params['password_old']) == True:
-            user.set_password(params['password'])
-        else:
-            return JsonResponse({'message': "Das alte Passwort wiederholen"})
+        if params['password']!= "":
+            if user.check_password(params['password_old']) == True:
+                user.set_password(params['password'])
+            else:
+                return JsonResponse({'message': "Das alte Passwort wiederholen"})
         user.save()
         if user.email != params['email']:
             user.email=params['email']

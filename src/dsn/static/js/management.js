@@ -125,9 +125,13 @@ mainApp.controller('accsettingsCtrl', function ($scope, $http, $window, $state, 
         var password_old = $scope.old_pwd;
         var password_new = $scope.pwd;
         var password_repeat = $scope.pwdrepeat;
+        if(password_new == null){
+            password_new="";
+            password_old ="";
+        }
         if(password_new != password_repeat) {
             $scope.error = true;
-            $scope.reset_error = 'Passwörter stimmen nicht überein\n';
+            $scope.reset_error = 'Passwï¿½rter stimmen nicht ï¿½berein\n';
         }
         password_new = CryptoJS.SHA256(password_new);
         password_old = CryptoJS.SHA256(password_old);
@@ -218,6 +222,14 @@ mainApp.controller('notebooksCtrl', function ($scope, $http, $state, $window) {
 
     $scope.redirectEdit = function (id) {
         $state.go('management.notebook_edit', {'id': id});
+    };
+
+    $scope.redirectCreate = function () {
+        if($scope.notebooks.length >= 10){ //TODO Maximale Heftanzahl festlegen
+            alert("Du hast die maximale Anzahl an Heften bereits erreicht!");
+        }else {
+            $state.go('management.notebooks_create');
+        }
     };
 });
 

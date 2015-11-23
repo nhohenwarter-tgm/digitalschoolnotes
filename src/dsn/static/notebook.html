@@ -1,7 +1,8 @@
+
+
 <div class="row">
     <div class="col-md-1"></div>
     <div class="col-md-10">
-
         <div class="row">
             <div class="col-md-4">
                 <h3><a ui-sref="management.notebooks" class="glyphicon glyphicon-arrow-left" style="text-decoration: none; color: black;"></a></h3>
@@ -10,6 +11,7 @@
                 <h3>{{ notebook.name }}</h3>
             </div>
         </div>
+
         <div class="row">
             <div class="col-md-1"></div>
             <div class="col-md-10" style="text-align: center;">
@@ -44,7 +46,7 @@
             <div class="col-md-1">
                 <div style="border: 1px solid black; font-size: 25px; text-align: center;" ng-hide="publicViewed">
                     <div class="row">
-                        <a class="glyphicon glyphicon-font"
+                        <a ng-click="addTextfield()" class="glyphicon glyphicon-font"
                            style="text-decoration: none; color: black; cursor: pointer; cursor: hand;"></a>
                     </div>
                     <div class="row">
@@ -103,10 +105,10 @@ I mean&amp;quot;&lt;/em&gt;... but might not match your style.
                     </div>
                     <div>
                         <h3>Yay, Page 3!</h3>
+                        <div compile="divHtmlVar" ></div>
+                        <!--<input type="hidden" value="0" id="theValue" />
 
-                        <input type="hidden" value="0" id="theValue" />
-
-<p><a href="javascript:;" ng-click="addElement();"></a></p>
+<p><a href="javascript:;" ng-click="addElement();"></a></p> -->
 
 <div id="myDiv">  </div>
                     </div>
@@ -122,13 +124,29 @@ I mean&amp;quot;&lt;/em&gt;... but might not match your style.
                     </div>
                     <div>
                         <h3>Yay, Page 6!</h3>
+                        <main>
+                            <div class="adjoined-bottom">
+                                <div class="grid-container">
+                                    <div class="grid-width-100">
+                                        <div id="editor">
+                                            <h1>Text</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </main>
+                        <script>
+                            initSample();
+                        </script>
+                        <input type="button" ng-click="getValue()" name="re" value="click" />
                         sd
-                        <div compile="divHtmlVar" ></div>
+
                     </div>
                 </div>
             </div>
             <div class="col-md-1"></div>
         </div>
     </div>
-    <div class="col-md-1"></div>
+</div>
+<div class="col-md-1"></div>
 </div>
