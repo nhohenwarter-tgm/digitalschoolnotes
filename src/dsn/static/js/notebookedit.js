@@ -28,10 +28,11 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
          newdiv.innerHTML = '<section > <textarea rows="6" cols="70" ui-codemirror="cmOption"></textarea> Mode : <select ng-model="mode" ng-options="m for m in modes" ng-change="modeChanged()"></select> </section>';
 
          ni.appendChild(newdiv); **/
-
+            
             //Methode3 --> funktioniert
-        alert("hhh");
-        $scope.divHtmlVar = $scope.divHtmlVar + '<section> <textarea class="codestyle" rows="6" cols="70" ui-codemirror="cmOption"></textarea> Mode : <select ng-model="mode" ng-options="m for m in modes" ng-change="modeChanged()"></select> </section>';
+         $scope.divHtmlVar = $scope.divHtmlVar + '<section> <textarea class="codestyle" rows="6" cols="70" ui-codemirror="cmOption"></textarea> Mode : <select ng-model="mode" ng-options="m for m in modes" ng-change="modeChanged()"></select> </section>';
+
+        //change event fuer textarea
     };
     // The modes
     $scope.modes = ['Scheme', 'XML', 'Javascript', 'clike', 'python'];
@@ -44,12 +45,13 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         indentWithTabs: true,
         onLoad: function (_cm) {
 
-            // HACK to have the codemirror instance in the scope...
-            $scope.modeChanged = function () {
-                _cm.setOption("mode", $scope.mode.toLowerCase());
-            };
-        }
-    };
+          // HACK to have the codemirror instance in the scope...
+          $scope.modeChanged = function () {
+              _cm.setOption("mode", $scope.mode.toLowerCase());
+          };
+      }
+      //wie oben ng-change??? fuer speichern wenn etwas geaendert wurde
+  };
 
     /**Initial code content...
      $scope.cmModel = ';; Scheme code in here.\n' +
@@ -154,19 +156,14 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         $scope.currentPage = page;
     };
 
-    $scope.createElementReference = function () {
-        var input = $window.prompt("Auf welche Seite mÃ¶chtest du referenzieren?", "");
-        if (input != null) {
-            $scope.createElementReference = function () {
-                var input = $window.prompt("Auf welche Seite mï¿½chtest du referenzieren?", "");
-                if (input != null) {
-                    $scope.pages[1] = $scope.pages[1] + '<div id="reference_' + $scope.count['reference'] + '" ' +
-                        'style="position: absolute;"><em>' +
-                        '<a ng-click="toPage(' + input + ')">Siehe Seite ' + input + '</a></em></div>';
-                    $scope.makeDraggable('reference_' + $scope.count['reference'], 1);
-                    $scope.count['reference'] = $scope.count['reference'] + 1;
-                }
-            };
+    $scope.createElementReference = function(){
+        var input = $window.prompt("Auf welche Seite möchtest du referenzieren?","");
+        if(input != null) {
+            $scope.pages[1] = $scope.pages[1] + '<div id="reference_' + $scope.count['reference'] + '" ' +
+                'style="position: absolute;"><em>' +
+                '<a ng-click="toPage('+input+')">Siehe Seite '+input+'</a></em></div>';
+            $scope.makeDraggable('reference_' + $scope.count['reference'], 1);
+            $scope.count['reference'] = $scope.count['reference'] + 1;
         }
     };
 
@@ -214,25 +211,12 @@ mainApp.directive('compile', ['$compile', function ($compile) {
                 // when the 'compile' expression changes
                 // assign it into the current DOM
                 element.html(value);
-                return function (scope, element, attrs) {
-                    scope.$watch(
-                        function (scope) {
-                            // watch the 'compile' expression for changes
-                            return scope.$eval(attrs.compile);
-                        },
-                        function (value) {
-                            // when the 'compile' expression changes
-                            // assign it into the current DOM
-                            element.html(value);
 
-                            // compile the new DOM and link it to the current
-                            // scope.
-                            // NOTE: we only compile .childNodes so that
-                            // we don't get into infinite loop compiling ourselves
-                            $compile(element.contents())(scope);
-                        }
-                    );
-                };
+                // compile the new DOM and link it to the current
+                // scope.
+                // NOTE: we only compile .childNodes so that
+                // we don't get into infinite loop compiling ourselves
+                $compile(element.contents())(scope);
             }
         )
     }
