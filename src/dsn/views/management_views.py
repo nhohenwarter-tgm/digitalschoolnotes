@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from dsn.models import TimeTable,TimeTableTime,TimeTableField, User, Notebook
+from dsn.models import TimeTable, TimeTableTime, TimeTableField, User, Notebook, NotebookContent
 from dsn.forms import NotebookForm
 from dsn.authentication.account_delete import delete_account
 
@@ -12,6 +12,8 @@ from django.contrib.auth import logout
 from dsn.authentication.registration import create_validation_token
 from dsn.authentication.email import validationmail
 from django.contrib.auth.hashers import *
+
+
 def view_get_timetable(request):
     """
     Stundenplan-Daten
@@ -23,48 +25,52 @@ def view_get_timetable(request):
     if request.method == "POST":
         email = request.user.email
         try:
-            timetable=TimeTable.objects.get(email=email)
+            timetable = TimeTable.objects.get(email=email)
         except DoesNotExist:
-            timetable=TimeTable()
+            timetable = TimeTable()
             timetable.email = email
 
             timetable.times = []
-            for x in range(1,11):
-                timetable.times.append(TimeTableTime(row=x,start="00:00",end="00:00"))
+            for x in range(1, 11):
+                timetable.times.append(TimeTableTime(row=x, start="00:00", end="00:00"))
 
             timetable.fields = []
-            for x in range(1,11):
-                for z in range(1,7):
-                    timetable.fields.append(TimeTableField(id=(x*10+z),subject="",teacher="",room="",notebook=""))
+            for x in range(1, 11):
+                for z in range(1, 7):
+                    timetable.fields.append(
+                        TimeTableField(id=(x * 10 + z), subject="", teacher="", room="", notebook=""))
 
             timetable.save()
         return JsonResponse({'timetable': timetable.to_json()})
+
 
 def view_add_timetable(request):
     if not request.user.is_authenticated():
         return JsonResponse({})
     if request.method == "POST":
         params = json.loads(request.body.decode('utf-8'))
-        timetable=TimeTable.objects.get(email=request.user.email)
-        fields=timetable.fields.get(id=params["fieldId"])
-        fields.subject=params["subject"]
-        fields.teacher=params["teacher"]
-        fields.room=params["room"]
-        fields.notebook=params["notebook"]
+        timetable = TimeTable.objects.get(email=request.user.email)
+        fields = timetable.fields.get(id=params["fieldId"])
+        fields.subject = params["subject"]
+        fields.teacher = params["teacher"]
+        fields.room = params["room"]
+        fields.notebook = params["notebook"]
         timetable.save()
         return JsonResponse({})
+
 
 def view_add_times(request):
     if not request.user.is_authenticated():
         return JsonResponse({})
     if request.method == "POST":
         params = json.loads(request.body.decode('utf-8'))
-        timetable=TimeTable.objects.get(email=request.user.email)
-        times=timetable.times.get(row=params["rowId"])
-        times.start=params["start"]
-        times.end=params["end"]
+        timetable = TimeTable.objects.get(email=request.user.email)
+        times = timetable.times.get(row=params["rowId"])
+        times.start = params["start"]
+        times.end = params["end"]
         timetable.save()
         return JsonResponse({})
+
 
 def view_getProfile(request):
     if not request.user.is_authenticated():
@@ -96,7 +102,7 @@ def view_createNotebook(request):
         form = NotebookForm()
         try:
             Notebook.objects.get(name=params['name'], email=request.user.email)
-            return JsonResponse({"message":"Name bereits vergeben!"})
+            return JsonResponse({"message": "Name bereits vergeben!"})
         except DoesNotExist:
             pass
 
@@ -105,7 +111,8 @@ def view_createNotebook(request):
         form.create_date = datetime.now()
         form.last_change = datetime.now()
         form.email = request.user.email
-        nb = Notebook(name=form.name, is_public=form.is_public, create_date= form.create_date, last_change=form.last_change, email=form.email, numpages=2)
+        nb = Notebook(name=form.name, is_public=form.is_public, create_date=form.create_date,
+                      last_change=form.last_change, email=form.email, numpages=2)
         nb.save()
         return JsonResponse({'message': None})
 
@@ -115,7 +122,7 @@ def view_showNotebook(request):
         return JsonResponse({})
     if request.method == "GET":
         notebooks = Notebook.objects.filter(email=request.user.email).to_json()
-    return JsonResponse({"notebooks":notebooks})
+    return JsonResponse({"notebooks": notebooks})
 
 
 def view_editNotebook(request):
@@ -125,14 +132,14 @@ def view_editNotebook(request):
         params = json.loads(request.body.decode('utf-8'))
         notebook = Notebook.objects.get(id=params['id'])
         try:
-            if(notebook.name!=params['name']):
+            if (notebook.name != params['name']):
                 Notebook.objects.get(name=params['name'], email=request.user.email)
-                return JsonResponse({"message":"Name bereits vergeben!"})
+                return JsonResponse({"message": "Name bereits vergeben!"})
         except DoesNotExist:
             pass
-        notebook.name=params['name']
-        notebook.is_public=params['is_public']
-        notebook.last_change=datetime.now()
+        notebook.name = params['name']
+        notebook.is_public = params['is_public']
+        notebook.last_change = datetime.now()
         notebook.save()
         return JsonResponse({'message': None})
 
@@ -142,8 +149,37 @@ def view_get_notebooks(request):
         return JsonResponse({})
     if request.method == "POST":
         notebooks = Notebook.objects.filter(email=request.user.email).to_json()
-        return JsonResponse({"notebooks":notebooks})
+        return JsonResponse({"notebooks": notebooks})
 
+
+def view_add_notebook_content(request):
+    if not request.user.is_authenticated():
+        return JsonResponse({})
+    if request.method == "POST":
+        params = json.loads(request.body.decode('utf-8'))
+        notebook = Notebook.objects.get(id=params['id'])
+        id = len(Notebook.objects(__raw__={'content.art': params['content_art']}))+1
+        notebook.content.append(NotebookContent(id=id, art=params['content_art'], position_x = 1, position_y = 1, position_site = 1,  data = "D"))
+        notebook.save()
+        notebook = Notebook.objects.get(id=params['id']).to_json()
+        return JsonResponse({"notebook": notebook})
+
+def view_delete_notebook_content(request):
+    if not request.user.is_authenticated():
+        return JsonResponse({})
+    if request.method == "POST":
+        params = json.loads(request.body.decode('utf-8'))
+        notebook = Notebook.objects.get(id=params['id'])
+        content = notebook.content
+        index = -1
+        for i in content:
+            index = index + 1
+            if i.id == params['content_id'] and i.art == params['content_art']:
+                del(content[index])
+                break
+        notebook.save()
+        notebook = Notebook.objects.get(id=params['id']).to_json()
+        return JsonResponse({"notebook": notebook})
 
 def view_get_notebook(request):
     if not request.user.is_authenticated():
@@ -154,15 +190,15 @@ def view_get_notebook(request):
             try:
                 notebook = Notebook.objects.get(id=params['id']).to_json()
             except:
-                return JsonResponse({"error":True})
+                return JsonResponse({"error": True})
         elif 'name' in params:
             try:
                 notebook = Notebook.objects.get(name=params['name']).to_json()
             except:
-                return JsonResponse({"error":True})
+                return JsonResponse({"error": True})
         else:
-            return JsonResponse({"notebook":None})
-        return JsonResponse({"notebook":notebook})
+            return JsonResponse({"notebook": None})
+        return JsonResponse({"notebook": notebook})
 
 
 def view_getOtherProfile(request):
@@ -171,11 +207,13 @@ def view_getOtherProfile(request):
     if request.method == "POST":
         profiles = []
         params = json.loads(request.body.decode('utf-8'))
-        von = (params['Page']-1)*params['counter']
-        bis = params['counter']*params['Page']
+        von = (params['Page'] - 1) * params['counter']
+        bis = params['counter'] * params['Page']
         try:
             if bool(params['searchtext'] and params['searchtext'].strip()):
-                users = User.objects(Q(email__icontains=params['searchtext']) | Q(first_name__icontains=params['searchtext']) | Q(last_name__icontains=params['searchtext']))
+                users = User.objects(
+                    Q(email__icontains=params['searchtext']) | Q(first_name__icontains=params['searchtext']) | Q(
+                        last_name__icontains=params['searchtext']))
                 length = len(users)
                 users = users[von:bis]
                 for user in users:
@@ -185,10 +223,10 @@ def view_getOtherProfile(request):
                         "last_name": user.last_name,
                         "id": str(user.id),
                     })
-                return JsonResponse({"profiles":profiles, 'len': length})
-            return JsonResponse({"profiles":profiles, 'len': 0})
+                return JsonResponse({"profiles": profiles, 'len': length})
+            return JsonResponse({"profiles": profiles, 'len': 0})
         except KeyError:
-            return JsonResponse({"profiles":profiles, 'len': 0})
+            return JsonResponse({"profiles": profiles, 'len': 0})
 
 
 def view_getUserSettings(request):
@@ -198,6 +236,7 @@ def view_getUserSettings(request):
         user = request.user
         return JsonResponse({"first_name": user.first_name, "last_name": user.last_name,
                              "email": user.email, "password": user.password})
+
 
 def view_editUser(request):
     if not request.user.is_authenticated():
@@ -212,10 +251,16 @@ def view_editUser(request):
                 user.set_password(params['password'])
             else:
                 return JsonResponse({'message': "Das alte Passwort wiederholen"})
+        user.first_name = params['first_name']
+        user.last_name = params['last_name']
+        if user.check_password(params['password_old']) == True:
+            user.set_password(params['password'])
+        else:
+            return JsonResponse({'message': "Das alte Passwort wiederholen"})
         user.save()
         if user.email != params['email']:
-            user.email=params['email']
-            user.is_active=False;
+            user.email = params['email']
+            user.is_active = False;
             user.save()
             link = create_validation_token(params['email'])
             validationmail(params['email'], params['first_name'], link)
@@ -239,6 +284,7 @@ def view_delete_notebook(request):
             return JsonResponse({})
         except DoesNotExist:
             return JsonResponse({"error": True})
+
 
 def view_delete_account(request):
     if not request.user.is_authenticated():
