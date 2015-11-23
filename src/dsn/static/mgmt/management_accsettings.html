@@ -3,6 +3,14 @@
     <span class="col-md-4"></span>
                 <span class="col-md-4">
                     <h2 class="row" style="text-align: center;">Account Einstellungen</h2>
+                    <h5 style="padding-top: 20px;">Passwort</h5>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span ng-bind="message" style="color: red;"></span>
+                                <p  style="color: red;" ng-show="(submitted || editUser.old_pwd.$dirty) && editUser.old_pwd.$error.required">Bitte gib dein Passwort ein.</p>
+                                <input class="form-control" id="old_pwd" type="password" placeholder="aktuelles Passwort" name="old_pwd" ng-model="old_pwd" required/>
+                            </div>
+                        </div>
                     <h4 style="padding-top: 20px;">Vornamen</h4>
                     <div class="row">
                         <div class="col-md-12">
@@ -28,17 +36,8 @@
                                    ng-pattern="/[a-z0-9!#$%&'*+=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/" required/>
                         </div>
                     </div>
+                        </div>
                         <h4 style="padding-top: 20px;">Passwort &auml;ndern</h4>
-                        <h5 style="padding-top: 20px;">altes Passwort</h5>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <span ng-bind="message" style="color: red;"></span>
-                                <p  style="color: red;" ng-show="(submitted || editUser.old_pwd.$dirty) && editUser.old_pwd.$error.required">Bitte gib dein Passwort nochmal an.</p>
-                                <input class="form-control" id="old_pwd" type="password" placeholder="altes Passwort" name="old_pwd" ng-model="old_pwd" required/>
-                            </div>
-                        </div>
-                        </div>
-
                         <h5 style="padding-top: 20px;">neues Passwort</h5>
                         <div class="row">
                             <div class="col-md-12">
