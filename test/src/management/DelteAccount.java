@@ -74,7 +74,7 @@ public class DelteAccount extends TestCase{
      * @throws Exception
      */
     @Test
-    public void testEditName() throws Exception {
+    public void testDeleteUser() throws Exception {
         driver.get(baseUrl + "/management");
         driver.findElement(By.partialLinkText("Account Settings")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
