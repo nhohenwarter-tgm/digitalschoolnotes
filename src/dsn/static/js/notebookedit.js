@@ -1,6 +1,64 @@
 var mainApp = angular.module('mainApp');
 
 mainApp.controller('notebookEditCtrl', function($scope, $http, $stateParams, $sce, $window, loggedIn){
+
+    $scope.code=function(){
+        //$scope.thisCanBeusedInsideNgBindHtml += "<html>hhhhh</html>";
+        //Methode1
+        /**
+        var myEl = angular.element( document.querySelector( '#test' ) );
+myEl.append('<section > <textarea rows="6" cols="70" ui-codemirror="cmOption"></textarea> Mode : <select ng-model="mode" ng-options="m for m in modes" ng-change="modeChanged()"></select> </section>');
+
+
+        //Methode2
+        var ni = document.getElementById('myDiv');
+
+  var numi = document.getElementById('theValue');
+
+  var num = (document.getElementById('theValue').value -1)+ 2;
+
+  numi.value = num;
+
+  var newdiv = document.createElement('div');
+
+  var divIdName = 'my'+num+'Div';
+
+  newdiv.setAttribute('id',divIdName);
+
+  newdiv.innerHTML = '<section > <textarea rows="6" cols="70" ui-codemirror="cmOption"></textarea> Mode : <select ng-model="mode" ng-options="m for m in modes" ng-change="modeChanged()"></select> </section>';
+
+  ni.appendChild(newdiv); **/
+
+        //Methode3 --> funktioniert
+        alert("hhh");
+         $scope.divHtmlVar = $scope.divHtmlVar + '<section> <textarea class="codestyle" rows="6" cols="70" ui-codemirror="cmOption"></textarea> Mode : <select ng-model="mode" ng-options="m for m in modes" ng-change="modeChanged()"></select> </section>';
+    };
+    // The modes
+  $scope.modes = ['Scheme', 'XML', 'Javascript','clike','python'];
+  $scope.mode = $scope.modes[0];
+
+
+  // The ui-codemirror option
+  $scope.cmOption = {
+      lineNumbers: true,
+      indentWithTabs: true,
+      onLoad: function (_cm) {
+
+          // HACK to have the codemirror instance in the scope...
+          $scope.modeChanged = function () {
+              _cm.setOption("mode", $scope.mode.toLowerCase());
+          };
+      }
+  };
+
+       /**Initial code content...
+  $scope.cmModel = ';; Scheme code in here.\n' +
+    '(define (double x)\n\t(* x x))\n\n\n' +
+    '<!-- XML code in here. -->\n' +
+    '<root>\n\t<foo>\n\t</foo>\n\t<bar/>\n</root>\n\n\n' +
+    '// Javascript code in here.\n' +
+    'function foo(msg) {\n\tvar r = Math.random();\n\treturn "" + r + " : " + msg;\n}'; **/
+
     $scope.publicViewed = true;
     $scope.xPos = {};
     $scope.yPos = {};
