@@ -105,7 +105,6 @@ mainApp.controller('notebookEditCtrl', function($scope, $http, $stateParams, $sc
             $scope.count['reference'] = $scope.count['reference'] + 1;
         }
     };
-
 });
 
 mainApp.directive('compile', ['$compile', function ($compile) {
