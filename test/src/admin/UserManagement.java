@@ -62,22 +62,15 @@ public class UserManagement extends TestCase{
         driver.findElement(By.id("search")).clear();
         driver.findElement(By.id("search")).sendKeys("vorname");
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        int btns = driver.findElements(By.xpath("//*[contains(text(), 'Löschung in ')]")).size();
         List<WebElement> btn = driver.findElements(By.xpath("//*[contains(text(), 'Account löschen')]"));
-        String page = driver.getPageSource();
-        int before = 0;
-        Matcher matcher = Pattern.compile("Vorname[0-9]{0,4}").matcher(page);
-        while (matcher.find()) before++;
-        System.out.print(before);
         btn.get(0).click();
         closeAlertAndGetItsText();
         closeAlertAndGetItsText();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
-        page = driver.getPageSource();
-        int after = 0;
-        matcher = Pattern.compile("Vorname[0-9]{0,4}").matcher(page);
-        while (matcher.find()) after++;
-        System.out.println(before + " / "+after);
-        if(after == before-1) throw new Exception("Falsche Anzahl");
+
+        int btns_after = driver.findElements(By.xpath("//*[contains(text(), 'Löschung in ')]")).size();
+        assertFalse(btns_after != btns+1);
     }
 
     @After
