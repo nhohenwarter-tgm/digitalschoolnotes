@@ -205,3 +205,4 @@ $scope.ckEditor = function() {
         }
     }
 };
+

@@ -129,11 +129,14 @@ mainApp.controller('accsettingsCtrl', function ($scope, $http, $window, $state, 
             password_new="";
             password_old ="";
         }
+
         if(password_new != password_repeat) {
             $scope.error = true;
-            $scope.reset_error = 'Passw�rter stimmen nicht �berein\n';
+            $scope.reset_error = 'Passwörter stimmen nicht überein\n';
         }
-        password_new = CryptoJS.SHA256(password_new);
+        if(password_new != "") {
+            password_new = CryptoJS.SHA256(password_new);
+        }
         password_old = CryptoJS.SHA256(password_old);
         if($scope.editUser.$valid && $scope.error ==false) {
             $http({
