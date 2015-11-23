@@ -51,7 +51,7 @@
                         <h5 style="padding-top: 20px;">neues Passwort wiederholen</h5>
                         <div class="row">
                             <div class="col-md-12">
-                                <p  style="color: red;" ng-show="(submitted || editUser.pwdrepeat.$dirty) && editUser.pwdrepeat.$error.required">Passw&ouml;rter stimmten nicht überein!</p>
+                                <p  style="color: red;" ng-show="(submitted || editUser.pwdrepeat.$dirty) && editUser.pwdrepeat.$error.required">Passw&ouml;rter stimmten nicht ï¿½berein!</p>
                                 <input class="form-control" id="pwdrepeat" type="password" placeholder="Passwort wiederholung" name="pwdrepeat" ng-model="pwdrepeat" style="width: 100%;"  />
                             </div>
                         </div>
@@ -66,7 +66,7 @@
 <div style="padding-top: 20px;">
     <div class="col-md-4"></div>
     <div class="col-md-4">
-        <button class="btn btn-danger" ng-click="deleteAccount()">Account l&ouml;schen</button>
+        <button id="deleteAccount" class="btn btn-danger" ng-click="deleteAccount()">Account l&ouml;schen</button>
     </div>
     <div class="col-md-4"></div>
 </div>
