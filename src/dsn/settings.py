@@ -183,3 +183,9 @@ OAUTH_GOOGLE_PUB = '491283494959-fcect9soavjtjsicrnm6j5lt8n7cfo7e.apps.googleuse
 OAUTH_GOOGLE_PRIV = '8bZguU6VVVQ4OLotBb2UKfgj'
 OAUTH_FB_PUB = '904296049655866'
 OAUTH_FB_PRIV = 'affe38091495948ea99338d7f8c36510'
+
+#AWS
+AWS_KEY = 'AKIAIES6FPLW6VKIOKDQ'
+AWS_SECRET = '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'
+AWS_BUCKET = 'digitalschoolnotes'
+AWS_REGION = 's3.eu-central-1.amazonaws.com'
