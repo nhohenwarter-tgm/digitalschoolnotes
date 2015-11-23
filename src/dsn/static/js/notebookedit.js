@@ -5,6 +5,7 @@ mainApp.controller('notebookEditCtrl', function($scope, $http, $stateParams, $sc
     $scope.code=function(){
         //$scope.thisCanBeusedInsideNgBindHtml += "<html>hhhhh</html>";
         //Methode1
+        /**
         var myEl = angular.element( document.querySelector( '#test' ) );
 myEl.append('<section > <textarea rows="6" cols="70" ui-codemirror="cmOption"></textarea> Mode : <select ng-model="mode" ng-options="m for m in modes" ng-change="modeChanged()"></select> </section>');
 
@@ -26,10 +27,10 @@ myEl.append('<section > <textarea rows="6" cols="70" ui-codemirror="cmOption"></
 
   newdiv.innerHTML = '<section > <textarea rows="6" cols="70" ui-codemirror="cmOption"></textarea> Mode : <select ng-model="mode" ng-options="m for m in modes" ng-change="modeChanged()"></select> </section>';
 
-  ni.appendChild(newdiv);
+  ni.appendChild(newdiv); **/
 
-        //Methode3
-         $scope.divHtmlVar = $scope.divHtmlVar + '<br/><i>appended text</i>';
+        //Methode3 --> funktioniert
+         $scope.divHtmlVar = $scope.divHtmlVar + '<section> <textarea class="codestyle" rows="6" cols="70" ui-codemirror="cmOption"></textarea> Mode : <select ng-model="mode" ng-options="m for m in modes" ng-change="modeChanged()"></select> </section>';
     };
     $scope.xPos = {};
     $scope.yPos = {};
@@ -37,7 +38,7 @@ myEl.append('<section > <textarea rows="6" cols="70" ui-codemirror="cmOption"></
     $scope.count = {'reference': 0};
     $scope.currentPage = 1;
     // The modes
-  $scope.modes = ['Scheme', 'XML', 'Javascript'];
+  $scope.modes = ['Scheme', 'XML', 'Javascript','clike','python'];
   $scope.mode = $scope.modes[0];
 
 
