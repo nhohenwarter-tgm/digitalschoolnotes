@@ -1,4 +1,4 @@
-package admin;
+package management;
 
 import junit.framework.TestCase;
 import org.junit.After;
@@ -7,15 +7,11 @@ import org.junit.Test;
 import org.openqa.selenium.*;
 import util.Parameters;
 
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 
 /**
- * Testet das Usermanagement
+ * Testet ob der Stundenplan angezeigt werden kann
  */
-public class UserManagement extends TestCase{
+public class TimetableView extends TestCase{
     private WebDriver driver;
     private String baseUrl;
     private boolean acceptNextAlert = true;
@@ -36,41 +32,18 @@ public class UserManagement extends TestCase{
     }
 
     /**
-     * Testet ob ein User mithilfe der Suche gefunden werden kann
+     * Testet ob ein Heft einer fremden Person geöffnet werden kann
      * @throws Exception
      */
     @Test
-    public void testUserSearch() throws Exception {
-        driver.get(baseUrl + "/admin");
-        driver.findElement(By.id("search")).clear();
-        driver.findElement(By.id("search")).sendKeys("test@test.test");
+    public void testViewTimetable() throws Exception {
+        driver.get(baseUrl + "/management");
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
-        String page = driver.getPageSource();
-        int matches = 0;
-        Matcher matcher = Pattern.compile("\\btest@test.test\\b").matcher(page);
-        while (matcher.find()) matches++;
-        if(matches < 2) throw new NotFoundException();
-    }
-
-    /**
-     * Testet ob ein User gelöscht werden kann
-     * @throws Exception
-     */
-    @Test
-    public void testUserDelete() throws Exception {
-        driver.get(baseUrl + "/admin");
-        driver.findElement(By.id("search")).clear();
-        driver.findElement(By.id("search")).sendKeys("vorname");
+        boolean bool = true;
+        assertFalse(!driver.findElement(By.tagName("table")).isDisplayed());
+        assertFalse(!driver.findElement(By.xpath("//*[contains(text(), 'Montag')]")).isDisplayed());
+        assertFalse(!driver.findElement(By.xpath("//*[contains(text(), 'Samstag')]")).isDisplayed());
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
-        int btns = driver.findElements(By.xpath("//*[contains(text(), 'Löschung in ')]")).size();
-        List<WebElement> btn = driver.findElements(By.xpath("//*[contains(text(), 'Account löschen')]"));
-        btn.get(0).click();
-        closeAlertAndGetItsText();
-        closeAlertAndGetItsText();
-        Thread.sleep(Parameters.SLEEP_PAGELOAD);
-
-        int btns_after = driver.findElements(By.xpath("//*[contains(text(), 'Löschung in ')]")).size();
-        assertFalse(btns_after != btns+1);
     }
 
     @After

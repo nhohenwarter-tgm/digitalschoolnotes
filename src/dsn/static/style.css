@@ -64,6 +64,8 @@
     font-weight: bold;
 }
 
+
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
@@ -291,4 +293,7 @@ body {
   font-size: 16px;
   padding-top: 4px;
   text-align: left;
+}
+.codestyle {
+    text-align:left;
 }

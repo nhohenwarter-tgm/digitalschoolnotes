@@ -1,4 +1,4 @@
-package admin;
+package management;
 
 import junit.framework.TestCase;
 import org.junit.After;
@@ -7,15 +7,11 @@ import org.junit.Test;
 import org.openqa.selenium.*;
 import util.Parameters;
 
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 
 /**
- * Testet das Usermanagement
+ * Testet ob Stunden zum Stundenplan hinzugefügt werden können
  */
-public class UserManagement extends TestCase{
+public class TimetableEditLessons extends TestCase{
     private WebDriver driver;
     private String baseUrl;
     private boolean acceptNextAlert = true;
@@ -36,41 +32,43 @@ public class UserManagement extends TestCase{
     }
 
     /**
-     * Testet ob ein User mithilfe der Suche gefunden werden kann
+     * Testet ob ein Heft einer fremden Person geöffnet werden kann
      * @throws Exception
      */
     @Test
-    public void testUserSearch() throws Exception {
-        driver.get(baseUrl + "/admin");
-        driver.findElement(By.id("search")).clear();
-        driver.findElement(By.id("search")).sendKeys("test@test.test");
+    public void testEditLesson() throws Exception {
+        driver.get(baseUrl + "/management");
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
-        String page = driver.getPageSource();
-        int matches = 0;
-        Matcher matcher = Pattern.compile("\\btest@test.test\\b").matcher(page);
-        while (matcher.find()) matches++;
-        if(matches < 2) throw new NotFoundException();
-    }
-
-    /**
-     * Testet ob ein User gelöscht werden kann
-     * @throws Exception
-     */
-    @Test
-    public void testUserDelete() throws Exception {
-        driver.get(baseUrl + "/admin");
-        driver.findElement(By.id("search")).clear();
-        driver.findElement(By.id("search")).sendKeys("vorname");
+        driver.findElement(By.id("timetableToggleEdit")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
-        int btns = driver.findElements(By.xpath("//*[contains(text(), 'Löschung in ')]")).size();
-        List<WebElement> btn = driver.findElements(By.xpath("//*[contains(text(), 'Account löschen')]"));
-        btn.get(0).click();
-        closeAlertAndGetItsText();
-        closeAlertAndGetItsText();
+        driver.findElements(By.className("timetable-td")).get(0).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
 
-        int btns_after = driver.findElements(By.xpath("//*[contains(text(), 'Löschung in ')]")).size();
-        assertFalse(btns_after != btns+1);
+        driver.findElement(By.name("subject")).clear();
+        driver.findElement(By.name("subject")).sendKeys("Testy_Fach");
+        driver.findElement(By.name("teacher")).clear();
+        driver.findElement(By.name("teacher")).sendKeys("Testy_Lehrer");
+        driver.findElement(By.name("room")).clear();
+        driver.findElement(By.name("room")).sendKeys("Testy_Raum");
+        driver.findElement(By.id("submit")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+
+        boolean bool = true;
+        assertFalse(!driver.findElement(By.xpath("//*[contains(text(), 'Testy_Fach')]")).isDisplayed());
+        assertFalse(!driver.findElement(By.xpath("//*[contains(text(), 'Testy_Lehrer')]")).isDisplayed());
+        assertFalse(!driver.findElement(By.xpath("//*[contains(text(), 'Testy_Raum')]")).isDisplayed());
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+
+        driver.findElements(By.className("timetable-td")).get(0).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+
+        driver.findElement(By.name("subject")).clear();
+        driver.findElement(By.name("teacher")).clear();
+        driver.findElement(By.name("room")).clear();
+        driver.findElement(By.id("submit")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+
+        assertTrue(bool);
     }
 
     @After

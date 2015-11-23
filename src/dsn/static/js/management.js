@@ -118,6 +118,7 @@ mainApp.controller('accsettingsCtrl', function ($scope, $http, $window, $state, 
 
 
     $scope.submitEditUser = function() {
+        $scope.submitted = true;
         $scope.error = false;
         var first_name = $scope.first_name;
         var last_name = $scope.last_name;
@@ -125,11 +126,15 @@ mainApp.controller('accsettingsCtrl', function ($scope, $http, $window, $state, 
         var password_old = $scope.old_pwd;
         var password_new = $scope.pwd;
         var password_repeat = $scope.pwdrepeat;
-
-        if(password_new != password_repeat) {
-            $scope.error = true;
-            $scope.reset_error = 'Passw�rter stimmen nicht �berein\n';
+        if(password_new == null){
+            password_new="";
+        }else{
+            if(password_new != password_repeat) {
+                $scope.error = true;
+                $scope.reset_error = 'Passwörter stimmen nicht überein\n';
+            }
         }
+
         if(password_new != "") {
             password_new = CryptoJS.SHA256(password_new);
         }
@@ -527,4 +532,20 @@ mainApp.controller('profileCtrl', function($scope, $http, $stateParams){
 
 mainApp.controller('searchCtrl', function ($scope,$http) {
     $scope.search();
+});
+
+mainApp.directive("randombackground", function () {
+    return {
+        restrict: 'EA',
+        replace: false,
+        link: function (scope, element, attr) {
+
+            //generate random color
+            var color = '#' + (Math.random() * 0xFFFFFF << 0).toString(16);
+
+            //Add random background class to selected element
+            element.css('background-color', color);
+
+        }
+    }
 });
