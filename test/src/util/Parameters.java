@@ -21,7 +21,9 @@ public class Parameters{
 
     public static String os = LINUX; //HIER OS AENDERN
     public static int browser = FIREFOX; //HIER BROWSER AENDERN
-    public static int port = 5001; //HIER PORT AENDERN
+    public static int port = 5003; //HIER PORT AENDERN
+
+    public static boolean stable = false;
 
     //E-Mail Adresse, bei der die E-Mails tatsächlich abgerufen werden können (muss existierender Benutzer in DSN sein!)
     public static String testingEmail = "sbrinnich@gmx.at"; //HIER EMAIL AENDERN
@@ -29,10 +31,12 @@ public class Parameters{
     // aktuelle Passwort des Users mit der obigen E-Mail Adresse
     public static String testingPwd = "12345678"; //HIER TEST-PASSWORT AENDERN
 
-    public static final int SLEEP_CAPTCHA = 5000; //HIER WARTEZEIT FUER CAPTCHA-EINGABE AENDERN
+    public static final int SLEEP_CAPTCHA = 20000; //HIER WARTEZEIT FUER CAPTCHA-EINGABE AENDERN
     public static final int SLEEP_PAGELOAD = 2500; //HIER WARTEZEIT FUER PAGE LOAD AENDERN
 
-    public static String baseUrl = "http://digitalschoolnotes.com:"+port;
+    public static String baseUrl = "";
+    public static final String URLDEV = "https://digitalschoolnotes.com:"+port;
+    public static final String URLSTABLE = "https://digitalschoolnotes.com";
 
     public static WebDriver driver;
 
@@ -42,7 +46,7 @@ public class Parameters{
                 driver = new FirefoxDriver();
                 break;
             case INTERNET_EXPLORER:
-                if(os == LINUX || os == MAC){
+                if(os.equals(LINUX) || os.equals(MAC)){
                     System.err.println("Falsches OS du honk!");
                     System.exit(0);
                 }
@@ -63,5 +67,10 @@ public class Parameters{
                 break;
         }
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        if(stable){
+            baseUrl = URLSTABLE;
+        }else{
+            baseUrl = URLDEV;
+        }
     }
 }
