@@ -38,6 +38,10 @@ var initSample = ( function() {
 			// TODO we can consider displaying some info box that
 			// without wysiwygarea the classic editor may not work.
 		}
+		editorElement.on( 'change', function( evt ) {
+   			// getData() returns CKEditor's HTML content.
+    		alert(editorElement.getData());
+});
 	};
 
 	function isWysiwygareaAvailable() {
