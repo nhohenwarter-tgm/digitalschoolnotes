@@ -28,7 +28,6 @@
                                    ng-pattern="/[a-z0-9!#$%&'*+=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/" required/>
                         </div>
                     </div>
-                        <h4 style="padding-top: 20px;">Passwort &auml;ndern</h4>
                         <h5 style="padding-top: 20px;">Aktuelles Passwort*</h5>
                         <div class="row">
                             <div class="col-md-12">
@@ -37,8 +36,8 @@
                                 <input class="form-control" id="old_pwd" type="password" placeholder="Aktuelles Passwort" name="old_pwd" ng-model="old_pwd" required/>
                             </div>
                         </div>
+                        <h4 style="padding-top: 20px;">Passwort &auml;ndern</h4>
                         </div>
-
                         <h5 style="padding-top: 20px;">Neues Passwort</h5>
                         <div class="row">
                             <div class="col-md-12">
@@ -50,7 +49,7 @@
                         <h5 style="padding-top: 20px;">Neues Passwort wiederholen</h5>
                         <div class="row">
                             <div class="col-md-12">
-                                <p  style="color: red;" ng-show="(submitted || editUser.pwdrepeat.$dirty) && editUser.pwdrepeat.$error.required">Passw&ouml;rter stimmten nicht �berein!</p>
+                                <p  style="color: red;" ng-show="(submitted || editUser.pwdrepeat.$dirty) && editUser.pwdrepeat.$error.required">Passw&ouml;rter stimmten nicht ?berein!</p>
                                 <input class="form-control" id="pwdrepeat" type="password" placeholder="Passwort wiederholung" name="pwdrepeat" ng-model="pwdrepeat" style="width: 100%;"  />
                             </div>
                         </div>
