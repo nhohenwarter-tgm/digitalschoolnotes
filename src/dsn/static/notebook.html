@@ -88,32 +88,33 @@
                         <span ng-repeat="n in [].constructor(notebook.numpages) track by $index">
                             <div>
                                 <h3>Yay, Page {{ $index + 1 }}!</h3>
-                                <ul ng-repeat="element in sites | filter:{ position_site: $index+1 }">
-                                    <li ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
+                                <ul>
+                                    <li ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()" ng-repeat="element in sites | filter:{ position_site: $index+1 }">
                                         <span ng-if="element.art == 'textarea'">
                                             <div class="adjoined-bottom">
                                                 <div class="grid-container">
                                                     <div class="grid-width-100">
-                                                        <div id="editor"></div>
+                                                        <div id="editor" textareaelementinit></div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        <script>
-                                            initSample();
-                                        </script>
-                                    </span>
-                                    <span ng-if="element.art == 'code'">
-                                        <section> <textarea ng-model="element.data" id="j"class="codestyle" rows="6" cols="70" ui-codemirror="cmOption" value="{{ element.data }}"></textarea> Mode : <select ng-model="mode" ng-options="m for m in modes" ng-change="modeChanged()"></select> </section>
-                                        <script>document.getElementById("j").value;</script>
-                                    </span>
-                                    <span ng-show="hoverEdit" class="glyphicon glyphicon-trash"
+                                        </span>
+                                        <span ng-if="element.art == 'code'">
+                                            <section><textarea ng-model="element.data" id="j" class="codestyle" rows="6"
+                                                                cols="70" ui-codemirror="cmOption"
+                                                                value="{{ element.data }}"></textarea> Mode :
+                                                <select ng-model="mode" ng-options="m for m in modes"
+                                                        ng-change="modeChanged()"></select>
+                                            </section>
+                                        </span>
+                                        <span ng-show="hoverEdit" class="glyphicon glyphicon-trash"
                                           ng-click="deleteelement(element.id,element.art)"
                                           style="cursor: pointer; font-size: 18px; color:black;  font-size: 18px; padding-top: 3px;">
-                                    </span>
+                                        </span>
                                         <span ng-show="hoverEdit" class="glyphicon glyphicon-cog"
                                               ng-click="editelement(element.id,element.art)"
                                               style="cursor: pointer; font-size: 18px; color:black;  font-size: 18px; padding-top: 3px;">
-                                    </span>
+                                        </span>
                                     </li>
                                 </ul>
                             </div>
@@ -126,6 +127,7 @@
                     <div>
                         <h3>Yay, Page 2!</h3>
                         <div compile="divHtmlVar"></div>
+
                         <!-- <section>
   <div ui-codemirror="{
       lineNumbers: true,
