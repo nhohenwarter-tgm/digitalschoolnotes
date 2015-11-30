@@ -157,11 +157,14 @@ def view_add_notebook_content(request):
         return JsonResponse({})
     if request.method == "POST":
         params = json.loads(request.body.decode('utf-8'))
-        notebook = Notebook.objects.get(id=params['id'])
-        if len(notebook.content) == 0:
+        try:
+            notebook = Notebook.objects.get(id=params['id'])
+            if len(notebook.content) == 0:
+                id = 1
+            else:
+                id = notebook.content[0].id + 1
+        except NoneType:
             id = 1
-        else:
-            id = notebook.content[0].id + 1
         notebook.content.append(NotebookContent(id=id, art=params['content_art'], position_x = 1, position_y = 1, position_site = 1,  data = "E"))
         notebook.save()
         notebook = Notebook.objects.get(id=params['id']).to_json()

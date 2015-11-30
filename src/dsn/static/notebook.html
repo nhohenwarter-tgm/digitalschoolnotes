@@ -48,7 +48,7 @@
                 <div style="border: 1px solid black; font-size: 25px; text-align: center;" ng-hide="publicViewed">
                     <div class="row">
                         <!--<a ng-click="addTextfield()" class="glyphicon glyphicon-font" -->
-                        <a class="glyphicon glyphicon-font" ng-click="addelement('textfield')"
+                        <a class="glyphicon glyphicon-font" ng-click="addelement('textarea')"
                            style="text-decoration: none; color: black; cursor: pointer; cursor: hand;"></a>
                     </div>
                     <div class="row">
@@ -89,21 +89,32 @@
                             <div>
                                 <h3>Yay, Page {{ $index + 1 }}!</h3>
                                 <ul ng-repeat="element in sites | filter:{ position_site: $index+1 }">
-                                    <span ng-if="element.art == 'textarea'">
-                                        HTML für Textarea
+
+                                    <li ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
+                                        <span ng-if="element.art == 'textarea'">
+                                          <!-- <div class="adjoined-bottom">
+                                               <div class="grid-container">
+                                                   <div class="grid-width-100">
+                                                       <div id="editor">
+                                                           {{ element.data }}
+                                                       </div>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                        <script>
+                                            initSample();
+                                        </script>-->
                                     </span>
                                     <span ng-if="element.art == 'code'">
                                         HTML für Codeelement
                                     </span>
-                                    <li ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
-                                        {{ element.data }}
                                     <span ng-show="hoverEdit" class="glyphicon glyphicon-trash"
                                           ng-click="deleteelement(element.id,element.art)"
                                           style="cursor: pointer; font-size: 18px; color:black;  font-size: 18px; padding-top: 3px;">
                                     </span>
                                         <span ng-show="hoverEdit" class="glyphicon glyphicon-cog"
-                                          ng-click="editelement(element.id,element.art)"
-                                          style="cursor: pointer; font-size: 18px; color:black;  font-size: 18px; padding-top: 3px;">
+                                              ng-click="editelement(element.id,element.art)"
+                                              style="cursor: pointer; font-size: 18px; color:black;  font-size: 18px; padding-top: 3px;">
                                     </span>
                                     </li>
                                 </ul>
@@ -116,6 +127,17 @@
                     </div>
                     <div>
                         <h3>Yay, Page 2!</h3>
+                        <div class="adjoined-bottom">
+                            <div class="grid-container">
+                                <div class="grid-width-100">
+                                    <div id="editor">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <script>
+                            initSample();
+                        </script>
                         <div compile="divHtmlVar"></div>
                         <!-- <section>
   <div ui-codemirror="{
@@ -137,7 +159,7 @@ I mean&amp;quot;&lt;/em&gt;... but might not match your style.
 </section> -->
 
 
-<p><a href="javascript:;" ng-click="addElement();"></a></p> -->
+                        <p><a href="javascript:;" ng-click="addElement();"></a></p> -->
 
                         <!-- <div id="myDiv">  </div> -->
                     </div>
@@ -149,24 +171,10 @@ I mean&amp;quot;&lt;/em&gt;... but might not match your style.
                     <div>
                         <h3>Yay, Page 5!</h3>
                         sad
-                         <div id="test">sd</div>
+                        <div id="test">sd</div>
                     </div>
                     <div>
                         <h3>Yay, Page 6!</h3>
-                        <main>
-                            <div class="adjoined-bottom">
-                                <div class="grid-container">
-                                    <div class="grid-width-100">
-                                        <div id="editor">
-                                            <h1>Text</h1>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </main>
-                        <script>
-                            initSample();
-                        </script>
                         <input type="button" ng-click="getValue()" name="re" value="click" />
                     </div>
                 </div>
