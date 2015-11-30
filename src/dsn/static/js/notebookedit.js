@@ -157,10 +157,11 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     };
 
     $scope.createElementReference = function(){
-        var input = $window.prompt("Auf welche Seite m�chtest du referenzieren?","");
+        var input = $window.prompt("Auf welche Seite möchtest du referenzieren?","");
         if(input != null) {
-            $scope.pages[1] = $scope.pages[1] + '<div id="reference_' + $scope.count['reference'] + '" ' +
-                'style="position: absolute;"><em>' +
+            $scope.pages[1] = $scope.pages[1] + '<div class="draggable ui-draggable-handle ui-draggable" id="reference_' +
+                $scope.count['reference'] + '" ' +
+                'style="position: absolute; border: 1px solid black; height: 30px;"><em>' +
                 '<a ng-click="toPage('+input+')">Siehe Seite '+input+'</a></em></div>';
             $scope.makeDraggable('reference_' + $scope.count['reference'], 1);
             $scope.count['reference'] = $scope.count['reference'] + 1;
@@ -262,7 +263,7 @@ var initSample = ( function() {
 			editorElement.setAttribute( 'contenteditable', 'true' );
 			CKEDITOR.inline( 'editor' );
 
-			// TODO we can consider displaying some info box that
+			// we can consider displaying some info box that
 			// without wysiwygarea the classic editor may not work.
 		}
 
@@ -279,3 +280,11 @@ var initSample = ( function() {
 	}
 } )();
 */
+mainApp.directive('textareaelementinit', function () {
+        return {
+            template: "",
+            link: function(){
+                initSample();
+            }
+        };
+    });
