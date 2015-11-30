@@ -64,7 +64,7 @@
                            style="text-decoration: none; color: black; cursor: pointer; cursor: hand;"></a>
                     </div>
                     <div class="row">
-                        <a class="glyphicon glyphicon-console" ng-click="code()"
+                        <a class="glyphicon glyphicon-console" ng-click="addelement('code')"
                            style="text-decoration: none; color: black; cursor: pointer; cursor: hand;"></a>
                     </div>
                     <div class="row">
@@ -106,7 +106,8 @@
                                         </script>-->
                                     </span>
                                     <span ng-if="element.art == 'code'">
-                                        HTML für Codeelement
+                                        <section> <textarea ng-model="element.data" id="j"class="codestyle" rows="6" cols="70" ui-codemirror="cmOption" value="{{ element.data }}"></textarea> Mode : <select ng-model="mode" ng-options="m for m in modes" ng-change="modeChanged()"></select> </section>
+                                        <script>document.getElementById("j").value;</script>
                                     </span>
                                     <span ng-show="hoverEdit" class="glyphicon glyphicon-trash"
                                           ng-click="deleteelement(element.id,element.art)"
