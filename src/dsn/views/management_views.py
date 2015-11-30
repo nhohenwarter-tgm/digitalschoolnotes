@@ -7,7 +7,7 @@ from bson import ObjectId
 import json
 from datetime import datetime
 from mongoengine.queryset.visitor import Q
-from mongoengine import DoesNotExist
+from mongoengine import DoesNotExist, InvalidDocumentError
 from django.contrib.auth import logout
 from dsn.authentication.registration import create_validation_token
 from dsn.authentication.email import validationmail
@@ -157,9 +157,15 @@ def view_add_notebook_content(request):
         return JsonResponse({})
     if request.method == "POST":
         params = json.loads(request.body.decode('utf-8'))
-        notebook = Notebook.objects.get(id=params['id'])
-        id = len(Notebook.objects(__raw__={'content.art': params['content_art']}))+1
-        notebook.content.append(NotebookContent(id=id, art=params['content_art'], position_x = 1, position_y = 1, position_site = 1,  data = "D"))
+        try:
+            notebook = Notebook.objects.get(id=params['id'])
+            if len(notebook.content) == 0:
+                id = 1
+            else:
+                id = notebook.content[0].id + 1
+        except NoneType:
+            id = 1
+        notebook.content.append(NotebookContent(id=id, art=params['content_art'], position_x = 1, position_y = 1, position_site = 1,  data = "E"))
         notebook.save()
         notebook = Notebook.objects.get(id=params['id']).to_json()
         return JsonResponse({"notebook": notebook})
@@ -171,12 +177,24 @@ def view_delete_notebook_content(request):
         params = json.loads(request.body.decode('utf-8'))
         notebook = Notebook.objects.get(id=params['id'])
         content = notebook.content
-        index = -1
-        for i in content:
-            index = index + 1
-            if i.id == params['content_id'] and i.art == params['content_art']:
-                del(content[index])
-                break
+        print(len(content))
+        #del([i for i,_ in enumerate(content) if _['id'] == params['content_id'] and _["art"] == params['content_art']][0])
+        content.remove(next(item for item in content if item["id"] == params['content_id'] and item["art"] == params['content_art']))
+        print(len(content))
+        notebook.save()
+        notebook = Notebook.objects.get(id=params['id']).to_json()
+        return JsonResponse({"notebook": notebook})
+
+#GEHT NICHT
+def view_edit_notebook_content(request):
+    if not request.user.is_authenticated():
+        return JsonResponse({})
+    if request.method == "POST":
+        params = json.loads(request.body.decode('utf-8'))
+        notebook = Notebook.objects.get(id=params['id'])
+        content = notebook.content
+        findnotebook = next(item for item in content if item["id"] == params['content_id'] and item["art"] == params['content_art'])
+        findnotebook.data = params['content_data']
         notebook.save()
         notebook = Notebook.objects.get(id=params['id']).to_json()
         return JsonResponse({"notebook": notebook})

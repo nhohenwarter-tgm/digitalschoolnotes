@@ -48,7 +48,7 @@
                 <div style="border: 1px solid black; font-size: 25px; text-align: center;" ng-hide="publicViewed">
                     <div class="row">
                         <!--<a ng-click="addTextfield()" class="glyphicon glyphicon-font" -->
-                        <a class="glyphicon glyphicon-font" ng-click="addelement('text')"
+                        <a class="glyphicon glyphicon-font" ng-click="addelement('textarea')"
                            style="text-decoration: none; color: black; cursor: pointer; cursor: hand;"></a>
                     </div>
                     <div class="row">
@@ -64,7 +64,7 @@
                            style="text-decoration: none; color: black; cursor: pointer; cursor: hand;"></a>
                     </div>
                     <div class="row">
-                        <a class="glyphicon glyphicon-console" ng-click="code()"
+                        <a class="glyphicon glyphicon-console" ng-click="addelement('code')"
                            style="text-decoration: none; color: black; cursor: pointer; cursor: hand;"></a>
                     </div>
                     <div class="row">
@@ -88,13 +88,33 @@
                         <span ng-repeat="n in [].constructor(notebook.numpages) track by $index">
                             <div>
                                 <h3>Yay, Page {{ $index + 1 }}!</h3>
-                                <ul ng-repeat="element in sites | filter:{ position_site: $index+1 }">
-                                    <li ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
-                                        {{ element.data }}
-                                    <span ng-show="hoverEdit" class="glyphicon glyphicon-trash"
+                                <ul>
+                                    <li ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()" ng-repeat="element in sites | filter:{ position_site: $index+1 }">
+                                        <span ng-if="element.art == 'textarea'">
+                                            <div class="adjoined-bottom">
+                                                <div class="grid-container">
+                                                    <div class="grid-width-100">
+                                                        <div id="editor" textareaelementinit></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </span>
+                                        <span ng-if="element.art == 'code'">
+                                            <section><textarea ng-model="element.data" id="j" class="codestyle" rows="6"
+                                                                cols="70" ui-codemirror="cmOption"
+                                                                value="{{ element.data }}"></textarea> Mode :
+                                                <select ng-model="mode" ng-options="m for m in modes"
+                                                        ng-change="modeChanged()"></select>
+                                            </section>
+                                        </span>
+                                        <span ng-show="hoverEdit" class="glyphicon glyphicon-trash"
                                           ng-click="deleteelement(element.id,element.art)"
                                           style="cursor: pointer; font-size: 18px; color:black;  font-size: 18px; padding-top: 3px;">
-                                    </span>
+                                        </span>
+                                        <span ng-show="hoverEdit" class="glyphicon glyphicon-cog"
+                                              ng-click="editelement(element.id,element.art)"
+                                              style="cursor: pointer; font-size: 18px; color:black;  font-size: 18px; padding-top: 3px;">
+                                        </span>
                                     </li>
                                 </ul>
                             </div>
@@ -106,11 +126,13 @@
                     </div>
                     <div>
                         <h3>Yay, Page 2!</h3>
+                        <div compile="divHtmlVar"></div>
+
                         <!-- <section>
   <div ui-codemirror="{
       lineNumbers: true,
       theme:'twilight',
-      readOnly: 'nocursor',
+      readOnly: 'nocursor',9
       lineWrapping : true,
       mode: 'xml'
     }" >&lt;html style=&quot;color: green&quot;&gt;
@@ -125,19 +147,10 @@ I mean&amp;quot;&lt;/em&gt;... but might not match your style.
 &lt;/html&gt;</div>
 </section> -->
 
-                        <section >
-                            <textarea ui-codemirror="cmOption"></textarea>
-                            Mode : <select ng-model="mode" ng-options="m for m in modes" ng-change="modeChanged()"></select>
-                        </section>
-                    </div>
-                    <div>
-                        <h3>Yay, Page 3!</h3>
-                        <div compile="divHtmlVar" ></div>
-                        <!--<input type="hidden" value="0" id="theValue" />
 
-<p><a href="javascript:;" ng-click="addElement();"></a></p> -->
+                        <p><a href="javascript:;" ng-click="addElement();"></a></p> -->
 
-                        <div id="myDiv">  </div>
+                        <!-- <div id="myDiv">  </div> -->
                     </div>
                     <div>
                         <h3>Yay, Page 4!</h3>
@@ -151,20 +164,7 @@ I mean&amp;quot;&lt;/em&gt;... but might not match your style.
                     </div>
                     <div>
                         <h3>Yay, Page 6!</h3>
-                        <main>
-                            <div class="adjoined-bottom">
-                                <div class="grid-container">
-                                    <div class="grid-width-100">
-                                        <div id="editor">
-                                            <h1>Text</h1>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </main>
-                        <script>
-                            initSample();
-                        </script>
+                        <input type="button" ng-click="getValue()" name="re" value="click" />
                     </div>
                 </div>
             </div>

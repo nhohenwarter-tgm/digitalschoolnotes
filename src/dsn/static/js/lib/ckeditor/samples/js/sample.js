@@ -40,7 +40,7 @@ var initSample = ( function() {
 		}
 		editorElement.on( 'change', function( evt ) {
    			// getData() returns CKEditor's HTML content.
-    		alert(editorElement.getData());
+    		//alert(editorElement.getData());
 });
 	};
 
