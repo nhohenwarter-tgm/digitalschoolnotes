@@ -274,10 +274,7 @@ class Notebook(Document):
     email = EmailField()
     numpages = IntField(default=2)
     #elements = NotebookElement()
-
-
-
-    content = EmbeddedDocumentListField(NotebookContent)
+    content = SortedListField(EmbeddedDocumentField(NotebookContent), ordering="id", reverse=True)
 
 class TimeTableElem(Document):
     subject = StringField(max_length=30)

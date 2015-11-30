@@ -157,7 +157,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     };
 
     $scope.createElementReference = function(){
-        var input = $window.prompt("Auf welche Seite möchtest du referenzieren?","");
+        var input = $window.prompt("Auf welche Seite mï¿½chtest du referenzieren?","");
         if(input != null) {
             $scope.pages[1] = $scope.pages[1] + '<div id="reference_' + $scope.count['reference'] + '" ' +
                 'style="position: absolute;"><em>' +
@@ -183,6 +183,17 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
             method: 'POST',
             url: '/api/add_notebook_content',
             data: {id: $stateParams.id, content_art: art}
+        }).success(function (data) {
+            $scope.notebook = JSON.parse(data['notebook']);
+            $scope.sites = $scope.notebook['content'];
+        });
+    };
+
+    $scope.editelement = function (id,art,data) {
+        $http({
+            method: 'POST',
+            url: '/api/edit_notebook_content',
+            data: {id: $stateParams.id, content_id: id, content_art: art, content_data: data}
         }).success(function (data) {
             $scope.notebook = JSON.parse(data['notebook']);
             $scope.sites = $scope.notebook['content'];
