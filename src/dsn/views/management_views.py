@@ -162,7 +162,7 @@ def view_add_notebook_content(request):
             id = 1
         else:
             id = notebook.content[0].id + 1
-        notebook.content.append(NotebookContent(id=id, art=params['content_art'], position_x = 1, position_y = 1, position_site = 1,  data = "E"))
+        notebook.content.append(NotebookContent(id=id, art=params['content_art'], position_x = 1, position_y = 1, position_site = 1,  data = "A"))
         notebook.save()
         notebook = Notebook.objects.get(id=params['id']).to_json()
         return JsonResponse({"notebook": notebook})

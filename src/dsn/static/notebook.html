@@ -1,5 +1,3 @@
-
-
 <div class="row">
     <div class="col-md-1"></div>
     <div class="col-md-10">
@@ -88,34 +86,57 @@
                         <span ng-repeat="n in [].constructor(notebook.numpages) track by $index">
                             <div>
                                 <h3>Yay, Page {{ $index + 1 }}!</h3>
-                                <ul ng-repeat="element in sites | filter:{ position_site: $index+1 }">
-                                    <span ng-if="element.art == 'textarea'">
+                                <ul ng-repeat="element in sites | filter:{ position_site: $index+1 }"
+                                    style="list-style-type: none;">
+                                    <li ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
+                                        <span ng-if="element.art == 'textarea'">
                                         HTML für Textarea
+                                            <!--<script>alert("A");</script>-->
                                     </span>
                                     <span ng-if="element.art == 'code'">
                                         HTML für Codeelement
+                                        <!--<script>alert("A");</script>-->
                                     </span>
-                                    <li ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
-                                        {{ element.data }}
+                                    <span ng-if="element.art == 'textfield'">
+                                        <div ng-if="editModeindex != $index">
+                                            <input type="text" ng-model="elementinput[$index]" readonly>
+                                        </div>
+                                        <div ng-if="editModeindex == $index">
+                                            <input type="text" ng-model="elementinput[$index]">
+                                        </div>
+                                    </span>
                                     <span ng-show="hoverEdit" class="glyphicon glyphicon-trash"
                                           ng-click="deleteelement(element.id,element.art)"
                                           style="cursor: pointer; font-size: 18px; color:black;  font-size: 18px; padding-top: 3px;">
                                     </span>
-                                        <span ng-show="hoverEdit" class="glyphicon glyphicon-cog"
-                                          ng-click="editelement(element.id,element.art)"
-                                          style="cursor: pointer; font-size: 18px; color:black;  font-size: 18px; padding-top: 3px;">
+                                        <span ng-show="hoverEdit" class="glyphicon glyphicon-pencil"
+                                              ng-click="setEditMode(true,$index,element.id,element.art,null)"
+                                              style="cursor: pointer; font-size: 18px; color:black;  font-size: 18px; padding-top: 3px;">
                                     </span>
+
+                                        <div style="color: red; text-align: center; padding-bottom: 10px;"
+                                             ng-show="editMode" ng-if="editModeindex == $index">
+                                            Bearbeitungsmodus aktiviert! <span
+                                                style="cursor: pointer; text-decoration: underline;"
+                                                ng-click="setEditMode(false,$index,element.id,element.art,elementinput[$index])">Beenden</span>
+                                        </div>
                                     </li>
                                 </ul>
                             </div>
                         </span>
 
                     <div compile="pages[1]">
-                        <div id="testy" style="position: absolute; border: 1px solid black; background-color: red; top: {{ yPos['testy'] }}px; left: {{ xPos['testy'] }}px;">Asdf</div>
-                        <div class="zoomTarget" id="testy2" style="position: absolute; border: 1px solid black; background-color: blue; width: 100px; height: 100px; top: {{ yPos['testy2'] }}px; left: {{ xPos['testy2'] }}px;">Asdf2</div>
+                        <div id="testy" style="position: absolute; border: 1px solid black; background-color: red; top:
+                                {{ yPos['testy'] }}px; left: {{ xPos['testy'] }}px;">Asdf
+                        </div>
+                        <div class="zoomTarget" id="testy2"
+                             style="position: absolute; border: 1px solid black; background-color: blue; width: 100px; height: 100px; top:
+                                     {{ yPos['testy2'] }}px; left: {{ xPos['testy2'] }}px;">Asdf2
+                        </div>
                     </div>
                     <div>
                         <h3>Yay, Page 2!</h3>
+
                         <div compile="divHtmlVar"></div>
                         <!-- <section>
   <div ui-codemirror="{
@@ -137,7 +158,7 @@ I mean&amp;quot;&lt;/em&gt;... but might not match your style.
 </section> -->
 
 
-<p><a href="javascript:;" ng-click="addElement();"></a></p> -->
+                        <p><a href="javascript:;" ng-click="addElement();"></a></p> -->
 
                         <!-- <div id="myDiv">  </div> -->
                     </div>
@@ -149,7 +170,7 @@ I mean&amp;quot;&lt;/em&gt;... but might not match your style.
                     <div>
                         <h3>Yay, Page 5!</h3>
                         sad
-                         <div id="test">sd</div>
+                        <div id="test">sd</div>
                     </div>
                     <div>
                         <h3>Yay, Page 6!</h3>
@@ -167,7 +188,7 @@ I mean&amp;quot;&lt;/em&gt;... but might not match your style.
                         <script>
                             initSample();
                         </script>
-                        <input type="button" ng-click="getValue()" name="re" value="click" />
+                        <input type="button" ng-click="getValue()" name="re" value="click"/>
                     </div>
                 </div>
             </div>

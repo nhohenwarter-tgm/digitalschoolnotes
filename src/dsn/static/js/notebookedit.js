@@ -1,7 +1,8 @@
 var mainApp = angular.module('mainApp');
 
 mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $sce, $window, loggedIn) {
-
+    $scope.editMode = false;
+    $scope.editModeindex = -1;
     $scope.code = function () {
         //$scope.thisCanBeusedInsideNgBindHtml += "<html>hhhhh</html>";
         //Methode1
@@ -74,6 +75,8 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     }).success(function (data) {
         $scope.notebook = JSON.parse(data['notebook']);
         $scope.sites = $scope.notebook['content'];
+        //alert($scope.sites.length);
+        $scope.updatedata();
         loggedIn.getUser().then(function (data) {
             var user = data['user'];
             if ($scope.notebook['email'] == user['email']) {
@@ -168,6 +171,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     };
 
     $scope.deleteelement = function (id, art) {
+        alert(id);
         $http({
             method: 'POST',
             url: '/api/delete_notebook_content',
@@ -175,6 +179,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         }).success(function (data) {
             $scope.notebook = JSON.parse(data['notebook']);
             $scope.sites = $scope.notebook['content'];
+            $scope.updatedata();
         });
     };
 
@@ -186,6 +191,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         }).success(function (data) {
             $scope.notebook = JSON.parse(data['notebook']);
             $scope.sites = $scope.notebook['content'];
+            $scope.updatedata();
         });
     };
 
@@ -197,9 +203,27 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         }).success(function (data) {
             $scope.notebook = JSON.parse(data['notebook']);
             $scope.sites = $scope.notebook['content'];
+            $scope.updatedata();
         });
     };
 
+    $scope.setEditMode = function(edit,index,id, art, input){
+        if($scope.editModeindex == -1){
+            $scope.editMode = edit;
+            $scope.editModeindex = index;
+        }
+        if(!edit) {
+            $scope.editModeindex = -1;
+            $scope.editelement(id,art,input);
+        }
+    };
+
+    $scope.updatedata = function(){
+        $scope.elementinput = [];
+        for(i = 0; i<$scope.sites.length; i++) {
+            $scope.elementinput.push($scope.sites[i].data);
+        }
+    }
 
     $scope.hoverIn = function () {
         this.hoverEdit = true;
