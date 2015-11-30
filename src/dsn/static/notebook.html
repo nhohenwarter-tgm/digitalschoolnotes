@@ -56,7 +56,7 @@
                            style="text-decoration: none; color: black; cursor: pointer; cursor: hand;"></a>
                     </div>
                     <div class="row">
-                        <a class="glyphicon glyphicon-picture"
+                        <a class="glyphicon glyphicon-picture" ng-click="open()"
                            style="text-decoration: none; color: black; cursor: pointer; cursor: hand;"></a>
                     </div>
                     <div class="row">
@@ -210,3 +210,21 @@ I mean&amp;quot;&lt;/em&gt;... but might not match your style.
 </div>
 <div class="col-md-1"></div>
 </div>
+
+<script type="text/ng-template" id="firstDialog">
+    <div class="ngdialog-message">
+        <h2>Native Angular.js solution</h2>
+        <div>With ngDialog you don't need jQuery or Bootstrap to create dialogs for <code>ng-app:</code></div>
+        <ul class="mt">
+            <li>Use it in controllers, factories or directives</li>
+            <li>Create your own directives</li>
+            <li>Style all UI and templates</li>
+            <li>Configure themes</li>
+            <li>Add animations and effects</li>
+        </ul>
+        <div class="mt">Module is shipped with both <code>ngDialog</code> service and default directive.</div>
+    </div>
+    <div class="ngdialog-buttons mt">
+        <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="next()">►</button>
+    </div>
+</script>
