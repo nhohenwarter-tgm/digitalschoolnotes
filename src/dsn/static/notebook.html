@@ -1,3 +1,5 @@
+
+
 <div class="row">
     <div class="col-md-1"></div>
     <div class="col-md-10">
@@ -46,7 +48,7 @@
                 <div style="border: 1px solid black; font-size: 25px; text-align: center;" ng-hide="publicViewed">
                     <div class="row">
                         <!--<a ng-click="addTextfield()" class="glyphicon glyphicon-font" -->
-                        <a class="glyphicon glyphicon-font" ng-click="addelement('text')"
+                        <a class="glyphicon glyphicon-font" ng-click="addelement('textfield')"
                            style="text-decoration: none; color: black; cursor: pointer; cursor: hand;"></a>
                     </div>
                     <div class="row">
@@ -87,10 +89,20 @@
                             <div>
                                 <h3>Yay, Page {{ $index + 1 }}!</h3>
                                 <ul ng-repeat="element in sites | filter:{ position_site: $index+1 }">
+                                    <span ng-if="element.art == 'textarea'">
+                                        HTML für Textarea
+                                    </span>
+                                    <span ng-if="element.art == 'code'">
+                                        HTML für Codeelement
+                                    </span>
                                     <li ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
                                         {{ element.data }}
                                     <span ng-show="hoverEdit" class="glyphicon glyphicon-trash"
                                           ng-click="deleteelement(element.id,element.art)"
+                                          style="cursor: pointer; font-size: 18px; color:black;  font-size: 18px; padding-top: 3px;">
+                                    </span>
+                                        <span ng-show="hoverEdit" class="glyphicon glyphicon-cog"
+                                          ng-click="editelement(element.id,element.art)"
                                           style="cursor: pointer; font-size: 18px; color:black;  font-size: 18px; padding-top: 3px;">
                                     </span>
                                     </li>
@@ -104,6 +116,7 @@
                     </div>
                     <div>
                         <h3>Yay, Page 2!</h3>
+                        <div compile="divHtmlVar"></div>
                         <!-- <section>
   <div ui-codemirror="{
       lineNumbers: true,
@@ -126,12 +139,12 @@ I mean&amp;quot;&lt;/em&gt;... but might not match your style.
 
 <p><a href="javascript:;" ng-click="addElement();"></a></p> -->
 
-<div id="myDiv">  </div>
+                        <!-- <div id="myDiv">  </div> -->
                     </div>
                     <div>
                         <h3>Yay, Page 4!</h3>
                         sad
-                         <!-- <div ng-bind-html="thisCanBeusedInsideNgBindHtml"></div> -->
+                        <!-- <div ng-bind-html="thisCanBeusedInsideNgBindHtml"></div> -->
                     </div>
                     <div>
                         <h3>Yay, Page 5!</h3>
