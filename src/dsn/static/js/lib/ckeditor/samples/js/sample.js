@@ -27,13 +27,12 @@ var initSample = ( function() {
 				'I\'m an instance of [url=http://ckeditor.com]CKEditor[/url].'
 			);
 		}
-
 		// Depending on the wysiwygare plugin availability initialize classic or inline editor.
 		if ( wysiwygareaAvailable ) {
-			CKEDITOR.replace( 'editor' );
-		} else {
 			editorElement.setAttribute( 'contenteditable', 'true' );
 			CKEDITOR.inline( 'editor' );
+		} else {
+			CKEDITOR.replace( 'editor' );
 
 			// TODO we can consider displaying some info box that
 			// without wysiwygarea the classic editor may not work.

@@ -91,7 +91,7 @@
                                 <ul ng-repeat="element in sites | filter:{ position_site: $index+1 }">
                                     <li ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
                                         <span ng-if="element.art == 'textarea'">
-                                            <div class="adjoined-bottom">
+                                            <!--<div class="adjoined-bottom">
                                                 <div class="grid-container">
                                                     <div class="grid-width-100">
                                                         <div id="editor"></div>
@@ -100,7 +100,7 @@
                                             </div>
                                         <script>
                                             initSample();
-                                        </script>
+                                        </script>-->
                                     </span>
                                     <span ng-if="element.art == 'code'">
                                         <section> <textarea ng-model="element.data" id="j"class="codestyle" rows="6" cols="70" ui-codemirror="cmOption" value="{{ element.data }}"></textarea> Mode : <select ng-model="mode" ng-options="m for m in modes" ng-change="modeChanged()"></select> </section>
@@ -125,6 +125,16 @@
                     </div>
                     <div>
                         <h3>Yay, Page 2!</h3>
+                        <div class="adjoined-bottom">
+                                                <div class="grid-container">
+                                                    <div class="grid-width-100">
+                                                        <div id="editor"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <script>
+                                            initSample();
+                                        </script>
                         <div compile="divHtmlVar"></div>
                         <!-- <section>
   <div ui-codemirror="{
@@ -172,3 +182,4 @@ I mean&amp;quot;&lt;/em&gt;... but might not match your style.
 </div>
 <div class="col-md-1"></div>
 </div>
+
