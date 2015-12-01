@@ -31,8 +31,10 @@ def view_getLoggedInUser(request):
     """
     user = request.user
     if user is not None and not user.is_anonymous():
+        oauthuser = 'oauth' in user
         return JsonResponse({'user': {'email': user.email, 'first_name': user.first_name, 'last_name': user.last_name,
-                                  'is_active': user.is_active, 'is_admin': user.is_superuser, 'is_prouser': user.is_prouser}})
+                                      'is_active': user.is_active, 'is_admin': user.is_superuser,
+                                      'is_prouser': user.is_prouser, 'oauth': oauthuser}})
     else:
         return JsonResponse({'user': None})
 
@@ -80,7 +82,7 @@ def view_login(request):
         if user is not None and user.is_active is True and user.check_password(params['password']):
             user.backend = 'mongoengine.django.auth.MongoEngineBackend'
             login(request, user)
-            request.session.set_expiry(60 * 60 * 1) # 1 hour timeout
+            request.session.set_expiry(60 * 60 * 1)  # 1 hour timeout
             return JsonResponse({})
         elif user.is_active is False:
             return JsonResponse({'login_error': u'Bitte bestätige zuerst deine E-Mail Adresse!'})
@@ -88,6 +90,7 @@ def view_login(request):
             return JsonResponse({'login_error': u'E-Mail Adresse oder Passwort falsch!'})
     else:
         return JsonResponse({'login_error': u'Fehler beim Login!'})
+
 
 def view_resetpasswordrequest(request):
     if request.method=='POST':
