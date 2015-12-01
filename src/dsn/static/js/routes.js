@@ -12,7 +12,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         controller: 'mainpageCtrl',
         data: {
             authorization: false,
-            admin: false
+            admin: false,
+            oauth: true
         }
     });
 
@@ -24,7 +25,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         controller: 'managementCtrl',
         data: {
             authorization: true,
-            admin: false
+            admin: false,
+            oauth: true
         }
     });
 
@@ -35,7 +37,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         controller: 'notebookEditCtrl',
         data: {
             authorization: true,
-            admin: false
+            admin: false,
+            oauth: true
         }
     });
 
@@ -46,7 +49,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         controller: 'impressumCtrl',
         data: {
             authorization: false,
-            admin: false
+            admin: false,
+            oauth: true
         }
     });
 
@@ -57,7 +61,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         controller: 'contentCtrl',
         data: {
             authorization: false,
-            admin: false
+            admin: false,
+            oauth: true
         }
     });
 
@@ -68,7 +73,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         controller: 'loginCtrl',
         data: {
             authorization: false,
-            admin: false
+            admin: false,
+            oauth: true
         }
     });
 
@@ -79,7 +85,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         controller: 'loginCtrl',
         data: {
             authorization: false,
-            admin: false
+            admin: false,
+            oauth: true
         }
     });
 
@@ -90,7 +97,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         controller: 'validateEmailCtrl',
         data: {
             authorization: false,
-            admin: false
+            admin: false,
+            oauth: true
         }
     });
 
@@ -101,7 +109,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         controller: 'resetPwdCtrl',
         data: {
             authorization: false,
-            admin: false
+            admin: false,
+            oauth: false
         }
     });
 
@@ -112,7 +121,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         controller: 'resetPwdCtrl',
         data: {
             authorization: false,
-            admin: false
+            admin: false,
+            oauth: false
         }
     });
 
@@ -123,7 +133,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         controller: 'timetableCtrl',
         data: {
             authorization: true,
-            admin: false
+            admin: false,
+            oauth: true
         }
     });
 
@@ -134,7 +145,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         controller: 'accsettingsCtrl',
         data: {
             authorization: true,
-            admin: false
+            admin: false,
+            oauth: false
         }
     });
 
@@ -145,7 +157,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         controller: 'searchCtrl',
         data: {
             authorization: true,
-            admin: false
+            admin: false,
+            oauth: true
         }
     });
 
@@ -156,7 +169,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         controller: 'notebooksCtrl',
         data: {
             authorization: true,
-            admin: false
+            admin: false,
+            oauth: true
         }
     });
 
@@ -167,7 +181,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         controller: 'notebooksCreateCtrl',
         data: {
             authorization: true,
-            admin: false
+            admin: false,
+            oauth: true
         }
     });
 
@@ -178,7 +193,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         controller: 'editNotebookCtrl',
         data: {
             authorization: true,
-            admin: false
+            admin: false,
+            oauth: true
         }
     });
 
@@ -189,7 +205,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         controller: 'profileCtrl',
         data: {
             authorization: true,
-            admin: false
+            admin: false,
+            oauth: true
         }
     });
 
@@ -253,6 +270,7 @@ mainApp.run(function($rootScope, $state, $http, $window, $urlRouter, loggedIn){
             var auth = false;
         }
         var authorization = toState.data.authorization;
+        var oauth_allowed = toState.data.oauth;
         if (authorization && !auth) {
             event.preventDefault();
             loggedIn.getUser().then(function (data) {
@@ -264,7 +282,11 @@ mainApp.run(function($rootScope, $state, $http, $window, $urlRouter, loggedIn){
                 }
                 if (auth == true) {
                     authenticated = true;
-                    $state.go(toState, toParams);
+                    if(!oauth_allowed && user['oauth']) {
+                        $state.go('management.timetable');
+                    }else{
+                        $state.go(toState, toParams);
+                    }
                 } else {
                     $rootScope.loginFromState = toState;
                     $rootScope.loginFromParams = toParams;
