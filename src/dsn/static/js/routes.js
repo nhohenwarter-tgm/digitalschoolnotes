@@ -1,4 +1,4 @@
-var mainApp = angular.module('mainApp', ['ui.router','ngCookies','vcRecaptcha', 'ui.codemirror']);
+var mainApp = angular.module('mainApp', ['ui.router','ngCookies','vcRecaptcha', 'ui.codemirror', 'ngDialog']);
 
 mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
 

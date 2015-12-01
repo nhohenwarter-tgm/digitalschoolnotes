@@ -1,6 +1,6 @@
 var mainApp = angular.module('mainApp');
 
-mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $sce, $window, loggedIn) {
+mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $sce, $window, loggedIn, ngDialog) {
 
     $scope.code = function () {
         //$scope.thisCanBeusedInsideNgBindHtml += "<html>hhhhh</html>";
@@ -28,9 +28,9 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
          newdiv.innerHTML = '<section > <textarea rows="6" cols="70" ui-codemirror="cmOption"></textarea> Mode : <select ng-model="mode" ng-options="m for m in modes" ng-change="modeChanged()"></select> </section>';
 
          ni.appendChild(newdiv); **/
-            
+
             //Methode3 --> funktioniert
-         $scope.divHtmlVar = $scope.divHtmlVar + '<section> <textarea class="codestyle" rows="6" cols="70" ui-codemirror="cmOption"></textarea> Mode : <select ng-model="mode" ng-options="m for m in modes" ng-change="modeChanged()"></select> </section>';
+        $scope.divHtmlVar = $scope.divHtmlVar + '<section> <textarea class="codestyle" rows="6" cols="70" ui-codemirror="cmOption"></textarea> Mode : <select ng-model="mode" ng-options="m for m in modes" ng-change="modeChanged()"></select> </section>';
 
         //change event fuer textarea
     };
@@ -45,13 +45,13 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         indentWithTabs: true,
         onLoad: function (_cm) {
 
-          // HACK to have the codemirror instance in the scope...
-          $scope.modeChanged = function () {
-              _cm.setOption("mode", $scope.mode.toLowerCase());
-          };
-      }
-      //wie oben ng-change??? fuer speichern wenn etwas geaendert wurde
-  };
+            // HACK to have the codemirror instance in the scope...
+            $scope.modeChanged = function () {
+                _cm.setOption("mode", $scope.mode.toLowerCase());
+            };
+        }
+        //wie oben ng-change??? fuer speichern wenn etwas geaendert wurde
+    };
 
     /**Initial code content...
      $scope.cmModel = ';; Scheme code in here.\n' +
@@ -208,6 +208,15 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
 
     $scope.hoverOut = function () {
         this.hoverEdit = false;
+    };
+
+
+    $scope.open = function () {
+        ngDialog.open({
+            template: 'firstDialog',
+            controller: 'notebookEditCtrl',
+            className: 'ngdialog-theme-default'
+        });
     };
 
 });
