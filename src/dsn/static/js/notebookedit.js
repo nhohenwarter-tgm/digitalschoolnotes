@@ -1,6 +1,6 @@
 var mainApp = angular.module('mainApp');
 
-mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $sce, $window, loggedIn) {
+mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $sce, $window, loggedIn, ngDialog) {
     $scope.editMode = false;
     $scope.editModeindex = -1;
     $scope.code = function () {
