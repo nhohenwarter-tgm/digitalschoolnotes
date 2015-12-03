@@ -197,6 +197,9 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     };
 
     $scope.deleteelement = function (id, art) {
+        deleteUser = true;
+        deleteUser = $window.confirm('Wollen Sie dieses Element wirklich löschen?');
+        if (deleteUser) {
         $http({
             method: 'POST',
             url: '/api/delete_notebook_content',
@@ -206,10 +209,10 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
             $scope.sites = $scope.notebook['content'];
             $scope.updatedata();
         });
+        }
     };
 
     $scope.addelement = function (art) {
-        alert($scope.currentPage);
         var input = $window.prompt("Auf welche Seite möchtest du das Element einfügen,"+$scope.currentPage+", "+($scope.currentPage+1)+"?", "");
         if (input == $scope.currentPage || input == $scope.currentPage+1) {
             $http({
