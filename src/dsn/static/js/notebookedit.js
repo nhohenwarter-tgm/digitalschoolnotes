@@ -145,6 +145,25 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         }
     };
 
+    // NgDialog zum erstellen und bearbeiten von Code Elementen
+    $scope.codeElementCreate = function () {
+        ngDialog.open({
+            template: 'codeElementSettings',
+            controller: 'notebookEditCtrl',
+            className: 'ngdialog-theme-default',
+            scope: $scope
+        });
+    };
+
+    $scope.codeElementEdit = function () {
+        ngDialog.open({
+            template: 'codeElementSettings2',
+            controller: 'notebookEditCtrl',
+            className: 'ngdialog-theme-default',
+            scope: $scope
+        });
+    };
+
 });
 
 
