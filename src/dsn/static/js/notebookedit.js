@@ -8,7 +8,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     $scope.models = {'code':{},'textarea':{}};
 
     // Modes for Code Element
-    $scope.modes = ['Scheme', 'XML', 'Javascript', 'clike', 'python'];
+    $scope.modes = ['Scheme', 'XML', 'Javascript', 'clike', 'python','SQL'];
 
     // Set height of notebook
     setHeight("#notebook", 1.41);
