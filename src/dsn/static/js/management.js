@@ -520,6 +520,7 @@ mainApp.controller('profileCtrl', function($scope, $http, $stateParams){
         data: {id: $stateParams.id}
     }).success(function(data){
             $scope.first_name = data['first_name'];
+            $scope.first_name = data['first_name'];
             $scope.last_name = data['last_name'];
             $scope.email = data['email'];
             $scope.date_joined = data['date_joined'].substring(0, 10);

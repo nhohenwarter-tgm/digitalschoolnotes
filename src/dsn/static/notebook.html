@@ -2,15 +2,165 @@
     <div class="col-md-1"></div>
     <div class="col-md-10">
         <div class="row">
-            <div class="col-md-4">
-                <h3><a ui-sref="management.notebooks" class="glyphicon glyphicon-arrow-left"
-                       style="text-decoration: none; color: black;"></a></h3>
-            </div>
-            <div class="col-md-4" style="text-align: center;">
-                <h3>{{ notebook.name }}</h3>
+            <div class="col-md-12" align="center">
+                <div class="row" style="padding-bottom: 70px;">
+                    <!-- NAVBAR START -->
+                    <nav class="navbar navbar-default navbar-fixed-top" style="background-color: #669966;">
+                        <!-- BACK ARROW START -->
+                        <div class="navbar-header col-md-2">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                                    aria-expanded="false" aria-controls="navbar">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand glyphicon glyphicon-arrow-left" ui-sref="management.notebooks"
+                               style="color: white; font-size: 30px;">
+
+                            </a>
+                        </div>
+                        <!-- BACK ARROW END -->
+                        <!-- TOOLBAR START -->
+                        <div class="col-md-8">
+                            <div id="navbar" class="navbar-collapse collapse row" ng-hide="publicViewed">
+                                <div align="center">
+                                <ul class="nav navbar-nav col-md-7" style="font-size: 30px;">
+                                    <li>
+                                        <a ng-click="addelement('textarea')">
+                                            <span class="glyphicon glyphicon-font" style="color: white; cursor: pointer;"></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a>
+                                            <span class="glyphicon glyphicon-pencil" style="color: white; cursor: pointer;"></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a>
+                                            <span class="glyphicon glyphicon-facetime-video" style="color: white; cursor: pointer;"></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a ng-click="addelement('code')">
+                                            <span class="glyphicon glyphicon-console" style="color: white; cursor: pointer;"></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a>
+                                            <span class="glyphicon glyphicon-bookmark" style="color: white; cursor: pointer;"></span>
+                                        </a>
+                                    </li>
+                                </ul></div>
+                            </div>
+                        </div>
+                        <!-- TOOLBAR END -->
+                        <!-- NOTEBOOK NAME START -->
+                        <div class="col-md-2" >
+                            <div id="navbar" class="navbar-collapse collapse row navbar-left">
+                                <ul class="nav navbar-nav col-md-7" style="font-size: 30px;">
+                                    <li style="color: white; font-size: 35px; font-weight: bold;">{{ notebook.name }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- NOTEBOOK NAME END -->
+                    </nav>
+                    <!-- NAVBAR END -->
+                </div>
+                <!-- PAGE START -->
+                <div class="row">
+                    <div class="col-md-1">
+                        <div class="row">
+                            <a ng-click="toPage(1)" class="glyphicon glyphicon-backward" id="turn_left_fast"
+                               style="font-size: 40px; color: black; text-decoration: none; cursor: pointer;
+                                position: fixed; margin-left: -50px;">
+                            </a>
+                            <a ng-click="toPage(currentPage-1)" class="glyphicon glyphicon-chevron-left" id="turn_left"
+                               style="font-size: 40px; color: black; text-decoration: none; cursor: pointer;
+                                position: fixed;">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-10" style="border-style: solid ridge ridge solid; border-width: 2px 5px 5px 2px; text-align: center;
+                        color:black; background-color: white;" id="notebook">
+                        <!-- PAGE CONTENT START -->
+                        <div>
+                            <h3>Page {{ currentPage }}!</h3>
+                                    <span ng-repeat="element in sites[currentPage]" ng-mouseenter="hovered=true;" ng-mouseleave="hovered=false;">
+                                        <!-- TEXT ELEMENT -->
+                                        <span ng-if="element.art == 'textarea'" id="{{ element.art }}_{{ element.id }}">
+                                            <!-- Edit -->
+                                            <textarea ng-if="editMode == element.id"
+                                                    ng-model="models[element.art][element.id]">
+                                            </textarea>
+                                            <!-- Read-Only -->
+                                            <textarea ng-if="editMode != element.id"
+                                                      ng-model="models[element.art][element.id]" ckeditor>
+                                            </textarea>
+                                        </span>
+                                        <!-- CODE ELEMENT -->
+                                        <span ng-if="element.art == 'code'">
+                                            <!-- Edit -->
+                                            <section id="{{ element.art }}_{{ element.id }}" ng-if="editMode == element.id">
+                                                <textarea ng-model="models[element.art][element.id][0]" class="codestyle" rows="6"
+                                                          cols="70" ui-codemirror="cmOption">
+
+                                                </textarea>
+                                                Mode :
+                                                <select ng-model="models[element.art][element.id][1]" ng-options="m for m in modes"
+                                                        ng-change="modeChanged(element.id)"></select>
+                                            </section>
+                                            <!-- Read-Only -->
+                                            <section id="{{ element.art }}_{{ element.id }}" ng-if="editMode != element.id">
+                                                <textarea ng-model="models[element.art][element.id][0]" class="codestyle" rows="6"
+                                                          cols="70" ui-codemirror="ROcmOption">
+
+                                                </textarea>
+                                            </section>
+                                        </span>
+                                        <!-- EDIT / DELETE -->
+                                        <div ng-hide="publicViewed">
+                                            <span ng-show="hovered && editMode != element.id" class="glyphicon glyphicon-trash"
+                                                  ng-click="deleteelement(element.id,element.art)"
+                                                  style="cursor: pointer; font-size: 18px; color:black; padding-top: 3px;">
+
+                                            </span>
+                                            <span ng-show="hovered && editMode != element.id" class="glyphicon glyphicon-pencil"
+                                                  ng-click="setEditMode(element.id,element.id,element.art)"
+                                                  style="cursor: pointer; font-size: 18px; color:black; padding-top: 3px;">
+
+                                            </span>
+                                            <div style="color: red; text-align: center; padding-bottom: 10px;"
+                                                 ng-if="editMode == element.id">
+                                                Bearbeitungsmodus aktiviert!
+                                                <span style="cursor: pointer; text-decoration: underline;"
+                                                      ng-click="setEditMode(null,element.id,element.art)">Beenden</span>
+                                            </div>
+                                        </div>
+                                    </span>
+                        </div>
+                        <!-- PAGE CONTENT END -->
+                    </div>
+                    <div class="col-md-1" style="text-align: left;">
+                        <div class="row">
+                            <a ng-click="toPage(currentPage+1)" class="glyphicon glyphicon-chevron-right" id="turn_right"
+                               style="font-size: 40px; color: black; text-decoration: none; cursor: pointer;
+                                position: fixed;">
+                            </a>
+                            <a ng-click="toPage(3)" class="glyphicon glyphicon-forward" id="turn_right_fast"
+                               style="font-size: 40px; color: black; text-decoration: none; cursor: pointer;
+                                position: fixed; margin-left: 50px;">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- PAGE END -->
             </div>
         </div>
-
+    </div>
+    <div class="col-md-1"></div>
+</div>
+        <!--
         <div class="row">
             <div class="col-md-1"></div>
             <div class="col-md-10" style="text-align: center;">
@@ -41,11 +191,14 @@
             </div>
             <div class="col-md-1"></div>
         </div>
+        -->
+                <!--
         <div class="row" style="padding-top: 50px;">
             <div class="col-md-1">
+
                 <div style="border: 1px solid black; font-size: 25px; text-align: center;" ng-hide="publicViewed">
                     <div class="row">
-                        <!--<a ng-click="addTextfield()" class="glyphicon glyphicon-font" -->
+                        <a ng-click="addTextfield()" class="glyphicon glyphicon-font"
                         <a class="glyphicon glyphicon-font" ng-click="addelement('textarea')"
                            style="text-decoration: none; color: black; cursor: pointer; cursor: hand;"></a>
                     </div>
@@ -70,151 +223,16 @@
                            style="text-decoration: none; color: black; cursor: pointer; cursor: hand;"></a>
                     </div>
                 </div>
+
             </div>
-            <div class="col-md-10">
-                <div id="book" style="text-align: center;">
-                    <!--<div compile="pages[1]">
-                        <div id="testy" style="position: absolute; border: 1px solid black; background-color: red; top:
-                                {{ yPos['testy'] }}px; left: {{ xPos['testy'] }}px;">Asdf
-                        </div>
-                        <div class="zoomTarget" id="testy2"
-                             style="position: absolute; border: 1px solid black; background-color: blue; width: 100px; height: 100px; top:
-                                     {{ yPos['testy2'] }}px; left: {{ xPos['testy2'] }}px;">Asdf2
-                        </div>
-                    </div>-->
 
-                        <span ng-repeat="n in [].constructor(notebook.numpages) track by $index">
-                            <div>
-                                <h3>Yay, Page {{ $index + 1 }}!</h3>
-                                <ul style="list-style-type: none;">
-                                    <li ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()"
-                                        ng-repeat="element in sites | filter:{ position_site: $index+1 }">
-                                        <span ng-if="element.art == 'textarea'">
-                                            <div ng-if="editModeindex != $index">
-                                                <div class="adjoined-bottom">
-                                                    <div class="grid-container">
-                                                        <div class="grid-width-100">
-                                                            <div id="editor" textareaelementinit value="A"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div ng-if="editModeindex == $index">
-                                                <div class="adjoined-bottom">
-                                                    <div class="grid-container">
-                                                        <div class="grid-width-100">
-                                                            <div id="editor" textareaelementinit></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </span>
-                                        <span ng-if="element.art == 'code'">
-                                            <div ng-if="editModeindex != $index">
-                                                <section><textarea ng-model="elementinput[$index]" class="codestyle" rows="6"
-                                                               cols="70" ui-codemirror="cmOptionreadonly"></textarea>
-                                                </section>
-                                                </div>
-                                            <div ng-if="editModeindex == $index">
-                                                <section><textarea ng-model="elementinput[$index]" class="codestyle" rows="6"
-                                                               cols="70" ui-codemirror="cmOption"></textarea> Mode :
-                                                    <select ng-model="mode" ng-options="m for m in modes"
-                                                        ng-change="modeChanged()"></select>
-                                                </section>
-                                                </div>
-                                        </span>
-                                        <span ng-if="element.art == 'textfield'">
-                                            <div ng-if="editModeindex != $index">
-                                                <input type="text" ng-model="elementinput[$index]" readonly>
-                                            </div>
-                                            <div ng-if="editModeindex == $index">
-                                                <input type="text" ng-model="elementinput[$index]">
-                                            </div>
-                                        </span>
-                                        <div ng-hide="publicViewed">
-                                        <span ng-show="hoverEdit" class="glyphicon glyphicon-trash"
-                                          ng-click="deleteelement(element.id,element.art)"
-                                          style="cursor: pointer; font-size: 18px; color:black;  font-size: 18px; padding-top: 3px;">
+            <div class="col-md-1"></div>
 
-                                        </span>
-                                        <span ng-show="hoverEdit" class="glyphicon glyphicon-pencil"
-                                              ng-click="setEditMode(true,$index,element.id,element.art,null)"
-                                              style="cursor: pointer; font-size: 18px; color:black;  font-size: 18px; padding-top: 3px;">
-
-                                        </span>
-                                            </div>
-                                        <div style="color: red; text-align: center; padding-bottom: 10px;"
-                                             ng-show="editMode" ng-if="editModeindex == $index">
-                                            Bearbeitungsmodus aktiviert! <span
-                                                style="cursor: pointer; text-decoration: underline;"
-                                                ng-click="setEditMode(false,$index,element.id,element.art,elementinput[$index])">Beenden</span>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </span>
-
-                    <div compile="pages[1]">
-                        <div id="testy" style="position: absolute; border: 1px solid black; background-color: red; top:
-                                {{ yPos['testy'] }}px; left: {{ xPos['testy'] }}px;">Asdf
-                        </div>
-                        <div class="zoomTarget" id="testy2"
-                             style="position: absolute; border: 1px solid black; background-color: blue; width: 100px; height: 100px; top:
-                                     {{ yPos['testy2'] }}px; left: {{ xPos['testy2'] }}px;">Asdf2
-                        </div>
-                    </div>
-                    <div>
-                        <h3>Yay, Page 2!</h3>
-
-                        <div compile="divHtmlVar"></div>
-
-                        <!-- <section>
-  <div ui-codemirror="{
-      lineNumbers: true,
-      theme:'twilight',
-      readOnly: 'nocursor',9
-      lineWrapping : true,
-      mode: 'xml'
-    }" >&lt;html style=&quot;color: green&quot;&gt;
-&lt;!-- this is a comment --&gt;
-&lt;head&gt;
-&lt;title&gt;HTML Example&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-The indentation tries to be &lt;em&gt;somewhat &amp;quot;do what
-I mean&amp;quot;&lt;/em&gt;... but might not match your style.
-&lt;/body&gt;
-&lt;/html&gt;</div>
-</section> -->
-
-
-                        <p><a href="javascript:;" ng-click="addElement();"></a></p> -->
-
-                        <!-- <div id="myDiv">  </div> -->
-                    </div>
-                    <div>
-                        <h3>Yay, Page 4!</h3>
-                        sad
-                        <!-- <div ng-bind-html="thisCanBeusedInsideNgBindHtml"></div> -->
-                    </div>
-                    <div>
-                        <h3>Yay, Page 5!</h3>
-                        sad
-                        <div id="test">sd</div>
-                    </div>
-                    <div>
-                        <h3>Yay, Page 6!</h3>
-                        <input type="button" ng-click="getValue()" name="re" value="click" />
-                    </div>
-                </div>
-            </div>
         </div>
-        <div class="col-md-1"></div>
-    </div>
-</div>
-<div class="col-md-1"></div>
-</div>
 
+                -->
+
+<!--
 <script type="text/ng-template" id="firstDialog">
     <div class="ngdialog-message">
         <h2>Bild Element</h2>
@@ -225,6 +243,8 @@ I mean&amp;quot;&lt;/em&gt;... but might not match your style.
 
     </div>
     <div class="ngdialog-buttons mt">
-        <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="next()">?</button>
+        <button id="cancel" class="btn btn-danger" ng-click="cancelEdit()" style="float: right;  margin-right: 15px;">Abbrechen</button>
+        <button type="submit" id="submit" class="btn btn-success" style="float: right; margin-left: 15px; margin-right: 15px;">Speichern</button>
     </div>
 </script>
+-->

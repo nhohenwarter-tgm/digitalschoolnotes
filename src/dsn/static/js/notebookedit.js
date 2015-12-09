@@ -1,39 +1,247 @@
 var mainApp = angular.module('mainApp');
 
-mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $sce, $window, loggedIn) {
+mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $sce, $window, loggedIn, ngDialog) {
+
+    $scope.publicViewed = true;
+    $scope.currentPage = 1;
+    $scope.editMode = false;
+    $scope.models = {'code':{},'textarea':{}};
+
+    // Modes for Code Element
+    $scope.modes = ['Scheme', 'XML', 'Javascript', 'clike', 'python'];
+
+    // Set height of notebook
+    setHeight("#notebook", 1.41);
+    setPos("#turn_left");
+    setPos("#turn_right");
+    setPos("#turn_left_fast");
+    setPos("#turn_right_fast");
+
+
+    $http({
+        method: 'POST',
+        url: '/api/get_notebook',
+        data: {id: $stateParams.id}
+    }).success(function (data) {
+        $scope.notebook = JSON.parse(data['notebook']);
+        $scope.content = $scope.notebook['content'];
+        $scope.currentPage = $scope.notebook['numpages'];
+        $scope.update();
+        loggedIn.getUser().then(function (data) {
+            var user = data['user'];
+            if ($scope.notebook['email'] == user['email']) {
+                $scope.publicViewed = false;
+            } else {
+                $scope.publicViewed = true;
+            }
+        });
+    });
+
+    $scope.initElemModels = function () {
+        for (var j = 0; j < $scope.content.length; j++) {
+            if($scope.content[j]['art'] == 'code'){
+                $scope.models['code'][$scope.content[j]['id']] = {};
+                $scope.models['code'][$scope.content[j]['id']][0] = $scope.content[j]['data'];
+                $scope.models['code'][$scope.content[j]['id']][1] = $scope.modes[0];
+            }else {
+                $scope.models[$scope.content[j]['art']][$scope.content[j]['id']] = $scope.content[j]['data'];
+            }
+        }
+    };
+
+    $scope.initSites = function () {
+        $scope.sites = {};
+        for (var i = 0; i < $scope.notebook['numpages']; i++) {
+            $scope.sites[i + 1] = [];
+        }
+        for (var j = 0; j < $scope.content.length; j++) {
+            $scope.sites[parseInt($scope.content[j]['position_site'])].push($scope.content[j]);
+        }
+    };
+
+    $scope.update = function () {
+        $scope.initSites();
+        $scope.initElemModels();
+    };
+
+    $scope.toPage = function (page) {
+        if(page > 0 && page <= $scope.notebook['numpages']){
+            $scope.currentPage = page;
+        }
+    };
+
+
+    // GENERAL ELEMENT FUNCTIONS
+
+    $scope.addelement = function (art) {
+        $http({
+            method: 'POST',
+            url: '/api/add_notebook_content',
+            data: {id: $stateParams.id, content_art: art, content_site: $scope.currentPage}
+        }).success(function (data) {
+            $scope.notebook = JSON.parse(data['notebook']);
+            $scope.content = $scope.notebook['content'];
+            $scope.update();
+        });
+    };
+
+    $scope.deleteelement = function (id, art) {
+        var deleteUser = $window.confirm('Wollen Sie dieses Element wirklich löschen?');
+        if (deleteUser) {
+        $http({
+            method: 'POST',
+            url: '/api/delete_notebook_content',
+            data: {id: $stateParams.id, content_id: id, content_art: art}
+        }).success(function (data) {
+            $scope.notebook = JSON.parse(data['notebook']);
+            $scope.content = $scope.notebook['content'];
+            $scope.update();
+        });
+        }
+    };
+
+    $scope.editelement = function (id, art, data) {
+        $http({
+            method: 'POST',
+            url: '/api/edit_notebook_content',
+            data: {id: $stateParams.id, content_id: id, content_art: art, content_data: data}
+        }).success(function (data) {
+            $scope.notebook = JSON.parse(data['notebook']);
+            $scope.content = $scope.notebook['content'];
+            $scope.update();
+        });
+    };
+
+    $scope.setEditMode = function (edit, id, art) {
+        $scope.editMode = edit;
+        if(art == 'code'){
+            $scope.editelement(id, art, $scope.models[art][id][0]);
+        }else{
+            $scope.editelement(id, art, $scope.models[art][id]);
+        }
+    };
+
+
+    // CODE ELEMENT
+
+    $scope.cmOption = {
+        lineNumbers: true,
+        indentWithTabs: true,
+        onLoad: function (_cm) {
+            $scope.modeChanged = function (id) {
+                _cm.setOption("mode", $scope.models['code'][id][1].toLowerCase());
+            };
+        }
+    };
+
+    $scope.ROcmOption = {
+        lineNumbers: true,
+        indentWithTabs: true,
+        readOnly: 'nocursor',
+        onLoad: function (_cm) {
+            $scope.modeChanged = function (id) {
+                _cm.setOption("mode", $scope.models['code'][id][1].toLowerCase());
+            };
+        }
+    };
+
+});
+
+
+
+// TEXT ELEMENT
+
+mainApp.directive('ckeditor', function() {
+    return {
+        require : '?ngModel',
+        link : function(scope, element, attrs, ngModel) {
+            var ckeditor = CKEDITOR.replace(element[0], {
+
+            });
+            if (!ngModel) {
+                return;
+            }
+            ckeditor.on('instanceReady', function() {
+                ckeditor.setData(ngModel.$modelValue);
+            });
+            ckeditor.on('pasteState', function() {
+                console.log("asd");
+                scope.$apply(function() {
+                    ngModel.$setModelValue(ckeditor.getData());
+                });
+            });
+            ngModel.$render = function(value) {
+                ckeditor.setData(ngModel.$modelValue);
+            };
+        }
+    };
+});
+
+// HEIGHT OF NOTEBOOK
+
+function setHeight (element, ratio, minLimit)
+{
+    // First of all, let's square the element
+    setH(ratio, minLimit);
+
+    // Now we'll add an event listener so it happens automatically
+    window.addEventListener('resize', function(event) {
+        setH(ratio, minLimit);
+    });
+
+    // This is just an inner function to help us keep DRY
+    function setH(ratio, minLimit)
+    {
+        if(typeof(ratio) === "undefined")
+        {
+            ratio = 1;
+        }
+        if(typeof(minLimit) === "undefined")
+        {
+            minLimit = 0;
+        }
+        var viewportWidth = window.innerWidth;
+
+        if(viewportWidth >= minLimit)
+        {
+            var newElementHeight = $(element).width() * ratio;
+            $(element).height(newElementHeight);
+        }
+        else
+        {
+            $(element).height('auto');
+        }
+    }
+}
+
+// SET POSITION OF ARROWS
+
+function setPos (element)
+{
+    // First of all, let's square the element
+    setP();
+
+    // Now we'll add an event listener so it happens automatically
+    window.addEventListener('resize', function(event) {
+        setP();
+    });
+
+    // This is just an inner function to help us keep DRY
+    function setP()
+    {
+        var viewportHeight = window.innerHeight;
+
+        var newElementPos = viewportHeight/2-40;
+        $(element).css("padding-top", newElementPos);
+    }
+}
+
+
+    /**
     $scope.editMode = false;
     $scope.editModeindex = -1;
     $scope.code = function () {
-        //$scope.thisCanBeusedInsideNgBindHtml += "<html>hhhhh</html>";
-        //Methode1
-        /**
-         var myEl = angular.element( document.querySelector( '#test' ) );
-         myEl.append('<section > <textarea rows="6" cols="70" ui-codemirror="cmOption"></textarea> Mode : <select ng-model="mode" ng-options="m for m in modes" ng-change="modeChanged()"></select> </section>');
-
-
-         //Methode2
-         var ni = document.getElementById('myDiv');
-
-         var numi = document.getElementById('theValue');
-
-         var num = (document.getElementById('theValue').value -1)+ 2;
-
-         numi.value = num;
-
-         var newdiv = document.createElement('div');
-
-         var divIdName = 'my'+num+'Div';
-
-         newdiv.setAttribute('id',divIdName);
-
-         newdiv.innerHTML = '<section > <textarea rows="6" cols="70" ui-codemirror="cmOption"></textarea> Mode : <select ng-model="mode" ng-options="m for m in modes" ng-change="modeChanged()"></select> </section>';
-
-         ni.appendChild(newdiv); **/
-
-            //Methode3 --> funktioniert
         $scope.divHtmlVar = $scope.divHtmlVar + '<section> <textarea class="codestyle" rows="6" cols="70" ui-codemirror="cmOption"></textarea> Mode : <select ng-model="mode" ng-options="m for m in modes" ng-change="modeChanged()"></select> </section>';
-
-        //change event fuer textarea
     };
     // The modes
     $scope.modes = ['Scheme', 'XML', 'Javascript', 'clike', 'python'];
@@ -61,21 +269,11 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         readOnly: 'nocursor',
         onLoad: function (_cm) {
 
-            // HACK to have the codemirror instance in the scope...
             $scope.modeChanged = function () {
                 _cm.setOption("mode", $scope.mode.toLowerCase());
             };
         }
-        //wie oben ng-change??? fuer speichern wenn etwas geaendert wurde
     };
-
-    /**Initial code content...
-     $scope.cmModel = ';; Scheme code in here.\n' +
-     '(define (double x)\n\t(* x x))\n\n\n' +
-     '<!-- XML code in here. -->\n' +
-     '<root>\n\t<foo>\n\t</foo>\n\t<bar/>\n</root>\n\n\n' +
-     '// Javascript code in here.\n' +
-     'function foo(msg) {\n\tvar r = Math.random();\n\treturn "" + r + " : " + msg;\n}'; **/
 
     $scope.publicViewed = true;
     $scope.xPos = {};
@@ -113,7 +311,6 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
                 pagePadding: 0
             });
             $scope.currentPage = $scope.notebook['numpages'] - 1;
-
 
             angular.element('#goto-start').click(function (e) {
                 $scope.currentPage = 1;
@@ -156,20 +353,16 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
             containment: '.b-page-' + (page - 1),
             stop: function () {
                 // Aktuelle Position speichern
-                /**
                  var finalPos = $(this).position();
                  sessionStorage.setItem('xPos_'+id, finalPos.left);
                  sessionStorage.setItem('yPos_'+id, finalPos.top);
-                 */
             },
             create: function () {
                 // Position schon im Storage?
-                /**
                  if(sessionStorage.getItem('xPos_'+id) === null){
                     sessionStorage.setItem('xPos_'+id, 0);
                     sessionStorage.setItem('yPos_'+id, 0);
                 }
-                 */
             }
         });
 
@@ -286,9 +479,9 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
                var uploadUrl = "/api/notebook/upload";
                fileUpload.uploadFileToUrl(file, uploadUrl);
             };
+*/
 
-});
-
+/**
 mainApp.directive('fileModel', ['$parse', function ($parse) {
     return {
         restrict: 'A',
@@ -390,7 +583,6 @@ mainApp.directive('compile', ['$compile', function ($compile) {
  return !!CKEDITOR.plugins.get( 'wysiwygarea' );
  }
  } )();
- */
 mainApp.directive('textareaelementinit', function () {
     return {
         template: "",
@@ -399,3 +591,4 @@ mainApp.directive('textareaelementinit', function () {
         }
     };
 });
+ */
