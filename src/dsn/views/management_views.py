@@ -144,6 +144,17 @@ def view_editNotebook(request):
         return JsonResponse({'message': None})
 
 
+def view_edit_notebooklength(request):
+    if not request.user.is_authenticated():
+        return JsonResponse({})
+    if request.method == "POST":
+        params = json.loads(request.body.decode('utf-8'))
+        notebook = Notebook.objects.get(id=params['id'])
+        notebook.numpages = notebook.numpages + 2
+        notebook.save()
+        notebooks = Notebook.objects.get(id=params['id']).to_json()
+        return JsonResponse({"notebooks": notebooks})
+
 def view_get_notebooks(request):
     if not request.user.is_authenticated():
         return JsonResponse({})
