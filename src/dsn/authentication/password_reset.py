@@ -1,6 +1,5 @@
 from dsn.models import User, PasswordReset
 from mongoengine import DoesNotExist
-from dsn.forms import PasswordSetForm
 import hashlib
 from datetime import datetime, timedelta
 from dsn.authentication.captcha import validate_captcha
@@ -10,8 +9,11 @@ def validate_passwordreset(email, recaptcha, ip):
     val = validate_captcha(recaptcha, ip)
     if val is True:
         try:
-            User.objects.get(email=email)
-            return True
+            user = User.objects.get(email=email)
+            if 'oauth' in user:
+                return "Account wurde über OAuth erstellt! Passwort kann nicht zurückgesetzt werden!"
+            else:
+                return True
         except DoesNotExist:
             return "E-Mail Adresse ist nicht korrekt."
     else:

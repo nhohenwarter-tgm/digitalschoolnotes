@@ -52,7 +52,7 @@ mainApp.controller('contentCtrl', ['vcRecaptchaService','$scope','$http', functi
         $scope.email_error = '';
         $scope.password_error = '';
         $scope.captcha_error = '';
-        if(vcRecaptchaService.getResponse() === ""){
+        if(vcRecaptchaService != null && vcRecaptchaService.getResponse() === ""){
             $scope.captchaerror = true;
             $scope.captcha_error = "Bitte löse das Captcha.\n";
         }
@@ -113,7 +113,7 @@ mainApp.controller('loginCtrl', function($scope, $window, $http, $state, $rootSc
         $state.go('mainpage.content');
     });
 
-    console.log($state.current.name)
+    console.log($state.current.name);
     if($state.current.name == 'mainpage.login.oautherror'){
         $scope.error = true;
         $scope.login_error = 'Diese E-Mail Adresse wird bereits verwendet!';
@@ -185,7 +185,7 @@ mainApp.controller('resetPwdCtrl', ['vcRecaptchaService','$scope','$http','$stat
         $scope.reset_error = "";
         var email = $scope.email;
 
-        if(vcRecaptchaService.getResponse() === ""){
+        if(vcRecaptchaService != null && vcRecaptchaService.getResponse() === ""){
             $scope.error = true;
             $scope.reset_error += "Bitte löse das Captcha.\n";
         }

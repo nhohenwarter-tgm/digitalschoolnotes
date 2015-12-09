@@ -1,6 +1,6 @@
 var mainApp = angular.module('mainApp');
 
-mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $sce, $window, loggedIn) {
+mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $sce, $window, loggedIn, ngDialog) {
     $scope.editMode = false;
     $scope.editModeindex = -1;
     $scope.code = function () {
@@ -113,7 +113,6 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
                 pagePadding: 0
             });
             $scope.currentPage = $scope.notebook['numpages'] - 1;
-
 
             angular.element('#goto-start').click(function (e) {
                 $scope.currentPage = 1;
