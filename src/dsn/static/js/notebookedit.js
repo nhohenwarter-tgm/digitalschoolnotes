@@ -312,7 +312,6 @@ function setPos (element)
             });
             $scope.currentPage = $scope.notebook['numpages'] - 1;
 
-
             angular.element('#goto-start').click(function (e) {
                 $scope.currentPage = 1;
                 e.preventDefault();
