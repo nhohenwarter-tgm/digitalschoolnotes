@@ -6,6 +6,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     $scope.currentPage = 1;
     $scope.editMode = false;
     $scope.models = {'code':{},'textarea':{}};
+    $scope.additem = false;
 
     // Modes for Code Element
     $scope.modes = ['Scheme', 'XML', 'Javascript', 'clike', 'python','text/x-mysql'];
@@ -16,6 +17,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     setPos("#turn_right");
     setPos("#turn_left_fast");
     setPos("#turn_right_fast");
+    setPos("#turn_next_page");
 
 
     $http({
@@ -67,6 +69,22 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     $scope.toPage = function (page) {
         if(page > 0 && page <= $scope.notebook['numpages']){
             $scope.currentPage = page;
+            if($scope.currentPage == $scope.notebook['numpages']){
+                $scope.additem = false;
+            }else{
+                $scope.additem = true;
+            }
+        }else{
+            if(page > 0){
+                $http({
+                    method: 'POST',
+                    url: '/api/notebook_length_edit',
+                    data: {id: $stateParams.id}
+                }).success(function (data) {
+                    $scope.currentPage = page;
+                    $scope.notebook = JSON.parse(data['notebook']);
+                });
+            }
         }
     };
 
@@ -86,8 +104,6 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     };
 
     $scope.deleteelement = function (id, art) {
-        var deleteUser = $window.confirm('Wollen Sie dieses Element wirklich löschen?');
-        if (deleteUser) {
         $http({
             method: 'POST',
             url: '/api/delete_notebook_content',
@@ -96,8 +112,20 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
             $scope.notebook = JSON.parse(data['notebook']);
             $scope.content = $scope.notebook['content'];
             $scope.update();
+            $scope.deleteid = 0;
+            $scope.deleteart = "";
         });
-        }
+    };
+
+    $scope.ElementDelete = function (id, art) {
+        ngDialog.open({
+            template: 'deleteElementSettings',
+            controller: 'notebookEditCtrl',
+            className: 'ngdialog-theme-default',
+            scope: $scope
+        });
+        $scope.deleteid = id;
+        $scope.deleteart = art;
     };
 
     $scope.editelement = function (id, art, data) {
