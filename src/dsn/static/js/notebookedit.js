@@ -59,9 +59,17 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         }
     };
 
+    $scope.initDraggables = function () {
+        for (var i = 0; i < $scope.content.length; i++) {
+            $scope.makeDraggable($scope.content[i]['art']+"_"+$scope.content[i]['id']);
+            $scope.makeDraggable($scope.content[i]['art']+"_"+$scope.content[i]['id']);
+        }
+    };
+
     $scope.update = function () {
         $scope.initSites();
         $scope.initElemModels();
+        $scope.initDraggables();
     };
 
     $scope.toPage = function (page) {
@@ -121,6 +129,16 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         }
     };
 
+    $scope.makeDraggable = function (id) {
+        angular.element("#" + id).draggable({
+            containment: '#notebook',
+            stop: function () {
+            },
+            create: function () {
+            }
+        });
+    };
+
 
     // CODE ELEMENT
 
@@ -167,30 +185,37 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
 });
 
 
-
 // TEXT ELEMENT
 
 mainApp.directive('ckeditor', function() {
     return {
-        require : '?ngModel',
-        link : function(scope, element, attrs, ngModel) {
-            var ckeditor = CKEDITOR.replace(element[0], {
+        require: '?ngModel',
+        link: function(scope, elm, attr, ngModel) {
+            var ck = CKEDITOR.replace(elm[0], {
+                extraPlugins: 'autogrow',
+                autoGrow_minHeight: 20,
+                autoGrow_maxHeight: 800,
+                removePlugins: 'resize'
+            });
 
+            if (!ngModel) return;
+
+            ck.on('instanceReady', function() {
+                ck.setData(ngModel.$viewValue);
             });
-            if (!ngModel) {
-                return;
-            }
-            ckeditor.on('instanceReady', function() {
-                ckeditor.setData(ngModel.$modelValue);
-            });
-            ckeditor.on('pasteState', function() {
-                console.log("asd");
+
+            function updateModel() {
                 scope.$apply(function() {
-                    ngModel.$setModelValue(ckeditor.getData());
+                    ngModel.$setViewValue(ck.getData());
                 });
-            });
+            }
+
+            ck.on('change', updateModel);
+            ck.on('key', updateModel);
+            ck.on('dataReady', updateModel);
+
             ngModel.$render = function(value) {
-                ckeditor.setData(ngModel.$modelValue);
+                ck.setData(ngModel.$viewValue);
             };
         }
     };
