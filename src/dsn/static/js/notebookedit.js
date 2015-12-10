@@ -123,6 +123,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
 
 
     // CODE ELEMENT
+    $scope.codeLanguage="";
 
     $scope.cmOption = {
         lineNumbers: true,
@@ -366,6 +367,9 @@ function setPos (element)
     });
 
     angular.element('.zoomTarget').zoomTarget();
+
+    ACHTUNG http://interactjs.io/
+     Bereits importiert
 
     $scope.makeDraggable = function (id, page) {
         angular.element("#" + id).draggable({
