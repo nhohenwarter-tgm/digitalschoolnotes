@@ -291,7 +291,7 @@
 
     </div>
     <div class="ngdialog-buttons mt">
-        <button id="cancel" class="btn btn-danger" ng-click="codeElementEdit.ngDialog.close()"  style="float: right;  margin-right: 15px;">Abbrechen</button>
-        <button type="submit" id="submit" class="btn btn-success" ng-click=" addelement('code')" style="float: right; margin-left: 15px; margin-right: 15px;">Speichern</button>
+        <button id="cancel" class="btn btn-danger" ng-click="closeThisDialog()"  style="float: right;  margin-right: 15px;">Abbrechen</button>
+        <button type="submit" id="submit" class="btn btn-success" ng-click=" addelement('code');closeThisDialog();" style="float: right; margin-left: 15px; margin-right: 15px;">Speichern</button>
     </div>
 </script>
