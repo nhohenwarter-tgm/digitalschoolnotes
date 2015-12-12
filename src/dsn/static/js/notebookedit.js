@@ -43,10 +43,10 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         for (var j = 0; j < $scope.content.length; j++) {
             if($scope.content[j]['art'] == 'code'){
                 $scope.models['code'][$scope.content[j]['id']] = {};
-                $scope.models['code'][$scope.content[j]['id']][0] = $scope.content[j]['data'];
-                $scope.models['code'][$scope.content[j]['id']][1] = $scope.modes[0];
+                $scope.models['code'][$scope.content[j]['id']][0] = $scope.content[j]['data']['data'];
+                $scope.models['code'][$scope.content[j]['id']][1] = $scope.content[j]['data']['mode'];
             }else {
-                $scope.models[$scope.content[j]['art']][$scope.content[j]['id']] = $scope.content[j]['data'];
+                $scope.models[$scope.content[j]['art']][$scope.content[j]['id']] = $scope.content[j]['data']['data'];
             }
         }
     };
@@ -136,11 +136,11 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         $scope.deleteart = art;
     };
 
-    $scope.editelement = function (id, art, data) {
+    $scope.editelement = function (id, art, data, mode) {
         $http({
             method: 'POST',
             url: '/api/edit_notebook_content',
-            data: {id: $stateParams.id, content_id: id, content_art: art, content_data: data}
+            data: {id: $stateParams.id, content_id: id, content_art: art, content_data: data, content_mode: mode}
         }).success(function (data) {
             $scope.notebook = JSON.parse(data['notebook']);
             $scope.content = $scope.notebook['content'];
@@ -151,7 +151,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     $scope.setEditMode = function (edit, id, art) {
         $scope.editMode = edit;
         if(art == 'code'){
-            $scope.editelement(id, art, $scope.models[art][id][0]);
+            $scope.editelement(id, art, $scope.models[art][id][0],$scope.models['code'][id][1]);
         }else{
             $scope.editelement(id, art, $scope.models[art][id]);
         }

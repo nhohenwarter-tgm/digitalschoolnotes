@@ -176,7 +176,10 @@ def view_add_notebook_content(request):
                 id = notebook.content[0].id + 1
         except NoneType:
             id = 1
-        notebook.content.append(NotebookContent(id=id, art=params['content_art'], position_x = 1, position_y = 1, position_site = params['content_site'],  data = "E"))
+        content = NotebookContent(id=id, art=params['content_art'], position_x = 1, position_y = 1, position_site = params['content_site'])
+        content.data['data'] = ""
+        content.data['mode'] = "Schema"
+        notebook.content.append(content)
         notebook.save()
         notebook = Notebook.objects.get(id=params['id']).to_json()
         return JsonResponse({"notebook": notebook})
@@ -196,7 +199,6 @@ def view_delete_notebook_content(request):
         return JsonResponse({"notebook": notebook})
 
 
-# GEHT NICHT
 def view_edit_notebook_content(request):
     if not request.user.is_authenticated():
         return JsonResponse({})
@@ -205,7 +207,12 @@ def view_edit_notebook_content(request):
         notebook = Notebook.objects.get(id=params['id'])
         content = notebook.content
         findnotebook = next(item for item in content if item["id"] == params['content_id'] and item["art"] == params['content_art'])
-        findnotebook.data = params['content_data']
+        findnotebook.data['data'] = params['content_data']
+        try:
+            if params['content_mode'] != None:
+                findnotebook.data['mode'] = params['content_mode']
+        except KeyError:
+            pass
         notebook.save()
         notebook = Notebook.objects.get(id=params['id']).to_json()
         return JsonResponse({"notebook": notebook})
