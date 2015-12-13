@@ -25,33 +25,33 @@
                         <div class="col-md-6">
                             <div id="navbar" class="navbar-collapse collapse row" ng-hide="publicViewed">
                                 <div align="center">
-                                <ul class="nav navbar-nav col-md-7" style="font-size: 30px;">
-                                    <li>
-                                        <a ng-click="addelement('textarea')">
-                                            <span class="glyphicon glyphicon-font" style="color: white; cursor: pointer;"></span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <span class="glyphicon glyphicon-pencil" style="color: white; cursor: pointer;"></span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <span class="glyphicon glyphicon-facetime-video" style="color: white; cursor: pointer;"></span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a ng-click="addelement('code')">
-                                            <span class="glyphicon glyphicon-console" style="color: white; cursor: pointer;"></span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <span class="glyphicon glyphicon-bookmark" style="color: white; cursor: pointer;"></span>
-                                        </a>
-                                    </li>
-                                </ul></div>
+                                    <ul class="nav navbar-nav col-md-7" style="font-size: 30px;">
+                                        <li>
+                                            <a ng-click="addelement('textarea')">
+                                                <span class="glyphicon glyphicon-font" style="color: white; cursor: pointer;"></span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a>
+                                                <span class="glyphicon glyphicon-pencil" style="color: white; cursor: pointer;"></span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a>
+                                                <span class="glyphicon glyphicon-facetime-video" style="color: white; cursor: pointer;"></span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a ng-click="addelement('code')">
+                                                <span class="glyphicon glyphicon-console" style="color: white; cursor: pointer;"></span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a>
+                                                <span class="glyphicon glyphicon-bookmark" style="color: white; cursor: pointer;"></span>
+                                            </a>
+                                        </li>
+                                    </ul></div>
                             </div>
                         </div>
                         <!-- TOOLBAR END -->
@@ -59,7 +59,7 @@
                         <div class="col-md-3" >
                             <div id="navbar" class="navbar-collapse collapse row navbar-left">
                                 <ul class="nav navbar-nav col-md-7" style="font-size: 30px;">
-                                    <li style="color: white; font-size: 35px; font-weight: bold;">{{ notebook.name }}</li>
+                                    <li style="color: white; font-size: 30px; font-weight: bold;">{{ notebook.name }}</li>
                                 </ul>
                             </div>
                         </div>
@@ -91,7 +91,7 @@
                                         <span ng-if="element.art == 'textarea'" id="{{ element.art }}_{{ element.id }}">
                                             <!-- Edit -->
                                             <textarea ng-if="editMode == element.id"
-                                                    ng-model="models[element.art][element.id]">
+                                                      ng-model="models[element.art][element.id]">
                                             </textarea>
                                             <!-- Read-Only -->
                                             <textarea ng-if="editMode != element.id"
@@ -160,77 +160,77 @@
     </div>
     <div class="col-md-1"></div>
 </div>
-        <!--
-        <div class="row">
-            <div class="col-md-1"></div>
-            <div class="col-md-10" style="text-align: center;">
-                <nav>
-                    <ul class="pagination">
-                        <li>
-                            <a href="#" id="goto-start" aria-label="Start">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" id="goto-prev" aria-label="Previous">
-                                <span aria-hidden="true">Prev</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" id="goto-next" aria-label="Next">
-                                <span aria-hidden="true">Next</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" id="goto-end" aria-label="End">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="col-md-1"></div>
-        </div>
-        -->
-                <!--
-        <div class="row" style="padding-top: 50px;">
-            <div class="col-md-1">
+<!--
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10" style="text-align: center;">
+        <nav>
+            <ul class="pagination">
+                <li>
+                    <a href="#" id="goto-start" aria-label="Start">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="goto-prev" aria-label="Previous">
+                        <span aria-hidden="true">Prev</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="goto-next" aria-label="Next">
+                        <span aria-hidden="true">Next</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="goto-end" aria-label="End">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+-->
+<!--
+<div class="row" style="padding-top: 50px;">
+<div class="col-md-1">
 
-                <div style="border: 1px solid black; font-size: 25px; text-align: center;" ng-hide="publicViewed">
-                    <div class="row">
-                        <a ng-click="addTextfield()" class="glyphicon glyphicon-font"
-                        <a class="glyphicon glyphicon-font" ng-click="addelement('textarea')"
-                           style="text-decoration: none; color: black; cursor: pointer; cursor: hand;"></a>
-                    </div>
-                    <div class="row">
-                        <a class="glyphicon glyphicon-pencil"
-                           style="text-decoration: none; color: black; cursor: pointer; cursor: hand;"></a>
-                    </div>
-                    <div class="row">
-                        <a class="glyphicon glyphicon-picture" ng-click="open()"
-                           style="text-decoration: none; color: black; cursor: pointer; cursor: hand;"></a>
-                    </div>
-                    <div class="row">
-                        <a class="glyphicon glyphicon-facetime-video"
-                           style="text-decoration: none; color: black; cursor: pointer; cursor: hand;"></a>
-                    </div>
-                    <div class="row">
-                        <a class="glyphicon glyphicon-console" ng-click="addelement('code')"
-                           style="text-decoration: none; color: black; cursor: pointer; cursor: hand;"></a>
-                    </div>
-                    <div class="row">
-                        <a class="glyphicon glyphicon-bookmark" ng-click="createElementReference()"
-                           style="text-decoration: none; color: black; cursor: pointer; cursor: hand;"></a>
-                    </div>
-                </div>
+<div style="border: 1px solid black; font-size: 25px; text-align: center;" ng-hide="publicViewed">
+    <div class="row">
+        <a ng-click="addTextfield()" class="glyphicon glyphicon-font"
+        <a class="glyphicon glyphicon-font" ng-click="addelement('textarea')"
+           style="text-decoration: none; color: black; cursor: pointer; cursor: hand;"></a>
+    </div>
+    <div class="row">
+        <a class="glyphicon glyphicon-pencil"
+           style="text-decoration: none; color: black; cursor: pointer; cursor: hand;"></a>
+    </div>
+    <div class="row">
+        <a class="glyphicon glyphicon-picture" ng-click="open()"
+           style="text-decoration: none; color: black; cursor: pointer; cursor: hand;"></a>
+    </div>
+    <div class="row">
+        <a class="glyphicon glyphicon-facetime-video"
+           style="text-decoration: none; color: black; cursor: pointer; cursor: hand;"></a>
+    </div>
+    <div class="row">
+        <a class="glyphicon glyphicon-console" ng-click="addelement('code')"
+           style="text-decoration: none; color: black; cursor: pointer; cursor: hand;"></a>
+    </div>
+    <div class="row">
+        <a class="glyphicon glyphicon-bookmark" ng-click="createElementReference()"
+           style="text-decoration: none; color: black; cursor: pointer; cursor: hand;"></a>
+    </div>
+</div>
 
-            </div>
+</div>
 
-            <div class="col-md-1"></div>
+<div class="col-md-1"></div>
 
-        </div>
+</div>
 
-                -->
+-->
 
 <!--
 <script type="text/ng-template" id="firstDialog">

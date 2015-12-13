@@ -167,7 +167,7 @@ mainApp.directive('ckeditor', function() {
             ckeditor.on('pasteState', function() {
                 console.log("asd");
                 scope.$apply(function() {
-                    ngModel.$setModelValue(ckeditor.getData());
+                    ngModel.$setModelValue(ckeditor.getData());t
                 });
             });
             ngModel.$render = function(value) {
