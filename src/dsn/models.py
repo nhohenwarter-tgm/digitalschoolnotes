@@ -251,7 +251,7 @@ class NotebookContent(EmbeddedDocument):
     position_x = IntField()
     position_y = IntField()
     position_site = IntField()
-    data = StringField()
+    data = DictField()
 
 """
 class NotebookElement(EmbeddedDocument):

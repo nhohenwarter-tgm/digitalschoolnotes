@@ -6,9 +6,10 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     $scope.currentPage = 1;
     $scope.editMode = false;
     $scope.models = {'code':{},'textarea':{}};
+    $scope.additem = false;
 
     // Modes for Code Element
-    $scope.modes = ['Scheme', 'XML', 'Javascript', 'clike', 'python'];
+    $scope.modes = ['Scheme', 'XML', 'Javascript', 'clike', 'python','text/x-mysql'];
 
     // Set height of notebook
     setHeight("#notebook", 1.41);
@@ -16,6 +17,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     setPos("#turn_right");
     setPos("#turn_left_fast");
     setPos("#turn_right_fast");
+    setPos("#turn_next_page");
 
 
     $http({
@@ -41,10 +43,10 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         for (var j = 0; j < $scope.content.length; j++) {
             if($scope.content[j]['art'] == 'code'){
                 $scope.models['code'][$scope.content[j]['id']] = {};
-                $scope.models['code'][$scope.content[j]['id']][0] = $scope.content[j]['data'];
-                $scope.models['code'][$scope.content[j]['id']][1] = $scope.modes[0];
+                $scope.models['code'][$scope.content[j]['id']][0] = $scope.content[j]['data']['data'];
+                $scope.models['code'][$scope.content[j]['id']][1] = $scope.content[j]['data']['mode'];
             }else {
-                $scope.models[$scope.content[j]['art']][$scope.content[j]['id']] = $scope.content[j]['data'];
+                $scope.models[$scope.content[j]['art']][$scope.content[j]['id']] = $scope.content[j]['data']['data'];
             }
         }
     };
@@ -59,14 +61,38 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         }
     };
 
+    $scope.initDraggables = function () {
+        for (var i = 0; i < $scope.content.length; i++) {
+            $scope.makeDraggable($scope.content[i]['art']+"_"+$scope.content[i]['id']);
+            $scope.makeDraggable($scope.content[i]['art']+"_"+$scope.content[i]['id']);
+        }
+    };
+
     $scope.update = function () {
         $scope.initSites();
         $scope.initElemModels();
+        $scope.initDraggables();
     };
 
     $scope.toPage = function (page) {
         if(page > 0 && page <= $scope.notebook['numpages']){
             $scope.currentPage = page;
+            if($scope.currentPage == $scope.notebook['numpages']){
+                $scope.additem = false;
+            }else{
+                $scope.additem = true;
+            }
+        }else{
+            if(page > 0){
+                $http({
+                    method: 'POST',
+                    url: '/api/notebook_length_edit',
+                    data: {id: $stateParams.id}
+                }).success(function (data) {
+                    $scope.currentPage = page;
+                    $scope.notebook = JSON.parse(data['notebook']);
+                });
+            }
         }
     };
 
@@ -86,8 +112,6 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     };
 
     $scope.deleteelement = function (id, art) {
-        var deleteUser = $window.confirm('Wollen Sie dieses Element wirklich löschen?');
-        if (deleteUser) {
         $http({
             method: 'POST',
             url: '/api/delete_notebook_content',
@@ -96,15 +120,27 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
             $scope.notebook = JSON.parse(data['notebook']);
             $scope.content = $scope.notebook['content'];
             $scope.update();
+            $scope.deleteid = 0;
+            $scope.deleteart = "";
         });
-        }
     };
 
-    $scope.editelement = function (id, art, data) {
+    $scope.ElementDelete = function (id, art) {
+        ngDialog.open({
+            template: 'deleteElementSettings',
+            controller: 'notebookEditCtrl',
+            className: 'ngdialog-theme-default',
+            scope: $scope
+        });
+        $scope.deleteid = id;
+        $scope.deleteart = art;
+    };
+
+    $scope.editelement = function (id, art, data, mode) {
         $http({
             method: 'POST',
             url: '/api/edit_notebook_content',
-            data: {id: $stateParams.id, content_id: id, content_art: art, content_data: data}
+            data: {id: $stateParams.id, content_id: id, content_art: art, content_data: data, content_mode: mode}
         }).success(function (data) {
             $scope.notebook = JSON.parse(data['notebook']);
             $scope.content = $scope.notebook['content'];
@@ -115,14 +151,25 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     $scope.setEditMode = function (edit, id, art) {
         $scope.editMode = edit;
         if(art == 'code'){
-            $scope.editelement(id, art, $scope.models[art][id][0]);
+            $scope.editelement(id, art, $scope.models[art][id][0],$scope.models['code'][id][1]);
         }else{
             $scope.editelement(id, art, $scope.models[art][id]);
         }
     };
 
+    $scope.makeDraggable = function (id) {
+        angular.element("#" + id).draggable({
+            containment: '#notebook',
+            stop: function () {
+            },
+            create: function () {
+            }
+        });
+    };
+
 
     // CODE ELEMENT
+    $scope.codeLanguage="";
 
     $scope.cmOption = {
         lineNumbers: true,
@@ -145,33 +192,59 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         }
     };
 
-});
+    // NgDialog zum erstellen und bearbeiten von Code Elementen
+    $scope.codeElementCreate = function () {
+        ngDialog.open({
+            template: 'codeElementSettings',
+            controller: 'notebookEditCtrl',
+            className: 'ngdialog-theme-default',
+            scope: $scope
+        });
+    };
 
+    $scope.codeElementEdit = function () {
+        ngDialog.open({
+            template: 'codeElementSettings2',
+            controller: 'notebookEditCtrl',
+            className: 'ngdialog-theme-default',
+            scope: $scope
+        });
+    };
+
+});
 
 
 // TEXT ELEMENT
 
 mainApp.directive('ckeditor', function() {
     return {
-        require : '?ngModel',
-        link : function(scope, element, attrs, ngModel) {
-            var ckeditor = CKEDITOR.replace(element[0], {
+        require: '?ngModel',
+        link: function(scope, elm, attr, ngModel) {
+            var ck = CKEDITOR.replace(elm[0], {
+                extraPlugins: 'autogrow',
+                autoGrow_minHeight: 20,
+                autoGrow_maxHeight: 800,
+                removePlugins: 'resize'
+            });
 
+            if (!ngModel) return;
+
+            ck.on('instanceReady', function() {
+                ck.setData(ngModel.$viewValue);
             });
-            if (!ngModel) {
-                return;
-            }
-            ckeditor.on('instanceReady', function() {
-                ckeditor.setData(ngModel.$modelValue);
-            });
-            ckeditor.on('pasteState', function() {
-                console.log("asd");
+
+            function updateModel() {
                 scope.$apply(function() {
-                    ngModel.$setModelValue(ckeditor.getData());t
+                    ngModel.$setViewValue(ck.getData());
                 });
-            });
+            }
+
+            ck.on('change', updateModel);
+            ck.on('key', updateModel);
+            ck.on('dataReady', updateModel);
+
             ngModel.$render = function(value) {
-                ckeditor.setData(ngModel.$modelValue);
+                ck.setData(ngModel.$viewValue);
             };
         }
     };
@@ -347,6 +420,9 @@ function setPos (element)
     });
 
     angular.element('.zoomTarget').zoomTarget();
+
+    ACHTUNG http://interactjs.io/
+     Bereits importiert
 
     $scope.makeDraggable = function (id, page) {
         angular.element("#" + id).draggable({
