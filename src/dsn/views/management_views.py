@@ -177,8 +177,7 @@ def view_add_notebook_content(request):
         except NoneType:
             id = 1
         content = NotebookContent(id=id, art=params['content_art'], position_x = 1, position_y = 1, position_site = params['content_site'])
-        content.data['data'] = ""
-        content.data['mode'] = "Schema"
+        content.data = json.loads(params['content_data'])
         notebook.content.append(content)
         notebook.save()
         notebook = Notebook.objects.get(id=params['id']).to_json()
@@ -207,12 +206,7 @@ def view_edit_notebook_content(request):
         notebook = Notebook.objects.get(id=params['id'])
         content = notebook.content
         findnotebook = next(item for item in content if item["id"] == params['content_id'] and item["art"] == params['content_art'])
-        findnotebook.data['data'] = params['content_data']
-        try:
-            if params['content_mode'] != None:
-                findnotebook.data['mode'] = params['content_mode']
-        except KeyError:
-            pass
+        findnotebook.data = params['content_data']
         notebook.save()
         notebook = Notebook.objects.get(id=params['id']).to_json()
         return JsonResponse({"notebook": notebook})
