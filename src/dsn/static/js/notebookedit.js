@@ -125,7 +125,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         });
     };
 
-    $scope.ElementDelete = function (id, art) {
+    $scope.codeElementDelete = function (id, art) {
         ngDialog.open({
             template: 'deleteElementSettings',
             className: 'ngdialog-theme-default',
