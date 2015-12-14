@@ -121,14 +121,16 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     $scope.toPage = function (page) {
         if (page > 0 && page <= $scope.notebook['numpages']) {
             $scope.currentPage = page;
-            $http({
-                method: 'POST',
-                url: '/api/notebook_currentsite_edit',
-                data: {id: $stateParams.id, current_site: $scope.currentPage}
-            }).success(function (data) {
-                $scope.currentPage = page;
-                $scope.notebook = JSON.parse(data['notebook']);
-            });
+            if (!$scope.publicViewed){
+                $http({
+                    method: 'POST',
+                    url: '/api/notebook_currentsite_edit',
+                    data: {id: $stateParams.id, current_site: $scope.currentPage}
+                }).success(function (data) {
+                    $scope.currentPage = page;
+                    $scope.notebook = JSON.parse(data['notebook']);
+                });
+            }
             if ($scope.currentPage == $scope.notebook['numpages']) {
                 $scope.additem = false;
             } else {
