@@ -99,7 +99,7 @@
                         <!-- PAGE CONTENT START -->
                         <div>
                             <h3>Page {{ currentPage }}!</h3>
-                                    <span ng-repeat="element in sites[currentPage]" ng-mouseenter="hovered=true;" ng-mouseleave="hovered=false;">
+                                    <span class="makeDraggable" ng-repeat="element in sites[currentPage]" ng-mouseenter="hovered=true;" ng-mouseleave="hovered=false;">
                                         <!-- TEXT ELEMENT -->
                                         <span ng-if="element.art == 'textarea'" id="{{ element.art }}_{{ element.id }}" style="word-wrap: break-word;">
                                             <!-- Edit -->
