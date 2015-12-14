@@ -128,7 +128,6 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     $scope.ElementDelete = function (id, art) {
         ngDialog.open({
             template: 'deleteElementSettings',
-            controller: 'notebookEditCtrl',
             className: 'ngdialog-theme-default',
             scope: $scope
         });
@@ -196,7 +195,6 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     $scope.codeElementCreate = function () {
         ngDialog.open({
             template: 'codeElementSettings',
-            controller: 'notebookEditCtrl',
             className: 'ngdialog-theme-default',
             scope: $scope
         });
@@ -205,7 +203,6 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     $scope.codeElementEdit = function () {
         ngDialog.open({
             template: 'codeElementSettings2',
-            controller: 'notebookEditCtrl',
             className: 'ngdialog-theme-default',
             scope: $scope
         });
