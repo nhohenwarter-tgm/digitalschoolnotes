@@ -224,7 +224,8 @@ mainApp.directive('ckeditor', function() {
                 extraPlugins: 'autogrow',
                 autoGrow_minHeight: 20,
                 autoGrow_maxHeight: 800,
-                removePlugins: 'resize'
+                removePlugins: 'resize',
+                contentsCss : 'body {overflow:hidden;}'
             });
 
             if (!ngModel) return;
