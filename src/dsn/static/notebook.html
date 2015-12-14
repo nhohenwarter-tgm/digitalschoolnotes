@@ -88,7 +88,7 @@
                             <h3>Page {{ currentPage }}!</h3>
                                     <span ng-repeat="element in sites[currentPage]" ng-mouseenter="hovered=true;" ng-mouseleave="hovered=false;">
                                         <!-- TEXT ELEMENT -->
-                                        <span ng-if="element.art == 'textarea'" id="{{ element.art }}_{{ element.id }}">
+                                        <span ng-if="element.art == 'textarea'" id="{{ element.art }}_{{ element.id }}" style="word-wrap: break-word;">
                                             <!-- Edit -->
                                             <textarea ng-if="editMode == element.id"
                                                       ng-model="models[element.art][element.id]" ckeditor>
@@ -100,7 +100,7 @@
                                             </div>
                                         </span>
                                         <!-- CODE ELEMENT -->
-                                        <span ng-if="element.art == 'code'">
+                                        <span ng-if="element.art == 'code'" style="word-wrap: break-word;">
                                             <!-- Edit -->
                                             <section id="{{ element.art }}_{{ element.id }}" ng-if="editMode == element.id">
                                                 <textarea ng-model="models[element.art][element.id][0]" class="codestyle" rows="6"
