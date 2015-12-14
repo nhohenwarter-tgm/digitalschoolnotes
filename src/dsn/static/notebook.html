@@ -99,7 +99,7 @@
                         <!-- PAGE CONTENT START -->
                         <div>
                             <h3>Page {{ currentPage }}!</h3>
-                                    <span class="makeDraggable" ng-repeat="element in sites[currentPage]" ng-mouseenter="hovered=true;" ng-mouseleave="hovered=false;">
+                                    <span class="makeDraggable" style="overflow: hidden;" ng-repeat="element in sites[currentPage]" ng-mouseenter="hovered=true;" ng-mouseleave="hovered=false;">
                                         <!-- TEXT ELEMENT -->
                                         <span ng-if="element.art == 'textarea'" id="{{ element.art }}_{{ element.id }}" style="word-wrap: break-word;">
                                             <!-- Edit -->
@@ -113,7 +113,7 @@
                                             </div>
                                         </span>
                                         <!-- CODE ELEMENT -->
-                                        <span ng-if="element.art == 'code'" style="word-wrap: break-word; overflow:hidden;" >
+                                        <span ng-if="element.art == 'code'" >
                                             <!-- Edit -->
                                             <section id="{{ element.art }}_{{ element.id }}"
                                                      ng-if="editMode == element.id">
@@ -362,9 +362,9 @@
 
 <script type="text/ng-template" id="deleteElementSettings">
     <div class="ngdialog-message">
-        <h2>Element löschen</h2>
+        <h2>Element l&ouml;schen</h2>
 
-        <div>Bist du sicher, dass du dieses Element löschen willst.</div>
+        <div>Bist du sicher, dass du dieses Element l&ouml;schen willst.</div>
         <br/>
     </div>
     <div class="ngdialog-buttons mt">
@@ -373,7 +373,7 @@
         </button>
         <button type="submit" id="submit" class="btn btn-success"
                 ng-click="deleteelement(deleteid,deleteart);closeThisDialog();"
-                style="float: right; margin-left: 15px; margin-right: 15px;">Löschen
+                style="float: right; margin-left: 15px; margin-right: 15px;">L&ouml;schen
         </button>
     </div>
 </script>
