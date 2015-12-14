@@ -172,6 +172,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     $scope.cmOption = {
         lineNumbers: true,
         indentWithTabs: true,
+        lineWrapping: true,
         scrollbarStyle:"null",
         onLoad: function (_cm) {
             $scope.modeChanged = function (id) {
@@ -183,6 +184,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     $scope.ROcmOption = {
         lineNumbers: true,
         indentWithTabs: true,
+        lineWrapping: true,
         scrollbarStyle: "null",
         readOnly: 'nocursor',
         onLoad: function (_cm) {
