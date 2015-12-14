@@ -233,6 +233,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
 mainApp.directive('ckeditor', function() {
     return {
         require: '?ngModel',
+        //TODO Init wird beim ersten mal nicht richtig ausgeführt (TypeError: a.ui.space(...) is null)
         link: function(scope, elm, attr, ngModel) {
             var ck = CKEDITOR.replace(elm[0], {
                 extraPlugins: 'autogrow',
@@ -259,6 +260,8 @@ mainApp.directive('ckeditor', function() {
             ck.on('change', updateModel);
             ck.on('key', updateModel);
             ck.on('dataReady', updateModel);
+            ck.on('all', updateModel);
+            //TODO Event zur Korrekten Speicherung finden
 
             ngModel.$render = function(value) {
                 ck.setData(ngModel.$viewValue);
