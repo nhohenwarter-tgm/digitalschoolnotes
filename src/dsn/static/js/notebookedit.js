@@ -150,7 +150,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     $scope.setEditMode = function (edit, id, art) {
         $scope.editMode = edit;
         if(art == 'code'){
-            $scope.editelement(id, art, {"data":$scope.models[art][id][0],"mode":$scope.models['code'][id][1]});
+            $scope.editelement(id, art, {"data":$scope.models[art][id][0],"language":$scope.models['code'][id][1]});
         }else{
             $scope.editelement(id, art, {"data":$scope.models[art][id]});
         }
@@ -170,7 +170,8 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
 
 
     // CODE ELEMENT
-    $scope.codeLanguage="";
+    $scope.codeLanguage="text/xml";
+
 
     $scope.cmOption = {
         lineNumbers: true,
@@ -179,7 +180,8 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         scrollbarStyle:"null",
         onLoad: function (_cm) {
             $scope.modeChanged = function (id) {
-                _cm.setOption("mode", $scope.models['code'][id][1].toLowerCase());
+                $scope.models['code'][id][1] = $scope.codeLanguage;
+                _cm.setOption("mode", $scope.models['code'][id][1]);
             };
         }
     };
@@ -192,7 +194,8 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         readOnly: 'nocursor',
         onLoad: function (_cm) {
             $scope.modeChanged = function (id) {
-                _cm.setOption("mode", $scope.models['code'][id][1].toLowerCase());
+                $scope.models['code'][id][1] = $scope.codeLanguage;
+                _cm.setOption("mode", $scope.models['code'][id][1]);
             };
         }
     };

@@ -113,7 +113,7 @@
                                             </div>
                                         </span>
                                         <!-- CODE ELEMENT -->
-                                        <span class="makeDraggable" ng-if="element.art == 'code'" style="word-wrap: break-word; overflow:hidden;" >
+                                        <span ng-if="element.art == 'code'" style="word-wrap: break-word; overflow:hidden;" >
                                             <!-- Edit -->
                                             <section id="{{ element.art }}_{{ element.id }}"
                                                      ng-if="editMode == element.id">
@@ -354,7 +354,7 @@
         <button id="cancel" class="btn btn-danger" ng-click="closeThisDialog()"
                 style="float: right;  margin-right: 15px; margin-top:20px;">Abbrechen
         </button>
-        <button id="submit" class="btn btn-success" ng-click="closeThisDialog();addelement('code','{&quot;data&quot;:&quot;&quot;,&quot;mode&quot;:&quot;&quot;}');"
+        <button id="submit" class="btn btn-success" ng-click="closeThisDialog();addelement('code','{&quot;data&quot;:&quot;&quot;,&quot;mode&quot;:&quot;{{ codeLanguage }}&quot;}');"
                 style="float: right; margin-top:20px; margin-left: 15px; margin-right: 15px;">Speichern
         </button>
     </div>
