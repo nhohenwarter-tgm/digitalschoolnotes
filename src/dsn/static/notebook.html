@@ -86,59 +86,53 @@
                         <!-- PAGE CONTENT START -->
                         <div>
                             <h3>Page {{ currentPage }}!</h3>
-                                    <span ng-repeat="element in sites[currentPage]" ng-mouseenter="hovered=true;" ng-mouseleave="hovered=false;">
-                                        <!-- TEXT ELEMENT -->
-                                        <span ng-if="element.art == 'textarea'" id="{{ element.art }}_{{ element.id }}" style="word-wrap: break-word;">
-                                            <!-- Edit -->
-                                            <textarea ng-if="editMode == element.id"
-                                                      ng-model="models[element.art][element.id]" ckeditor>
-                                            </textarea>
-                                            <!-- Read-Only -->
-                                            <div ng-if="editMode != element.id"
-                                                 style="border: 1px solid black; min-height: 20px; min-width: 20px; text-align: left;">
-                                                <div ng-bind-html="models[element.art][element.id]"></div>
-                                            </div>
-                                        </span>
-                                        <!-- CODE ELEMENT -->
-                                        <span ng-if="element.art == 'code'" style="word-wrap: break-word;">
-                                            <!-- Edit -->
-                                            <section id="{{ element.art }}_{{ element.id }}" ng-if="editMode == element.id">
-                                                <textarea ng-model="models[element.art][element.id][0]" class="codestyle" rows="6"
-                                                          cols="70" ui-codemirror="cmOption">
+                            <span class="makeDraggable" ng-repeat="element in sites[currentPage]" ng-mouseenter="hovered=true;" ng-mouseleave="hovered=false;">
+                                <!-- TEXT ELEMENT -->
+                                <span ng-if="element.art == 'textarea'" id="{{ element.art }}_{{ element.id }}"
+                                      style="word-wrap: break-word;">
+                                    <!-- Edit -->
+                                    <textarea ng-if="editMode == element.id" ng-model="models[element.art][element.id]"
+                                              ckeditor>
+                                    </textarea>
+                                    <!-- Read-Only -->
+                                    <div ng-if="editMode != element.id" style="border: 1px solid black; min-height: 20px; min-width: 20px; text-align: left;">
+                                        <div ng-bind-html="models[element.art][element.id]"></div>
+                                    </div>
+                                </span>
 
-                                                </textarea>
-                                                Mode :
-                                                <select ng-model="models[element.art][element.id][1]" ng-options="m for m in modes"
-                                                        ng-change="modeChanged(element.id)"></select>
-                                            </section>
-                                            <!-- Read-Only -->
-                                            <section id="{{ element.art }}_{{ element.id }}" ng-if="editMode != element.id">
-                                                <textarea ng-model="models[element.art][element.id][0]" class="codestyle" rows="6"
-                                                          cols="70" ui-codemirror="ROcmOption">
-
-                                                </textarea>
-                                            </section>
-                                        </span>
-                                        <!-- EDIT / DELETE -->
-                                        <div ng-hide="publicViewed">
-                                            <span ng-show="hovered && editMode != element.id" class="glyphicon glyphicon-trash"
-                                                  ng-click="codeElementDelete(element.id,element.art)"
-                                                  style="cursor: pointer; font-size: 18px; color:black; padding-top: 3px;">
-
-                                            </span>
-                                            <span ng-show="hovered && editMode != element.id" class="glyphicon glyphicon-pencil"
-                                                  ng-click="setEditMode(element.id,element.id,element.art)"
-                                                  style="cursor: pointer; font-size: 18px; color:black; padding-top: 3px;">
-
-                                            </span>
-                                            <div style="color: red; text-align: center; padding-bottom: 10px;"
-                                                 ng-if="editMode == element.id">
-                                                Bearbeitungsmodus aktiviert!
-                                                <span style="cursor: pointer; text-decoration: underline;"
-                                                      ng-click="setEditMode(null,element.id,element.art)">Beenden</span>
-                                            </div>
-                                        </div>
+                                <!-- CODE ELEMENT -->
+                                <span ng-if="element.art == 'code'" style="word-wrap: break-word;">
+                                    <!-- Edit -->
+                                    <section id="{{ element.art }}_{{ element.id }}" ng-if="editMode == element.id">
+                                        <textarea ng-model="models[element.art][element.id][0]" class="codestyle" rows="6"
+                                                  cols="70" ui-codemirror="cmOption">
+                                        </textarea>
+                                        Mode :
+                                        <select ng-model="models[element.art][element.id][1]" ng-options="m for m in modes"
+                                                ng-change="modeChanged(element.id)"></select>
+                                    </section>
+                                    <!-- Read-Only -->
+                                    <section id="{{ element.art }}_{{ element.id }}" ng-if="editMode != element.id">
+                                        <textarea ng-model="models[element.art][element.id][0]" class="codestyle" rows="6"
+                                                  cols="70" ui-codemirror="ROcmOption">
+                                        </textarea>
+                                    </section>
+                                </span>
+                                <!-- EDIT / DELETE -->
+                                <div ng-hide="publicViewed">
+                                    <span ng-show="hovered && editMode != element.id" class="glyphicon glyphicon-trash"
+                                          ng-click="codeElementDelete(element.id,element.art)" style="cursor: pointer; font-size: 18px; color:black; padding-top: 3px;">
                                     </span>
+                                    <span ng-show="hovered && editMode != element.id" class="glyphicon glyphicon-pencil"
+                                          ng-click="setEditMode(element.id,element.id,element.art)" style="cursor: pointer; font-size: 18px; color:black; padding-top: 3px;">
+                                    </span>
+                                    <div style="color: red; text-align: center; padding-bottom: 10px;" ng-if="editMode == element.id">
+                                        Bearbeitungsmodus aktiviert!
+                                        <span style="cursor: pointer; text-decoration: underline;"
+                                              ng-click="setEditMode(null,element.id,element.art)">Beenden</span>
+                                    </div>
+                                </div>
+                            </span>
                         </div>
                         <!-- PAGE CONTENT END -->
                     </div>

@@ -1,6 +1,6 @@
 var mainApp = angular.module('mainApp');
 
-mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $sce, $window, loggedIn, ngDialog) {
+mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $sce, $window, loggedIn, ngDialog, $timeout) {
 
     $scope.publicViewed = true;
     $scope.currentPage = 1;
@@ -62,10 +62,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     };
 
     $scope.initDraggables = function () {
-        for (var i = 0; i < $scope.content.length; i++) {
-            $scope.makeDraggable($scope.content[i]['art']+"_"+$scope.content[i]['id']);
-            $scope.makeDraggable($scope.content[i]['art']+"_"+$scope.content[i]['id']);
-        }
+        $scope.makeDraggable();
     };
 
     $scope.update = function () {
@@ -147,6 +144,10 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         });
     };
 
+    $scope.editPositionElement = function (id){
+
+    };
+
     $scope.setEditMode = function (edit, id, art) {
         $scope.editMode = edit;
         if(art == 'code'){
@@ -156,13 +157,15 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         }
     };
 
-    $scope.makeDraggable = function (id) {
-        angular.element("#" + id).draggable({
-            containment: '#notebook',
-            stop: function () {
-            },
-            create: function () {
-            }
+    $scope.makeDraggable = function () {
+        $timeout(function(){
+            angular.element(".makeDraggable").draggable({
+                containment: '#notebook',
+                stop: function () {
+                },
+                create: function () {
+                }
+            });
         });
     };
 
@@ -221,7 +224,8 @@ mainApp.directive('ckeditor', function() {
                 extraPlugins: 'autogrow',
                 autoGrow_minHeight: 20,
                 autoGrow_maxHeight: 800,
-                removePlugins: 'resize'
+                removePlugins: 'resize',
+                fullPage: true
             });
 
             if (!ngModel) return;
@@ -233,6 +237,7 @@ mainApp.directive('ckeditor', function() {
             function updateModel() {
                 scope.$apply(function() {
                     ngModel.$setViewValue(ck.getData());
+                    console.log(ck.getData());
                 });
             }
 
