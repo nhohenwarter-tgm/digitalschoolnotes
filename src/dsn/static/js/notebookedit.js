@@ -234,6 +234,7 @@ mainApp.directive('ckeditor', function() {
             function updateModel() {
                 scope.$apply(function() {
                     ngModel.$setViewValue(ck.getData());
+                    console.log(ck.getData());
                 });
             }
 
