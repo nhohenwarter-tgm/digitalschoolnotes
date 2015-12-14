@@ -236,7 +236,7 @@ mainApp.directive('ckeditor', function() {
                 autoGrow_minHeight: 20,
                 autoGrow_maxHeight: 800,
                 removePlugins: 'resize',
-                contentsCss : 'body {overflow:hidden;}'
+                contentsCss : 'body {overflow:hidden;}',
                 fullPage: true
             });
 
