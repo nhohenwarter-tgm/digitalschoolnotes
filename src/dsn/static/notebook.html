@@ -23,7 +23,7 @@
                         </div>
                         <!-- BACK ARROW END -->
                         <!-- TOOLBAR START -->
-                        <div class="col-md-7">
+                        <div class="col-md-8">
                             <div id="navbar" class="navbar-collapse collapse row" ng-hide="publicViewed">
                                 <div align="center">
                                     <ul class="nav navbar-nav col-md-8" style="font-size: 30px;">
@@ -81,7 +81,7 @@
                     <!-- NAVBAR END -->
                 </div>
                 <!-- PAGE START -->
-                <div class="row">
+                <div class="row" >
                     <div class="col-md-1">
                         <div class="row">
                             <a ng-click="toPage(1)" class="glyphicon glyphicon-backward" id="turn_left_fast"
@@ -95,12 +95,11 @@
                         </div>
                     </div>
                     <div class="col-md-10" style="border-style: solid ridge ridge solid; border-width: 2px 5px 5px 2px; text-align: center;
-                        color:black; background-color: white;" id="notebook">
+                        color:black; background-color: white; overflow:hidden;" id="notebook">
                         <!-- PAGE CONTENT START -->
                         <div>
                             <h3>Page {{ currentPage }}!</h3>
-                                    <span ng-repeat="element in sites[currentPage]" ng-mouseenter="hovered=true;"
-                                          ng-mouseleave="hovered=false;">
+                                    <span ng-repeat="element in sites[currentPage]" ng-mouseenter="hovered=true;" ng-mouseleave="hovered=false;">
                                         <!-- TEXT ELEMENT -->
                                         <span ng-if="element.art == 'textarea'" id="{{ element.art }}_{{ element.id }}" style="word-wrap: break-word;">
                                             <!-- Edit -->
@@ -114,7 +113,7 @@
                                             </div>
                                         </span>
                                         <!-- CODE ELEMENT -->
-                                        <span ng-if="element.art == 'code'" style="word-wrap: break-word;">
+                                        <span ng-if="element.art == 'code'" style="word-wrap: break-word; overflow:hidden;" >
                                             <!-- Edit -->
                                             <section id="{{ element.art }}_{{ element.id }}"
                                                      ng-if="editMode == element.id">
@@ -123,10 +122,9 @@
                                                           cols="70" ui-codemirror="cmOption">
 
                                                 </textarea>
-                                                Mode :
-                                                <select ng-model="models[element.art][element.id][1]"
-                                                        ng-options="m for m in modes"
-                                                        ng-change="modeChanged(element.id)"></select>
+
+                                                <!--<select ng-model="models[element.art][element.id][1]" ng-options="m for m in modes"
+                                                        ng-change="modeChanged(element.id)"></select> -->
                                             </section>
                                             <!-- Read-Only -->
                                             <section id="{{ element.art }}_{{ element.id }}"

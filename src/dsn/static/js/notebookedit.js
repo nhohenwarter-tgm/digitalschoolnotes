@@ -8,8 +8,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     $scope.models = {'code':{},'textarea':{}};
     $scope.additem = false;
 
-    // Modes for Code Element
-    $scope.modes = ['Scheme', 'XML', 'Javascript', 'clike', 'python','text/x-mysql'];
+
 
     // Set height of notebook
     setHeight("#notebook", 1.41);
@@ -173,6 +172,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     $scope.cmOption = {
         lineNumbers: true,
         indentWithTabs: true,
+        scrollbarStyle:"null",
         onLoad: function (_cm) {
             $scope.modeChanged = function (id) {
                 _cm.setOption("mode", $scope.models['code'][id][1].toLowerCase());
@@ -183,6 +183,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     $scope.ROcmOption = {
         lineNumbers: true,
         indentWithTabs: true,
+        scrollbarStyle: "null",
         readOnly: 'nocursor',
         onLoad: function (_cm) {
             $scope.modeChanged = function (id) {
