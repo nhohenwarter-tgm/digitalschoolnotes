@@ -113,7 +113,7 @@
                                             </div>
                                         </span>
                                         <!-- CODE ELEMENT -->
-                                        <span class="makeDraggable" ng-if="element.art == 'code'" style="word-wrap: break-word; overflow:hidden;" >
+                                        <span ng-if="element.art == 'code'" style="word-wrap: break-word; overflow:hidden;" >
                                             <!-- Edit -->
                                             <section id="{{ element.art }}_{{ element.id }}"
                                                      ng-if="editMode == element.id">
