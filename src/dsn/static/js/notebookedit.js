@@ -61,7 +61,9 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     };
 
     $scope.initDraggables = function () {
-        $scope.makeDraggable();
+        for (var i = 0; i < $scope.content.length; i++) {
+            $scope.makeDraggable($scope.content[i]['id'], $scope.content[i]['art']);
+        }
     };
 
     $scope.update = function () {
@@ -143,8 +145,16 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         });
     };
 
-    $scope.editPositionElement = function (id){
-
+    $scope.editPositionElement = function (id, art, posx, posy){
+        $http({
+            method: 'POST',
+            url: '/api/edit_content_position',
+            data: {id: $stateParams.id, content_id: id, content_art: art, pos_x: posx, pos_y: posy}
+        }).success(function (data) {
+            $scope.notebook = JSON.parse(data['notebook']);
+            $scope.content = $scope.notebook['content'];
+            $scope.update();
+        });
     };
 
     $scope.setEditMode = function (edit, id, art) {
@@ -156,11 +166,13 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         }
     };
 
-    $scope.makeDraggable = function () {
+    $scope.makeDraggable = function (id, art) {
         $timeout(function(){
-            angular.element(".makeDraggable").draggable({
+            angular.element("#"+art+"_"+id).draggable({
                 containment: '#notebook',
                 stop: function () {
+                    var finalPos = $(this).position();
+                    $scope.editPositionElement(id, art, finalPos.left, finalPos.top);
                 },
                 create: function () {
                 }

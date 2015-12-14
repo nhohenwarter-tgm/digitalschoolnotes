@@ -99,9 +99,12 @@
                         <!-- PAGE CONTENT START -->
                         <div>
                             <h3>Page {{ currentPage }}!</h3>
-                                    <span class="makeDraggable" style="overflow: hidden;" ng-repeat="element in sites[currentPage]" ng-mouseenter="hovered=true;" ng-mouseleave="hovered=false;">
+                                    <span ng-repeat="element in sites[currentPage]"
+                                          ng-mouseenter="hovered=true;" ng-mouseleave="hovered=false;"
+                                          id="{{ element.art }}_{{ element.id }}" style="position: absolute;
+                                          top: {{ element.position_y }}px; left: {{ element.position_x }}px; min-width: 50px;">
                                         <!-- TEXT ELEMENT -->
-                                        <span ng-if="element.art == 'textarea'" id="{{ element.art }}_{{ element.id }}" style="word-wrap: break-word;">
+                                        <span ng-if="element.art == 'textarea'" style="word-wrap: break-word;">
                                             <!-- Edit -->
                                             <textarea ng-if="editMode == element.id"
                                                       ng-model="models[element.art][element.id]" ckeditor>
@@ -115,8 +118,7 @@
                                         <!-- CODE ELEMENT -->
                                         <span ng-if="element.art == 'code'" >
                                             <!-- Edit -->
-                                            <section id="{{ element.art }}_{{ element.id }}"
-                                                     ng-if="editMode == element.id">
+                                            <section ng-if="editMode == element.id">
                                                 <textarea ng-model="models[element.art][element.id][0]"
                                                           class="codestyle" rows="6"
                                                           cols="70" ui-codemirror="cmOption">
@@ -271,7 +273,7 @@
 <script type="text/ng-template" id="firstDialog">
     <div class="ngdialog-message">
         <h2>Bild Element</h2>
-        <div>Mit diesem Element kannst du ein Bild aus diversen Quellen zu deinem Heft hinzufügen.</div><br />
+        <div>Mit diesem Element kannst du ein Bild aus diversen Quellen zu deinem Heft hinzufï¿½gen.</div><br />
 
         <input type="file" file-model="myFile"/>
         <button ng-click="uploadFile()">upload me</button>
