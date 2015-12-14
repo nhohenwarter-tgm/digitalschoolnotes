@@ -211,6 +211,27 @@ def view_edit_notebook_content(request):
         notebook = Notebook.objects.get(id=params['id']).to_json()
         return JsonResponse({"notebook": notebook})
 
+def view_import_notebook_content(request):
+    if not request.user.is_authenticated():
+        return JsonResponse({})
+    if request.method == "POST":
+        params = json.loads(request.body.decode('utf-8'))
+        view_edit_notebooklength(request)
+        notebook = Notebook.objects.get(id=params['id'])
+        site = notebook.numpages
+        try:
+            id = notebook.content[0].id
+        except IndexError:
+            id = 0
+        for c in params['data']:
+            id += 1
+            content = NotebookContent(id=id, art=c['art'], position_x = c['position_x'], position_y = c['position_y'], position_site = site)
+            content.data = c['data']
+            notebook.content.append(content)
+        notebook.save()
+        notebook = Notebook.objects.get(id=params['id']).to_json()
+        return JsonResponse({"notebook": notebook})
+
 
 def view_edit_content_position(request):
     if not request.user.is_authenticated():

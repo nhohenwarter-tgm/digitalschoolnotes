@@ -5,9 +5,8 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     $scope.publicViewed = true;
     $scope.currentPage = 1;
     $scope.editMode = false;
-    $scope.models = {'code':{},'textarea':{}};
+    $scope.models = {'code': {}, 'textarea': {}};
     $scope.additem = false;
-
 
 
     // Set height of notebook
@@ -40,11 +39,11 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
 
     $scope.initElemModels = function () {
         for (var j = 0; j < $scope.content.length; j++) {
-            if($scope.content[j]['art'] == 'code'){
+            if ($scope.content[j]['art'] == 'code') {
                 $scope.models['code'][$scope.content[j]['id']] = {};
                 $scope.models['code'][$scope.content[j]['id']][0] = $scope.content[j]['data']['data'];
                 $scope.models['code'][$scope.content[j]['id']][1] = $scope.content[j]['data']['mode'];
-            }else {
+            } else {
                 $scope.models[$scope.content[j]['art']][$scope.content[j]['id']] = $scope.content[j]['data']['data'];
             }
         }
@@ -73,15 +72,15 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     };
 
     $scope.toPage = function (page) {
-        if(page > 0 && page <= $scope.notebook['numpages']){
+        if (page > 0 && page <= $scope.notebook['numpages']) {
             $scope.currentPage = page;
-            if($scope.currentPage == $scope.notebook['numpages']){
+            if ($scope.currentPage == $scope.notebook['numpages']) {
                 $scope.additem = false;
-            }else{
+            } else {
                 $scope.additem = true;
             }
-        }else{
-            if(page > 0){
+        } else {
+            if (page > 0) {
                 $http({
                     method: 'POST',
                     url: '/api/notebook_length_edit',
@@ -145,6 +144,18 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         });
     };
 
+    $scope.importsite = function () {
+        $http({
+            method: 'POST',
+            url: '/api/import_site',
+            data: {id: JSON.parse($scope.notebook.import)['$oid'], data: $scope.sites[$scope.currentPage]}
+        }).success(function (data) {
+            $scope.notebook = JSON.parse(data['notebook']);
+            $scope.content = $scope.notebook['content'];
+            $scope.update();
+        });
+    };
+
     $scope.editPositionElement = function (id, art, posx, posy){
         $http({
             method: 'POST',
@@ -189,7 +200,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         lineNumbers: true,
         indentWithTabs: true,
         lineWrapping: true,
-        scrollbarStyle:"null",
+        scrollbarStyle: "null",
         onLoad: function (_cm) {
             $scope.modeChanged = function (id) {
                 $scope.models['code'][id][1] = $scope.codeLanguage;
@@ -229,12 +240,21 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         });
     };
 
-    $scope.exportElement = function () {
+    $scope.exportSite = function () {
         ngDialog.open({
-            template: 'codeElementSettings',
+            template: 'exportCode',
             className: 'ngdialog-theme-default',
             scope: $scope
         });
+        $http({
+            method: 'POST',
+            url: '/api/get_notebooks'
+        })
+            .success(function (data) {
+                $scope.notebooks = JSON.parse(data['notebooks']);
+            })
+            .error(function (data) {
+            });
     };
 
 });
@@ -242,7 +262,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
 
 // TEXT ELEMENT
 
-mainApp.directive('ckeditor', function() {
+mainApp.directive('ckeditor', function () {
     return {
         require: '?ngModel',
         //TODO Init wird beim ersten mal nicht richtig ausgeführt (TypeError: a.ui.space(...) is null)
@@ -258,12 +278,12 @@ mainApp.directive('ckeditor', function() {
 
             if (!ngModel) return;
 
-            ck.on('instanceReady', function() {
+            ck.on('instanceReady', function () {
                 ck.setData(ngModel.$viewValue);
             });
 
             function updateModel() {
-                scope.$apply(function() {
+                scope.$apply(function () {
                     ngModel.$setViewValue(ck.getData());
                     console.log(ck.getData());
                 });
@@ -275,7 +295,7 @@ mainApp.directive('ckeditor', function() {
             ck.on('all', updateModel);
             //TODO Event zur Korrekten Speicherung finden
 
-            ngModel.$render = function(value) {
+            ngModel.$render = function (value) {
                 ck.setData(ngModel.$viewValue);
             };
         }
@@ -284,36 +304,30 @@ mainApp.directive('ckeditor', function() {
 
 // HEIGHT OF NOTEBOOK
 
-function setHeight (element, ratio, minLimit)
-{
+function setHeight(element, ratio, minLimit) {
     // First of all, let's square the element
     setH(ratio, minLimit);
 
     // Now we'll add an event listener so it happens automatically
-    window.addEventListener('resize', function(event) {
+    window.addEventListener('resize', function (event) {
         setH(ratio, minLimit);
     });
 
     // This is just an inner function to help us keep DRY
-    function setH(ratio, minLimit)
-    {
-        if(typeof(ratio) === "undefined")
-        {
+    function setH(ratio, minLimit) {
+        if (typeof(ratio) === "undefined") {
             ratio = 1;
         }
-        if(typeof(minLimit) === "undefined")
-        {
+        if (typeof(minLimit) === "undefined") {
             minLimit = 0;
         }
         var viewportWidth = window.innerWidth;
 
-        if(viewportWidth >= minLimit)
-        {
+        if (viewportWidth >= minLimit) {
             var newElementHeight = $(element).width() * ratio;
             $(element).height(newElementHeight);
         }
-        else
-        {
+        else {
             $(element).height('auto');
         }
     }
@@ -321,40 +335,38 @@ function setHeight (element, ratio, minLimit)
 
 // SET POSITION OF ARROWS
 
-function setPos (element)
-{
+function setPos(element) {
     // First of all, let's square the element
     setP();
 
     // Now we'll add an event listener so it happens automatically
-    window.addEventListener('resize', function(event) {
+    window.addEventListener('resize', function (event) {
         setP();
     });
 
     // This is just an inner function to help us keep DRY
-    function setP()
-    {
+    function setP() {
         var viewportHeight = window.innerHeight;
 
-        var newElementPos = viewportHeight/2-40;
+        var newElementPos = viewportHeight / 2 - 40;
         $(element).css("padding-top", newElementPos);
     }
 }
 
 
-    /**
-    $scope.editMode = false;
-    $scope.editModeindex = -1;
-    $scope.code = function () {
+/**
+ $scope.editMode = false;
+ $scope.editModeindex = -1;
+ $scope.code = function () {
         $scope.divHtmlVar = $scope.divHtmlVar + '<section> <textarea class="codestyle" rows="6" cols="70" ui-codemirror="cmOption"></textarea> Mode : <select ng-model="mode" ng-options="m for m in modes" ng-change="modeChanged()"></select> </section>';
     };
-    // The modes
-    $scope.modes = ['Scheme', 'XML', 'Javascript', 'clike', 'python'];
-    $scope.mode = $scope.modes[0];
+ // The modes
+ $scope.modes = ['Scheme', 'XML', 'Javascript', 'clike', 'python'];
+ $scope.mode = $scope.modes[0];
 
 
-    // The ui-codemirror option
-    $scope.cmOption = {
+ // The ui-codemirror option
+ $scope.cmOption = {
         lineNumbers: true,
         indentWithTabs: true,
         onLoad: function (_cm) {
@@ -367,8 +379,8 @@ function setPos (element)
         //wie oben ng-change??? fuer speichern wenn etwas geaendert wurde
     };
 
-    // The ui-codemirror option
-    $scope.cmOptionreadonly = {
+ // The ui-codemirror option
+ $scope.cmOptionreadonly = {
         lineNumbers: true,
         indentWithTabs: true,
         readOnly: 'nocursor',
@@ -380,13 +392,13 @@ function setPos (element)
         }
     };
 
-    $scope.publicViewed = true;
-    $scope.xPos = {};
-    $scope.yPos = {};
-    $scope.pages = {};
-    $scope.count = {'reference': 0};
-    $scope.currentPage = 1;
-    $http({
+ $scope.publicViewed = true;
+ $scope.xPos = {};
+ $scope.yPos = {};
+ $scope.pages = {};
+ $scope.count = {'reference': 0};
+ $scope.currentPage = 1;
+ $http({
         method: 'POST',
         url: '/api/get_notebook',
         data: {id: $stateParams.id}
@@ -451,12 +463,12 @@ function setPos (element)
         });
     });
 
-    angular.element('.zoomTarget').zoomTarget();
+ angular.element('.zoomTarget').zoomTarget();
 
-    ACHTUNG http://interactjs.io/
-     Bereits importiert
+ ACHTUNG http://interactjs.io/
+ Bereits importiert
 
-    $scope.makeDraggable = function (id, page) {
+ $scope.makeDraggable = function (id, page) {
         angular.element("#" + id).draggable({
             containment: '.b-page-' + (page - 1),
             stop: function () {
@@ -479,13 +491,13 @@ function setPos (element)
         $scope.yPos[id] = sessionStorage.getItem('yPos_' + id);
     };
 
-    $scope.toPage = function (page) {
+ $scope.toPage = function (page) {
         alert(page);
         angular.element('#book').booklet("gotopage", page - 1);
         $scope.currentPage = page;
     };
 
-    $scope.createElementReference = function () {
+ $scope.createElementReference = function () {
         var input = $window.prompt("Auf welche Seite möchtest du referenzieren?", "");
         if (input != null) {
             $scope.pages[1] = $scope.pages[1] + '<div class="draggable ui-draggable-handle ui-draggable" id="reference_' +
@@ -497,7 +509,7 @@ function setPos (element)
         }
     };
 
-    $scope.deleteelement = function (id, art) {
+ $scope.deleteelement = function (id, art) {
         deleteUser = true;
         deleteUser = $window.confirm('Wollen Sie dieses Element wirklich löschen?');
         if (deleteUser) {
@@ -513,7 +525,7 @@ function setPos (element)
         }
     };
 
-    $scope.addelement = function (art) {
+ $scope.addelement = function (art) {
         var input = $window.prompt("Auf welche Seite möchtest du das Element einfügen,"+$scope.currentPage+", "+($scope.currentPage+1)+"?", "");
         if (input == $scope.currentPage || input == $scope.currentPage+1) {
             $http({
@@ -531,7 +543,7 @@ function setPos (element)
         }
     };
 
-    $scope.editelement = function (id, art, data) {
+ $scope.editelement = function (id, art, data) {
         $http({
             method: 'POST',
             url: '/api/edit_notebook_content',
@@ -543,7 +555,7 @@ function setPos (element)
         });
     };
 
-    $scope.setEditMode = function (edit, index, id, art, input) {
+ $scope.setEditMode = function (edit, index, id, art, input) {
         if ($scope.editModeindex == -1) {
             $scope.editMode = edit;
             $scope.editModeindex = index;
@@ -554,23 +566,23 @@ function setPos (element)
         }
     };
 
-    $scope.updatedata = function () {
+ $scope.updatedata = function () {
         $scope.elementinput = [];
         for (i = 0; i < $scope.sites.length; i++) {
             $scope.elementinput.push($scope.sites[i].data);
         }
     }
 
-    $scope.hoverIn = function () {
+ $scope.hoverIn = function () {
         this.hoverEdit = true;
     };
 
-    $scope.hoverOut = function () {
+ $scope.hoverOut = function () {
         this.hoverEdit = false;
     };
 
 
-    $scope.open = function () {
+ $scope.open = function () {
         ngDialog.open({
             template: 'firstDialog',
             controller: 'notebookEditCtrl',
@@ -578,7 +590,7 @@ function setPos (element)
         });
     };
 
-    $scope.uploadFile = function(){
+ $scope.uploadFile = function(){
                var file = $scope.myFile;
 
                console.log('file is ' );
@@ -587,10 +599,10 @@ function setPos (element)
                var uploadUrl = "/api/notebook/upload";
                fileUpload.uploadFileToUrl(file, uploadUrl);
             };
-*/
+ */
 
 /**
-mainApp.directive('fileModel', ['$parse', function ($parse) {
+ mainApp.directive('fileModel', ['$parse', function ($parse) {
     return {
         restrict: 'A',
         link: function(scope, element, attrs) {
@@ -606,7 +618,7 @@ mainApp.directive('fileModel', ['$parse', function ($parse) {
     };
 }]);
 
-mainApp.service('fileUpload', ['$http', function ($http) {
+ mainApp.service('fileUpload', ['$http', function ($http) {
     this.uploadFileToUrl = function(file, uploadUrl){
         var fd = new FormData();
         fd.append('file', file);
@@ -624,7 +636,7 @@ mainApp.service('fileUpload', ['$http', function ($http) {
     }
 }]);
 
-mainApp.directive('compile', ['$compile', function ($compile) {
+ mainApp.directive('compile', ['$compile', function ($compile) {
     return function (scope, element, attrs) {
         scope.$watch(
             function (scope) {
@@ -645,7 +657,7 @@ mainApp.directive('compile', ['$compile', function ($compile) {
         )
     }
 }]);
-/*
+ /*
  if ( CKEDITOR.env.ie && CKEDITOR.env.version < 9 )
  CKEDITOR.tools.enableHtml5Elements( document );
 
@@ -691,7 +703,7 @@ mainApp.directive('compile', ['$compile', function ($compile) {
  return !!CKEDITOR.plugins.get( 'wysiwygarea' );
  }
  } )();
-mainApp.directive('textareaelementinit', function () {
+ mainApp.directive('textareaelementinit', function () {
     return {
         template: "",
         link: function () {
