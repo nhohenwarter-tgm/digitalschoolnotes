@@ -8,7 +8,8 @@
                     <nav class="navbar navbar-default navbar-fixed-top" style="background-color: #669966;">
                         <!-- BACK ARROW START -->
                         <div class="navbar-header col-md-2">
-                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                                    data-target="#navbar"
                                     aria-expanded="false" aria-controls="navbar">
                                 <span class="sr-only">Toggle navigation</span>
                                 <span class="icon-bar"></span>
@@ -22,41 +23,53 @@
                         </div>
                         <!-- BACK ARROW END -->
                         <!-- TOOLBAR START -->
-                        <div class="col-md-8">
+                        <div class="col-md-7">
                             <div id="navbar" class="navbar-collapse collapse row" ng-hide="publicViewed">
                                 <div align="center">
-                                    <ul class="nav navbar-nav col-md-7" style="font-size: 30px;">
+                                    <ul class="nav navbar-nav col-md-8" style="font-size: 30px;">
                                         <li>
-                                            <a ng-click="addelement('textarea')">
-                                                <span class="glyphicon glyphicon-font" style="color: white; cursor: pointer;"></span>
+                                            <a ng-click="addelement('textarea', '{&quot;data&quot;:&quot;&quot;}')">
+                                                <span class="glyphicon glyphicon-font"
+                                                      style="color: white; cursor: pointer;"></span>
                                             </a>
                                         </li>
                                         <li>
                                             <a>
-                                                <span class="glyphicon glyphicon-pencil" style="color: white; cursor: pointer;"></span>
+                                                <span class="glyphicon glyphicon-pencil"
+                                                      style="color: white; cursor: pointer;"></span>
                                             </a>
                                         </li>
                                         <li>
                                             <a>
-                                                <span class="glyphicon glyphicon-facetime-video" style="color: white; cursor: pointer;"></span>
+                                                <span class="glyphicon glyphicon-facetime-video"
+                                                      style="color: white; cursor: pointer;"></span>
                                             </a>
                                         </li>
                                         <li>
                                             <a ng-click="codeElementCreate()">
-                                                <span class="glyphicon glyphicon-console" style="color: white; cursor: pointer;"></span>
+                                                <span class="glyphicon glyphicon-console"
+                                                      style="color: white; cursor: pointer;"></span>
                                             </a>
                                         </li>
                                         <li>
                                             <a>
-                                                <span class="glyphicon glyphicon-bookmark" style="color: white; cursor: pointer;"></span>
+                                                <span class="glyphicon glyphicon-bookmark"
+                                                      style="color: white; cursor: pointer;"></span>
                                             </a>
                                         </li>
-                                    </ul></div>
+                                        <li ng-hide="!publicViewed">
+                                            <a ng-click="exportElement()">
+                                                    <span class="glyphicon glyphicon-export"
+                                                          style="color: white; cursor: pointer;"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                         <!-- TOOLBAR END -->
                         <!-- NOTEBOOK NAME START -->
-                        <div class="col-md-2" >
+                        <div class="col-md-2">
                             <div id="navbar" class="navbar-collapse collapse row navbar-left">
                                 <ul class="nav navbar-nav col-md-7" style="font-size: 30px;">
                                     <li style="color: white; font-size: 35px; font-weight: bold;">{{ notebook.name }}</li>
@@ -86,7 +99,8 @@
                         <!-- PAGE CONTENT START -->
                         <div>
                             <h3>Page {{ currentPage }}!</h3>
-                                    <span ng-repeat="element in sites[currentPage]" ng-mouseenter="hovered=true;" ng-mouseleave="hovered=false;">
+                                    <span ng-repeat="element in sites[currentPage]" ng-mouseenter="hovered=true;"
+                                          ng-mouseleave="hovered=false;">
                                         <!-- TEXT ELEMENT -->
                                         <span ng-if="element.art == 'textarea'" id="{{ element.art }}_{{ element.id }}">
                                             <!-- Edit -->
@@ -102,18 +116,23 @@
                                         <!-- CODE ELEMENT -->
                                         <span ng-if="element.art == 'code'">
                                             <!-- Edit -->
-                                            <section id="{{ element.art }}_{{ element.id }}" ng-if="editMode == element.id">
-                                                <textarea ng-model="models[element.art][element.id][0]" class="codestyle" rows="6"
+                                            <section id="{{ element.art }}_{{ element.id }}"
+                                                     ng-if="editMode == element.id">
+                                                <textarea ng-model="models[element.art][element.id][0]"
+                                                          class="codestyle" rows="6"
                                                           cols="70" ui-codemirror="cmOption">
 
                                                 </textarea>
                                                 Mode :
-                                                <select ng-model="models[element.art][element.id][1]" ng-options="m for m in modes"
+                                                <select ng-model="models[element.art][element.id][1]"
+                                                        ng-options="m for m in modes"
                                                         ng-change="modeChanged(element.id)"></select>
                                             </section>
                                             <!-- Read-Only -->
-                                            <section id="{{ element.art }}_{{ element.id }}" ng-if="editMode != element.id">
-                                                <textarea ng-model="models[element.art][element.id][0]" class="codestyle" rows="6"
+                                            <section id="{{ element.art }}_{{ element.id }}"
+                                                     ng-if="editMode != element.id">
+                                                <textarea ng-model="models[element.art][element.id][0]"
+                                                          class="codestyle" rows="6"
                                                           cols="70" ui-codemirror="ROcmOption">
 
                                                 </textarea>
@@ -121,16 +140,19 @@
                                         </span>
                                         <!-- EDIT / DELETE -->
                                         <div ng-hide="publicViewed">
-                                            <span ng-show="hovered && editMode != element.id" class="glyphicon glyphicon-trash"
+                                            <span ng-show="hovered && editMode != element.id"
+                                                  class="glyphicon glyphicon-trash"
                                                   ng-click="codeElementDelete(element.id,element.art)"
                                                   style="cursor: pointer; font-size: 18px; color:black; padding-top: 3px;">
 
                                             </span>
-                                            <span ng-show="hovered && editMode != element.id" class="glyphicon glyphicon-pencil"
+                                            <span ng-show="hovered && editMode != element.id"
+                                                  class="glyphicon glyphicon-pencil"
                                                   ng-click="setEditMode(element.id,element.id,element.art)"
                                                   style="cursor: pointer; font-size: 18px; color:black; padding-top: 3px;">
 
                                             </span>
+
                                             <div style="color: red; text-align: center; padding-bottom: 10px;"
                                                  ng-if="editMode == element.id">
                                                 Bearbeitungsmodus aktiviert!
@@ -331,14 +353,19 @@
 
     </div>
     <div class="ngdialog-buttons mt">
-        <button id="cancel" class="btn btn-danger" ng-click="closeThisDialog()" style="float: right;  margin-right: 15px; margin-top:20px;">Abbrechen</button>
-        <button id="submit" class="btn btn-success" ng-click="closeThisDialog();addelement('code');" style="float: right; margin-top:20px; margin-left: 15px; margin-right: 15px;">Speichern</button>
+        <button id="cancel" class="btn btn-danger" ng-click="closeThisDialog()"
+                style="float: right;  margin-right: 15px; margin-top:20px;">Abbrechen
+        </button>
+        <button id="submit" class="btn btn-success" ng-click="closeThisDialog();addelement('code','{&quot;data&quot;:&quot;&quot;,&quot;mode&quot;:&quot;&quot;}');"
+                style="float: right; margin-top:20px; margin-left: 15px; margin-right: 15px;">Speichern
+        </button>
     </div>
 </script>
 
 <script type="text/ng-template" id="deleteElementSettings">
     <div class="ngdialog-message">
         <h2>Element löschen</h2>
+
         <div>Bist du sicher, dass du dieses Element löschen willst.</div>
         <br/>
     </div>
@@ -346,7 +373,8 @@
         <button id="cancel" class="btn btn-danger" ng-click="closeThisDialog()"
                 style="float: right;  margin-right: 15px;">Abbrechen
         </button>
-        <button type="submit" id="submit" class="btn btn-success" ng-click="deleteelement(deleteid,deleteart);closeThisDialog();"
+        <button type="submit" id="submit" class="btn btn-success"
+                ng-click="deleteelement(deleteid,deleteart);closeThisDialog();"
                 style="float: right; margin-left: 15px; margin-right: 15px;">Löschen
         </button>
     </div>

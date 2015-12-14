@@ -99,11 +99,11 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
 
     // GENERAL ELEMENT FUNCTIONS
 
-    $scope.addelement = function (art) {
+    $scope.addelement = function (art, data) {
         $http({
             method: 'POST',
             url: '/api/add_notebook_content',
-            data: {id: $stateParams.id, content_art: art, content_site: $scope.currentPage}
+            data: {id: $stateParams.id, content_art: art, content_site: $scope.currentPage, content_data: data}
         }).success(function (data) {
             $scope.notebook = JSON.parse(data['notebook']);
             $scope.content = $scope.notebook['content'];
@@ -135,11 +135,11 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         $scope.deleteart = art;
     };
 
-    $scope.editelement = function (id, art, data, mode) {
+    $scope.editelement = function (id, art, data) {
         $http({
             method: 'POST',
             url: '/api/edit_notebook_content',
-            data: {id: $stateParams.id, content_id: id, content_art: art, content_data: data, content_mode: mode}
+            data: {id: $stateParams.id, content_id: id, content_art: art, content_data: data}
         }).success(function (data) {
             $scope.notebook = JSON.parse(data['notebook']);
             $scope.content = $scope.notebook['content'];
@@ -150,9 +150,9 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     $scope.setEditMode = function (edit, id, art) {
         $scope.editMode = edit;
         if(art == 'code'){
-            $scope.editelement(id, art, $scope.models[art][id][0],$scope.models['code'][id][1]);
+            $scope.editelement(id, art, {"data":$scope.models[art][id][0],"mode":$scope.models['code'][id][1]});
         }else{
-            $scope.editelement(id, art, $scope.models[art][id]);
+            $scope.editelement(id, art, {"data":$scope.models[art][id]});
         }
     };
 
@@ -191,7 +191,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         }
     };
 
-    // NgDialog zum erstellen und bearbeiten von Code Elementen
+    // NgDialog zum erstellen, bearbeiten und exportieren von Code Elementen
     $scope.codeElementCreate = function () {
         ngDialog.open({
             template: 'codeElementSettings',
@@ -203,6 +203,14 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     $scope.codeElementEdit = function () {
         ngDialog.open({
             template: 'codeElementSettings2',
+            className: 'ngdialog-theme-default',
+            scope: $scope
+        });
+    };
+
+    $scope.exportElement = function () {
+        ngDialog.open({
+            template: 'codeElementSettings',
             className: 'ngdialog-theme-default',
             scope: $scope
         });
