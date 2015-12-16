@@ -65,6 +65,12 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         }
     };
 
+    $scope.removeDraggables = function () {
+        for (var i = 0; i < $scope.content.length; i++) {
+            $scope.makeUndraggable($scope.content[i]['id'], $scope.content[i]['art']);
+        }
+    }
+
     $scope.update = function () {
         $scope.initSites();
         $scope.initElemModels();
@@ -164,16 +170,22 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         }).success(function (data) {
             $scope.notebook = JSON.parse(data['notebook']);
             $scope.content = $scope.notebook['content'];
-            $scope.update();
         });
     };
 
     $scope.setEditMode = function (edit, id, art) {
         $scope.editMode = edit;
-        if(art == 'code'){
-            $scope.editelement(id, art, {"data":$scope.models[art][id][0],"language":$scope.models['code'][id][1]});
+        if(edit == null) {
+            if (art == 'code') {
+                $scope.editelement(id, art, {
+                    "data": $scope.models[art][id][0],
+                    "language": $scope.models['code'][id][1]
+                });
+            } else {
+                $scope.editelement(id, art, {"data": $scope.models[art][id]});
+            }
         }else{
-            $scope.editelement(id, art, {"data":$scope.models[art][id]});
+            $scope.removeDraggables();
         }
     };
 
@@ -189,6 +201,10 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
                 }
             });
         });
+    };
+
+    $scope.makeUndraggable = function (id, art) {
+        angular.element("#"+art+"_"+id).draggable("destroy");
     };
 
 
