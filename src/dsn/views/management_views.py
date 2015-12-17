@@ -112,7 +112,7 @@ def view_createNotebook(request):
         form.last_change = datetime.now()
         form.email = request.user.email
         nb = Notebook(name=form.name, is_public=form.is_public, create_date=form.create_date,
-                      last_change=form.last_change, email=form.email, numpages=6)
+                      last_change=form.last_change, email=form.email, numpages=6, current_page=1)
         nb.save()
         return JsonResponse({'message': None})
 
@@ -151,9 +151,20 @@ def view_edit_notebooklength(request):
         params = json.loads(request.body.decode('utf-8'))
         notebook = Notebook.objects.get(id=params['id'])
         notebook.numpages = notebook.numpages + 1
+        notebook.current_page = notebook.numpages
         notebook.save()
         notebooks = Notebook.objects.get(id=params['id']).to_json()
         return JsonResponse({"notebook": notebooks})
+
+def view_edit_currentpage(request):
+    if not request.user.is_authenticated():
+        return JsonResponse({})
+    if request.method == "POST":
+        params = json.loads(request.body.decode('utf-8'))
+        notebook = Notebook.objects.get(id=params['id'])
+        notebook.current_page = params['current_site']
+        notebook.save()
+        return JsonResponse({})
 
 def view_get_notebooks(request):
     if not request.user.is_authenticated():
@@ -229,8 +240,7 @@ def view_import_notebook_content(request):
             content.data = c['data']
             notebook.content.append(content)
         notebook.save()
-        notebook = Notebook.objects.get(id=params['id']).to_json()
-        return JsonResponse({"notebook": notebook})
+        return JsonResponse({})
 
 
 def view_edit_content_position(request):

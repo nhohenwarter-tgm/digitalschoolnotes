@@ -27,31 +27,31 @@
                             <div id="navbar" class="navbar-collapse collapse row" ng-hide="publicViewed">
                                 <div align="center">
                                     <ul class="nav navbar-nav col-md-8" style="font-size: 30px;">
-                                        <li>
+                                        <li ng-hide="publicViewed">
                                             <a ng-click="addelement('textarea', '{&quot;data&quot;:&quot;&quot;}')">
                                                 <span class="glyphicon glyphicon-font"
                                                       style="color: white; cursor: pointer;"></span>
                                             </a>
                                         </li>
-                                        <li>
+                                        <li ng-hide="publicViewed">
                                             <a>
                                                 <span class="glyphicon glyphicon-pencil"
                                                       style="color: white; cursor: pointer;"></span>
                                             </a>
                                         </li>
-                                        <li>
+                                        <li ng-hide="publicViewed">
                                             <a>
                                                 <span class="glyphicon glyphicon-facetime-video"
                                                       style="color: white; cursor: pointer;"></span>
                                             </a>
                                         </li>
-                                        <li>
+                                        <li ng-hide="publicViewed">
                                             <a ng-click="codeElementCreate()">
                                                 <span class="glyphicon glyphicon-console"
                                                       style="color: white; cursor: pointer;"></span>
                                             </a>
                                         </li>
-                                        <li>
+                                        <li ng-hide="publicViewed">
                                             <a>
                                                 <span class="glyphicon glyphicon-bookmark"
                                                       style="color: white; cursor: pointer;"></span>

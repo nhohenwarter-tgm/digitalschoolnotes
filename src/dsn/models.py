@@ -273,6 +273,7 @@ class Notebook(Document):
     last_change = DateTimeField(default=datetime.datetime.now())
     email = EmailField()
     numpages = IntField(default=2)
+    current_page = IntField(default=2)
     #elements = NotebookElement()
     content = SortedListField(EmbeddedDocumentField(NotebookContent), ordering="id", reverse=True)
 
