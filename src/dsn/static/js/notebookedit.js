@@ -31,11 +31,12 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
             var user = data['user'];
             if ($scope.notebook['email'] == user['email']) {
                 $scope.publicViewed = false;
+                $scope.update();
             } else {
                 $scope.publicViewed = true;
             }
         });
-        if($scope.notebook.name.length > 10){
+        if($scope.notebook.name.length > 9){
             $scope.notebookName = $scope.notebook.name.substring(0,10)+"...";
         }else {
             $scope.notebookName = $scope.notebook.name;
