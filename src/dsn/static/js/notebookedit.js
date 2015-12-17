@@ -35,6 +35,11 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
                 $scope.publicViewed = true;
             }
         });
+        if($scope.notebook.name.length > 10){
+            $scope.notebookName = $scope.notebook.name.substring(0,10)+"...";
+        }else {
+            $scope.notebookName = $scope.notebook.name;
+        }
     });
 
     $scope.initElemModels = function () {
@@ -69,7 +74,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         for (var i = 0; i < $scope.content.length; i++) {
             $scope.makeUndraggable($scope.content[i]['id'], $scope.content[i]['art']);
         }
-    }
+    };
 
     $scope.update = function () {
         $scope.initSites();
@@ -190,21 +195,25 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     };
 
     $scope.makeDraggable = function (id, art) {
-        $timeout(function(){
-            angular.element("#"+art+"_"+id).draggable({
-                containment: '#notebook',
-                stop: function () {
-                    var finalPos = $(this).position();
-                    $scope.editPositionElement(id, art, finalPos.left, finalPos.top);
-                },
-                create: function () {
-                }
+        if(!$scope.publicViewed) {
+            $timeout(function () {
+                angular.element("#" + art + "_" + id).draggable({
+                    containment: '#notebook',
+                    stop: function () {
+                        var finalPos = $(this).position();
+                        $scope.editPositionElement(id, art, finalPos.left, finalPos.top);
+                    },
+                    create: function () {
+                    }
+                });
             });
-        });
+        }
     };
 
     $scope.makeUndraggable = function (id, art) {
-        angular.element("#"+art+"_"+id).draggable("destroy");
+        if(!$scope.publicViewed) {
+            angular.element("#" + art + "_" + id).draggable("destroy");
+        }
     };
 
 
