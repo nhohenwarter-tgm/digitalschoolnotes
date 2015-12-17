@@ -8,9 +8,48 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     $scope.models = {'code': {}, 'textarea': {}};
     $scope.additem = false;
 
+    // ADDITIONAL FUNCTIONS
+
+    // Height of Notebook
+    $scope.setHeight = function(element, ratio, minLimit) {
+        // First of all, let's square the element
+        setH(ratio, minLimit);
+
+        // Now we'll add an event listener so it happens automatically
+        window.addEventListener('resize', function (event) {
+            setH(ratio, minLimit);
+        });
+
+        // This is just an inner function to help us keep DRY
+        function setH(ratio, minLimit) {
+            if (typeof(ratio) === "undefined") {
+                ratio = 1;
+            }
+            if (typeof(minLimit) === "undefined") {
+                minLimit = 0;
+            }
+            var viewportWidth = window.innerWidth;
+
+            if (viewportWidth >= minLimit) {
+                var newElementHeight = $(element).width() * ratio;
+                $(element).height(newElementHeight);
+            }
+            else {
+                $(element).height('auto');
+            }
+            $scope.notebookHeight = $(element).height();
+            $scope.notebookWidth = $(element).width();
+        }
+    };
+
+    // Get how many pixels are left to reach the border of notebook
+    $scope.getLeftPixels = function(posx, posy){
+        return {"x": $scope.notebookWidth-posx,"y": $scope.notebookHeight-posy};
+    };
+
 
     // Set height of notebook
-    setHeight("#notebook", 1.41);
+    $scope.setHeight("#notebook", 1.41);
     setPos("#turn_left");
     setPos("#turn_right");
     setPos("#turn_left_fast");
@@ -327,37 +366,6 @@ mainApp.directive('ckeditor', function () {
         }
     };
 });
-
-// HEIGHT OF NOTEBOOK
-
-function setHeight(element, ratio, minLimit) {
-    // First of all, let's square the element
-    setH(ratio, minLimit);
-
-    // Now we'll add an event listener so it happens automatically
-    window.addEventListener('resize', function (event) {
-        setH(ratio, minLimit);
-    });
-
-    // This is just an inner function to help us keep DRY
-    function setH(ratio, minLimit) {
-        if (typeof(ratio) === "undefined") {
-            ratio = 1;
-        }
-        if (typeof(minLimit) === "undefined") {
-            minLimit = 0;
-        }
-        var viewportWidth = window.innerWidth;
-
-        if (viewportWidth >= minLimit) {
-            var newElementHeight = $(element).width() * ratio;
-            $(element).height(newElementHeight);
-        }
-        else {
-            $(element).height('auto');
-        }
-    }
-}
 
 // SET POSITION OF ARROWS
 
