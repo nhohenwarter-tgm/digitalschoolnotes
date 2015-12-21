@@ -269,10 +269,12 @@ mainApp.directive('ckeditor', function () {
         link: function(scope, elm, attr, ngModel) {
             var ck = CKEDITOR.replace(elm[0], {
                 extraPlugins: 'autogrow',
-                autoGrow_minHeight: 20,
+                autoGrow_minHeight: 100,
                 autoGrow_maxHeight: 800,
+                autoGrow_minWidth:200,
+                autoGrow_maxWidth:800,
                 removePlugins: 'resize',
-                contentsCss : 'body {overflow:hidden;}',
+                contentsCss : 'body {overflow-x:hidden;}',
                 fullPage: true
             });
 
