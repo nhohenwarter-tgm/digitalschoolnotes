@@ -8,9 +8,48 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     $scope.models = {'code': {}, 'textarea': {}};
     $scope.additem = false;
 
+    // ADDITIONAL FUNCTIONS
+
+    // Height of Notebook
+    $scope.setHeight = function(element, ratio, minLimit) {
+        // First of all, let's square the element
+        setH(ratio, minLimit);
+
+        // Now we'll add an event listener so it happens automatically
+        window.addEventListener('resize', function (event) {
+            setH(ratio, minLimit);
+        });
+
+        // This is just an inner function to help us keep DRY
+        function setH(ratio, minLimit) {
+            if (typeof(ratio) === "undefined") {
+                ratio = 1;
+            }
+            if (typeof(minLimit) === "undefined") {
+                minLimit = 0;
+            }
+            var viewportWidth = window.innerWidth;
+
+            if (viewportWidth >= minLimit) {
+                var newElementHeight = $(element).width() * ratio;
+                $(element).height(newElementHeight);
+            }
+            else {
+                $(element).height('auto');
+            }
+            $scope.notebookHeight = $(element).height();
+            $scope.notebookWidth = $(element).width();
+        }
+    };
+
+    // Get how many pixels are left to reach the border of notebook
+    $scope.getLeftPixels = function(posx, posy){
+        return {"x": $scope.notebookWidth-posx,"y": $scope.notebookHeight-posy};
+    };
+
 
     // Set height of notebook
-    setHeight("#notebook", 1.41);
+    $scope.setHeight("#notebook", 1.41);
     setPos("#turn_left");
     setPos("#turn_right");
     setPos("#turn_left_fast");
@@ -25,16 +64,23 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     }).success(function (data) {
         $scope.notebook = JSON.parse(data['notebook']);
         $scope.content = $scope.notebook['content'];
-        $scope.currentPage = $scope.notebook['numpages'];
+        $scope.currentPage = $scope.notebook['current_page'];
+        if($scope.currentPage != $scope.notebook['numpages'])$scope.additem = true;
         $scope.update();
         loggedIn.getUser().then(function (data) {
             var user = data['user'];
             if ($scope.notebook['email'] == user['email']) {
                 $scope.publicViewed = false;
+                $scope.update();
             } else {
                 $scope.publicViewed = true;
             }
         });
+        if($scope.notebook.name.length > 9){
+            $scope.notebookName = $scope.notebook.name.substring(0,10)+"...";
+        }else {
+            $scope.notebookName = $scope.notebook.name;
+        }
     });
 
     $scope.initElemModels = function () {
@@ -65,6 +111,12 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         }
     };
 
+    $scope.removeDraggables = function () {
+        for (var i = 0; i < $scope.content.length; i++) {
+            $scope.makeUndraggable($scope.content[i]['id'], $scope.content[i]['art']);
+        }
+    };
+
     $scope.update = function () {
         $scope.initSites();
         $scope.initElemModels();
@@ -74,6 +126,14 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     $scope.toPage = function (page) {
         if (page > 0 && page <= $scope.notebook['numpages']) {
             $scope.currentPage = page;
+            $http({
+                method: 'POST',
+                url: '/api/notebook_currentsite_edit',
+                data: {id: $stateParams.id, current_site: $scope.currentPage}
+            }).success(function (data) {
+                $scope.currentPage = page;
+                $scope.notebook = JSON.parse(data['notebook']);
+            });
             if ($scope.currentPage == $scope.notebook['numpages']) {
                 $scope.additem = false;
             } else {
@@ -164,31 +224,45 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         }).success(function (data) {
             $scope.notebook = JSON.parse(data['notebook']);
             $scope.content = $scope.notebook['content'];
-            $scope.update();
         });
     };
 
     $scope.setEditMode = function (edit, id, art) {
         $scope.editMode = edit;
-        if(art == 'code'){
-            $scope.editelement(id, art, {"data":$scope.models[art][id][0],"language":$scope.models['code'][id][1]});
+        if(edit == null) {
+            if (art == 'code') {
+                $scope.editelement(id, art, {
+                    "data": $scope.models[art][id][0],
+                    "language": $scope.models['code'][id][1]
+                });
+            } else {
+                $scope.editelement(id, art, {"data": $scope.models[art][id]});
+            }
         }else{
-            $scope.editelement(id, art, {"data":$scope.models[art][id]});
+            $scope.removeDraggables();
         }
     };
 
     $scope.makeDraggable = function (id, art) {
-        $timeout(function(){
-            angular.element("#"+art+"_"+id).draggable({
-                containment: '#notebook',
-                stop: function () {
-                    var finalPos = $(this).position();
-                    $scope.editPositionElement(id, art, finalPos.left, finalPos.top);
-                },
-                create: function () {
-                }
+        if(!$scope.publicViewed) {
+            $timeout(function () {
+                angular.element("#" + art + "_" + id).draggable({
+                    containment: '#notebook',
+                    stop: function () {
+                        var finalPos = $(this).position();
+                        $scope.editPositionElement(id, art, finalPos.left, finalPos.top);
+                    },
+                    create: function () {
+                    }
+                });
             });
-        });
+        }
+    };
+
+    $scope.makeUndraggable = function (id, art) {
+        if(!$scope.publicViewed) {
+            angular.element("#" + art + "_" + id).draggable("destroy");
+        }
     };
 
 
@@ -303,37 +377,6 @@ mainApp.directive('ckeditor', function () {
         }
     };
 });
-
-// HEIGHT OF NOTEBOOK
-
-function setHeight(element, ratio, minLimit) {
-    // First of all, let's square the element
-    setH(ratio, minLimit);
-
-    // Now we'll add an event listener so it happens automatically
-    window.addEventListener('resize', function (event) {
-        setH(ratio, minLimit);
-    });
-
-    // This is just an inner function to help us keep DRY
-    function setH(ratio, minLimit) {
-        if (typeof(ratio) === "undefined") {
-            ratio = 1;
-        }
-        if (typeof(minLimit) === "undefined") {
-            minLimit = 0;
-        }
-        var viewportWidth = window.innerWidth;
-
-        if (viewportWidth >= minLimit) {
-            var newElementHeight = $(element).width() * ratio;
-            $(element).height(newElementHeight);
-        }
-        else {
-            $(element).height('auto');
-        }
-    }
-}
 
 // SET POSITION OF ARROWS
 

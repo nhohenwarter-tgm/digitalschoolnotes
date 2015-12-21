@@ -46,6 +46,7 @@ urlpatterns = [
     url(r'^api/edit_notebook_content', 'dsn.views.management_views.view_edit_notebook_content', name="edit1NotebookContent"),
     url(r'^api/edit_content_position', 'dsn.views.management_views.view_edit_content_position', name="editContentPosition"),
     url(r'^api/notebook_length_edit', 'dsn.views.management_views.view_edit_notebooklength', name="editNotebookLength"),
+    url(r'^api/notebook_currentsite_edit', 'dsn.views.management_views.view_edit_currentpage', name="editCurrentSite"),
     url(r'^api/delete_notebook', 'dsn.views.management_views.view_delete_notebook', name="deleteNotebook"),
     url(r'^api/delete_account', 'dsn.views.management_views.view_delete_account', name="deleteAccount"),
     url(r'^api/get_userSettings', 'dsn.views.management_views.view_getUserSettings', name="getUserSettings"),
