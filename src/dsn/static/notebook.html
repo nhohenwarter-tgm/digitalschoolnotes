@@ -299,58 +299,59 @@
         <br/>
 
         <div class="radio">
-            <div class="col-md-6">
-                <label>
-                    <input type="radio" ng-model="codeLanguage" ng-value="application/xml"/>
-                    XML
-                </label><br/>
-                <label>
-                    <input type="radio" ng-model="codeLanguage" ng-value="text/html">
-                    HTML
-                </label><br/>
-                <label>
-                    <input type="radio" ng-model="codeLanguage" ng-value="text/x-java">
-                    Java
-                </label><br/>
-                <label>
-                    <input type="radio" ng-model="codeLanguage" ng-value="text/javascript">
-                    Javascript
-                </label><br/>
-                <label>
-                    <input type="radio" ng-model="codeLanguage" ng-value="text/x-php">
-                    PHP
-                </label><br/>
-                <label>
-                    <input type="radio" ng-model="codeLanguage" ng-value="text/x-ruby">
-                    Ruby
-                </label><br/>
-            </div>
-            <div class="col-md-6">
-                <label>
-                    <input type="radio" ng-model="codeLanguage" ng-value="text/x-sh">
-                    Shell
-                </label><br/>
-                <label>
-                    <input type="radio" ng-model="codeLanguage" ng-value="text/x-mysql">
-                    SQL
-                </label><br/>
-                <label>
-                    <input type="radio" ng-model="codeLanguage" ng-value="text/x-csrc">
-                    C
-                </label><br/>
-                <label>
-                    <input type="radio" ng-model="codeLanguage" ng-value="text/x-c++src">
-                    C++
-                </label><br/>
-                <label>
-                    <input type="radio" ng-model="codeLanguage" ng-value="text/x-csharp">
-                    C#
-                </label><br/>
-                <label>
-                    <input type="radio" ng-model="codeLanguage" ng-value="text/x-python">
-                    Python
-                </label><br/>
-            </div>
+                <div class="col-md-6">
+
+                    <label>
+                        <input type="radio" name="lang" ng-model="value" value="application/xml" ng-change="setCodeElementLanguage(value)">
+                        XML
+                    </label><br/>
+                    <label>
+                        <input type="radio" name="lang" ng-model="value" value="text/html" ng-change="setCodeElementLanguage(value)">
+                        HTML
+                    </label><br/>
+                    <label>
+                        <input type="radio" name="lang" ng-model="value" value="text/x-java" ng-change="setCodeElementLanguage(value)">
+                        Java
+                    </label><br/>
+                    <label>
+                        <input type="radio" name="lang" ng-model="value" value="text/javascript" ng-change="setCodeElementLanguage(value)">
+                        Javascript
+                    </label><br/>
+                    <label>
+                        <input type="radio" name="lang" ng-model="value" value="text/x-php" ng-change="setCodeElementLanguage(value)">
+                        PHP
+                    </label><br/>
+                    <label>
+                        <input type="radio" name="lang" ng-model="value" value="text/x-ruby" ng-change="setCodeElementLanguage(value)">
+                        Ruby
+                    </label><br/>
+                </div>
+                <div class="col-md-6">
+                    <label>
+                        <input type="radio" name="lang" ng-model="value" value="text/x-sh" ng-change="setCodeElementLanguage(value)">
+                        Shell
+                    </label><br/>
+                    <label>
+                        <input type="radio" name="lang" ng-model="value" value="text/x-mysql" ng-change="setCodeElementLanguage(value)">
+                        SQL
+                    </label><br/>
+                    <label>
+                        <input type="radio" name="lang" ng-model="value" value="text/x-csrc" ng-change="setCodeElementLanguage(value)">
+                        C
+                    </label><br/>
+                    <label>
+                        <input type="radio" name="lang" ng-model="value" value="text/x-c++src" ng-change="setCodeElementLanguage(value)">
+                        C++
+                    </label><br/>
+                    <label>
+                        <input type="radio" name="lang" ng-model="value" value="text/x-csharp" ng-change="setCodeElementLanguage(value)">
+                        C#
+                    </label><br/>
+                    <label>
+                        <input type="radio" name="lang" ng-model="value" value="text/x-python" ng-change="setCodeElementLanguage(value)">
+                        Python
+                    </label><br/>
+                </div>
         </div>
 
     </div>
