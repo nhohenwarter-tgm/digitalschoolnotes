@@ -88,7 +88,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
             if ($scope.content[j]['art'] == 'code') {
                 $scope.models['code'][$scope.content[j]['id']] = {};
                 $scope.models['code'][$scope.content[j]['id']][0] = $scope.content[j]['data']['data'];
-                $scope.models['code'][$scope.content[j]['id']][1] = $scope.content[j]['data']['mode'];
+                $scope.models['code'][$scope.content[j]['id']][1] = $scope.content[j]['data']['language'];
             } else {
                 $scope.models[$scope.content[j]['art']][$scope.content[j]['id']] = $scope.content[j]['data']['data'];
             }
@@ -267,35 +267,13 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
 
 
     // CODE ELEMENT
-    $scope.codeLanguage="text/xml";
+    $scope.codeLanguage="";
 
-
-    $scope.cmOption = {
-        lineNumbers: true,
-        indentWithTabs: true,
-        lineWrapping: true,
-        scrollbarStyle: "null",
-        onLoad: function (_cm) {
-            $scope.modeChanged = function (id) {
-                $scope.models['code'][id][1] = $scope.codeLanguage;
-                _cm.setOption("mode", $scope.models['code'][id][1]);
-            };
-        }
-    };
-
-    $scope.ROcmOption = {
-        lineNumbers: true,
-        indentWithTabs: true,
-        lineWrapping: true,
-        scrollbarStyle: "null",
-        readOnly: 'nocursor',
-        onLoad: function (_cm) {
-            $scope.modeChanged = function (id) {
-                $scope.models['code'][id][1] = $scope.codeLanguage;
-                _cm.setOption("mode", $scope.models['code'][id][1]);
-            };
-        }
-    };
+    $scope.addCodeElement = function(){
+        data = "{\"data\":\"\", \"language\":\""+$scope.codeLanguage+"\"}";
+        console.log(data);
+        $scope.addelement('code', data);
+    }
 
     // NgDialog zum erstellen, bearbeiten und exportieren von Code Elementen
     $scope.codeElementCreate = function () {
