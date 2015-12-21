@@ -70,9 +70,11 @@
                         <!-- TOOLBAR END -->
                         <!-- NOTEBOOK NAME START -->
                         <div class="col-md-2">
-                            <div id="navbar" class="navbar-collapse collapse row navbar-left">
-                                <ul class="nav navbar-nav col-md-7" style="font-size: 30px;">
-                                    <li style="color: white; font-size: 35px; font-weight: bold;">{{ notebookName }}</li>
+                            <div id="navbar" class="navbar-collapse collapse row navbar-left" style="width: 100%;">
+                                <ul class="nav navbar-nav col-md-7" style="font-size: 30px; width: 100%;">
+                                    <li style="color: white; font-size: 35px; font-weight: bold;
+                                    text-overflow: ellipsis; white-space: nowrap; overflow: hidden; width: 100%;">
+                                        {{ notebook['name'] }}</li>
                                 </ul>
                             </div>
                         </div>

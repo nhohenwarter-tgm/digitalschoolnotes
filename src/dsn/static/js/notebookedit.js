@@ -76,11 +76,6 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
                 $scope.publicViewed = true;
             }
         });
-        if($scope.notebook.name.length > 9){
-            $scope.notebookName = $scope.notebook.name.substring(0,10)+"...";
-        }else {
-            $scope.notebookName = $scope.notebook.name;
-        }
     });
 
     $scope.initElemModels = function () {
