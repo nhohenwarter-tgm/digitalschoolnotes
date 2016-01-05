@@ -108,7 +108,6 @@ def view_saveUserchange(request):
                 user.is_prouser = False
                 user.is_superuser = False
                 user.is_active = False
-
             user.save()
         except:
             user = None
