@@ -1,6 +1,6 @@
 \documentclass[12pt]{article}
 
-\usepackage[english]{babel}
+\usepackage[ngerman]{babel}
 \usepackage[utf8x]{inputenc}
 \usepackage{amsmath}
 \usepackage{graphicx}
@@ -26,10 +26,10 @@ bottom = 3cm,
 left   = 3cm,
 right  = 3cm]{geometry}
 \setcounter{secnumdepth}{4}
-\title{Diploma Thesis}
+\title{Diplomarbeit}
 
 
-\author{RoboNav}
+\author{DigitalSchoolNotes}
 \date{\today}
 
 
@@ -44,14 +44,15 @@ right  = 3cm]{geometry}
 \begin{titlepage}
 \begin{center}
 
-% Additional to first page
-\includegraphics[width=1.0\textwidth]{images/robonavlogo}\\
+% Deckblatt
+\includegraphics[width=0.25\textwidth]{images/dsn_logo}\\
+\vspace{5mm}
 
-\LARGE TGM - HTBLuVA Wien XX \\ IT Department  \\[1.5cm]
+\LARGE TGM - HTBLuVA Wien XX \\ IT Abteilung  \\[1.5cm]
 
-% Title
+% Titel
 \rule{1.0\textwidth}{1mm}
-{ \huge \bfseries \\[0.4cm]  \huge Diploma Thesis \\ \LARGE RoboNav \\[0.4cm] }
+{ \huge \bfseries \\[0.4cm]  \huge Diplomarbeit \\ \LARGE DigitalSchoolNotes \\[0.4cm] }
 
 \rule{1.0\textwidth}{1mm}
 
@@ -62,8 +63,8 @@ right  = 3cm]{geometry}
 
 \vfill
 
-% Bottom of the page
-{\small Version: \today ~at  \thistime    }
+% Fusszeile
+{\small Version: \today ~um  \thistime    }
 \end{center}
 
 %\end{center}
@@ -73,164 +74,150 @@ right  = 3cm]{geometry}
 %HEADER AND FOOTER
 \pagenumbering{Roman}
 \ohead{\headmark}
-\ifoot{© RoboNav - 2014/15}
+\ifoot{© DigitalSchoolNotes - 2015/16}
 \ofoot{\pagemark}
 
 \newpage %----------------------------------------------------------------------------------------------
 {\small\color{white}.}
 \vspace{-0.7cm}
+\renewcommand*\contentsname{Inhalt}
 \tableofcontents
 
 \newpage %----------------------------------------------------------------------------------------------
-% Affirmation
-\includepdf[scale=1.2,pages=-]{documents/soor}
+% Erklärung
+\includepdf[scale=1.2,pages=-]{documents/erklaerung}
 \newpage
-\input{sections/AbstractEN}
+\input{sections/abstractEN}
 \newpage
-\input{sections/AbstractDE}
+\input{sections/abstractDE}
 \newpage
-\input{sections/Ackn}
+\input{sections/danksagungen}
 \label{pageRomanEnd}
 
 \newpage %----------------------------------------------------------------------------------------------
+
 \pagenumbering{arabic}
 \ofoot{\pagemark}
 
-\section{Introduction}
-% Basic Introduction, Goal of the Project and very short description of the system (see section ...)
-\label{sec:introduction}
+\section{Einleitung}
+\label{sec:einleitung}
+\input{sections/einleitung}
 
-\subsection{Navigation with mobile robots}
-\label{subsec:stateoftheart}
-%\input{}
+\section{Problembeschreibung}
+\label{sec:problembeschreibung}
 
-\subsection{The Project "RoboNav"}
-\label{subsec:project}
-%\input{}
-
-\subsection{Project Management}
-\label{subsec:pm}
-%\input{}
-
-\newpage %----------------------------------------------------------------------------------------------
-
-\section{System design}
-\label{sec:systemdesign}
-%\input{}
-
-\subsection{Domain model}
-\label{subsec:domainmodel}
-%\input{}
+\subsection{Umfeldanalyse}
+\label{subsec:umfeldanalyse}
+\input{sections/umfeldanalyse}
 
 \newpage
-\subsection{Component Overview}
-\label{subsec:components}
-%\input{}
 
-\subsubsection{Robotino v3}
-\label{subsubsec:robotinov3}
-%\input{}
+\subsection{Projektidee}
+\label{subsec:projektidee}
+\input{sections/projektidee}
 
-\subsubsection{Overhead Camera (an Android Smartphone)}
-\label{subsubsec:ipwebcam}
-%\input{}
-
-\newpage %----------------------------------------------------------------------------------------------
-\section{RoboNav Communication Protocol (RNCP)}
-\label{sec:rncp}
-%\input{}
-\newpage
-
-\subsection{Protocol Specification}
-\label{subsec:protocolspec}
-%\input{}
+\subsection{Projektkoordination}
+\label{subsec:projektkoordination}
+\input{sections/projektkoordination}
 
 \newpage
-\subsection{Implementation of the Transmission}
-\label{subsec:impltransmission}
-%\input{}
+%----------------------------------------------------------------------------------------------
 
-\subsection{Using RNCP}
-\label{subsec:unsingrncp}
-%\input{}
+\section{Stand der Technik}
+\label{sec:standdertechnik}
 
-\newpage %----------------------------------------------------------------------------------------------
-\section{RoboNav Control}
-\label{sec:controlsoftware}
-%\input{}
-
-\subsection{Controlling the interaction between the components}
-\label{subsec:interaction}
-%\input{}
+\subsection{Frameworks}
+\label{subsec:frameworks}
+\input{sections/frameworks}
 
 \newpage
-\subsection{Path planning}
-\label{subsec:pathplanning}
-%\input{}
+
+\subsection{Technologien}
+\label{subsec:technologien}
+\input{sections/technologien}
 
 \newpage %----------------------------------------------------------------------------------------------
-\section{Image Retrieval and Processing}
-\label{sec:imageproc}
-%\input{}
 
-\subsection{Retrieving an Image}
-\label{subsec:imgretrieving}
-%\input{}
+\section{Design}
+\label{sec:design}
 
-\subsection{Analysing Images}
-\label{subsec:imganalysing}
-%\input{}
+\subsection{Software-Architektur}
+\label{subsec:softwarearchitektur}
+\input{sections/swarchitektur}
 
 \newpage
-\subsection{Object Classification}
-\label{subsec:imgclassification}
-%\input{}
+
+\subsection{Graphische Oberfläche}
+\label{subsec:graphischeoberflaeche}
+\input{sections/groberflaeche}
+
+\newpage
+
+\subsection{Javascript Optimierung}
+\label{subsec:javascriptoptimierung}
+\input{sections/jsoptimierung}
 
 \newpage %----------------------------------------------------------------------------------------------
-\section{Interacting with the Robotino v3}
-\label{sec:robotinov3}
-%\input{}
 
-%JNI
-\subsection{Java API}
-\label{subsec:robotinojavaapi}
-%\input{}
+\section{Implementierung}
+\label{sec:implementierung}
 
-\subsection{Communication with the Robotino}
-\label{subsec:communicationRobotino}
-%\input{}
+\subsection{Infrastruktur und Testing}
+\label{subsec:infrastrukturtesting}
+\input{sections/infrastrukturtesting}
 
- \subsection{Path-driving functionality}
-\label{subsec:pathrivingr3}
-\input{sections/pathdriving}
+\newpage
 
-\subsection{Integration of the System into Robotino View}
-\label{subsec:robotinoview}
-%\input{}
+\subsection{User und Rollenmanagement}
+\label{subsec:usermanagement}
+\input{sections/usermanagement}
+
+\newpage
+
+\subsection{Datenmanagement}
+\label{subsec:datenmanagement}
+\input{sections/datenmanagement}
+
+\newpage
+
+\subsection{Parallel Working System}
+\label{subsec:parallelws}
+\input{sections/parallelws}
+
+\newpage
+
+\subsection{Optical Character Recognition}
+\label{subsec:ocr}
+\input{sections/ocr}
 
 \newpage %----------------------------------------------------------------------------------------------
-\subsection{Adjustment of the coordinate systems}
-\label{subsec:coordinatesystems}
-%\input{}
+
+\section{Auswertung und Benchmarks}
+\label{sec:auswertung}
+\input{sections/auswertung}
+
+\newpage %----------------------------------------------------------------------------------------------
+
+\section{Ausblick}
+\label{sec:ausblick}
+\input{sections/ausblick}
+
+\newpage %----------------------------------------------------------------------------------------------
+
+\section{Zusammenfassung}
+\label{sec:zusammenfassung}
+\input{sections/zusammenfassung}
 
 
 \newpage %----------------------------------------------------------------------------------------------
-\section{RoboNav Overview}
-\label{sec:gui}
-\input{sections/gui}
 
-\newpage %----------------------------------------------------------------------------------------------
-\section{Conclusio and Outlook}
-\label{sec:conclusio}
-\input{sections/conclusio}
-\newpage %----------------------------------------------------------------------------------------------
 \cfoot{}
 \pagenumbering{roman}
-\section{Appendix}
-\label{sec:appenix}
+\section{Anhang}
+\label{sec:anhang}
 
-\subsection{Glossaries}
-\label{subsec:glossaries}
+\subsection{Glossar}
+\label{subsec:glossar}
 \begingroup
 \renewcommand{\section}[2]{}
 \printglossary[style=tree]
@@ -239,8 +226,8 @@ right  = 3cm]{geometry}
 
 {\small\color{white}.}
 \vspace{-2cm}
-\subsection{Figures}
-\label{subsec:figures}
+\subsection{Abbildungen}
+\label{subsec:abbildungen}
 \begingroup
 \renewcommand{\section}[2]{}
 \listoffigures
@@ -253,25 +240,18 @@ right  = 3cm]{geometry}
 \lstlistoflistings
 \endgroup
 
-\subsection{Sources}
-\label{subsec:sources}
+\subsection{Quellen}
+\label{subsec:quellen}
 \begingroup
 \renewcommand{\section}[2]{}
 \bibliographystyle{alpha}
 \bibliography{sources}
 \endgroup
 
-\newpage
-\label{subsec:scrumcontract}
-\cfoot{Appendix - Scrum contract}
-\includepdf[scale=0.75,pages=1,pagecommand=\subsection{Scrum contract}]{documents/scrumVertag}
-\includepdf[scale=0.75, pages={2-6}, pagecommand=\texttt{}]{documents/scrumVertag} 
-
-\subsection{UML}
-\insertpicture{images/uml-as-svg}{Overall UML}{(selfmade)}{itm:pic1}{1.0}
-
-\subsection{Installation manual}
-\label{subsec:isntalman}
-\input{sections/installationManual}
-
 \end{document}
+
+%\insertpicture{images/exampleimg}{Example Image}{(selfmade)}{itm:pic1}{1.0}
+%\insertpicture{path}{Name=Caption}{Quelle}{Ref}{Skalierung}
+
+%\ref{sec:example}
+%\ref{refname}
