@@ -266,6 +266,10 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     // CODE ELEMENT
     $scope.codeLanguage="";
 
+    $scope.setCodeElementLanguage = function(lang){
+        $scope.codeLanguage = lang;
+    }
+
     $scope.addCodeElement = function(){
         data = "{\"data\":\"\", \"language\":\""+$scope.codeLanguage+"\"}";
         console.log(data);

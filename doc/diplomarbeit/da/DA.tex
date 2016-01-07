@@ -1,0 +1,257 @@
+\documentclass[12pt]{article}
+
+\usepackage[ngerman]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{listings}
+\usepackage{glossaries}
+\usepackage{placeins}
+\usepackage{fixltx2e}
+\usepackage{pdfpages}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{scrpage2}
+\usepackage{scrtime}
+\usepackage{parskip}
+\usepackage{hyperref} 
+
+\clearscrheadfoot
+\pagestyle{scrheadings}
+\usepackage[
+top    = 2.5cm,
+bottom = 3cm,
+left   = 3cm,
+right  = 3cm]{geometry}
+\setcounter{secnumdepth}{4}
+\title{Diplomarbeit}
+
+
+\author{DigitalSchoolNotes}
+\date{\today}
+
+
+%Includes
+\input{preamble}
+\input{glossaries}
+
+
+\begin{document}
+
+
+\begin{titlepage}
+\begin{center}
+
+% Deckblatt
+\includegraphics[width=0.25\textwidth]{images/dsn_logo}\\
+\vspace{5mm}
+
+\LARGE TGM - HTBLuVA Wien XX \\ IT Abteilung  \\[1.5cm]
+
+% Titel
+\rule{1.0\textwidth}{1mm}
+{ \huge \bfseries \\[0.4cm]  \huge Diplomarbeit \\ \LARGE DigitalSchoolNotes \\[0.4cm] }
+
+\rule{1.0\textwidth}{1mm}
+
+
+
+\noindent 
+
+
+\vfill
+
+% Fusszeile
+{\small Version: \today ~um  \thistime    }
+\end{center}
+
+%\end{center}
+\end{titlepage}
+
+
+%HEADER AND FOOTER
+\pagenumbering{Roman}
+\ohead{\headmark}
+\ifoot{© DigitalSchoolNotes - 2015/16}
+\ofoot{\pagemark}
+
+\newpage %----------------------------------------------------------------------------------------------
+{\small\color{white}.}
+\vspace{-0.7cm}
+\renewcommand*\contentsname{Inhalt}
+\tableofcontents
+
+\newpage %----------------------------------------------------------------------------------------------
+% Erklärung
+\includepdf[scale=1.2,pages=-]{documents/erklaerung}
+\newpage
+\input{sections/abstractEN}
+\newpage
+\input{sections/abstractDE}
+\newpage
+\input{sections/danksagungen}
+\label{pageRomanEnd}
+
+\newpage %----------------------------------------------------------------------------------------------
+
+\pagenumbering{arabic}
+\ofoot{\pagemark}
+
+\section{Einleitung}
+\label{sec:einleitung}
+\input{sections/einleitung}
+
+\section{Problembeschreibung}
+\label{sec:problembeschreibung}
+
+\subsection{Umfeldanalyse}
+\label{subsec:umfeldanalyse}
+\input{sections/umfeldanalyse}
+
+\newpage
+
+\subsection{Projektidee}
+\label{subsec:projektidee}
+\input{sections/projektidee}
+
+\subsection{Projektkoordination}
+\label{subsec:projektkoordination}
+\input{sections/projektkoordination}
+
+\newpage
+%----------------------------------------------------------------------------------------------
+
+\section{Stand der Technik}
+\label{sec:standdertechnik}
+
+\subsection{Frameworks}
+\label{subsec:frameworks}
+\input{sections/frameworks}
+
+\newpage
+
+\subsection{Technologien}
+\label{subsec:technologien}
+\input{sections/technologien}
+
+\newpage %----------------------------------------------------------------------------------------------
+
+\section{Design}
+\label{sec:design}
+
+\subsection{Software-Architektur}
+\label{subsec:softwarearchitektur}
+\input{sections/swarchitektur}
+
+\newpage
+
+\subsection{Graphische Oberfläche}
+\label{subsec:graphischeoberflaeche}
+\input{sections/groberflaeche}
+
+\newpage
+
+\subsection{Javascript Optimierung}
+\label{subsec:javascriptoptimierung}
+\input{sections/jsoptimierung}
+
+\newpage %----------------------------------------------------------------------------------------------
+
+\section{Implementierung}
+\label{sec:implementierung}
+
+\subsection{Infrastruktur und Testing}
+\label{subsec:infrastrukturtesting}
+\input{sections/infrastrukturtesting}
+
+\newpage
+
+\subsection{User und Rollenmanagement}
+\label{subsec:usermanagement}
+\input{sections/usermanagement}
+
+\newpage
+
+\subsection{Datenmanagement}
+\label{subsec:datenmanagement}
+\input{sections/datenmanagement}
+
+\newpage
+
+\subsection{Parallel Working System}
+\label{subsec:parallelws}
+\input{sections/parallelws}
+
+\newpage
+
+\subsection{Optical Character Recognition}
+\label{subsec:ocr}
+\input{sections/ocr}
+
+\newpage %----------------------------------------------------------------------------------------------
+
+\section{Auswertung und Benchmarks}
+\label{sec:auswertung}
+\input{sections/auswertung}
+
+\newpage %----------------------------------------------------------------------------------------------
+
+\section{Ausblick}
+\label{sec:ausblick}
+\input{sections/ausblick}
+
+\newpage %----------------------------------------------------------------------------------------------
+
+\section{Zusammenfassung}
+\label{sec:zusammenfassung}
+\input{sections/zusammenfassung}
+
+
+\newpage %----------------------------------------------------------------------------------------------
+
+\cfoot{}
+\pagenumbering{roman}
+\section{Anhang}
+\label{sec:anhang}
+
+\subsection{Glossar}
+\label{subsec:glossar}
+\begingroup
+\renewcommand{\section}[2]{}
+\printglossary[style=tree]
+\endgroup
+\newpage
+
+{\small\color{white}.}
+\vspace{-2cm}
+\subsection{Abbildungen}
+\label{subsec:abbildungen}
+\begingroup
+\renewcommand{\section}[2]{}
+\listoffigures
+\endgroup
+
+\subsection{Listings}
+\label{subsec:listings}
+\begingroup
+\renewcommand{\section}[2]{}
+\lstlistoflistings
+\endgroup
+
+\subsection{Quellen}
+\label{subsec:quellen}
+\begingroup
+\renewcommand{\section}[2]{}
+\bibliographystyle{alpha}
+\bibliography{sources}
+\endgroup
+
+\end{document}
+
+%\insertpicture{images/exampleimg}{Example Image}{(selfmade)}{itm:pic1}{1.0}
+%\insertpicture{path}{Name=Caption}{Quelle}{Ref}{Skalierung}
+
+%\ref{sec:example}
+%\ref{refname}
