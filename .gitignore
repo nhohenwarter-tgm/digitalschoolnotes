@@ -80,6 +80,7 @@ target/
 *.mtc1
 *.out
 *.synctex.gz
+*.lol
 
 #Mac
 Thumbs.db
