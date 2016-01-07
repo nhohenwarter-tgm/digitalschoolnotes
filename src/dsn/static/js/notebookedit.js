@@ -246,6 +246,8 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
                         var finalPos = $(this).position();
                         $scope.editPositionElement(id, art, finalPos.left, finalPos.top);
                         $(this).css('width','auto');
+                        $(this).css('max-width','85%');
+                        $(this).css('max-height','85%');
                     },
                     create: function () {
                     }

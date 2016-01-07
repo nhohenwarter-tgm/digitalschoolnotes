@@ -127,7 +127,7 @@
                                             <section ng-if="editMode == element.id">
                                                 <textarea ng-model="models[element.art][element.id][0]"
                                                           class="codestyle" rows="6"
-                                                          cols="70" ui-codemirror="{lineNumbers: true, indentWithTabs: true, lineWrapping: true, scrollbarStyle: 'null', mode: '{{ models['code'][element.id][1]}}'}">
+                                                          cols="70" ui-codemirror="{lineNumbers: true, width: 800, height:auto, indentWithTabs: true, lineWrapping: true, scrollbarStyle: 'null', mode: '{{ models['code'][element.id][1]}}'}">
 
                                                 </textarea>
 
@@ -139,7 +139,7 @@
                                                      ng-if="editMode != element.id">
                                                 <textarea ng-model="models[element.art][element.id][0]"
                                                           class="codestyle" rows="6"
-                                                          cols="70" ui-codemirror="{lineNumbers: true, indentWithTabs: true, lineWrapping: true, scrollbarStyle: 'null', readOnly: 'nocursor', mode: '{{ models['code'][element.id][1]}}'}">
+                                                          cols="70" ui-codemirror="{lineNumbers: true, width: 800, height:auto, indentWithTabs: true, lineWrapping: true, scrollbarStyle: 'null', readOnly: 'nocursor', mode: '{{ models['code'][element.id][1]}}'}">
 
                                                 </textarea>
                                             </section>
