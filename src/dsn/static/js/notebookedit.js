@@ -12,15 +12,12 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
 
     // Height of Notebook
     $scope.setHeight = function(element, ratio, minLimit) {
-        // First of all, let's square the element
         setH(ratio, minLimit);
 
-        // Now we'll add an event listener so it happens automatically
         window.addEventListener('resize', function (event) {
             setH(ratio, minLimit);
         });
 
-        // This is just an inner function to help us keep DRY
         function setH(ratio, minLimit) {
             if (typeof(ratio) === "undefined") {
                 ratio = 1;
@@ -358,19 +355,27 @@ mainApp.directive('ckeditor', function () {
 // SET POSITION OF ARROWS
 
 function setPos(element) {
-    // First of all, let's square the element
     setP();
-
-    // Now we'll add an event listener so it happens automatically
     window.addEventListener('resize', function (event) {
         setP();
     });
-
-    // This is just an inner function to help us keep DRY
     function setP() {
         var viewportHeight = window.innerHeight;
 
         var newElementPos = viewportHeight / 2 - 40;
+        $(element).css("padding-top", newElementPos);
+    }
+}
+
+function setPosBottom(element) {
+    setP();
+    window.addEventListener('resize', function (event) {
+        setP();
+    });
+    function setP() {
+        var viewportHeight = window.innerHeight;
+
+        var newElementPos = viewportHeight - 40;
         $(element).css("padding-top", newElementPos);
     }
 }

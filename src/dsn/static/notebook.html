@@ -100,7 +100,10 @@
                         color:black; background-color: white; overflow:hidden;" id="notebook">
                         <!-- PAGE CONTENT START -->
                         <div>
-                            <h3>Page {{ currentPage }}!</h3>
+                            <div style="background-color: #c9c9c9; margin-top: {{ notebookHeight-40 }}px;
+                                    margin-left: {{ notebookWidth-40 }}px;">
+                                <h3>{{ currentPage }}</h3>
+                            </div>
                                     <span ng-repeat="element in sites[currentPage]"
                                           ng-mouseenter="hovered=true;" ng-mouseleave="hovered=false;"
                                           id="{{ element.art }}_{{ element.id }}" style="position: absolute;
