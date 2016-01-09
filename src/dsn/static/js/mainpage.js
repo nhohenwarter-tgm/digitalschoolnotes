@@ -28,7 +28,7 @@ mainApp.controller('mainpageCtrl', function($scope, $http, $location, $anchorScr
     }
 });
 
-mainApp.controller('contentCtrl', ['vcRecaptchaService','$scope','$http', function(vcRecaptchaService, $scope, $http){
+mainApp.controller('contentCtrl', ['vcRecaptchaService','$scope','$http', '$translate', function(vcRecaptchaService, $scope, $http, $translate){
     if(scrollLocation != null){
         $scope.goto(scrollLocation);
         scrollLocation = null;
@@ -54,7 +54,10 @@ mainApp.controller('contentCtrl', ['vcRecaptchaService','$scope','$http', functi
         $scope.captcha_error = '';
         if(vcRecaptchaService != null && vcRecaptchaService.getResponse() === ""){
             $scope.captchaerror = true;
-            $scope.captcha_error = "Bitte löse das Captcha.\n";
+            // NOTE: Bitte löse das Captcha.
+            $translate("solve_captcha").then(function(message){
+                $scope.captcha_error = message+"\n";
+            });
         }
         if(password != password_repeat){
             $scope.passworderror = true;
@@ -113,7 +116,6 @@ mainApp.controller('loginCtrl', function($scope, $window, $http, $state, $rootSc
         $state.go('mainpage.content');
     });
 
-    console.log($state.current.name);
     if($state.current.name == 'mainpage.login.oautherror'){
         $scope.error = true;
         $scope.login_error = 'Diese E-Mail Adresse wird bereits verwendet!';

@@ -1,0 +1,144 @@
+# German (Germany) translations for PROJECT.
+# Copyright (C) 2016 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2016-01-09 23:59+0100\n"
+"PO-Revision-Date: 2016-01-09 16:36+0100\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de_DE\n"
+"Language-Team: de_DE <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.2.0\n"
+
+#: ../dsn/settings.py:162
+msgid "English"
+msgstr "Englisch"
+
+#: ../dsn/settings.py:163
+msgid "German"
+msgstr "Deutsch"
+
+#: ../dsn/static/js/translations.js:1
+msgid "menu_features"
+msgstr "Funktionen"
+
+#: ../dsn/static/js/translations.js:2
+msgid "solve_captcha"
+msgstr "Bitte löse das Captcha."
+
+#: ../dsn/static/js/translations.js:3
+msgid "legal_notice"
+msgstr "Impressum"
+
+#: ../dsn/static/js/translations.js:4
+msgid "menu_pricing"
+msgstr "Preise"
+
+#: ../dsn/static/js/translations.js:5
+msgid "menu_about"
+msgstr "Über uns"
+
+#: ../dsn/static/js/translations.js:6
+msgid "menu_login"
+msgstr "Anmelden"
+
+#: ../dsn/static/js/translations.js:7
+msgid "menu_toapp"
+msgstr "Zur App"
+
+#: ../dsn/static/js/translations.js:8
+msgid "error_email_needed"
+msgstr "Bitte gib deine E-Mail Adresse ein."
+
+#: ../dsn/static/js/translations.js:9
+msgid "error_password_needed"
+msgstr "Bitte gib dein Passwort ein."
+
+#: ../dsn/static/js/translations.js:10
+msgid "forgot_password"
+msgstr "Passwort vergessen?"
+
+#: ../dsn/static/js/translations.js:11
+msgid "oauth_accept_termsofuse"
+msgstr "Durch die Anmeldung mit Facebook oder Google+ akzeptierst du unsere"
+
+#: ../dsn/static/js/translations.js:12
+msgid "termsofuse"
+msgstr "Nutzungsbedingungen"
+
+#: ../dsn/static/js/translations.js:13
+msgid "email_address"
+msgstr "E-Mail Adresse"
+
+#: ../dsn/static/js/translations.js:14
+msgid "password"
+msgstr "Passwort"
+
+#: ../dsn/static/js/translations.js:15
+msgid "error_firstname_needed"
+msgstr "Bitte gib deinen Vornamen an."
+
+#: ../dsn/static/js/translations.js:16
+msgid "error_lastname_needed"
+msgstr "Bitte gib deinen Nachnamen an."
+
+#: ../dsn/static/js/translations.js:17
+msgid "error_firstname_toolong"
+msgstr "Dein Vorname ist zu lang (max. 30 Zeichen)."
+
+#: ../dsn/static/js/translations.js:18
+msgid "error_lastname_toolong"
+msgstr "Dein Nachname ist zu lang (max. 30 Zeichen)."
+
+#: ../dsn/static/js/translations.js:19
+msgid "firstname"
+msgstr "Vorname"
+
+#: ../dsn/static/js/translations.js:20
+msgid "lastname"
+msgstr "Nachname"
+
+#: ../dsn/static/js/translations.js:21
+msgid "error_email_invalid"
+msgstr "Bitte gib eine valide E-Mail Adresse an."
+
+#: ../dsn/static/js/translations.js:22
+msgid "error_password_tooshort"
+msgstr "Das Passwort ist zu kurz (mind. 8 Zeichen)."
+
+#: ../dsn/static/js/translations.js:23
+msgid "error_password_toolong"
+msgstr "Das Passwort ist zu lang (max. 128 Zeichen)."
+
+#: ../dsn/static/js/translations.js:24
+msgid "error_password_repeat"
+msgstr "Bitte gib deinen Passwort nochmal an."
+
+#: ../dsn/static/js/translations.js:25
+msgid "error_accept_termsofuse"
+msgstr "Bitte akzeptiere unsere Nutzungsbedingungen."
+
+#: ../dsn/static/js/translations.js:26
+msgid "i_accept_termsofuse"
+msgstr "Ich akzeptiere die"
+
+#: ../dsn/static/js/translations.js:27
+msgid "register"
+msgstr "Registrieren"
+
+#: ../dsn/views/mainpage_views.py:83 ../dsn/views/mainpage_views.py:94
+msgid "wrong_login_credentials"
+msgstr "E-Mail Adresse oder Passwort falsch!"
+
+#: ../dsn/views/mainpage_views.py:143
+msgid "success_validate"
+msgstr "Deine E-Mail Adresse wurde erfolgreich bestätigt!"
+

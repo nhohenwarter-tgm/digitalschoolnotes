@@ -15,11 +15,21 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a ng-click="goto('features')" style="cursor: pointer;"><span class="glyphicon glyphicon-flash"></span> Features</a></li>
-                    <li><a ng-click="goto('pricing')" style="cursor: pointer;"><span class="glyphicon glyphicon-piggy-bank"></span> Pricing</a></li>
-                    <li><a ng-click="goto('about')" style="cursor: pointer;"><span class="glyphicon glyphicon-info-sign"></span> About</a></li>
-                    <li ng-show="menu_login" class="active"><a ui-sref="mainpage.login"><span class="glyphicon glyphicon-user"></span> Login</a></li>
-                    <li ng-show="menu_toapp" class="active"><a ui-sref="management.timetable"><span class="glyphicon glyphicon-home"></span> Zur App</a></li>
+                    <li><a ng-click="goto('features')" style="cursor: pointer;"><span class="glyphicon glyphicon-flash"></span>
+                        <span translate="menu_features">Features</span>
+                    </a></li>
+                    <li><a ng-click="goto('pricing')" style="cursor: pointer;"><span class="glyphicon glyphicon-piggy-bank"></span>
+                        <span translate="menu_pricing">Pricing</span>
+                    </a></li>
+                    <li><a ng-click="goto('about')" style="cursor: pointer;"><span class="glyphicon glyphicon-info-sign"></span>
+                        <span translate="menu_about">About</span>
+                    </a></li>
+                    <li ng-show="menu_login" class="active"><a ui-sref="mainpage.login"><span class="glyphicon glyphicon-user"></span>
+                        <span translate="menu_login">Login</span>
+                    </a></li>
+                    <li ng-show="menu_toapp" class="active"><a ui-sref="management.timetable"><span class="glyphicon glyphicon-home"></span>
+                        <span translate="menu_toapp">Zur App</span>
+                    </a></li>
                 </ul>
             </div>
         </div>

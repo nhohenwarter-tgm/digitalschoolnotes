@@ -336,15 +336,18 @@ mainApp.directive('ckeditor', function () {
             function updateModel() {
                 scope.$apply(function () {
                     ngModel.$setViewValue(ck.getData());
-                    console.log(ck.getData());
                 });
             }
 
-            ck.on('change', updateModel);
-            ck.on('key', updateModel);
-            ck.on('dataReady', updateModel);
-            ck.on('all', updateModel);
+            //ck.on('all', updateModel);
             //TODO Event zur Korrekten Speicherung finden
+
+            ck.on( 'contentDom', function() {
+                var editable = ck.editable();
+
+                editable.attachListener( editable, 'keyup', updateModel);
+                editable.attachListener( editable, 'change', updateModel);
+            });
 
             ngModel.$render = function (value) {
                 ck.setData(ngModel.$viewValue);
