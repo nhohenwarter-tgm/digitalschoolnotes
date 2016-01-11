@@ -160,7 +160,8 @@
                                             </span>
 
                                             <div style="color: red; text-align: center; padding-bottom: 10px;"
-                                                 ng-if="editMode == element.id" translate="editmode_activated">
+                                                 ng-if="editMode == element.id">
+                                                <span translate="editmode_activated"></span>
                                                 <span style="cursor: pointer; text-decoration: underline;"
                                                       ng-click="setEditMode(null,element.id,element.art)" translate="editmode_end"></span>
                                             </div>
