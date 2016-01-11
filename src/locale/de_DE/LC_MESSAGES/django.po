@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-01-11 13:01+0100\n"
+"POT-Creation-Date: 2016-01-11 15:57+0100\n"
 "PO-Revision-Date: 2016-01-09 16:36+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: de_DE\n"
@@ -367,6 +367,39 @@ msgstr "Zurück"
 #: ../dsn/static/js/translations.js:85
 msgid "next"
 msgstr "Weiter"
+
+#: ../dsn/static/js/translations.js:86
+msgid "register_success_message"
+msgstr ""
+"Vielen Dank für deine Registrierung!\n"
+"Sobald du deine E-Mail Adresse bestätigt hast kannst du dich einloggen "
+"und sofort starten!"
+
+#: ../dsn/static/js/translations.js:87
+msgid "error_email_alreadyused"
+msgstr "Diese E-Mail Adresse wird bereits verwendet!"
+
+#: ../dsn/static/js/translations.js:88
+msgid "account_delete_warnmessage"
+msgstr ""
+"Bist du sicher, dass du deinen Account löschen möchtest?"
+"Diese Aktion kann nachher nicht mehr rückgängig gemacht werden! Deine Hefte werden endgültig gelöscht!"
+
+#: ../dsn/static/js/translations.js:89
+msgid "notebook_delete_warnmessage"
+msgstr "Möchtest du dieses Heft wirklich löschen?"
+
+#: ../dsn/static/js/translations.js:90
+msgid "notebook_max_warnmessage"
+msgstr "Du hast die maximale Anzahl an Heften bereits erreicht!"
+
+#: ../dsn/static/js/translations.js:91
+msgid "error_timetable_notebooknotassigned"
+msgstr "Dieser Stunde ist kein Heft zugeordnet!"
+
+#: ../dsn/static/js/translations.js:92
+msgid "error_timetable_notebooknotfound"
+msgstr "Das zugeordnete Heft konnte nicht gefunden werden!"
 
 #: ../dsn/views/mainpage_views.py:83 ../dsn/views/mainpage_views.py:94
 msgid "wrong_login_credentials"

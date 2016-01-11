@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-01-11 13:01+0100\n"
+"POT-Creation-Date: 2016-01-11 15:57+0100\n"
 "PO-Revision-Date: 2016-01-09 16:38+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en_US\n"
@@ -365,6 +365,37 @@ msgstr "Previous"
 #: ../dsn/static/js/translations.js:85
 msgid "next"
 msgstr "Next"
+
+#: ../dsn/static/js/translations.js:86
+msgid "register_success_message"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:87
+#, fuzzy
+msgid "error_email_alreadyused"
+msgstr "Please insert email address."
+
+#: ../dsn/static/js/translations.js:88
+msgid "account_delete_warnmessage"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:89
+msgid "notebook_delete_warnmessage"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:90
+#, fuzzy
+msgid "notebook_max_warnmessage"
+msgstr "No notebook assigned"
+
+#: ../dsn/static/js/translations.js:91
+#, fuzzy
+msgid "error_timetable_notebooknotassigned"
+msgstr "No notebook assigned"
+
+#: ../dsn/static/js/translations.js:92
+msgid "error_timetable_notebooknotfound"
+msgstr ""
 
 #: ../dsn/views/mainpage_views.py:83 ../dsn/views/mainpage_views.py:94
 msgid "wrong_login_credentials"
