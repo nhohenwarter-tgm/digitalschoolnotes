@@ -1,6 +1,8 @@
 from django.http import JsonResponse, HttpResponseRedirect
 from django.views.decorators.csrf import ensure_csrf_cookie
 from mongoengine import DoesNotExist
+from django.utils.translation import gettext as _
+from django.utils import translation
 import json
 import requests
 from django.contrib.auth import login, logout
@@ -78,7 +80,8 @@ def view_login(request):
             user = User.objects.get(email=params['email'])
         except:
             user = None
-            return JsonResponse({'login_error': u'E-Mail Adresse oder Passwort falsch!'})
+            message = _('wrong_login_credentials')
+            return JsonResponse({'login_error': message})
         if user is not None and user.is_active is True and user.check_password(params['password']):
             user.backend = 'mongoengine.django.auth.MongoEngineBackend'
             login(request, user)
@@ -87,7 +90,9 @@ def view_login(request):
         elif user.is_active is False:
             return JsonResponse({'login_error': u'Bitte bestätige zuerst deine E-Mail Adresse!'})
         else:
-            return JsonResponse({'login_error': u'E-Mail Adresse oder Passwort falsch!'})
+            #NOTE: E-Mail Adresse oder Passwort falsch!
+            message = _("wrong_login_credentials")
+            return JsonResponse({'login_error': message})
     else:
         return JsonResponse({'login_error': u'Fehler beim Login!'})
 
@@ -134,7 +139,9 @@ def view_validate_account(request):
             user.is_active = True
             user.validatetoken = ''
             user.save()
-            return JsonResponse({'message':'Deine E-Mail Adresse wurde erfolgreich bestätigt!', 'success': True})
+            # NOTE: Deine E-Mail Adresse wurde erfolgreich bestätigt!
+            message = _("success_validate")
+            return JsonResponse({'message': message, 'success': True})
         except DoesNotExist:
             return JsonResponse({'message':'Dieser Link ist nicht gültig!', 'success': False})
 
@@ -156,3 +163,8 @@ def view_fb_oauth_request(request):
 def view_fb_oauth_response(request):
     url = oauth_fb_callback(request)
     return HttpResponseRedirect(url)
+
+def change_language(request):
+    translation.activate(json.loads(request.body.decode('utf-8'))['language'])
+    request.session[translation.LANGUAGE_SESSION_KEY] = translation.get_language()
+    return JsonResponse({})

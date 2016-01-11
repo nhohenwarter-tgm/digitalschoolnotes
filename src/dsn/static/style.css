@@ -635,3 +635,8 @@ div.CodeMirror-dragcursors {
 
 /* Help users use markselection to safely style text background */
 span.CodeMirror-selectedtext { background: none; }
+
+span[id*='code_'] {
+    max-width:85%;
+    max-height: 85%;
+}
