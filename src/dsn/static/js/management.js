@@ -39,7 +39,7 @@ mainApp.controller('managementCtrl', function ($scope, $http, $state) {
             method: 'POST',
             url: '/api/otherprofile',
             headers: {'Content-Type': 'application/json'},
-            data: {searchtext: $scope.q, Page: current, counter: $scope.itemsPerPage,}
+            data: {searchtext: $scope.q, Page: current, counter: $scope.itemsPerPage}
         })
             .success(function (data) {
                 $scope.profiles = data['profiles'];
@@ -48,7 +48,7 @@ mainApp.controller('managementCtrl', function ($scope, $http, $state) {
             })
             .error(function (data) {
             });
-    }
+    };
 
 
     var searchMatch = function (haystack, needle) {
@@ -131,7 +131,9 @@ mainApp.controller('accsettingsCtrl', function ($scope, $http, $window, $state, 
         }else{
             if(password_new != password_repeat) {
                 $scope.error = true;
-                $scope.reset_error = 'Passwörter stimmen nicht überein\n';
+                $translate("error_password_dontmatch").then(function(message){
+                    $scope.reset_error = message+"\n";
+                });
             }
         }
 
@@ -169,20 +171,23 @@ mainApp.controller('accsettingsCtrl', function ($scope, $http, $window, $state, 
     };
 
     $scope.deleteAccount = function(){
-        var confirm = $window.confirm("Bist du sicher, dass du deinen Account löschen möchtest?\n" +
-            "Diese Aktion kann nachher nicht mehr rückgängig gemacht werden! Deine Hefte werden endgültig gelöscht!");
-        if(confirm){
-            $http({
-                method: 'POST',
-                url: '/api/delete_account'
-            })
-                .success(function (data) {
-                    $state.go('mainpage.content');
+        $translate("account_delete_warnmessage").then(function(message){
+            var confirm = $window.confirm(message);
+            if(confirm){
+                $http({
+                    method: 'POST',
+                    url: '/api/delete_account'
                 })
-                .error(function (data) {
-                    $state.go('mainpage.content');
-                });
-        }
+                    .success(function (data) {
+                        $state.go('mainpage.content');
+                    })
+                    .error(function (data) {
+                        $state.go('mainpage.content');
+                    });
+            }
+        });
+
+
     };
 });
 
@@ -202,22 +207,24 @@ mainApp.controller('notebooksCtrl', function ($scope, $http, $state, $window) {
     $scope.getNotebooks();
 
     $scope.deleteNotebook = function(id){
-        var confirm = $window.confirm("Möchtest du dieses Heft wirklich löschen?");
-        if(confirm) {
-            $http({
-                method: 'POST',
-                url: '/api/delete_notebooks',
-                data: {
-                    id: id
-                }
-            })
-                .success(function (data) {
-                    $scope.getNotebooks();
+        $translate("notebook_delete_warnmessage").then(function(message) {
+            var confirm = $window.confirm(message);
+            if (confirm) {
+                $http({
+                    method: 'POST',
+                    url: '/api/delete_notebooks',
+                    data: {
+                        id: id
+                    }
                 })
-                .error(function (data) {
-                    $scope.getNotebooks();
-                });
-        }
+                    .success(function (data) {
+                        $scope.getNotebooks();
+                    })
+                    .error(function (data) {
+                        $scope.getNotebooks();
+                    });
+            }
+        });
     };
 
     $scope.redirectNotebook = function (id) {
@@ -230,7 +237,9 @@ mainApp.controller('notebooksCtrl', function ($scope, $http, $state, $window) {
 
     $scope.redirectCreate = function () {
         if($scope.notebooks.length >= 10){ //TODO Maximale Heftanzahl festlegen
-            alert("Du hast die maximale Anzahl an Heften bereits erreicht!");
+            $translate("notebook_max_warnmessage").then(function(message) {
+                alert(message);
+            });
         }else {
             $state.go('management.notebooks_create');
         }
@@ -350,15 +359,21 @@ mainApp.controller('timetableCtrl', function ($scope, $http, $state) {
                 })
                     .success(function (data) {
                         if (data['error'] == true) {
-                            $scope.timetableError = "Das zugeordnete Heft konnte nicht gefunden werden!";
+                            $translate("error_timetable_notebooknotfound").then(function(message) {
+                                $scope.timetableError = message;
+                            });
                         } else if(data['notebook'] == null) {
-                            $scope.timetableError = "Dieser Stunde ist kein Heft zugeordnet!";
+                            $translate("error_timetable_notebooknotassigned").then(function(message) {
+                                $scope.timetableError = message;
+                            });
                         }else{
                             $state.go('notebookedit',{id: JSON.parse(data['notebook'])['_id']['$oid']});
                         }
                     })
                     .error(function (data) {
-                        $scope.timetableError = "Das zugeordnete Heft konnte nicht gefunden werden!";
+                        $translate("error_timetable_notebooknotfound").then(function(message) {
+                            $scope.timetableError = message;
+                        });
                     });
             }
         }
@@ -508,7 +523,7 @@ mainApp.controller('logoutCtrl', function($scope, $http, $state){
                 $state.go('mainpage.content');
             })
             .error(function (data) {
-                alert('Beim ausloggen ist ein Fehler aufgetreten! Bitte versuche es erneut!');
+
             });
     }
 });

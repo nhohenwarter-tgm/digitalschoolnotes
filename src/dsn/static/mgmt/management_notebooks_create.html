@@ -1,25 +1,26 @@
 <form class="row" ng-submit="submitCreateNotebook()" method="POST" name="createNotebook" novalidate>
     <span class="col-md-4"></span>
     <span class="col-md-4">
-        <h2 class="row" style="text-align: center;">Heft erstellen</h2>
-        <h4 style="padding-top: 20px;">Heftname</h4>
+        <h2 class="row" style="text-align: center;" translate="notebook_createnew"></h2>
+        <h4 style="padding-top: 20px;" translate="notebook_name"></h4>
         <div class="row">
             <div class="col-md-12">
                 <span ng-bind="message" style="color: red;"></span>
-                <p  style="color: red;" ng-show="(submitted || createNotebook.name.$dirty) && createNotebook.name.$error.required">Bitte gib einen Namen an.</p>
-                <p  style="color: red;" ng-show="(createNotebook.name.$dirty) && createNotebook.name.$error.maxlength">Der Name ist zu lang (max. 30 Zeichen).</p>
-                <input class="form-control" type="text" name="name" ng-model="name" placeholder="Heftname" ng-maxlength="30" required/>
+                <p  style="color: red;" ng-show="(submitted || createNotebook.name.$dirty) && createNotebook.name.$error.required" translate="error_notebookname_needed"></p>
+                <p  style="color: red;" ng-show="(createNotebook.name.$dirty) && createNotebook.name.$error.maxlength" translate="error_notebookname_toolong"></p>
+                <input class="form-control" type="text" name="name" ng-model="name" placeholder="{{ 'notebook_name' | translate }}" ng-maxlength="30" required/>
             </div>
         </div>
-        <h4 style="padding-top: 20px;">Sichtbarkeit</h4>
+        <h4 style="padding-top: 20px;" translate="visibility"></h4>
         <div class="row">
             <div class="col-md-12">
-                <input type="checkbox" name="is_public" ng-model="is_public" ng-checked="true"/> &Ouml;ffentlich
+                <input type="checkbox" name="is_public" ng-model="is_public" ng-checked="true"/>
+                <span translate="visibility_public"></span>
             </div>
         </div>
         <div class="row" style="padding-top: 30px;">
-                <button type="submit" id="submit" class="btn btn-success" style="margin-left: 15px;">Heft erstellen</button>
-                <button id="cancel" class="btn btn-danger" ng-click="cancelCreate()" style="float: right; margin-right: 15px;">Abbrechen</button>
+                <button type="submit" id="submit" class="btn btn-success" style="margin-left: 15px;" translate="notebook_createnew"></button>
+                <button id="cancel" class="btn btn-danger" ng-click="cancelCreate()" style="float: right; margin-right: 15px;" translate="cancel"></button>
         </div>
     </span>
     <span class="col-md-4"></span>

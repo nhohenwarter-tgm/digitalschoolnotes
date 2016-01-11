@@ -1,14 +1,15 @@
 <div ng-mouseenter="options=true" ng-mouseleave="options=false">
 <div>
     <h2 style="text-align: center; padding-bottom: 15px;">
-        Stundenplan
+        <span translate="menu_timetable"></span>
         <span id="timetableToggleEdit" ng-show="options" style="font-size: 15px; cursor: pointer; padding: 0px;" ng-click="setEditMode(true)">
             <span class="glyphicon glyphicon-cog" style="padding-right: 5px;"></span>
         </span>
     </h2>
 </div>
 <div style="color: red; text-align: center; padding-bottom: 10px;" ng-show="editMode">
-    Bearbeitungsmodus aktiviert! <span style="cursor: pointer; text-decoration: underline;" ng-click="setEditMode(false)">Beenden</span>
+    <span translate="editmode_activated"></span>
+    <span style="cursor: pointer; text-decoration: underline;" ng-click="setEditMode(false)" translate="editmode_end"></span>
 </div>
 <div style="color: red; text-align: center; padding-bottom: 10px;" ng-bind="timetableError">
 </div>
@@ -16,13 +17,13 @@
 <table width="80%" align="center" style="table-layout: fixed; word-wrap: break-word">
     <div id="head_nav">
         <tr>
-            <th class="timetable-th" style="width: 14.2%;">Zeit</th>
-            <th class="timetable-th" style="width: 14.2%;">Montag</th>
-            <th class="timetable-th" style="width: 14.2%;">Dienstag</th>
-            <th class="timetable-th" style="width: 14.2%;">Mittwoch</th>
-            <th class="timetable-th" style="width: 14.2%;">Donnerstag</th>
-            <th class="timetable-th" style="width: 14.2%;">Freitag</th>
-            <th class="timetable-th" style="width: 14.2%;">Samstag</th>
+            <th class="timetable-th" style="width: 14.2%;" translate="time"></th>
+            <th class="timetable-th" style="width: 14.2%;" translate="monday"></th>
+            <th class="timetable-th" style="width: 14.2%;" translate="tuesday"></th>
+            <th class="timetable-th" style="width: 14.2%;" translate="wednesday"></th>
+            <th class="timetable-th" style="width: 14.2%;" translate="thursday"></th>
+            <th class="timetable-th" style="width: 14.2%;" translate="friday"></th>
+            <th class="timetable-th" style="width: 14.2%;" translate="saturday"></th>
         </tr>
     </div>
 
@@ -68,36 +69,36 @@
 </table><br />
 <div ng-show="activeID != null" align="center">
     <form ng-submit="" method="POST" name="timetable" novalidate>
-        <h4>Stunde bearbeiten</h4>
+        <h4 translate="edit_lesson"></h4>
         <div class="row" style="padding-top: 10px;">
-            <p  style="color: red;" ng-show="(timetable.subject.$dirty) && timetable.subject.$error.maxlength">Die Bezeichnung ist zu lang (max. 30 Zeichen).</p>
+            <p  style="color: red;" ng-show="(timetable.subject.$dirty) && timetable.subject.$error.maxlength" translate="error_timetablesubjectdescription_toolong"></p>
             <div class="col-md-12">
-                <input class="form-control" type="text" name="subject" placeholder="Fach" ng-model="subject" ng-maxlength="30" style="width: 20%;"/>
+                <input class="form-control" type="text" name="subject" placeholder="{{ 'subject' | translate }}" ng-model="subject" ng-maxlength="30" style="width: 20%;"/>
             </div>
         </div>
         <div class="row" style="padding-top: 10px;">
-            <p  style="color: red;" ng-show="(timetable.teacher.$dirty) && timetable.teacher.$error.maxlength">Die Bezeichnung ist zu lang (max. 50 Zeichen).</p>
+            <p  style="color: red;" ng-show="(timetable.teacher.$dirty) && timetable.teacher.$error.maxlength" translate="error_timetableteacherdescription_toolong"></p>
             <div class="col-md-12">
-                <input class="form-control" type="text" name="teacher" placeholder="Lehrer" ng-model="teacher" ng-maxlength="50" style="width: 20%;"/>
+                <input class="form-control" type="text" name="teacher" placeholder="{{ 'teacher' | translate }}" ng-model="teacher" ng-maxlength="50" style="width: 20%;"/>
             </div>
         </div>
         <div class="row" style="padding-top: 10px;">
-            <p  style="color: red;" ng-show="(timetable.subject.$dirty) && timetable.subject.$error.maxlength">Die Bezeichnung ist zu lang (max. 30 Zeichen).</p>
+            <p  style="color: red;" ng-show="(timetable.subject.$dirty) && timetable.subject.$error.maxlength" translate="error_timetableroomdescription_toolong"></p>
             <div class="col-md-12">
-                <input class="form-control" type="text" name="room" placeholder="Raum" ng-model="room" ng-maxlength="30" style="width: 20%;"/>
+                <input class="form-control" type="text" name="room" placeholder="{{ 'room' | translate }}" ng-model="room" ng-maxlength="30" style="width: 20%;"/>
             </div>
         </div>
         <div class="row" style="padding-top: 10px;">
             <div class="col-md-12">
                 <select class="form-control" name="notebook" ng-model="notebook" style="width: 20%;">
-                    <option value="">Kein Heft zugeordnet</option>
+                    <option value="" translate="no_notebook_assigned"></option>
                     <option ng-repeat="nb in notebooksList" value="{{nb.value}}">{{nb.name}}</option>
                 </select>
             </div>
         </div>
         <div class="row" style="padding-top: 10px;" align="center">
             <div class="col-md-12">
-                <button type="submit" id="submit" class="btn btn-success" ng-click="submitTimeTable()">Speichern</button>
+                <button type="submit" id="submit" class="btn btn-success" ng-click="submitTimeTable()" translate="save"></button>
             </div>
         </div>
     </form>
@@ -106,32 +107,33 @@
 
 <div ng-show="activeRow != null" align="center">
     <form ng-submit="" method="POST" name="timetableTimes" novalidate>
-        <h4>Stundenzeiten der {{ activeRow }}. Stunde bearbeiten</h4>
+        <h4 translate="edit_timetabletimes"></h4>
         <div class="row" style="padding-top: 10px;">
-            <p  style="color: red;" ng-show="(timetableTimes.z1.$dirty) && timetableTimes.z1.$error.required">Bitte gib eine Zeit an.</p>
+            <p  style="color: red;" ng-show="(timetableTimes.z1.$dirty) && timetableTimes.z1.$error.required"
+                    translate="error_timetabletime_needed"></p>
             <p  style="color: red;" ng-show="(timetableTimes.z1.$dirty) &&
-            (timetableTimes.z1.$error.pattern || timetableTimes.z1.$error.minlength || timetableTimes.z1.$error.maxlength)">
-                Bitte gib eine valide Zeit an (z.B. "08:00").
+            (timetableTimes.z1.$error.pattern || timetableTimes.z1.$error.minlength || timetableTimes.z1.$error.maxlength)"
+                    translate="error_timetabletime_invalid">
             </p>
             <div class="col-md-12">
-                <input class="form-control" type="text" ng-model="start" placeholer="Beginn" name="z1" style="width: 20%; text-align: center;"
+                <input class="form-control" type="text" ng-model="start" placeholer="{{ 'begin' | translate }}" name="z1" style="width: 20%; text-align: center;"
                        ng-pattern="/[0-9]{2,2}:[0-9]{2,2}/" ng-maxlength="5" ng-maxlength="5" required/>
             </div>
         </div>
         <div class="row" style="padding-top: 10px;">
-            <p  style="color: red;" ng-show="(timetableTimes.z2.$dirty) && timetableTimes.z2.$error.required">Bitte gib eine Zeit an.</p>
+            <p  style="color: red;" ng-show="(timetableTimes.z2.$dirty) && timetableTimes.z2.$error.required"
+                    translate="error_timetabletime_needed"></p>
             <p  style="color: red;" ng-show="(timetableTimes.z2.$dirty) &&
-            (timetableTimes.z2.$error.pattern || timetableTimes.z2.$error.minlength || timetableTimes.z2.$error.maxlength)">
-                Bitte gib eine valide Zeit an (z.B. "08:50").
-            </p>
+            (timetableTimes.z2.$error.pattern || timetableTimes.z2.$error.minlength || timetableTimes.z2.$error.maxlength)"
+                    translate="error_timetabletime_invalid"></p>
             <div class="col-md-12">
-                <input class="form-control" type="text" name="z2" ng-model="end" placeholer="Ende" style="width: 20%; text-align: center;"
+                <input class="form-control" type="text" name="z2" ng-model="end" placeholer="{{ 'end' | translate }}" style="width: 20%; text-align: center;"
                        ng-pattern="/[0-9]{2,2}:[0-9]{2,2}/" ng-maxlength="5" ng-maxlength="5" required/>
             </div>
         </div>
         <div class="row" style="padding-top: 10px;" align="center">
             <div class="col-md-12">
-                <button type="submit" id="submitTimes" class="btn btn-success" ng-click="submitTimes()">Speichern</button>
+                <button type="submit" id="submitTimes" class="btn btn-success" ng-click="submitTimes()" translate="save"></button>
             </div>
         </div>
     </form>
