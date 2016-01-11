@@ -227,6 +227,10 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     $scope.setEditMode = function (edit, id, art) {
         $scope.editMode = edit;
         if(edit == null) {
+
+            /*if(art == 'textarea'){
+                alert(art);
+            }*/
             if (art == 'code') {
                 $scope.editelement(id, art, {
                     "data": $scope.models[art][id][0],
@@ -235,6 +239,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
             } else {
                 $scope.editelement(id, art, {"data": $scope.models[art][id]});
             }
+
         }else{
             $scope.removeDraggables();
         }
@@ -345,7 +350,9 @@ mainApp.directive('ckeditor', function () {
             }
 
             ck.on('change', updateModel);
+            ck.on('click', updateModel);
             ck.on('key', updateModel);
+            ck.on('blur', updateModel);
             ck.on('dataReady', updateModel);
             ck.on('all', updateModel);
             //TODO Event zur Korrekten Speicherung finden

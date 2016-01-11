@@ -106,7 +106,7 @@
                                           id="{{ element.art }}_{{ element.id }}" style="position: absolute;
                                           top: {{ element.position_y }}px; left: {{ element.position_x }}px; min-width: 50px;">
                                         <!-- TEXT ELEMENT -->
-                                        <span ng-if="element.art == 'textarea'" style="word-wrap: break-word;">
+                                        <span ng-if="element.art == 'textarea'" style="word-wrap: break-word; width:85%;">
                                             <!-- Edit -->
                                             <textarea ng-if="editMode == element.id"
                                                       ng-model="models[element.art][element.id]" ckeditor>
