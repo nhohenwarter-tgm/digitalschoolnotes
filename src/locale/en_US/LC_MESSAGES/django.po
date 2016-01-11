@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-01-09 23:59+0100\n"
+"POT-Creation-Date: 2016-01-11 13:01+0100\n"
 "PO-Revision-Date: 2016-01-09 16:38+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en_US\n"
@@ -133,6 +133,238 @@ msgstr "I agree to the"
 #: ../dsn/static/js/translations.js:27
 msgid "register"
 msgstr "Register"
+
+#: ../dsn/static/js/translations.js:28
+msgid "password_repeat"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:29
+msgid "set_new_password"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:30
+msgid "set_new_password_desc"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:31
+msgid "reset_password"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:32
+msgid "reset_password_desc"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:33
+msgid "reset_password_instructions"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:34
+msgid "search"
+msgstr "Search"
+
+#: ../dsn/static/js/translations.js:35
+msgid "logout"
+msgstr "Logout"
+
+#: ../dsn/static/js/translations.js:36
+msgid "menu_timetable"
+msgstr "Timetable"
+
+#: ../dsn/static/js/translations.js:37
+msgid "menu_notebooks"
+msgstr "Notebooks"
+
+#: ../dsn/static/js/translations.js:38
+msgid "menu_accountsettings"
+msgstr "Account Settings"
+
+#: ../dsn/static/js/translations.js:39
+msgid "menu_upgradenow"
+msgstr "Upgrade now"
+
+#: ../dsn/static/js/translations.js:40
+msgid "current_password"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:41
+msgid "change_password"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:42
+msgid "new_password"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:43
+msgid "repeat_new_password"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:44
+msgid "error_password_dontmatch"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:45
+msgid "save_changes"
+msgstr "Save changes"
+
+#: ../dsn/static/js/translations.js:46
+msgid "cancel"
+msgstr "Cancel"
+
+#: ../dsn/static/js/translations.js:47
+msgid "delete_account"
+msgstr "Delete account"
+
+#: ../dsn/static/js/translations.js:48
+msgid "notebook_settings"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:49
+msgid "notebook_name"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:50
+msgid "error_notebookname_needed"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:51
+msgid "error_notebookname_toolong"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:52
+msgid "visibility"
+msgstr "Visibility"
+
+#: ../dsn/static/js/translations.js:53
+msgid "visibility_public"
+msgstr "Public"
+
+#: ../dsn/static/js/translations.js:54
+msgid "notebook_createnew"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:55
+msgid "joined_on"
+msgstr "joined on"
+
+#: ../dsn/static/js/translations.js:56
+msgid "user_is_prouser"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:57
+msgid "user_is_admin"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:58
+msgid "public_notebooks"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:59
+msgid "user_hasnopublicnotebooks"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:60
+msgid "user_found"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:61
+msgid "editmode_activated"
+msgstr "Editmode activated!"
+
+#: ../dsn/static/js/translations.js:62
+msgid "editmode_end"
+msgstr "End"
+
+#: ../dsn/static/js/translations.js:63
+msgid "time"
+msgstr "Time"
+
+#: ../dsn/static/js/translations.js:64
+msgid "monday"
+msgstr "Monday"
+
+#: ../dsn/static/js/translations.js:65
+msgid "tuesday"
+msgstr "Tuesday"
+
+#: ../dsn/static/js/translations.js:66
+msgid "wednesday"
+msgstr "Wednesday"
+
+#: ../dsn/static/js/translations.js:67
+msgid "thursday"
+msgstr "Thursday"
+
+#: ../dsn/static/js/translations.js:68
+msgid "friday"
+msgstr "Friday"
+
+#: ../dsn/static/js/translations.js:69
+msgid "saturday"
+msgstr "Saturday"
+
+#: ../dsn/static/js/translations.js:70
+msgid "edit_lesson"
+msgstr "Edit lesson"
+
+#: ../dsn/static/js/translations.js:71
+msgid "error_timetablesubjectdescription_toolong"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:72
+msgid "subject"
+msgstr "Subject"
+
+#: ../dsn/static/js/translations.js:73
+msgid "teacher"
+msgstr "Teacher"
+
+#: ../dsn/static/js/translations.js:74
+msgid "error_timetableteacherdescription_toolong"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:75
+msgid "error_timetableroomdescription_toolong"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:76
+msgid "room"
+msgstr "Room"
+
+#: ../dsn/static/js/translations.js:77
+msgid "no_notebook_assigned"
+msgstr "No notebook assigned"
+
+#: ../dsn/static/js/translations.js:78
+msgid "save"
+msgstr "Save"
+
+#: ../dsn/static/js/translations.js:79
+msgid "edit_timetabletimes"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:80
+msgid "error_timetabletime_needed"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:81
+msgid "error_timetabletime_invalid"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:82
+msgid "begin"
+msgstr "Begin"
+
+#: ../dsn/static/js/translations.js:83
+msgid "end"
+msgstr "End"
+
+#: ../dsn/static/js/translations.js:84
+msgid "prev"
+msgstr "Previous"
+
+#: ../dsn/static/js/translations.js:85
+msgid "next"
+msgstr "Next"
 
 #: ../dsn/views/mainpage_views.py:83 ../dsn/views/mainpage_views.py:94
 msgid "wrong_login_credentials"

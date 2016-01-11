@@ -8,11 +8,11 @@ def extract_messages():
         retcode = call(["pybabel extract ../dsn -o locale.pot -F ../babel.cfg"],
                        cwd=os.path.dirname(os.path.abspath(__file__)))
         if retcode < 0:
-            print >>sys.stderr, "Process was terminated by signal", -retcode
+            print("Process was terminated by signal", -retcode)
         else:
-            print >>sys.stderr, "Process returned", retcode
+            print("Process returned", retcode)
     except OSError as e:
-        print >>sys.stderr, "Execution failed:", e
+        print("Execution failed:", e)
 
 
 def init_catalog(languagecode):
@@ -20,11 +20,11 @@ def init_catalog(languagecode):
         retcode = call(["pybabel init -l "+languagecode+" -d . -i locale.pot -D django"],
                        cwd=os.path.dirname(os.path.abspath(__file__)))
         if retcode < 0:
-            print >>sys.stderr, "Process was terminated by signal", -retcode
+            print("Process was terminated by signal", -retcode)
         else:
-            print >>sys.stderr, "Process returned", retcode
+            print("Process returned", retcode)
     except OSError as e:
-        print >>sys.stderr, "Execution failed:", e
+        print("Execution failed:", e)
 
 
 def update_catalogs():
@@ -32,11 +32,11 @@ def update_catalogs():
         retcode = call(["pybabel update -d . -i locale.pot -D django"],
                        cwd=os.path.dirname(os.path.abspath(__file__)))
         if retcode < 0:
-            print >>sys.stderr, "Process was terminated by signal", -retcode
+            print("Process was terminated by signal", -retcode)
         else:
-            print >>sys.stderr, "Process returned", retcode
+            print("Process returned", retcode)
     except OSError as e:
-        print >>sys.stderr, "Execution failed:", e
+        print("Execution failed:", e)
 
 
 def compile_catalogs():
@@ -44,11 +44,33 @@ def compile_catalogs():
         retcode = call(["pybabel compile -d . -D django"],
                        cwd=os.path.dirname(os.path.abspath(__file__)))
         if retcode < 0:
-            print >>sys.stderr, "Process was terminated by signal", -retcode
+            print("Process was terminated by signal", -retcode)
         else:
-            print >>sys.stderr, "Process returned", retcode
+            print("Process returned", retcode)
     except OSError as e:
-        print >>sys.stderr, "Execution failed:", e
+        print("Execution failed:", e)
+
+
+def escaped_split(s, delim):
+    ret = []
+    current = []
+    itr = iter(s)
+    for ch in itr:
+        if ch == '\\':
+            try:
+                # skip the next character; it has been escaped!
+                current.append('\\')
+                current.append(next(itr))
+            except StopIteration:
+                pass
+        elif ch == delim:
+            # split! (add current to the list and reset it)
+            ret.append(''.join(current))
+            current = []
+        else:
+            current.append(ch)
+    ret.append(''.join(current))
+    return ret
 
 
 def generate_alljson():
@@ -72,23 +94,21 @@ def generate_json(languagecode):
 
     for line in po:
         line.rstrip('\n')
-        if line.__contains__("msgid"):
+        if line.__contains__("msgid") and not line.__contains__("#"):
             if not init:
                 strs.append(tmp)
             init = False
             tmp = None
             ids.append(str(line.split('"')[1::2][0]))
-        elif line.__contains__("msgstr"):
-            tmp = str(line.split('"')[1::2][0])
+        elif line.__contains__("msgstr") and not line.__contains__("#"):
+            tmp = str(escaped_split(line, '"')[1::2][0])
         elif tmp is not None and not line.__contains__("#") and line.__contains__("\""):
             tmp += str(line.split('"')[1::2][0])
 
     strs.append(tmp)
 
     if len(ids) is not len(strs):
-        print >>sys.stderr, "Execution failed"
-        print(ids)
-        print(strs)
+        print("Execution failed")
     else:
         json.write("{\n")
         for key, value in zip(ids,strs):
@@ -110,7 +130,7 @@ if len(sys.argv) > 1:
         if len(sys.argv) > 2:
             init_catalog(sys.argv[2])
         else:
-            print >>sys.stderr, "Insufficient arguments specified. Exiting."
+            print("Insufficient arguments specified. Exiting.")
     elif arg == "update":
         update_catalogs()
     elif arg == "compile":
@@ -118,6 +138,6 @@ if len(sys.argv) > 1:
     elif arg == "tojson":
         generate_alljson()
     else:
-        print >>sys.stderr, "Invalid argument specified. Exiting."
+        print("Invalid argument specified. Exiting.")
 else:
-    print >>sys.stderr, "No arguments specified. Exiting."
+    print("No arguments specified. Exiting.")

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-01-09 23:59+0100\n"
+"POT-Creation-Date: 2016-01-11 13:01+0100\n"
 "PO-Revision-Date: 2016-01-09 16:36+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: de_DE\n"
@@ -120,7 +120,7 @@ msgstr "Das Passwort ist zu lang (max. 128 Zeichen)."
 
 #: ../dsn/static/js/translations.js:24
 msgid "error_password_repeat"
-msgstr "Bitte gib deinen Passwort nochmal an."
+msgstr "Bitte gib dein Passwort nochmal an."
 
 #: ../dsn/static/js/translations.js:25
 msgid "error_accept_termsofuse"
@@ -133,6 +133,240 @@ msgstr "Ich akzeptiere die"
 #: ../dsn/static/js/translations.js:27
 msgid "register"
 msgstr "Registrieren"
+
+#: ../dsn/static/js/translations.js:28
+msgid "password_repeat"
+msgstr "Passwort Wiederholung"
+
+#: ../dsn/static/js/translations.js:29
+msgid "set_new_password"
+msgstr "Neues Passwort setzen"
+
+#: ../dsn/static/js/translations.js:30
+msgid "set_new_password_desc"
+msgstr "Setze hier nun bitte dein neues Passwort."
+
+#: ../dsn/static/js/translations.js:31
+msgid "reset_password"
+msgstr "Passwort zurücksetzen"
+
+#: ../dsn/static/js/translations.js:32
+msgid "reset_password_desc"
+msgstr "Falls du dein Passwort vergessen hast, kannst du es hier zurücksetzen."
+
+#: ../dsn/static/js/translations.js:33
+msgid "reset_password_instructions"
+msgstr ""
+"Eine E-Mail wurde erfolgreich an deine E-Mail Adresse geschickt.Bitte "
+"folge den Anweisungen in dieser E-Mail."
+
+#: ../dsn/static/js/translations.js:34
+msgid "search"
+msgstr "Suche"
+
+#: ../dsn/static/js/translations.js:35
+msgid "logout"
+msgstr "Abmelden"
+
+#: ../dsn/static/js/translations.js:36
+msgid "menu_timetable"
+msgstr "Stundenplan"
+
+#: ../dsn/static/js/translations.js:37
+msgid "menu_notebooks"
+msgstr "Hefte"
+
+#: ../dsn/static/js/translations.js:38
+msgid "menu_accountsettings"
+msgstr "Kontoeinstellungen"
+
+#: ../dsn/static/js/translations.js:39
+msgid "menu_upgradenow"
+msgstr "Jetzt upgraden"
+
+#: ../dsn/static/js/translations.js:40
+msgid "current_password"
+msgstr "Aktuelles Passwort"
+
+#: ../dsn/static/js/translations.js:41
+msgid "change_password"
+msgstr "Passwort ändern"
+
+#: ../dsn/static/js/translations.js:42
+msgid "new_password"
+msgstr "Neues Passwort"
+
+#: ../dsn/static/js/translations.js:43
+msgid "repeat_new_password"
+msgstr "Neues Passwort wiederholen"
+
+#: ../dsn/static/js/translations.js:44
+msgid "error_password_dontmatch"
+msgstr "Passwörter stimmen nicht überein!"
+
+#: ../dsn/static/js/translations.js:45
+msgid "save_changes"
+msgstr "Änderungen speichern"
+
+#: ../dsn/static/js/translations.js:46
+msgid "cancel"
+msgstr "Abbrechen"
+
+#: ../dsn/static/js/translations.js:47
+msgid "delete_account"
+msgstr "Account löschen"
+
+#: ../dsn/static/js/translations.js:48
+msgid "notebook_settings"
+msgstr "Hefteinstellungen"
+
+#: ../dsn/static/js/translations.js:49
+msgid "notebook_name"
+msgstr "Heftname"
+
+#: ../dsn/static/js/translations.js:50
+msgid "error_notebookname_needed"
+msgstr "Bitte gib einen Namen an."
+
+#: ../dsn/static/js/translations.js:51
+msgid "error_notebookname_toolong"
+msgstr "Der Name ist zu lang (max. 30 Zeichen)."
+
+#: ../dsn/static/js/translations.js:52
+msgid "visibility"
+msgstr "Sichtbarkeit"
+
+#: ../dsn/static/js/translations.js:53
+msgid "visibility_public"
+msgstr "Öffentlich"
+
+#: ../dsn/static/js/translations.js:54
+msgid "notebook_createnew"
+msgstr "Heft erstellen"
+
+#: ../dsn/static/js/translations.js:55
+msgid "joined_on"
+msgstr "beigetreten am"
+
+#: ../dsn/static/js/translations.js:56
+msgid "user_is_prouser"
+msgstr "Dieser User ist Pro-Benutzer!"
+
+#: ../dsn/static/js/translations.js:57
+msgid "user_is_admin"
+msgstr "Dieser User ist Administrator!"
+
+#: ../dsn/static/js/translations.js:58
+msgid "public_notebooks"
+msgstr "Öffentliche Hefte"
+
+#: ../dsn/static/js/translations.js:59
+msgid "user_hasnopublicnotebooks"
+msgstr "Dieser Benutzer hat keine öffentlichen Hefte."
+
+#: ../dsn/static/js/translations.js:60
+msgid "user_found"
+msgstr "User wurden gefunden"
+
+#: ../dsn/static/js/translations.js:61
+msgid "editmode_activated"
+msgstr "Bearbeitungsmodus aktiviert!"
+
+#: ../dsn/static/js/translations.js:62
+msgid "editmode_end"
+msgstr "Beenden"
+
+#: ../dsn/static/js/translations.js:63
+msgid "time"
+msgstr "Zeit"
+
+#: ../dsn/static/js/translations.js:64
+msgid "monday"
+msgstr "Montag"
+
+#: ../dsn/static/js/translations.js:65
+msgid "tuesday"
+msgstr "Dienstag"
+
+#: ../dsn/static/js/translations.js:66
+msgid "wednesday"
+msgstr "Mittwoch"
+
+#: ../dsn/static/js/translations.js:67
+msgid "thursday"
+msgstr "Donnerstag"
+
+#: ../dsn/static/js/translations.js:68
+msgid "friday"
+msgstr "Freitag"
+
+#: ../dsn/static/js/translations.js:69
+msgid "saturday"
+msgstr "Samstag"
+
+#: ../dsn/static/js/translations.js:70
+msgid "edit_lesson"
+msgstr "Stunde bearbeiten"
+
+#: ../dsn/static/js/translations.js:71
+msgid "error_timetablesubjectdescription_toolong"
+msgstr "Die Bezeichnung ist zu lang (max. 30 Zeichen)."
+
+#: ../dsn/static/js/translations.js:72
+msgid "subject"
+msgstr "Fach"
+
+#: ../dsn/static/js/translations.js:73
+msgid "teacher"
+msgstr "Lehrer"
+
+#: ../dsn/static/js/translations.js:74
+msgid "error_timetableteacherdescription_toolong"
+msgstr "Die Bezeichnung ist zu lang (max. 50 Zeichen)."
+
+#: ../dsn/static/js/translations.js:75
+msgid "error_timetableroomdescription_toolong"
+msgstr "Die Bezeichnung ist zu lang (max. 30 Zeichen)."
+
+#: ../dsn/static/js/translations.js:76
+msgid "room"
+msgstr "Raum"
+
+#: ../dsn/static/js/translations.js:77
+msgid "no_notebook_assigned"
+msgstr "Kein Heft zugeordnet"
+
+#: ../dsn/static/js/translations.js:78
+msgid "save"
+msgstr "Speichern"
+
+#: ../dsn/static/js/translations.js:79
+msgid "edit_timetabletimes"
+msgstr "Stundenzeiten bearbeiten"
+
+#: ../dsn/static/js/translations.js:80
+msgid "error_timetabletime_needed"
+msgstr "Bitte gib eine Zeit an."
+
+#: ../dsn/static/js/translations.js:81
+msgid "error_timetabletime_invalid"
+msgstr "Bitte gib eine valide Zeit an (z.B. \"08:00\")."
+
+#: ../dsn/static/js/translations.js:82
+msgid "begin"
+msgstr "Beginn"
+
+#: ../dsn/static/js/translations.js:83
+msgid "end"
+msgstr "Ende"
+
+#: ../dsn/static/js/translations.js:84
+msgid "prev"
+msgstr "Zurück"
+
+#: ../dsn/static/js/translations.js:85
+msgid "next"
+msgstr "Weiter"
 
 #: ../dsn/views/mainpage_views.py:83 ../dsn/views/mainpage_views.py:94
 msgid "wrong_login_credentials"
