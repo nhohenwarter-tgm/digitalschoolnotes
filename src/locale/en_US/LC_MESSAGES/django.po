@@ -27,33 +27,28 @@ msgid "German"
 msgstr "German"
 
 #: ../dsn/authentication/captcha.py:24
-#, fuzzy
 msgid "invalid_captcha"
-msgstr "Please solve captcha."
+msgstr ""
 
 #: ../dsn/authentication/email.py:7 ../dsn/static/js/translations.js:31
 msgid "reset_password"
 msgstr ""
 
 #: ../dsn/authentication/email.py:16
-#, fuzzy
 msgid "validation_of_emailaddress"
-msgstr "Email address"
+msgstr "Validation of your email address"
 
 #: ../dsn/authentication/email.py:25 ../dsn/authentication/email.py:33
-#, fuzzy
 msgid "account_deletion"
-msgstr "Account Settings"
+msgstr "Your account will get deleted soon"
 
 #: ../dsn/authentication/password_reset.py:15
-#, fuzzy
 msgid "reseterror_accountisoauth"
-msgstr "Delete account"
+msgstr ""
 
 #: ../dsn/authentication/password_reset.py:20
-#, fuzzy
 msgid "emailaddress_wrong"
-msgstr "Email address"
+msgstr ""
 
 #: ../dsn/authentication/password_reset.py:48
 #: ../dsn/authentication/registration.py:17 ../dsn/static/js/translations.js:44
@@ -62,14 +57,12 @@ msgstr ""
 
 #: ../dsn/authentication/password_reset.py:50
 #: ../dsn/authentication/password_reset.py:53
-#, fuzzy
 msgid "reseterror_link_invalid"
-msgstr "Please insert valid email address."
+msgstr ""
 
 #: ../dsn/authentication/registration.py:12
-#, fuzzy
 msgid "emailaddress_already_used"
-msgstr "Please insert email address."
+msgstr ""
 
 #: ../dsn/static/js/translations.js:1
 msgid "menu_features"
@@ -357,11 +350,11 @@ msgstr "Teacher"
 
 #: ../dsn/static/js/translations.js:74
 msgid "error_timetableteacherdescription_toolong"
-msgstr ""
+msgstr "Description is too long (max. 50 characters)."
 
 #: ../dsn/static/js/translations.js:75
 msgid "error_timetableroomdescription_toolong"
-msgstr ""
+msgstr "Description is too long (max. 30 characters)."
 
 #: ../dsn/static/js/translations.js:76
 msgid "room"
@@ -377,15 +370,15 @@ msgstr "Save"
 
 #: ../dsn/static/js/translations.js:79
 msgid "edit_timetabletimes"
-msgstr ""
+msgstr "Edit time of lesson"
 
 #: ../dsn/static/js/translations.js:80
 msgid "error_timetabletime_needed"
-msgstr ""
+msgstr "Please insert a time."
 
 #: ../dsn/static/js/translations.js:81
 msgid "error_timetabletime_invalid"
-msgstr ""
+msgstr "Please insert a valid time (e.g. \"08:00\")."
 
 #: ../dsn/static/js/translations.js:82
 msgid "begin"
@@ -405,39 +398,36 @@ msgstr "Next"
 
 #: ../dsn/static/js/translations.js:86
 msgid "register_success_message"
-msgstr ""
+msgstr "Thanks for registering! \nAs soon as you validate your email address you can start using this application!"
 
 #: ../dsn/static/js/translations.js:87
-#, fuzzy
 msgid "error_email_alreadyused"
-msgstr "Please insert email address."
+msgstr "This email address is already used!"
 
 #: ../dsn/static/js/translations.js:88
 msgid "account_delete_warnmessage"
-msgstr ""
+msgstr "Are you sure you want to delete your account?\nYou can't undo this action! Your notebooks will be lost forever!"
 
 #: ../dsn/static/js/translations.js:89
 msgid "notebook_delete_warnmessage"
-msgstr ""
+msgstr "Are you sure you want to delete this notebook?"
 
 #: ../dsn/static/js/translations.js:90 ../dsn/views/management_views.py:98
 #: ../dsn/views/management_views.py:101
-#, fuzzy
 msgid "notebook_max_warnmessage"
-msgstr "No notebook assigned"
+msgstr "You have reached the limit of notebooks!"
 
 #: ../dsn/static/js/translations.js:91
-#, fuzzy
 msgid "error_timetable_notebooknotassigned"
-msgstr "No notebook assigned"
+msgstr "No notebook was assigned to this lesson!"
 
 #: ../dsn/static/js/translations.js:92
 msgid "error_timetable_notebooknotfound"
-msgstr ""
+msgstr "The notebook that belongs to this lesson could not be found!"
 
 #: ../dsn/static/js/translations.js:93
 msgid "loginerror_please_login_first"
-msgstr ""
+msgstr "Please login to continue!"
 
 #: ../dsn/views/mainpage_views.py:83 ../dsn/views/mainpage_views.py:94
 msgid "wrong_login_credentials"
@@ -448,12 +438,10 @@ msgid "success_validate"
 msgstr "Your email was successfully validated!"
 
 #: ../dsn/views/management_views.py:106 ../dsn/views/management_views.py:138
-#, fuzzy
 msgid "notebookname_already_used"
-msgstr "Please insert email address."
+msgstr "This name is already used!"
 
 #: ../dsn/views/management_views.py:334 ../dsn/views/management_views.py:340
-#, fuzzy
 msgid "error_wrong_password"
-msgstr "Forgot your password?"
+msgstr "Please insert your current password!"
 
