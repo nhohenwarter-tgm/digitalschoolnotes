@@ -110,7 +110,7 @@
                                           top: {{ element.position_y }}px; left: {{ element.position_x }}px;
                                             min-width: 50px;">
                                         <!-- TEXT ELEMENT -->
-                                        <span ng-if="element.art == 'textarea'" style="word-wrap: break-word; width:85%;">
+                                        <span ng-if="element.art == 'textarea'" style="word-wrap: break-word;">
                                             <!-- Edit -->
                                             <textarea ng-if="editMode == element.id"
                                                       ng-model="models[element.art][element.id]" ckeditor>
