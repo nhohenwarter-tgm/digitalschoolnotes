@@ -1,5 +1,5 @@
 {
-    "" : "Project-Id-Version: PROJECT VERSION\nReport-Msgid-Bugs-To: EMAIL@ADDRESS\nPOT-Creation-Date: 2016-01-12 15:34+0100\nPO-Revision-Date: 2016-01-09 16:38+0100\nLast-Translator: FULL NAME <EMAIL@ADDRESS>\nLanguage: en_US\nLanguage-Team: en_US <LL@li.org>\nPlural-Forms: nplurals=2; plural=(n != 1)\nMIME-Version: 1.0\nContent-Type: text/plain; charset=utf-8\nContent-Transfer-Encoding: 8bit\nGenerated-By: Babel 2.2.0\n",
+    "" : "Project-Id-Version: PROJECT VERSION\nReport-Msgid-Bugs-To: EMAIL@ADDRESS\nPOT-Creation-Date: 2016-01-12 16:19+0100\nPO-Revision-Date: 2016-01-09 16:38+0100\nLast-Translator: FULL NAME <EMAIL@ADDRESS>\nLanguage: en_US\nLanguage-Team: en_US <LL@li.org>\nPlural-Forms: nplurals=2; plural=(n != 1)\nMIME-Version: 1.0\nContent-Type: text/plain; charset=utf-8\nContent-Transfer-Encoding: 8bit\nGenerated-By: Babel 2.2.0\n",
     "English" : "English",
     "German" : "German",
     "menu_features" : "Features",
@@ -96,5 +96,7 @@
     "error_timetable_notebooknotfound" : "",
     "loginerror_please_login_first" : "",
     "wrong_login_credentials" : "Wrong username or email!",
-    "success_validate" : "Your email was successfully validated!"
+    "success_validate" : "Your email was successfully validated!",
+    "notebookname_already_used" : "Please insert email address.",
+    "error_wrong_password" : "Forgot your password?"
 }

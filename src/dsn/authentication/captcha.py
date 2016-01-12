@@ -1,5 +1,6 @@
 from django.conf import settings
 import requests
+from django.utils.translation import gettext as _
 
 def validate_captcha(recaptcha, ip):
     response = {}
@@ -20,4 +21,4 @@ def validate_captcha(recaptcha, ip):
     if response["status"] == True:
         return True
     else:
-        return "Captcha ist nicht valide."
+        return _("invalid_captcha")
