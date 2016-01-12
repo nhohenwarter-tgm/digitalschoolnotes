@@ -90,3 +90,4 @@ gettext("notebook_delete_warnmessage");
 gettext("notebook_max_warnmessage");
 gettext("error_timetable_notebooknotassigned");
 gettext("error_timetable_notebooknotfound");
+gettext("loginerror_please_login_first");
