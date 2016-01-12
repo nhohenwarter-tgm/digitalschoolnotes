@@ -1,12 +1,13 @@
 var mainApp = angular.module('mainApp');
 
-mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $sce, $window, loggedIn, ngDialog, $timeout) {
+mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $sce, $window, loggedIn, ngDialog, $timeout,$filter) {
 
     $scope.publicViewed = true;
     $scope.currentPage = 1;
     $scope.editMode = false;
     $scope.models = {'code': {}, 'textarea': {}};
     $scope.additem = false;
+    $scope.wf = false;
 
     // ADDITIONAL FUNCTIONS
 
@@ -180,6 +181,9 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     };
 
     $scope.codeElementDelete = function (id, art) {
+        if($scope.wf){
+            $scope.codeLanguage = "";
+        }
         ngDialog.open({
             template: 'deleteElementSettings',
             className: 'ngdialog-theme-default',
@@ -200,6 +204,18 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
             $scope.update();
         });
     };
+
+    $scope.codeModeEdit = function (id, art){
+        langu = $filter('filter')($scope.content, function (d) {return d.id === id;})[0];
+        $scope.codeLanguage=langu['data']['language'];
+        $scope.wf = true;
+        ngDialog.open({
+            template: 'codeElementSettings',
+            className: 'ngdialog-theme-default',
+            scope: $scope
+        });
+        $scope.cid = id;
+    }
 
     $scope.importsite = function () {
         $http({
@@ -271,13 +287,24 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     }
 
     $scope.addCodeElement = function(){
-        data = "{\"data\":\"\", \"language\":\""+$scope.codeLanguage+"\"}";
-        console.log(data);
-        $scope.addelement('code', data);
+        if(!$scope.wf) {
+            data = "{\"data\":\"\", \"language\":\"" + $scope.codeLanguage + "\"}";
+            console.log(data);
+            $scope.addelement('code', data);
+        }else{
+            $scope.wf = false;
+            single_object = $filter('filter')($scope.content, function (d) {return d.id === $scope.cid;})[0];
+            // If you want to see the result, just check the log
+            // console.log(single_object['data']['data']);
+            data = "{\"data\":\""+single_object['data']['data']+"\", \"language\":\"" + $scope.codeLanguage + "\"}";
+            $scope.editelement($scope.cid, 'code',data);
+
+        }
     }
 
     // NgDialog zum erstellen, bearbeiten und exportieren von Code Elementen
     $scope.codeElementCreate = function () {
+        $scope.codeLanguage="";
         ngDialog.open({
             template: 'codeElementSettings',
             className: 'ngdialog-theme-default',
@@ -576,6 +603,9 @@ function setPos(element) {
             $scope.updatedata();
         });
     };
+
+
+
 
  $scope.setEditMode = function (edit, index, id, art, input) {
         if ($scope.editModeindex == -1) {
