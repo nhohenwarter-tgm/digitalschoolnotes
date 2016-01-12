@@ -18,5 +18,5 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'about', groups: [ 'about' ] }
 	];
 
-	config.removeButtons = 'Underline,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Scayt,Link,Unlink,Anchor,Image,HorizontalRule,Maximize,Source,RemoveFormat,Outdent,Indent,Blockquote,Format,About';
+	config.removeButtons = 'Cut,Copy,Paste,PasteText,PasteFromWord,Scayt,Image,HorizontalRule,Maximize,Source,RemoveFormat,Outdent,Indent,Blockquote,Format,About';
 };
