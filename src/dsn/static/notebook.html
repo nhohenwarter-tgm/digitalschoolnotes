@@ -159,6 +159,13 @@
 
                                             </span>
 
+                                            <span ng-show="hovered && editMode != element.id"
+                                                  class="glyphicon glyphicon-cog"
+                                                  ng-click="codeModeEdit(element.id,element.art)"
+                                                  style="cursor: pointer; font-size: 18px; color:black; padding-top: 3px;">
+
+                                            </span>
+
                                             <div style="color: red; text-align: center; padding-bottom: 10px;"
                                                  ng-if="editMode == element.id">
                                                 <span translate="editmode_activated"></span>
@@ -306,53 +313,53 @@
                 <div class="col-md-6">
 
                     <label>
-                        <input type="radio" name="lang" ng-model="value" value="application/xml" ng-change="setCodeElementLanguage(value)" checked="checked">
+                        <input type="radio" name="lang" ng-model="value" value="application/xml" ng-change="setCodeElementLanguage(value)" ng-checked="'application/xml'==codeLanguage">
                         XML
                     </label><br/>
                     <label>
-                        <input type="radio" name="lang" ng-model="value" value="text/html" ng-change="setCodeElementLanguage(value)">
+                        <input type="radio" name="lang" ng-model="value" value="text/html" ng-change="setCodeElementLanguage(value)" ng-checked="'text/html' == codeLanguage">
                         HTML
                     </label><br/>
                     <label>
-                        <input type="radio" name="lang" ng-model="value" value="text/x-java" ng-change="setCodeElementLanguage(value)">
+                        <input type="radio" name="lang" ng-model="value" value="text/x-java" ng-change="setCodeElementLanguage(value)" ng-checked="'text/x-java'==codeLanguage">
                         Java
                     </label><br/>
                     <label>
-                        <input type="radio" name="lang" ng-model="value" value="text/javascript" ng-change="setCodeElementLanguage(value)">
+                        <input type="radio" name="lang" ng-model="value" value="text/javascript" ng-change="setCodeElementLanguage(value)" ng-checked="'text/javascript' == codeLanguage">
                         Javascript
                     </label><br/>
                     <label>
-                        <input type="radio" name="lang" ng-model="value" value="text/x-php" ng-change="setCodeElementLanguage(value)">
+                        <input type="radio" name="lang" ng-model="value" value="text/x-php" ng-change="setCodeElementLanguage(value)" ng-checked="'text/x-php' ==codeLanguage">
                         PHP
                     </label><br/>
                     <label>
-                        <input type="radio" name="lang" ng-model="value" value="text/x-ruby" ng-change="setCodeElementLanguage(value)">
+                        <input type="radio" name="lang" ng-model="value" value="text/x-ruby" ng-change="setCodeElementLanguage(value)" ng-checked="'text/x-ruby' == codeLanguage">
                         Ruby
                     </label><br/>
                 </div>
                 <div class="col-md-6">
                     <label>
-                        <input type="radio" name="lang" ng-model="value" value="text/x-sh" ng-change="setCodeElementLanguage(value)">
+                        <input type="radio" name="lang" ng-model="value" value="text/x-sh" ng-change="setCodeElementLanguage(value)" ng-checked="'text/x-sh' == codeLanguage">
                         Shell
                     </label><br/>
                     <label>
-                        <input type="radio" name="lang" ng-model="value" value="text/x-mysql" ng-change="setCodeElementLanguage(value)">
+                        <input type="radio" name="lang" ng-model="value" value="text/x-mysql" ng-change="setCodeElementLanguage(value)" ng-checked="'text/x-mysql' == codeLanguage">
                         SQL
                     </label><br/>
                     <label>
-                        <input type="radio" name="lang" ng-model="value" value="text/x-csrc" ng-change="setCodeElementLanguage(value)">
+                        <input type="radio" name="lang" ng-model="value" value="text/x-csrc" ng-change="setCodeElementLanguage(value)" ng-checked="'text/x-csrc' == codeLanguage">
                         C
                     </label><br/>
                     <label>
-                        <input type="radio" name="lang" ng-model="value" value="text/x-c++src" ng-change="setCodeElementLanguage(value)">
+                        <input type="radio" name="lang" ng-model="value" value="text/x-c++src" ng-change="setCodeElementLanguage(value)" ng-checked="'text/x-c++src' == codeLanguage">
                         C++
                     </label><br/>
                     <label>
-                        <input type="radio" name="lang" ng-model="value" value="text/x-csharp" ng-change="setCodeElementLanguage(value)">
+                        <input type="radio" name="lang" ng-model="value" value="text/x-csharp" ng-change="setCodeElementLanguage(value)" ng-checked="'text/x-csharp' == codeLanguage">
                         C#
                     </label><br/>
                     <label>
-                        <input type="radio" name="lang" ng-model="value" value="text/x-python" ng-change="setCodeElementLanguage(value)">
+                        <input type="radio" name="lang" ng-model="value" value="text/x-python" ng-change="setCodeElementLanguage(value)" ng-checked="'text/x-python' == codeLanguage">
                         Python
                     </label><br/>
                 </div>

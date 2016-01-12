@@ -208,7 +208,6 @@ def view_delete_notebook_content(request):
         notebook = Notebook.objects.get(id=params['id']).to_json()
         return JsonResponse({"notebook": notebook})
 
-
 def view_edit_notebook_content(request):
     if not request.user.is_authenticated():
         return JsonResponse({})
@@ -217,7 +216,11 @@ def view_edit_notebook_content(request):
         notebook = Notebook.objects.get(id=params['id'])
         content = notebook.content
         findnotebook = next(item for item in content if item["id"] == params['content_id'] and item["art"] == params['content_art'])
-        findnotebook.data = params['content_data']
+        if isinstance(params['content_data'], dict):
+            j = params['content_data']
+        else:
+            j = json.loads(str(params['content_data'].replace('\n','\\n')))
+        findnotebook.data = j
         notebook.save()
         notebook = Notebook.objects.get(id=params['id']).to_json()
         return JsonResponse({"notebook": notebook})
