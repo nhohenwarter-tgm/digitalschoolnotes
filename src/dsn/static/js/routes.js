@@ -324,12 +324,16 @@ mainApp.run(function($rootScope, $state, $http, $window, $urlRouter, $translate,
                     $rootScope.loginFromState = toState;
                     $rootScope.loginFromParams = toParams;
                     $rootScope.error = true;
-                    $rootScope.login_error = 'Bitte melde dich zuerst an!';
+                    $translate("loginerror_please_login_first").then(function(message) {
+                        $rootScope.login_error = 'Bitte melde dich zuerst an!';
+                    });
                     $state.go('mainpage.login');
                 }
             }, function (data) {
                 $rootScope.error = true;
-                $rootScope.login_error = 'Bitte melde dich zuerst an!';
+                $translate("loginerror_please_login_first").then(function(message) {
+                    $rootScope.login_error = message;
+                });
                 $state.go('mainpage.login');
             });
         }
