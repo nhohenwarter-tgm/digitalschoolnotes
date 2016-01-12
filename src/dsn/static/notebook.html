@@ -52,6 +52,12 @@
                                             </a>
                                         </li>
                                         <li ng-hide="publicViewed">
+                                            <a ng-click="addPicture()">
+                                                <span class="glyphicon glyphicon-picture"
+                                                      style="color: white; cursor: pointer;"></span>
+                                            </a>
+                                        </li>
+                                        <li ng-hide="publicViewed">
                                             <a>
                                                 <span class="glyphicon glyphicon-bookmark"
                                                       style="color: white; cursor: pointer;"></span>
@@ -390,6 +396,26 @@
         <button type="submit" id="submit" class="btn btn-success"
                 ng-click="deleteelement(deleteid,deleteart);closeThisDialog();"
                 style="float: right; margin-left: 15px; margin-right: 15px;">L&ouml;schen
+        </button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="addPicture">
+    <div class="ngdialog-message">
+        <h2>Bild hinzuf&uuml;gen</h2>
+
+        <div>F&uuml;ge deinem Heft ein Bild hinzu.<br/>
+        <label class="control-label"></label>
+        <input id="input-1" type="file" class="file"></div>
+        <br/>
+    </div>
+    <div class="ngdialog-buttons mt">
+        <button id="cancel" class="btn btn-danger" ng-click="closeThisDialog()"
+                style="float: right;  margin-right: 15px;">Abbrechen
+        </button>
+        <button type="submit" id="submit" class="btn btn-success"
+                ng-click="addPictureElement(iwas..)"
+                style="float: right; margin-left: 15px; margin-right: 15px;">Hochladen
         </button>
     </div>
 </script>

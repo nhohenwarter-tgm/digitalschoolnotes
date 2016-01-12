@@ -312,6 +312,15 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         });
     };
 
+    $scope.addPicture = function () {
+        $scope.codeLanguage="";
+        ngDialog.open({
+            template: 'addPicture',
+            className: 'ngdialog-theme-default',
+            scope: $scope
+        });
+    };
+
     $scope.codeElementEdit = function () {
         ngDialog.open({
             template: 'codeElementSettings2',
