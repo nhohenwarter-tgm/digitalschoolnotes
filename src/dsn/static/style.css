@@ -640,3 +640,8 @@ span[id*='code_'] {
     max-width:85%;
     max-height: 85%;
 }
+
+span[id*='textarea_'] {
+    max-width:85%;
+    max-height: 85%;
+}

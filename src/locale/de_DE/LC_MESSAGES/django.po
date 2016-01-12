@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-01-12 15:53+0100\n"
+"POT-Creation-Date: 2016-01-12 16:44+0100\n"
 "PO-Revision-Date: 2016-01-09 16:36+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: de_DE\n"
@@ -25,6 +25,44 @@ msgstr "Englisch"
 #: ../dsn/settings.py:163
 msgid "German"
 msgstr "Deutsch"
+
+#: ../dsn/authentication/captcha.py:24
+msgid "invalid_captcha"
+msgstr "Captcha ist nicht valide"
+
+#: ../dsn/authentication/email.py:7 ../dsn/static/js/translations.js:31
+msgid "reset_password"
+msgstr "Passwort zurücksetzen"
+
+#: ../dsn/authentication/email.py:16
+msgid "validation_of_emailaddress"
+msgstr "Bestätigung deiner E-Mail Adresse"
+
+#: ../dsn/authentication/email.py:25 ../dsn/authentication/email.py:33
+msgid "account_deletion"
+msgstr "Löschung deines Accounts"
+
+#: ../dsn/authentication/password_reset.py:15
+msgid "reseterror_accountisoauth"
+msgstr "Account wurde über OAuth erstellt! Passwort kann nicht zurückgesetzt werden!"
+
+#: ../dsn/authentication/password_reset.py:20
+msgid "emailaddress_wrong"
+msgstr "E-Mail Adresse ist nicht korrekt!"
+
+#: ../dsn/authentication/password_reset.py:48
+#: ../dsn/authentication/registration.py:17 ../dsn/static/js/translations.js:44
+msgid "error_password_dontmatch"
+msgstr "Passwörter stimmen nicht überein!"
+
+#: ../dsn/authentication/password_reset.py:50
+#: ../dsn/authentication/password_reset.py:53
+msgid "reseterror_link_invalid"
+msgstr "Der Link ist nicht mehr gültig!"
+
+#: ../dsn/authentication/registration.py:12
+msgid "emailaddress_already_used"
+msgstr "E-Mail Adresse ist bereits vergeben!"
 
 #: ../dsn/static/js/translations.js:1
 msgid "menu_features"
@@ -146,10 +184,6 @@ msgstr "Neues Passwort setzen"
 msgid "set_new_password_desc"
 msgstr "Setze hier nun bitte dein neues Passwort."
 
-#: ../dsn/static/js/translations.js:31
-msgid "reset_password"
-msgstr "Passwort zurücksetzen"
-
 #: ../dsn/static/js/translations.js:32
 msgid "reset_password_desc"
 msgstr "Falls du dein Passwort vergessen hast, kannst du es hier zurücksetzen."
@@ -199,10 +233,6 @@ msgstr "Neues Passwort"
 #: ../dsn/static/js/translations.js:43
 msgid "repeat_new_password"
 msgstr "Neues Passwort wiederholen"
-
-#: ../dsn/static/js/translations.js:44
-msgid "error_password_dontmatch"
-msgstr "Passwörter stimmen nicht überein!"
 
 #: ../dsn/static/js/translations.js:45
 msgid "save_changes"
@@ -390,7 +420,8 @@ msgstr ""
 msgid "notebook_delete_warnmessage"
 msgstr "Möchtest du dieses Heft wirklich löschen?"
 
-#: ../dsn/static/js/translations.js:90
+#: ../dsn/static/js/translations.js:90 ../dsn/views/management_views.py:98
+#: ../dsn/views/management_views.py:101
 msgid "notebook_max_warnmessage"
 msgstr "Du hast die maximale Anzahl an Heften bereits erreicht!"
 
@@ -402,6 +433,10 @@ msgstr "Dieser Stunde ist kein Heft zugeordnet!"
 msgid "error_timetable_notebooknotfound"
 msgstr "Das zugeordnete Heft konnte nicht gefunden werden!"
 
+#: ../dsn/static/js/translations.js:93
+msgid "loginerror_please_login_first"
+msgstr "Bitte melde dich zuerst an!"
+
 #: ../dsn/views/mainpage_views.py:83 ../dsn/views/mainpage_views.py:94
 msgid "wrong_login_credentials"
 msgstr "E-Mail Adresse oder Passwort falsch!"
@@ -409,4 +444,12 @@ msgstr "E-Mail Adresse oder Passwort falsch!"
 #: ../dsn/views/mainpage_views.py:143
 msgid "success_validate"
 msgstr "Deine E-Mail Adresse wurde erfolgreich bestätigt!"
+
+#: ../dsn/views/management_views.py:106 ../dsn/views/management_views.py:138
+msgid "notebookname_already_used"
+msgstr "Dieser Name ist bereits vergeben!"
+
+#: ../dsn/views/management_views.py:334 ../dsn/views/management_views.py:340
+msgid "error_wrong_password"
+msgstr "Bitte wiederhole dein aktuelles Passwort!"
 

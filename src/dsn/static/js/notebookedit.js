@@ -360,6 +360,7 @@ mainApp.directive('ckeditor', function () {
                 extraPlugins: 'autogrow',
                 autoGrow_minHeight: 20,
                 autoGrow_maxHeight: 800,
+                width: window.innerWidth * 0.58,
                 removePlugins: 'resize',
                 contentsCss : 'body {overflow:hidden;}',
                 fullPage: true
