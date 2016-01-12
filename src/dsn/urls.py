@@ -59,4 +59,5 @@ urlpatterns = [
     url(r'^api/notebook/deletefile', 'dsn.views.notebook_views.view_deletefile', name="deletefile"),
     url(r'^api/notebook/getfileurl', 'dsn.views.notebook_views.view_getfileurl', name="getfileurl"),
     url(r'^api/notebook/upload', 'dsn.views.notebook_views.view_upload', name="upload"),
+    url(r'^api/change_lang', 'dsn.views.mainpage_views.change_language', name="language"),
 ]

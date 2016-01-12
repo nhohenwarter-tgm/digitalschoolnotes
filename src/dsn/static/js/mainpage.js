@@ -28,7 +28,7 @@ mainApp.controller('mainpageCtrl', function($scope, $http, $location, $anchorScr
     }
 });
 
-mainApp.controller('contentCtrl', ['vcRecaptchaService','$scope','$http', function(vcRecaptchaService, $scope, $http){
+mainApp.controller('contentCtrl', ['vcRecaptchaService','$scope','$http', '$translate', function(vcRecaptchaService, $scope, $http, $translate){
     if(scrollLocation != null){
         $scope.goto(scrollLocation);
         scrollLocation = null;
@@ -54,11 +54,15 @@ mainApp.controller('contentCtrl', ['vcRecaptchaService','$scope','$http', functi
         $scope.captcha_error = '';
         if(vcRecaptchaService != null && vcRecaptchaService.getResponse() === ""){
             $scope.captchaerror = true;
-            $scope.captcha_error = "Bitte löse das Captcha.\n";
+            $translate("solve_captcha").then(function(message){
+                $scope.captcha_error = message+"\n";
+            });
         }
         if(password != password_repeat){
             $scope.passworderror = true;
-            $scope.password_error = "Die Passwörter stimmen nicht überein.\n";
+            $translate("error_password_dontmatch").then(function(message){
+                $scope.password_error = message+"\n";
+            });
         }
         password=CryptoJS.SHA256(password);
         password_repeat=CryptoJS.SHA256(password_repeat);
@@ -84,8 +88,9 @@ mainApp.controller('contentCtrl', ['vcRecaptchaService','$scope','$http', functi
                         vcRecaptchaService.reload();
                     }else{
                         $scope.registerSuccess = true;
-                        $scope.message = 'Vielen Dank für deine Registrierung! \n' +
-                            'Sobald du deine E-Mail Adresse bestätigt hast kannst du dich einloggen und sofort starten!';
+                        $translate("register_success_message").then(function(message){
+                            $scope.message = message+"\n";
+                        });
                     }
                 })
                 .error(function (data) {
@@ -113,10 +118,11 @@ mainApp.controller('loginCtrl', function($scope, $window, $http, $state, $rootSc
         $state.go('mainpage.content');
     });
 
-    console.log($state.current.name);
     if($state.current.name == 'mainpage.login.oautherror'){
         $scope.error = true;
-        $scope.login_error = 'Diese E-Mail Adresse wird bereits verwendet!';
+        $translate("error_email_alreadyused").then(function(message){
+                $scope.login_error = message+"\n";
+        });
     }
 
     $scope.submitLogin = function(){
@@ -187,7 +193,9 @@ mainApp.controller('resetPwdCtrl', ['vcRecaptchaService','$scope','$http','$stat
 
         if(vcRecaptchaService != null && vcRecaptchaService.getResponse() === ""){
             $scope.error = true;
-            $scope.reset_error += "Bitte löse das Captcha.\n";
+            $translate("solve_captcha").then(function(message){
+                $scope.reset_error = message+"\n";
+            });
         }
 
         if(!$scope.error && $scope.resetpwdreq.$valid) {
@@ -224,7 +232,9 @@ mainApp.controller('resetPwdCtrl', ['vcRecaptchaService','$scope','$http','$stat
         $scope.reset_error = '';
         if(password != password_repeat) {
             $scope.error = true;
-            $scope.reset_error = 'Passwörter stimmen nicht überein\n';
+            $translate("error_password_dontmatch").then(function(message){
+                $scope.reset_error = message+"\n";
+            });
         }
         password = CryptoJS.SHA256(password)
         password_repeat = CryptoJS.SHA256(password_repeat)

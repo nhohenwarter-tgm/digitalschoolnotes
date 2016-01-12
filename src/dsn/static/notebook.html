@@ -100,11 +100,15 @@
                         color:black; background-color: white; overflow:hidden;" id="notebook">
                         <!-- PAGE CONTENT START -->
                         <div>
-                            <h3>Page {{ currentPage }}!</h3>
+                            <div style="background-color: #c9c9c9; margin-top: {{ notebookHeight-40 }}px;
+                                    margin-left: {{ notebookWidth-40 }}px;">
+                                <h3>{{ currentPage }}</h3>
+                            </div>
                                     <span ng-repeat="element in sites[currentPage]"
                                           ng-mouseenter="hovered=true;" ng-mouseleave="hovered=false;"
                                           id="{{ element.art }}_{{ element.id }}" style="position: absolute;
-                                          top: {{ element.position_y }}px; left: {{ element.position_x }}px; min-width: 50px;">
+                                          top: {{ element.position_y }}px; left: {{ element.position_x }}px;
+                                            min-width: 50px;">
                                         <!-- TEXT ELEMENT -->
                                         <span ng-if="element.art == 'textarea'" style="word-wrap: break-word;">
                                             <!-- Edit -->
@@ -123,7 +127,7 @@
                                             <section ng-if="editMode == element.id">
                                                 <textarea ng-model="models[element.art][element.id][0]"
                                                           class="codestyle" rows="6"
-                                                          cols="70" ui-codemirror="{lineNumbers: true, indentWithTabs: true, lineWrapping: true, scrollbarStyle: 'null', mode: '{{ models['code'][element.id][1]}}'}">
+                                                          cols="70" ui-codemirror="{lineNumbers: true, width: 800, height:auto, indentWithTabs: true, lineWrapping: true, scrollbarStyle: 'null', mode: '{{ models['code'][element.id][1]}}'}">
 
                                                 </textarea>
 
@@ -135,7 +139,7 @@
                                                      ng-if="editMode != element.id">
                                                 <textarea ng-model="models[element.art][element.id][0]"
                                                           class="codestyle" rows="6"
-                                                          cols="70" ui-codemirror="{lineNumbers: true, indentWithTabs: true, lineWrapping: true, scrollbarStyle: 'null', readOnly: 'nocursor', mode: '{{ models['code'][element.id][1]}}'}">
+                                                          cols="70" ui-codemirror="{lineNumbers: true, width: 800, height:auto, indentWithTabs: true, lineWrapping: true, scrollbarStyle: 'null', readOnly: 'nocursor', mode: '{{ models['code'][element.id][1]}}'}">
 
                                                 </textarea>
                                             </section>
@@ -164,9 +168,9 @@
 
                                             <div style="color: red; text-align: center; padding-bottom: 10px;"
                                                  ng-if="editMode == element.id">
-                                                Bearbeitungsmodus aktiviert!
+                                                <span translate="editmode_activated"></span>
                                                 <span style="cursor: pointer; text-decoration: underline;"
-                                                      ng-click="setEditMode(null,element.id,element.art)">Beenden</span>
+                                                      ng-click="setEditMode(null,element.id,element.art)" translate="editmode_end"></span>
                                             </div>
                                         </div>
                                     </span>

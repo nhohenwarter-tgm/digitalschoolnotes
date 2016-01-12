@@ -13,15 +13,12 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
 
     // Height of Notebook
     $scope.setHeight = function(element, ratio, minLimit) {
-        // First of all, let's square the element
         setH(ratio, minLimit);
 
-        // Now we'll add an event listener so it happens automatically
         window.addEventListener('resize', function (event) {
             setH(ratio, minLimit);
         });
 
-        // This is just an inner function to help us keep DRY
         function setH(ratio, minLimit) {
             if (typeof(ratio) === "undefined") {
                 ratio = 1;
@@ -264,6 +261,9 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
                     stop: function () {
                         var finalPos = $(this).position();
                         $scope.editPositionElement(id, art, finalPos.left, finalPos.top);
+                        $(this).css('width','auto');
+                        $(this).css('max-width','85%');
+                        $(this).css('max-height','85%');
                     },
                     create: function () {
                     }
@@ -365,15 +365,18 @@ mainApp.directive('ckeditor', function () {
             function updateModel() {
                 scope.$apply(function () {
                     ngModel.$setViewValue(ck.getData());
-                    console.log(ck.getData());
                 });
             }
 
-            ck.on('change', updateModel);
-            ck.on('key', updateModel);
-            ck.on('dataReady', updateModel);
-            ck.on('all', updateModel);
+            //ck.on('all', updateModel);
             //TODO Event zur Korrekten Speicherung finden
+
+            ck.on( 'contentDom', function() {
+                var editable = ck.editable();
+
+                editable.attachListener( editable, 'keyup', updateModel);
+                editable.attachListener( editable, 'change', updateModel);
+            });
 
             ngModel.$render = function (value) {
                 ck.setData(ngModel.$viewValue);
@@ -385,19 +388,27 @@ mainApp.directive('ckeditor', function () {
 // SET POSITION OF ARROWS
 
 function setPos(element) {
-    // First of all, let's square the element
     setP();
-
-    // Now we'll add an event listener so it happens automatically
     window.addEventListener('resize', function (event) {
         setP();
     });
-
-    // This is just an inner function to help us keep DRY
     function setP() {
         var viewportHeight = window.innerHeight;
 
         var newElementPos = viewportHeight / 2 - 40;
+        $(element).css("padding-top", newElementPos);
+    }
+}
+
+function setPosBottom(element) {
+    setP();
+    window.addEventListener('resize', function (event) {
+        setP();
+    });
+    function setP() {
+        var viewportHeight = window.innerHeight;
+
+        var newElementPos = viewportHeight - 40;
         $(element).css("padding-top", newElementPos);
     }
 }
