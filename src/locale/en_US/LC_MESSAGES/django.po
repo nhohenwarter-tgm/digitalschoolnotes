@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-01-12 15:34+0100\n"
+"POT-Creation-Date: 2016-01-12 16:44+0100\n"
 "PO-Revision-Date: 2016-01-09 16:38+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en_US\n"
@@ -25,6 +25,51 @@ msgstr "English"
 #: ../dsn/settings.py:163
 msgid "German"
 msgstr "German"
+
+#: ../dsn/authentication/captcha.py:24
+#, fuzzy
+msgid "invalid_captcha"
+msgstr "Please solve captcha."
+
+#: ../dsn/authentication/email.py:7 ../dsn/static/js/translations.js:31
+msgid "reset_password"
+msgstr ""
+
+#: ../dsn/authentication/email.py:16
+#, fuzzy
+msgid "validation_of_emailaddress"
+msgstr "Email address"
+
+#: ../dsn/authentication/email.py:25 ../dsn/authentication/email.py:33
+#, fuzzy
+msgid "account_deletion"
+msgstr "Account Settings"
+
+#: ../dsn/authentication/password_reset.py:15
+#, fuzzy
+msgid "reseterror_accountisoauth"
+msgstr "Delete account"
+
+#: ../dsn/authentication/password_reset.py:20
+#, fuzzy
+msgid "emailaddress_wrong"
+msgstr "Email address"
+
+#: ../dsn/authentication/password_reset.py:48
+#: ../dsn/authentication/registration.py:17 ../dsn/static/js/translations.js:44
+msgid "error_password_dontmatch"
+msgstr ""
+
+#: ../dsn/authentication/password_reset.py:50
+#: ../dsn/authentication/password_reset.py:53
+#, fuzzy
+msgid "reseterror_link_invalid"
+msgstr "Please insert valid email address."
+
+#: ../dsn/authentication/registration.py:12
+#, fuzzy
+msgid "emailaddress_already_used"
+msgstr "Please insert email address."
 
 #: ../dsn/static/js/translations.js:1
 msgid "menu_features"
@@ -146,10 +191,6 @@ msgstr ""
 msgid "set_new_password_desc"
 msgstr ""
 
-#: ../dsn/static/js/translations.js:31
-msgid "reset_password"
-msgstr ""
-
 #: ../dsn/static/js/translations.js:32
 msgid "reset_password_desc"
 msgstr ""
@@ -196,10 +237,6 @@ msgstr ""
 
 #: ../dsn/static/js/translations.js:43
 msgid "repeat_new_password"
-msgstr ""
-
-#: ../dsn/static/js/translations.js:44
-msgid "error_password_dontmatch"
 msgstr ""
 
 #: ../dsn/static/js/translations.js:45
@@ -383,7 +420,8 @@ msgstr ""
 msgid "notebook_delete_warnmessage"
 msgstr ""
 
-#: ../dsn/static/js/translations.js:90
+#: ../dsn/static/js/translations.js:90 ../dsn/views/management_views.py:98
+#: ../dsn/views/management_views.py:101
 #, fuzzy
 msgid "notebook_max_warnmessage"
 msgstr "No notebook assigned"
@@ -408,4 +446,14 @@ msgstr "Wrong username or email!"
 #: ../dsn/views/mainpage_views.py:143
 msgid "success_validate"
 msgstr "Your email was successfully validated!"
+
+#: ../dsn/views/management_views.py:106 ../dsn/views/management_views.py:138
+#, fuzzy
+msgid "notebookname_already_used"
+msgstr "Please insert email address."
+
+#: ../dsn/views/management_views.py:334 ../dsn/views/management_views.py:340
+#, fuzzy
+msgid "error_wrong_password"
+msgstr "Forgot your password?"
 

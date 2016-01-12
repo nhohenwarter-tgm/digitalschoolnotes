@@ -2,6 +2,7 @@ from boto.s3.connection import S3Connection
 from boto.s3.key import Key
 from django.conf import settings
 
+
 def saveFile(filename, filepath):
     conn = S3Connection(settings.AWS_KEY, settings.AWS_SECRET, host=settings.AWS_REGION)
     bucket = conn.get_bucket(settings.AWS_BUCKET)
@@ -10,6 +11,7 @@ def saveFile(filename, filepath):
     k.set_contents_from_filename(filepath)
     conn.close()
 
+
 def deleteFile(key):
     conn = S3Connection(settings.AWS_KEY, settings.AWS_SECRET, host=settings.AWS_REGION)
     bucket = conn.get_bucket(settings.AWS_BUCKET)
@@ -17,6 +19,7 @@ def deleteFile(key):
     k.key= key
     k.delete()
     conn.close()
+
 
 def getFileURL(key):
     conn = S3Connection(settings.AWS_KEY, settings.AWS_SECRET, host=settings.AWS_REGION)

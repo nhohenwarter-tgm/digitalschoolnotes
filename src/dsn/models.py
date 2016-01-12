@@ -8,6 +8,7 @@ import datetime
 
 from dsn.settings import SALT
 
+
 class AuthUserManager(UserManager):
 
     def create_user(self, email, password, first_name, last_name):
@@ -54,6 +55,7 @@ class AuthUserManager(UserManager):
 class PasswordReset(EmbeddedDocument):
     hash = StringField(required=True)
     date = DateTimeField(required=True)
+
 
 class OAuth(EmbeddedDocument):
     provider = StringField(required=True)
@@ -245,6 +247,7 @@ class User(Document):
                 raise SiteProfileNotAvailable
         return self._profile_cache
 
+
 class NotebookContent(EmbeddedDocument):
     id = IntField()
     art = StringField()
@@ -253,18 +256,6 @@ class NotebookContent(EmbeddedDocument):
     position_site = IntField()
     data = DictField()
 
-"""
-class NotebookElement(EmbeddedDocument):
-    id=0
-    name=""
-    positionx=5
-    positiony=5
-
-
-
-class CodeElement(NotebookElement):
-    content = ""
-"""
 
 class Notebook(Document):
     name = StringField(max_length=30)
@@ -274,28 +265,14 @@ class Notebook(Document):
     email = EmailField()
     numpages = IntField(default=2)
     current_page = IntField(default=2)
-    #elements = NotebookElement()
     content = SortedListField(EmbeddedDocumentField(NotebookContent), ordering="id", reverse=True)
 
-class TimeTableElem(Document):
-    subject = StringField(max_length=30)
-    teacher = StringField(max_length=50)
-    begin = StringField()
-    end = StringField()
-    room = StringField(max_length=40)
-
-    @classmethod
-    def create(self,subject,teacher,begin,end,room):
-        self.subject=subject
-        self.teacher=teacher
-        self.begin=begin
-        self.end=end
-        self.room=room
 
 class TimeTableTime(EmbeddedDocument):
     row=IntField()
     start= StringField()
     end=StringField()
+
 
 class TimeTableField(EmbeddedDocument):
     id=IntField()
@@ -303,6 +280,7 @@ class TimeTableField(EmbeddedDocument):
     teacher=StringField()
     room=StringField()
     notebook=StringField()
+
 
 class TimeTable(Document):
     email=EmailField()

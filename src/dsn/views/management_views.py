@@ -12,6 +12,7 @@ from django.contrib.auth import logout
 from dsn.authentication.registration import create_validation_token
 from dsn.authentication.email import validationmail
 from django.contrib.auth.hashers import *
+from django.utils.translation import gettext as _
 
 
 def view_get_timetable(request):
@@ -94,15 +95,15 @@ def view_createNotebook(request):
 
         if request.user.is_prouser:
             if notebooks >= 20: #TODO Maximale Heftanzahl festlegen
-                return JsonResponse({'message': 'Maximale Anzahl an Heften bereits erreicht!'})
+                return JsonResponse({'message': _("notebook_max_warnmessage")})
         else:
             if notebooks >= 10:
-                return JsonResponse({'message': 'Maximale Anzahl an Heften bereits erreicht!'})
+                return JsonResponse({'message': _("notebook_max_warnmessage")})
 
         form = NotebookForm()
         try:
             Notebook.objects.get(name=params['name'], email=request.user.email)
-            return JsonResponse({"message": "Name bereits vergeben!"})
+            return JsonResponse({"message": _("notebookname_already_used")})
         except DoesNotExist:
             pass
 
@@ -134,7 +135,7 @@ def view_editNotebook(request):
         try:
             if (notebook.name != params['name']):
                 Notebook.objects.get(name=params['name'], email=request.user.email)
-                return JsonResponse({"message": "Name bereits vergeben!"})
+                return JsonResponse({"message": _("notebookname_already_used")})
         except DoesNotExist:
             pass
         notebook.name = params['name']
@@ -330,17 +331,17 @@ def view_editUser(request):
             if user.check_password(params['password_old']) == True:
                 user.set_password(params['password'])
             else:
-                return JsonResponse({'message': "Das alte Passwort wiederholen"})
+                return JsonResponse({'message': _("error_wrong_password")})
         user.first_name = params['first_name']
         user.last_name = params['last_name']
         if user.check_password(params['password_old']) == True:
             user.set_password(params['password'])
         else:
-            return JsonResponse({'message': "Das alte Passwort wiederholen"})
+            return JsonResponse({'message': _("error_wrong_password")})
         user.save()
         if user.email != params['email']:
             user.email = params['email']
-            user.is_active = False;
+            user.is_active = False
             user.save()
             link = create_validation_token(params['email'])
             validationmail(params['email'], params['first_name'], link)
