@@ -2,6 +2,7 @@ from dsn.models import User
 from mongoengine import DoesNotExist
 import datetime, hashlib
 from dsn.authentication.captcha import validate_captcha
+from django.utils.translation import gettext as _
 
 
 def validate_registration(email, password, password_repeat, recaptcha, ip):
@@ -9,11 +10,11 @@ def validate_registration(email, password, password_repeat, recaptcha, ip):
     if val is True:
         try:
             User.objects.get(email=email)
-            return "E-Mail Adresse bereits vergeben!"
+            return _("emailaddress_already_used")
         except DoesNotExist:
             pass
         if password != password_repeat:
-            return "Passwörter stimmen nicht überein!"
+            return _("error_password_dontmatch")
         else:
             return True
     else:

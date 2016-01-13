@@ -1,7 +1,8 @@
 from django.core.management import BaseCommand
 from datetime import *
 from dsn.models import User
-from dsn.authentication.email import *
+from dsn.authentication.account_delete import delete_account
+
 
 #The class must be named Command, and subclass BaseCommand
 class Command(BaseCommand):
@@ -16,5 +17,4 @@ class Command(BaseCommand):
             now = datetime.today()
             day = abs(now.day - int(date.strftime(user.delete_date, "%d")))
             if day == 0:#User delete
-                #delete_account(user)
-                print("delete "+user.email)
+                delete_account(user)
