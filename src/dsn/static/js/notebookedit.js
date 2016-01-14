@@ -380,13 +380,18 @@ mainApp.directive('ckeditor', function () {
 
             //ck.on('all', updateModel);
             //TODO Event zur Korrekten Speicherung finden
-
             ck.on( 'contentDom', function() {
                 var editable = ck.editable();
 
                 editable.attachListener( editable, 'keyup', updateModel);
                 editable.attachListener( editable, 'change', updateModel);
             });
+
+            ck.on('dataReady', updateModel);
+            ck.on('key', updateModel);
+            ck.on('paste', updateModel);
+            ck.on('selectionChange', updateModel);
+
 
             ngModel.$render = function (value) {
                 ck.setData(ngModel.$viewValue);
