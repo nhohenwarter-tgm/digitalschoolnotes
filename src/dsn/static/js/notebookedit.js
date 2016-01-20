@@ -1,11 +1,11 @@
 var mainApp = angular.module('mainApp');
 
-mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $sce, $window, loggedIn, ngDialog, $timeout,$filter) {
+mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $sce, $window, loggedIn, ngDialog, $timeout,$filter, fileUpload) {
 
     $scope.publicViewed = true;
     $scope.currentPage = 1;
     $scope.editMode = false;
-    $scope.models = {'code': {}, 'textarea': {}};
+    $scope.models = {'code': {}, 'textarea': {}, 'image' : {}};
     $scope.additem = false;
     $scope.wf = false;
 
@@ -82,7 +82,13 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
                 $scope.models['code'][$scope.content[j]['id']] = {};
                 $scope.models['code'][$scope.content[j]['id']][0] = $scope.content[j]['data']['data'];
                 $scope.models['code'][$scope.content[j]['id']][1] = $scope.content[j]['data']['language'];
-            } else {
+            }
+            else if($scope.content[j]['art'] == 'image'){
+                $scope.models['image'][$scope.content[j]['id']] = {};
+                $scope.models['image'][$scope.content[j]['id']][0] = $scope.content[j]['data']['data'];
+                $scope.models['image'][$scope.content[j]['id']][1] = $scope.content[j]['data']['width'];
+                $scope.models['image'][$scope.content[j]['id']][1] = $scope.content[j]['data']['height'];
+            }else {
                 $scope.models[$scope.content[j]['art']][$scope.content[j]['id']] = $scope.content[j]['data']['data'];
             }
         }
@@ -164,6 +170,9 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     };
 
     $scope.deleteelement = function (id, art) {
+        if(art == 'image'){
+            $scope.imageElementDelete();
+        }
         $http({
             method: 'POST',
             url: '/api/delete_notebook_content',
@@ -174,6 +183,17 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
             $scope.update();
             $scope.deleteid = 0;
             $scope.deleteart = "";
+        });
+
+    };
+
+    $scope.imageElementDelete = function (){
+        $http({
+            method: 'POST',
+            url: '/api/notebook/deletefile',
+            data: {file: $scope.models['image']}
+        }).success(function (data) {
+
         });
     };
 
@@ -191,15 +211,15 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     };
 
     $scope.editelement = function (id, art, data) {
-        $http({
-            method: 'POST',
-            url: '/api/edit_notebook_content',
-            data: {id: $stateParams.id, content_id: id, content_art: art, content_data: data}
-        }).success(function (data) {
-            $scope.notebook = JSON.parse(data['notebook']);
-            $scope.content = $scope.notebook['content'];
-            $scope.update();
-        });
+            $http({
+                method: 'POST',
+                url: '/api/edit_notebook_content',
+                data: {id: $stateParams.id, content_id: id, content_art: art, content_data: data}
+            }).success(function (data) {
+                $scope.notebook = JSON.parse(data['notebook']);
+                $scope.content = $scope.notebook['content'];
+                $scope.update();
+            });
     };
 
     $scope.codeModeEdit = function (id, art){
@@ -237,6 +257,12 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         });
     };
 
+    $scope.editPictureElement = function(){
+        data_data = "{\"data\":\""+$scope.models['image'][$scope.idimage][0]+"\", \"width\":\""+$scope.width+"\", \"height\":\""+$scope.height+"\"}";
+        $scope.editelement($scope.idimage, 'image', data_data);
+        $scope.idimage = null;
+    }
+
     $scope.setEditMode = function (edit, id, art) {
         $scope.editMode = edit;
         if(edit == null) {
@@ -245,10 +271,14 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
                     "data": $scope.models[art][id][0],
                     "language": $scope.models['code'][id][1]
                 });
-            } else {
+            }else {
                 $scope.editelement(id, art, {"data": $scope.models[art][id]});
             }
-        }else{
+        }else if(art == 'image') {
+                $scope.idimage = id;
+                $scope.editPicture();
+
+            } else{
             $scope.removeDraggables();
         }
     };
@@ -316,6 +346,17 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         $scope.codeLanguage="";
         ngDialog.open({
             template: 'addPicture',
+            controller: 'notebookEditCtrl',
+            className: 'ngdialog-theme-default',
+            scope: $scope
+        });
+    };
+
+    $scope.editPicture = function () {
+        $scope.codeLanguage="";
+        ngDialog.open({
+            template: 'editPicture',
+            controller: 'notebookEditCtrl',
             className: 'ngdialog-theme-default',
             scope: $scope
         });
@@ -341,10 +382,26 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         })
             .success(function (data) {
                 $scope.notebooks = JSON.parse(data['notebooks']);
+                alert($scope.notebooks[0].name);
+                delete $scope.notebooks[0];
             })
             .error(function (data) {
             });
     };
+
+     $scope.uploadFile = function(){
+         var file = $scope.myFile;
+         console.log('file is ' );
+         console.dir(file);
+         var uploadUrl = "/api/notebook/upload";
+         var message = fileUpload.uploadFileToUrl(file, uploadUrl);
+         message.then(function(data) {
+             data_data = "{\"data\":\""+data+"\", \"width\":\""+$scope.width+"\", \"height\":\""+$scope.height+"\"}";
+             $scope.addelement('image', data_data);
+         });
+         $scope.width = 0;
+         $scope.height = 0;
+     };
 
 });
 
@@ -659,27 +716,9 @@ function setPosBottom(element) {
         this.hoverEdit = false;
     };
 
+*/
 
- $scope.open = function () {
-        ngDialog.open({
-            template: 'firstDialog',
-            controller: 'notebookEditCtrl',
-            className: 'ngdialog-theme-default'
-        });
-    };
 
- $scope.uploadFile = function(){
-               var file = $scope.myFile;
-
-               console.log('file is ' );
-               console.dir(file);
-
-               var uploadUrl = "/api/notebook/upload";
-               fileUpload.uploadFileToUrl(file, uploadUrl);
-            };
- */
-
-/**
  mainApp.directive('fileModel', ['$parse', function ($parse) {
     return {
         restrict: 'A',
@@ -696,24 +735,24 @@ function setPosBottom(element) {
     };
 }]);
 
- mainApp.service('fileUpload', ['$http', function ($http) {
+ mainApp.service('fileUpload', ['$http', '$q', function ($http, $q) {
     this.uploadFileToUrl = function(file, uploadUrl){
         var fd = new FormData();
         fd.append('file', file);
-
+        var link = $q.defer();
         $http.post(uploadUrl, fd, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined, 'enctype':'multipart/form-data'}
         })
-
-            .success(function(){
+            .success(function(data) {
+                link.resolve(data['message']);
             })
-
             .error(function(){
-            });
-    }
+            })
+        return link.promise;
+    };
 }]);
-
+/**
  mainApp.directive('compile', ['$compile', function ($compile) {
     return function (scope, element, attrs) {
         scope.$watch(

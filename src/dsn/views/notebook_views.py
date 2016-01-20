@@ -2,14 +2,17 @@ from django.http import JsonResponse
 from dsn.notebook.s3 import saveFile, deleteFile, getFileURL
 from django.conf import settings
 from django.core.files import File
+from uuid import uuid4
 import os
+import json
 
 def view_savefile(request):
     saveFile("notebook_images/test.jpg", os.getcwd()+"/dsn/static/upload/test.jpg")
     return JsonResponse({'message':'?'})
 
 def view_deletefile(request):
-    deleteFile("notebook_images/test.jpg")
+    params = json.loads(request.body.decode('utf-8'))
+    deleteFile(params['file'].split('digitalschoolnotes/')[1])
     return JsonResponse({'message':'?'})
 
 def view_getfileurl(request):
@@ -20,11 +23,13 @@ def view_upload(request):
     # TODO Save to s3
     # TODO Verschiedene Dateiformate?!
     uploaded_file = request.FILES['file']
-    file = open(os.getcwd()+"/dsn/static/upload/testupload.jpg", "wb+")
+    filename = str(uuid4())
+    file = open(os.getcwd()+"/dsn/static/upload/"+filename+".jpg", "wb+")
     with file as destination:
         for chunk in uploaded_file.chunks():
             destination.write(chunk)
     file.close()
-    os.remove(os.getcwd()+"/dsn/static/upload/testupload.jpg")
-    saveFile("notebook_images/testupload.jpg", os.getcwd()+"/dsn/static/upload/testupload.jpg")
-    return JsonResponse({'message':getFileURL("notebook_images/testupload.jpg")})
+    saveFile("notebook_images/"+filename+".jpg", os.getcwd()+"/dsn/static/upload/"+filename+".jpg")
+    os.remove(os.getcwd()+"/dsn/static/upload/"+filename+".jpg")
+    print(getFileURL("notebook_images/"+filename+".jpg"))
+    return JsonResponse({'message':getFileURL("notebook_images/"+filename+".jpg")})
