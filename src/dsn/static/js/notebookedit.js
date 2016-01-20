@@ -260,7 +260,6 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     $scope.editPictureElement = function(){
         data_data = "{\"data\":\""+$scope.models['image'][$scope.idimage][0]+"\", \"width\":\""+$scope.width+"\", \"height\":\""+$scope.height+"\"}";
         $scope.editelement($scope.idimage, 'image', data_data);
-        $scope.idimage = null;
     }
 
     $scope.setEditMode = function (edit, id, art) {
@@ -390,6 +389,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     };
 
      $scope.uploadFile = function(){
+         alert($scope.width);
          var file = $scope.myFile;
          console.log('file is ' );
          console.dir(file);
@@ -399,8 +399,6 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
              data_data = "{\"data\":\""+data+"\", \"width\":\""+$scope.width+"\", \"height\":\""+$scope.height+"\"}";
              $scope.addelement('image', data_data);
          });
-         $scope.width = 0;
-         $scope.height = 0;
      };
 
 });
