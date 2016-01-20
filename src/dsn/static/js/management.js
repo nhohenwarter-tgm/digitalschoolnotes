@@ -1,5 +1,5 @@
 var mainApp = angular.module('mainApp');
-mainApp.controller('managementCtrl', function ($scope, $http, $state) {
+mainApp.controller('managementCtrl', function ($scope, $http, $state, $translate) {
     $scope.search = function () {
         $scope.itemsPerPage = 10;
         $scope.currentPage = 1;
@@ -191,7 +191,7 @@ mainApp.controller('accsettingsCtrl', function ($scope, $http, $window, $state, 
     };
 });
 
-mainApp.controller('notebooksCtrl', function ($scope, $http, $state, $window) {
+mainApp.controller('notebooksCtrl', function ($scope, $http, $state, $window, $translate) {
     $scope.getNotebooks = function() {
         $http({
             method: 'POST',
