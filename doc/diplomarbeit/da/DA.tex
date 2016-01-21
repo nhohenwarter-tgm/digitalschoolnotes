@@ -16,7 +16,8 @@
 \usepackage{scrpage2}
 \usepackage{scrtime}
 \usepackage{parskip}
-\usepackage{hyperref} 
+\usepackage{hyperref}
+\usepackage{titlesec}
 
 \clearscrheadfoot
 \pagestyle{scrheadings}
@@ -32,6 +33,11 @@ right  = 3cm]{geometry}
 \author{DigitalSchoolNotes}
 \date{\today}
 
+%Paragraph Format
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
 
 %Includes
 \input{preamble}

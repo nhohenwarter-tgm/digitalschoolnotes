@@ -7,7 +7,7 @@ def saveFile(filename, filepath):
     conn = S3Connection(settings.AWS_KEY, settings.AWS_SECRET, host=settings.AWS_REGION)
     bucket = conn.get_bucket(settings.AWS_BUCKET)
     k = Key(bucket)
-    k.key= filename
+    k.key = filename
     k.set_contents_from_filename(filepath)
     conn.close()
 
