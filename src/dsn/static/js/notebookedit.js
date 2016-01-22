@@ -232,7 +232,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
             scope: $scope
         });
         $scope.cid = id;
-    }
+    };
 
     $scope.importsite = function () {
         $http({
@@ -260,7 +260,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     $scope.editPictureElement = function(){
         data_data = "{\"data\":\""+$scope.models['image'][$scope.idimage][0]+"\", \"width\":\""+$scope.width+"\", \"height\":\""+$scope.height+"\"}";
         $scope.editelement($scope.idimage, 'image', data_data);
-    }
+    };
 
     $scope.setEditMode = function (edit, id, art) {
         $scope.editMode = edit;
@@ -313,7 +313,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
 
     $scope.setCodeElementLanguage = function(lang){
         $scope.codeLanguage = lang;
-    }
+    };
 
     $scope.addCodeElement = function(){
         if(!$scope.wf) {
@@ -381,7 +381,6 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         })
             .success(function (data) {
                 $scope.notebooks = JSON.parse(data['notebooks']);
-                alert($scope.notebooks[0].name);
                 delete $scope.notebooks[0];
             })
             .error(function (data) {
@@ -389,7 +388,6 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     };
 
      $scope.uploadFile = function(){
-         alert($scope.width);
          var file = $scope.myFile;
          console.log('file is ' );
          console.dir(file);

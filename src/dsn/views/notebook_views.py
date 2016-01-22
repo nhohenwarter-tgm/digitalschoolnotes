@@ -12,7 +12,8 @@ def view_savefile(request):
 
 def view_deletefile(request):
     params = json.loads(request.body.decode('utf-8'))
-    deleteFile(params['file'].split('digitalschoolnotes/')[1])
+    #TODO Philipp: Richtige Löschung des Files (Import in andere Hefte beachten! Link mehrfach vorhanden?)
+    #deleteFile(params['file'].split('digitalschoolnotes/')[1])
     return JsonResponse({'message':'?'})
 
 def view_getfileurl(request):
@@ -31,5 +32,4 @@ def view_upload(request):
     file.close()
     saveFile("notebook_images/"+filename+".jpg", os.getcwd()+"/dsn/static/upload/"+filename+".jpg")
     os.remove(os.getcwd()+"/dsn/static/upload/"+filename+".jpg")
-    print(getFileURL("notebook_images/"+filename+".jpg"))
     return JsonResponse({'message':getFileURL("notebook_images/"+filename+".jpg")})

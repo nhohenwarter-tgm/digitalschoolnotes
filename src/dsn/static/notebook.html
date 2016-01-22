@@ -155,7 +155,9 @@
                                         <span ng-if="element.art == 'image'" >
                                             <!-- Edit -->
                                             <section ng-if="editMode == element.id">
-                                                <image src="{{ models[element.art][element.id][0] }}" style="width:{{ models[element.art][element.id][1] }}px;height:{{ models[element.art][element.id][2] }}px;"/>
+                                                <image ng-src="{{ models[element.art][element.id][0] }}"
+                                                        ng-style='{"width": models[element.art][element.id][1]+"px",
+                                                        "height": models[element.art][element.id][2]+"px"}' />
 
                                                 <!--<select ng-model="models[element.art][element.id][1]" ng-options="m for m in modes"
                                                         ng-change="modeChanged(element.id)"></select> -->
@@ -163,7 +165,9 @@
                                             <!-- Read-Only -->
                                             <section id="{{ element.art }}_{{ element.id }}"
                                                      ng-if="editMode != element.id">
-                                                <image src="{{ models[element.art][element.id][0] }}" style="width:{{ models[element.art][element.id][1] }}px;height:{{ models[element.art][element.id][2] }}px;"/>
+                                                <image ng-src="{{ models[element.art][element.id][0] }}"
+                                                       ng-style='{"width": models[element.art][element.id][1]+"px",
+                                                        "height": models[element.art][element.id][2]+"px"}' />
                                             </section>
                                         </span>
                                         <!-- EDIT / DELETE -->
@@ -353,7 +357,7 @@
                 style="float: right;  margin-right: 15px;">Abbrechen
         </button>
         <button type="submit" id="submit" class="btn btn-success"
-                ng-click="closeThisDialog();uploadFile()"
+                ng-click="uploadFile();closeThisDialog();"
                 style="float: right; margin-left: 15px; margin-right: 15px;">Hochladen
         </button>
     </div>
