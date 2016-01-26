@@ -255,21 +255,6 @@ mainApp.service('loggedIn', function ($http, $q) {
 
 
 mainApp.run(function($rootScope, $state, $http, $window, $urlRouter, $translate, loggedIn){
-    $rootScope.changeLanguage = function (lang) {
-        $http({
-            method  : 'POST',
-            url     : '/api/change_lang',
-            headers : {'Content-Type': 'application/json'},
-            data    : {'language': lang}
-        }).success(function (data) {
-            $translate.use(lang);
-        }).error(function (data) {
-
-        });
-    };
-
-    $rootScope.changeLanguage($translate.preferredLanguage());
-
     $rootScope.loginFromState = null;
     $rootScope.loginFromParams = null;
     authenticated = false;
@@ -285,6 +270,23 @@ mainApp.run(function($rootScope, $state, $http, $window, $urlRouter, $translate,
         .error(function(data){
 
         });
+
+
+    $rootScope.changeLanguage = function (lang) {
+        $http({
+            method  : 'POST',
+            url     : '/api/change_lang',
+            headers : {'Content-Type': 'application/json'},
+            data    : {'language': lang}
+        }).success(function (data) {
+            $translate.use(lang);
+        }).error(function (data) {
+
+        });
+    };
+
+    $rootScope.changeLanguage($translate.preferredLanguage());
+
 
     $rootScope.$on('$stateChangeStart',function(event, toState, toParams, fromState, fromParams){
         if(toState.name == 'notebookedit'){

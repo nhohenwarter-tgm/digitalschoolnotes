@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-01-12 16:44+0100\n"
+"POT-Creation-Date: 2016-01-26 13:50+0100\n"
 "PO-Revision-Date: 2016-01-09 16:38+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en_US\n"
@@ -38,7 +38,7 @@ msgstr ""
 msgid "validation_of_emailaddress"
 msgstr "Validation of your email address"
 
-#: ../dsn/authentication/email.py:25 ../dsn/authentication/email.py:33
+#: ../dsn/authentication/email.py:24 ../dsn/authentication/email.py:32
 msgid "account_deletion"
 msgstr "Your account will get deleted soon"
 
@@ -46,23 +46,23 @@ msgstr "Your account will get deleted soon"
 msgid "reseterror_accountisoauth"
 msgstr ""
 
-#: ../dsn/authentication/password_reset.py:20
+#: ../dsn/authentication/password_reset.py:19
 msgid "emailaddress_wrong"
 msgstr ""
 
-#: ../dsn/authentication/password_reset.py:48
+#: ../dsn/authentication/password_reset.py:46
 #: ../dsn/authentication/registration.py:17 ../dsn/static/js/translations.js:44
 msgid "error_password_dontmatch"
 msgstr ""
 
+#: ../dsn/authentication/password_reset.py:48
 #: ../dsn/authentication/password_reset.py:50
-#: ../dsn/authentication/password_reset.py:53
 msgid "reseterror_link_invalid"
 msgstr ""
 
-#: ../dsn/authentication/registration.py:12
-msgid "emailaddress_already_used"
-msgstr ""
+#: ../dsn/authentication/registration.py:13 ../dsn/static/js/translations.js:87
+msgid "error_email_alreadyused"
+msgstr "This email address is already used!"
 
 #: ../dsn/static/js/translations.js:1
 msgid "menu_features"
@@ -398,15 +398,16 @@ msgstr "Next"
 
 #: ../dsn/static/js/translations.js:86
 msgid "register_success_message"
-msgstr "Thanks for registering! \nAs soon as you validate your email address you can start using this application!"
-
-#: ../dsn/static/js/translations.js:87
-msgid "error_email_alreadyused"
-msgstr "This email address is already used!"
+msgstr ""
+"Thanks for registering! \n"
+"As soon as you validate your email address you can start using this "
+"application!"
 
 #: ../dsn/static/js/translations.js:88
 msgid "account_delete_warnmessage"
-msgstr "Are you sure you want to delete your account?\nYou can't undo this action! Your notebooks will be lost forever!"
+msgstr ""
+"Are you sure you want to delete your account?\n"
+"You can't undo this action! Your notebooks will be lost forever!"
 
 #: ../dsn/static/js/translations.js:89
 msgid "notebook_delete_warnmessage"

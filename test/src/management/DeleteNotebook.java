@@ -4,11 +4,9 @@ import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.openqa.selenium.*;
 import util.Parameters;
 
-import javax.swing.*;
 import java.util.Random;
 
 /**
@@ -32,6 +30,8 @@ public class DeleteNotebook extends TestCase{
         driver.findElement(By.name("email")).sendKeys("testdeletenotebook@test.test");
         driver.findElement(By.name("pwd")).sendKeys("12341234");
         driver.findElement(By.id("submit")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.id("lang_de")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
     }
 

@@ -30,6 +30,8 @@ public class NotebookOptions extends TestCase{
         driver.findElement(By.name("pwd")).sendKeys("12341234");
         driver.findElement(By.id("submit")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.id("lang_de")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
     }
 
     /**
