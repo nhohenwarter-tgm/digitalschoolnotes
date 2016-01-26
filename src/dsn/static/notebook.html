@@ -69,6 +69,12 @@
                                                           style="color: white; cursor: pointer;"></span>
                                             </a>
                                         </li>
+                                        <li>
+                                            <a ng-click="addOCRPic()">
+                                                    <span class="glyphicon glyphicon-text-background"
+                                                          style="color: white; cursor: pointer;"></span>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -386,6 +392,26 @@
         <button type="submit" id="submit" class="btn btn-success"
                 ng-click="editPictureElement();closeThisDialog();"
                 style="float: right; margin-left: 15px; margin-right: 15px;">Ändern
+        </button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="addOCRPic">
+    <div class="ngdialog-message">
+        <h2>Analysiere ein Bild(OCR)</h2><br />
+        <label class="control-label"></label>
+        <input id="input-1" type="file" file-model="myFile" class="file">
+        <br/>
+    </div>
+    <div class="form-group">
+    </div>
+    <div class="ngdialog-buttons mt">
+        <button id="cancel" class="btn btn-danger" ng-click="closeThisDialog()"
+                style="float: right;  margin-right: 15px;">Abbrechen
+        </button>
+        <button type="submit" id="analyse" class="btn btn-success"
+                ng-click="analyseOCR();closeThisDialog();"
+                style="float: right; margin-left: 15px; margin-right: 15px;">Analysieren
         </button>
     </div>
 </script>
