@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.*;
 import util.Parameters;
-import java.util.Random;
 
 
 /**
@@ -29,6 +28,8 @@ public class EditAccount extends TestCase{
         driver.findElement(By.name("email")).sendKeys("test@test.test");
         driver.findElement(By.name("pwd")).sendKeys("12341234");
         driver.findElement(By.id("submit")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.id("lang_de")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
     }
 

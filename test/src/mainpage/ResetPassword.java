@@ -1,13 +1,13 @@
 package mainpage;
 
 import junit.framework.TestCase;
-import org.apache.jasper.tagplugins.jstl.core.Param;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.openqa.selenium.*;
 import util.Parameters;
 
 import javax.swing.*;
-import java.util.Random;
 
 /**
  * Testet das Zurücksetzen des Passwortes
@@ -24,6 +24,9 @@ public class ResetPassword extends TestCase{
         this.driver = Parameters.driver;
         this.baseUrl = Parameters.baseUrl;
         driver.get(baseUrl+'/');
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.id("lang_de")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
     }
 
     /**

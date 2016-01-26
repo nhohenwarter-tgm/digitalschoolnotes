@@ -10,7 +10,7 @@ def validate_registration(email, password, password_repeat, recaptcha, ip):
     if val is True:
         try:
             User.objects.get(email=email)
-            return _("emailaddress_already_used")
+            return _("error_email_alreadyused")
         except DoesNotExist:
             pass
         if password != password_repeat:

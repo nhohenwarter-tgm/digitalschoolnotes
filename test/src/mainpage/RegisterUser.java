@@ -24,6 +24,9 @@ public class RegisterUser extends TestCase{
         this.driver = Parameters.driver;
         this.baseUrl = Parameters.baseUrl;
         driver.get(baseUrl + "/");
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.id("lang_de")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
     }
 
     /**
@@ -39,9 +42,9 @@ public class RegisterUser extends TestCase{
         String bodyText = body.getText();
         if(!bodyText.contains("Bitte gib deinen Vornamen an.")) throw new NotFoundException();
         if(!bodyText.contains("Bitte gib deinen Nachnamen an.")) throw new NotFoundException();
-        if(!bodyText.contains("Bitte gib deine E-Mail Adresse an.")) throw new NotFoundException();
-        if(!bodyText.contains("Bitte gib dein Passwort an.")) throw new NotFoundException();
-        if(!bodyText.contains("Bitte gib deinen Passwort nochmal an.")) throw new NotFoundException();
+        if(!bodyText.contains("Bitte gib deine E-Mail Adresse ein.")) throw new NotFoundException();
+        if(!bodyText.contains("Bitte gib dein Passwort ein.")) throw new NotFoundException();
+        if(!bodyText.contains("Bitte gib dein Passwort nochmal an.")) throw new NotFoundException();
         if(!bodyText.contains("Bitte akzeptiere unsere Nutzungsbedingungen.")) throw new NotFoundException();
         if(!bodyText.contains("Bitte löse das Captcha.")) throw new NotFoundException();
     }
@@ -73,7 +76,7 @@ public class RegisterUser extends TestCase{
         driver.findElement(By.name("submit")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
         String page = driver.getPageSource();
-        if(!page.contains("E-Mail Adresse bereits vergeben!")) throw new NotFoundException();
+        if(!page.contains("Diese E-Mail Adresse wird bereits verwendet!")) throw new NotFoundException();
     }
 
     /**
@@ -108,7 +111,7 @@ public class RegisterUser extends TestCase{
         driver.findElement(By.name("submit")).click();
         WebElement body = driver.findElement(By.tagName("body"));
         String bodyText = body.getText();
-        if(!bodyText.contains("Die Passwörter stimmen nicht überein.")) throw new NotFoundException();
+        if(!bodyText.contains("Passwörter stimmen nicht überein!")) throw new NotFoundException();
     }
 
     /**
