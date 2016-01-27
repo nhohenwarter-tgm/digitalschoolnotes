@@ -1,4 +1,4 @@
-<form class="row" ng-submit="submitEditNotebook()" method="POST" name="editNotebook" novalidate>
+<form class="row" method="POST" name="editNotebook" novalidate>
     <span class="col-md-4"></span>
     <span class="col-md-4">
         <h2 class="row" style="text-align: center;" translate="notebook_settings"></h2>
@@ -20,21 +20,25 @@
         </div>
         <br>
         <h4>Collaborators</h4>
-        <span ng-repeat="c in collaborator" >
-            <span>{{ c }}</span>
-            <br>
-        </span>
-        <div class="row">
-            <div class="col-md-11">
-                <span ng-bind="message" style="color: red;"></span>
-                <input class="form-control" type="text" name="add_collaborator" ng-model="add_collaborator" />
+        <div class="row" ng-repeat="c in collaborator" style="background-color: lightgrey; margin-bottom: 10px;">
+            <div class="col-md-11" style="padding-top: 5px;">
+                <span>{{ c }}</span>
             </div>
             <div class="col-md-1">
-                <button type="submit" id="add" class="btn btn-success" ng-click="addCollaborator()" style="float: right"><span class="glyphicon glyphicon-plus"style="color: white;"></span></button>
+                <button id="removeColl" class="btn btn-danger" ng-click="removeCollaborator(c)"><span class="glyphicon glyphicon-minus" style="color:white; float: right;"></span></button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-11">
+                <span ng-bind="message1" style="color: red;"></span>
+                <input class="form-control" type="text" name="add_collaborator" ng-model="add_collaborator">
+            </div>
+            <div class="col-md-1">
+                <button id="addColl" class="btn btn-success" ng-click="addCollaborator()"><span class="glyphicon glyphicon-plus" style="color:white;"></span></button>
             </div>
         </div>
         <div class="row" style="padding-top: 30px;">
-            <button type="submit" id="submit" class="btn btn-success" style="margin-left: 15px;" translate="save_changes"></button>
+            <button ng-click="submitEditNotebook()" id="submit" class="btn btn-success" style="margin-left: 15px;" translate="save_changes"></button>
             <button id="cancel" class="btn btn-danger" ng-click="cancelEdit()" style="float: right; margin-right: 15px;" translate="cancel"></button>
         </div>
     </span>
