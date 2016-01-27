@@ -387,16 +387,23 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
             });
     };
 
-    $scope.analyseOCR = function () {
+    $scope.analyseOCR = function(){
+        $http({
+            method: 'POST',
+            url: '/api/analyseOCR',
+        }).success(function (data) {
 
-    }
+        });
+
+    };
+
 
     $scope.addOCRPic = function(){
         ngDialog.open({
             template: 'addOCRPic',
             className: 'ngdialog-theme-default'
         });
-    }
+    };
 
      $scope.uploadFile = function(){
          var file = $scope.myFile;
