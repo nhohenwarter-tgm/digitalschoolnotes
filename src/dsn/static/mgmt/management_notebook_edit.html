@@ -18,9 +18,24 @@
                 <span translate="visibility_public"></span>
             </div>
         </div>
+        <br>
+        <h4>Collaborators</h4>
+        <span ng-repeat="c in collaborator" >
+            <span>{{ c }}</span>
+            <br>
+        </span>
+        <div class="row">
+            <div class="col-md-11">
+                <span ng-bind="message" style="color: red;"></span>
+                <input class="form-control" type="text" name="add_collaborator" ng-model="add_collaborator" />
+            </div>
+            <div class="col-md-1">
+                <button type="submit" id="add" class="btn btn-success" ng-click="addCollaborator()" style="float: right"><span class="glyphicon glyphicon-plus"style="color: white;"></span></button>
+            </div>
+        </div>
         <div class="row" style="padding-top: 30px;">
-                <button type="submit" id="submit" class="btn btn-success" style="margin-left: 15px;" translate="save_changes"></button>
-                <button id="cancel" class="btn btn-danger" ng-click="cancelEdit()" style="float: right; margin-right: 15px;" translate="cancel"></button>
+            <button type="submit" id="submit" class="btn btn-success" style="margin-left: 15px;" translate="save_changes"></button>
+            <button id="cancel" class="btn btn-danger" ng-click="cancelEdit()" style="float: right; margin-right: 15px;" translate="cancel"></button>
         </div>
     </span>
     <span class="col-md-4"></span>

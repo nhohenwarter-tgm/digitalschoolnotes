@@ -97,24 +97,24 @@ mainApp.controller('managementCtrl', function ($scope, $http, $state, $translate
 
 mainApp.controller('accsettingsCtrl', function ($scope, $http, $window, $state, loggedIn) {
     $http({
-            method: 'POST',
-            url: '/api/get_userSettings',
-            headers: {'Content-Type': 'application/json'}
+        method: 'POST',
+        url: '/api/get_userSettings',
+        headers: {'Content-Type': 'application/json'}
+    })
+        .success(function (data) {
+            if(data['error'] == true){
+                $state.go('management.timetable');
+            }else {
+                $scope.first_name = data['first_name'];
+                $scope.last_name = data['last_name'];
+                $scope.email = data['email'];
+                $scope.old_pwd="";
+                $scope.pwd="";
+                $scope.pwdrepeat="";
+            }
         })
-            .success(function (data) {
-                if(data['error'] == true){
-                    $state.go('management.timetable');
-                }else {
-                    $scope.first_name = data['first_name'];
-                    $scope.last_name = data['last_name'];
-                    $scope.email = data['email'];
-                    $scope.old_pwd="";
-                    $scope.pwd="";
-                    $scope.pwdrepeat="";
-                }
-            })
-            .error(function (data) {
-            });
+        .error(function (data) {
+        });
 
 
     $scope.submitEditUser = function() {
@@ -291,7 +291,7 @@ mainApp.controller('timetableCtrl', function ($scope, $http, $state) {
                 $scope.notebooksList = nblist;
             })
             .error(function (data) {
-                 $scope.notebooksList = [];
+                $scope.notebooksList = [];
             });
     }
 
@@ -425,7 +425,7 @@ mainApp.controller('notebooksCreateCtrl', function ($scope, $http, loggedIn, $st
         $scope.submitted = true;
         var name = $scope.name;
         if($scope.is_public == true){
-             var is_public = true;
+            var is_public = true;
         }
         else {
             var is_public = false;
@@ -461,24 +461,25 @@ mainApp.controller('notebooksCreateCtrl', function ($scope, $http, loggedIn, $st
 mainApp.controller('editNotebookCtrl', function($scope, $http, $stateParams, $state, loggedIn){
 
     $http({
-            method: 'POST',
-            url: '/api/get_notebook',
-            headers: {'Content-Type': 'application/json'},
-            data: {
-                id: $stateParams.id
+        method: 'POST',
+        url: '/api/get_notebook',
+        headers: {'Content-Type': 'application/json'},
+        data: {
+            id: $stateParams.id
+        }
+    })
+        .success(function (data) {
+            if(data['error'] == true){
+                $state.go('management.notebooks');
+            }else {
+                $scope.name = JSON.parse(data['notebook'])['name'];
+                $scope.is_public = JSON.parse(data['notebook'])['is_public'];
+                $scope.collaborator = JSON.parse(data['notebook'])['collaborator'];
             }
         })
-            .success(function (data) {
-                if(data['error'] == true){
-                    $state.go('management.notebooks');
-                }else {
-                    $scope.name = JSON.parse(data['notebook'])['name'];
-                    $scope.is_public = JSON.parse(data['notebook'])['is_public'];
-                }
-            })
-            .error(function (data) {
-                $state.go('management.notebooks');
-            });
+        .error(function (data) {
+            $state.go('management.notebooks');
+        });
 
 
     $scope.submitEditNotebook = function() {
@@ -510,6 +511,23 @@ mainApp.controller('editNotebookCtrl', function($scope, $http, $stateParams, $st
     $scope.cancelEdit = function() {
         $state.go('management.notebooks');
     }
+
+    $scope.addCollaborator = function() {
+        var collaborator = $scope.add_collaborator;
+        $http({
+            method: 'POST',
+            url: 'api/edit_notebook_collaborator',
+            headers: {'Content-Type': 'application/json'},
+            data: {
+                id: $stateParams.id,
+                collaborator: collaborator
+            }
+        })
+            .success(function (data) {
+            })
+            .error(function (data) {
+            });
+    };
 });
 
 mainApp.controller('logoutCtrl', function($scope, $http, $state){

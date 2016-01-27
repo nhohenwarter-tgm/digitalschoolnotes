@@ -30,6 +30,9 @@ public class DeleteAccount extends TestCase{
         Parameters.setUpBrowser();
         this.driver = Parameters.driver;
         this.baseUrl = Parameters.baseUrl;
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.id("lang_de")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
         Random randomGenerator = new Random();
         int randomInt = randomGenerator.nextInt(1000);
         username = "vorname"+randomInt+"@nachname"+randomInt+".test";

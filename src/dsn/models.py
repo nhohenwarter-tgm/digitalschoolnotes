@@ -266,6 +266,7 @@ class Notebook(Document):
     numpages = IntField(default=2)
     current_page = IntField(default=2)
     content = SortedListField(EmbeddedDocumentField(NotebookContent), ordering="id", reverse=True)
+    collaborator = ListField(EmailField())
 
 
 class TimeTableTime(EmbeddedDocument):

@@ -144,6 +144,27 @@ def view_editNotebook(request):
         notebook.save()
         return JsonResponse({'message': None})
 
+def view_addCollaborator(request):
+    if not request.user.is_authenticated():
+        return JsonResponse({})
+    if request.method == "POST":
+        params = json.loads(request.body.decode('utf-8'))
+        notebook = Notebook.objects.get(id=params['id'])
+        user = User.objects(email=params['collaborator'])
+        try:
+            if params['collaborator'] in notebook.collaborator:
+                return JsonResponse({"message": _("collaborator_already_in_use")})
+        except DoesNotExist:
+            pass
+        try:
+            if len(user) <= 0:
+                return JsonResponse({"message": _("no_user")})
+        except DoesNotExist:
+            pass
+        notebook.collaborator.append(params['collaborator'])
+        print(notebook.collaborator)
+        notebook.save()
+        return JsonResponse({'message': None})
 
 def view_edit_notebooklength(request):
     if not request.user.is_authenticated():
