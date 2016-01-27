@@ -493,7 +493,8 @@ mainApp.controller('editNotebookCtrl', function($scope, $http, $stateParams, $st
                 data: {
                     id: $stateParams.id,
                     name: name,
-                    is_public: is_public
+                    is_public: is_public,
+                    collaborator:$scope.collaborator
                 }
             })
                 .success(function (data) {
@@ -506,27 +507,43 @@ mainApp.controller('editNotebookCtrl', function($scope, $http, $stateParams, $st
                 .error(function (data) {
                 });
         }
-    }
+    };
 
     $scope.cancelEdit = function() {
         $state.go('management.notebooks');
-    }
+    };
 
     $scope.addCollaborator = function() {
-        var collaborator = $scope.add_collaborator;
-        $http({
-            method: 'POST',
-            url: 'api/edit_notebook_collaborator',
-            headers: {'Content-Type': 'application/json'},
-            data: {
-                id: $stateParams.id,
-                collaborator: collaborator
-            }
-        })
-            .success(function (data) {
+         var collaborator = $scope.add_collaborator;
+         $http({
+                method: 'POST',
+                url: '/api/edit_notebook_collaborator',
+                headers: {'Content-Type': 'application/json'},
+                data: {
+                    id: $stateParams.id,
+                    collaborators:$scope.collaborator,
+                    newcoll: collaborator
+                }
             })
-            .error(function (data) {
-            });
+                .success(function (data) {
+                    if (data['message1'] != null) {
+                        $scope.message1 = data['message1'];
+                    } else {
+                        $scope.message1 = null;
+                        $scope.collaborator.push(collaborator);
+                    }
+                })
+                .error(function (data) {
+                });
+    };
+
+     $scope.removeCollaborator = function(coll) {
+         for (var i=$scope.collaborator.length-1; i>=0; i--) {
+            if ($scope.collaborator[i] === coll) {
+                $scope.collaborator.splice(i, 1);
+                break;
+            }
+        }
     };
 });
 
