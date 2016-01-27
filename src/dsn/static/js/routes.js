@@ -14,7 +14,7 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
             })
             .fallbackLanguage('en')
             //.useLoaderCache(true)
-            .determinePreferredLanguage();
+            .preferredLanguage('de');
 
     $translateProvider.useSanitizeValueStrategy('escaped');
 
