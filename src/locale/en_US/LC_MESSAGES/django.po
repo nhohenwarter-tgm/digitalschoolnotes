@@ -28,11 +28,11 @@ msgstr "German"
 
 #: ../dsn/authentication/captcha.py:24
 msgid "invalid_captcha"
-msgstr ""
+msgstr "Captcha is invalid"
 
 #: ../dsn/authentication/email.py:7 ../dsn/static/js/translations.js:31
 msgid "reset_password"
-msgstr ""
+msgstr "Reset password"
 
 #: ../dsn/authentication/email.py:16
 msgid "validation_of_emailaddress"
@@ -44,21 +44,21 @@ msgstr "Your account will get deleted soon"
 
 #: ../dsn/authentication/password_reset.py:15
 msgid "reseterror_accountisoauth"
-msgstr ""
+msgstr "This account was created using oauth! Password of this account can't be reset!"
 
 #: ../dsn/authentication/password_reset.py:19
 msgid "emailaddress_wrong"
-msgstr ""
+msgstr "Email address is wrong!"
 
 #: ../dsn/authentication/password_reset.py:46
 #: ../dsn/authentication/registration.py:17 ../dsn/static/js/translations.js:44
 msgid "error_password_dontmatch"
-msgstr ""
+msgstr "Inserted passwords don't match!"
 
 #: ../dsn/authentication/password_reset.py:48
 #: ../dsn/authentication/password_reset.py:50
 msgid "reseterror_link_invalid"
-msgstr ""
+msgstr "This link is invalid!"
 
 #: ../dsn/authentication/registration.py:13
 #, fuzzy
@@ -131,11 +131,11 @@ msgstr "Please insert your lastname."
 
 #: ../dsn/static/js/translations.js:17
 msgid "error_firstname_toolong"
-msgstr ""
+msgstr "Your firstname is too long (max. 30 characters)."
 
 #: ../dsn/static/js/translations.js:18
 msgid "error_lastname_toolong"
-msgstr ""
+msgstr "Your lastname is too long (max. 30 characters)."
 
 #: ../dsn/static/js/translations.js:19
 msgid "firstname"
@@ -151,15 +151,15 @@ msgstr "Please insert valid email address."
 
 #: ../dsn/static/js/translations.js:22
 msgid "error_password_tooshort"
-msgstr ""
+msgstr "This password is too short (min. 8 characters)."
 
 #: ../dsn/static/js/translations.js:23
 msgid "error_password_toolong"
-msgstr ""
+msgstr "This password is too long (max. 128 characters)."
 
 #: ../dsn/static/js/translations.js:24
 msgid "error_password_repeat"
-msgstr ""
+msgstr "Please repeat your current password."
 
 #: ../dsn/static/js/translations.js:25
 msgid "error_accept_termsofuse"
@@ -175,23 +175,24 @@ msgstr "Register"
 
 #: ../dsn/static/js/translations.js:28
 msgid "password_repeat"
-msgstr ""
+msgstr "Repeat password"
 
 #: ../dsn/static/js/translations.js:29
 msgid "set_new_password"
-msgstr ""
+msgstr "Set new password"
 
 #: ../dsn/static/js/translations.js:30
 msgid "set_new_password_desc"
-msgstr ""
+msgstr "Please set your new password here."
 
 #: ../dsn/static/js/translations.js:32
 msgid "reset_password_desc"
-msgstr ""
+msgstr "If you forgot your password you can reset it here."
 
 #: ../dsn/static/js/translations.js:33
 msgid "reset_password_instructions"
-msgstr ""
+msgstr "An email was sent to the given email address."
+"Please follow the instructions in this email."
 
 #: ../dsn/static/js/translations.js:34
 msgid "search"
@@ -219,19 +220,19 @@ msgstr "Upgrade now"
 
 #: ../dsn/static/js/translations.js:40
 msgid "current_password"
-msgstr ""
+msgstr "Current password"
 
 #: ../dsn/static/js/translations.js:41
 msgid "change_password"
-msgstr ""
+msgstr "Change current password"
 
 #: ../dsn/static/js/translations.js:42
 msgid "new_password"
-msgstr ""
+msgstr "New password"
 
 #: ../dsn/static/js/translations.js:43
 msgid "repeat_new_password"
-msgstr ""
+msgstr "Repeat new password"
 
 #: ../dsn/static/js/translations.js:45
 msgid "save_changes"
@@ -247,19 +248,19 @@ msgstr "Delete account"
 
 #: ../dsn/static/js/translations.js:48
 msgid "notebook_settings"
-msgstr ""
+msgstr "Notebook Settings"
 
 #: ../dsn/static/js/translations.js:49
 msgid "notebook_name"
-msgstr ""
+msgstr "Notebook Name"
 
 #: ../dsn/static/js/translations.js:50
 msgid "error_notebookname_needed"
-msgstr ""
+msgstr "Please insert a name!"
 
 #: ../dsn/static/js/translations.js:51
 msgid "error_notebookname_toolong"
-msgstr ""
+msgstr "Name is too long (max. 30 characters)."
 
 #: ../dsn/static/js/translations.js:52
 msgid "visibility"
@@ -271,7 +272,7 @@ msgstr "Public"
 
 #: ../dsn/static/js/translations.js:54
 msgid "notebook_createnew"
-msgstr ""
+msgstr "Create Notebook"
 
 #: ../dsn/static/js/translations.js:55
 msgid "joined_on"
@@ -279,23 +280,23 @@ msgstr "joined on"
 
 #: ../dsn/static/js/translations.js:56
 msgid "user_is_prouser"
-msgstr ""
+msgstr "This user is a prouser!"
 
 #: ../dsn/static/js/translations.js:57
 msgid "user_is_admin"
-msgstr ""
+msgstr "This user is an administrator!"
 
 #: ../dsn/static/js/translations.js:58
 msgid "public_notebooks"
-msgstr ""
+msgstr "Public Notebooks"
 
 #: ../dsn/static/js/translations.js:59
 msgid "user_hasnopublicnotebooks"
-msgstr ""
+msgstr "This user doesn't have any public notebooks."
 
 #: ../dsn/static/js/translations.js:60
 msgid "user_found"
-msgstr ""
+msgstr "users found"
 
 #: ../dsn/static/js/translations.js:61
 msgid "editmode_activated"
@@ -339,7 +340,7 @@ msgstr "Edit lesson"
 
 #: ../dsn/static/js/translations.js:71
 msgid "error_timetablesubjectdescription_toolong"
-msgstr ""
+msgstr "Description is too long (max. 30 characters)."
 
 #: ../dsn/static/js/translations.js:72
 msgid "subject"
