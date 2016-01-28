@@ -67,8 +67,7 @@ public class UserManagement extends TestCase{
         int btns = driver.findElements(By.xpath("//*[contains(text(), 'Löschung in ')]")).size();
         List<WebElement> btn = driver.findElements(By.xpath("//*[contains(text(), 'Account löschen')]"));
         btn.get(0).click();
-        closeAlertAndGetItsText();
-        closeAlertAndGetItsText();
+        driver.findElement(By.id("submit")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
 
         int btns_after = driver.findElements(By.xpath("//*[contains(text(), 'Löschung in ')]")).size();

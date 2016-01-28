@@ -40,7 +40,7 @@ public class Notebook extends TestCase{
     @Test
     public void testOpenNotebook() throws Exception {
         driver.get(baseUrl + "/management");
-        driver.findElement(By.partialLinkText("Notebooks")).click();
+        driver.findElement(By.partialLinkText("Hefte")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
         driver.findElement(By.xpath("//*[contains(text(), 'Test1')]")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
@@ -53,7 +53,7 @@ public class Notebook extends TestCase{
     @Test
     public void testNotebookPagination() throws Exception {
         driver.get(baseUrl + "/management");
-        driver.findElement(By.partialLinkText("Notebooks")).click();
+        driver.findElement(By.partialLinkText("Hefte")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
         driver.findElement(By.xpath("//*[contains(text(), 'Test1')]")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
@@ -69,7 +69,7 @@ public class Notebook extends TestCase{
     @Test
     public void testNotebookPageNumbers() throws Exception {
         driver.get(baseUrl + "/management");
-        driver.findElement(By.partialLinkText("Notebooks")).click();
+        driver.findElement(By.partialLinkText("Hefte")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
         driver.findElement(By.xpath("//*[contains(text(), 'Test1')]")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
@@ -87,7 +87,7 @@ public class Notebook extends TestCase{
     @Test
     public void testNotebookPageTurnForward() throws Exception {
         driver.get(baseUrl + "/management");
-        driver.findElement(By.partialLinkText("Notebooks")).click();
+        driver.findElement(By.partialLinkText("Hefte")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
         driver.findElement(By.xpath("//*[contains(text(), 'Test1')]")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
@@ -107,7 +107,7 @@ public class Notebook extends TestCase{
     @Test
     public void testNotebookPageTurnBackward() throws Exception {
         driver.get(baseUrl + "/management");
-        driver.findElement(By.partialLinkText("Notebooks")).click();
+        driver.findElement(By.partialLinkText("Hefte")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
         driver.findElement(By.xpath("//*[contains(text(), 'Test1')]")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
@@ -129,7 +129,7 @@ public class Notebook extends TestCase{
     @Test
     public void testNotebookJumpToEnd() throws Exception {
         driver.get(baseUrl + "/management");
-        driver.findElement(By.partialLinkText("Notebooks")).click();
+        driver.findElement(By.partialLinkText("Hefte")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
         driver.findElement(By.xpath("//*[contains(text(), 'Test1')]")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
@@ -149,7 +149,7 @@ public class Notebook extends TestCase{
     @Test
     public void testNotebookPageJumpToStart() throws Exception {
         driver.get(baseUrl + "/management");
-        driver.findElement(By.partialLinkText("Notebooks")).click();
+        driver.findElement(By.partialLinkText("Hefte")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
         driver.findElement(By.xpath("//*[contains(text(), 'Test1')]")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);

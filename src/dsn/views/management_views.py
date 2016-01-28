@@ -141,30 +141,27 @@ def view_editNotebook(request):
         notebook.name = params['name']
         notebook.is_public = params['is_public']
         notebook.last_change = datetime.now()
+        notebook.collaborator = params['collaborator']
         notebook.save()
         return JsonResponse({'message': None})
 
-def view_addCollaborator(request):
+def view_checkCollaborator(request):
     if not request.user.is_authenticated():
         return JsonResponse({})
     if request.method == "POST":
         params = json.loads(request.body.decode('utf-8'))
-        notebook = Notebook.objects.get(id=params['id'])
-        user = User.objects(email=params['collaborator'])
+        user = User.objects(email=params['newcoll'])
         try:
-            if params['collaborator'] in notebook.collaborator:
-                return JsonResponse({"message": _("collaborator_already_in_use")})
+            if params['newcoll'] in params['collaborators']:
+                return JsonResponse({"message1": _("collaborator_already_in_use")})
         except DoesNotExist:
             pass
         try:
             if len(user) <= 0:
-                return JsonResponse({"message": _("no_user")})
+                return JsonResponse({"message1": _("no_user")})
         except DoesNotExist:
             pass
-        notebook.collaborator.append(params['collaborator'])
-        print(notebook.collaborator)
-        notebook.save()
-        return JsonResponse({'message': None})
+        return JsonResponse({'message1': None})
 
 def view_edit_notebooklength(request):
     if not request.user.is_authenticated():
@@ -194,6 +191,20 @@ def view_get_notebooks(request):
     if request.method == "POST":
         notebooks = Notebook.objects.filter(email=request.user.email).to_json()
         return JsonResponse({"notebooks": notebooks})
+
+def view_get_notebooks_coll(request):
+    if not request.user.is_authenticated():
+        return JsonResponse({})
+    if request.method == "POST":
+        notebooks = Notebook.objects.filter()
+        #print(notebooks)
+        coll =[]
+        for n in notebooks:
+            if request.user.email in n.collaborator:
+                print(n.name)
+                print(n.collaborator)
+                coll.append(n.to_json())
+        return JsonResponse({"notebooks": coll})
 
 
 def view_add_notebook_content(request):
