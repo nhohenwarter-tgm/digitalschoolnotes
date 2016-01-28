@@ -387,21 +387,29 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
             });
     };
 
-    $scope.analyseOCR = function(){
+    $scope.uploadOCRFile = function(){
+         var file = $scope.ocrFile;
+         var uploadUrl = "/api/analyseOCR";
+         console.log('file is ' );
+         console.dir(file);
+         var message = fileUpload.uploadFileToUrl(file, uploadUrl);
+        /**
         $http({
             method: 'POST',
-            url: '/api/analyseOCR',
+            url: '/api/analyseOCR'
         }).success(function (data) {
 
-        });
+        });*/
 
     };
 
 
     $scope.addOCRPic = function(){
         ngDialog.open({
-            template: 'addOCRPic',
-            className: 'ngdialog-theme-default'
+            template: 'ocrFileDialog',
+            controller: 'notebookEditCtrl',
+            className: 'ngdialog-theme-default',
+            scope: $scope
         });
     };
 
@@ -418,6 +426,42 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
      };
 
 });
+
+// OCR
+
+mainApp.directive('fileModel', ['$parse', function ($parse) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            var model = $parse(attrs.fileModel);
+            var modelSetter = model.assign;
+
+            element.bind('change', function(){
+                scope.$apply(function(){
+                    modelSetter(scope, element[0].files[0]);
+                });
+            });
+        }
+    };
+}]);
+
+ mainApp.service('fileUpload', ['$http', '$q', function ($http, $q) {
+    this.uploadFileToUrl = function(file, uploadUrl){
+        var fd = new FormData();
+        fd.append('file', file);
+        var link = $q.defer();
+        $http.post(uploadUrl, fd, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined, 'enctype':'multipart/form-data'}
+        })
+            .success(function(data) {
+                link.resolve(data['message']);
+            })
+            .error(function(){
+            })
+        return link.promise;
+    };
+}]);
 
 
 // TEXT ELEMENT
@@ -732,40 +776,6 @@ function setPosBottom(element) {
 
 */
 
-
- mainApp.directive('fileModel', ['$parse', function ($parse) {
-    return {
-        restrict: 'A',
-        link: function(scope, element, attrs) {
-            var model = $parse(attrs.fileModel);
-            var modelSetter = model.assign;
-
-            element.bind('change', function(){
-                scope.$apply(function(){
-                    modelSetter(scope, element[0].files[0]);
-                });
-            });
-        }
-    };
-}]);
-
- mainApp.service('fileUpload', ['$http', '$q', function ($http, $q) {
-    this.uploadFileToUrl = function(file, uploadUrl){
-        var fd = new FormData();
-        fd.append('file', file);
-        var link = $q.defer();
-        $http.post(uploadUrl, fd, {
-            transformRequest: angular.identity,
-            headers: {'Content-Type': undefined, 'enctype':'multipart/form-data'}
-        })
-            .success(function(data) {
-                link.resolve(data['message']);
-            })
-            .error(function(){
-            })
-        return link.promise;
-    };
-}]);
 /**
  mainApp.directive('compile', ['$compile', function ($compile) {
     return function (scope, element, attrs) {

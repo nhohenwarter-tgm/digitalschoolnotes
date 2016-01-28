@@ -36,15 +36,16 @@ def view_upload(request):
     return JsonResponse({'message':getFileURL("notebook_images/"+filename+".jpg")})
 
 def view_analyseOCR(request):
-    params = json.loads(request.body.decode('utf-8'))
     # TODO Check if image
     # TODO Verschiedene Dateiformate?!
     uploaded_file = request.FILES['file']
     filename = str(uuid4())
+    print(filename)
     file = open(os.getcwd()+"/dsn/static/upload/"+filename+".jpg", "wb+")
     with file as destination:
         for chunk in uploaded_file.chunks():
             destination.write(chunk)
     file.close()
-    analyseOCR(filename+".jpg")
-    return JsonResponse({'message':getFileURL("notebook_images/"+filename+".jpg")})
+    analyseOCR(os.getcwd()+"/dsn/static/upload/"+filename+".jpg")
+    os.remove(os.getcwd()+"/dsn/static/upload/"+filename+".jpg")
+    return JsonResponse({'message': 'success'})
