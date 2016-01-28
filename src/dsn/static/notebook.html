@@ -379,21 +379,20 @@
     </div>
 </script>
 
-<script type="text/ng-template" id="addOCRPic">
+<script type="text/ng-template" id="ocrFileDialog">
     <div class="ngdialog-message">
-        <h2>Analysiere ein Bild (OCR)</h2><br />
-        <label class="control-label"></label>
-        <input id="input-1" type="file" file-model="myFile" class="file">
+        <h2>Analysiere ein Bild (OCR)</h2>
+
+        <div><input id="input-ocrfile" type="file" file-model="ocrFile" class="file"></div>
         <br/>
     </div>
-    <div class="form-group">
-    </div>
+
     <div class="ngdialog-buttons mt">
-        <button id="cancel" class="btn btn-danger" ng-click="closeThisDialog()"
+        <button id="cancelocr" class="btn btn-danger" ng-click="closeThisDialog()"
                 style="float: right;  margin-right: 15px;">Abbrechen
         </button>
-        <button type="submit" id="submit" class="btn btn-success"
-                ng-click="analyseOCR();closeThisDialog();"
+        <button type="submit" id="submitocr" class="btn btn-success"
+                ng-click="uploadOCRFile();closeThisDialog();"
                 style="float: right; margin-left: 15px; margin-right: 15px;">Analysieren
         </button>
     </div>
