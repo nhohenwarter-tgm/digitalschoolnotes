@@ -202,9 +202,23 @@ mainApp.controller('notebooksCtrl', function ($scope, $http, $state, $window, $t
             })
             .error(function (data) {
             });
-    }
+    };
 
     $scope.getNotebooks();
+
+    $scope.getCollNotebooks = function() {
+        $http({
+            method: 'POST',
+            url: '/api/get_collnotebooks'
+        })
+            .success(function (data) {
+                $scope.notebooks_coll = JSON.parse(data['notebooks']);
+            })
+            .error(function (data) {
+            });
+    };
+
+    $scope.getCollNotebooks();
 
     $scope.deleteNotebook = function(id){
         $translate("notebook_delete_warnmessage").then(function(message) {

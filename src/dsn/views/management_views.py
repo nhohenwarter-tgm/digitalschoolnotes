@@ -192,6 +192,20 @@ def view_get_notebooks(request):
         notebooks = Notebook.objects.filter(email=request.user.email).to_json()
         return JsonResponse({"notebooks": notebooks})
 
+def view_get_notebooks_coll(request):
+    if not request.user.is_authenticated():
+        return JsonResponse({})
+    if request.method == "POST":
+        notebooks = Notebook.objects.filter()
+        #print(notebooks)
+        coll =[]
+        for n in notebooks:
+            if request.user.email in n.collaborator:
+                print(n.name)
+                print(n.collaborator)
+                coll.append(n.to_json())
+        return JsonResponse({"notebooks": coll})
+
 
 def view_add_notebook_content(request):
     if not request.user.is_authenticated():
