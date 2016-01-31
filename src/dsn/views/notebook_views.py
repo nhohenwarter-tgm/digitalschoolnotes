@@ -14,7 +14,7 @@ def view_savefile(request):
 def view_deletefile(request):
     params = json.loads(request.body.decode('utf-8'))
     #TODO Philipp: Richtige Löschung des Files (Import in andere Hefte beachten! Link mehrfach vorhanden?)
-    #deleteFile(params['file'].split('digitalschoolnotes/')[1])
+    deleteFile(params['file'].split('digitalschoolnotes/')[1])
     return JsonResponse({'message':'?'})
 
 def view_getfileurl(request):

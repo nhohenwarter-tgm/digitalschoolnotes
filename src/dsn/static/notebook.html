@@ -182,7 +182,7 @@
                                             </span>
 
                                             <div style="color: red; text-align: center; padding-bottom: 10px;"
-                                                 ng-if="editMode == element.id">
+                                                 ng-if="editMode == element.id && element.art != 'image'">
                                                 <span translate="editmode_activated"></span>
                                                 <span style="cursor: pointer; text-decoration: underline;"
                                                       ng-click="setEditMode(null,element.id,element.art)" translate="editmode_end"></span>
@@ -324,20 +324,25 @@
 <script type="text/ng-template" id="addPicture">
     <div class="ngdialog-message">
         <h2>Bild hinzuf&uuml;gen</h2>
-
-        <div>F&uuml;ge deinem Heft ein Bild hinzu.<br/>
+        <div role="alert">
+            <span class="error" ng-show="!myFile" style="color:#FF0000">F&uuml;ge deinem Heft ein Bild hinzu.</span>
+        </div>
+        <div>
         <label class="control-label"></label>
-        <input id="input-1" type="file" file-model="myFile" class="file"></div>
+        <input id="input-1" type="file" accept="image/png, image/gif, image/jpeg" file-model="myFile" class="file"></div>
         <br/>
+    </div>
+    <div role="alert">
+      <span class="error" ng-show="showError" style="color:#FF0000">Bitte gib eine Zahl bei der Breite und Höhe an.</span>
     </div>
     <div class="form-group">
         <div class="col-xs-4">
             <label for="ex1">Breite(px):</label>
-            <input ng-model="width" class="form-control" id="ex1" type="text">
+            <input ng-model="width" ng-change="onlyNumbers()" class="form-control" id="ex1" type="text">
         </div>
         <div class="col-xs-4">
             <label for="ex1">Höhe(px):</label>
-            <input ng-model="height" class="form-control" id="ex1" type="text">
+            <input ng-model="height" ng-change="onlyNumbers()" class="form-control" id="ex1" type="text">
         </div>
     </div>
 
@@ -345,8 +350,8 @@
         <button id="cancel" class="btn btn-danger" ng-click="closeThisDialog()"
                 style="float: right;  margin-right: 15px;">Abbrechen
         </button>
-        <button type="submit" id="submit" class="btn btn-success"
-                ng-click="uploadFile();closeThisDialog();"
+        <button type="submit" id="submit" class="btn btn-success" ng-disabled="showError || !myFile"
+                ng-click="uploadFile();"
                 style="float: right; margin-left: 15px; margin-right: 15px;">Hochladen
         </button>
     </div>
@@ -357,14 +362,17 @@
         <h2>Bildgröße ändern</h2>
         <br/>
     </div>
+    <div role="alert">
+      <span class="error" ng-show="showError" style="color:#FF0000">Bitte gib eine Zahl bei der Breite und Höhe an.</span>
+    </div>
     <div class="form-group">
         <div class="col-xs-4">
             <label for="ex1">Breite(px):</label>
-            <input ng-model="width" class="form-control" id="ex1" type="text">
+            <input ng-model="width" ng-change="onlyNumbers()" class="form-control" id="ex1" type="text">
         </div>
         <div class="col-xs-4">
             <label for="ex1">Höhe(px):</label>
-            <input ng-model="height" class="form-control" id="ex1" type="text">
+            <input ng-model="height" ng-change="onlyNumbers()" class="form-control" only-digits id="ex1" type="text">
         </div>
     </div>
 
@@ -372,7 +380,7 @@
         <button id="cancel" class="btn btn-danger" ng-click="closeThisDialog()"
                 style="float: right;  margin-right: 15px;">Abbrechen
         </button>
-        <button type="submit" id="submit" class="btn btn-success"
+        <button type="submit" id="submit" class="btn btn-success" ng-disabled="showError"
                 ng-click="editPictureElement();closeThisDialog();"
                 style="float: right; margin-left: 15px; margin-right: 15px;">Ändern
         </button>

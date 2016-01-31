@@ -551,6 +551,23 @@ mainApp.controller('editNotebookCtrl', function($scope, $http, $stateParams, $st
                 });
     };
 
+    $scope.searchCollaborator = function() {
+        $http({
+            method: 'POST',
+            url: '/api/getothercollaborators',
+            headers: {'Content-Type': 'application/json'},
+            data: {searchtext: $scope.add_collaborator}
+        })
+        .success(function (data) {
+                $scope.findcollaborator = data['profiles'];
+            })
+    };
+
+    $scope.searchvalue = function(c) {
+        $scope.add_collaborator = c.email;
+        $scope.searchCollaborator();
+    }
+
      $scope.removeCollaborator = function(coll) {
          for (var i=$scope.collaborator.length-1; i>=0; i--) {
             if ($scope.collaborator[i] === coll) {

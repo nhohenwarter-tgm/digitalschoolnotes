@@ -87,7 +87,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
                 $scope.models['image'][$scope.content[j]['id']] = {};
                 $scope.models['image'][$scope.content[j]['id']][0] = $scope.content[j]['data']['data'];
                 $scope.models['image'][$scope.content[j]['id']][1] = $scope.content[j]['data']['width'];
-                $scope.models['image'][$scope.content[j]['id']][1] = $scope.content[j]['data']['height'];
+                $scope.models['image'][$scope.content[j]['id']][2] = $scope.content[j]['data']['height'];
             }else {
                 $scope.models[$scope.content[j]['art']][$scope.content[j]['id']] = $scope.content[j]['data']['data'];
             }
@@ -171,7 +171,8 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
 
     $scope.deleteelement = function (id, art) {
         if(art == 'image'){
-            $scope.imageElementDelete();
+            $scope.imageElementDelete(id);
+            $window.location.reload();
         }
         $http({
             method: 'POST',
@@ -184,14 +185,13 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
             $scope.deleteid = 0;
             $scope.deleteart = "";
         });
-
     };
 
-    $scope.imageElementDelete = function (){
+    $scope.imageElementDelete = function (id){
         $http({
             method: 'POST',
             url: '/api/notebook/deletefile',
-            data: {file: $scope.models['image']}
+            data: {file: $scope.models['image'][id][0]}
         }).success(function (data) {
 
         });
@@ -260,6 +260,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     $scope.editPictureElement = function(){
         data_data = "{\"data\":\""+$scope.models['image'][$scope.idimage][0]+"\", \"width\":\""+$scope.width+"\", \"height\":\""+$scope.height+"\"}";
         $scope.editelement($scope.idimage, 'image', data_data);
+        $window.location.reload();
     };
 
     $scope.setEditMode = function (edit, id, art) {
@@ -274,9 +275,11 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
                 $scope.editelement(id, art, {"data": $scope.models[art][id]});
             }
         }else if(art == 'image') {
+                $scope.editMode = false;
                 $scope.idimage = id;
+                $scope.width = $scope.models[art][id][1];
+                $scope.height = $scope.models[art][id][2];
                 $scope.editPicture();
-
             } else{
             $scope.removeDraggables();
         }
@@ -327,7 +330,6 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
             // console.log(single_object['data']['data']);
             data = "{\"data\":\""+single_object['data']['data']+"\", \"language\":\"" + $scope.codeLanguage + "\"}";
             $scope.editelement($scope.cid, 'code',data);
-
         }
     }
 
@@ -342,7 +344,9 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     };
 
     $scope.addPicture = function () {
-        $scope.codeLanguage="";
+        $scope.showError = true;
+        $scope.width = null;
+        $scope.height = null;
         ngDialog.open({
             template: 'addPicture',
             controller: 'notebookEditCtrl',
@@ -352,7 +356,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     };
 
     $scope.editPicture = function () {
-        $scope.codeLanguage="";
+        $scope.showError = false;
         ngDialog.open({
             template: 'editPicture',
             controller: 'notebookEditCtrl',
@@ -417,13 +421,58 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
          var file = $scope.myFile;
          console.log('file is ' );
          console.dir(file);
-         var uploadUrl = "/api/notebook/upload";
-         var message = fileUpload.uploadFileToUrl(file, uploadUrl);
-         message.then(function(data) {
-             data_data = "{\"data\":\""+data+"\", \"width\":\""+$scope.width+"\", \"height\":\""+$scope.height+"\"}";
-             $scope.addelement('image', data_data);
-         });
+         if((file.type == "image/jpeg" || file.type == "image/png" || file.type == "image/gif") && file.size < 102400) {//100kB
+             var uploadUrl = "/api/notebook/upload";
+             var message = fileUpload.uploadFileToUrl(file, uploadUrl);
+             message.then(function (data) {
+                 if ($scope.width) {
+                     data_data = "{\"data\":\"" + data + "\", \"width\":\"" + $scope.width + "\", \"height\":\"" + $scope.height + "\"}";
+                     $scope.addelement('image', data_data);
+                     $window.location.reload();
+                     $window.location.reload();
+                 }
+             });
+             ngDialog.close({
+            template: 'addPicture',
+            controller: 'notebookEditCtrl',
+            className: 'ngdialog-theme-default',
+            scope: $scope
+        });
+         }else{
+             alert("file size is more than 100kB bytes");
+         }
      };
+
+    //Picture Element Validatation
+    $scope.onlyNumbers = function(){
+        if($scope.width == '' ||  $scope.height == ''){
+            $scope.showError = true;
+        }else{
+            var flagw = true;
+            var flagh = true;
+            if($scope.width != null) {
+                var arr = $scope.width.split("");
+                for (var i = 0; i < arr.length; i++) {
+                    if (isNaN(arr[i])) {
+                        $scope.showError = true;
+                        flagw = false;
+                        break;
+                    }
+                }
+            }
+            if($scope.height != null) {
+                var arr = $scope.height.split("");
+                for (var i = 0; i < arr.length; i++) {
+                    if (isNaN(arr[i])) {
+                        $scope.showError = true;
+                        flagh = false;
+                        break;
+                    }
+                }
+            }
+            if(flagw && flagh)$scope.showError = false;
+        }
+    }
 
 });
 
@@ -542,6 +591,7 @@ function setPosBottom(element) {
         $(element).css("padding-top", newElementPos);
     }
 }
+
 
 
 /**

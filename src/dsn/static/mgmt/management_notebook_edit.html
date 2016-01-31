@@ -31,8 +31,13 @@
         <div class="row">
             <div class="col-md-11">
                 <span ng-bind="message1" style="color: red;"></span>
-                <input class="form-control" type="text" name="add_collaborator" ng-model="add_collaborator">
+                <input id="search-input" class="form-control" type="text" ng-keyup="searchCollaborator()" name="add_collaborator" ng-model="add_collaborator">
             </div>
+            <div id="search-results" class="dropdown scrollable-menu" ng-repeat="c in findcollaborator">
+                <button ng-click="searchvalue(c)" class="list-group-item">{{ c.email }}</button>
+            </div>
+
+
             <div class="col-md-1">
                 <button id="addColl" class="btn btn-success" ng-click="addCollaborator()"><span class="glyphicon glyphicon-plus" style="color:white;"></span></button>
             </div>
