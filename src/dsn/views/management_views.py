@@ -353,12 +353,7 @@ def view_CollaboratorsProfile(request):
                     Q(email__icontains=params['searchtext']) | Q(first_name__icontains=params['searchtext']) | Q(
                         last_name__icontains=params['searchtext']))
                 for user in users:
-                    profiles.append({
-                        "email": user.email,
-                        "first_name": user.first_name,
-                        "last_name": user.last_name,
-                        "id": str(user.id),
-                    })
+                    profiles.append(user.email)
             return JsonResponse({"profiles": profiles})
         except KeyError:
             return JsonResponse({"profiles": profiles})
