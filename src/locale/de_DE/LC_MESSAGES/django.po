@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-01-27 14:14+0100\n"
+"POT-Creation-Date: 2016-01-28 16:34+0100\n"
 "PO-Revision-Date: 2016-01-09 16:36+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: de_DE\n"
@@ -62,9 +62,8 @@ msgstr "Passwörter stimmen nicht überein!"
 msgid "reseterror_link_invalid"
 msgstr "Der Link ist nicht mehr gültig!"
 
-#: ../dsn/authentication/registration.py:13
-#, fuzzy
-msgid "emailaddress_already_used"
+#: ../dsn/authentication/registration.py:13 ../dsn/static/js/translations.js:87
+msgid "error_email_alreadyused"
 msgstr "Diese E-Mail Adresse wird bereits verwendet!"
 
 #: ../dsn/static/js/translations.js:1
@@ -408,10 +407,6 @@ msgstr ""
 "Sobald du deine E-Mail Adresse bestätigt hast kannst du dich einloggen "
 "und sofort starten!"
 
-#: ../dsn/static/js/translations.js:87
-msgid "error_email_alreadyused"
-msgstr "Diese E-Mail Adresse wird bereits verwendet!"
-
 #: ../dsn/static/js/translations.js:88
 msgid "account_delete_warnmessage"
 msgstr ""
@@ -440,6 +435,16 @@ msgstr "Das zugeordnete Heft konnte nicht gefunden werden!"
 msgid "loginerror_please_login_first"
 msgstr "Bitte melde dich zuerst an!"
 
+#: ../dsn/static/js/translations.js:94
+#, fuzzy
+msgid "my_notebooks"
+msgstr "Meine Hefte"
+
+#: ../dsn/static/js/translations.js:95
+#, fuzzy
+msgid "shared_notebooks"
+msgstr "Für mich freigebene Hefte"
+
 #: ../dsn/views/mainpage_views.py:83 ../dsn/views/mainpage_views.py:94
 msgid "wrong_login_credentials"
 msgstr "E-Mail Adresse oder Passwort falsch!"
@@ -460,7 +465,10 @@ msgstr "Dieser User wurde bereits hinzugefügt!"
 msgid "no_user"
 msgstr "Dieser User existiert nicht!"
 
-#: ../dsn/views/management_views.py:355 ../dsn/views/management_views.py:361
+#: ../dsn/views/management_views.py:359 ../dsn/views/management_views.py:365
 msgid "error_wrong_password"
 msgstr "Bitte wiederhole dein aktuelles Passwort!"
+
+#~ msgid "emailaddress_already_used"
+#~ msgstr "Diese E-Mail Adresse wird bereits verwendet!"
 

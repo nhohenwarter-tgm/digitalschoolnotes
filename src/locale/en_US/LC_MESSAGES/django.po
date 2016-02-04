@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-01-27 14:14+0100\n"
+"POT-Creation-Date: 2016-01-28 16:34+0100\n"
 "PO-Revision-Date: 2016-01-09 16:38+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en_US\n"
@@ -60,9 +60,8 @@ msgstr ""
 msgid "reseterror_link_invalid"
 msgstr ""
 
-#: ../dsn/authentication/registration.py:13
-#, fuzzy
-msgid "emailaddress_already_used"
+#: ../dsn/authentication/registration.py:13 ../dsn/static/js/translations.js:87
+msgid "error_email_alreadyused"
 msgstr "This email address is already used!"
 
 #: ../dsn/static/js/translations.js:1
@@ -404,10 +403,6 @@ msgstr ""
 "As soon as you validate your email address you can start using this "
 "application!"
 
-#: ../dsn/static/js/translations.js:87
-msgid "error_email_alreadyused"
-msgstr "This email address is already used!"
-
 #: ../dsn/static/js/translations.js:88
 msgid "account_delete_warnmessage"
 msgstr ""
@@ -435,6 +430,16 @@ msgstr "The notebook that belongs to this lesson could not be found!"
 msgid "loginerror_please_login_first"
 msgstr "Please login to continue!"
 
+#: ../dsn/static/js/translations.js:94
+#, fuzzy
+msgid "my_notebooks"
+msgstr "My notebooks"
+
+#: ../dsn/static/js/translations.js:95
+#, fuzzy
+msgid "shared_notebooks"
+msgstr "Shared notebooks"
+
 #: ../dsn/views/mainpage_views.py:83 ../dsn/views/mainpage_views.py:94
 msgid "wrong_login_credentials"
 msgstr "Wrong username or email!"
@@ -455,7 +460,10 @@ msgstr "This user is already set as collaborator"
 msgid "no_user"
 msgstr "This user does not exist!"
 
-#: ../dsn/views/management_views.py:355 ../dsn/views/management_views.py:361
+#: ../dsn/views/management_views.py:359 ../dsn/views/management_views.py:365
 msgid "error_wrong_password"
 msgstr "Please insert your current password!"
+
+#~ msgid "emailaddress_already_used"
+#~ msgstr "This email address is already used!"
 
