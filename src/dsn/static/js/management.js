@@ -1,4 +1,5 @@
 var mainApp = angular.module('mainApp');
+
 mainApp.controller('managementCtrl', function ($scope, $http, $state, $translate) {
     $scope.search = function () {
         $scope.itemsPerPage = 10;
@@ -473,7 +474,8 @@ mainApp.controller('notebooksCreateCtrl', function ($scope, $http, loggedIn, $st
 });
 
 mainApp.controller('editNotebookCtrl', function($scope, $http, $stateParams, $state, loggedIn){
-
+    //$scope.names = ["john", "bill", "charlie", "robert", "alban", "oscar", "marie", "celine", "brad", "drew", "rebecca", "michel", "francis", "jean", "paul", "pierre", "nicolas", "alfred", "gerard", "louis", "albert", "edouard", "benoit", "guillaume", "nicolas", "joseph"];
+    $scope.names = [];
     $http({
         method: 'POST',
         url: '/api/get_notebook',
@@ -551,6 +553,28 @@ mainApp.controller('editNotebookCtrl', function($scope, $http, $stateParams, $st
                 });
     };
 
+    $scope.searchCollaborator = function() {
+        $http({
+            method: 'POST',
+            url: '/api/getothercollaborators',
+            headers: {'Content-Type': 'application/json'},
+            data: {searchtext: $scope.add_collaborator}
+        })
+        .success(function (data) {
+                $scope.findcollaborator = data['profiles'];
+                //$scope.names = [];
+                var result = JSON.stringify($scope.findcollaborator);
+                result = result.substring(1,result.length-1);
+                var find = '"';
+                var reg = new RegExp(find, 'g');
+                result = result.replace(reg,'');
+                result = result.split(',');
+                for (index = 0; index < result.length; ++index) {
+                    if($scope.names.indexOf(result[index]) == -1)$scope.names.push(result[index]);
+                }
+            })
+    };
+
      $scope.removeCollaborator = function(coll) {
          for (var i=$scope.collaborator.length-1; i>=0; i--) {
             if ($scope.collaborator[i] === coll) {
@@ -614,3 +638,16 @@ mainApp.directive("randombackground", function () {
         }
     }
 });
+
+mainApp.directive('autoComplete', function($timeout) {
+        return function(scope, iElement, iAttrs) {
+            iElement.autocomplete({
+                source: scope[iAttrs.uiItems],
+                select: function() {
+                    $timeout(function() {
+                      iElement.trigger('input');
+                    }, 0);
+                }
+            });
+        };
+    });

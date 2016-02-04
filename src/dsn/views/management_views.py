@@ -334,6 +334,22 @@ def view_getOtherProfile(request):
         except KeyError:
             return JsonResponse({"profiles": profiles, 'len': 0})
 
+def view_CollaboratorsProfile(request):
+    if not request.user.is_authenticated():
+        return JsonResponse({})
+    if request.method == "POST":
+        profiles = []
+        params = json.loads(request.body.decode('utf-8'))
+        try:
+            if bool(params['searchtext'] and params['searchtext'].strip()):
+                users = User.objects(
+                    Q(email__icontains=params['searchtext']) | Q(first_name__icontains=params['searchtext']) | Q(
+                        last_name__icontains=params['searchtext']))
+                for user in users:
+                    profiles.append(user.email)
+            return JsonResponse({"profiles": profiles})
+        except KeyError:
+            return JsonResponse({"profiles": profiles})
 
 def view_getUserSettings(request):
     if not request.user.is_authenticated():

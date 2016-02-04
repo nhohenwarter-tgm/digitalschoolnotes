@@ -1,7 +1,8 @@
+# -*- coding: utf-8 -*-
 import pytesseract
 from PIL import Image
+import sys
 
-
-def analyseOCR(self,file):
-    print(pytesseract.image_to_string(Image.open(file)))
+def analyseOCR(file):
+    print(pytesseract.image_to_string(Image.open(file)).encode(sys.stdout.encoding, errors='replace'))
 

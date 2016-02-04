@@ -44,7 +44,7 @@
             </div>
             <div class="form-group" ng-class="{ 'has-error': register.pwd_repeat.$dirty && register.pwd_repeat.$invalid }">
                 <p  style="color: red;" ng-show="(submitted || register.pwd_repeat.$dirty) && register.pwd_repeat.$error.required" translate="error_password_repeat"></p>
-                <input class="form-control" type="password" ng-minlength="8" name="pwd_repeat" placeholder="Passwort Wiederholung*" ng-model="password_repeat" style="height: 50px;" required/>
+                <input class="form-control" type="password" ng-minlength="8" name="pwd_repeat" placeholder="{{ 'password_repeat' | translate }}*" ng-model="password_repeat" style="height: 50px;" required/>
             </div>
             <div class="form-group">
                 <p  style="color: red;" ng-show="(submitted || register.accept.$dirty) && register.accept.$error.required" translate="error_accept_termsofuse"></p>
