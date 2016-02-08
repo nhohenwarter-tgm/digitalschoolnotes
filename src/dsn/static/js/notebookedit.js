@@ -393,16 +393,19 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
 
     $scope.uploadOCRFile = function(){
          var file = $scope.ocrFile;
+        if((file.type == "image/jpeg" || file.type == "image/png" || file.type == "image/gif") && file.size < 5242880) {//5MByte
          var uploadUrl = "/api/analyseOCR";
          var message = fileUpload.uploadFileToUrl(file, uploadUrl);
-
          message.then(function(data) {
              data_data = "{\"data\":\""+data['ocrt']+"\"}";
              $scope.addelement('textarea', data_data);
              $window.location.reload();
              $window.location.reload();
          });
-
+            
+        }else{
+             alert("file size is more than 100kB bytes");
+         }
     };
 
 
@@ -419,7 +422,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
          var file = $scope.myFile;
          console.log('file is ' );
          console.dir(file);
-         if((file.type == "image/jpeg" || file.type == "image/png" || file.type == "image/gif") && file.size < 102400) {//100kB
+         if((file.type == "image/jpeg" || file.type == "image/png" || file.type == "image/gif") && file.size < 5242880) {//5MByte
              var uploadUrl = "/api/notebook/upload";
              var message = fileUpload.uploadFileToUrl(file, uploadUrl);
              message.then(function (data) {

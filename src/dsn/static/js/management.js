@@ -192,7 +192,7 @@ mainApp.controller('accsettingsCtrl', function ($scope, $http, $window, $state, 
     };
 });
 
-mainApp.controller('notebooksCtrl', function ($scope, $http, $state, $window, $translate) {
+mainApp.controller('notebooksCtrl', function ($scope, $http, $state, $window, $translate, loggedIn) {
     $scope.getNotebooks = function() {
         $http({
             method: 'POST',
@@ -240,6 +240,35 @@ mainApp.controller('notebooksCtrl', function ($scope, $http, $state, $window, $t
                     });
             }
         });
+    };
+
+    $scope.removeCollNotebook = function (coll) {
+
+        $translate("account_delete_warnmessage").then(function (message) {
+            var confirm = $window.confirm(message);
+            if (confirm) {
+                loggedIn.getUser().then(function (data) {
+                    var user = data['user'];
+                    $http({
+                        method: 'POST',
+                        url: '/api/remove_notebook_collaborator',
+                        headers: {'Content-Type': 'application/json'},
+                        data: {
+                            id: coll,
+                            collaborator: user['email']
+                        }
+                    })
+                        .success(function (data) {
+                            $window.location.reload();
+                        })
+                        .error(function (data) {
+                        });
+
+                });
+            }
+
+        })
+
     };
 
     $scope.redirectNotebook = function (id) {
@@ -308,7 +337,7 @@ mainApp.controller('timetableCtrl', function ($scope, $http, $state) {
             .error(function (data) {
                 $scope.notebooksList = [];
             });
-    }
+    };
 
     $scope.getTimetable = function() {
         $http({
@@ -473,7 +502,7 @@ mainApp.controller('notebooksCreateCtrl', function ($scope, $http, loggedIn, $st
     }
 });
 
-mainApp.controller('editNotebookCtrl', function($scope, $http, $stateParams, $state, loggedIn){
+mainApp.controller('editNotebookCtrl', function($scope, $http, $stateParams, $state, $translate, $window, loggedIn) {
     //$scope.names = ["john", "bill", "charlie", "robert", "alban", "oscar", "marie", "celine", "brad", "drew", "rebecca", "michel", "francis", "jean", "paul", "pierre", "nicolas", "alfred", "gerard", "louis", "albert", "edouard", "benoit", "guillaume", "nicolas", "joseph"];
     $scope.names = [];
     $http({
@@ -485,9 +514,9 @@ mainApp.controller('editNotebookCtrl', function($scope, $http, $stateParams, $st
         }
     })
         .success(function (data) {
-            if(data['error'] == true){
+            if (data['error'] == true) {
                 $state.go('management.notebooks');
-            }else {
+            } else {
                 $scope.name = JSON.parse(data['notebook'])['name'];
                 $scope.is_public = JSON.parse(data['notebook'])['is_public'];
                 $scope.collaborator = JSON.parse(data['notebook'])['collaborator'];
@@ -498,10 +527,10 @@ mainApp.controller('editNotebookCtrl', function($scope, $http, $stateParams, $st
         });
 
 
-    $scope.submitEditNotebook = function() {
+    $scope.submitEditNotebook = function () {
         var name = $scope.name;
         var is_public = $scope.is_public;
-        if($scope.editNotebook.$valid) {
+        if ($scope.editNotebook.$valid) {
             $http({
                 method: 'POST',
                 url: '/api/notebook_edit',
@@ -510,7 +539,7 @@ mainApp.controller('editNotebookCtrl', function($scope, $http, $stateParams, $st
                     id: $stateParams.id,
                     name: name,
                     is_public: is_public,
-                    collaborator:$scope.collaborator
+                    collaborator: $scope.collaborator
                 }
             })
                 .success(function (data) {
@@ -525,58 +554,58 @@ mainApp.controller('editNotebookCtrl', function($scope, $http, $stateParams, $st
         }
     };
 
-    $scope.cancelEdit = function() {
+    $scope.cancelEdit = function () {
         $state.go('management.notebooks');
     };
 
-    $scope.addCollaborator = function() {
-         var collaborator = $scope.add_collaborator;
-         $http({
-                method: 'POST',
-                url: '/api/edit_notebook_collaborator',
-                headers: {'Content-Type': 'application/json'},
-                data: {
-                    id: $stateParams.id,
-                    collaborators:$scope.collaborator,
-                    newcoll: collaborator
+    $scope.addCollaborator = function () {
+        var collaborator = $scope.add_collaborator;
+        $http({
+            method: 'POST',
+            url: '/api/edit_notebook_collaborator',
+            headers: {'Content-Type': 'application/json'},
+            data: {
+                id: $stateParams.id,
+                collaborators: $scope.collaborator,
+                newcoll: collaborator
+            }
+        })
+            .success(function (data) {
+                if (data['message1'] != null) {
+                    $scope.message1 = data['message1'];
+                } else {
+                    $scope.message1 = null;
+                    $scope.collaborator.push(collaborator);
                 }
             })
-                .success(function (data) {
-                    if (data['message1'] != null) {
-                        $scope.message1 = data['message1'];
-                    } else {
-                        $scope.message1 = null;
-                        $scope.collaborator.push(collaborator);
-                    }
-                })
-                .error(function (data) {
-                });
+            .error(function (data) {
+            });
     };
 
-    $scope.searchCollaborator = function() {
+    $scope.searchCollaborator = function () {
         $http({
             method: 'POST',
             url: '/api/getothercollaborators',
             headers: {'Content-Type': 'application/json'},
             data: {searchtext: $scope.add_collaborator}
         })
-        .success(function (data) {
+            .success(function (data) {
                 $scope.findcollaborator = data['profiles'];
                 //$scope.names = [];
                 var result = JSON.stringify($scope.findcollaborator);
-                result = result.substring(1,result.length-1);
+                result = result.substring(1, result.length - 1);
                 var find = '"';
                 var reg = new RegExp(find, 'g');
-                result = result.replace(reg,'');
+                result = result.replace(reg, '');
                 result = result.split(',');
                 for (index = 0; index < result.length; ++index) {
-                    if($scope.names.indexOf(result[index]) == -1)$scope.names.push(result[index]);
+                    if ($scope.names.indexOf(result[index]) == -1)$scope.names.push(result[index]);
                 }
             })
     };
 
-     $scope.removeCollaborator = function(coll) {
-         for (var i=$scope.collaborator.length-1; i>=0; i--) {
+    $scope.removeCollaborator = function (coll) {
+        for (var i = $scope.collaborator.length - 1; i >= 0; i--) {
             if ($scope.collaborator[i] === coll) {
                 $scope.collaborator.splice(i, 1);
                 break;
@@ -585,8 +614,8 @@ mainApp.controller('editNotebookCtrl', function($scope, $http, $stateParams, $st
     };
 });
 
-mainApp.controller('logoutCtrl', function($scope, $http, $state){
-    $scope.logout = function(){
+mainApp.controller('logoutCtrl', function ($scope, $http, $state) {
+    $scope.logout = function () {
         $http({
             method: 'GET',
             url: '/api/logout',
@@ -601,12 +630,12 @@ mainApp.controller('logoutCtrl', function($scope, $http, $state){
     }
 });
 
-mainApp.controller('profileCtrl', function($scope, $http, $stateParams){
+mainApp.controller('profileCtrl', function ($scope, $http, $stateParams) {
     $http({
         method: 'POST',
         url: '/api/profile',
         data: {id: $stateParams.id}
-    }).success(function(data){
+    }).success(function (data) {
             $scope.first_name = data['first_name'];
             $scope.first_name = data['first_name'];
             $scope.last_name = data['last_name'];
@@ -619,7 +648,7 @@ mainApp.controller('profileCtrl', function($scope, $http, $stateParams){
     )
 });
 
-mainApp.controller('searchCtrl', function ($scope,$http) {
+mainApp.controller('searchCtrl', function ($scope, $http) {
     $scope.search();
 });
 
@@ -639,15 +668,15 @@ mainApp.directive("randombackground", function () {
     }
 });
 
-mainApp.directive('autoComplete', function($timeout) {
-        return function(scope, iElement, iAttrs) {
-            iElement.autocomplete({
-                source: scope[iAttrs.uiItems],
-                select: function() {
-                    $timeout(function() {
-                      iElement.trigger('input');
-                    }, 0);
-                }
-            });
-        };
-    });
+mainApp.directive('autoComplete', function ($timeout) {
+    return function (scope, iElement, iAttrs) {
+        iElement.autocomplete({
+            source: scope[iAttrs.uiItems],
+            select: function () {
+                $timeout(function () {
+                    iElement.trigger('input');
+                }, 0);
+            }
+        });
+    };
+});

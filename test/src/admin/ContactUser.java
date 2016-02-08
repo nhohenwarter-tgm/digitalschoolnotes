@@ -23,7 +23,9 @@ public class ContactUser extends TestCase{
         this.driver = Parameters.driver;
         this.baseUrl = Parameters.baseUrl;
         driver.get(baseUrl + "/");
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
         driver.get(baseUrl + "/login");
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
         driver.findElement(By.name("email")).clear();
         driver.findElement(By.name("email")).sendKeys("test@test.test");
         driver.findElement(By.name("pwd")).sendKeys("12341234");

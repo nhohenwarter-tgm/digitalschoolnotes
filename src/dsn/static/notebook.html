@@ -390,8 +390,10 @@
 <script type="text/ng-template" id="ocrFileDialog">
     <div class="ngdialog-message">
         <h2>Analysiere ein Bild (OCR)</h2>
-
-        <div><input id="input-ocrfile" type="file" file-model="ocrFile" class="file"></div>
+        <div role="alert">
+            <span class="error" ng-show="!ocrFile" style="color:#FF0000">F&uuml;ge deinem Heft ein Bild hinzu.</span>
+        </div>
+        <div><input id="input-ocrfile" type="file" accept="image/png, image/gif, image/jpeg" file-model="ocrFile" class="file"></div>
         <br/>
     </div>
 
@@ -399,7 +401,7 @@
         <button id="cancelocr" class="btn btn-danger" ng-click="closeThisDialog()"
                 style="float: right;  margin-right: 15px;">Abbrechen
         </button>
-        <button type="submit" id="submitocr" class="btn btn-success"
+        <button type="submit" id="submitocr" class="btn btn-success" ng-disabled="!ocrFile"
                 ng-click="uploadOCRFile();closeThisDialog();"
                 style="float: right; margin-left: 15px; margin-right: 15px;">Analysieren
         </button>
