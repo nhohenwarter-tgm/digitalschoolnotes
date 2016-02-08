@@ -5,6 +5,7 @@ from django.core.files import File
 from uuid import uuid4
 import os
 import json
+from PIL import Image
 from dsn.ocr.analyseAlgo import analyseOCR
 
 def view_savefile(request):
@@ -25,27 +26,32 @@ def view_upload(request):
     # TODO Save to s3
     # TODO Verschiedene Dateiformate?!
     uploaded_file = request.FILES['file']
+    typ = str(uploaded_file).split('.')[len(str(uploaded_file).split('.'))-1]
     filename = str(uuid4())
-    file = open(os.getcwd()+"/dsn/static/upload/"+filename+".jpg", "wb+")
+    file = open(os.getcwd()+"/dsn/static/upload/"+filename+"."+typ, "wb+")
     with file as destination:
         for chunk in uploaded_file.chunks():
             destination.write(chunk)
-    file.close()
-    saveFile("notebook_images/"+filename+".jpg", os.getcwd()+"/dsn/static/upload/"+filename+".jpg")
-    os.remove(os.getcwd()+"/dsn/static/upload/"+filename+".jpg")
-    return JsonResponse({'message':getFileURL("notebook_images/"+filename+".jpg")})
+    image = Image.open(os.getcwd()+"/dsn/static/upload/"+filename+"."+typ)
+    image.save(os.getcwd()+"/dsn/static/upload/"+filename+"."+typ, typ.upper(), quality = 85, optimize = True)
+    image.close()
+    saveFile("notebook_images/"+filename+"."+typ, os.getcwd()+"/dsn/static/upload/"+filename+"."+typ)
+    os.remove(os.getcwd()+"/dsn/static/upload/"+filename+"."+typ)
+    return JsonResponse({'message':getFileURL("notebook_images/"+filename+"."+typ)})
 
 def view_analyseOCR(request):
     # TODO Check if image
     # TODO Verschiedene Dateiformate?!
     uploaded_file = request.FILES['file']
+    typ = str(uploaded_file).split('.')[len(str(uploaded_file).split('.'))-1]
     filename = str(uuid4())
     print(filename)
-    file = open(os.getcwd()+"/dsn/static/upload/"+filename+".jpg", "wb+")
+    file = open(os.getcwd()+"/dsn/static/upload/"+filename+"."+typ, "wb+")
     with file as destination:
         for chunk in uploaded_file.chunks():
             destination.write(chunk)
     file.close()
-    analyseOCR(os.getcwd()+"/dsn/static/upload/"+filename+".jpg")
+    ocrtext=analyseOCR(os.getcwd()+"/dsn/static/upload/"+filename+".jpg")
     os.remove(os.getcwd()+"/dsn/static/upload/"+filename+".jpg")
-    return JsonResponse({'message': 'success'})
+    print(ocrtext)
+    return JsonResponse({'ocrt': ocrtext})

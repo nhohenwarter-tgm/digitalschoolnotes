@@ -1,6 +1,6 @@
 var mainApp = angular.module('mainApp');
 
-mainApp.controller('mainpageCtrl', function($scope, $http, $location, $anchorScroll, $window, $state, loggedIn){
+mainApp.controller('mainpageCtrl', function($scope, $http, $location, $anchorScroll, $window, $state, $translate, loggedIn){
     scrollLocation = null;
     loggedIn.getUser().then(function(data){
             var user = data['user'];
@@ -100,7 +100,7 @@ mainApp.controller('contentCtrl', ['vcRecaptchaService','$scope','$http', '$tran
     }
 }]);
 
-mainApp.controller('loginCtrl', function($scope, $window, $http, $state, $rootScope, loggedIn){
+mainApp.controller('loginCtrl', function($scope, $window, $http, $state, $rootScope, $translate, loggedIn){
     loggedIn.getUser().then(function(data){
         var user = data['user'];
         if(user != null && user.is_active){
@@ -159,7 +159,7 @@ mainApp.controller('loginCtrl', function($scope, $window, $http, $state, $rootSc
     }
 });
 
-mainApp.controller('validateEmailCtrl', function($scope, $http, $state){
+mainApp.controller('validateEmailCtrl', function($scope, $http, $state, $translate){
     var hash = $state.params.hash;
     $http({
         method: 'POST',
@@ -179,7 +179,7 @@ mainApp.controller('validateEmailCtrl', function($scope, $http, $state){
 
 });
 
-mainApp.controller('resetPwdCtrl', ['vcRecaptchaService','$scope','$http','$state',function(vcRecaptchaService, $scope, $http, $state){
+mainApp.controller('resetPwdCtrl', ['vcRecaptchaService','$scope','$http','$state','$translate', function(vcRecaptchaService, $scope, $http, $state, $translate){
     $scope.success = false;
     $scope.linkInvalid = false;
     //$scope.publicKey = "6Ldj4A8TAAAAAANFOMC0XlVx3AG3KvX5vKhCXqQc"; //Echter Key
