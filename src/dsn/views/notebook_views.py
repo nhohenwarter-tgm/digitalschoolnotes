@@ -46,6 +46,7 @@ def view_analyseOCR(request):
         for chunk in uploaded_file.chunks():
             destination.write(chunk)
     file.close()
-    analyseOCR(os.getcwd()+"/dsn/static/upload/"+filename+".jpg")
+    ocrtext=analyseOCR(os.getcwd()+"/dsn/static/upload/"+filename+".jpg")
     os.remove(os.getcwd()+"/dsn/static/upload/"+filename+".jpg")
-    return JsonResponse({'message': 'success'})
+    print(ocrtext)
+    return JsonResponse({'ocrt': ocrtext})

@@ -397,6 +397,16 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
          console.log('file is ' );
          console.dir(file);
          var message = fileUpload.uploadFileToUrl(file, uploadUrl);
+       // alert(message['ocrt'])
+         //alert(JSON.parse(data['message']));
+         //console.log(message);
+
+         //console.log(message);
+
+         message.then(function(data) {
+            data_data = "{\"data\":\""+data+"\", \"width\":\""+$scope.width+"\", \"height\":\""+$scope.height+"\"}";
+            console.log(data);
+         });
         /**
         $http({
             method: 'POST',
