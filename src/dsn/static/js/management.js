@@ -192,7 +192,7 @@ mainApp.controller('accsettingsCtrl', function ($scope, $http, $window, $state, 
     };
 });
 
-mainApp.controller('notebooksCtrl', function ($scope, $http, $state, $window, $translate) {
+mainApp.controller('notebooksCtrl', function ($scope, $http, $state, $window, $translate, loggedIn) {
     $scope.getNotebooks = function() {
         $http({
             method: 'POST',
@@ -240,6 +240,35 @@ mainApp.controller('notebooksCtrl', function ($scope, $http, $state, $window, $t
                     });
             }
         });
+    };
+
+    $scope.removeCollNotebook = function (coll) {
+
+        $translate("account_delete_warnmessage").then(function (message) {
+            var confirm = $window.confirm(message);
+            if (confirm) {
+                loggedIn.getUser().then(function (data) {
+                    var user = data['user'];
+                    $http({
+                        method: 'POST',
+                        url: '/api/remove_notebook_collaborator',
+                        headers: {'Content-Type': 'application/json'},
+                        data: {
+                            id: coll,
+                            collaborator: user['email']
+                        }
+                    })
+                        .success(function (data) {
+                            $window.location.reload();
+                        })
+                        .error(function (data) {
+                        });
+
+                });
+            }
+
+        })
+
     };
 
     $scope.redirectNotebook = function (id) {
@@ -473,7 +502,7 @@ mainApp.controller('notebooksCreateCtrl', function ($scope, $http, loggedIn, $st
     }
 });
 
-mainApp.controller('editNotebookCtrl', function($scope, $http, $stateParams, $state, loggedIn) {
+mainApp.controller('editNotebookCtrl', function($scope, $http, $stateParams, $state, $translate, $window, loggedIn) {
     //$scope.names = ["john", "bill", "charlie", "robert", "alban", "oscar", "marie", "celine", "brad", "drew", "rebecca", "michel", "francis", "jean", "paul", "pierre", "nicolas", "alfred", "gerard", "louis", "albert", "edouard", "benoit", "guillaume", "nicolas", "joseph"];
     $scope.names = [];
     $http({
@@ -582,37 +611,6 @@ mainApp.controller('editNotebookCtrl', function($scope, $http, $stateParams, $st
                 break;
             }
         }
-    };
-
-    $scope.removeCollaborator2 = function (coll) {
-        $translate("account_delete_warnmessage").then(function (message) {
-            var confirm = $window.confirm(message);
-            if (confirm) {
-                loggedIn.getUser().then(function (data) {
-                    var user = data['user'];
-
-                });
-                $http({
-                    method: 'POST',
-                    url: '/api/remove_notebook_collaborator',
-                    headers: {'Content-Type': 'application/json'},
-                    data: {
-                        id: user['email'],
-                        collaborator: coll
-                    }
-                })
-                    .success(function (data) {
-                        if (data['message2'] != null) {
-                            $scope.message1 = data['message2'];
-                        } else {
-                        }
-                    })
-                    .error(function (data) {
-                    });
-
-            }
-
-        })
     };
 });
 
