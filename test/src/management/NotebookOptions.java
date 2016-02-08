@@ -24,7 +24,9 @@ public class NotebookOptions extends TestCase{
         this.driver = Parameters.driver;
         this.baseUrl = Parameters.baseUrl;
         driver.get(baseUrl + "/");
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
         driver.get(baseUrl + "/login");
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
         driver.findElement(By.name("email")).clear();
         driver.findElement(By.name("email")).sendKeys("test@test.test");
         driver.findElement(By.name("pwd")).sendKeys("12341234");
@@ -41,7 +43,7 @@ public class NotebookOptions extends TestCase{
     @Test
     public void testCreate() throws Exception {
         driver.get(baseUrl + "/management");
-        driver.findElement(By.partialLinkText("Notebooks")).click();
+        driver.findElement(By.partialLinkText("Hefte")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
         driver.findElement(By.className("glyphicon-plus")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);

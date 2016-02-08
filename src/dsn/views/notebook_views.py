@@ -45,13 +45,11 @@ def view_analyseOCR(request):
     uploaded_file = request.FILES['file']
     typ = str(uploaded_file).split('.')[len(str(uploaded_file).split('.'))-1]
     filename = str(uuid4())
-    print(filename)
     file = open(os.getcwd()+"/dsn/static/upload/"+filename+"."+typ, "wb+")
     with file as destination:
         for chunk in uploaded_file.chunks():
             destination.write(chunk)
     file.close()
-    ocrtext=analyseOCR(os.getcwd()+"/dsn/static/upload/"+filename+".jpg")
-    os.remove(os.getcwd()+"/dsn/static/upload/"+filename+".jpg")
-    print(ocrtext)
+    ocrtext=analyseOCR(os.getcwd()+"/dsn/static/upload/"+filename+"."+typ)
+    os.remove(os.getcwd()+"/dsn/static/upload/"+filename+"."+typ)
     return JsonResponse({'ocrt': ocrtext})

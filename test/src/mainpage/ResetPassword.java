@@ -42,7 +42,7 @@ public class ResetPassword extends TestCase{
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
         //Search for Error Messages
         String page = driver.getPageSource();
-        if(!page.contains("Bitte gib deine E-Mail Adresse an.")) throw new NotFoundException();
+        if(!page.contains("Bitte gib deine E-Mail Adresse ein.")) throw new NotFoundException();
         if(!page.contains("Bitte löse das Captcha.")) throw new NotFoundException();
     }
 
@@ -54,8 +54,8 @@ public class ResetPassword extends TestCase{
     public void testReqEmailInvalid() throws Exception {
         driver.get(baseUrl + "/login");
         driver.findElement(By.linkText("Passwort vergessen?")).click();
-        driver.findElement(By.name("email")).clear();
-        driver.findElement(By.name("email")).sendKeys("a@a.a");
+        driver.findElement(By.id("email")).clear();
+        driver.findElement(By.id("email")).sendKeys("a@a.a");
         JOptionPane.showMessageDialog(null,
                 "Bitte löse das Captcha. \n Du hast 5 Sekunden Zeit.",
                 "Action Required!",
@@ -64,7 +64,7 @@ public class ResetPassword extends TestCase{
         driver.findElement(By.id("submit")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
         String page = driver.getPageSource();
-        if(!page.contains("E-Mail Adresse ist nicht korrekt.")) throw new NotFoundException();
+        if(!page.contains("E-Mail Adresse ist nicht korrekt!")) throw new NotFoundException();
     }
 
     /**
@@ -75,8 +75,8 @@ public class ResetPassword extends TestCase{
     public void testReqSuccess() throws Exception {
         driver.get(baseUrl + "/login");
         driver.findElement(By.linkText("Passwort vergessen?")).click();
-        driver.findElement(By.name("email")).clear();
-        driver.findElement(By.name("email")).sendKeys(Parameters.testingEmail);
+        driver.findElement(By.id("email")).clear();
+        driver.findElement(By.id("email")).sendKeys(Parameters.testingEmail);
         JOptionPane.showMessageDialog(null,
                 "Bitte löse das Captcha. \n Du hast 5 Sekunden Zeit.",
                 "Action Required!",
@@ -111,8 +111,10 @@ public class ResetPassword extends TestCase{
                                 "Bitte gib hier den Link in dieser E-Mail ein.");
         driver.get(baseUrl + hash.split(".com")[1]);
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.id("submit")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
         String page = driver.getPageSource();
-        if(!page.contains("Bitte gib dein Passwort an.")) throw new NotFoundException();
+        if(!page.contains("Bitte gib dein Passwort ein.")) throw new NotFoundException();
         if(!page.contains("Bitte gib dein Passwort nochmal an.")) throw new NotFoundException();
     }
 
@@ -124,8 +126,8 @@ public class ResetPassword extends TestCase{
     public void testResetPasswordTooShortOrTooLong() throws Exception {
         driver.get(baseUrl + "/login");
         driver.findElement(By.linkText("Passwort vergessen?")).click();
-        driver.findElement(By.name("email")).clear();
-        driver.findElement(By.name("email")).sendKeys(Parameters.testingEmail);
+        driver.findElement(By.id("email")).clear();
+        driver.findElement(By.id("email")).sendKeys(Parameters.testingEmail);
         isElementPresent(By.id("captcha"));
         JOptionPane.showMessageDialog(null,
                 "Bitte löse das Captcha. \n Du hast 5 Sekunden Zeit.",
@@ -143,11 +145,13 @@ public class ResetPassword extends TestCase{
         driver.findElement(By.id("submit")).click();
         String page = driver.getPageSource();
         if(!page.contains("Das Passwort ist zu kurz (mind. 8 Zeichen).")) throw new NotFoundException();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
         driver.findElement(By.id("pwd")).clear();
         driver.findElement(By.id("pwd")).sendKeys(new String(new char[129]).replace("\0", "a"));
         driver.findElement(By.id("submit")).click();
         page = driver.getPageSource();
         if(!page.contains("Das Passwort ist zu lang (max. 128 Zeichen).")) throw new NotFoundException();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
     }
 
     /**
@@ -158,8 +162,8 @@ public class ResetPassword extends TestCase{
     public void testResetPasswordsDontMatch() throws Exception {
         driver.get(baseUrl + "/login");
         driver.findElement(By.linkText("Passwort vergessen?")).click();
-        driver.findElement(By.name("email")).clear();
-        driver.findElement(By.name("email")).sendKeys(Parameters.testingEmail);
+        driver.findElement(By.id("email")).clear();
+        driver.findElement(By.id("email")).sendKeys(Parameters.testingEmail);
         isElementPresent(By.id("captcha"));
         JOptionPane.showMessageDialog(null,
                 "Bitte löse das Captcha. \n Du hast 5 Sekunden Zeit.",
@@ -179,6 +183,8 @@ public class ResetPassword extends TestCase{
         driver.findElement(By.id("submit")).click();
         String page = driver.getPageSource();
         if(!page.contains("Passwörter stimmen nicht überein")) throw new NotFoundException();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+
     }
 
     /**
@@ -189,8 +195,8 @@ public class ResetPassword extends TestCase{
     public void testResetSuccess() throws Exception {
         driver.get(baseUrl + "/login");
         driver.findElement(By.linkText("Passwort vergessen?")).click();
-        driver.findElement(By.name("email")).clear();
-        driver.findElement(By.name("email")).sendKeys(Parameters.testingEmail);
+        driver.findElement(By.id("email")).clear();
+        driver.findElement(By.id("email")).sendKeys(Parameters.testingEmail);
         isElementPresent(By.id("captcha"));
         JOptionPane.showMessageDialog(null,
                 "Bitte löse das Captcha. \n Du hast 5 Sekunden Zeit.",
