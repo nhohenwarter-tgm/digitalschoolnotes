@@ -394,26 +394,14 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     $scope.uploadOCRFile = function(){
          var file = $scope.ocrFile;
          var uploadUrl = "/api/analyseOCR";
-         console.log('file is ' );
-         console.dir(file);
          var message = fileUpload.uploadFileToUrl(file, uploadUrl);
-       // alert(message['ocrt'])
-         //alert(JSON.parse(data['message']));
-         //console.log(message);
-
-         //console.log(message);
 
          message.then(function(data) {
-            data_data = "{\"data\":\""+data+"\", \"width\":\""+$scope.width+"\", \"height\":\""+$scope.height+"\"}";
-            console.log(data);
+             data_data = "{\"data\":\""+data['ocrt']+"\"}";
+             $scope.addelement('textarea', data_data);
+             $window.location.reload();
+             $window.location.reload();
          });
-        /**
-        $http({
-            method: 'POST',
-            url: '/api/analyseOCR'
-        }).success(function (data) {
-
-        });*/
 
     };
 
@@ -436,7 +424,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
              var message = fileUpload.uploadFileToUrl(file, uploadUrl);
              message.then(function (data) {
                  if ($scope.width) {
-                     data_data = "{\"data\":\"" + data + "\", \"width\":\"" + $scope.width + "\", \"height\":\"" + $scope.height + "\"}";
+                     data_data = "{\"data\":\"" + data['message'] + "\", \"width\":\"" + $scope.width + "\", \"height\":\"" + $scope.height + "\"}";
                      $scope.addelement('image', data_data);
                      $window.location.reload();
                      $window.location.reload();
@@ -514,10 +502,11 @@ mainApp.directive('fileModel', ['$parse', function ($parse) {
             headers: {'Content-Type': undefined, 'enctype':'multipart/form-data'}
         })
             .success(function(data) {
-                link.resolve(data['message']);
+                link.resolve(data);
             })
-            .error(function(){
-            })
+            .error(function(data){
+                link.reject(data);
+            });
         return link.promise;
     };
 }]);
