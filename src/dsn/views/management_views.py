@@ -199,6 +199,15 @@ def view_get_notebooks_coll(request):
         notebooks = Notebook.objects.filter(collaborator=request.user.email).to_json()
         return JsonResponse({"notebooks": notebooks})
 
+def view_removeCollaborator(request):
+    if not request.user.is_authenticated():
+        return JsonResponse({})
+    if request.method == "POST":
+        params = json.loads(request.body.decode('utf-8'))
+        notebook = Notebook.objects.get(id=params['id'])
+        notebook.collaborator.remove(params['collaborator'])
+        notebook.save()
+        return JsonResponse({})
 
 def view_add_notebook_content(request):
     if not request.user.is_authenticated():
@@ -344,7 +353,7 @@ def view_CollaboratorsProfile(request):
             if bool(params['searchtext'] and params['searchtext'].strip()):
                 users = User.objects(
                     Q(email__icontains=params['searchtext']) | Q(first_name__icontains=params['searchtext']) | Q(
-                        last_name__icontains=params['searchtext']))
+                        last_name__icontains=params['searchtext']))[0:5]
                 for user in users:
                     profiles.append(user.email)
             return JsonResponse({"profiles": profiles})
