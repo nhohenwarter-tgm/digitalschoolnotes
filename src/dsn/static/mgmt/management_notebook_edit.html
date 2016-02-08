@@ -31,7 +31,10 @@
         <div class="row">
             <div class="col-md-11">
                 <span ng-bind="message1" style="color: red;"></span>
-                <input auto-complete ui-items="names" class="form-control" ng-keyup="searchCollaborator()" name="add_collaborator" ng-model="add_collaborator">
+                <input auto-complete ui-items="names" class="form-control" ng-keyup="searchCollaborator()"
+                       name="add_collaborator" ng-model="add_collaborator"
+                        onkeydown = "if (event.keyCode == 13)
+                        document.getElementById('addColl').click()">
                 <!--http://jsfiddle.net/gjrwy5ua/-->
             </div>
             <div class="col-md-1">
