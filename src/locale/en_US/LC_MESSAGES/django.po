@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-01-28 16:34+0100\n"
+"POT-Creation-Date: 2016-02-08 12:49+0100\n"
 "PO-Revision-Date: 2016-01-09 16:38+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en_US\n"
@@ -44,7 +44,9 @@ msgstr "Your account will get deleted soon"
 
 #: ../dsn/authentication/password_reset.py:15
 msgid "reseterror_accountisoauth"
-msgstr "This account was created using oauth! Password of this account can't be reset!"
+msgstr ""
+"This account was created using oauth! Password of this account can't be "
+"reset!"
 
 #: ../dsn/authentication/password_reset.py:19
 msgid "emailaddress_wrong"
@@ -190,8 +192,9 @@ msgstr "If you forgot your password you can reset it here."
 
 #: ../dsn/static/js/translations.js:33
 msgid "reset_password_instructions"
-msgstr "An email was sent to the given email address."
-"Please follow the instructions in this email."
+msgstr ""
+"An email was sent to the given email address.Please follow the "
+"instructions in this email."
 
 #: ../dsn/static/js/translations.js:34
 msgid "search"
@@ -432,12 +435,10 @@ msgid "loginerror_please_login_first"
 msgstr "Please login to continue!"
 
 #: ../dsn/static/js/translations.js:94
-#, fuzzy
 msgid "my_notebooks"
 msgstr "My notebooks"
 
 #: ../dsn/static/js/translations.js:95
-#, fuzzy
 msgid "shared_notebooks"
 msgstr "Shared notebooks"
 
@@ -461,7 +462,7 @@ msgstr "This user is already set as collaborator"
 msgid "no_user"
 msgstr "This user does not exist!"
 
-#: ../dsn/views/management_views.py:359 ../dsn/views/management_views.py:365
+#: ../dsn/views/management_views.py:375 ../dsn/views/management_views.py:381
 msgid "error_wrong_password"
 msgstr "Please insert your current password!"
 

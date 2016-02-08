@@ -67,7 +67,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         $scope.update();
         loggedIn.getUser().then(function (data) {
             var user = data['user'];
-            if ($scope.notebook['email'] == user['email']) {
+            if ($scope.notebook['email'] == user['email'] || $.inArray(user['email'], $scope.notebook['collaborator']) > -1) {
                 $scope.publicViewed = false;
                 $scope.update();
             } else {
