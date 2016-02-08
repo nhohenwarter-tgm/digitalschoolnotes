@@ -16,7 +16,7 @@ mainApp.controller('mainpageCtrl', function($scope, $http, $location, $anchorScr
         });
 
     $scope.goto = function(locationId){
-        if($state.current.name != 'mainpage.login') {
+        if($state.current.name == 'mainpage.content') {
             var old = $location.hash();
             $location.hash(locationId);
             $anchorScroll();

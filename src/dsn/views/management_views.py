@@ -32,11 +32,11 @@ def view_get_timetable(request):
             timetable.email = email
 
             timetable.times = []
-            for x in range(1, 11):
+            for x in range(1, 13):
                 timetable.times.append(TimeTableTime(row=x, start="00:00", end="00:00"))
 
             timetable.fields = []
-            for x in range(1, 11):
+            for x in range(1, 13):
                 for z in range(1, 7):
                     timetable.fields.append(
                         TimeTableField(id=(x * 10 + z), subject="", teacher="", room="", notebook=""))
