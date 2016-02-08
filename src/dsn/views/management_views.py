@@ -344,7 +344,7 @@ def view_CollaboratorsProfile(request):
             if bool(params['searchtext'] and params['searchtext'].strip()):
                 users = User.objects(
                     Q(email__icontains=params['searchtext']) | Q(first_name__icontains=params['searchtext']) | Q(
-                        last_name__icontains=params['searchtext']))
+                        last_name__icontains=params['searchtext']))[0:5]
                 for user in users:
                     profiles.append(user.email)
             return JsonResponse({"profiles": profiles})
