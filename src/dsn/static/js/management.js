@@ -583,6 +583,29 @@ mainApp.controller('editNotebookCtrl', function($scope, $http, $stateParams, $st
             }
         }
     };
+
+    $scope.removeCollaborator2 = function(coll, id) {
+         $http({
+                method: 'POST',
+                url: '/api/remove_notebook_collaborator',
+                headers: {'Content-Type': 'application/json'},
+                data: {
+                    id: $stateParams.id,
+                    collaborators:$scope.collaborator,
+                    newcoll: collaborator
+                }
+            })
+                .success(function (data) {
+                    if (data['message1'] != null) {
+                        $scope.message1 = data['message1'];
+                    } else {
+                        $scope.message1 = null;
+                        $scope.collaborator.push(collaborator);
+                    }
+                })
+                .error(function (data) {
+                });
+    };
 });
 
 mainApp.controller('logoutCtrl', function($scope, $http, $state){

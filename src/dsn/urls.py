@@ -47,6 +47,7 @@ urlpatterns = [
     url(r'^api/delete_notebook_content', 'dsn.views.management_views.view_delete_notebook_content', name="delteNotebookContent"),
     url(r'^api/edit_notebook_content', 'dsn.views.management_views.view_edit_notebook_content', name="edit1NotebookContent"),
     url(r'^api/edit_notebook_collaborator', 'dsn.views.management_views.view_checkCollaborator', name="checkCollaborator"),
+    url(r'^api/remove_notebook_collaborator', 'dsn.views.management_views.view_checkCollaborator', name="checkCollaborator"),
     url(r'^api/edit_content_position', 'dsn.views.management_views.view_edit_content_position', name="editContentPosition"),
     url(r'^api/notebook_length_edit', 'dsn.views.management_views.view_edit_notebooklength', name="editNotebookLength"),
     url(r'^api/notebook_currentsite_edit', 'dsn.views.management_views.view_edit_currentpage', name="editCurrentSite"),
@@ -64,4 +65,5 @@ urlpatterns = [
     url(r'^api/notebook/upload', 'dsn.views.notebook_views.view_upload', name="upload"),
     url(r'^api/change_lang', 'dsn.views.mainpage_views.change_language', name="language"),
     url(r'^api/analyseOCR', 'dsn.views.notebook_views.view_analyseOCR', name="analyseOCR"),
+
 ]
