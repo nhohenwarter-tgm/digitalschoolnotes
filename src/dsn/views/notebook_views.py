@@ -27,6 +27,8 @@ def view_upload(request):
     # TODO Verschiedene Dateiformate?!
     uploaded_file = request.FILES['file']
     typ = str(uploaded_file).split('.')[len(str(uploaded_file).split('.'))-1]
+    if 'jpg' in typ or 'JPG' in typ:
+        typ = 'JPEG'
     filename = str(uuid4())
     file = open(os.getcwd()+"/dsn/static/upload/"+filename+"."+typ, "wb+")
     with file as destination:
@@ -44,6 +46,8 @@ def view_analyseOCR(request):
     # TODO Verschiedene Dateiformate?!
     uploaded_file = request.FILES['file']
     typ = str(uploaded_file).split('.')[len(str(uploaded_file).split('.'))-1]
+    if 'jpg' in typ or 'JPG' in typ:
+        typ = 'JPEG'
     filename = str(uuid4())
     file = open(os.getcwd()+"/dsn/static/upload/"+filename+"."+typ, "wb+")
     with file as destination:
