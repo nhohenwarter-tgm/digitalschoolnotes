@@ -62,10 +62,10 @@
 <div id="wrap">
     <div>
         <div ui-view></div>
+        <div ng-show="!notebookView" style="padding-top: 80px;"></div>
     </div>
 </div>
 
-<div ng-show="!notebookView" style="padding-top: 30px;"></div>
 
 <!-- FOOTER START -->
 <footer ng-show="!notebookView" class="footer" style="position: fixed !important;">
