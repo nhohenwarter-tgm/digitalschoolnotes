@@ -44,7 +44,7 @@ public class DeleteNotebook extends TestCase{
     @Test
     public void testDeleteNotebook() throws Exception {
         driver.get(baseUrl + "/management");
-        driver.findElement(By.partialLinkText("Notebooks")).click();
+        driver.findElement(By.partialLinkText("Hefte")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
         driver.findElement(By.className("glyphicon-plus")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
@@ -57,7 +57,8 @@ public class DeleteNotebook extends TestCase{
         if (!page.contains("Test"+randomInt)) throw new NotFoundException();
 
         driver.findElement(By.id("deleteNotebook")).click();
-        closeAlertAndGetItsText();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.id("submit")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
 
         page = driver.getPageSource();

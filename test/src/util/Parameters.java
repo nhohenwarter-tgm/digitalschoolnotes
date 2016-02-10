@@ -20,8 +20,8 @@ public class Parameters{
     public static final String WINDOWS = "windows.exe";
 
     public static String os = LINUX; //HIER OS AENDERN
-    public static int browser = FIREFOX; //HIER BROWSER AENDERN
-    public static int port = 5001; //HIER PORT AENDERN
+    public static int browser = CHROME; //HIER BROWSER AENDERN
+    public static int port = 5004; //HIER PORT AENDERN
 
     public static boolean stable = false;
 
