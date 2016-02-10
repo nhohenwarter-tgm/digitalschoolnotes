@@ -157,6 +157,11 @@ def view_checkCollaborator(request):
         except DoesNotExist:
             pass
         try:
+            if params['newcoll'] == request.user.email:
+                return JsonResponse({"message1": _("no_user")})
+        except DoesNotExist:
+            pass
+        try:
             if len(user) <= 0:
                 return JsonResponse({"message1": _("no_user")})
         except DoesNotExist:
