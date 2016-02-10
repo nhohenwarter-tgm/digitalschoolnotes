@@ -187,9 +187,7 @@ administrationApp.controller('usermanagementCtrl', function ($scope, $http, $fil
                 }
             })
                 .success(function (data) {
-                    if(data['error'] != null){
-                        alert(data['error']);
-                    }
+
                 })
                 .error(function (data) {
                 });
@@ -379,7 +377,6 @@ administrationApp.controller('logoutCtrl', function ($scope, $http, $window) {
                 $window.location.href = '/';
             })
             .error(function (data) {
-                alert('Beim ausloggen ist ein Fehler aufgetreten! Bitte versuche es erneut!');
             });
     }
 });

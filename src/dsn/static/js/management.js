@@ -96,7 +96,7 @@ mainApp.controller('managementCtrl', function ($scope, $http, $state, $translate
     };
 });
 
-mainApp.controller('accsettingsCtrl', function ($scope, $http, $window, $state, $translate, loggedIn) {
+mainApp.controller('accsettingsCtrl', function ($scope, $http, $window, $state, $translate, loggedIn, ngDialog) {
     $http({
         method: 'POST',
         url: '/api/get_userSettings',
@@ -173,28 +173,29 @@ mainApp.controller('accsettingsCtrl', function ($scope, $http, $window, $state, 
         $state.go('management.timetable');
     };
 
-    $scope.deleteAccount = function(){
-        $translate("account_delete_warnmessage").then(function(message){
-            var confirm = $window.confirm(message);
-            if(confirm){
-                $http({
-                    method: 'POST',
-                    url: '/api/delete_account'
-                })
-                    .success(function (data) {
-                        $state.go('mainpage.content');
-                    })
-                    .error(function (data) {
-                        $state.go('mainpage.content');
-                    });
-            }
+    $scope.deleteAccountDialog = function () {
+        ngDialog.open({
+            template: 'deleteAccount',
+            className: 'ngdialog-theme-default',
+            scope: $scope
         });
+    };
 
-
+    $scope.deleteAccount = function(){
+        $http({
+            method: 'POST',
+            url: '/api/delete_account'
+        })
+            .success(function (data) {
+                $state.go('mainpage.content');
+            })
+            .error(function (data) {
+                $state.go('mainpage.content');
+            });
     };
 });
 
-mainApp.controller('notebooksCtrl', function ($scope, $http, $state, $window, $translate, loggedIn) {
+mainApp.controller('notebooksCtrl', function ($scope, $http, $state, $window, $translate, loggedIn, ngDialog) {
     $scope.getNotebooks = function() {
         $http({
             method: 'POST',
@@ -223,32 +224,42 @@ mainApp.controller('notebooksCtrl', function ($scope, $http, $state, $window, $t
 
     $scope.getCollNotebooks();
 
-    $scope.deleteNotebook = function(id){
-        $translate("notebook_delete_warnmessage").then(function(message) {
-            var confirm = $window.confirm(message);
-            if (confirm) {
-                $http({
-                    method: 'POST',
-                    url: '/api/delete_notebooks',
-                    data: {
-                        id: id
-                    }
-                })
-                    .success(function (data) {
-                        $scope.getNotebooks();
-                    })
-                    .error(function (data) {
-                        $scope.getNotebooks();
-                    });
-            }
+    $scope.deleteNotebookDialog = function (id) {
+        ngDialog.open({
+            template: 'deleteNotebook',
+            className: 'ngdialog-theme-default',
+            scope: $scope
         });
+        $scope.notebookid = id;
     };
 
-    $scope.removeCollNotebook = function (coll) {
+    $scope.deleteNotebook = function(){
+        $http({
+            method: 'POST',
+            url: '/api/delete_notebooks',
+            data: {
+                id: $scope.notebookid
+            }
+        })
+            .success(function (data) {
+                $scope.getNotebooks();
+            })
+            .error(function (data) {
+                $scope.getNotebooks();
+            });
+        $scope.notebookid = null;
+    };
 
-        $translate("collaboration_notebook_exit_warnmessage").then(function (message) {
-            var confirm = $window.confirm(message);
-            if (confirm) {
+    $scope.removeCollNotebookDialog = function (coll) {
+        ngDialog.open({
+            template: 'removeCollNotebook',
+            className: 'ngdialog-theme-default',
+            scope: $scope
+        });
+        $scope.coll = coll;
+    };
+
+    $scope.removeCollNotebook = function () {
                 loggedIn.getUser().then(function (data) {
                     var user = data['user'];
                     $http({
@@ -256,7 +267,7 @@ mainApp.controller('notebooksCtrl', function ($scope, $http, $state, $window, $t
                         url: '/api/remove_notebook_collaborator',
                         headers: {'Content-Type': 'application/json'},
                         data: {
-                            id: coll,
+                            id: $scope.coll,
                             collaborator: user['email']
                         }
                     })
@@ -267,10 +278,6 @@ mainApp.controller('notebooksCtrl', function ($scope, $http, $state, $window, $t
                         });
 
                 });
-            }
-
-        })
-
     };
 
     $scope.redirectNotebook = function (id) {
@@ -283,9 +290,11 @@ mainApp.controller('notebooksCtrl', function ($scope, $http, $state, $window, $t
 
     $scope.redirectCreate = function () {
         if($scope.notebooks.length >= 10){ //TODO Maximale Heftanzahl festlegen
-            $translate("notebook_max_warnmessage").then(function(message) {
-                alert(message);
-            });
+            ngDialog.open({
+            template: 'notebooklimit',
+            className: 'ngdialog-theme-default',
+            scope: $scope
+        });
         }else {
             $state.go('management.notebooks_create');
         }
