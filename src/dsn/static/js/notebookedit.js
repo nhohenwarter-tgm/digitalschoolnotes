@@ -374,18 +374,27 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     };
 
     $scope.exportSite = function () {
-        ngDialog.open({
-            template: 'exportCode',
-            className: 'ngdialog-theme-default',
-            scope: $scope
-        });
         $http({
             method: 'POST',
             url: '/api/get_notebooks'
         })
             .success(function (data) {
                 $scope.notebooks = JSON.parse(data['notebooks']);
-                delete $scope.notebooks[0];
+                $http({
+                    method: 'POST',
+                    url: '/api/get_collnotebooks'
+                })
+                    .success(function (data) {
+                        $scope.notebooks=$scope.notebooks.concat(JSON.parse(data['notebooks']));
+                        alert(JSON.stringify($scope.notebooks));
+                        ngDialog.open({
+                            template: 'exportCode',
+                            className: 'ngdialog-theme-default',
+                            scope: $scope
+                        });
+                    })
+                    .error(function (data) {
+                    });
             })
             .error(function (data) {
             });
