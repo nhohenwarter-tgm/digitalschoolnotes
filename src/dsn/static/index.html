@@ -62,15 +62,15 @@
 <div id="wrap">
     <div>
         <div ui-view></div>
+        <div ng-show="!notebookView" style="padding-top: 80px;"></div>
     </div>
 </div>
 
-<div ng-show="!notebookView" style="padding-top: 30px;"></div>
 
 <!-- FOOTER START -->
 <footer ng-show="!notebookView" class="footer" style="position: fixed !important;">
     <div class="container">
-        <span style="margin: 20px 0px; float: left;">&copy; 2015 - DigitalSchoolNotes - All Rights Reserved
+        <span style="margin: 20px 0px; float: left;">&copy; 2016 - DigitalSchoolNotes - All Rights Reserved
             <img ng-click="changeLanguage('de')" alt="German" src="../../img/langicon_de.png"
                  style="height: 3%; width: 3%; cursor: pointer;" id="lang_de">
             <img ng-click="changeLanguage('en')" alt="English" src="../../img/langicon_en.png"

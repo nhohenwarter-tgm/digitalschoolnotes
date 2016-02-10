@@ -344,7 +344,6 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     };
 
     $scope.addPicture = function () {
-        $scope.showError = true;
         $scope.width = null;
         $scope.height = null;
         ngDialog.open({
@@ -404,7 +403,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
          });
             
         }else{
-             alert("file size is more than 100kB bytes");
+             alert("file size is more than 5MB");
          }
     };
 
@@ -426,12 +425,15 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
              var uploadUrl = "/api/notebook/upload";
              var message = fileUpload.uploadFileToUrl(file, uploadUrl);
              message.then(function (data) {
-                 if ($scope.width) {
-                     data_data = "{\"data\":\"" + data['message'] + "\", \"width\":\"" + $scope.width + "\", \"height\":\"" + $scope.height + "\"}";
+                 var width = 0;
+                 var height = 0;
+                 if ($scope.width){width = $scope.width;}
+                 if ($scope.height){height = $scope.height;}
+                     data_data = "{\"data\":\"" + data['message'] + "\", \"width\":\"" + width + "\", \"height\":\"" + height + "\"}";
                      $scope.addelement('image', data_data);
                      $window.location.reload();
                      $window.location.reload();
-                 }
+
              });
              ngDialog.close({
             template: 'addPicture',
@@ -440,7 +442,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
             scope: $scope
         });
          }else{
-             alert("file size is more than 100kB bytes");
+             alert("file size is more than 5MB");
          }
      };
 
@@ -473,6 +475,33 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
             }
             if(flagw && flagh)$scope.showError = false;
         }
+    }
+
+    $scope.onlyNumbers1 = function(){
+        var flagw = true;
+        var flagh = true;
+        if($scope.width != null) {
+            var arr = $scope.width.split("");
+            for (var i = 0; i < arr.length; i++) {
+                if (isNaN(arr[i])) {
+                    $scope.showError = true;
+                    flagw = false;
+                    break;
+                }
+            }
+        }
+        if($scope.height != null) {
+            var arr = $scope.height.split("");
+            for (var i = 0; i < arr.length; i++) {
+                if (isNaN(arr[i])) {
+                    $scope.showError = true;
+                    flagh = false;
+                    break;
+                }
+            }
+        }
+        if(flagw && flagh)$scope.showError = false;
+
     }
 
 });

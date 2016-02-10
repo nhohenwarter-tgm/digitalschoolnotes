@@ -52,7 +52,7 @@
                                                           style="color: white; cursor: pointer;"></span>
                                             </a>
                                         </li>
-                                        <li>
+                                        <li ng-hide="publicViewed">
                                             <a ng-click="addOCRPic()">
                                                     <span class="glyphicon glyphicon-text-background"
                                                           style="color: white; cursor: pointer;"></span>
@@ -151,12 +151,21 @@
                                                 <!--<select ng-model="models[element.art][element.id][1]" ng-options="m for m in modes"
                                                         ng-change="modeChanged(element.id)"></select> -->
                                             </section>
+
                                             <!-- Read-Only -->
                                             <section id="{{ element.art }}_{{ element.id }}"
-                                                     ng-if="editMode != element.id">
+                                                     ng-if="editMode != element.id && (models[element.art][element.id][1] != 0 && models[element.art][element.id][2] != 0)">
                                                 <image ng-src="{{ models[element.art][element.id][0] }}"
                                                        ng-style='{"width": models[element.art][element.id][1]+"px",
                                                         "height": models[element.art][element.id][2]+"px"}' />
+                                            </section>
+
+                                            <!-- Read-Only -->
+                                            <section id="{{ element.art }}_{{ element.id }}"
+                                                     ng-if="editMode != element.id && (models[element.art][element.id][1] == 0 || models[element.art][element.id][2] == 0 )">
+                                                <image ng-src="{{ models[element.art][element.id][0] }}"
+                                                       ng-style='{"width": auto,
+                                                        "height": auto' />
                                             </section>
                                         </span>
                                         <!-- EDIT / DELETE -->
@@ -333,16 +342,16 @@
         <br/>
     </div>
     <div role="alert">
-      <span class="error" ng-show="showError" style="color:#FF0000">Bitte gib eine Zahl bei der Breite und Höhe an.</span>
+      <span class="error" ng-show="showError" style="color:#FF0000">Bitte gib eine Zahl ein.</span>
     </div>
     <div class="form-group">
         <div class="col-xs-4">
             <label for="ex1">Breite(px):</label>
-            <input ng-model="width" ng-change="onlyNumbers()" class="form-control" id="ex1" type="text">
+            <input ng-model="width" ng-change="onlyNumbers1()" class="form-control" id="ex1" type="text">
         </div>
         <div class="col-xs-4">
             <label for="ex1">Höhe(px):</label>
-            <input ng-model="height" ng-change="onlyNumbers()" class="form-control" id="ex1" type="text">
+            <input ng-model="height" ng-change="onlyNumbers1()" class="form-control" id="ex1" type="text">
         </div>
     </div>
 

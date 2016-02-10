@@ -11,7 +11,9 @@ initJson = function(){
 						{ "row" : 7, "start" : "13:20", "end" : "14:10" }, 
 						{ "row" : 8, "start" : "14:10", "end" : "15:00" }, 
 						{ "row" : 9, "start" : "15:10", "end" : "16:00" }, 
-						{ "row" : 10, "start" : "16:00", "end" : "16:50" } 
+						{ "row" : 10, "start" : "16:00", "end" : "16:50" },
+						{ "row" : 11, "start" : "16:50", "end" : "17:40" },
+						{ "row" : 12, "start" : "17:40", "end" : "18:30" } 
 	    				], 
  				"fields" : [ { "id" : 11, "subject" : "E", "teacher" : "STAE", "room" : "H1127", "notebook" : "" }, 
 						{ "id" : 12, "subject" : "", "teacher" : "", "room" : "", "notebook" : "" }, 
@@ -72,7 +74,19 @@ initJson = function(){
 						{ "id" : 103, "subject" : "ITP", "teacher" : "KRIW", "room" : "H928", "notebook" : "" }, 
 						{ "id" : 104, "subject" : "", "teacher" : "", "room" : "", "notebook" : "" }, 
 						{ "id" : 105, "subject" : "", "teacher" : "", "room" : "", "notebook" : "" }, 
-						{ "id" : 106, "subject" : "", "teacher" : "", "room" : "", "notebook" : "" } 
+						{ "id" : 106, "subject" : "", "teacher" : "", "room" : "", "notebook" : "" }, 
+						{ "id" : 111, "subject" : "", "teacher" : "", "room" : "", "notebook" : "" }, 
+						{ "id" : 112, "subject" : "", "teacher" : "", "room" : "", "notebook" : "" }, 
+						{ "id" : 113, "subject" : "", "teacher" : "", "room" : "", "notebook" : "" }, 
+						{ "id" : 114, "subject" : "", "teacher" : "", "room" : "", "notebook" : "" }, 
+						{ "id" : 115, "subject" : "", "teacher" : "", "room" : "", "notebook" : "" }, 
+						{ "id" : 116, "subject" : "", "teacher" : "", "room" : "", "notebook" : "" }, 
+						{ "id" : 121, "subject" : "", "teacher" : "", "room" : "", "notebook" : "" }, 
+						{ "id" : 122, "subject" : "", "teacher" : "", "room" : "", "notebook" : "" }, 
+						{ "id" : 123, "subject" : "", "teacher" : "", "room" : "", "notebook" : "" }, 
+						{ "id" : 124, "subject" : "", "teacher" : "", "room" : "", "notebook" : "" }, 
+						{ "id" : 125, "subject" : "", "teacher" : "", "room" : "", "notebook" : "" }, 
+						{ "id" : 126, "subject" : "", "teacher" : "", "room" : "", "notebook" : "" } 
 	    				] 
 			
 			}
