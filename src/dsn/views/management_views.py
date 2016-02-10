@@ -158,7 +158,7 @@ def view_checkCollaborator(request):
             pass
         try:
             if params['newcoll'] == request.user.email:
-                return JsonResponse({"message1": _("no_user")})
+                return JsonResponse({"message1": _("collaboration_error_own_user")})
         except DoesNotExist:
             pass
         try:

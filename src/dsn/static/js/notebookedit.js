@@ -134,6 +134,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
                     $scope.currentPage = page;
                     $scope.notebook = JSON.parse(data['notebook']);
                 });
+                $scope.update();
             }
             if ($scope.currentPage == $scope.notebook['numpages']) {
                 $scope.additem = false;
