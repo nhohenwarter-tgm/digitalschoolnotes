@@ -244,7 +244,7 @@ mainApp.controller('notebooksCtrl', function ($scope, $http, $state, $window, $t
 
     $scope.removeCollNotebook = function (coll) {
 
-        $translate("account_delete_warnmessage").then(function (message) {
+        $translate("collaboration_notebook_exit_warnmessage").then(function (message) {
             var confirm = $window.confirm(message);
             if (confirm) {
                 loggedIn.getUser().then(function (data) {
@@ -503,7 +503,6 @@ mainApp.controller('notebooksCreateCtrl', function ($scope, $http, loggedIn, $st
 });
 
 mainApp.controller('editNotebookCtrl', function($scope, $http, $stateParams, $state, $translate, $window, loggedIn) {
-    //$scope.names = ["john", "bill", "charlie", "robert", "alban", "oscar", "marie", "celine", "brad", "drew", "rebecca", "michel", "francis", "jean", "paul", "pierre", "nicolas", "alfred", "gerard", "louis", "albert", "edouard", "benoit", "guillaume", "nicolas", "joseph"];
     $scope.names = [];
     $http({
         method: 'POST',

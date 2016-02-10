@@ -93,3 +93,4 @@ gettext("error_timetable_notebooknotfound");
 gettext("loginerror_please_login_first");
 gettext("my_notebooks");
 gettext("shared_notebooks");
+gettext("collaboration_notebook_exit_warnmessage");

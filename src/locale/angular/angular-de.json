@@ -1,5 +1,5 @@
 {
-    "" : "Project-Id-Version: PROJECT VERSION\nReport-Msgid-Bugs-To: EMAIL@ADDRESS\nPOT-Creation-Date: 2016-02-08 12:49+0100\nPO-Revision-Date: 2016-01-09 16:36+0100\nLast-Translator: FULL NAME <EMAIL@ADDRESS>\nLanguage: de_DE\nLanguage-Team: de_DE <LL@li.org>\nPlural-Forms: nplurals=2; plural=(n != 1)\nMIME-Version: 1.0\nContent-Type: text/plain; charset=utf-8\nContent-Transfer-Encoding: 8bit\nGenerated-By: Babel 2.2.0\n",
+    "" : "Project-Id-Version: PROJECT VERSION\nReport-Msgid-Bugs-To: EMAIL@ADDRESS\nPOT-Creation-Date: 2016-02-10 13:52+0100\nPO-Revision-Date: 2016-01-09 16:36+0100\nLast-Translator: FULL NAME <EMAIL@ADDRESS>\nLanguage: de_DE\nLanguage-Team: de_DE <LL@li.org>\nPlural-Forms: nplurals=2; plural=(n != 1)\nMIME-Version: 1.0\nContent-Type: text/plain; charset=utf-8\nContent-Transfer-Encoding: 8bit\nGenerated-By: Babel 2.2.0\n",
     "English" : "Englisch",
     "German" : "Deutsch",
     "invalid_captcha" : "Captcha ist nicht valide",
@@ -103,10 +103,12 @@
     "loginerror_please_login_first" : "Bitte melde dich zuerst an!",
     "my_notebooks" : "Meine Hefte",
     "shared_notebooks" : "Für mich freigebene Hefte",
+    "collaboration_notebook_exit_warnmessage" : "Bist du sicher, dass du an diesem Heft nicht mehr teilnehmen möchtest? Du wirst dieses Heft nachher nicht mehr ansehen oder bearbeiten können!",
     "wrong_login_credentials" : "E-Mail Adresse oder Passwort falsch!",
     "success_validate" : "Deine E-Mail Adresse wurde erfolgreich bestätigt!",
     "notebookname_already_used" : "Dieser Name ist bereits vergeben!",
     "collaborator_already_in_use" : "Dieser User wurde bereits hinzugefügt!",
+    "collaboration_error_own_user" : "Du kannst dich nicht selbst zu deinem eigenen Heft einladen!",
     "no_user" : "Dieser User existiert nicht!",
     "error_wrong_password" : "Bitte wiederhole dein aktuelles Passwort!"
 }

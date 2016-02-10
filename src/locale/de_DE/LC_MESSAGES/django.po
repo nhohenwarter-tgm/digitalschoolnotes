@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-02-08 12:49+0100\n"
+"POT-Creation-Date: 2016-02-10 13:52+0100\n"
 "PO-Revision-Date: 2016-01-09 16:36+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: de_DE\n"
@@ -443,6 +443,11 @@ msgstr "Meine Hefte"
 msgid "shared_notebooks"
 msgstr "Für mich freigebene Hefte"
 
+#: ../dsn/static/js/translations.js:96
+msgid "collaboration_notebook_exit_warnmessage"
+msgstr "Bist du sicher, dass du an diesem Heft nicht mehr teilnehmen möchtest? "
+"Du wirst dieses Heft nachher nicht mehr ansehen oder bearbeiten können!"
+
 #: ../dsn/views/mainpage_views.py:83 ../dsn/views/mainpage_views.py:94
 msgid "wrong_login_credentials"
 msgstr "E-Mail Adresse oder Passwort falsch!"
@@ -460,10 +465,14 @@ msgid "collaborator_already_in_use"
 msgstr "Dieser User wurde bereits hinzugefügt!"
 
 #: ../dsn/views/management_views.py:161
+msgid "collaboration_error_own_user"
+msgstr "Du kannst dich nicht selbst zu deinem eigenen Heft einladen!"
+
+#: ../dsn/views/management_views.py:166
 msgid "no_user"
 msgstr "Dieser User existiert nicht!"
 
-#: ../dsn/views/management_views.py:375 ../dsn/views/management_views.py:381
+#: ../dsn/views/management_views.py:389 ../dsn/views/management_views.py:395
 msgid "error_wrong_password"
 msgstr "Bitte wiederhole dein aktuelles Passwort!"
 

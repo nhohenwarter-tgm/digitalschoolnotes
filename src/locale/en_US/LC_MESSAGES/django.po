@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-02-08 12:49+0100\n"
+"POT-Creation-Date: 2016-02-10 13:52+0100\n"
 "PO-Revision-Date: 2016-01-09 16:38+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en_US\n"
@@ -442,6 +442,11 @@ msgstr "My notebooks"
 msgid "shared_notebooks"
 msgstr "Shared notebooks"
 
+#: ../dsn/static/js/translations.js:96
+msgid "collaboration_notebook_exit_warnmessage"
+msgstr "Are you sure you want to remove yourself as collaborator from this notebook? "
+"You won't be able to see or edit this notebook anymore after this action!"
+
 #: ../dsn/views/mainpage_views.py:83 ../dsn/views/mainpage_views.py:94
 msgid "wrong_login_credentials"
 msgstr "Wrong username or email!"
@@ -459,10 +464,14 @@ msgid "collaborator_already_in_use"
 msgstr "This user is already set as collaborator"
 
 #: ../dsn/views/management_views.py:161
+msgid "collaboration_error_own_user"
+msgstr "You can't add yourself as collaborator!"
+
+#: ../dsn/views/management_views.py:166
 msgid "no_user"
 msgstr "This user does not exist!"
 
-#: ../dsn/views/management_views.py:375 ../dsn/views/management_views.py:381
+#: ../dsn/views/management_views.py:389 ../dsn/views/management_views.py:395
 msgid "error_wrong_password"
 msgstr "Please insert your current password!"
 
