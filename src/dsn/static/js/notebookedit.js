@@ -403,6 +403,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     $scope.uploadOCRFile = function(){
          var file = $scope.ocrFile;
         if((file.type == "image/jpeg" || file.type == "image/png" || file.type == "image/gif") && file.size < 5242880) {//5MByte
+         $scope.errormessage = "";
          var uploadUrl = "/api/analyseOCR";
          var message = fileUpload.uploadFileToUrl(file, uploadUrl);
          message.then(function(data) {
@@ -411,9 +412,18 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
              $window.location.reload();
              $window.location.reload();
          });
-            
+            ngDialog.close({
+            template: 'ocrFileDialog',
+            controller: 'notebookEditCtrl',
+            className: 'ngdialog-theme-default',
+            scope: $scope
+                });
         }else{
-             alert("file size is more than 5MB");
+             if(file.size < 5242880) {
+                 $scope.errormessage = "file size is more than 5MB";
+             }else{
+                 $scope.errormessage = "filetyp is not supported";
+             }
          }
     };
 
@@ -432,6 +442,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
          console.log('file is ' );
          console.dir(file);
          if((file.type == "image/jpeg" || file.type == "image/png" || file.type == "image/gif") && file.size < 5242880) {//5MByte
+             $scope.errormessage = "";
              var uploadUrl = "/api/notebook/upload";
              var message = fileUpload.uploadFileToUrl(file, uploadUrl);
              message.then(function (data) {
@@ -452,7 +463,12 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
             scope: $scope
         });
          }else{
-             alert("file size is more than 5MB");
+             if(file.size < 5242880) {
+                 $scope.errormessage = "file size is more than 5MB";
+             }else{
+                 $scope.errormessage = "filetyp is not supported";
+             }
+             //alert("file size is more than 5MB");
          }
      };
 
