@@ -37,50 +37,6 @@ administrationApp.config(function ($stateProvider, $urlRouterProvider, $location
         }
     });
 
-    // BILLS
-    $stateProvider.state('admin.bills', {
-        url: '',
-        templateUrl: '/admin/admin_bills.html',
-        controller: 'billsCtrl',
-        data: {
-            authorization: true,
-            admin: true
-        }
-    });
-
-    // LDAP CONFIGURATION
-    $stateProvider.state('admin.ldapConfiguration', {
-        url: '',
-        templateUrl: '/admin/admin_ldapConfiguration.html',
-        controller: 'ldapConfigurationCtrl',
-        data: {
-            authorization: true,
-            admin: true
-        }
-    });
-
-    // USER QUOTAS
-    $stateProvider.state('admin.userquotas', {
-        url: '',
-        templateUrl: '/admin/admin_userquotas.html',
-        controller: 'userquotasCtrl',
-        data: {
-            authorization: true,
-            admin: true
-        }
-    });
-
-    // STATISTICS
-    $stateProvider.state('admin.statistics', {
-        url: '',
-        templateUrl: '/admin/admin_statistics.html',
-        controller: 'statisticsCtrl',
-        data: {
-            authorization: true,
-            admin: true
-        }
-    });
-
     $locationProvider.html5Mode(true);
 
     // CSRF TOKEN
