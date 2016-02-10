@@ -96,7 +96,7 @@ mainApp.controller('managementCtrl', function ($scope, $http, $state, $translate
     };
 });
 
-mainApp.controller('accsettingsCtrl', function ($scope, $http, $window, $state, loggedIn) {
+mainApp.controller('accsettingsCtrl', function ($scope, $http, $window, $state, $translate, loggedIn) {
     $http({
         method: 'POST',
         url: '/api/get_userSettings',
@@ -129,20 +129,22 @@ mainApp.controller('accsettingsCtrl', function ($scope, $http, $window, $state, 
         var password_repeat = $scope.pwdrepeat;
         if(password_new == null){
             password_new="";
-        }else{
-            if(password_new != password_repeat) {
-                $scope.error = true;
-                $translate("error_password_dontmatch").then(function(message){
-                    $scope.reset_error = message+"\n";
-                });
-            }
+        }
+        if(password_new != password_repeat) {
+            $scope.error = true;
+            $translate("error_password_dontmatch").then(function(message){
+                $scope.error_pwmatch = message+"\n";
+            });
         }
 
-        if(password_new != "") {
-            password_new = CryptoJS.SHA256(password_new);
-        }
-        password_old = CryptoJS.SHA256(password_old);
+
+
         if($scope.editUser.$valid && $scope.error ==false) {
+            if(password_new != "") {
+                password_new = CryptoJS.SHA256(password_new);
+            }
+            password_old = CryptoJS.SHA256(password_old);
+
             $http({
                 method: 'POST',
                 url: '/api/user_edit',

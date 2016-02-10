@@ -380,19 +380,16 @@ def view_editUser(request):
     if request.method == "POST":
         params = json.loads(request.body.decode('utf-8'))
         user = request.user
-        user.first_name=params['first_name']
-        user.last_name=params['last_name']
         if params['password']!= "":
             if user.check_password(params['password_old']) == True:
                 user.set_password(params['password'])
             else:
                 return JsonResponse({'message': _("error_wrong_password")})
-        user.first_name = params['first_name']
-        user.last_name = params['last_name']
-        if user.check_password(params['password_old']) == True:
-            user.set_password(params['password'])
-        else:
-            return JsonResponse({'message': _("error_wrong_password")})
+
+
+        user.first_name=params['first_name']
+        user.last_name=params['last_name']
+
         user.save()
         if user.email != params['email']:
             user.email = params['email']

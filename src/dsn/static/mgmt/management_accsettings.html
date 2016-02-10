@@ -50,6 +50,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <p  style="color: red;" ng-show="(submitted || editUser.pwdrepeat.$dirty) && editUser.pwdrepeat.$error.required" translate="error_password_dontmatch"></p>
+                                <p style="color: red;" ng-show="error">{{ error_pwmatch }}</p>
                                 <input class="form-control" id="pwdrepeat" type="password" placeholder="{{ 'password_repeat' | translate }}" name="pwdrepeat" ng-model="pwdrepeat" style="width: 100%;"  />
                             </div>
                         </div>
