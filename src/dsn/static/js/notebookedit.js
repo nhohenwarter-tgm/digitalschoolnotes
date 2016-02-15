@@ -8,7 +8,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     $scope.models = {'code': {}, 'textarea': {}, 'image' : {}};
     $scope.additem = false;
     $scope.wf = false;
-    $scope.active = false;
+    $scope.active = true;
 
     // ADDITIONAL FUNCTIONS
 
@@ -77,14 +77,20 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         });
     });
 
-    $scope.getColor = function(){
+    $scope.getColor = function(id, art){
+        $http({
+            method: 'POST',
+            url: '/api/notebook_isactive',
+            data: {id: $stateParams.id, content_id: id, content_art: art}
+        }).success(function (data) {
+            if(data['active']){
+                return 'red';
+            }else{
+                return 'white';
+            }
+        });
+    };
 
-        if($scope.active){
-            return 'red';
-        }else{
-            return 'white';
-        }
-    }
     $scope.initElemModels = function () {
         for (var j = 0; j < $scope.content.length; j++) {
             if ($scope.content[j]['art'] == 'code') {
@@ -224,8 +230,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
             $http({
                 method: 'POST',
                 url: '/api/edit_notebook_content',
-                data: {id: $stateParams.id, content_id: id, content_art: art, content_data: data, is_active: active
-                }
+                data: {id: $stateParams.id, content_id: id, content_art: art, content_data: data, is_active: active}
             }).success(function (data) {
                 $scope.notebook = JSON.parse(data['notebook']);
                 $scope.content = $scope.notebook['content'];
@@ -282,7 +287,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
                 $scope.editelement(id, art, {
                     "data": $scope.models[art][id][0],
                     "language": $scope.models['code'][id][1]
-                }, false);
+                },false);
             }else {
                 $scope.editelement(id, art, {"data": $scope.models[art][id]},false);
             }

@@ -46,6 +46,7 @@ urlpatterns = [
     url(r'^api/add_notebook_content', 'dsn.views.management_views.view_add_notebook_content', name="addNotebookContent"),
     url(r'^api/delete_notebook_content', 'dsn.views.management_views.view_delete_notebook_content', name="delteNotebookContent"),
     url(r'^api/edit_notebook_content', 'dsn.views.management_views.view_edit_notebook_content', name="edit1NotebookContent"),
+    url(r'^api/notebook_isactive', 'dsn.views.management_views.view_get_is_active', name="notebookisactive"),
     url(r'^api/edit_notebook_collaborator', 'dsn.views.management_views.view_checkCollaborator', name="checkCollaborator"),
     url(r'^api/remove_notebook_collaborator', 'dsn.views.management_views.view_removeCollaborator', name="removeCollaborator"),
     url(r'^api/edit_content_position', 'dsn.views.management_views.view_edit_content_position', name="editContentPosition"),

@@ -266,6 +266,16 @@ def view_edit_notebook_content(request):
         notebook = Notebook.objects.get(id=params['id']).to_json()
         return JsonResponse({"notebook": notebook})
 
+def view_get_is_active(request):
+    if not request.user.is_authenticated():
+        return JsonResponse({})
+    if request.method == "POST":
+        params = json.loads(request.body.decode('utf-8'))
+        notebook = Notebook.objects.get(id=params['id'])
+        findnotebook = next(item for item in notebook.content if item["id"] == params['content_id'] and item["art"] == params['content_art'])
+        return JsonResponse({"active":  findnotebook.is_active})
+
+
 def view_import_notebook_content(request):
     if not request.user.is_authenticated():
         return JsonResponse({})
