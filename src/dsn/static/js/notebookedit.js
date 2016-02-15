@@ -134,6 +134,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
                     $scope.currentPage = page;
                     $scope.notebook = JSON.parse(data['notebook']);
                 });
+                $scope.update();
             }
             if ($scope.currentPage == $scope.notebook['numpages']) {
                 $scope.additem = false;
@@ -373,18 +374,27 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     };
 
     $scope.exportSite = function () {
-        ngDialog.open({
-            template: 'exportCode',
-            className: 'ngdialog-theme-default',
-            scope: $scope
-        });
         $http({
             method: 'POST',
             url: '/api/get_notebooks'
         })
             .success(function (data) {
                 $scope.notebooks = JSON.parse(data['notebooks']);
-                delete $scope.notebooks[0];
+                $http({
+                    method: 'POST',
+                    url: '/api/get_collnotebooks'
+                })
+                    .success(function (data) {
+                        $scope.notebooks=$scope.notebooks.concat(JSON.parse(data['notebooks']));
+                        alert(JSON.stringify($scope.notebooks));
+                        ngDialog.open({
+                            template: 'exportCode',
+                            className: 'ngdialog-theme-default',
+                            scope: $scope
+                        });
+                    })
+                    .error(function (data) {
+                    });
             })
             .error(function (data) {
             });
@@ -393,6 +403,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     $scope.uploadOCRFile = function(){
          var file = $scope.ocrFile;
         if((file.type == "image/jpeg" || file.type == "image/png" || file.type == "image/gif") && file.size < 5242880) {//5MByte
+         $scope.errormessage = "";
          var uploadUrl = "/api/analyseOCR";
          var message = fileUpload.uploadFileToUrl(file, uploadUrl);
          message.then(function(data) {
@@ -401,9 +412,18 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
              $window.location.reload();
              $window.location.reload();
          });
-            
+            ngDialog.close({
+            template: 'ocrFileDialog',
+            controller: 'notebookEditCtrl',
+            className: 'ngdialog-theme-default',
+            scope: $scope
+                });
         }else{
-             alert("file size is more than 5MB");
+             if(file.size < 5242880) {
+                 $scope.errormessage = "file size is more than 5MB";
+             }else{
+                 $scope.errormessage = "filetyp is not supported";
+             }
          }
     };
 
@@ -422,6 +442,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
          console.log('file is ' );
          console.dir(file);
          if((file.type == "image/jpeg" || file.type == "image/png" || file.type == "image/gif") && file.size < 5242880) {//5MByte
+             $scope.errormessage = "";
              var uploadUrl = "/api/notebook/upload";
              var message = fileUpload.uploadFileToUrl(file, uploadUrl);
              message.then(function (data) {
@@ -442,7 +463,12 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
             scope: $scope
         });
          }else{
-             alert("file size is more than 5MB");
+             if(file.size < 5242880) {
+                 $scope.errormessage = "file size is more than 5MB";
+             }else{
+                 $scope.errormessage = "filetyp is not supported";
+             }
+             //alert("file size is more than 5MB");
          }
      };
 

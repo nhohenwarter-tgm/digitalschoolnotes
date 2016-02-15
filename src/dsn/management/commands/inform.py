@@ -22,6 +22,6 @@ class Command(BaseCommand):
                 enddate = datetime.now()+ timedelta(days=7)
                 until = date(enddate.year, enddate.month, enddate.day)
                 inactivemail(user.email, user.first_name, "https://digitalschoolnotes.com/login", until)
-                print("send "+user.email)
+                #print("send "+user.email)
             if month == 3 and day == 7:#User delete
                 delete_account(user)

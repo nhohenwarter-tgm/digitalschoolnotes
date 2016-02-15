@@ -36,7 +36,7 @@ public class TimetableView extends TestCase{
     }
 
     /**
-     * Testet ob ein Heft einer fremden Person geöffnet werden kann
+     * Testet ob der Stundenolan angezeigt wird
      * @throws Exception
      */
     @Test
@@ -48,6 +48,17 @@ public class TimetableView extends TestCase{
         assertFalse(!driver.findElement(By.xpath("//*[contains(text(), 'Montag')]")).isDisplayed());
         assertFalse(!driver.findElement(By.xpath("//*[contains(text(), 'Samstag')]")).isDisplayed());
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
+    }
+
+    /**
+     * Testet ob ein Heft einer fremden Person geöffnet werden kann
+     * @throws Exception
+     */
+    @Test
+    public void testOpenNotebookViaTimetable() throws Exception {
+        driver.get(baseUrl + "/management");
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.xpath("//*[contains(text(), 'ng-bind=\"field[11][1]\"')]"));
     }
 
     @After

@@ -125,8 +125,6 @@ public class Login extends TestCase{
         if(!page.contains("Bitte melde dich zuerst an!")) throw new NotFoundException();
     }
 
-
-
     @After
     public void tearDown() throws Exception {
         driver.get(baseUrl + "/logout");
