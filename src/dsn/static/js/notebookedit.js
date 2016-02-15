@@ -8,6 +8,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     $scope.models = {'code': {}, 'textarea': {}, 'image' : {}};
     $scope.additem = false;
     $scope.wf = false;
+    $scope.active = false;
 
     // ADDITIONAL FUNCTIONS
 
@@ -76,6 +77,14 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         });
     });
 
+    $scope.getColor = function(){
+
+        if($scope.active){
+            return 'red';
+        }else{
+            return 'white';
+        }
+    }
     $scope.initElemModels = function () {
         for (var j = 0; j < $scope.content.length; j++) {
             if ($scope.content[j]['art'] == 'code') {

@@ -109,11 +109,14 @@
                                             <!-- Edit -->
                                             <textarea ng-if="editMode == element.id"
                                                       ng-model="models[element.art][element.id]" ckeditor>
+
                                             </textarea>
+                                            <span ng-show="active" class="glyphicon glyphicon-exclamation-sign"
+                                                      style="color: red; cursor: pointer;"></span>
                                             <!-- Read-Only -->
                                             <div ng-if="editMode != element.id"
-                                                 style="border: 1px solid black; min-height: 20px; min-width: 20px; text-align: left; padding:5px;">
-                                                <div ng-bind-html="models[element.art][element.id]" style="word-wrap: break-word;"></div>
+                                                 style="border: 1px solid black; min-height: 20px; min-width: 20px; text-align: left; padding:5px;" ng-style="{ 'background-color': getColor() }">
+                                                <div ng-bind-html="models[element.art][element.id]" style="word-wrap: break-word;" ></div>
                                             </div>
                                         </span>
                                         <!-- CODE ELEMENT -->
@@ -399,7 +402,7 @@
 
 <script type="text/ng-template" id="ocrFileDialog">
     <div class="ngdialog-message">
-        <h2>Analysiere ein Bild (OCR)</h2>
+        <h2>{{ 'analy'| translate }}</h2>
         <div role="alert">
             <span class="error" ng-show="errormessage" style="color:#FF0000">{{ errormessage }}</span>
             <span class="error" ng-show="!ocrFile" style="color:#FF0000">F&uuml;ge deinem Heft ein Bild hinzu.</span>
