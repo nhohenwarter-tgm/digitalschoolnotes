@@ -255,6 +255,7 @@ class NotebookContent(EmbeddedDocument):
     position_y = IntField()
     position_site = IntField()
     data = DictField()
+    is_active = BooleanField(default=False)
 
 
 class Notebook(Document):

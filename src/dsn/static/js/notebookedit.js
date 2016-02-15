@@ -220,11 +220,12 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         $scope.deleteart = art;
     };
 
-    $scope.editelement = function (id, art, data) {
+    $scope.editelement = function (id, art, data, active) {
             $http({
                 method: 'POST',
                 url: '/api/edit_notebook_content',
-                data: {id: $stateParams.id, content_id: id, content_art: art, content_data: data}
+                data: {id: $stateParams.id, content_id: id, content_art: art, content_data: data, is_active: active
+                }
             }).success(function (data) {
                 $scope.notebook = JSON.parse(data['notebook']);
                 $scope.content = $scope.notebook['content'];
@@ -276,13 +277,14 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     $scope.setEditMode = function (edit, id, art) {
         $scope.editMode = edit;
         if(edit == null) {
+            alert("false");
             if (art == 'code') {
                 $scope.editelement(id, art, {
                     "data": $scope.models[art][id][0],
                     "language": $scope.models['code'][id][1]
-                });
+                }, false);
             }else {
-                $scope.editelement(id, art, {"data": $scope.models[art][id]});
+                $scope.editelement(id, art, {"data": $scope.models[art][id]},false);
             }
         }else if(art == 'image') {
                 $scope.editMode = false;
@@ -291,6 +293,10 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
                 $scope.height = $scope.models[art][id][2];
                 $scope.editPicture();
             } else{
+            alert("true");
+            $scope.editelement(id, art, {
+                    "data": $scope.models[art][id][0]
+                }, true);
             $scope.removeDraggables();
         }
     };

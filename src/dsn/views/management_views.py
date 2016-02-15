@@ -261,6 +261,7 @@ def view_edit_notebook_content(request):
         else:
             j = json.loads(str(params['content_data'].replace('\n','\\n')))
         findnotebook.data = j
+        findnotebook.is_active = params['is_active']
         notebook.save()
         notebook = Notebook.objects.get(id=params['id']).to_json()
         return JsonResponse({"notebook": notebook})
