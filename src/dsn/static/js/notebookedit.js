@@ -77,7 +77,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         });
     });
 
-    $scope.getColor = function(id, art){
+    $scope.getColor1 = function(id, art){
         $http({
             method: 'POST',
             url: '/api/notebook_isactive',
@@ -103,8 +103,10 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
                 $scope.models['image'][$scope.content[j]['id']][0] = $scope.content[j]['data']['data'];
                 $scope.models['image'][$scope.content[j]['id']][1] = $scope.content[j]['data']['width'];
                 $scope.models['image'][$scope.content[j]['id']][2] = $scope.content[j]['data']['height'];
+
             }else {
                 $scope.models[$scope.content[j]['art']][$scope.content[j]['id']] = $scope.content[j]['data']['data'];
+
             }
         }
     };

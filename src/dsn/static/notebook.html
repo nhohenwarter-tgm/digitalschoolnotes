@@ -114,8 +114,9 @@
                                             <span ng-show="active" class="glyphicon glyphicon-exclamation-sign"
                                                       style="color: red; cursor: pointer;"></span>
                                             <!-- Read-Only -->
+                                            <!--style="border: 1px solid black; min-height: 20px; min-width: 20px; text-align: left; padding:5px;" ng-style="{ 'background-color': getColor(element.id, element.art) }"> -->
                                             <div ng-if="editMode != element.id"
-                                                 style="border: 1px solid black; min-height: 20px; min-width: 20px; text-align: left; padding:5px;" ng-style="{ 'background-color': getColor(element.id, element.art) }">
+                                                style="border: 1px solid black; min-height: 20px; min-width: 20px; text-align: left; padding:5px;" ng-style="{ 'background-color': models[element.art][element.id][2] }">
                                                 <div ng-bind-html="models[element.art][element.id]" style="word-wrap: break-word; "></div>
                                             </div>
                                         </span>
