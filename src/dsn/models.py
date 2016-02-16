@@ -289,6 +289,8 @@ class TimeTable(Document):
     times=EmbeddedDocumentListField(TimeTableTime)
     fields=EmbeddedDocumentListField(TimeTableField)
 
-
-
+class NotebookLog(Document):
+    notebook_id = ObjectIdField()
+    user = EmailField()
+    last_ping = DateTimeField()
 

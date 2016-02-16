@@ -16,10 +16,8 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                            <a class="navbar-brand glyphicon glyphicon-arrow-left" ui-sref="management.notebooks"
-                               style="color: white; font-size: 30px;">
-
-                            </a>
+                            <a class="navbar-brand glyphicon glyphicon-arrow-left" ng-click="redirectNotebook_2(notebook._id['$oid'])"
+                                   style="color: white; font-size: 30px; cursor: pointer;"></a>
                         </div>
                         <!-- BACK ARROW END -->
                         <!-- TOOLBAR START -->
@@ -165,7 +163,7 @@
                                                      ng-if="editMode != element.id && (models[element.art][element.id][1] == 0 || models[element.art][element.id][2] == 0 )">
                                                 <image ng-src="{{ models[element.art][element.id][0] }}"
                                                        ng-style='{"width": auto,
-                                                        "height": auto' />
+                                                        "height": auto}' />
                                             </section>
                                         </span>
                                         <!-- EDIT / DELETE -->

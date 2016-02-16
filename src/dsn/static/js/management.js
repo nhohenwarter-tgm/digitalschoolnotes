@@ -281,8 +281,27 @@ mainApp.controller('notebooksCtrl', function ($scope, $http, $state, $window, $t
     };
 
     $scope.redirectNotebook = function (id) {
-        $state.go('notebookedit', {'id': id});
+         loggedIn.getUser().then(function (data) {
+                    var user = data['user'];
+                    $http({
+                        method: 'POST',
+                        url: '/api/log_notebook',
+                        headers: {'Content-Type': 'application/json'},
+                        data: {
+                            notebook_id: id,
+                            user: user['email']
+                        }
+                    })
+                        .success(function (data) {
+                            $state.go('notebookedit', {'id': id});
+                        })
+                        .error(function (data) {
+                        });
+
+                });
+
     };
+
 
     $scope.redirectEdit = function (id) {
         $state.go('management.notebook_edit', {'id': id});

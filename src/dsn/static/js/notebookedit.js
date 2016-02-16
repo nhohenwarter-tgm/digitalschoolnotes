@@ -1,6 +1,6 @@
 var mainApp = angular.module('mainApp');
 
-mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $sce, $window, loggedIn, ngDialog, $timeout,$filter, fileUpload) {
+mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $sce, $window, loggedIn, ngDialog, $timeout, $state, $filter, fileUpload) {
 
     $scope.publicViewed = true;
     $scope.currentPage = 1;
@@ -212,16 +212,16 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     };
 
     $scope.editelement = function (id, art, data, active) {
-            $http({
-                method: 'POST',
-                url: '/api/edit_notebook_content',
-                data: {id: $stateParams.id, content_id: id, content_art: art, content_data: data, is_active: active
-                }
-            }).success(function (data) {
-                $scope.notebook = JSON.parse(data['notebook']);
-                $scope.content = $scope.notebook['content'];
-                $scope.update();
-            });
+        $http({
+            method: 'POST',
+            url: '/api/edit_notebook_content',
+            data: {id: $stateParams.id, content_id: id, content_art: art, content_data: data, is_active: active
+            }
+        }).success(function (data) {
+            $scope.notebook = JSON.parse(data['notebook']);
+            $scope.content = $scope.notebook['content'];
+            $scope.update();
+        });
     };
 
     $scope.codeModeEdit = function (id, art){
@@ -278,16 +278,16 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
                 $scope.editelement(id, art, {"data": $scope.models[art][id]},false);
             }
         }else if(art == 'image') {
-                $scope.editMode = false;
-                $scope.idimage = id;
-                $scope.width = $scope.models[art][id][1];
-                $scope.height = $scope.models[art][id][2];
-                $scope.editPicture();
-            } else{
+            $scope.editMode = false;
+            $scope.idimage = id;
+            $scope.width = $scope.models[art][id][1];
+            $scope.height = $scope.models[art][id][2];
+            $scope.editPicture();
+        } else{
             alert("true");
             $scope.editelement(id, art, {
-                    "data": $scope.models[art][id][0]
-                }, true);
+                "data": $scope.models[art][id][0]
+            }, true);
             $scope.removeDraggables();
         }
     };
@@ -407,30 +407,30 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     };
 
     $scope.uploadOCRFile = function(){
-         var file = $scope.ocrFile;
+        var file = $scope.ocrFile;
         if((file.type == "image/jpeg" || file.type == "image/png" || file.type == "image/gif") && file.size < 5242880) {//5MByte
-         $scope.errormessage = "";
-         var uploadUrl = "/api/analyseOCR";
-         var message = fileUpload.uploadFileToUrl(file, uploadUrl);
-         message.then(function(data) {
-             data_data = "{\"data\":\""+data['ocrt']+"\"}";
-             $scope.addelement('textarea', data_data);
-             $window.location.reload();
-             $window.location.reload();
-         });
+            $scope.errormessage = "";
+            var uploadUrl = "/api/analyseOCR";
+            var message = fileUpload.uploadFileToUrl(file, uploadUrl);
+            message.then(function(data) {
+                data_data = "{\"data\":\""+data['ocrt']+"\"}";
+                $scope.addelement('textarea', data_data);
+                $window.location.reload();
+                $window.location.reload();
+            });
             ngDialog.close({
-            template: 'ocrFileDialog',
-            controller: 'notebookEditCtrl',
-            className: 'ngdialog-theme-default',
-            scope: $scope
-                });
+                template: 'ocrFileDialog',
+                controller: 'notebookEditCtrl',
+                className: 'ngdialog-theme-default',
+                scope: $scope
+            });
         }else{
-             if(file.size < 5242880) {
-                 $scope.errormessage = "file size is more than 5MB";
-             }else{
-                 $scope.errormessage = "filetyp is not supported";
-             }
-         }
+            if(file.size < 5242880) {
+                $scope.errormessage = "file size is more than 5MB";
+            }else{
+                $scope.errormessage = "filetyp is not supported";
+            }
+        }
     };
 
 
@@ -443,40 +443,40 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         });
     };
 
-     $scope.uploadFile = function(){
-         var file = $scope.myFile;
-         console.log('file is ' );
-         console.dir(file);
-         if((file.type == "image/jpeg" || file.type == "image/png" || file.type == "image/gif") && file.size < 5242880) {//5MByte
-             $scope.errormessage = "";
-             var uploadUrl = "/api/notebook/upload";
-             var message = fileUpload.uploadFileToUrl(file, uploadUrl);
-             message.then(function (data) {
-                 var width = 0;
-                 var height = 0;
-                 if ($scope.width){width = $scope.width;}
-                 if ($scope.height){height = $scope.height;}
-                     data_data = "{\"data\":\"" + data['message'] + "\", \"width\":\"" + width + "\", \"height\":\"" + height + "\"}";
-                     $scope.addelement('image', data_data);
-                     $window.location.reload();
-                     $window.location.reload();
+    $scope.uploadFile = function(){
+        var file = $scope.myFile;
+        console.log('file is ' );
+        console.dir(file);
+        if((file.type == "image/jpeg" || file.type == "image/png" || file.type == "image/gif") && file.size < 5242880) {//5MByte
+            $scope.errormessage = "";
+            var uploadUrl = "/api/notebook/upload";
+            var message = fileUpload.uploadFileToUrl(file, uploadUrl);
+            message.then(function (data) {
+                var width = 0;
+                var height = 0;
+                if ($scope.width){width = $scope.width;}
+                if ($scope.height){height = $scope.height;}
+                data_data = "{\"data\":\"" + data['message'] + "\", \"width\":\"" + width + "\", \"height\":\"" + height + "\"}";
+                $scope.addelement('image', data_data);
+                $window.location.reload();
+                $window.location.reload();
 
-             });
-             ngDialog.close({
-            template: 'addPicture',
-            controller: 'notebookEditCtrl',
-            className: 'ngdialog-theme-default',
-            scope: $scope
-        });
-         }else{
-             if(file.size < 5242880) {
-                 $scope.errormessage = "file size is more than 5MB";
-             }else{
-                 $scope.errormessage = "filetyp is not supported";
-             }
-             //alert("file size is more than 5MB");
-         }
-     };
+            });
+            ngDialog.close({
+                template: 'addPicture',
+                controller: 'notebookEditCtrl',
+                className: 'ngdialog-theme-default',
+                scope: $scope
+            });
+        }else{
+            if(file.size < 5242880) {
+                $scope.errormessage = "file size is more than 5MB";
+            }else{
+                $scope.errormessage = "filetyp is not supported";
+            }
+            //alert("file size is more than 5MB");
+        }
+    };
 
     //Picture Element Validatation
     $scope.onlyNumbers = function(){
@@ -534,7 +534,23 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         }
         if(flagw && flagh)$scope.showError = false;
 
-    }
+    };
+
+    $scope.redirectNotebook_2 = function (id) {
+        $http({
+            method: 'POST',
+            url: '/api/notebook_logout',
+            headers: {'Content-Type': 'application/json'},
+            data: {
+                notebook_id: id
+            }
+        })
+            .success(function (data) {
+                $state.go('management.notebooks');
+            })
+            .error(function (data) {
+            });
+    };
 
 });
 
@@ -556,7 +572,7 @@ mainApp.directive('fileModel', ['$parse', function ($parse) {
     };
 }]);
 
- mainApp.service('fileUpload', ['$http', '$q', function ($http, $q) {
+mainApp.service('fileUpload', ['$http', '$q', function ($http, $q) {
     this.uploadFileToUrl = function(file, uploadUrl){
         var fd = new FormData();
         fd.append('file', file);
@@ -887,7 +903,7 @@ function setPosBottom(element) {
         this.hoverEdit = false;
     };
 
-*/
+ */
 
 /**
  mainApp.directive('compile', ['$compile', function ($compile) {
