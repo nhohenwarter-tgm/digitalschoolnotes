@@ -5,6 +5,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import util.Parameters;
 
 import java.util.Random;
@@ -56,7 +57,11 @@ public class DeleteNotebook extends TestCase{
         String page = driver.getPageSource();
         if (!page.contains("Test"+randomInt)) throw new NotFoundException();
 
-        driver.findElement(By.id("deleteNotebook")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        Actions builder = new Actions(driver);
+        builder.moveToElement(driver.findElement(By.id("Test"+randomInt))).perform();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.id("Test"+randomInt+"_delete")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
         driver.findElement(By.id("submit")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
