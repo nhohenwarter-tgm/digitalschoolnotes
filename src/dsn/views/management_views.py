@@ -299,7 +299,10 @@ def view_get_is_active(request):
     if request.method == "POST":
         params = json.loads(request.body.decode('utf-8'))
         notebook = Notebook.objects.get(id=params['id'])
-        findnotebook = next(item for item in notebook.content if item["id"] == params['content_id'] and item["art"] == params['content_art'])
+        content = notebook.content
+        print(params['content_id'])
+        print(params['content_art'])
+        findnotebook = next(item for item in content if item["id"] == params['content_id'] and item["art"] == params['content_art'])
         return JsonResponse({"active":  findnotebook.is_active})
 
 
@@ -331,6 +334,8 @@ def view_edit_content_position(request):
         params = json.loads(request.body.decode('utf-8'))
         notebook = Notebook.objects.get(id=params['id'])
         content = notebook.content
+        print(params['content_id'])
+        print(params['content_art'])
         findnotebook = next(item for item in content if item["id"] == params['content_id'] and item["art"] == params['content_art'])
         findnotebook.position_x = params['pos_x']
         findnotebook.position_y = params['pos_y']

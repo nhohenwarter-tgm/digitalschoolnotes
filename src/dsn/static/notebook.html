@@ -106,16 +106,15 @@
                                         <span ng-if="element.art == 'textarea'" style="word-wrap: break-word;">
                                             <!-- Edit -->
                                             <textarea ng-if="editMode == element.id"
-                                                      ng-model="models[element.art][element.id]" ckeditor>
+                                                      ng-model="models[element.art][element.id][0]" ckeditor>
 
                                             </textarea>
                                             <span ng-show="active" class="glyphicon glyphicon-exclamation-sign"
-                                                      style="color: red; cursor: pointer;"></span>
+                                                      ng-style='{"color": models[element.art][element.id][1], "cursor": "pointer"}'></span>
                                             <!-- Read-Only -->
-                                            <!--style="border: 1px solid black; min-height: 20px; min-width: 20px; text-align: left; padding:5px;" ng-style="{ 'background-color': getColor(element.id, element.art) }"> -->
                                             <div ng-if="editMode != element.id"
-                                                style="border: 1px solid black; min-height: 20px; min-width: 20px; text-align: left; padding:5px;" ng-style="{ 'background-color': models[element.art][element.id][2] }">
-                                                <div ng-bind-html="models[element.art][element.id]" style="word-wrap: break-word; "></div>
+                                                 style="border: 1px solid black; min-height: 20px; min-width: 20px; text-align: left; padding:5px;">
+                                                <div ng-bind-html="models[element.art][element.id][0]" style="word-wrap: break-word; "></div>
                                             </div>
                                         </span>
                                         <!-- CODE ELEMENT -->
@@ -131,6 +130,8 @@
                                                 <!--<select ng-model="models[element.art][element.id][1]" ng-options="m for m in modes"
                                                         ng-change="modeChanged(element.id)"></select> -->
                                             </section>
+                                            <span ng-show="active" class="glyphicon glyphicon-exclamation-sign"
+                                                      ng-style='{"color": models[element.art][element.id][2], "cursor": "pointer"}'></span>
                                             <!-- Read-Only -->
                                             <section id="{{ element.art }}_{{ element.id }}"
                                                      ng-if="editMode != element.id">

@@ -442,17 +442,17 @@ mainApp.controller('notebooksCtrl', function ($scope, $http, $state, $window, $t
     };
 });
 
-mainApp.controller('timetableCtrl', function ($scope, $http, $state) {
+mainApp.controller('timetableCtrl', function ($scope, $http, $state, ngDialog, $timeout) {
     $scope.activeRow = null;
     $scope.activeID = null;
     $scope.editMode = false;
+    $scope.test = "A";
 
     $scope.getFields=function($fieldlist){
         var fields={};
         for(var i = 0;i<$fieldlist.length;i++){
             fields[$fieldlist[i]["id"]]=[$fieldlist[i]["subject"],$fieldlist[i]["teacher"],$fieldlist[i]["room"],$fieldlist[i]["notebook"]];
         }
-
         return fields;
     };
 
@@ -506,7 +506,6 @@ mainApp.controller('timetableCtrl', function ($scope, $http, $state) {
 
             });
     };
-
     $scope.getNotebooks();
     $scope.getTimetable();
 
@@ -515,22 +514,26 @@ mainApp.controller('timetableCtrl', function ($scope, $http, $state) {
         var teacher = $scope.teacher;
         var room = $scope.room;
         var notebook = $scope.notebook;
-        if($scope.timetable.$valid) {
-            $http({
-                method: 'POST',
-                url: '/api/timetable_add',
-                headers: {'Content-Type': 'application/json'},
-                data: {subject: subject, teacher: teacher, room: room, notebook: notebook, fieldId: $scope.activeID}
-            })
-                .success(function (data) {
-                    $scope.getTimetable();
-                })
-                .error(function (data) {
+        $http({
+            method: 'POST',
+            url: '/api/timetable_add',
+            headers: {'Content-Type': 'application/json'},
+            data: {subject: subject, teacher: teacher, room: room, notebook: notebook, fieldId: $scope.ngDialogData.fieldId}
+        })
+            .success(function (data) {
+                $scope.getTimetable();
+                alert("A");
 
-                });
-            $scope.activeID = null;
-        }
+                //$scope.test = "B";
+                scope.evalAsync(function(scope){
+                    $scope.field[1][0] = "A";
+                })
+            })
+            .error(function (data) {
+            });
+        $scope.activeID = null;
     };
+
     $scope.show=function($feldId) {
         if($scope.editMode) {
             if ($feldId == $scope.activeID) {
@@ -543,6 +546,7 @@ mainApp.controller('timetableCtrl', function ($scope, $http, $state) {
             $scope.notebook = $scope.field[$feldId][3];
             $scope.activeID = $feldId;
             $scope.activeRow = null;
+            $scope.edittimetableDialog();
         }else{
             if($scope.field[$feldId][3] != "") {
                 $http({
@@ -575,6 +579,26 @@ mainApp.controller('timetableCtrl', function ($scope, $http, $state) {
         }
     };
 
+    $scope.edittimetableDialog = function () {
+        ngDialog.open({
+            template: 'edittimetable',
+            controller: 'timetableCtrl',
+            className: 'ngdialog-theme-default',
+            scope: $scope,
+            data: {'fieldId': $scope.activeID}
+        });
+    };
+
+    $scope.edittimetabletimeDialog = function () {
+        ngDialog.open({
+            template: 'edittime',
+            controller: 'timetableCtrl',
+            className: 'ngdialog-theme-default',
+            scope: $scope,
+            data: {'rowId': $scope.activeRow}
+        });
+    };
+
     $scope.showZ=function($rowId){
         if($scope.editMode) {
             if ($rowId == $scope.activeRow) {
@@ -585,6 +609,7 @@ mainApp.controller('timetableCtrl', function ($scope, $http, $state) {
             $scope.end = $scope.times[$rowId][1];
             $scope.activeRow = $rowId;
             $scope.activeID = null;
+            $scope.edittimetabletimeDialog();
         }
     };
 
@@ -596,10 +621,11 @@ mainApp.controller('timetableCtrl', function ($scope, $http, $state) {
                 method: 'POST',
                 url: '/api/timetabletimes',
                 headers: {'Content-Type': 'application/json'},
-                data: {start: start, end: end, rowId: $scope.activeRow}
+                data: {start: start, end: end, rowId: $scope.ngDialogData.rowId}
             })
                 .success(function (data) {
                     $scope.getTimetable();
+
                 })
                 .error(function (data) {
 

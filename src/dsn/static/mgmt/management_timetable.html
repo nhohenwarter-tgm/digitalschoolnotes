@@ -1,146 +1,197 @@
 <div ng-mouseenter="options=true" ng-mouseleave="options=false">
-<div>
-    <h2 style="text-align: center; padding-bottom: 15px;">
-        <span translate="menu_timetable"></span>
-        <span id="timetableToggleEdit" ng-show="options" style="font-size: 15px; cursor: pointer; padding: 0px;" ng-click="setEditMode(true)">
+    <div>
+        <h2 style="text-align: center; padding-bottom: 15px;">
+            <span translate="menu_timetable"></span>
+        <span id="timetableToggleEdit" ng-show="options" style="font-size: 15px; cursor: pointer; padding: 0px;"
+              ng-click="setEditMode(true)">
             <span class="glyphicon glyphicon-cog" style="padding-right: 5px;"></span>
         </span>
-    </h2>
-</div>
-<div style="color: red; text-align: center; padding-bottom: 10px;" ng-show="editMode">
-    <span translate="editmode_activated"></span>
-    <span style="cursor: pointer; text-decoration: underline;" ng-click="setEditMode(false)" translate="editmode_end"></span>
-</div>
-<div style="color: red; text-align: center; padding-bottom: 10px;" ng-bind="timetableError">
-</div>
-
-<table width="85%" align="center" style="table-layout: fixed; word-wrap: break-word">
-    <div id="head_nav">
-        <tr>
-            <th class="timetable-th" style="width: 14.2%;" translate="time"></th>
-            <th class="timetable-th" style="width: 14.2%;" translate="monday"></th>
-            <th class="timetable-th" style="width: 14.2%;" translate="tuesday"></th>
-            <th class="timetable-th" style="width: 14.2%;" translate="wednesday"></th>
-            <th class="timetable-th" style="width: 14.2%;" translate="thursday"></th>
-            <th class="timetable-th" style="width: 14.2%;" translate="friday"></th>
-            <th class="timetable-th" style="width: 14.2%;" translate="saturday"></th>
-        </tr>
+        </h2>
+    </div>
+    <div style="color: red; text-align: center; padding-bottom: 10px;" ng-show="editMode">
+        <span translate="editmode_activated"></span>
+        <span style="cursor: pointer; text-decoration: underline;" ng-click="setEditMode(false)"
+              translate="editmode_end"></span>
+    </div>
+    <div style="color: red; text-align: center; padding-bottom: 10px;" ng-bind="timetableError">
     </div>
 
-    <tr ng-repeat="x in getTimesNumberArray()">
-        <th class="timetable-th" id="times_{{ x }}">
-            <div ng-click="showZ(x)">
-                <span ng-bind="times[x][0]"></span> -
-                <span ng-bind="times[x][1]"></span>
-            </div>
-        </th>
+    <table width="85%" align="center" style="table-layout: fixed; word-wrap: break-word">
+        <div id="head_nav">
+            <tr>
+                <th class="timetable-th" style="width: 14.2%;" translate="time"></th>
+                <th class="timetable-th" style="width: 14.2%;" translate="monday"></th>
+                <th class="timetable-th" style="width: 14.2%;" translate="tuesday"></th>
+                <th class="timetable-th" style="width: 14.2%;" translate="wednesday"></th>
+                <th class="timetable-th" style="width: 14.2%;" translate="thursday"></th>
+                <th class="timetable-th" style="width: 14.2%;" translate="friday"></th>
+                <th class="timetable-th" style="width: 14.2%;" translate="saturday"></th>
+            </tr>
+        </div>
 
-        <td class="timetable-td" ng-click="show(x*10+1)" ng-class="activeID == {{ x*10+1}} && 'timetable-selected'"
+        <tr ng-repeat="x in getTimesNumberArray()">
+            <th class="timetable-th" id="times_{{ x }}">
+                <div ng-click="showZ(x)">
+                    <span ng-bind="times[x][0]"></span> -
+                    <span ng-bind="times[x][1]"></span>
+                </div>
+            </th>
+            <td class="timetable-td" ng-click="show(x*10+1)" ng-class="activeID == {{ x*10+1}} && 'timetable-selected'"
                 id="lesson_monday_{{ x }}">
-            <b><div ng-bind="field[{{ x*10+1}}][0]"></div></b>
-            <span ng-bind="field[{{ x*10+1}}][1]"></span>
-            <span ng-bind="field[{{ x*10+1}}][2]"></span>
-        </td>
-        <td class="timetable-td" ng-click="show(x*10+2)" ng-class="activeID == {{ x*10+2}} && 'timetable-selected'"
+                <b>
+                    <div ng-bind="field[{{ x*10+1}}][0]"></div>
+                </b>
+                <span ng-bind="field[{{ x*10+1}}][1]"></span>
+                <span ng-bind="field[{{ x*10+1}}][2]"></span>
+            </td>
+            <td class="timetable-td" ng-click="show(x*10+2)" ng-class="activeID == {{ x*10+2}} && 'timetable-selected'"
                 id="lesson_tuesday_{{ x }}">
-            <b><div ng-bind="field[{{ x*10+2}}][0]"></div></b>
-            <span ng-bind="field[{{ x*10+2}}][1]"></span>
-            <span ng-bind="field[{{ x*10+2}}][2]"></span>
-        </td>
-        <td class="timetable-td" ng-click="show(x*10+3)" ng-class="activeID == {{ x*10+3}} && 'timetable-selected'"
+                <b>
+                    <div ng-bind="field[{{ x*10+2}}][0]"></div>
+                </b>
+                <span ng-bind="field[{{ x*10+2}}][1]"></span>
+                <span ng-bind="field[{{ x*10+2}}][2]"></span>
+            </td>
+            <td class="timetable-td" ng-click="show(x*10+3)" ng-class="activeID == {{ x*10+3}} && 'timetable-selected'"
                 id="lesson_wednesday_{{ x }}">
-            <b><div ng-bind="field[{{ x*10+3}}][0]"></div></b>
-            <span ng-bind="field[{{ x*10+3}}][1]"></span>
-            <span ng-bind="field[{{ x*10+3}}][2]"></span>
-        </td>
-        <td class="timetable-td" ng-click="show(x*10+4)" ng-class="activeID == {{ x*10+4}} && 'timetable-selected'"
+                <b>
+                    <div ng-bind="field[{{ x*10+3}}][0]"></div>
+                </b>
+                <span ng-bind="field[{{ x*10+3}}][1]"></span>
+                <span ng-bind="field[{{ x*10+3}}][2]"></span>
+            </td>
+            <td class="timetable-td" ng-click="show(x*10+4)" ng-class="activeID == {{ x*10+4}} && 'timetable-selected'"
                 id="lesson_thursday_{{ x }}">
-            <b><div ng-bind="field[{{ x*10+4}}][0]"></div></b>
-            <span ng-bind="field[{{ x*10+4}}][1]"></span>
-            <span ng-bind="field[{{ x*10+4}}][2]"></span>
-        </td>
-        <td class="timetable-td" ng-click="show(x*10+5)" ng-class="activeID == {{ x*10+5}} && 'timetable-selected'"
+                <b>
+                    <div ng-bind="field[{{ x*10+4}}][0]"></div>
+                </b>
+                <span ng-bind="field[{{ x*10+4}}][1]"></span>
+                <span ng-bind="field[{{ x*10+4}}][2]"></span>
+            </td>
+            <td class="timetable-td" ng-click="show(x*10+5)" ng-class="activeID == {{ x*10+5}} && 'timetable-selected'"
                 id="lesson_friday_{{ x }}">
-            <b><div ng-bind="field[{{ x*10+5}}][0]"></div></b>
-            <span ng-bind="field[{{ x*10+5}}][1]"></span>
-            <span ng-bind="field[{{ x*10+5}}][2]"></span>
-        </td>
-        <td class="timetable-td" ng-click="show(x*10+6)" ng-class="activeID == {{ x*10+6}} && 'timetable-selected'"
+                <b>
+                    <div ng-bind="field[{{ x*10+5}}][0]"></div>
+                </b>
+                <span ng-bind="field[{{ x*10+5}}][1]"></span>
+                <span ng-bind="field[{{ x*10+5}}][2]"></span>
+            </td>
+            <td class="timetable-td" ng-click="show(x*10+6)" ng-class="activeID == {{ x*10+6}} && 'timetable-selected'"
                 id="lesson_saturday_{{ x }}">
-            <b><div ng-bind="field[{{ x*10+6}}][0]"></div></b>
-            <span ng-bind="field[{{ x*10+6}}][1]"></span>
-            <span ng-bind="field[{{ x*10+6}}][2]"></span>
-        </td>
-    </tr>
-</table><br />
-<div ng-show="activeID != null" align="center">
-    <form ng-submit="" method="POST" name="timetable" novalidate>
-        <h4 translate="edit_lesson"></h4>
-        <div class="row" style="padding-top: 10px;">
-            <p  style="color: red;" ng-show="(timetable.subject.$dirty) && timetable.subject.$error.maxlength" translate="error_timetablesubjectdescription_toolong"></p>
-            <div class="col-md-12">
-                <input class="form-control" type="text" name="subject" placeholder="{{ 'subject' | translate }}" ng-model="subject" ng-maxlength="30" style="width: 20%;"/>
+                <b>
+                    <div ng-bind="field[{{ x*10+6}}][0]"></div>
+                </b>
+                <span ng-bind="field[{{ x*10+6}}][1]"></span>
+                <span ng-bind="field[{{ x*10+6}}][2]"></span>
+            </td>
+        </tr>
+    </table>
+    <br/>
+
+    <!-- ab hier -->
+    <script type="text/ng-template" id="edittimetable">
+        <div class="ngdialog-message">
+            <div align="center">
+                <form name="timetable" novalidate>
+                    <h4 translate="edit_lesson"></h4>
+
+                    <div class="row" style="padding-top: 10px;">
+                        <p style="color: red;"
+                           ng-show="(timetable.subject.$dirty) && timetable.subject.$error.maxlength"
+                           translate="error_timetablesubjectdescription_toolong"></p>
+
+                        <div class="col-md-12">
+                            <input class="form-control" type="text" name="subject"
+                                   placeholder="{{ 'subject' | translate }}" ng-model="subject" ng-maxlength="30"
+                                   style="width: 50%;"/>
+                        </div>
+                    </div>
+                    <div class="row" style="padding-top: 10px;">
+                        <p style="color: red;"
+                           ng-show="(timetable.teacher.$dirty) && timetable.teacher.$error.maxlength"
+                           translate="error_timetableteacherdescription_toolong"></p>
+
+                        <div class="col-md-12">
+                            <input class="form-control" type="text" name="teacher"
+                                   placeholder="{{ 'teacher' | translate }}" ng-model="teacher" ng-maxlength="50"
+                                   style="width: 50%;"/>
+                        </div>
+                    </div>
+                    <div class="row" style="padding-top: 10px;">
+                        <p style="color: red;"
+                           ng-show="(timetable.subject.$dirty) && timetable.subject.$error.maxlength"
+                           translate="error_timetableroomdescription_toolong"></p>
+
+                        <div class="col-md-12">
+                            <input class="form-control" type="text" name="room" placeholder="{{ 'room' | translate }}"
+                                   ng-model="room" ng-maxlength="30" style="width: 50%;"/>
+                        </div>
+                    </div>
+                    <div class="row" style="padding-top: 10px;">
+                        <div class="col-md-12">
+                            <select class="form-control" name="notebook" ng-model="notebook" style="width: 50%;">
+                                <option value="" translate="no_notebook_assigned"></option>
+                                <option ng-repeat="nb in notebooksList" value="{{ nb.value }}">{{ nb.name }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row" style="padding-top: 10px;" align="center">
+                        <div class="col-md-12">
+                            <button type="submit" id="submit" class="btn btn-success"
+                                    ng-click="submitTimeTable();closeThisDialog();"
+                                    translate="save" ng-show="timetable.$valid"></button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
-        <div class="row" style="padding-top: 10px;">
-            <p  style="color: red;" ng-show="(timetable.teacher.$dirty) && timetable.teacher.$error.maxlength" translate="error_timetableteacherdescription_toolong"></p>
-            <div class="col-md-12">
-                <input class="form-control" type="text" name="teacher" placeholder="{{ 'teacher' | translate }}" ng-model="teacher" ng-maxlength="50" style="width: 20%;"/>
-            </div>
-        </div>
-        <div class="row" style="padding-top: 10px;">
-            <p  style="color: red;" ng-show="(timetable.subject.$dirty) && timetable.subject.$error.maxlength" translate="error_timetableroomdescription_toolong"></p>
-            <div class="col-md-12">
-                <input class="form-control" type="text" name="room" placeholder="{{ 'room' | translate }}" ng-model="room" ng-maxlength="30" style="width: 20%;"/>
-            </div>
-        </div>
-        <div class="row" style="padding-top: 10px;">
-            <div class="col-md-12">
-                <select class="form-control" name="notebook" ng-model="notebook" style="width: 20%;">
-                    <option value="" translate="no_notebook_assigned"></option>
-                    <option ng-repeat="nb in notebooksList" value="{{nb.value}}">{{nb.name}}</option>
-                </select>
-            </div>
-        </div>
-        <div class="row" style="padding-top: 10px;" align="center">
-            <div class="col-md-12">
-                <button type="submit" id="submit" class="btn btn-success" ng-click="submitTimeTable()" translate="save"></button>
-            </div>
-        </div>
-    </form>
-</div>
+    </script>
 </div>
 
-<div ng-show="activeRow != null" align="center">
-    <form ng-submit="" method="POST" name="timetableTimes" novalidate>
-        <h4 translate="edit_timetabletimes"></h4>
-        <div class="row" style="padding-top: 10px;">
-            <p  style="color: red;" ng-show="(timetableTimes.z1.$dirty) && timetableTimes.z1.$error.required"
-                    translate="error_timetabletime_needed"></p>
-            <p  style="color: red;" ng-show="(timetableTimes.z1.$dirty) &&
+<script type="text/ng-template" id="edittime">
+    <div class="ngdialog-message">
+        <div align="center">
+            <form ng-submit="" method="POST" name="timetableTimes" novalidate>
+                <h4 translate="edit_timetabletimes"></h4>
+
+                <div class="row" style="padding-top: 10px;">
+                    <p style="color: red;" ng-show="(timetableTimes.z1.$dirty) && timetableTimes.z1.$error.required"
+                       translate="error_timetabletime_needed"></p>
+
+                    <p style="color: red;" ng-show="(timetableTimes.z1.$dirty) &&
             (timetableTimes.z1.$error.pattern || timetableTimes.z1.$error.minlength || timetableTimes.z1.$error.maxlength)"
-                    translate="error_timetabletime_invalid">
-            </p>
-            <div class="col-md-12">
-                <input class="form-control" type="text" ng-model="start" placeholer="{{ 'begin' | translate }}" name="z1" style="width: 20%; text-align: center;"
-                       ng-pattern="/[0-9]{2,2}:[0-9]{2,2}/" ng-maxlength="5" ng-maxlength="5" required/>
-            </div>
-        </div>
-        <div class="row" style="padding-top: 10px;">
-            <p  style="color: red;" ng-show="(timetableTimes.z2.$dirty) && timetableTimes.z2.$error.required"
-                    translate="error_timetabletime_needed"></p>
-            <p  style="color: red;" ng-show="(timetableTimes.z2.$dirty) &&
+                       translate="error_timetabletime_invalid">
+                    </p>
+
+                    <div class="col-md-12">
+                        <input class="form-control" type="text" ng-model="start" placeholer="{{ 'begin' | translate }}"
+                               name="z1" style="width: 50%; text-align: center;"
+                               ng-pattern="/[0-9]{2,2}:[0-9]{2,2}/" ng-maxlength="5" ng-maxlength="5" required/>
+                    </div>
+                </div>
+                <div class="row" style="padding-top: 10px;">
+                    <p style="color: red;" ng-show="(timetableTimes.z2.$dirty) && timetableTimes.z2.$error.required"
+                       translate="error_timetabletime_needed"></p>
+
+                    <p style="color: red;" ng-show="(timetableTimes.z2.$dirty) &&
             (timetableTimes.z2.$error.pattern || timetableTimes.z2.$error.minlength || timetableTimes.z2.$error.maxlength)"
-                    translate="error_timetabletime_invalid"></p>
-            <div class="col-md-12">
-                <input class="form-control" type="text" name="z2" ng-model="end" placeholer="{{ 'end' | translate }}" style="width: 20%; text-align: center;"
-                       ng-pattern="/[0-9]{2,2}:[0-9]{2,2}/" ng-maxlength="5" ng-maxlength="5" required/>
-            </div>
+                       translate="error_timetabletime_invalid"></p>
+
+                    <div class="col-md-12">
+                        <input class="form-control" type="text" name="z2" ng-model="end"
+                               placeholer="{{ 'end' | translate }}"
+                               style="width: 50%; text-align: center;"
+                               ng-pattern="/[0-9]{2,2}:[0-9]{2,2}/" ng-maxlength="5" ng-maxlength="5" required/>
+                    </div>
+                </div>
+                <div class="row" style="padding-top: 10px;" align="center">
+                    <div class="col-md-12">
+                        <button type="submit" id="submitTimes" class="btn btn-success"
+                                ng-click="submitTimes();closeThisDialog();"
+                                translate="save"></button>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="row" style="padding-top: 10px;" align="center">
-            <div class="col-md-12">
-                <button type="submit" id="submitTimes" class="btn btn-success" ng-click="submitTimes()" translate="save"></button>
-            </div>
-        </div>
-    </form>
-</div>
+    </div>
+</script>
