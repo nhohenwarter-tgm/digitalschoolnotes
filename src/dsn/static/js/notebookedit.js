@@ -8,6 +8,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     $scope.models = {'code': {}, 'textarea': {}, 'image' : {}};
     $scope.additem = false;
     $scope.wf = false;
+    $scope.active = true;
 
     // ADDITIONAL FUNCTIONS
 
@@ -76,6 +77,20 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         });
     });
 
+    $scope.getColor1 = function(id, art){
+        $http({
+            method: 'POST',
+            url: '/api/notebook_isactive',
+            data: {id: $stateParams.id, content_id: id, content_art: art}
+        }).success(function (data) {
+            if(data['active']){
+                return 'red';
+            }else{
+                return 'white';
+            }
+        });
+    };
+
     $scope.initElemModels = function () {
         for (var j = 0; j < $scope.content.length; j++) {
             if ($scope.content[j]['art'] == 'code') {
@@ -88,8 +103,10 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
                 $scope.models['image'][$scope.content[j]['id']][0] = $scope.content[j]['data']['data'];
                 $scope.models['image'][$scope.content[j]['id']][1] = $scope.content[j]['data']['width'];
                 $scope.models['image'][$scope.content[j]['id']][2] = $scope.content[j]['data']['height'];
+
             }else {
                 $scope.models[$scope.content[j]['art']][$scope.content[j]['id']] = $scope.content[j]['data']['data'];
+
             }
         }
     };
@@ -212,6 +229,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     };
 
     $scope.editelement = function (id, art, data, active) {
+<<<<<<< HEAD
         $http({
             method: 'POST',
             url: '/api/edit_notebook_content',
@@ -222,6 +240,17 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
             $scope.content = $scope.notebook['content'];
             $scope.update();
         });
+=======
+            $http({
+                method: 'POST',
+                url: '/api/edit_notebook_content',
+                data: {id: $stateParams.id, content_id: id, content_art: art, content_data: data, is_active: active}
+            }).success(function (data) {
+                $scope.notebook = JSON.parse(data['notebook']);
+                $scope.content = $scope.notebook['content'];
+                $scope.update();
+            });
+>>>>>>> cafc5f027f220e2a74c20e6e90673eab00f53479
     };
 
     $scope.codeModeEdit = function (id, art){
@@ -273,7 +302,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
                 $scope.editelement(id, art, {
                     "data": $scope.models[art][id][0],
                     "language": $scope.models['code'][id][1]
-                }, false);
+                },false);
             }else {
                 $scope.editelement(id, art, {"data": $scope.models[art][id]},false);
             }
@@ -670,6 +699,7 @@ function setPosBottom(element) {
         $(element).css("padding-top", newElementPos);
     }
 }
+<<<<<<< HEAD
 
 
 
@@ -982,3 +1012,5 @@ function setPosBottom(element) {
     };
 });
  */
+=======
+>>>>>>> cafc5f027f220e2a74c20e6e90673eab00f53479

@@ -4,14 +4,14 @@
         <h4>{{ 'my_notebooks' | translate }}</h4>
         <div class="row" style="padding-bottom: 10px;">
             <span class="col-md-2" ng-repeat="n in notebooks" style="padding-top: 10px;">
-                <div style="text-decoration: none;" ng-mouseenter="options=true" ng-mouseleave="options=false">
+                <div style="text-decoration: none;" ng-mouseenter="options=true" ng-mouseleave="options=false" id="{{n.name}}">
                     <div style="border-style: solid ridge ridge solid; border-width: 2px 5px 5px 2px; text-align: center; color:black; width: 120px;
                         height: 160px;">
                         <span ng-show="options" ng-click="redirectEdit(n._id['$oid'])" style="font-size: 18px; padding-top: 3px;
                             color:black; float: right; font-size: 18px; cursor: pointer;" class="glyphicon glyphicon-cog">
                         </span>
-                        <span id="deleteNotebook" ng-show="options" ng-click="deleteNotebookDialog(n._id['$oid'])" style="cursor: pointer; font-size: 18px; color:black; float: right; padding-top: 3px;"
-                              class="glyphicon glyphicon-trash"></span>
+                        <span ng-show="options" ng-click="deleteNotebookDialog(n._id['$oid'])" style="cursor: pointer; font-size: 18px; color:black; float: right; padding-top: 3px;"
+                              class="glyphicon glyphicon-trash" id="{{n.name}}_delete"></span>
                         <div ng-click="redirectNotebook(n._id['$oid'])" style="padding-top: 23px; width: auto; height: 100%;
                              cursor: pointer; word-wrap: break-word;" randombackground="">
                             <div style="background-color: white; margin-left: 7px; margin-right: 7px;

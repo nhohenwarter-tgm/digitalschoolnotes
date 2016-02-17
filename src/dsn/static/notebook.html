@@ -93,7 +93,7 @@
                         color:black; background-color: white; overflow:hidden;" id="notebook">
                         <!-- PAGE CONTENT START -->
                         <div>
-                            <div style="background-color: #c9c9c9; margin-top: {{ notebookHeight-40 }}px;
+                            <div style="margin-top: {{ notebookHeight-40 }}px;
                                     margin-left: {{ notebookWidth-40 }}px;">
                                 <h3>{{ currentPage }}</h3>
                             </div>
@@ -107,10 +107,14 @@
                                             <!-- Edit -->
                                             <textarea ng-if="editMode == element.id"
                                                       ng-model="models[element.art][element.id]" ckeditor>
+
                                             </textarea>
+                                            <span ng-show="active" class="glyphicon glyphicon-exclamation-sign"
+                                                      style="color: red; cursor: pointer;"></span>
                                             <!-- Read-Only -->
+                                            <!--style="border: 1px solid black; min-height: 20px; min-width: 20px; text-align: left; padding:5px;" ng-style="{ 'background-color': getColor(element.id, element.art) }"> -->
                                             <div ng-if="editMode != element.id"
-                                                 style="border: 1px solid black; min-height: 20px; min-width: 20px; text-align: left; padding:5px;">
+                                                style="border: 1px solid black; min-height: 20px; min-width: 20px; text-align: left; padding:5px;" ng-style="{ 'background-color': models[element.art][element.id][2] }">
                                                 <div ng-bind-html="models[element.art][element.id]" style="word-wrap: break-word; "></div>
                                             </div>
                                         </span>
@@ -397,7 +401,7 @@
 
 <script type="text/ng-template" id="ocrFileDialog">
     <div class="ngdialog-message">
-        <h2>Analysiere ein Bild (OCR)</h2>
+        <h2>{{ 'analy'| translate }}</h2>
         <div role="alert">
             <span class="error" ng-show="errormessage" style="color:#FF0000">{{ errormessage }}</span>
             <span class="error" ng-show="!ocrFile" style="color:#FF0000">F&uuml;ge deinem Heft ein Bild hinzu.</span>
