@@ -1,90 +1,143 @@
-<!-- TODO Add Account Settings view -->
-<form class="row" ng-submit="submitEditUser()" method="POST" name="editUser" novalidate>
-    <span class="col-md-4"></span>
-                <span class="col-md-4">
-                    <h2 class="row" style="text-align: center;" translate="menu_accountsettings"></h2>
-                    <h4 style="padding-top: 20px;" translate="firstname"></h4>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <p  style="color: red;" ng-show="(editUser.first_name.$dirty) && editUser.first_name.$error.required" translate="error_firstname_needed"></p>
-                            <p  style="color: red;" ng-show="(editUser.first_name.$dirty) && editUser.first_name.$error.maxlength" translate="error_firstname_toolong"></p>
-                            <input class="form-control" type="text" name="first_name" ng-model="first_name" ng-maxlength="30" required/>
-                        </div>
+<h2 class="row" style="text-align: center;" translate="menu_accountsettings"></h2>
+<div class="row" style="padding-top: 30px;">
+    <!-- EDIT USER DATA -->
+    <div class="col-md-6">
+        <div style="border-radius: 25px; border: 4px solid black;">
+            <form ng-submit="openPasswordDialog('data', null)" method="POST" name="editUserData" novalidate style="margin: 0px 10px 20px 10px;">
+                <b style="text-align: center;"><h3 translate="change_userdata"></h3></b>
+                <h4 style="padding-top: 20px;" translate="firstname"></h4>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p  style="color: red;" ng-show="(editUserData.first_name.$dirty) && editUserData.first_name.$error.required" translate="error_firstname_needed"></p>
+                        <p  style="color: red;" ng-show="(editUserData.first_name.$dirty) && editUserData.first_name.$error.maxlength" translate="error_firstname_toolong"></p>
+                        <input class="form-control" type="text" name="first_name" ng-model="first_name" ng-maxlength="30" required/>
                     </div>
-                    <h4 style="padding-top: 20px;" translate="lastname"></h4>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <p  style="color: red;" ng-show="(editUser.last_name.$dirty) && editUser.last_name.$error.required" translate="error_lastname_needed"></p>
-                            <p  style="color: red;" ng-show="(editUser.last_name.$dirty) && editUser.last_name.$error.maxlength" translate="error_lastname_toolong"></p>
-                            <input class="form-control" type="text" name="last_name" ng-model="last_name" ng-maxlength="30" required/>
-                        </div>
+                </div>
+                <h4 style="padding-top: 20px;" translate="lastname"></h4>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p  style="color: red;" ng-show="(editUserData.last_name.$dirty) && editUserData.last_name.$error.required" translate="error_lastname_needed"></p>
+                        <p  style="color: red;" ng-show="(editUserData.last_name.$dirty) && editUserData.last_name.$error.maxlength" translate="error_lastname_toolong"></p>
+                        <input class="form-control" type="text" name="last_name" ng-model="last_name" ng-maxlength="30" required/>
                     </div>
-                    <h4 style="padding-top: 20px;" translate="email_address"></h4>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <p  style="color: red;" ng-show="(submitted || editUser.email.$dirty) && editUser.email.$error.required" translate="error_email_needed"></p>
-                            <p  style="color: red;" ng-show="(submitted || editUser.email.$dirty) && editUser.email.$error.pattern" translate="error_email_invalid"></p>
-                            <input class="form-control" type="text" name="email" ng-model="email"
-                                   ng-pattern="/[a-z0-9!#$%&'*+=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/" required/>
-                        </div>
+                </div>
+                <h4 style="padding-top: 20px;" translate="email_address"></h4>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p  style="color: red;" ng-show="(submitted || editUserData.email.$dirty) && editUserData.email.$error.required" translate="error_email_needed"></p>
+                        <p  style="color: red;" ng-show="(submitted || editUserData.email.$dirty) && editUserData.email.$error.pattern" translate="error_email_invalid"></p>
+                        <input class="form-control" type="text" name="email" ng-model="email"
+                               ng-pattern="/[a-z0-9!#$%&'*+=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/" required/>
                     </div>
-                        <h5 style="padding-top: 20px;"><span translate="current_password"></span>*</h5>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <span ng-bind="message" style="color: red;"></span>
-                                <p  style="color: red;" ng-show="(submitted || editUser.old_pwd.$dirty) && editUser.old_pwd.$error.required" translate="error_password_needed"></p>
-                                <input class="form-control" id="old_pwd" type="password" placeholder="{{ 'current_password' | translate }}" name="old_pwd" ng-model="old_pwd" required/>
-                            </div>
-                        </div>
-                        <h4 style="padding-top: 20px;" translate="change_password"></h4>
-                        </div>
-                        <h5 style="padding-top: 20px;" translate="new_password"></h5>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <p  style="color: red;" ng-show="(submitted || editUser.pwd.$dirty) && editUser.pwd.$error.minlength" translate="error_password_tooshort"></p>
-                                <p  style="color: red;" ng-show="(submitted || editUser.pwd.$dirty) && editUser.pwd.$error.maxlength" translate="error_password_toolong"></p>
-                                <input class="form-control" id="pwd" type="password" placeholder="{{ 'new_password' | translate }}" name="pwd" ng-model="pwd" style="width: 100%;" ng-minlength="8" ng-maxlength="128"  />
-                            </div>
-                        </div>
-                        <h5 style="padding-top: 20px;" translate="repeat_new_password"></h5>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <p  style="color: red;" ng-show="(submitted || editUser.pwdrepeat.$dirty) && editUser.pwdrepeat.$error.required" translate="error_password_dontmatch"></p>
-                                <p style="color: red;" ng-show="error">{{ error_pwmatch }}</p>
-                                <input class="form-control" id="pwdrepeat" type="password" placeholder="{{ 'password_repeat' | translate }}" name="pwdrepeat" ng-model="pwdrepeat" style="width: 100%;"  />
-                            </div>
-                        </div>
-                        <div class="row" style="padding-top: 30px;">
-                            <button type="submit" id="submit" class="btn btn-success" style="margin-left: 15px;" translate="save_changes"></button>
-                            <button id="cancel" class="btn btn-danger" ng-click="cancelEdit()" style="float: right; margin-right: 15px;" translate="cancel"></button>
-                        </div>
-                </span>
-</form>
-
-
-<div style="padding-top: 20px;">
-    <div class="col-md-4"></div>
-    <div class="col-md-4">
-        <button id="deleteAccount" class="btn btn-danger" ng-click="deleteAccountDialog()" translate="delete_account"></button>
+                </div>
+                <div class="row" style="padding-top: 30px;">
+                    <button type="submit" id="submit_data" class="btn btn-success" style="margin-left: 15px;" translate="save_changes"></button>
+                    <button id="reset_data" class="btn btn-danger" ng-click="resetEdit('data')" style="float: right; margin-right: 15px;" translate="reset"></button>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="col-md-4"></div>
+    <!-- EDIT PASSWORD -->
+    <div class="col-md-6">
+        <div style="border-radius: 25px; border: 4px solid black;">
+            <form ng-submit="checkEditUserPassword()" method="POST" name="editUserPassword" novalidate style="margin: 0px 10px 20px 10px;">
+                <b style="text-align: center;"><h3 translate="change_password"></h3></b>
+                <h4 style="padding-top: 20px;" translate="new_password"></h4>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p  style="color: red;" ng-show="(submitted || editUserPassword.new_pwd.$dirty) && editUserPassword.new_pwd.$error.minlength" translate="error_password_tooshort"></p>
+                        <p  style="color: red;" ng-show="(submitted || editUserPassword.new_pwd.$dirty) && editUserPassword.new_pwd.$error.maxlength" translate="error_password_toolong"></p>
+                        <input class="form-control" id="pwd" type="password" placeholder="{{ 'new_password' | translate }}" name="new_pwd" ng-model="new_pwd" style="width: 100%;" ng-minlength="8" ng-maxlength="128"  />
+                    </div>
+                </div>
+                <h4 style="padding-top: 20px;" translate="repeat_new_password"></h4>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p  style="color: red;" ng-show="(submitted || editUserPassword.pwdrepeat.$dirty) && editUserPassword.pwdrepeat.$error.required" translate="error_password_dontmatch"></p>
+                        <p style="color: red;" ng-show="error">{{ error_password }}</p>
+                        <input class="form-control" id="pwdrepeat" type="password" placeholder="{{ 'password_repeat' | translate }}" name="pwdrepeat" ng-model="pwdrepeat" style="width: 100%;"  />
+                    </div>
+                </div>
+                <div class="row" style="padding-top: 30px;">
+                    <button type="submit" id="submit_password" class="btn btn-success" style="margin-left: 15px;" translate="save_changes"></button>
+                    <button id="reset_password" class="btn btn-danger" ng-click="resetEdit('password')" style="float: right; margin-right: 15px;" translate="reset"></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="padding-top: 20px;">
+    <div class="col-md-6">
+        <div style="border-radius: 25px; border: 4px solid black;">
+            <div class="row" style="margin: 0px 10px 20px 10px;">
+                <!-- DELETE ACCOUNT -->
+                <b style="text-align: center;"><h3 translate="delete_account"></h3></b>
+                <h5 translate="account_delete_infomessage"></h5>
+                <div style="padding-top: 20px;">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <button id="deleteAccount" class="btn btn-danger" ng-click="deleteAccountDialog()" translate="delete_account"></button>
+                    </div>
+                    <div class="col-md-4"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6"></div>
 </div>
 
 
-
+<!-- DELETE ACCOUNT DIALOG -->
 <script type="text/ng-template" id="deleteAccount">
     <div class="ngdialog-message">
         <h2>Account löschen</h2>
         <div>{{ 'account_delete_warnmessage' | translate }}</div>
         </br>
         <div class="ngdialog-buttons mt">
-        <button id="cancel" class="btn btn-danger" ng-click="closeThisDialog()"
-                style="float: right;  margin-right: 15px;">Abbrechen
-        </button>
-        <button type="submit" id="submit" class="btn btn-success" ng-disabled="showError"
-                ng-click="deleteAccount();closeThisDialog();"
-                style="float: right; margin-left: 15px; margin-right: 15px;">Löschen
-        </button>
+            <button id="cancel" class="btn btn-danger" ng-click="closeThisDialog()"
+                    style="float: right;  margin-right: 15px;">Abbrechen
+            </button>
+            <button type="submit" id="submit" class="btn btn-success" ng-disabled="showError"
+                    ng-click="deleteAccount();closeThisDialog();"
+                    style="float: right; margin-left: 15px; margin-right: 15px;">Löschen
+            </button>
+        </div>
     </div>
+</script>
+
+<!-- CONFIRM CHANGES DIALOG -->
+<script type="text/ng-template" id="confirmPassword">
+    <div class="ngdialog-message">
+        <h2 translate="confirmation_of_change"></h2>
+        <div translate="confirm_password_needed_infomessage"></div>
+        <form name="confirmPasswordForm" novalidate>
+            <p style="color: red;" ng-bind="message"></p>
+            <input class="form-control" id="pwd" type="password" placeholder="{{ 'current_password' | translate }}"
+                   name="pwd" ng-model="pwd" />
+        </form>
+        <div class="ngdialog-buttons mt" style="padding-top: 20px;">
+            <button id="cancel_confirm" class="btn btn-danger" ng-click="closeThisDialog()"
+                    style="float: right;  margin-right: 15px;" translate="cancel">
+            </button>
+            <button id="submit_confirm" class="btn btn-success" ng-click="confirmOldPassword(pwd);"
+                    style="float: right; margin-left: 15px; margin-right: 15px;" translate="save_changes">
+            </button>
+        </div>
+    </div>
+</script>
+
+<!-- CHANGES SUCCESSFUL DIALOG -->
+<script type="text/ng-template" id="changeSuccessful">
+    <div class="ngdialog-message">
+        <h2 translate="success"></h2>
+        <div translate="changes_successfully_saved"></div>
+
+        </br>
+        <div class="ngdialog-buttons mt">
+            <button id="close" class="btn btn-success" ng-click="closeThisDialog()"
+                    style="float: right;  margin-right: 15px;" translate="close">
+            </button>
+        </div>
     </div>
 </script>

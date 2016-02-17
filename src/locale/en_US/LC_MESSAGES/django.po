@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-02-10 13:52+0100\n"
+"POT-Creation-Date: 2016-02-17 15:09+0100\n"
 "PO-Revision-Date: 2016-01-09 16:38+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en_US\n"
@@ -444,14 +444,51 @@ msgstr "Shared notebooks"
 
 #: ../dsn/static/js/translations.js:96
 msgid "collaboration_notebook_exit_warnmessage"
-msgstr "Are you sure you want to remove yourself as collaborator from this notebook? "
-"You won't be able to see or edit this notebook anymore after this action!"
+msgstr ""
+"Are you sure you want to remove yourself as collaborator from this "
+"notebook? You won't be able to see or edit this notebook anymore after "
+"this action!"
 
-#: ../dsn/views/mainpage_views.py:83 ../dsn/views/mainpage_views.py:94
+#: ../dsn/static/js/translations.js:97
+msgid "confirm_password_needed_infomessage"
+msgstr "Please insert your current password to confirm your changes!"
+
+#: ../dsn/static/js/translations.js:98
+msgid "close"
+msgstr "Close"
+
+#: ../dsn/static/js/translations.js:99
+msgid "reset"
+msgstr "Reset changes"
+
+#: ../dsn/static/js/translations.js:100
+msgid "confirmation_of_change"
+msgstr "Confirmation of changes"
+
+#: ../dsn/static/js/translations.js:101
+msgid "success"
+msgstr "Success!"
+
+#: ../dsn/static/js/translations.js:102
+msgid "changes_successfully_saved"
+msgstr "Your changes were successful!"
+
+#: ../dsn/static/js/translations.js:103
+msgid "change_userdata"
+msgstr "Change user data"
+
+#: ../dsn/static/js/translations.js:104
+msgid "account_delete_infomessage"
+msgstr ""
+"If you wish to delete your account you can do this here. But be careful: ?\n"
+"You can't undo this action! Your notebooks will be lost forever and you won't"
+"be able to access any functionality of this application anymore!"
+
+#: ../dsn/views/mainpage_views.py:81 ../dsn/views/mainpage_views.py:92
 msgid "wrong_login_credentials"
 msgstr "Wrong username or email!"
 
-#: ../dsn/views/mainpage_views.py:143
+#: ../dsn/views/mainpage_views.py:141
 msgid "success_validate"
 msgstr "Your email was successfully validated!"
 
@@ -471,7 +508,7 @@ msgstr "You can't add yourself as collaborator!"
 msgid "no_user"
 msgstr "This user does not exist!"
 
-#: ../dsn/views/management_views.py:389 ../dsn/views/management_views.py:395
+#: ../dsn/views/management_views.py:407 ../dsn/views/management_views.py:421
 msgid "error_wrong_password"
 msgstr "Please insert your current password!"
 

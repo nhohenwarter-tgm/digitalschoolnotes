@@ -18,7 +18,6 @@ from ipware.ip import get_ip
 @ensure_csrf_cookie
 def view_csrf_get(request):
     """
-
     :param request:
     :return:
     """
@@ -27,7 +26,6 @@ def view_csrf_get(request):
 
 def view_getLoggedInUser(request):
     """
-
     :param request:
     :return:
     """

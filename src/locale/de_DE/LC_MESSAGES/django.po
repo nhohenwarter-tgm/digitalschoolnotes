@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-02-10 13:52+0100\n"
+"POT-Creation-Date: 2016-02-17 15:09+0100\n"
 "PO-Revision-Date: 2016-01-09 16:36+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: de_DE\n"
@@ -445,14 +445,51 @@ msgstr "Für mich freigebene Hefte"
 
 #: ../dsn/static/js/translations.js:96
 msgid "collaboration_notebook_exit_warnmessage"
-msgstr "Bist du sicher, dass du an diesem Heft nicht mehr teilnehmen möchtest? "
-"Du wirst dieses Heft nachher nicht mehr ansehen oder bearbeiten können!"
+msgstr ""
+"Bist du sicher, dass du an diesem Heft nicht mehr teilnehmen möchtest? Du"
+" wirst dieses Heft nachher nicht mehr ansehen oder bearbeiten können!"
 
-#: ../dsn/views/mainpage_views.py:83 ../dsn/views/mainpage_views.py:94
+#: ../dsn/static/js/translations.js:97
+msgid "confirm_password_needed_infomessage"
+msgstr "Bitte gib dein aktuelles Passwort an, um die Änderungen zu bestätigen!"
+
+#: ../dsn/static/js/translations.js:98
+msgid "close"
+msgstr "Schließen"
+
+#: ../dsn/static/js/translations.js:99
+msgid "reset"
+msgstr "Zurücksetzen"
+
+#: ../dsn/static/js/translations.js:100
+msgid "confirmation_of_change"
+msgstr "Bestätigung der Änderungen"
+
+#: ../dsn/static/js/translations.js:101
+msgid "success"
+msgstr "Erfolg!"
+
+#: ../dsn/static/js/translations.js:102
+msgid "changes_successfully_saved"
+msgstr "Deine Änderungen wurden erfolgreich übernommen!"
+
+#: ../dsn/static/js/translations.js:103
+msgid "change_userdata"
+msgstr "User-Daten bearbeiten"
+
+#: ../dsn/static/js/translations.js:104
+msgid "account_delete_infomessage"
+msgstr ""
+"Hier kannst du deinen Account löschen! Aber Achtung: "
+"Diese Aktion kann nachher nicht mehr rückgängig gemacht werden! Deine "
+"Hefte werden endgültig gelöscht und du wirst nachher keinen Zugriff mehr"
+"auf die Funktionalitäten dieser Applikation haben!"
+
+#: ../dsn/views/mainpage_views.py:81 ../dsn/views/mainpage_views.py:92
 msgid "wrong_login_credentials"
 msgstr "E-Mail Adresse oder Passwort falsch!"
 
-#: ../dsn/views/mainpage_views.py:143
+#: ../dsn/views/mainpage_views.py:141
 msgid "success_validate"
 msgstr "Deine E-Mail Adresse wurde erfolgreich bestätigt!"
 
@@ -472,7 +509,7 @@ msgstr "Du kannst dich nicht selbst zu deinem eigenen Heft einladen!"
 msgid "no_user"
 msgstr "Dieser User existiert nicht!"
 
-#: ../dsn/views/management_views.py:389 ../dsn/views/management_views.py:395
+#: ../dsn/views/management_views.py:407 ../dsn/views/management_views.py:421
 msgid "error_wrong_password"
 msgstr "Bitte wiederhole dein aktuelles Passwort!"
 

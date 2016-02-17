@@ -1,7 +1,7 @@
 var mainApp = angular.module('mainApp', ['ui.router','ngCookies','vcRecaptcha', 'ui.codemirror', 'ngDialog',
     'ngSanitize', 'pascalprecht.translate']);
 
-mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, $translateProvider) {
+mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, $translateProvider, ngDialogProvider) {
 
     $translateProvider.registerAvailableLanguageKeys(['en', 'de'], {
                 'en_*': 'en',
@@ -17,6 +17,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
             .preferredLanguage('de');
 
     $translateProvider.useSanitizeValueStrategy('escaped');
+
+    ngDialogProvider.setForceHtmlReload(true);
 
     $urlRouterProvider.otherwise('/');
 
@@ -286,7 +288,6 @@ mainApp.run(function($rootScope, $state, $http, $window, $urlRouter, $translate,
     };
 
     $rootScope.changeLanguage($translate.preferredLanguage());
-
 
     $rootScope.$on('$stateChangeStart',function(event, toState, toParams, fromState, fromParams){
         if(toState.name == 'notebookedit'){

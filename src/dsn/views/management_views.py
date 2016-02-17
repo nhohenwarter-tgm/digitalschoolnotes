@@ -14,6 +14,7 @@ from dsn.authentication.email import validationmail
 from django.contrib.auth.hashers import *
 from django.utils.translation import gettext as _
 
+
 def view_get_timetable(request):
     """
     Stundenplan-Daten
@@ -197,7 +198,16 @@ def view_log_notebook(request):
         log = NotebookLog(notebook_id = params['notebook_id'], user = params['user'], last_ping=datetime.now())
         log.save()
         return JsonResponse({})
+    
+def view_log_read_notebook(request):
+    if not request.user.is_authenticated():
+        return JsonResponse({})
+    if request.method == "POST":
+        params = json.loads(request.body.decode('utf-8'))
+        log = NotebookLog.objects.get(notebook_id=params['notebook_id'])
 
+        return JsonResponse({})
+    
 def view_update_time_notebook_log(request):
     if not request.user.is_authenticated():
         return JsonResponse({})
@@ -310,7 +320,10 @@ def view_get_is_active(request):
     if request.method == "POST":
         params = json.loads(request.body.decode('utf-8'))
         notebook = Notebook.objects.get(id=params['id'])
-        findnotebook = next(item for item in notebook.content if item["id"] == params['content_id'] and item["art"] == params['content_art'])
+        content = notebook.content
+        print(params['content_id'])
+        print(params['content_art'])
+        findnotebook = next(item for item in content if item["id"] == params['content_id'] and item["art"] == params['content_art'])
         return JsonResponse({"active":  findnotebook.is_active})
 
 
@@ -342,6 +355,8 @@ def view_edit_content_position(request):
         params = json.loads(request.body.decode('utf-8'))
         notebook = Notebook.objects.get(id=params['id'])
         content = notebook.content
+        print(params['content_id'])
+        print(params['content_art'])
         findnotebook = next(item for item in content if item["id"] == params['content_id'] and item["art"] == params['content_art'])
         findnotebook.position_x = params['pos_x']
         findnotebook.position_y = params['pos_y']
@@ -423,30 +438,40 @@ def view_getUserSettings(request):
                              "email": user.email, "password": user.password})
 
 
-def view_editUser(request):
+def view_editUserData(request):
     if not request.user.is_authenticated():
         return JsonResponse({})
     if request.method == "POST":
         params = json.loads(request.body.decode('utf-8'))
         user = request.user
-        if params['password']!= "":
-            if user.check_password(params['password_old']) == True:
-                user.set_password(params['password'])
-            else:
-                return JsonResponse({'message': _("error_wrong_password")})
+        if user.check_password(params['password']):
+            user.first_name=params['first_name']
+            user.last_name=params['last_name']
 
-
-        user.first_name=params['first_name']
-        user.last_name=params['last_name']
-
-        user.save()
-        if user.email != params['email']:
-            user.email = params['email']
-            user.is_active = False
             user.save()
-            link = create_validation_token(params['email'])
-            validationmail(params['email'], params['first_name'], link)
-            logout(request)
+            if user.email != params['email']:
+                user.email = params['email']
+                user.is_active = False
+                user.save()
+                link = create_validation_token(params['email'])
+                validationmail(params['email'], params['first_name'], link)
+                logout(request)
+        else:
+            return JsonResponse({'message': _("error_wrong_password")})
+        return JsonResponse({'message': None})
+
+
+def view_editUserPassword(request):
+    if not request.user.is_authenticated():
+        return JsonResponse({})
+    if request.method == "POST":
+        params = json.loads(request.body.decode('utf-8'))
+        user = request.user
+        if user.check_password(params['password_old']):
+            user.set_password(params['password'])
+            user.save()
+        else:
+            return JsonResponse({'message': _("error_wrong_password")})
         return JsonResponse({'message': None})
 
 
