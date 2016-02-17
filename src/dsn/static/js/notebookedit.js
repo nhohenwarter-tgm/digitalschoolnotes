@@ -288,6 +288,8 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     $scope.setEditMode = function (edit, id, art) {
         $scope.editMode = edit;
         if(edit == null) {
+            //hier alle teilnehmer auslesen
+
             alert("false");
             if (art == 'code') {
                 $scope.editelement(id, art, {
@@ -560,6 +562,22 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         $http({
             method: 'POST',
             url: '/api/notebook_logout',
+            headers: {'Content-Type': 'application/json'},
+            data: {
+                notebook_id: id
+            }
+        })
+            .success(function (data) {
+                $state.go('management.notebooks');
+            })
+            .error(function (data) {
+            });
+    };
+
+    $scope.readLogNotebook = function (id) {
+        $http({
+            method: 'POST',
+            url: '/api/read_log_notebook',
             headers: {'Content-Type': 'application/json'},
             data: {
                 notebook_id: id
