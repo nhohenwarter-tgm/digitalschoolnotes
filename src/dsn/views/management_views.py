@@ -5,7 +5,7 @@ from dsn.authentication.account_delete import delete_account
 
 from bson import ObjectId
 import json
-from datetime import datetime
+from datetime import datetime,timedelta
 from mongoengine.queryset.visitor import Q
 from mongoengine import DoesNotExist, InvalidDocumentError
 from django.contrib.auth import logout
@@ -13,7 +13,6 @@ from dsn.authentication.registration import create_validation_token
 from dsn.authentication.email import validationmail
 from django.contrib.auth.hashers import *
 from django.utils.translation import gettext as _
-
 
 def view_get_timetable(request):
     """
@@ -199,13 +198,25 @@ def view_log_notebook(request):
         log.save()
         return JsonResponse({})
 
+def view_update_time_notebook_log(request):
+    if not request.user.is_authenticated():
+        return JsonResponse({})
+    if request.method == "POST":
+        log = notebook = NotebookLog.objects.get(user=request.user.email)
+        log.last_ping = datetime.now()
+        log.save()
+        return JsonResponse({})
+
 def view_refresh_log_notebook(request):
     if not request.user.is_authenticated():
         return JsonResponse({})
     if request.method == "POST":
-        params = json.loads(request.body.decode('utf-8'))
-        log = NotebookLog.objects.get(notebook_id = params['notebook_id'], user = request.user.email)
-
+        log = NotebookLog.objects.get()
+        max = datetime.now() - timedelta(min=1)
+        for n in log:
+            if n.last_ping<max:
+                notebook_log = NotebookLog.objects.get(id=n._id)
+                notebook_log.delete()
         return JsonResponse({})
 
 def view_notebook_logout(request):

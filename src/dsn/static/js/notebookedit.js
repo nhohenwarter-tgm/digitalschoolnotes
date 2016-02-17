@@ -229,7 +229,6 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     };
 
     $scope.editelement = function (id, art, data, active) {
-<<<<<<< HEAD
         $http({
             method: 'POST',
             url: '/api/edit_notebook_content',
@@ -240,17 +239,8 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
             $scope.content = $scope.notebook['content'];
             $scope.update();
         });
-=======
-            $http({
-                method: 'POST',
-                url: '/api/edit_notebook_content',
-                data: {id: $stateParams.id, content_id: id, content_art: art, content_data: data, is_active: active}
-            }).success(function (data) {
-                $scope.notebook = JSON.parse(data['notebook']);
-                $scope.content = $scope.notebook['content'];
-                $scope.update();
-            });
->>>>>>> cafc5f027f220e2a74c20e6e90673eab00f53479
+
+
     };
 
     $scope.codeModeEdit = function (id, art){
@@ -699,7 +689,6 @@ function setPosBottom(element) {
         $(element).css("padding-top", newElementPos);
     }
 }
-<<<<<<< HEAD
 
 
 
@@ -1012,5 +1001,4 @@ function setPosBottom(element) {
     };
 });
  */
-=======
->>>>>>> cafc5f027f220e2a74c20e6e90673eab00f53479
+
