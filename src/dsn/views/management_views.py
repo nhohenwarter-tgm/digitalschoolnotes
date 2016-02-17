@@ -199,6 +199,15 @@ def view_log_notebook(request):
         log.save()
         return JsonResponse({})
 
+def view_log_read_notebook(request):
+    if not request.user.is_authenticated():
+        return JsonResponse({})
+    if request.method == "POST":
+        params = json.loads(request.body.decode('utf-8'))
+        log = NotebookLog.objects.get(notebook_id=params['notebook_id'])
+
+        return JsonResponse({})
+
 def view_refresh_log_notebook(request):
     if not request.user.is_authenticated():
         return JsonResponse({})
