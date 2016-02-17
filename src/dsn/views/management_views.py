@@ -385,30 +385,40 @@ def view_getUserSettings(request):
                              "email": user.email, "password": user.password})
 
 
-def view_editUser(request):
+def view_editUserData(request):
     if not request.user.is_authenticated():
         return JsonResponse({})
     if request.method == "POST":
         params = json.loads(request.body.decode('utf-8'))
         user = request.user
-        if params['password']!= "":
-            if user.check_password(params['password_old']) == True:
-                user.set_password(params['password'])
-            else:
-                return JsonResponse({'message': _("error_wrong_password")})
+        if user.check_password(params['password']):
+            user.first_name=params['first_name']
+            user.last_name=params['last_name']
 
-
-        user.first_name=params['first_name']
-        user.last_name=params['last_name']
-
-        user.save()
-        if user.email != params['email']:
-            user.email = params['email']
-            user.is_active = False
             user.save()
-            link = create_validation_token(params['email'])
-            validationmail(params['email'], params['first_name'], link)
-            logout(request)
+            if user.email != params['email']:
+                user.email = params['email']
+                user.is_active = False
+                user.save()
+                link = create_validation_token(params['email'])
+                validationmail(params['email'], params['first_name'], link)
+                logout(request)
+        else:
+            return JsonResponse({'message': _("error_wrong_password")})
+        return JsonResponse({'message': None})
+
+
+def view_editUserPassword(request):
+    if not request.user.is_authenticated():
+        return JsonResponse({})
+    if request.method == "POST":
+        params = json.loads(request.body.decode('utf-8'))
+        user = request.user
+        if user.check_password(params['password_old']):
+            user.set_password(params['password'])
+            user.save()
+        else:
+            return JsonResponse({'message': _("error_wrong_password")})
         return JsonResponse({'message': None})
 
 

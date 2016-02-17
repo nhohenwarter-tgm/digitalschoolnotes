@@ -24,7 +24,7 @@
                     <li><a ui-sref="management.notebooks"><span class="glyphicon glyphicon-book"></span>
                         <span translate="menu_notebooks"></span>
                     </a></li>
-                    <li><a ui-sref="management.accsettings"><span class="glyphicon glyphicon-cog"></span>
+                    <li ng-hide="is_oauth"><a ui-sref="management.accsettings"><span class="glyphicon glyphicon-cog"></span>
                         <span translate="menu_accountsettings"></span>
                     </a></li>
                 </ul>

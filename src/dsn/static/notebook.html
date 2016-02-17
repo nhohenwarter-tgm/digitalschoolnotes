@@ -16,10 +16,10 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                            <a class="navbar-brand glyphicon glyphicon-arrow-left" ui-sref="management.notebooks"
+                            <div class="navbar-brand glyphicon glyphicon-arrow-left" ui-sref="management.notebooks"
                                style="color: white; font-size: 30px;">
 
-                            </a>
+                            </div>
                         </div>
                         <!-- BACK ARROW END -->
                         <!-- TOOLBAR START -->
@@ -115,7 +115,7 @@
                                                       style="color: red; cursor: pointer;"></span>
                                             <!-- Read-Only -->
                                             <div ng-if="editMode != element.id"
-                                                 style="border: 1px solid black; min-height: 20px; min-width: 20px; text-align: left; padding:5px;" ng-style="{ 'background-color': getColor(element.id, element.art) }">
+                                                 style="border: 1px solid black; min-height: 20px; min-width: 20px; text-align: left; padding:5px;">
                                                 <div ng-bind-html="models[element.art][element.id]" style="word-wrap: break-word; "></div>
                                             </div>
                                         </span>

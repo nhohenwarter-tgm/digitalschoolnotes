@@ -1,6 +1,11 @@
 var mainApp = angular.module('mainApp');
 
-mainApp.controller('managementCtrl', function ($scope, $http, $state, $translate) {
+mainApp.controller('managementCtrl', function ($scope, $http, $state, $translate, loggedIn) {
+    loggedIn.getUser().then(function (data) {
+        if(data['user']['oauth']){
+            $scope.is_oauth = true;
+        }
+    });
     $scope.search = function () {
         $scope.itemsPerPage = 10;
         $scope.currentPage = 1;
@@ -96,72 +101,112 @@ mainApp.controller('managementCtrl', function ($scope, $http, $state, $translate
     };
 });
 
-mainApp.controller('accsettingsCtrl', function ($scope, $http, $window, $state, $translate, loggedIn, ngDialog) {
-    $http({
-        method: 'POST',
-        url: '/api/get_userSettings',
-        headers: {'Content-Type': 'application/json'}
-    })
-        .success(function (data) {
-            if(data['error'] == true){
-                $state.go('management.timetable');
-            }else {
-                $scope.first_name = data['first_name'];
-                $scope.last_name = data['last_name'];
-                $scope.email = data['email'];
-                $scope.old_pwd="";
-                $scope.pwd="";
-                $scope.pwdrepeat="";
-            }
+mainApp.controller('accsettingsCtrl', function ($rootScope, $scope, $http, $window, $state, $translate, $controller, loggedIn, ngDialog) {
+    $scope.getUserData = function () {
+        $http({
+            method: 'POST',
+            url: '/api/get_userSettings',
+            headers: {'Content-Type': 'application/json'}
         })
-        .error(function (data) {
+            .success(function (data) {
+                if (data['error'] == true) {
+                    $state.go('management.timetable');
+                } else {
+                    $scope.first_name = data['first_name'];
+                    $scope.last_name = data['last_name'];
+                    $scope.email = data['email'];
+                    $scope.pwd = "";
+                    $scope.new_pwd = "";
+                    $scope.pwdrepeat = "";
+                }
+            })
+            .error(function (data) {
+            });
+    };
+
+    $scope.getUserData();
+
+    $scope.openPasswordDialog = function(type, message) {
+        $scope.editType = type;
+
+        var data = {};
+        if($scope.editType == 'data'){
+            data = {
+                'first_name': $scope.first_name,
+                'last_name': $scope.last_name,
+                'email': $scope.email
+            };
+        }else if($scope.editType == 'password'){
+           data = {
+               'password_new': $scope.new_pwd,
+               'password_repeat': $scope.pwdrepeat
+           };
+        }
+        if(message != null){
+            $scope.message = message;
+        }
+
+        $rootScope.accsettdata = data;
+        ngDialog.open({
+            template: 'confirmPassword',
+            scope: $scope
+        });
+    };
+
+    $scope.confirmOldPassword = function(pwd) {
+        $scope.pwd = pwd;
+        ngDialog.close({
+            template: 'confirmPassword'
         });
 
+        if($scope.editType == 'data'){
+            $scope.first_name = $rootScope.accsettdata.first_name;
+            $scope.last_name = $rootScope.accsettdata.last_name;
+            $scope.email = $rootScope.accsettdata.email;
+            $rootScope.data = null;
+            $scope.submitEditUserData();
+        }else if($scope.editType == 'password'){
+            $scope.password_new = $rootScope.accsettdata.password_new;
+            $scope.password_repeat = $rootScope.accsettdata.password_repeat;
+            $rootScope.data = null;
+            $scope.submitEditUserPassword();
+        }
+    };
 
-    $scope.submitEditUser = function() {
-        $scope.submitted = true;
-        $scope.error = false;
+    $scope.openSuccessDialog = function() {
+        ngDialog.open({
+            template: 'changeSuccessful',
+            scope: $scope
+        });
+    };
+
+    $scope.submitEditUserData = function() {
+        $scope.submitted_data = true;
         var first_name = $scope.first_name;
         var last_name = $scope.last_name;
         var email = $scope.email;
-        var password_old = $scope.old_pwd;
-        var password_new = $scope.pwd;
-        var password_repeat = $scope.pwdrepeat;
-        if(password_new == null){
-            password_new="";
-        }
-        if(password_new != password_repeat) {
-            $scope.error = true;
-            $translate("error_password_dontmatch").then(function(message){
-                $scope.error_pwmatch = message+"\n";
-            });
-        }
+        var password_old = $scope.pwd;
 
-
-
-        if($scope.editUser.$valid && $scope.error ==false) {
-            if(password_new != "") {
-                password_new = CryptoJS.SHA256(password_new);
-            }
+        if($scope.editUserData.$valid) {
             password_old = CryptoJS.SHA256(password_old);
 
             $http({
                 method: 'POST',
-                url: '/api/user_edit',
+                url: '/api/userdata_edit',
                 headers: {'Content-Type': 'application/json'},
                 data: {
                     first_name: first_name,
                     last_name: last_name,
                     email: email,
-                    password: password_new.toString(),
-                    password_old: password_old.toString()
+                    password: password_old.toString()
                 }
             })
                 .success(function (data) {
                     if (data['message'] != null) {
-                        $scope.message = data['message'];
+                        $scope.openPasswordDialog("data", data['message']);
                     } else {
-                        $state.go('management.timetable');
+                        $scope.getUserData();
+                        $scope.openSuccessDialog();
                     }
                 })
                 .error(function (data) {
@@ -169,8 +214,85 @@ mainApp.controller('accsettingsCtrl', function ($scope, $http, $window, $state, 
         }
     };
 
-    $scope.cancelEdit = function() {
-        $state.go('management.timetable');
+    $scope.checkEditUserPassword = function() {
+        $scope.error_password = "";
+        $scope.error = false;
+        var password_new = $scope.new_pwd;
+        var password_repeat = $scope.pwdrepeat;
+        if(password_new != password_repeat) {
+            $scope.error = true;
+            $translate("error_password_dontmatch").then(function(message){
+                $scope.error_password = message+"\n";
+            });
+        }
+        if(password_new == ""){
+            $scope.error = true;
+            $translate("error_password_tooshort").then(function(message){
+                $scope.error_password = message+"\n";
+            });
+        }
+        if(!$scope.error){
+            $scope.openPasswordDialog('password', null);
+        }
+    };
+
+    $scope.submitEditUserPassword = function() {
+        $scope.submitted_pwd = true;
+        $scope.error_password = "";
+        $scope.error = false;
+        var password_old = $scope.pwd;
+        var password_new = $scope.new_pwd;
+        var password_repeat = $scope.pwdrepeat;
+        if(password_new == null){
+            password_new="";
+        }
+        if(password_new != password_repeat) {
+            $scope.error = true;
+            $translate("error_password_dontmatch").then(function(message){
+                $scope.error_password = message+"\n";
+            });
+        }
+        if(password_new == ""){
+            $scope.error = true;
+            $translate("error_password_tooshort").then(function(message){
+                $scope.error_password = message+"\n";
+            });
+        }
+
+        if($scope.editUserPassword.$valid && !$scope.error) {
+            if(password_new != "") {
+                password_new = CryptoJS.SHA256(password_new);
+            }
+            password_old = CryptoJS.SHA256(password_old);
+
+            $http({
+                method: 'POST',
+                url: '/api/password_edit',
+                headers: {'Content-Type': 'application/json'},
+                data: {
+                    password: password_new.toString(),
+                    password_old: password_old.toString()
+                }
+            })
+                .success(function (data) {
+                    if (data['message'] != null) {
+                        $scope.openPasswordDialog("password", data['message']);
+                    } else {
+                        $scope.getUserData();
+                        $scope.openSuccessDialog();
+                    }
+                })
+                .error(function (data) {
+                });
+        }
+    };
+
+    $scope.resetEdit = function(type) {
+        if(type == 'data'){
+
+        }else if(type == 'password'){
+
+        }
     };
 
     $scope.deleteAccountDialog = function () {
