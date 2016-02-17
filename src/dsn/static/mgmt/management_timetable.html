@@ -36,7 +36,7 @@
                     <span ng-bind="times[x][1]"></span>
                 </div>
             </th>
-            <td class="timetable-td" ng-click="show(x*10+1)" ng-class="activeID == {{ x*10+1}} && 'timetable-selected'"
+            <td class="timetable-td" ng-click="show(x*10+1)"
                 id="lesson_monday_{{ x }}">
                 <b>
                     <div ng-bind="field[{{ x*10+1}}][0]"></div>
@@ -44,7 +44,7 @@
                 <span ng-bind="field[{{ x*10+1}}][1]"></span>
                 <span ng-bind="field[{{ x*10+1}}][2]"></span>
             </td>
-            <td class="timetable-td" ng-click="show(x*10+2)" ng-class="activeID == {{ x*10+2}} && 'timetable-selected'"
+            <td class="timetable-td" ng-click="show(x*10+2)"
                 id="lesson_tuesday_{{ x }}">
                 <b>
                     <div ng-bind="field[{{ x*10+2}}][0]"></div>
@@ -52,7 +52,7 @@
                 <span ng-bind="field[{{ x*10+2}}][1]"></span>
                 <span ng-bind="field[{{ x*10+2}}][2]"></span>
             </td>
-            <td class="timetable-td" ng-click="show(x*10+3)" ng-class="activeID == {{ x*10+3}} && 'timetable-selected'"
+            <td class="timetable-td" ng-click="show(x*10+3)"
                 id="lesson_wednesday_{{ x }}">
                 <b>
                     <div ng-bind="field[{{ x*10+3}}][0]"></div>
@@ -60,7 +60,7 @@
                 <span ng-bind="field[{{ x*10+3}}][1]"></span>
                 <span ng-bind="field[{{ x*10+3}}][2]"></span>
             </td>
-            <td class="timetable-td" ng-click="show(x*10+4)" ng-class="activeID == {{ x*10+4}} && 'timetable-selected'"
+            <td class="timetable-td" ng-click="show(x*10+4)"
                 id="lesson_thursday_{{ x }}">
                 <b>
                     <div ng-bind="field[{{ x*10+4}}][0]"></div>
@@ -68,7 +68,7 @@
                 <span ng-bind="field[{{ x*10+4}}][1]"></span>
                 <span ng-bind="field[{{ x*10+4}}][2]"></span>
             </td>
-            <td class="timetable-td" ng-click="show(x*10+5)" ng-class="activeID == {{ x*10+5}} && 'timetable-selected'"
+            <td class="timetable-td" ng-click="show(x*10+5)"
                 id="lesson_friday_{{ x }}">
                 <b>
                     <div ng-bind="field[{{ x*10+5}}][0]"></div>
@@ -76,7 +76,7 @@
                 <span ng-bind="field[{{ x*10+5}}][1]"></span>
                 <span ng-bind="field[{{ x*10+5}}][2]"></span>
             </td>
-            <td class="timetable-td" ng-click="show(x*10+6)" ng-class="activeID == {{ x*10+6}} && 'timetable-selected'"
+            <td class="timetable-td" ng-click="show(x*10+6)"
                 id="lesson_saturday_{{ x }}">
                 <b>
                     <div ng-bind="field[{{ x*10+6}}][0]"></div>
@@ -129,9 +129,9 @@
                     </div>
                     <div class="row" style="padding-top: 10px;">
                         <div class="col-md-12">
-                            <select class="form-control" name="notebook" ng-model="notebook" style="width: 50%;">
+                            <select class="form-control" name="notebook" ng-init="notebook = notebook_selected"
+                                    ng-model="notebook" style="width: 50%;" ng-options="nb.name as nb.name for nb in notebooksList">
                                 <option value="" translate="no_notebook_assigned"></option>
-                                <option ng-repeat="nb in notebooksList" value="{{ nb.value }}">{{ nb.name }}</option>
                             </select>
                         </div>
                     </div>

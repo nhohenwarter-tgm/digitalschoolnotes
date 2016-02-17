@@ -447,19 +447,19 @@ mainApp.controller('timetableCtrl', function ($scope, $http, $state, ngDialog, $
     $scope.activeID = null;
     $scope.editMode = false;
 
-    $scope.getFields=function($fieldlist){
+    $scope.getFields=function(fieldlist){
         var fields={};
-        for(var i = 0;i<$fieldlist.length;i++){
-            fields[$fieldlist[i]["id"]]=[$fieldlist[i]["subject"],$fieldlist[i]["teacher"],$fieldlist[i]["room"],$fieldlist[i]["notebook"]];
+        for(var i = 0;i<fieldlist.length;i++){
+            fields[fieldlist[i]["id"]]=[fieldlist[i]["subject"],fieldlist[i]["teacher"],fieldlist[i]["room"],fieldlist[i]["notebook"]];
         }
         return fields;
     };
 
-    $scope.getTimes=function($timelist){
-        $scope.timesNumber = $timelist.length;
+    $scope.getTimes=function(timelist){
+        $scope.timesNumber = timelist.length;
         var fields={};
-        for(var i = 0;i<$timelist.length;i++){
-            fields[$timelist[i]["row"]]=[$timelist[i]["start"],$timelist[i]["end"]];
+        for(var i = 0;i<timelist.length;i++){
+            fields[timelist[i]["row"]]=[timelist[i]["start"],timelist[i]["end"]];
         }
         return fields;
     };
@@ -545,6 +545,7 @@ mainApp.controller('timetableCtrl', function ($scope, $http, $state, ngDialog, $
             $scope.teacher = $scope.field[feldId][1];
             $scope.room = $scope.field[feldId][2];
             $scope.notebook = $scope.field[feldId][3];
+            $scope.notebook_selected = $scope.field[feldId][3];
             $scope.activeID = feldId;
             $scope.activeRow = null;
             $scope.edittimetableDialog();

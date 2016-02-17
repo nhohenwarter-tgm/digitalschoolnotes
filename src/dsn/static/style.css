@@ -111,12 +111,6 @@ body {
     color: white;
 }
 
-.timetable-selected {
-    cursor: pointer;
-    background: rgba(8, 138, 8, 0.75);
-    color: white;
-}
-
 /* COMMON PRICING STYLES */
 .panel.price,
 .panel.price>.panel-heading{
