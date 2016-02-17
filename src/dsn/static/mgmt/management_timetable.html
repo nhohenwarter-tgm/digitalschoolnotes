@@ -138,7 +138,7 @@
                     <div class="row" style="padding-top: 10px;" align="center">
                         <div class="col-md-12">
                             <button type="submit" id="submit" class="btn btn-success"
-                                    ng-click="submitTimeTable();closeThisDialog();"
+                                    ng-click="submitTimeTable(subject,teacher,room,notebook)"
                                     translate="save" ng-show="timetable.$valid"></button>
                         </div>
                     </div>
@@ -187,7 +187,7 @@
                 <div class="row" style="padding-top: 10px;" align="center">
                     <div class="col-md-12">
                         <button type="submit" id="submitTimes" class="btn btn-success"
-                                ng-click="submitTimes();closeThisDialog();"
+                                ng-click="submitTimes(start,end)"
                                 translate="save"></button>
                     </div>
                 </div>
