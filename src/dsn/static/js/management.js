@@ -442,7 +442,7 @@ mainApp.controller('notebooksCtrl', function ($scope, $http, $state, $window, $t
     };
 });
 
-mainApp.controller('timetableCtrl', function ($scope, $http, $state, ngDialog, $timeout, $rootScope) {
+mainApp.controller('timetableCtrl', function ($scope, $http, $state, ngDialog, $timeout, $rootScope, $translate) {
     $scope.activeRow = null;
     $scope.activeID = null;
     $scope.editMode = false;
