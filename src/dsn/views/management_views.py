@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from dsn.models import TimeTable, TimeTableTime, TimeTableField, User, Notebook, NotebookContent
+from dsn.models import TimeTable, TimeTableTime, TimeTableField, User, Notebook, NotebookContent, NotebookLog
 from dsn.forms import NotebookForm
 from dsn.authentication.account_delete import delete_account
 
@@ -188,6 +188,33 @@ def view_edit_currentpage(request):
         notebook = Notebook.objects.get(id=params['id'])
         notebook.current_page = params['current_site']
         notebook.save()
+        return JsonResponse({})
+
+def view_log_notebook(request):
+    if not request.user.is_authenticated():
+        return JsonResponse({})
+    if request.method == "POST":
+        params = json.loads(request.body.decode('utf-8'))
+        log = NotebookLog(notebook_id = params['notebook_id'], user = params['user'], last_ping=datetime.now())
+        log.save()
+        return JsonResponse({})
+
+def view_refresh_log_notebook(request):
+    if not request.user.is_authenticated():
+        return JsonResponse({})
+    if request.method == "POST":
+        params = json.loads(request.body.decode('utf-8'))
+        log = NotebookLog.objects.get(notebook_id = params['notebook_id'], user = request.user.email)
+
+        return JsonResponse({})
+
+def view_notebook_logout(request):
+    if not request.user.is_authenticated():
+        return JsonResponse({})
+    if request.method == "POST":
+        params = json.loads(request.body.decode('utf-8'))
+        log = NotebookLog.objects.get(notebook_id=params['notebook_id'], user = request.user.email)
+        log.delete()
         return JsonResponse({})
 
 def view_get_notebooks(request):

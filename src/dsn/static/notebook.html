@@ -16,10 +16,8 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                            <div class="navbar-brand glyphicon glyphicon-arrow-left" ui-sref="management.notebooks"
-                               style="color: white; font-size: 30px;">
-
-                            </div>
+                            <a class="navbar-brand glyphicon glyphicon-arrow-left" ng-click="redirectNotebook_2(notebook._id['$oid'])"
+                                   style="color: white; font-size: 30px; cursor: pointer;"></a>
                         </div>
                         <!-- BACK ARROW END -->
                         <!-- TOOLBAR START -->
@@ -114,8 +112,9 @@
                                             <span ng-show="active" class="glyphicon glyphicon-exclamation-sign"
                                                       style="color: red; cursor: pointer;"></span>
                                             <!-- Read-Only -->
+                                            <!--style="border: 1px solid black; min-height: 20px; min-width: 20px; text-align: left; padding:5px;" ng-style="{ 'background-color': getColor(element.id, element.art) }"> -->
                                             <div ng-if="editMode != element.id"
-                                                 style="border: 1px solid black; min-height: 20px; min-width: 20px; text-align: left; padding:5px;">
+                                                style="border: 1px solid black; min-height: 20px; min-width: 20px; text-align: left; padding:5px;" ng-style="{ 'background-color': models[element.art][element.id][2] }">
                                                 <div ng-bind-html="models[element.art][element.id]" style="word-wrap: break-word; "></div>
                                             </div>
                                         </span>
@@ -168,7 +167,7 @@
                                                      ng-if="editMode != element.id && (models[element.art][element.id][1] == 0 || models[element.art][element.id][2] == 0 )">
                                                 <image ng-src="{{ models[element.art][element.id][0] }}"
                                                        ng-style='{"width": auto,
-                                                        "height": auto' />
+                                                        "height": auto}' />
                                             </section>
                                         </span>
                                         <!-- EDIT / DELETE -->
