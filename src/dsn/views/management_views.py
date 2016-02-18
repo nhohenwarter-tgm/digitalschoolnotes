@@ -324,6 +324,7 @@ def view_get_is_active(request):
         print(params['content_id'])
         print(params['content_art'])
         findnotebook = next(item for item in content if item["id"] == params['content_id'] and item["art"] == params['content_art'])
+        #hier auch die leute zurueckgeben die das heft offen haben
         return JsonResponse({"active":  findnotebook.is_active})
 
 

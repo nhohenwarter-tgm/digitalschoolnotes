@@ -85,6 +85,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
             data: {id: $stateParams.id, content_id: id, content_art: art}
         }).success(function (data) {
             if(data['active']){
+
                 color = 'red';
             }else{
                 alert("V");
@@ -287,8 +288,18 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
 
     $scope.setEditMode = function (edit, id, art) {
         $scope.editMode = edit;
+        $http({
+            method: 'POST',
+            url: '/api/notebook_isactive',
+            data: {id: $stateParams.id, content_id: id, content_art: art}
+        }).success(function (data) {
+            if(data['active']){
+                alert("Es is aktiv!")
+            }else{
+                alert("es is ned aktiv!");
+            }
+        });
         if(edit == null) {
-            //hier alle teilnehmer auslesen
 
             alert("false");
             if (art == 'code') {
