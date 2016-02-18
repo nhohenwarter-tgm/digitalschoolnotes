@@ -30,19 +30,19 @@ public class DeleteAccount extends TestCase{
         Parameters.setUpBrowser();
         this.driver = Parameters.driver;
         this.baseUrl = Parameters.baseUrl;
+        Random randomGenerator = new Random();
+        int randomInt = randomGenerator.nextInt(1000);
+        driver.get(baseUrl + "/");
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
         driver.findElement(By.id("lang_de")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
-        Random randomGenerator = new Random();
-        int randomInt = randomGenerator.nextInt(1000);
-        username = "vorname"+randomInt+"@nachname"+randomInt+".test";
-        driver.get(baseUrl + "/");
         driver.findElement(By.name("firstname")).clear();
         driver.findElement(By.name("firstname")).sendKeys("Vorname"+randomInt);
         driver.findElement(By.name("lastname")).clear();
         driver.findElement(By.name("lastname")).sendKeys("Nachname"+randomInt);
         driver.findElement(By.name("email")).clear();
-        driver.findElement(By.name("email")).sendKeys("vorname"+randomInt+"@nachname"+randomInt+".test");
+        username = JOptionPane.showInputDialog(null, "Gib die Test-Email ein (Mailinator)");
+        driver.findElement(By.name("email")).sendKeys(username);
         driver.findElement(By.name("pwd")).clear();
         driver.findElement(By.name("pwd")).sendKeys("12345678");
         driver.findElement(By.name("pwd_repeat")).clear();
@@ -79,10 +79,11 @@ public class DeleteAccount extends TestCase{
     @Test
     public void testDeleteUser() throws Exception {
         driver.get(baseUrl + "/management");
-        driver.findElement(By.partialLinkText("Account Settings")).click();
+        driver.findElement(By.partialLinkText("Kontoeinstellungen")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
         driver.findElement(By.id("deleteAccount")).click();
-        closeAlertAndGetItsText();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.id("submit")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
         driver.get(baseUrl + "/login");
         driver.findElement(By.name("email")).clear();
