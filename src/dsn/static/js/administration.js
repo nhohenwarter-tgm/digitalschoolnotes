@@ -49,7 +49,7 @@ administrationApp.controller('adminCtrl', function () {
 
 });
 
-administrationApp.controller('usermanagementCtrl', function ($scope, $http, $filter, $window, ngDialog) {
+administrationApp.controller('usermanagementCtrl', function ($scope, $http, $filter, $window, ngDialog, loggedIn) {
 
     $scope.itemsPerPage = 20;
     $scope.security_list = [{name: 'Benutzer', security_level: 1},
@@ -83,7 +83,8 @@ administrationApp.controller('usermanagementCtrl', function ($scope, $http, $fil
             })
             .error(function (data) {
             });
-    }
+    };
+
     $http({
         method: 'GET',
         url: '/api/admin_user',
@@ -217,7 +218,7 @@ administrationApp.controller('usermanagementCtrl', function ($scope, $http, $fil
             })
             .error(function (data) {
             });
-    }
+    };
 
     $scope.sort = function (spalte, current) {
         if ($scope.order == null) {
@@ -245,50 +246,52 @@ administrationApp.controller('usermanagementCtrl', function ($scope, $http, $fil
             })
             .error(function (data) {
             });
-    }
+    };
 
     $scope.securityElementEdit = function (email,value,index) {
-        ngDialog.open({
-            template: 'securityCode',
-            className: 'ngdialog-theme-default',
-            scope: $scope
-        });
         $scope.securitychangeemail = email;
         $scope.securitychangevalue = value;
         $scope.securitychangeindex = index;
+        loggedIn.getUser().then(function (data) {
+            if (data['user']['email'] != email) {
+                ngDialog.open({
+                    template: 'securityCode',
+                    className: 'ngdialog-theme-default',
+                    scope: $scope
+                });
+            }else{
+                ngDialog.open({
+                    template: 'invalidOwnUser',
+                    className: 'ngdialog-theme-default',
+                    scope: $scope
+                });
+            }
+        });
     };
 
     $scope.deleteUserElement = function (email,buttontext) {
-        ngDialog.open({
-            template: 'deleteUser',
-            className: 'ngdialog-theme-default',
-            scope: $scope
+        loggedIn.getUser().then(function (data) {
+            if (data['user']['email'] != email) {
+                ngDialog.open({
+                    template: 'deleteUser',
+                    className: 'ngdialog-theme-default',
+                    scope: $scope
+                });
+                $scope.deleteuseremail = email;
+                if (buttontext == "Account löschen") {
+                    $scope.deletebuttontext = "Wollen Sie den User " + email + " wirklich löschen?";
+                } else {
+                    $scope.deletebuttontext = "Soll die Löschung von User " + email + " aufgehoben werden?";
+                }
+            }else{
+                ngDialog.open({
+                    template: 'invalidOwnUser',
+                    className: 'ngdialog-theme-default',
+                    scope: $scope
+                });
+            }
         });
-        $scope.deleteuseremail = email;
-        if(buttontext == "Account löschen"){
-            $scope.deletebuttontext = "Wollen Sie den User "+email+" wirklich löschen?";
-        }else{
-            $scope.deletebuttontext = "Soll die Löschung von User "+email+" aufgehoben werden?";
-        }
     };
-});
-
-
-administrationApp.controller('billsCtrl', function ($scope) {
-
-});
-
-administrationApp.controller('ldapConfigurationCtrl', function ($scope) {
-
-});
-
-administrationApp.controller('userquotasCtrl', function ($scope) {
-
-});
-
-
-administrationApp.controller('statisticsCtrl', function ($scope) {
-
 });
 
 administrationApp.controller('logoutCtrl', function ($scope, $http, $window) {
