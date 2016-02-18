@@ -7,6 +7,8 @@ import org.junit.Test;
 import org.openqa.selenium.*;
 import util.Parameters;
 
+import javax.swing.*;
+
 
 /**
  * Testet die Optionen eines Accounts
@@ -27,7 +29,7 @@ public class EditAccount extends TestCase{
         driver.get(baseUrl + "/login");
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
         driver.findElement(By.name("email")).clear();
-        driver.findElement(By.name("email")).sendKeys("test@test.test");
+        driver.findElement(By.name("email")).sendKeys("testusersettings@mailinator.com");
         driver.findElement(By.name("pwd")).sendKeys("12341234");
         driver.findElement(By.id("submit")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
@@ -43,24 +45,42 @@ public class EditAccount extends TestCase{
     public void testEditName() throws Exception {
         driver.get(baseUrl + "/management");
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
-        driver.findElement(By.partialLinkText("Settings")).click();
+        driver.findElement(By.partialLinkText("Kontoeinstellungen")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
         driver.findElement(By.name("first_name")).clear();
         driver.findElement(By.name("first_name")).sendKeys("Test_firstname");
         driver.findElement(By.name("last_name")).clear();
         driver.findElement(By.name("last_name")).sendKeys("Test_lastname");
-        driver.findElement(By.name("old_pwd")).clear();
-        driver.findElement(By.name("old_pwd")).sendKeys("12341234");
-        driver.findElement(By.id("submit")).click();
+        driver.findElement(By.id("submit_data")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.id("pwd_confirm")).sendKeys("12341234");
+        driver.findElement(By.id("submit_confirm")).click();
+        driver.findElement(By.id("close")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
 
         driver.findElement(By.id("search")).clear();
-        driver.findElement(By.id("search")).sendKeys("test@test.test");
+        driver.findElement(By.id("search")).sendKeys("testusersettings@mailinator.com");
         driver.findElement(By.id("searchbtn")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
-        driver.findElement(By.partialLinkText("test@test.test")).click();
+        driver.findElement(By.partialLinkText("testusersettings@mailinator.com")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
         String page = driver.getPageSource();
         if (!page.contains("Test_firstname")) throw new NotFoundException();
+        if (!page.contains("Test_lastname")) throw new NotFoundException();
+
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.partialLinkText("Kontoeinstellungen")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.name("first_name")).clear();
+        driver.findElement(By.name("first_name")).sendKeys("Test");
+        driver.findElement(By.name("last_name")).clear();
+        driver.findElement(By.name("last_name")).sendKeys("Test");
+        driver.findElement(By.id("submit_data")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.id("pwd_confirm")).sendKeys("12341234");
+        driver.findElement(By.id("submit_confirm")).click();
+        driver.findElement(By.id("close")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
     }
 
     /**
@@ -71,21 +91,101 @@ public class EditAccount extends TestCase{
     public void testEditEmail() throws Exception {
         driver.get(baseUrl + "/management");
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
-        driver.findElement(By.partialLinkText("Settings")).click();
+        driver.findElement(By.partialLinkText("Kontoeinstellungen")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
         driver.findElement(By.name("email")).clear();
-        driver.findElement(By.name("email")).sendKeys("test@test.test");
-        driver.findElement(By.name("old_pwd")).clear();
-        driver.findElement(By.name("old_pwd")).sendKeys("12341234");
+        driver.findElement(By.name("email")).sendKeys("dsn@mailinator.com");
+        driver.findElement(By.id("submit_data")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.id("pwd_confirm")).sendKeys("12341234");
+        driver.findElement(By.id("submit_confirm")).click();
+        driver.findElement(By.id("close")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        JOptionPane.showMessageDialog(null,
+                "Bitte schalte den Account auf aktiviert. \n Drücke erst OK wenn der Account aktiviert wurde.(dsn@mailinator.com)",
+                "Action Required!",
+                JOptionPane.WARNING_MESSAGE);
+
+        driver.get(baseUrl + "/");
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.get(baseUrl + "/login");
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.name("email")).clear();
+        driver.findElement(By.name("email")).sendKeys("dsn@mailinator.com");
+        driver.findElement(By.name("pwd")).sendKeys("12341234");
         driver.findElement(By.id("submit")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
-
+        driver.findElement(By.id("lang_de")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
         driver.findElement(By.id("search")).clear();
-        driver.findElement(By.id("search")).sendKeys("test@test.test");
+        driver.findElement(By.id("search")).sendKeys("dsn@mailinator.com");
         driver.findElement(By.id("searchbtn")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.partialLinkText("dsn@mailinator.com")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
         String page = driver.getPageSource();
-        if (!page.contains("test@test.test")) throw new NotFoundException();
+        if (!page.contains("dsn@mailinator.com")) throw new NotFoundException();
+
+        driver.findElement(By.partialLinkText("Kontoeinstellungen")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.name("email")).clear();
+        driver.findElement(By.name("email")).sendKeys("testusersettings@mailinator.com");
+        driver.findElement(By.id("submit_data")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.id("pwd_confirm")).sendKeys("12341234");
+        driver.findElement(By.id("submit_confirm")).click();
+        driver.findElement(By.id("close")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        JOptionPane.showMessageDialog(null,
+                "Bitte schalte den Account auf aktiviert. \n Drücke erst OK wenn der Account aktiviert wurde.",
+                "Action Required!",
+                JOptionPane.WARNING_MESSAGE);
+    }
+
+    /**
+     * Testet ob ein Heft erstellt werden kann
+     * @throws Exception
+     */
+    @Test
+    public void testEditPassword() throws Exception {
+        driver.get(baseUrl + "/management");
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.partialLinkText("Kontoeinstellungen")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.id("pwd")).clear();
+        driver.findElement(By.id("pwd")).sendKeys("12345678");
+        driver.findElement(By.id("pwdrepeat")).clear();
+        driver.findElement(By.id("pwdrepeat")).sendKeys("12345678");
+        driver.findElement(By.id("submit_data")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.id("pwd_confirm")).sendKeys("12341234");
+        driver.findElement(By.id("submit_confirm")).click();
+        driver.findElement(By.id("close")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+
+        driver.findElement(By.partialLinkText("Abmelden"));
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+
+        driver.get(baseUrl + "/login");
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.name("email")).clear();
+        driver.findElement(By.name("email")).sendKeys("testusersettings@mailinator.com");
+        driver.findElement(By.name("pwd")).sendKeys("12345678");
+        driver.findElement(By.id("submit")).click();
+
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.partialLinkText("Kontoeinstellungen")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.id("pwd")).clear();
+        driver.findElement(By.id("pwd")).sendKeys("12345678");
+        driver.findElement(By.id("pwdrepeat")).clear();
+        driver.findElement(By.id("pwdrepeat")).sendKeys("12345678");
+        driver.findElement(By.id("submit_data")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.id("pwd_confirm")).sendKeys("12341234");
+        driver.findElement(By.id("submit_confirm")).click();
+        driver.findElement(By.id("close")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
     }
 
     @After

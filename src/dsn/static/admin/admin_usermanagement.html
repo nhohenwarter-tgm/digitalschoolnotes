@@ -119,3 +119,16 @@
         </button>
     </div>
 </script>
+
+<script type="text/ng-template" id="invalidOwnUser">
+    <div class="ngdialog-message">
+        <h2>Ungültige Operation!</h2>
+        <div>Eigener User kann nicht bearbeitet werden!</div>
+        <br/>
+    </div>
+    <div class="ngdialog-buttons mt">
+        <button id="cancel" class="btn btn-danger" ng-click="update(false);closeThisDialog();"
+                style="float: right;  margin-right: 15px;">Schließen
+        </button>
+    </div>
+</script>

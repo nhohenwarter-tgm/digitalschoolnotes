@@ -378,7 +378,7 @@ def view_get_notebook(request):
                 return JsonResponse({"error": True})
         elif 'name' in params:
             try:
-                notebook = Notebook.objects.get(name=params['name']).to_json()
+                notebook = Notebook.objects.get(name=params['name'], email=request.user.email).to_json()
             except:
                 return JsonResponse({"error": True})
         else:
@@ -457,6 +457,7 @@ def view_editUserData(request):
                 link = create_validation_token(params['email'])
                 validationmail(params['email'], params['first_name'], link)
                 logout(request)
+                return JsonResponse({'message': None, 'logout': True})
         else:
             return JsonResponse({'message': _("error_wrong_password")})
         return JsonResponse({'message': None})

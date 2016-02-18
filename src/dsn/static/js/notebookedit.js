@@ -64,17 +64,20 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         $scope.notebook = JSON.parse(data['notebook']);
         $scope.content = $scope.notebook['content'];
         $scope.currentPage = $scope.notebook['current_page'];
-        if($scope.currentPage != $scope.notebook['numpages'])$scope.additem = true;
+        if($scope.currentPage != $scope.notebook['numpages']) {
+            $scope.additem = true;
+        }
+        $scope.update();
 
         loggedIn.getUser().then(function (data) {
             var user = data['user'];
             if ($scope.notebook['email'] == user['email'] || $.inArray(user['email'], $scope.notebook['collaborator']) > -1) {
                 $scope.publicViewed = false;
+                $scope.update();
             } else {
                 $scope.publicViewed = true;
             }
         });
-        $scope.update();
     });
 
     $scope.getColor = function(id, art){
@@ -88,7 +91,6 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
 
                 color = 'red';
             }else{
-                alert("V");
                 color = 'white';
             }
         });
@@ -155,8 +157,8 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
                 }).success(function (data) {
                     $scope.currentPage = page;
                     $scope.notebook = JSON.parse(data['notebook']);
+                    $scope.update();
                 });
-                $scope.update();
             }
             if ($scope.currentPage == $scope.notebook['numpages']) {
                 $scope.additem = false;
@@ -172,6 +174,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
                 }).success(function (data) {
                     $scope.currentPage = page;
                     $scope.notebook = JSON.parse(data['notebook']);
+                    $scope.update();
                 });
             }
         }
@@ -241,7 +244,9 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
             }).success(function (data) {
                 $scope.notebook = JSON.parse(data['notebook']);
                 $scope.content = $scope.notebook['content'];
-                $scope.update();
+                if(!active) {
+                    $scope.update();
+                }
             });
     };
 
@@ -301,23 +306,28 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         });
         if(edit == null) {
 
-            alert("false");
             if (art == 'code') {
                 $scope.editelement(id, art, {
                     "data": $scope.models[art][id][0],
-                    "language": $scope.models['code'][id][1]
+                    "language": $scope.models[art][id][1]
                 },false);
-            }else {
-                $scope.editelement(id, art, {"data": $scope.models[art][id]},false);
+            }else if(art == 'textarea') {
+                $scope.editelement(id, art, {"data": $scope.models[art][id][0]},false);
             }
+            $scope.update();
         }else if(art == 'image') {
             $scope.editMode = false;
             $scope.idimage = id;
             $scope.width = $scope.models[art][id][1];
             $scope.height = $scope.models[art][id][2];
             $scope.editPicture();
-        } else{
-            alert("true");
+        } else if (art == 'code') {
+            $scope.editelement(id, art, {
+                "data": $scope.models[art][id][0],
+                "language": $scope.models[art][id][1]
+            },true);
+            $scope.removeDraggables();
+        }else if(art == 'textarea') {
             $scope.editelement(id, art, {
                 "data": $scope.models[art][id][0]
             }, true);
@@ -425,7 +435,6 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
                 })
                     .success(function (data) {
                         $scope.notebooks=$scope.notebooks.concat(JSON.parse(data['notebooks']));
-                        alert(JSON.stringify($scope.notebooks));
                         ngDialog.open({
                             template: 'exportCode',
                             className: 'ngdialog-theme-default',
