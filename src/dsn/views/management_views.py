@@ -377,7 +377,7 @@ def view_get_notebook(request):
                 return JsonResponse({"error": True})
         elif 'name' in params:
             try:
-                notebook = Notebook.objects.get(name=params['name']).to_json()
+                notebook = Notebook.objects.get(name=params['name'], email=request.user.email).to_json()
             except:
                 return JsonResponse({"error": True})
         else:
