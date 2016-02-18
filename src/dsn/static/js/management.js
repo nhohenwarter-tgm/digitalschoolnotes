@@ -176,8 +176,18 @@ mainApp.controller('accsettingsCtrl', function ($rootScope, $scope, $http, $wind
     $scope.openSuccessDialog = function() {
         ngDialog.open({
             template: 'changeSuccessful',
-            scope: $scope
+            scope: $scope,
+            showClose: false,
+            closeByEscape: false,
+            closeByDocument: false
         });
+    };
+
+    $scope.closeSuccessDialog = function() {
+        ngDialog.close({
+            template: 'changeSuccessful'
+        });
+        $state.go('mainpage.content');
     };
 
     $scope.submitEditUserData = function() {
@@ -204,6 +214,8 @@ mainApp.controller('accsettingsCtrl', function ($rootScope, $scope, $http, $wind
                 .success(function (data) {
                     if (data['message'] != null) {
                         $scope.openPasswordDialog("data", data['message']);
+                    } else if(data['logout'] == true) {
+                        $scope.openSuccessDialog();
                     } else {
                         $scope.getUserData();
                         $scope.openSuccessDialog();
