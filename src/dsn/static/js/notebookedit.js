@@ -1,6 +1,6 @@
 var mainApp = angular.module('mainApp');
 
-mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $sce, $window, loggedIn, ngDialog, $timeout, $state, $filter, fileUpload) {
+mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $sce, $window, loggedIn, ngDialog, $timeout, $state, $filter, fileUpload, Active) {
 
     $scope.publicViewed = true;
     $scope.currentPage = 1;
@@ -80,20 +80,16 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         });
     });
 
-    $scope.getColor = function(id, art){
-        var color = '';
-        $http({
-            method: 'POST',
-            url: '/api/notebook_isactive',
-            data: {id: $stateParams.id, content_id: id, content_art: art}
-        }).success(function (data) {
+    $scope.getColor = function(id, art, index){
+        var url = "/api/notebook_isactive";
+        var message = Active.isactive($stateParams.id, id, art, url);
+        message.then(function (data) {
             if(data['active']){
-                color = 'red';
+                $scope.models[art][id][index] = 'red';
             }else{
-                color = 'white';
+                $scope.models[art][id][index] = 'white';
             }
         });
-        return color;
     };
 
     $scope.initElemModels = function () {
@@ -102,7 +98,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
                 $scope.models['code'][$scope.content[j]['id']] = {};
                 $scope.models['code'][$scope.content[j]['id']][0] = $scope.content[j]['data']['data'];
                 $scope.models['code'][$scope.content[j]['id']][1] = $scope.content[j]['data']['language'];
-                $scope.models['code'][$scope.content[j]['id']][2] = $scope.getColor($scope.content[j]['id'],$scope.content[j]['art']);
+                $scope.models['code'][$scope.content[j]['id']][2] = $scope.getColor($scope.content[j]['id'],$scope.content[j]['art'], 2);
             }
             else if($scope.content[j]['art'] == 'image'){
                 $scope.models['image'][$scope.content[j]['id']] = {};
@@ -112,7 +108,8 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
             }else {
                 $scope.models[$scope.content[j]['art']][$scope.content[j]['id']] = {};
                 $scope.models[$scope.content[j]['art']][$scope.content[j]['id']][0] = $scope.content[j]['data']['data'];
-                $scope.models[$scope.content[j]['art']][$scope.content[j]['id']][1] = $scope.getColor($scope.content[j]['id'],$scope.content[j]['art']);
+                ///WAIT FOR REQUEST TILL RESULT
+                $scope.models[$scope.content[j]['art']][$scope.content[j]['id']][1] = $scope.getColor($scope.content[j]['id'],$scope.content[j]['art'], 1);
             }
         }
     };
@@ -625,6 +622,27 @@ mainApp.service('fileUpload', ['$http', '$q', function ($http, $q) {
         fd.append('file', file);
         var link = $q.defer();
         $http.post(uploadUrl, fd, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined, 'enctype':'multipart/form-data'}
+        })
+            .success(function(data) {
+                link.resolve(data);
+            })
+            .error(function(data){
+                link.reject(data);
+            });
+        return link.promise;
+    };
+}]);
+
+mainApp.service('Active', ['$http', '$q', function ($http, $q) {
+    this.isactive = function(id, content_id, content_art, url){
+        var fd = new FormData();
+        fd.append('notebook', id);
+        fd.append('content_id', content_id);
+        fd.append('content_art', content_art);
+        var link = $q.defer();
+        $http.post(url, fd, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined, 'enctype':'multipart/form-data'}
         })
