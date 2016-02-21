@@ -108,7 +108,6 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
             }else {
                 $scope.models[$scope.content[j]['art']][$scope.content[j]['id']] = {};
                 $scope.models[$scope.content[j]['art']][$scope.content[j]['id']][0] = $scope.content[j]['data']['data'];
-                ///WAIT FOR REQUEST TILL RESULT
                 $scope.models[$scope.content[j]['art']][$scope.content[j]['id']][1] = $scope.getColor($scope.content[j]['id'],$scope.content[j]['art'], 1);
             }
         }

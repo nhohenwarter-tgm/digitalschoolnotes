@@ -321,7 +321,6 @@ def view_get_is_active(request):
         notebook = Notebook.objects.get(id=request.POST.get('notebook'))
         findnotebook = None
         content = notebook.content
-        print(request.POST.get('content_id')+"_"+request.POST.get('content_art'))
         for item in content:
             if str(item["id"]) == str(request.POST.get('content_id')) and item["art"] == request.POST.get('content_art'):
                 findnotebook = item
