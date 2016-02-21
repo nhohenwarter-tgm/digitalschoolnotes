@@ -80,14 +80,14 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         });
     });
 
-    $scope.getColor = function(id, art, index){
+    $scope.getColor = function(id, art){
         var url = "/api/notebook_isactive";
         var message = Active.isactive($stateParams.id, id, art, url);
         message.then(function (data) {
             if(data['active']){
-                $scope.models[art][id][index] = 'red';
+                $scope.models[art][id][2] = 'red';
             }else{
-                $scope.models[art][id][index] = 'white';
+                $scope.models[art][id][2] = 'white';
             }
         });
     };
@@ -98,7 +98,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
                 $scope.models['code'][$scope.content[j]['id']] = {};
                 $scope.models['code'][$scope.content[j]['id']][0] = $scope.content[j]['data']['data'];
                 $scope.models['code'][$scope.content[j]['id']][1] = $scope.content[j]['data']['language'];
-                $scope.models['code'][$scope.content[j]['id']][2] = $scope.getColor($scope.content[j]['id'],$scope.content[j]['art'], 2);
+                $scope.models['code'][$scope.content[j]['id']][2] = $scope.getColor($scope.content[j]['id'],$scope.content[j]['art']);
             }
             else if($scope.content[j]['art'] == 'image'){
                 $scope.models['image'][$scope.content[j]['id']] = {};
@@ -108,7 +108,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
             }else {
                 $scope.models[$scope.content[j]['art']][$scope.content[j]['id']] = {};
                 $scope.models[$scope.content[j]['art']][$scope.content[j]['id']][0] = $scope.content[j]['data']['data'];
-                $scope.models[$scope.content[j]['art']][$scope.content[j]['id']][1] = $scope.getColor($scope.content[j]['id'],$scope.content[j]['art'], 1);
+                $scope.models[$scope.content[j]['art']][$scope.content[j]['id']][1] = $scope.getColor($scope.content[j]['id'],$scope.content[j]['art']);
             }
         }
     };
@@ -288,11 +288,9 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
 
     $scope.setEditMode = function (edit, id, art) {
         $scope.editMode = edit;
-        $http({
-            method: 'POST',
-            url: '/api/notebook_isactive',
-            data: {id: $stateParams.id, content_id: id, content_art: art}
-        }).success(function (data) {
+        var url = "/api/notebook_isactive";
+        var message = Active.isactive($stateParams.id, id, art, url);
+        message.then(function (data) {
             if(data['active']){
                 alert("Es is aktiv!")
             }else{
