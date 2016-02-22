@@ -2,11 +2,17 @@
     <div>
         <h2 style="text-align: center; padding-bottom: 15px;">
             <span translate="menu_timetable"></span>
-        <span id="timetableToggleEdit" ng-show="options" style="font-size: 15px; cursor: pointer; padding: 0px;"
-              ng-click="setEditMode(true)">
-            <span class="glyphicon glyphicon-cog" style="padding-right: 5px;"></span>
-        </span>
+            <span id="editmode_info" ng-mouseenter="show_editmode_info=true"
+                    ng-mouseleave="show_editmode_info=false"
+                  style="font-size: 15px; cursor: pointer; padding: 0px;">
+                <span class="glyphicon glyphicon-info-sign" style="padding-right: 5px;"></span>
+            </span>
+            <span id="timetableToggleEdit" ng-show="options" style="font-size: 15px; cursor: pointer; padding: 0px;"
+                ng-click="setEditMode(true)">
+                <span class="glyphicon glyphicon-cog" style="padding-right: 5px;"></span>
+            </span>
         </h2>
+        <h4 ng-show="show_editmode_info" translate="timetable_editmode_infotext"></h4>
     </div>
     <div style="color: red; text-align: center; padding-bottom: 10px;" ng-show="editMode">
         <span translate="editmode_activated"></span>
