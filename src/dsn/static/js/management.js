@@ -653,22 +653,21 @@ mainApp.controller('timetableCtrl', function ($scope, $http, $state, ngDialog, $
         var start = $scope.start;
         var end = $scope.end;
         $scope.rowId = $rootScope.activeRow;
-        if($scope.timetableTimes.$valid) {
-            $http({
-                method: 'POST',
-                url: '/api/timetabletimes',
-                headers: {'Content-Type': 'application/json'},
-                data: {start: start, end: end, rowId: $scope.rowId}
+
+        $http({
+            method: 'POST',
+            url: '/api/timetabletimes',
+            headers: {'Content-Type': 'application/json'},
+            data: {start: start, end: end, rowId: $scope.rowId}
+        })
+            .success(function (data) {
+                $scope.getTimetable();
+
             })
-                .success(function (data) {
-                    $scope.getTimetable();
+            .error(function (data) {
 
-                })
-                .error(function (data) {
-
-                });
-            $scope.activeRow = null;
-        }
+            });
+        $scope.activeRow = null;
     };
 
     $scope.setEditMode = function(edit){

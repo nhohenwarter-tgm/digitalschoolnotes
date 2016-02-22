@@ -325,8 +325,6 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         var message = Active.isactive($stateParams.id, id, art, url);
         message.then(function (data) {
             if(data['active']){
-                $scope.editMode = null;
-                $scope.models[art][id][2] = 'red';
             }
         });
         if(edit == null) {
@@ -540,7 +538,6 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
             }else{
                 $scope.errormessage = "filetyp is not supported";
             }
-            //alert("file size is more than 5MB");
         }
     };
 
@@ -603,6 +600,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     };
 
     $scope.redirectNotebook_2 = function (id) {
+        /**
         $http({
             method: 'POST',
             url: '/api/notebook_logout',
@@ -612,10 +610,12 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
             }
         })
             .success(function (data) {
+            **/
                 $state.go('management.notebooks');
-            })
+    /**
+    })
             .error(function (data) {
-            });
+            });**/
     };
 
     $scope.poll = function(){
