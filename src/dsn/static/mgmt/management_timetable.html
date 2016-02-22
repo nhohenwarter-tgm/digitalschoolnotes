@@ -16,7 +16,7 @@
     </div>
     <div style="color: red; text-align: center; padding-bottom: 10px;" ng-show="editMode">
         <span translate="editmode_activated"></span>
-        <span style="cursor: pointer; text-decoration: underline;" ng-click="setEditMode(false)"
+        <span id="exit_editmode" style="cursor: pointer; text-decoration: underline;" ng-click="setEditMode(false)"
               translate="editmode_end"></span>
     </div>
     <div style="color: red; text-align: center; padding-bottom: 10px;" ng-bind="timetableError">
