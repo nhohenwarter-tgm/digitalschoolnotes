@@ -156,16 +156,17 @@ public class EditAccount extends TestCase{
         driver.findElement(By.id("pwd")).sendKeys("12345678");
         driver.findElement(By.id("pwdrepeat")).clear();
         driver.findElement(By.id("pwdrepeat")).sendKeys("12345678");
-        driver.findElement(By.id("submit_data")).click();
+        driver.findElement(By.id("submit_password")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
         driver.findElement(By.id("pwd_confirm")).sendKeys("12341234");
         driver.findElement(By.id("submit_confirm")).click();
         driver.findElement(By.id("close")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
 
-        driver.findElement(By.partialLinkText("Abmelden"));
+        driver.findElement(By.partialLinkText("Abmelden")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
 
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
         driver.get(baseUrl + "/login");
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
         driver.findElement(By.name("email")).clear();
@@ -177,12 +178,12 @@ public class EditAccount extends TestCase{
         driver.findElement(By.partialLinkText("Kontoeinstellungen")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
         driver.findElement(By.id("pwd")).clear();
-        driver.findElement(By.id("pwd")).sendKeys("12345678");
+        driver.findElement(By.id("pwd")).sendKeys("12341234");
         driver.findElement(By.id("pwdrepeat")).clear();
-        driver.findElement(By.id("pwdrepeat")).sendKeys("12345678");
-        driver.findElement(By.id("submit_data")).click();
+        driver.findElement(By.id("pwdrepeat")).sendKeys("12341234");
+        driver.findElement(By.id("submit_password")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
-        driver.findElement(By.id("pwd_confirm")).sendKeys("12341234");
+        driver.findElement(By.id("pwd_confirm")).sendKeys("12345678");
         driver.findElement(By.id("submit_confirm")).click();
         driver.findElement(By.id("close")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);

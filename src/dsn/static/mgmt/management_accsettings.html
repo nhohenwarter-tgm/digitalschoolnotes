@@ -32,7 +32,7 @@
                 </div>
                 <div class="row" style="padding-top: 30px;">
                     <button type="submit" id="submit_data" class="btn btn-success" style="margin-left: 15px;" translate="save_changes"></button>
-                    <button id="reset_data" class="btn btn-danger" ng-click="resetEdit('data')" style="float: right; margin-right: 15px;" translate="reset"></button>
+                    <button type="button" id="reset_data" class="btn btn-danger" ng-click="resetEdit('data')" style="float: right; margin-right: 15px;" translate="reset"></button>
                 </div>
             </form>
         </div>
@@ -60,7 +60,7 @@
                 </div>
                 <div class="row" style="padding-top: 30px;">
                     <button type="submit" id="submit_password" class="btn btn-success" style="margin-left: 15px;" translate="save_changes"></button>
-                    <button id="reset_password" class="btn btn-danger" ng-click="resetEdit('password')" style="float: right; margin-right: 15px;" translate="reset"></button>
+                    <button type="button" id="reset_password" class="btn btn-danger" ng-click="resetEdit('password')" style="float: right; margin-right: 15px;" translate="reset"></button>
                 </div>
             </form>
         </div>
@@ -91,16 +91,16 @@
 <!-- DELETE ACCOUNT DIALOG -->
 <script type="text/ng-template" id="deleteAccount">
     <div class="ngdialog-message">
-        <h2>Account löschen</h2>
+        <h2 translate="delete_account"></h2>
         <div>{{ 'account_delete_warnmessage' | translate }}</div>
         </br>
         <div class="ngdialog-buttons mt">
             <button id="cancel" class="btn btn-danger" ng-click="closeThisDialog()"
-                    style="float: right;  margin-right: 15px;">Abbrechen
+                    style="float: right; margin-right: 15px;" translate="cancel">
             </button>
             <button type="submit" id="submit" class="btn btn-success" ng-disabled="showError"
                     ng-click="deleteAccount();closeThisDialog();"
-                    style="float: right; margin-left: 15px; margin-right: 15px;">Löschen
+                    style="float: right; margin-left: 15px; margin-right: 15px;" translate="delete_account">
             </button>
         </div>
     </div>
