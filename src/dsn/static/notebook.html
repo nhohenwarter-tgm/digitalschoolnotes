@@ -172,7 +172,9 @@
                                             </section>
                                         </span>
                                         <!-- EDIT / DELETE -->
-                                        <div ng-hide="publicViewed || models[element.art][element.id][2] == 'red'">
+                                        <!--<div ng-hide="publicViewed || models[element.art][element.id][2] == 'red'">-->
+                                        <div ng-hide="publicViewed ||
+                                        (models[element.art][element.id][2] == 'red' && editMode != element.id)">
                                             <span ng-show="hovered && editMode != element.id"
                                                   class="glyphicon glyphicon-trash"
                                                   ng-click="codeElementDelete(element.id,element.art)"

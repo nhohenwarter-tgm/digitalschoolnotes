@@ -256,6 +256,7 @@ class NotebookContent(EmbeddedDocument):
     position_site = IntField()
     data = DictField()
     is_active = BooleanField(default=False)
+    is_active_by = EmailField()
 
 
 class Notebook(Document):
@@ -268,7 +269,6 @@ class Notebook(Document):
     current_page = IntField(default=2)
     content = SortedListField(EmbeddedDocumentField(NotebookContent), ordering="id", reverse=True)
     collaborator = ListField(EmailField())
-
 
 class TimeTableTime(EmbeddedDocument):
     row=IntField()

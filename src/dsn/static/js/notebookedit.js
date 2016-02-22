@@ -77,8 +77,37 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
             } else {
                 $scope.publicViewed = true;
             }
+
+            $scope.checkEditActive(user['email']);
         });
     });
+
+    $scope.checkEditModeActive = function(id, art, user) {
+        $http({
+            method: 'POST',
+            url: '/api/notebook_activeby',
+            data: {
+                id: $stateParams.id,
+                content_id: id,
+                content_art: art
+            }
+        }).success(function (data) {
+            if(data['active']){
+                if(user == data['active_by']){
+                    $scope.setEditMode(id, id, art);
+                }
+            }
+        });
+    };
+
+    $scope.checkEditActive = function(user){
+        for (var j = 0; j < $scope.content.length; j++) {
+            if ($scope.content[j]['art'] == 'code' || $scope.content[j]['art'] == 'textarea') {
+                $scope.checkEditModeActive($scope.content[j]['id'],$scope.content[j]['art'], user);
+            }
+        }
+    };
+
 
     $scope.getColor = function(id, art){
         var url = "/api/notebook_isactive";
@@ -94,21 +123,23 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
 
     $scope.initElemModels = function () {
         for (var j = 0; j < $scope.content.length; j++) {
-            if ($scope.content[j]['art'] == 'code') {
-                $scope.models['code'][$scope.content[j]['id']] = {};
-                $scope.models['code'][$scope.content[j]['id']][0] = $scope.content[j]['data']['data'];
-                $scope.models['code'][$scope.content[j]['id']][1] = $scope.content[j]['data']['language'];
-                $scope.models['code'][$scope.content[j]['id']][2] = $scope.getColor($scope.content[j]['id'],$scope.content[j]['art']);
-            }
-            else if($scope.content[j]['art'] == 'image'){
-                $scope.models['image'][$scope.content[j]['id']] = {};
-                $scope.models['image'][$scope.content[j]['id']][0] = $scope.content[j]['data']['data'];
-                $scope.models['image'][$scope.content[j]['id']][1] = $scope.content[j]['data']['width'];
-                $scope.models['image'][$scope.content[j]['id']][2] = $scope.content[j]['data']['height'];
-            }else {
-                $scope.models[$scope.content[j]['art']][$scope.content[j]['id']] = {};
-                $scope.models[$scope.content[j]['art']][$scope.content[j]['id']][0] = $scope.content[j]['data']['data'];
-                $scope.models[$scope.content[j]['art']][$scope.content[j]['id']][1] = $scope.getColor($scope.content[j]['id'],$scope.content[j]['art']);
+            if($scope.content[j]['id'] != $scope.editMode) {
+                if ($scope.content[j]['art'] == 'code') {
+                    $scope.models['code'][$scope.content[j]['id']] = {};
+                    $scope.models['code'][$scope.content[j]['id']][0] = $scope.content[j]['data']['data'];
+                    $scope.models['code'][$scope.content[j]['id']][1] = $scope.content[j]['data']['language'];
+                    $scope.models['code'][$scope.content[j]['id']][2] = $scope.getColor($scope.content[j]['id'], $scope.content[j]['art']);
+                }
+                else if ($scope.content[j]['art'] == 'image') {
+                    $scope.models['image'][$scope.content[j]['id']] = {};
+                    $scope.models['image'][$scope.content[j]['id']][0] = $scope.content[j]['data']['data'];
+                    $scope.models['image'][$scope.content[j]['id']][1] = $scope.content[j]['data']['width'];
+                    $scope.models['image'][$scope.content[j]['id']][2] = $scope.content[j]['data']['height'];
+                } else {
+                    $scope.models[$scope.content[j]['art']][$scope.content[j]['id']] = {};
+                    $scope.models[$scope.content[j]['art']][$scope.content[j]['id']][0] = $scope.content[j]['data']['data'];
+                    $scope.models[$scope.content[j]['art']][$scope.content[j]['id']][1] = $scope.getColor($scope.content[j]['id'], $scope.content[j]['art']);
+                }
             }
         }
     };
@@ -125,7 +156,9 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
 
     $scope.initDraggables = function () {
         for (var i = 0; i < $scope.content.length; i++) {
-            $scope.makeDraggable($scope.content[i]['id'], $scope.content[i]['art']);
+            if($scope.content[i]['id'] != $scope.editMode) {
+                $scope.makeDraggable($scope.content[i]['id'], $scope.content[i]['art']);
+            }
         }
     };
 
@@ -292,13 +325,9 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         var message = Active.isactive($stateParams.id, id, art, url);
         message.then(function (data) {
             if(data['active']){
-                alert("Es is aktiv!")
-            }else{
-                alert("es is ned aktiv!");
             }
         });
         if(edit == null) {
-
             if (art == 'code') {
                 $scope.editelement(id, art, {
                     "data": $scope.models[art][id][0],
@@ -509,7 +538,6 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
             }else{
                 $scope.errormessage = "filetyp is not supported";
             }
-            //alert("file size is more than 5MB");
         }
     };
 
@@ -572,6 +600,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     };
 
     $scope.redirectNotebook_2 = function (id) {
+        /**
         $http({
             method: 'POST',
             url: '/api/notebook_logout',
@@ -581,11 +610,33 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
             }
         })
             .success(function (data) {
+            **/
                 $state.go('management.notebooks');
-            })
+    /**
+    })
             .error(function (data) {
-            });
+            });**/
     };
+
+    $scope.poll = function(){
+        $timeout(function() {
+            var content = $scope.notebook['content'];
+            $http({
+                method: 'POST',
+                url: '/api/get_notebook',
+                data: {id: $stateParams.id}
+            }).success(function (data) {
+                $scope.notebook = JSON.parse(data['notebook']);
+                $scope.content = $scope.notebook['content'];
+                if(JSON.stringify($scope.content) != JSON.stringify(content)) {
+                    $scope.update();
+                }
+                $scope.poll();
+            });
+        }, 10000);
+    };
+
+    $scope.poll();
 
     $scope.readLogNotebook = function (id) {
         $http({
