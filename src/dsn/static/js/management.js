@@ -187,7 +187,10 @@ mainApp.controller('accsettingsCtrl', function ($rootScope, $scope, $http, $wind
         ngDialog.close({
             template: 'changeSuccessful'
         });
-        $state.go('mainpage.content');
+        if($rootScope.deletedAccount == true){
+            $state.go('mainpage.content');
+            $rootScope.deletedAccount = null;
+        }
     };
 
     $scope.submitEditUserData = function() {
@@ -300,11 +303,29 @@ mainApp.controller('accsettingsCtrl', function ($rootScope, $scope, $http, $wind
     };
 
     $scope.resetEdit = function(type) {
-        if(type == 'data'){
+        $http({
+            method: 'POST',
+            url: '/api/get_userSettings',
+            headers: {'Content-Type': 'application/json'}
+        })
+            .success(function (data) {
+                if (data['error'] == true) {
+                    $state.go('management.timetable');
+                } else {
+                    if(type == 'data'){
+                        $scope.first_name = data['first_name'];
+                        $scope.last_name = data['last_name'];
+                        $scope.email = data['email'];
+                    }else if(type == 'password'){
+                        $scope.pwd = "";
+                        $scope.new_pwd = "";
+                        $scope.pwdrepeat = "";
+                    }
+                }
+            })
+            .error(function (data) {
+            });
 
-        }else if(type == 'password'){
-
-        }
     };
 
     $scope.deleteAccountDialog = function () {
@@ -321,10 +342,10 @@ mainApp.controller('accsettingsCtrl', function ($rootScope, $scope, $http, $wind
             url: '/api/delete_account'
         })
             .success(function (data) {
-                $state.go('mainpage.content');
+                $rootScope.deletedAccount = true;
+                $scope.openSuccessDialog();
             })
             .error(function (data) {
-                $state.go('mainpage.content');
             });
     };
 });

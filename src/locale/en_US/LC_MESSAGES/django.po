@@ -480,7 +480,7 @@ msgstr "Change user data"
 #: ../dsn/static/js/translations.js:104
 msgid "account_delete_infomessage"
 msgstr ""
-"If you wish to delete your account you can do this here. But be careful: ?\n"
+"If you wish to delete your account you can do this here. But be careful: \n"
 "You can't undo this action! Your notebooks will be lost forever and you won't"
 "be able to access any functionality of this application anymore!"
 
