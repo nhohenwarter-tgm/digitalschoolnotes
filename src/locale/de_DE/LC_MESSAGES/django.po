@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-02-22 13:01+0100\n"
+"POT-Creation-Date: 2016-02-22 13:23+0100\n"
 "PO-Revision-Date: 2016-01-09 16:36+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: de_DE\n"
@@ -493,7 +493,8 @@ msgstr "Digitale Mitschrift"
 msgid "feature_digital_notes_infotext"
 msgstr ""
 "Heutzutage wird es immer wichtiger Notizen  immer und überall verfügbar "
-"zu haben. Das ermöglichen wir mit unseren personalisierten, digitalen Heften."
+"zu haben. Das ermöglichen wir mit unseren personalisierten, digitalen "
+"Heften."
 
 #: ../dsn/static/js/translations.js:107
 msgid "feature_everywhere_accessible"
@@ -502,9 +503,9 @@ msgstr "Immer und überall verfügbar"
 #: ../dsn/static/js/translations.js:108
 msgid "feature_everywhere_accessible_infotext"
 msgstr ""
-"Durch eine moderne Infrastruktur und ein ausgeklügeltes Konzept ist DSN fast immer "
-"und überall erreichbar. Ob gerade zu Hause beim Lernen oder während der Mathematik-Stunde, "
-"auf DSN kannst du dich verlassen!"
+"Durch eine moderne Infrastruktur und ein ausgeklügeltes Konzept ist DSN "
+"fast immer und überall erreichbar. Ob gerade zu Hause beim Lernen oder "
+"während der Mathematik-Stunde, auf DSN kannst du dich verlassen!"
 
 #: ../dsn/static/js/translations.js:109
 msgid "feature_collaborative_working"
@@ -513,11 +514,12 @@ msgstr "Gemeinsames Arbeiten"
 #: ../dsn/static/js/translations.js:110
 msgid "feature_collaborative_working_infotext"
 msgstr ""
-"In Zukunft bestimmt die Zusammenarbeit maßgeblich unseren schulischen Alltag. Ob"
-"gemeinsame Referate, wissenschaftliche Arbeiten oder einfach nur Notizen. Sobald man "
-"etwas als Team und gemeinsam an Dokumenten arbeiten will, wird man mit langwierigem "
-"Dateiverkehr konfrontiert. Das Zauberwort heißt Collaboration-Systems! Wir ermöglichen "
-"ein gleichzeitiges Arbeiten an Dokumenten."
+"In Zukunft bestimmt die Zusammenarbeit maßgeblich unseren schulischen "
+"Alltag. Obgemeinsame Referate, wissenschaftliche Arbeiten oder einfach "
+"nur Notizen. Sobald man etwas als Team und gemeinsam an Dokumenten "
+"arbeiten will, wird man mit langwierigem Dateiverkehr konfrontiert. Das "
+"Zauberwort heißt Collaboration-Systems! Wir ermöglichen ein "
+"gleichzeitiges Arbeiten an Dokumenten."
 
 #: ../dsn/static/js/translations.js:111
 msgid "feature_ocr"
@@ -526,10 +528,10 @@ msgstr "Bild zu Text"
 #: ../dsn/static/js/translations.js:112
 msgid "feature_ocr_infotext"
 msgstr ""
-"Optical Character Recognition. Klingt kryptisch? Ist aber ziemlich cool. Wir machen "
-"Schluss mit mühsamem Abschreiben von fremden Mitschriften! Mit unserem OCR-Feature "
-"kannst du ganz einfach ein Foto der Heftseite machen und direkt als Text deinem "
-"digitalen Heft hinzufügen."
+"Optical Character Recognition. Klingt kryptisch? Ist aber ziemlich cool. "
+"Wir machen Schluss mit mühsamem Abschreiben von fremden Mitschriften! Mit"
+" unserem OCR-Feature kannst du ganz einfach ein Foto der Heftseite machen"
+" und direkt als Text deinem digitalen Heft hinzufügen."
 
 #: ../dsn/static/js/translations.js:113
 msgid "feature_timetable"
@@ -537,7 +539,9 @@ msgstr "Stundenplan"
 
 #: ../dsn/static/js/translations.js:114
 msgid "feature_timetable_infotext"
-msgstr "Trage deine Schulstunden in den Stundenplan ein und verknüpfe dazu ganz einfach deine Hefte!"
+msgstr ""
+"Trage deine Schulstunden in den Stundenplan ein und verknüpfe dazu ganz "
+"einfach deine Hefte!"
 
 #: ../dsn/static/js/translations.js:115
 msgid "feature_elements"
@@ -546,8 +550,8 @@ msgstr "Elemente"
 #: ../dsn/static/js/translations.js:116
 msgid "feature_elements_infotext"
 msgstr ""
-"Es sind die verschiedenen Eingabeelemente die unsere Hefte ausmachen. "
-"Ob einfacher Text, Code-Snippets oder Bilder - alles möglich mit DSN!"
+"Es sind die verschiedenen Eingabeelemente die unsere Hefte ausmachen. Ob "
+"einfacher Text, Code-Snippets oder Bilder - alles möglich mit DSN!"
 
 #: ../dsn/static/js/translations.js:117
 msgid "pricing_free"
@@ -620,6 +624,15 @@ msgstr "Unbegrenzte Hefte"
 #: ../dsn/static/js/translations.js:134
 msgid "pricing_educational_cta"
 msgstr "KONTAKTIERE UNS!"
+
+#: ../dsn/static/js/translations.js:135
+msgid "timetable_editmode_infotext"
+msgstr ""
+"Im Bearbeitungsmodus (Zahnrad) kannst du die Einheiten und Zeiten in "
+"deinem Stundenplan bearbeiten und daraus ganz einfach Schulhefte generieren "
+"und zuweisen. Bei Klick auf das Stunden- oder Zeitfeld kannst du deinen "
+"Stundenplan ganz einfach bearbeiten. Deine Änderungen werden beim Verlassen des "
+"Bearbeitungsmodus automatisch gespeichert."
 
 #: ../dsn/views/mainpage_views.py:81 ../dsn/views/mainpage_views.py:92
 msgid "wrong_login_credentials"

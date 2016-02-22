@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-02-22 13:01+0100\n"
+"POT-Creation-Date: 2016-02-22 13:23+0100\n"
 "PO-Revision-Date: 2016-01-09 16:38+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en_US\n"
@@ -604,6 +604,14 @@ msgstr "Unlimited notebooks"
 #: ../dsn/static/js/translations.js:134
 msgid "pricing_educational_cta"
 msgstr "CONTACT US!"
+
+#: ../dsn/static/js/translations.js:135
+msgid "timetable_editmode_infotext"
+msgstr ""
+"You are able to edit your timetable and time units by entering the "
+"edit mode (gearwheel). Just click on the units to simply edit and "
+"personalize your timetable. Your changes will be saved automatically "
+"when leaving the edit mode."
 
 #: ../dsn/views/mainpage_views.py:81 ../dsn/views/mainpage_views.py:92
 msgid "wrong_login_credentials"

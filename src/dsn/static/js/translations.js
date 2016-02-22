@@ -132,3 +132,4 @@ gettext("pricing_educational_features1");
 gettext("pricing_educational_features2");
 gettext("pricing_educational_features3");
 gettext("pricing_educational_cta");
+gettext("timetable_editmode_infotext");
