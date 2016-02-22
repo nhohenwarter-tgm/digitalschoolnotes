@@ -256,6 +256,7 @@ class NotebookContent(EmbeddedDocument):
     position_site = IntField()
     data = DictField()
     is_active = BooleanField(default=False)
+    is_active_by = EmailField()
 
 
 class Notebook(Document):

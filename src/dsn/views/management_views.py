@@ -310,6 +310,10 @@ def view_edit_notebook_content(request):
             j = json.loads(str(params['content_data'].replace('\n','\\n')))
         findnotebook.data = j
         findnotebook.is_active = params['is_active']
+        if params['is_active'] is True:
+            findnotebook.is_active_by = request.user.email
+        else:
+            findnotebook.is_active_by = None
         notebook.save()
         notebook = Notebook.objects.get(id=params['id']).to_json()
         return JsonResponse({"notebook": notebook})
@@ -325,7 +329,21 @@ def view_get_is_active(request):
             if str(item["id"]) == str(request.POST.get('content_id')) and item["art"] == request.POST.get('content_art'):
                 findnotebook = item
                 break
-        return JsonResponse({"active":  findnotebook.is_active})
+        return JsonResponse({"active":  findnotebook.is_active, "active_by": findnotebook.is_active_by})
+
+def view_get_is_active_by(request):
+    if not request.user.is_authenticated():
+        return JsonResponse({})
+    if request.method == "POST":
+        params = json.loads(request.body.decode('utf-8'))
+        notebook = Notebook.objects.get(id=params['id'])
+        findnotebook = None
+        content = notebook.content
+        for item in content:
+            if str(item["id"]) == str(params['content_id']) and item["art"] == params['content_art']:
+                findnotebook = item
+                break
+        return JsonResponse({"active":  findnotebook.is_active, "active_by": findnotebook.is_active_by})
 
 
 def view_import_notebook_content(request):

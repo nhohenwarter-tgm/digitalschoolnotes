@@ -77,8 +77,37 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
             } else {
                 $scope.publicViewed = true;
             }
+
+            $scope.checkEditActive(user['email']);
         });
     });
+
+    $scope.checkEditModeActive = function(id, art, user) {
+        $http({
+            method: 'POST',
+            url: '/api/notebook_activeby',
+            data: {
+                id: $stateParams.id,
+                content_id: id,
+                content_art: art
+            }
+        }).success(function (data) {
+            if(data['active']){
+                if(user == data['active_by']){
+                    $scope.setEditMode(id, id, art);
+                }
+            }
+        });
+    };
+
+    $scope.checkEditActive = function(user){
+        for (var j = 0; j < $scope.content.length; j++) {
+            if ($scope.content[j]['art'] == 'code' || $scope.content[j]['art'] == 'textarea') {
+                $scope.checkEditModeActive($scope.content[j]['id'],$scope.content[j]['art'], user);
+            }
+        }
+    };
+
 
     $scope.getColor = function(id, art){
         var url = "/api/notebook_isactive";
@@ -298,7 +327,6 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
             }
         });
         if(edit == null) {
-
             if (art == 'code') {
                 $scope.editelement(id, art, {
                     "data": $scope.models[art][id][0],
