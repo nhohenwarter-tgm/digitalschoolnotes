@@ -193,7 +193,10 @@
                 <div class="row" style="padding-top: 10px;" align="center">
                     <div class="col-md-12">
                         <button type="submit" id="submitTimes" class="btn btn-success"
-                                ng-click="submitTimes(start,end)"
+                                ng-click="submitTimes(start,end)" ng-show="timetableTimes.$valid"
+                                translate="save"></button>
+                        <button type="button" id="submitTimesInvalid" class="btn btn-success"
+                                ng-hide="timetableTimes.$valid" disabled
                                 translate="save"></button>
                     </div>
                 </div>
