@@ -125,7 +125,7 @@
                     </div>
                     <div class="row" style="padding-top: 10px;">
                         <p style="color: red;"
-                           ng-show="(timetable.subject.$dirty) && timetable.subject.$error.maxlength"
+                           ng-show="(timetable.room.$dirty) && timetable.room.$error.maxlength"
                            translate="error_timetableroomdescription_toolong"></p>
 
                         <div class="col-md-12">
@@ -146,6 +146,8 @@
                             <button type="submit" id="submit" class="btn btn-success"
                                     ng-click="submitTimeTable(subject,teacher,room,notebook)"
                                     translate="save" ng-show="timetable.$valid"></button>
+                            <button type="button" id="submitFail" class="btn btn-success"
+                                    translate="save" ng-hide="timetable.$valid" disabled></button>
                         </div>
                     </div>
                 </form>
@@ -193,7 +195,10 @@
                 <div class="row" style="padding-top: 10px;" align="center">
                     <div class="col-md-12">
                         <button type="submit" id="submitTimes" class="btn btn-success"
-                                ng-click="submitTimes(start,end)"
+                                ng-click="submitTimes(start,end)" ng-show="timetableTimes.$valid"
+                                translate="save"></button>
+                        <button type="button" id="submitTimesInvalid" class="btn btn-success"
+                                ng-hide="timetableTimes.$valid" disabled
                                 translate="save"></button>
                     </div>
                 </div>
