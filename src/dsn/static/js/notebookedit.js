@@ -615,6 +615,26 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
             });
     };
 
+    $scope.poll = function(){
+        $timeout(function() {
+            var content = $scope.notebook['content'];
+            $http({
+                method: 'POST',
+                url: '/api/get_notebook',
+                data: {id: $stateParams.id}
+            }).success(function (data) {
+                $scope.notebook = JSON.parse(data['notebook']);
+                $scope.content = $scope.notebook['content'];
+                if(JSON.stringify($scope.content) != JSON.stringify(content)) {
+                    $scope.update();
+                }
+                $scope.poll();
+            });
+        }, 10000);
+    };
+
+    $scope.poll();
+
     $scope.readLogNotebook = function (id) {
         $http({
             method: 'POST',
