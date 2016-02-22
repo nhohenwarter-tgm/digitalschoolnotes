@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-02-17 15:09+0100\n"
+"POT-Creation-Date: 2016-02-22 13:01+0100\n"
 "PO-Revision-Date: 2016-01-09 16:36+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: de_DE\n"
@@ -480,10 +480,146 @@ msgstr "User-Daten bearbeiten"
 #: ../dsn/static/js/translations.js:104
 msgid "account_delete_infomessage"
 msgstr ""
-"Hier kannst du deinen Account löschen! Aber Achtung: "
-"Diese Aktion kann nachher nicht mehr rückgängig gemacht werden! Deine "
-"Hefte werden endgültig gelöscht und du wirst nachher keinen Zugriff mehr"
-"auf die Funktionalitäten dieser Applikation haben!"
+"Hier kannst du deinen Account löschen! Aber Achtung: Diese Aktion kann "
+"nachher nicht mehr rückgängig gemacht werden! Deine Hefte werden "
+"endgültig gelöscht und du wirst nachher keinen Zugriff mehrauf die "
+"Funktionalitäten dieser Applikation haben!"
+
+#: ../dsn/static/js/translations.js:105
+msgid "feature_digital_notes"
+msgstr "Digitale Mitschrift"
+
+#: ../dsn/static/js/translations.js:106
+msgid "feature_digital_notes_infotext"
+msgstr ""
+"Heutzutage wird es immer wichtiger Notizen  immer und überall verfügbar "
+"zu haben. Das ermöglichen wir mit unseren personalisierten, digitalen Heften."
+
+#: ../dsn/static/js/translations.js:107
+msgid "feature_everywhere_accessible"
+msgstr "Immer und überall verfügbar"
+
+#: ../dsn/static/js/translations.js:108
+msgid "feature_everywhere_accessible_infotext"
+msgstr ""
+"Durch eine moderne Infrastruktur und ein ausgeklügeltes Konzept ist DSN fast immer "
+"und überall erreichbar. Ob gerade zu Hause beim Lernen oder während der Mathematik-Stunde, "
+"auf DSN kannst du dich verlassen!"
+
+#: ../dsn/static/js/translations.js:109
+msgid "feature_collaborative_working"
+msgstr "Gemeinsames Arbeiten"
+
+#: ../dsn/static/js/translations.js:110
+msgid "feature_collaborative_working_infotext"
+msgstr ""
+"In Zukunft bestimmt die Zusammenarbeit maßgeblich unseren schulischen Alltag. Ob"
+"gemeinsame Referate, wissenschaftliche Arbeiten oder einfach nur Notizen. Sobald man "
+"etwas als Team und gemeinsam an Dokumenten arbeiten will, wird man mit langwierigem "
+"Dateiverkehr konfrontiert. Das Zauberwort heißt Collaboration-Systems! Wir ermöglichen "
+"ein gleichzeitiges Arbeiten an Dokumenten."
+
+#: ../dsn/static/js/translations.js:111
+msgid "feature_ocr"
+msgstr "Bild zu Text"
+
+#: ../dsn/static/js/translations.js:112
+msgid "feature_ocr_infotext"
+msgstr ""
+"Optical Character Recognition. Klingt kryptisch? Ist aber ziemlich cool. Wir machen "
+"Schluss mit mühsamem Abschreiben von fremden Mitschriften! Mit unserem OCR-Feature "
+"kannst du ganz einfach ein Foto der Heftseite machen und direkt als Text deinem "
+"digitalen Heft hinzufügen."
+
+#: ../dsn/static/js/translations.js:113
+msgid "feature_timetable"
+msgstr "Stundenplan"
+
+#: ../dsn/static/js/translations.js:114
+msgid "feature_timetable_infotext"
+msgstr "Trage deine Schulstunden in den Stundenplan ein und verknüpfe dazu ganz einfach deine Hefte!"
+
+#: ../dsn/static/js/translations.js:115
+msgid "feature_elements"
+msgstr "Elemente"
+
+#: ../dsn/static/js/translations.js:116
+msgid "feature_elements_infotext"
+msgstr ""
+"Es sind die verschiedenen Eingabeelemente die unsere Hefte ausmachen. "
+"Ob einfacher Text, Code-Snippets oder Bilder - alles möglich mit DSN!"
+
+#: ../dsn/static/js/translations.js:117
+msgid "pricing_free"
+msgstr "GRATIS"
+
+#: ../dsn/static/js/translations.js:118
+msgid "pricing_free_costs"
+msgstr "€0 / immer"
+
+#: ../dsn/static/js/translations.js:119
+msgid "pricing_free_features1"
+msgstr "250MB Speicher für Bilder"
+
+#: ../dsn/static/js/translations.js:120
+msgid "pricing_free_features2"
+msgstr "Werbung wird angezeigt"
+
+#: ../dsn/static/js/translations.js:121
+msgid "pricing_free_features3"
+msgstr "Begrenzte Anzahl an Heften"
+
+#: ../dsn/static/js/translations.js:122
+msgid "pricing_free_cta"
+msgstr "JETZT REGISTRIEREN!"
+
+#: ../dsn/static/js/translations.js:123
+msgid "pricing_pro"
+msgstr "PRO ACCOUNT"
+
+#: ../dsn/static/js/translations.js:124
+msgid "pricing_pro_costs"
+msgstr "€4.99 / Monat"
+
+#: ../dsn/static/js/translations.js:125
+msgid "pricing_pro_features1"
+msgstr "1GB Speicher für Bilder"
+
+#: ../dsn/static/js/translations.js:126
+msgid "pricing_pro_features2"
+msgstr "Werbefrei"
+
+#: ../dsn/static/js/translations.js:127
+msgid "pricing_pro_features3"
+msgstr "Unbegrenzte Hefte"
+
+#: ../dsn/static/js/translations.js:128
+msgid "pricing_pro_cta"
+msgstr "JETZT KAUFEN!"
+
+#: ../dsn/static/js/translations.js:129
+msgid "pricing_educational"
+msgstr "EDUCATIONAL"
+
+#: ../dsn/static/js/translations.js:130
+msgid "pricing_educational_costs"
+msgstr "Nach Anfrage"
+
+#: ../dsn/static/js/translations.js:131
+msgid "pricing_educational_features1"
+msgstr "Mengenrabatt ab 50 Accounts"
+
+#: ../dsn/static/js/translations.js:132
+msgid "pricing_educational_features2"
+msgstr "Werbefrei"
+
+#: ../dsn/static/js/translations.js:133
+msgid "pricing_educational_features3"
+msgstr "Unbegrenzte Hefte"
+
+#: ../dsn/static/js/translations.js:134
+msgid "pricing_educational_cta"
+msgstr "KONTAKTIERE UNS!"
 
 #: ../dsn/views/mainpage_views.py:81 ../dsn/views/mainpage_views.py:92
 msgid "wrong_login_credentials"
@@ -509,7 +645,7 @@ msgstr "Du kannst dich nicht selbst zu deinem eigenen Heft einladen!"
 msgid "no_user"
 msgstr "Dieser User existiert nicht!"
 
-#: ../dsn/views/management_views.py:407 ../dsn/views/management_views.py:421
+#: ../dsn/views/management_views.py:460 ../dsn/views/management_views.py:474
 msgid "error_wrong_password"
 msgstr "Bitte wiederhole dein aktuelles Passwort!"
 

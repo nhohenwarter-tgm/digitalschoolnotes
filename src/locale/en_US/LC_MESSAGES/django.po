@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-02-17 15:09+0100\n"
+"POT-Creation-Date: 2016-02-22 13:01+0100\n"
 "PO-Revision-Date: 2016-01-09 16:38+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en_US\n"
@@ -480,9 +480,130 @@ msgstr "Change user data"
 #: ../dsn/static/js/translations.js:104
 msgid "account_delete_infomessage"
 msgstr ""
-"If you wish to delete your account you can do this here. But be careful: \n"
-"You can't undo this action! Your notebooks will be lost forever and you won't"
-"be able to access any functionality of this application anymore!"
+"If you wish to delete your account you can do this here. But be careful:"
+" \n"
+"You can't undo this action! Your notebooks will be lost forever and you "
+"won'tbe able to access any functionality of this application anymore!"
+
+#: ../dsn/static/js/translations.js:105
+msgid "feature_digital_notes"
+msgstr "Digital Notes"
+
+#: ../dsn/static/js/translations.js:106
+msgid "feature_digital_notes_infotext"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:107
+msgid "feature_everywhere_accessible"
+msgstr "Everywhere accessible"
+
+#: ../dsn/static/js/translations.js:108
+msgid "feature_everywhere_accessible_infotext"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:109
+msgid "feature_collaborative_working"
+msgstr "Collaborative working"
+
+#: ../dsn/static/js/translations.js:110
+msgid "feature_collaborative_working_infotext"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:111
+msgid "feature_ocr"
+msgstr "Image to text"
+
+#: ../dsn/static/js/translations.js:112
+msgid "feature_ocr_infotext"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:113
+msgid "feature_timetable"
+msgstr "Timetable"
+
+#: ../dsn/static/js/translations.js:114
+msgid "feature_timetable_infotext"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:115
+msgid "feature_elements"
+msgstr "Different elements"
+
+#: ../dsn/static/js/translations.js:116
+msgid "feature_elements_infotext"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:117
+msgid "pricing_free"
+msgstr "FREE"
+
+#: ../dsn/static/js/translations.js:118
+msgid "pricing_free_costs"
+msgstr "€0 / forever"
+
+#: ../dsn/static/js/translations.js:119
+msgid "pricing_free_features1"
+msgstr "250MB space for images"
+
+#: ../dsn/static/js/translations.js:120
+msgid "pricing_free_features2"
+msgstr "With ads"
+
+#: ../dsn/static/js/translations.js:121
+msgid "pricing_free_features3"
+msgstr "Limited notebooks"
+
+#: ../dsn/static/js/translations.js:122
+msgid "pricing_free_cta"
+msgstr "SIGN UP NOW!"
+
+#: ../dsn/static/js/translations.js:123
+msgid "pricing_pro"
+msgstr "PRO ACCOUNT"
+
+#: ../dsn/static/js/translations.js:124
+msgid "pricing_pro_costs"
+msgstr "€4.99 / Month"
+
+#: ../dsn/static/js/translations.js:125
+msgid "pricing_pro_features1"
+msgstr "1GB space for images"
+
+#: ../dsn/static/js/translations.js:126
+msgid "pricing_pro_features2"
+msgstr "No ads"
+
+#: ../dsn/static/js/translations.js:127
+msgid "pricing_pro_features3"
+msgstr "Unlimited notebooks"
+
+#: ../dsn/static/js/translations.js:128
+msgid "pricing_pro_cta"
+msgstr "BUY NOW!"
+
+#: ../dsn/static/js/translations.js:129
+msgid "pricing_educational"
+msgstr "EDUCATIONAL"
+
+#: ../dsn/static/js/translations.js:130
+msgid "pricing_educational_costs"
+msgstr "On request"
+
+#: ../dsn/static/js/translations.js:131
+msgid "pricing_educational_features1"
+msgstr "Quantity discount for orders upwards of 50 accounts"
+
+#: ../dsn/static/js/translations.js:132
+msgid "pricing_educational_features2"
+msgstr "No ads"
+
+#: ../dsn/static/js/translations.js:133
+msgid "pricing_educational_features3"
+msgstr "Unlimited notebooks"
+
+#: ../dsn/static/js/translations.js:134
+msgid "pricing_educational_cta"
+msgstr "CONTACT US!"
 
 #: ../dsn/views/mainpage_views.py:81 ../dsn/views/mainpage_views.py:92
 msgid "wrong_login_credentials"
@@ -508,7 +629,7 @@ msgstr "You can't add yourself as collaborator!"
 msgid "no_user"
 msgstr "This user does not exist!"
 
-#: ../dsn/views/management_views.py:407 ../dsn/views/management_views.py:421
+#: ../dsn/views/management_views.py:460 ../dsn/views/management_views.py:474
 msgid "error_wrong_password"
 msgstr "Please insert your current password!"
 
