@@ -321,9 +321,8 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
         var message = Active.isactive($stateParams.id, id, art, url);
         message.then(function (data) {
             if(data['active']){
-                alert("Es is aktiv!")
-            }else{
-                alert("es is ned aktiv!");
+                $scope.editMode = null;
+                $scope.models[art][id][2] = 'red';
             }
         });
         if(edit == null) {
