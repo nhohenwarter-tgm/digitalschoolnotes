@@ -601,6 +601,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     };
 
     $scope.redirectNotebook_2 = function (id) {
+        /**
         $http({
             method: 'POST',
             url: '/api/notebook_logout',
@@ -610,10 +611,12 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
             }
         })
             .success(function (data) {
+            **/
                 $state.go('management.notebooks');
-            })
+    /**
+    })
             .error(function (data) {
-            });
+            });**/
     };
 
     $scope.poll = function(){
