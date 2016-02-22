@@ -111,7 +111,7 @@
     "success" : "Success!",
     "changes_successfully_saved" : "Your changes were successful!",
     "change_userdata" : "Change user data",
-    "account_delete_infomessage" : "If you wish to delete your account you can do this here. But be careful: ?\nYou can't undo this action! Your notebooks will be lost forever and you won'tbe able to access any functionality of this application anymore!",
+    "account_delete_infomessage" : "If you wish to delete your account you can do this here. But be careful: \nYou can't undo this action! Your notebooks will be lost forever and you won'tbe able to access any functionality of this application anymore!",
     "wrong_login_credentials" : "Wrong username or email!",
     "success_validate" : "Your email was successfully validated!",
     "notebookname_already_used" : "This name is already used!",
