@@ -269,7 +269,6 @@ class Notebook(Document):
     content = SortedListField(EmbeddedDocumentField(NotebookContent), ordering="id", reverse=True)
     collaborator = ListField(EmailField())
 
-
 class TimeTableTime(EmbeddedDocument):
     row=IntField()
     start= StringField()
