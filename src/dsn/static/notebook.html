@@ -109,8 +109,8 @@
                                                       ng-model="models[element.art][element.id][0]" ckeditor>
 
                                             </textarea>
-                                            <span ng-show="active" class="glyphicon glyphicon-exclamation-sign"
-                                                      ng-style='{"color": models[element.art][element.id][1], "cursor": "pointer"}'></span>
+                                            <span ng-show="models[element.art][element.id][2] == 'red'" class="glyphicon glyphicon-exclamation-sign"
+                                                      ng-style='{"color": models[element.art][element.id][2], "cursor": "pointer"}'></span>
                                             <!-- Read-Only -->
                                             <div ng-if="editMode != element.id"
                                                  style="border: 1px solid black; min-height: 20px; min-width: 20px; text-align: left; padding:5px;">
@@ -130,7 +130,7 @@
                                                 <!--<select ng-model="models[element.art][element.id][1]" ng-options="m for m in modes"
                                                         ng-change="modeChanged(element.id)"></select> -->
                                             </section>
-                                            <span ng-show="active" class="glyphicon glyphicon-exclamation-sign"
+                                            <span ng-show="models[element.art][element.id][2] == 'red'" class="glyphicon glyphicon-exclamation-sign"
                                                       ng-style='{"color": models[element.art][element.id][2], "cursor": "pointer"}'></span>
                                             <!-- Read-Only -->
                                             <section id="{{ element.art }}_{{ element.id }}"
@@ -172,7 +172,7 @@
                                             </section>
                                         </span>
                                         <!-- EDIT / DELETE -->
-                                        <div ng-hide="publicViewed">
+                                        <div ng-hide="publicViewed || models[element.art][element.id][2] == 'red'">
                                             <span ng-show="hovered && editMode != element.id"
                                                   class="glyphicon glyphicon-trash"
                                                   ng-click="codeElementDelete(element.id,element.art)"

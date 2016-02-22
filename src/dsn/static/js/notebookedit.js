@@ -1,6 +1,6 @@
 var mainApp = angular.module('mainApp');
 
-mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $sce, $window, loggedIn, ngDialog, $timeout, $state, $filter, fileUpload) {
+mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $sce, $window, loggedIn, ngDialog, $timeout, $state, $filter, fileUpload, Active) {
 
     $scope.publicViewed = true;
     $scope.currentPage = 1;
@@ -81,20 +81,15 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     });
 
     $scope.getColor = function(id, art){
-        var color = '';
-        $http({
-            method: 'POST',
-            url: '/api/notebook_isactive',
-            data: {id: $stateParams.id, content_id: id, content_art: art}
-        }).success(function (data) {
+        var url = "/api/notebook_isactive";
+        var message = Active.isactive($stateParams.id, id, art, url);
+        message.then(function (data) {
             if(data['active']){
-
-                color = 'red';
+                $scope.models[art][id][2] = 'red';
             }else{
-                color = 'white';
+                $scope.models[art][id][2] = 'white';
             }
         });
-        return color;
     };
 
     $scope.initElemModels = function () {
@@ -293,11 +288,9 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
 
     $scope.setEditMode = function (edit, id, art) {
         $scope.editMode = edit;
-        $http({
-            method: 'POST',
-            url: '/api/notebook_isactive',
-            data: {id: $stateParams.id, content_id: id, content_art: art}
-        }).success(function (data) {
+        var url = "/api/notebook_isactive";
+        var message = Active.isactive($stateParams.id, id, art, url);
+        message.then(function (data) {
             if(data['active']){
                 alert("Es is aktiv!")
             }else{
@@ -636,6 +629,27 @@ mainApp.service('fileUpload', ['$http', '$q', function ($http, $q) {
         fd.append('file', file);
         var link = $q.defer();
         $http.post(uploadUrl, fd, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined, 'enctype':'multipart/form-data'}
+        })
+            .success(function(data) {
+                link.resolve(data);
+            })
+            .error(function(data){
+                link.reject(data);
+            });
+        return link.promise;
+    };
+}]);
+
+mainApp.service('Active', ['$http', '$q', function ($http, $q) {
+    this.isactive = function(id, content_id, content_art, url){
+        var fd = new FormData();
+        fd.append('notebook', id);
+        fd.append('content_id', content_id);
+        fd.append('content_art', content_art);
+        var link = $q.defer();
+        $http.post(url, fd, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined, 'enctype':'multipart/form-data'}
         })

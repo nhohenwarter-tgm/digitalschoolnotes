@@ -318,13 +318,13 @@ def view_get_is_active(request):
     if not request.user.is_authenticated():
         return JsonResponse({})
     if request.method == "POST":
-        params = json.loads(request.body.decode('utf-8'))
-        notebook = Notebook.objects.get(id=params['id'])
+        notebook = Notebook.objects.get(id=request.POST.get('notebook'))
+        findnotebook = None
         content = notebook.content
-        print(params['content_id'])
-        print(params['content_art'])
-        findnotebook = next(item for item in content if item["id"] == params['content_id'] and item["art"] == params['content_art'])
-        #hier auch die leute zurueckgeben die das heft offen haben
+        for item in content:
+            if str(item["id"]) == str(request.POST.get('content_id')) and item["art"] == request.POST.get('content_art'):
+                findnotebook = item
+                break
         return JsonResponse({"active":  findnotebook.is_active})
 
 
@@ -356,8 +356,6 @@ def view_edit_content_position(request):
         params = json.loads(request.body.decode('utf-8'))
         notebook = Notebook.objects.get(id=params['id'])
         content = notebook.content
-        print(params['content_id'])
-        print(params['content_art'])
         findnotebook = next(item for item in content if item["id"] == params['content_id'] and item["art"] == params['content_art'])
         findnotebook.position_x = params['pos_x']
         findnotebook.position_y = params['pos_y']
