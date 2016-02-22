@@ -123,21 +123,23 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
 
     $scope.initElemModels = function () {
         for (var j = 0; j < $scope.content.length; j++) {
-            if ($scope.content[j]['art'] == 'code') {
-                $scope.models['code'][$scope.content[j]['id']] = {};
-                $scope.models['code'][$scope.content[j]['id']][0] = $scope.content[j]['data']['data'];
-                $scope.models['code'][$scope.content[j]['id']][1] = $scope.content[j]['data']['language'];
-                $scope.models['code'][$scope.content[j]['id']][2] = $scope.getColor($scope.content[j]['id'],$scope.content[j]['art']);
-            }
-            else if($scope.content[j]['art'] == 'image'){
-                $scope.models['image'][$scope.content[j]['id']] = {};
-                $scope.models['image'][$scope.content[j]['id']][0] = $scope.content[j]['data']['data'];
-                $scope.models['image'][$scope.content[j]['id']][1] = $scope.content[j]['data']['width'];
-                $scope.models['image'][$scope.content[j]['id']][2] = $scope.content[j]['data']['height'];
-            }else {
-                $scope.models[$scope.content[j]['art']][$scope.content[j]['id']] = {};
-                $scope.models[$scope.content[j]['art']][$scope.content[j]['id']][0] = $scope.content[j]['data']['data'];
-                $scope.models[$scope.content[j]['art']][$scope.content[j]['id']][1] = $scope.getColor($scope.content[j]['id'],$scope.content[j]['art']);
+            if($scope.content[j]['id'] != $scope.editMode) {
+                if ($scope.content[j]['art'] == 'code') {
+                    $scope.models['code'][$scope.content[j]['id']] = {};
+                    $scope.models['code'][$scope.content[j]['id']][0] = $scope.content[j]['data']['data'];
+                    $scope.models['code'][$scope.content[j]['id']][1] = $scope.content[j]['data']['language'];
+                    $scope.models['code'][$scope.content[j]['id']][2] = $scope.getColor($scope.content[j]['id'], $scope.content[j]['art']);
+                }
+                else if ($scope.content[j]['art'] == 'image') {
+                    $scope.models['image'][$scope.content[j]['id']] = {};
+                    $scope.models['image'][$scope.content[j]['id']][0] = $scope.content[j]['data']['data'];
+                    $scope.models['image'][$scope.content[j]['id']][1] = $scope.content[j]['data']['width'];
+                    $scope.models['image'][$scope.content[j]['id']][2] = $scope.content[j]['data']['height'];
+                } else {
+                    $scope.models[$scope.content[j]['art']][$scope.content[j]['id']] = {};
+                    $scope.models[$scope.content[j]['art']][$scope.content[j]['id']][0] = $scope.content[j]['data']['data'];
+                    $scope.models[$scope.content[j]['art']][$scope.content[j]['id']][1] = $scope.getColor($scope.content[j]['id'], $scope.content[j]['art']);
+                }
             }
         }
     };
@@ -154,7 +156,9 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
 
     $scope.initDraggables = function () {
         for (var i = 0; i < $scope.content.length; i++) {
-            $scope.makeDraggable($scope.content[i]['id'], $scope.content[i]['art']);
+            if($scope.content[i]['id'] != $scope.editMode) {
+                $scope.makeDraggable($scope.content[i]['id'], $scope.content[i]['art']);
+            }
         }
     };
 
