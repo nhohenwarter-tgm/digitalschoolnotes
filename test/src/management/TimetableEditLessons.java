@@ -5,7 +5,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
 import util.Parameters;
+
+import javax.swing.*;
+import java.util.Random;
 
 
 /**
@@ -16,6 +21,7 @@ public class TimetableEditLessons extends TestCase{
     private String baseUrl;
     private boolean acceptNextAlert = true;
     private StringBuffer verificationErrors = new StringBuffer();
+    private String username;
 
     @Before
     public void setUp() throws Exception {
@@ -36,34 +42,41 @@ public class TimetableEditLessons extends TestCase{
     }
 
     /**
-     * Testet ob ein Heft einer fremden Person geöffnet werden kann
+     * Testet ob ein Fach im Stundenplan angelegt werden kann
      * @throws Exception
      */
     @Test
     public void testEditLesson() throws Exception {
         driver.get(baseUrl + "/management");
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        Actions builder = new Actions(driver);
+        builder.moveToElement(driver.findElement(By.id("times_1"))).perform();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
         driver.findElement(By.id("timetableToggleEdit")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
-        driver.findElements(By.className("timetable-td")).get(0).click();
+        driver.findElement(By.id("lesson_monday_1")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
 
         driver.findElement(By.name("subject")).clear();
-        driver.findElement(By.name("subject")).sendKeys("Testy_Fach");
+        driver.findElement(By.name("subject")).sendKeys("SYT");
         driver.findElement(By.name("teacher")).clear();
-        driver.findElement(By.name("teacher")).sendKeys("Testy_Lehrer");
+        driver.findElement(By.name("teacher")).sendKeys("BORM");
         driver.findElement(By.name("room")).clear();
-        driver.findElement(By.name("room")).sendKeys("Testy_Raum");
+        driver.findElement(By.name("room")).sendKeys("H666");
         driver.findElement(By.id("submit")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.id("exit_editmode")).click();
 
         boolean bool = true;
-        assertFalse(!driver.findElement(By.xpath("//*[contains(text(), 'Testy_Fach')]")).isDisplayed());
-        assertFalse(!driver.findElement(By.xpath("//*[contains(text(), 'Testy_Lehrer')]")).isDisplayed());
-        assertFalse(!driver.findElement(By.xpath("//*[contains(text(), 'Testy_Raum')]")).isDisplayed());
+        assertFalse(!driver.findElement(By.xpath("//*[contains(text(), 'SYT')]")).isDisplayed());
+        assertFalse(!driver.findElement(By.xpath("//*[contains(text(), 'BORM')]")).isDisplayed());
+        assertFalse(!driver.findElement(By.xpath("//*[contains(text(), 'H666')]")).isDisplayed());
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
 
-        driver.findElements(By.className("timetable-td")).get(0).click();
+        builder.moveToElement(driver.findElement(By.id("times_1"))).perform();
+        driver.findElement(By.id("timetableToggleEdit")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.id("lesson_monday_1")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
 
         driver.findElement(By.name("subject")).clear();
@@ -71,8 +84,109 @@ public class TimetableEditLessons extends TestCase{
         driver.findElement(By.name("room")).clear();
         driver.findElement(By.id("submit")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.id("exit_editmode")).click();
 
         assertTrue(bool);
+    }
+
+    /**
+     * Testet ob die Anfangs- und Endzeit einer Stunde verändert werden kann
+     * @throws Exception
+     */
+    @Test
+    public void testEditLessonTime() throws Exception {
+        driver.get(baseUrl + "/management");
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        Actions builder = new Actions(driver);
+        builder.moveToElement(driver.findElement(By.id("times_1"))).perform();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.id("timetableToggleEdit")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.id("times_1")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+
+        driver.findElement(By.name("z1")).clear();
+        driver.findElement(By.name("z1")).sendKeys("13:37");
+        driver.findElement(By.name("z2")).clear();
+        driver.findElement(By.name("z2")).sendKeys("13:38");
+        driver.findElement(By.id("submitTimes")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.id("exit_editmode")).click();
+
+        boolean bool = true;
+        assertFalse(!driver.findElement(By.xpath("//*[contains(text(), '13:37')]")).isDisplayed());
+        assertFalse(!driver.findElement(By.xpath("//*[contains(text(), '13:38')]")).isDisplayed());
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+
+        builder.moveToElement(driver.findElement(By.id("times_1"))).perform();
+        driver.findElement(By.id("timetableToggleEdit")).click();
+        driver.findElement(By.id("times_1")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.name("z1")).clear();
+        driver.findElement(By.name("z1")).sendKeys("08:00");
+        driver.findElement(By.name("z2")).clear();
+        driver.findElement(By.name("z2")).sendKeys("08:50");
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.id("submitTimes")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.id("exit_editmode")).click();
+
+        assertTrue(bool);
+    }
+
+    /**
+     * Testet ob ein Heft durch den Klick auf eine Stunde im Stundenplan geöffnet werden kann
+     * @throws Exception
+     */
+    @Test
+    public void testOpenNotebookFromLesson() throws Exception {
+        driver.get(baseUrl + "/management");
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        Actions builder = new Actions(driver);
+        builder.moveToElement(driver.findElement(By.id("times_1"))).perform();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.id("timetableToggleEdit")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.id("lesson_monday_1")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+
+        driver.findElement(By.name("subject")).clear();
+        driver.findElement(By.name("subject")).sendKeys("SYT");
+        driver.findElement(By.name("teacher")).clear();
+        driver.findElement(By.name("teacher")).sendKeys("BORM");
+        driver.findElement(By.name("room")).clear();
+        driver.findElement(By.name("room")).sendKeys("H666");
+        Select select = new Select(driver.findElement(By.name("notebook")));
+        select.selectByVisibleText("Test1");
+        driver.findElement(By.id("submit")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.id("exit_editmode")).click();
+        driver.findElement(By.id("lesson_monday_1")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+
+        String page = driver.getPageSource();
+        if(!page.contains("Test1")) throw new NotFoundException();
+
+        driver.get(baseUrl + "/management");
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        builder.moveToElement(driver.findElement(By.id("times_1"))).perform();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.id("timetableToggleEdit")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.id("lesson_monday_1")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+
+        driver.findElement(By.name("subject")).clear();
+        driver.findElement(By.name("subject")).sendKeys("SYT");
+        driver.findElement(By.name("teacher")).clear();
+        driver.findElement(By.name("teacher")).sendKeys("BORM");
+        driver.findElement(By.name("room")).clear();
+        driver.findElement(By.name("room")).sendKeys("H666");
+        select = new Select(driver.findElement(By.name("notebook")));
+        select.selectByVisibleText("Kein Heft zugeordnet");
+        driver.findElement(By.id("submit")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.id("exit_editmode")).click();
     }
 
     @After
