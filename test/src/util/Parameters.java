@@ -21,7 +21,7 @@ public class Parameters{
 
     public static String os = LINUX; //HIER OS AENDERN
     public static int browser = CHROME; //HIER BROWSER AENDERN
-    public static int port = 5001; //HIER PORT AENDERN
+    public static int port = 80; //HIER PORT AENDERN
 
     public static boolean stable = false;
 
