@@ -1,19 +1,22 @@
 from dsn.models import User, PasswordReset
 from mongoengine import DoesNotExist
-from dsn.forms import PasswordSetForm
 import hashlib
 from datetime import datetime, timedelta
 from dsn.authentication.captcha import validate_captcha
+from django.utils.translation import gettext as _
 
 
 def validate_passwordreset(email, recaptcha, ip):
     val = validate_captcha(recaptcha, ip)
     if val is True:
         try:
-            User.objects.get(email=email)
-            return True
+            user = User.objects.get(email=email)
+            if 'oauth' in user:
+                return _("reseterror_accountisoauth")
+            else:
+                return True
         except DoesNotExist:
-            return "E-Mail Adresse ist nicht korrekt."
+            return _("emailaddress_wrong")
     else:
         return val
 
@@ -40,8 +43,8 @@ def validate_newpassword(form, hash):
                 user.save()
                 return True
             else:
-                return "Die Passwörter stimmen nicht überein.\n"
+                return _("error_password_dontmatch")
         else:
-            return "Der Link ist nicht mehr gültig.\n"
+            return _("reseterror_link_invalid")
     except DoesNotExist:
-        return "Der Link ist nicht mehr gültig.\n"
+        return _("reseterror_link_invalid")

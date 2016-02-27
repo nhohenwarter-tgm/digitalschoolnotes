@@ -1,0 +1,9 @@
+Hallo {{firstname}},
+Wir müssen dir mitteilen, dass dein Account und alle dazugehörigen Daten am {{ datum }} gelöscht werden.
+Bis dahin geben wir dir die Möglichkeit deine bestehenden Hefte zu exportieren.
+
+Liebe Grüße
+DigitalSchoolNotes
+
+----------
+Bitte antworte nicht auf diese automatisch generierte E-Mail!

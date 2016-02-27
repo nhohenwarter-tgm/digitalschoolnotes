@@ -1,3 +1,4 @@
+import admin.ContactUser;
 import admin.UserManagement;
 import edit.Notebook;
 import junit.framework.Test;
@@ -5,10 +6,7 @@ import junit.framework.TestSuite;
 import mainpage.Login;
 import mainpage.RegisterUser;
 import mainpage.ResetPassword;
-import management.NotebookOptions;
-import management.Profile;
-import management.ProfileSearch;
-import management.PublicNotebooks;
+import management.*;
 
 public class Suite {
 
@@ -23,6 +21,11 @@ public class Suite {
         suite.addTestSuite(Notebook.class);
         suite.addTestSuite(NotebookOptions.class);
         suite.addTestSuite(PublicNotebooks.class);
+        suite.addTestSuite(EditAccount.class);
+        suite.addTestSuite(ContactUser.class);
+        suite.addTestSuite(TimetableView.class);
+        suite.addTestSuite(TimetableEditLessons.class);
+        suite.addTestSuite(DeleteAccount.class);
         return suite;
     }
 

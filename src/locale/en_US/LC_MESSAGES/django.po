@@ -1,0 +1,646 @@
+# English (United States) translations for PROJECT.
+# Copyright (C) 2016 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2016-02-22 13:23+0100\n"
+"PO-Revision-Date: 2016-01-09 16:38+0100\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en_US\n"
+"Language-Team: en_US <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.2.0\n"
+
+#: ../dsn/settings.py:162
+msgid "English"
+msgstr "English"
+
+#: ../dsn/settings.py:163
+msgid "German"
+msgstr "German"
+
+#: ../dsn/authentication/captcha.py:24
+msgid "invalid_captcha"
+msgstr "Captcha is invalid"
+
+#: ../dsn/authentication/email.py:7 ../dsn/static/js/translations.js:31
+msgid "reset_password"
+msgstr "Reset password"
+
+#: ../dsn/authentication/email.py:16
+msgid "validation_of_emailaddress"
+msgstr "Validation of your email address"
+
+#: ../dsn/authentication/email.py:24 ../dsn/authentication/email.py:32
+msgid "account_deletion"
+msgstr "Your account will get deleted soon"
+
+#: ../dsn/authentication/password_reset.py:15
+msgid "reseterror_accountisoauth"
+msgstr ""
+"This account was created using oauth! Password of this account can't be "
+"reset!"
+
+#: ../dsn/authentication/password_reset.py:19
+msgid "emailaddress_wrong"
+msgstr "Email address is wrong!"
+
+#: ../dsn/authentication/password_reset.py:46
+#: ../dsn/authentication/registration.py:17 ../dsn/static/js/translations.js:44
+msgid "error_password_dontmatch"
+msgstr "Inserted passwords don't match!"
+
+#: ../dsn/authentication/password_reset.py:48
+#: ../dsn/authentication/password_reset.py:50
+msgid "reseterror_link_invalid"
+msgstr "This link is invalid!"
+
+#: ../dsn/authentication/registration.py:13 ../dsn/static/js/translations.js:87
+msgid "error_email_alreadyused"
+msgstr "This email address is already used!"
+
+#: ../dsn/static/js/translations.js:1
+msgid "menu_features"
+msgstr "Features"
+
+#: ../dsn/static/js/translations.js:2
+msgid "solve_captcha"
+msgstr "Please solve captcha."
+
+#: ../dsn/static/js/translations.js:3
+msgid "legal_notice"
+msgstr "Legal Notice"
+
+#: ../dsn/static/js/translations.js:4
+msgid "menu_pricing"
+msgstr "Pricing"
+
+#: ../dsn/static/js/translations.js:5
+msgid "menu_about"
+msgstr "About us"
+
+#: ../dsn/static/js/translations.js:6
+msgid "menu_login"
+msgstr "Login"
+
+#: ../dsn/static/js/translations.js:7
+msgid "menu_toapp"
+msgstr "To App"
+
+#: ../dsn/static/js/translations.js:8
+msgid "error_email_needed"
+msgstr "Please insert email address."
+
+#: ../dsn/static/js/translations.js:9
+msgid "error_password_needed"
+msgstr "Please insert password."
+
+#: ../dsn/static/js/translations.js:10
+msgid "forgot_password"
+msgstr "Forgot your password?"
+
+#: ../dsn/static/js/translations.js:11
+msgid "oauth_accept_termsofuse"
+msgstr "By signing in with Facebook or Google+ you agree to our"
+
+#: ../dsn/static/js/translations.js:12
+msgid "termsofuse"
+msgstr "terms of use"
+
+#: ../dsn/static/js/translations.js:13
+msgid "email_address"
+msgstr "Email address"
+
+#: ../dsn/static/js/translations.js:14
+msgid "password"
+msgstr "Password"
+
+#: ../dsn/static/js/translations.js:15
+msgid "error_firstname_needed"
+msgstr "Please insert your firstname."
+
+#: ../dsn/static/js/translations.js:16
+msgid "error_lastname_needed"
+msgstr "Please insert your lastname."
+
+#: ../dsn/static/js/translations.js:17
+msgid "error_firstname_toolong"
+msgstr "Your firstname is too long (max. 30 characters)."
+
+#: ../dsn/static/js/translations.js:18
+msgid "error_lastname_toolong"
+msgstr "Your lastname is too long (max. 30 characters)."
+
+#: ../dsn/static/js/translations.js:19
+msgid "firstname"
+msgstr "Firstname"
+
+#: ../dsn/static/js/translations.js:20
+msgid "lastname"
+msgstr "Lastname"
+
+#: ../dsn/static/js/translations.js:21
+msgid "error_email_invalid"
+msgstr "Please insert valid email address."
+
+#: ../dsn/static/js/translations.js:22
+msgid "error_password_tooshort"
+msgstr "This password is too short (min. 8 characters)."
+
+#: ../dsn/static/js/translations.js:23
+msgid "error_password_toolong"
+msgstr "This password is too long (max. 128 characters)."
+
+#: ../dsn/static/js/translations.js:24
+msgid "error_password_repeat"
+msgstr "Please repeat your current password."
+
+#: ../dsn/static/js/translations.js:25
+msgid "error_accept_termsofuse"
+msgstr "Please agree to our terms of use."
+
+#: ../dsn/static/js/translations.js:26
+msgid "i_accept_termsofuse"
+msgstr "I agree to the"
+
+#: ../dsn/static/js/translations.js:27
+msgid "register"
+msgstr "Register"
+
+#: ../dsn/static/js/translations.js:28
+msgid "password_repeat"
+msgstr "Repeat password"
+
+#: ../dsn/static/js/translations.js:29
+msgid "set_new_password"
+msgstr "Set new password"
+
+#: ../dsn/static/js/translations.js:30
+msgid "set_new_password_desc"
+msgstr "Please set your new password here."
+
+#: ../dsn/static/js/translations.js:32
+msgid "reset_password_desc"
+msgstr "If you forgot your password you can reset it here."
+
+#: ../dsn/static/js/translations.js:33
+msgid "reset_password_instructions"
+msgstr ""
+"An email was sent to the given email address.Please follow the "
+"instructions in this email."
+
+#: ../dsn/static/js/translations.js:34
+msgid "search"
+msgstr "Search"
+
+#: ../dsn/static/js/translations.js:35
+msgid "logout"
+msgstr "Logout"
+
+#: ../dsn/static/js/translations.js:36
+msgid "menu_timetable"
+msgstr "Timetable"
+
+#: ../dsn/static/js/translations.js:37
+msgid "menu_notebooks"
+msgstr "Notebooks"
+
+#: ../dsn/static/js/translations.js:38
+msgid "menu_accountsettings"
+msgstr "Account Settings"
+
+#: ../dsn/static/js/translations.js:39
+msgid "menu_upgradenow"
+msgstr "Upgrade now"
+
+#: ../dsn/static/js/translations.js:40
+msgid "current_password"
+msgstr "Current password"
+
+#: ../dsn/static/js/translations.js:41
+msgid "change_password"
+msgstr "Change current password"
+
+#: ../dsn/static/js/translations.js:42
+msgid "new_password"
+msgstr "New password"
+
+#: ../dsn/static/js/translations.js:43
+msgid "repeat_new_password"
+msgstr "Repeat new password"
+
+#: ../dsn/static/js/translations.js:45
+msgid "save_changes"
+msgstr "Save changes"
+
+#: ../dsn/static/js/translations.js:46
+msgid "cancel"
+msgstr "Cancel"
+
+#: ../dsn/static/js/translations.js:47
+msgid "delete_account"
+msgstr "Delete account"
+
+#: ../dsn/static/js/translations.js:48
+msgid "notebook_settings"
+msgstr "Notebook Settings"
+
+#: ../dsn/static/js/translations.js:49
+msgid "notebook_name"
+msgstr "Notebook Name"
+
+#: ../dsn/static/js/translations.js:50
+msgid "error_notebookname_needed"
+msgstr "Please insert a name!"
+
+#: ../dsn/static/js/translations.js:51
+msgid "error_notebookname_toolong"
+msgstr "Name is too long (max. 30 characters)."
+
+#: ../dsn/static/js/translations.js:52
+msgid "visibility"
+msgstr "Visibility"
+
+#: ../dsn/static/js/translations.js:53
+msgid "visibility_public"
+msgstr "Public"
+
+#: ../dsn/static/js/translations.js:54
+msgid "notebook_createnew"
+msgstr "Create Notebook"
+
+#: ../dsn/static/js/translations.js:55
+msgid "joined_on"
+msgstr "joined on"
+
+#: ../dsn/static/js/translations.js:56
+msgid "user_is_prouser"
+msgstr "This user is a prouser!"
+
+#: ../dsn/static/js/translations.js:57
+msgid "user_is_admin"
+msgstr "This user is an administrator!"
+
+#: ../dsn/static/js/translations.js:58
+msgid "public_notebooks"
+msgstr "Public Notebooks"
+
+#: ../dsn/static/js/translations.js:59
+msgid "user_hasnopublicnotebooks"
+msgstr "This user doesn't have any public notebooks."
+
+#: ../dsn/static/js/translations.js:60
+msgid "user_found"
+msgstr "users found"
+
+#: ../dsn/static/js/translations.js:61
+msgid "editmode_activated"
+msgstr "Editmode activated!"
+
+#: ../dsn/static/js/translations.js:62
+msgid "editmode_end"
+msgstr "End"
+
+#: ../dsn/static/js/translations.js:63
+msgid "time"
+msgstr "Time"
+
+#: ../dsn/static/js/translations.js:64
+msgid "monday"
+msgstr "Monday"
+
+#: ../dsn/static/js/translations.js:65
+msgid "tuesday"
+msgstr "Tuesday"
+
+#: ../dsn/static/js/translations.js:66
+msgid "wednesday"
+msgstr "Wednesday"
+
+#: ../dsn/static/js/translations.js:67
+msgid "thursday"
+msgstr "Thursday"
+
+#: ../dsn/static/js/translations.js:68
+msgid "friday"
+msgstr "Friday"
+
+#: ../dsn/static/js/translations.js:69
+msgid "saturday"
+msgstr "Saturday"
+
+#: ../dsn/static/js/translations.js:70
+msgid "edit_lesson"
+msgstr "Edit lesson"
+
+#: ../dsn/static/js/translations.js:71
+msgid "error_timetablesubjectdescription_toolong"
+msgstr "Description is too long (max. 30 characters)."
+
+#: ../dsn/static/js/translations.js:72
+msgid "subject"
+msgstr "Subject"
+
+#: ../dsn/static/js/translations.js:73
+msgid "teacher"
+msgstr "Teacher"
+
+#: ../dsn/static/js/translations.js:74
+msgid "error_timetableteacherdescription_toolong"
+msgstr "Description is too long (max. 50 characters)."
+
+#: ../dsn/static/js/translations.js:75
+msgid "error_timetableroomdescription_toolong"
+msgstr "Description is too long (max. 30 characters)."
+
+#: ../dsn/static/js/translations.js:76
+msgid "room"
+msgstr "Room"
+
+#: ../dsn/static/js/translations.js:77
+msgid "no_notebook_assigned"
+msgstr "No notebook assigned"
+
+#: ../dsn/static/js/translations.js:78
+msgid "save"
+msgstr "Save"
+
+#: ../dsn/static/js/translations.js:79
+msgid "edit_timetabletimes"
+msgstr "Edit time of lesson"
+
+#: ../dsn/static/js/translations.js:80
+msgid "error_timetabletime_needed"
+msgstr "Please insert a time."
+
+#: ../dsn/static/js/translations.js:81
+msgid "error_timetabletime_invalid"
+msgstr "Please insert a valid time (e.g. \"08:00\")."
+
+#: ../dsn/static/js/translations.js:82
+msgid "begin"
+msgstr "Begin"
+
+#: ../dsn/static/js/translations.js:83
+msgid "end"
+msgstr "End"
+
+#: ../dsn/static/js/translations.js:84
+msgid "prev"
+msgstr "Previous"
+
+#: ../dsn/static/js/translations.js:85
+msgid "next"
+msgstr "Next"
+
+#: ../dsn/static/js/translations.js:86
+msgid "register_success_message"
+msgstr ""
+"Thanks for registering! \n"
+"As soon as you validate your email address you can start using this "
+"application!"
+
+#: ../dsn/static/js/translations.js:88
+msgid "account_delete_warnmessage"
+msgstr ""
+"Are you sure you want to delete your account?\n"
+"You can't undo this action! Your notebooks will be lost forever!"
+
+#: ../dsn/static/js/translations.js:89
+msgid "notebook_delete_warnmessage"
+msgstr "Are you sure you want to delete this notebook?"
+
+#: ../dsn/static/js/translations.js:90 ../dsn/views/management_views.py:98
+#: ../dsn/views/management_views.py:101
+msgid "notebook_max_warnmessage"
+msgstr "You have reached the limit of notebooks!"
+
+#: ../dsn/static/js/translations.js:91
+msgid "error_timetable_notebooknotassigned"
+msgstr "No notebook was assigned to this lesson!"
+
+#: ../dsn/static/js/translations.js:92
+msgid "error_timetable_notebooknotfound"
+msgstr "The notebook that belongs to this lesson could not be found!"
+
+#: ../dsn/static/js/translations.js:93
+msgid "loginerror_please_login_first"
+msgstr "Please login to continue!"
+
+#: ../dsn/static/js/translations.js:94
+msgid "my_notebooks"
+msgstr "My notebooks"
+
+#: ../dsn/static/js/translations.js:95
+msgid "shared_notebooks"
+msgstr "Shared notebooks"
+
+#: ../dsn/static/js/translations.js:96
+msgid "collaboration_notebook_exit_warnmessage"
+msgstr ""
+"Are you sure you want to remove yourself as collaborator from this "
+"notebook? You won't be able to see or edit this notebook anymore after "
+"this action!"
+
+#: ../dsn/static/js/translations.js:97
+msgid "confirm_password_needed_infomessage"
+msgstr "Please insert your current password to confirm your changes!"
+
+#: ../dsn/static/js/translations.js:98
+msgid "close"
+msgstr "Close"
+
+#: ../dsn/static/js/translations.js:99
+msgid "reset"
+msgstr "Reset changes"
+
+#: ../dsn/static/js/translations.js:100
+msgid "confirmation_of_change"
+msgstr "Confirmation of changes"
+
+#: ../dsn/static/js/translations.js:101
+msgid "success"
+msgstr "Success!"
+
+#: ../dsn/static/js/translations.js:102
+msgid "changes_successfully_saved"
+msgstr "Your changes were successful!"
+
+#: ../dsn/static/js/translations.js:103
+msgid "change_userdata"
+msgstr "Change user data"
+
+#: ../dsn/static/js/translations.js:104
+msgid "account_delete_infomessage"
+msgstr ""
+"If you wish to delete your account you can do this here. But be careful:"
+" \n"
+"You can't undo this action! Your notebooks will be lost forever and you "
+"won'tbe able to access any functionality of this application anymore!"
+
+#: ../dsn/static/js/translations.js:105
+msgid "feature_digital_notes"
+msgstr "Digital Notes"
+
+#: ../dsn/static/js/translations.js:106
+msgid "feature_digital_notes_infotext"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:107
+msgid "feature_everywhere_accessible"
+msgstr "Everywhere accessible"
+
+#: ../dsn/static/js/translations.js:108
+msgid "feature_everywhere_accessible_infotext"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:109
+msgid "feature_collaborative_working"
+msgstr "Collaborative working"
+
+#: ../dsn/static/js/translations.js:110
+msgid "feature_collaborative_working_infotext"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:111
+msgid "feature_ocr"
+msgstr "Image to text"
+
+#: ../dsn/static/js/translations.js:112
+msgid "feature_ocr_infotext"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:113
+msgid "feature_timetable"
+msgstr "Timetable"
+
+#: ../dsn/static/js/translations.js:114
+msgid "feature_timetable_infotext"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:115
+msgid "feature_elements"
+msgstr "Different elements"
+
+#: ../dsn/static/js/translations.js:116
+msgid "feature_elements_infotext"
+msgstr ""
+
+#: ../dsn/static/js/translations.js:117
+msgid "pricing_free"
+msgstr "FREE"
+
+#: ../dsn/static/js/translations.js:118
+msgid "pricing_free_costs"
+msgstr "€0 / forever"
+
+#: ../dsn/static/js/translations.js:119
+msgid "pricing_free_features1"
+msgstr "250MB space for images"
+
+#: ../dsn/static/js/translations.js:120
+msgid "pricing_free_features2"
+msgstr "With ads"
+
+#: ../dsn/static/js/translations.js:121
+msgid "pricing_free_features3"
+msgstr "Limited notebooks"
+
+#: ../dsn/static/js/translations.js:122
+msgid "pricing_free_cta"
+msgstr "SIGN UP NOW!"
+
+#: ../dsn/static/js/translations.js:123
+msgid "pricing_pro"
+msgstr "PRO ACCOUNT"
+
+#: ../dsn/static/js/translations.js:124
+msgid "pricing_pro_costs"
+msgstr "€4.99 / Month"
+
+#: ../dsn/static/js/translations.js:125
+msgid "pricing_pro_features1"
+msgstr "1GB space for images"
+
+#: ../dsn/static/js/translations.js:126
+msgid "pricing_pro_features2"
+msgstr "No ads"
+
+#: ../dsn/static/js/translations.js:127
+msgid "pricing_pro_features3"
+msgstr "Unlimited notebooks"
+
+#: ../dsn/static/js/translations.js:128
+msgid "pricing_pro_cta"
+msgstr "BUY NOW!"
+
+#: ../dsn/static/js/translations.js:129
+msgid "pricing_educational"
+msgstr "EDUCATIONAL"
+
+#: ../dsn/static/js/translations.js:130
+msgid "pricing_educational_costs"
+msgstr "On request"
+
+#: ../dsn/static/js/translations.js:131
+msgid "pricing_educational_features1"
+msgstr "Quantity discount for orders upwards of 50 accounts"
+
+#: ../dsn/static/js/translations.js:132
+msgid "pricing_educational_features2"
+msgstr "No ads"
+
+#: ../dsn/static/js/translations.js:133
+msgid "pricing_educational_features3"
+msgstr "Unlimited notebooks"
+
+#: ../dsn/static/js/translations.js:134
+msgid "pricing_educational_cta"
+msgstr "CONTACT US!"
+
+#: ../dsn/static/js/translations.js:135
+msgid "timetable_editmode_infotext"
+msgstr ""
+"You are able to edit your timetable and time units by entering the "
+"edit mode (gearwheel). Just click on the units to simply edit and "
+"personalize your timetable. Your changes will be saved automatically "
+"when leaving the edit mode."
+
+#: ../dsn/views/mainpage_views.py:81 ../dsn/views/mainpage_views.py:92
+msgid "wrong_login_credentials"
+msgstr "Wrong username or email!"
+
+#: ../dsn/views/mainpage_views.py:141
+msgid "success_validate"
+msgstr "Your email was successfully validated!"
+
+#: ../dsn/views/management_views.py:106 ../dsn/views/management_views.py:138
+msgid "notebookname_already_used"
+msgstr "This name is already used!"
+
+#: ../dsn/views/management_views.py:156
+msgid "collaborator_already_in_use"
+msgstr "This user is already set as collaborator"
+
+#: ../dsn/views/management_views.py:161
+msgid "collaboration_error_own_user"
+msgstr "You can't add yourself as collaborator!"
+
+#: ../dsn/views/management_views.py:166
+msgid "no_user"
+msgstr "This user does not exist!"
+
+#: ../dsn/views/management_views.py:460 ../dsn/views/management_views.py:474
+msgid "error_wrong_password"
+msgstr "Please insert your current password!"
+
+#~ msgid "emailaddress_already_used"
+#~ msgstr "This email address is already used!"
+

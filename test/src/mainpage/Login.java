@@ -8,9 +8,6 @@ import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.openqa.selenium.*;
 import util.Parameters;
 
-import javax.swing.*;
-import java.util.Random;
-
 
 /**
  * Testet den Login und Logout
@@ -27,6 +24,10 @@ public class Login extends TestCase{
         this.driver = Parameters.driver;
         this.baseUrl = Parameters.baseUrl;
         driver.get(baseUrl + "/");
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.id("lang_de")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
     }
 
     /**
@@ -123,8 +124,6 @@ public class Login extends TestCase{
         String page = driver.getPageSource();
         if(!page.contains("Bitte melde dich zuerst an!")) throw new NotFoundException();
     }
-
-
 
     @After
     public void tearDown() throws Exception {

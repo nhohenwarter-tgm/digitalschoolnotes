@@ -1,9 +1,12 @@
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.views.decorators.csrf import ensure_csrf_cookie
 from mongoengine import DoesNotExist
+from django.utils.translation import gettext as _
+from django.utils import translation
 import json
 import requests
 from django.contrib.auth import login, logout
+from dsn.authentication.oauth import oauth_google_request, oauth_google_callback, oauth_fb_callback, oauth_fb_request
 from dsn.authentication.registration import validate_registration, create_validation_token
 from dsn.authentication.password_reset import validate_passwordreset, create_passwordreset_token, validate_newpassword
 from dsn.authentication.email import passwordresetmail, validationmail
@@ -15,23 +18,23 @@ from ipware.ip import get_ip
 @ensure_csrf_cookie
 def view_csrf_get(request):
     """
-
     :param request:
     :return:
     """
-    return JsonResponse({'message':'successssss'})
+    return JsonResponse({})
 
 
 def view_getLoggedInUser(request):
     """
-
     :param request:
     :return:
     """
     user = request.user
     if user is not None and not user.is_anonymous():
+        oauthuser = 'oauth' in user
         return JsonResponse({'user': {'email': user.email, 'first_name': user.first_name, 'last_name': user.last_name,
-                                  'is_active': user.is_active, 'is_admin': user.is_superuser, 'is_prouser': user.is_prouser}})
+                                      'is_active': user.is_active, 'is_admin': user.is_superuser,
+                                      'is_prouser': user.is_prouser, 'oauth': oauthuser}})
     else:
         return JsonResponse({'user': None})
 
@@ -75,18 +78,22 @@ def view_login(request):
             user = User.objects.get(email=params['email'])
         except:
             user = None
-            return JsonResponse({'login_error': u'E-Mail Adresse oder Passwort falsch!'})
+            message = _('wrong_login_credentials')
+            return JsonResponse({'login_error': message})
         if user is not None and user.is_active is True and user.check_password(params['password']):
             user.backend = 'mongoengine.django.auth.MongoEngineBackend'
             login(request, user)
-            request.session.set_expiry(60 * 60 * 1) # 1 hour timeout
+            request.session.set_expiry(60 * 60 * 1)  # 1 hour timeout
             return JsonResponse({})
         elif user.is_active is False:
             return JsonResponse({'login_error': u'Bitte bestätige zuerst deine E-Mail Adresse!'})
         else:
-            return JsonResponse({'login_error': u'E-Mail Adresse oder Passwort falsch!'})
+            #NOTE: E-Mail Adresse oder Passwort falsch!
+            message = _("wrong_login_credentials")
+            return JsonResponse({'login_error': message})
     else:
         return JsonResponse({'login_error': u'Fehler beim Login!'})
+
 
 def view_resetpasswordrequest(request):
     if request.method=='POST':
@@ -130,11 +137,32 @@ def view_validate_account(request):
             user.is_active = True
             user.validatetoken = ''
             user.save()
-            return JsonResponse({'message':'Deine E-Mail Adresse wurde erfolgreich bestätigt!', 'success': True})
+            # NOTE: Deine E-Mail Adresse wurde erfolgreich bestätigt!
+            message = _("success_validate")
+            return JsonResponse({'message': message, 'success': True})
         except DoesNotExist:
             return JsonResponse({'message':'Dieser Link ist nicht gültig!', 'success': False})
 
 
 def view_logout(request):
     logout(request)
+    return JsonResponse({})
+
+def view_google_oauth_request(request):
+    return HttpResponseRedirect(oauth_google_request(request))
+
+def view_google_oauth_response(request):
+    return HttpResponseRedirect(oauth_google_callback(request))
+
+def view_fb_oauth_request(request):
+    url = oauth_fb_request(request)
+    return HttpResponseRedirect(url)
+
+def view_fb_oauth_response(request):
+    url = oauth_fb_callback(request)
+    return HttpResponseRedirect(url)
+
+def change_language(request):
+    translation.activate(json.loads(request.body.decode('utf-8'))['language'])
+    request.session[translation.LANGUAGE_SESSION_KEY] = translation.get_language()
     return JsonResponse({})

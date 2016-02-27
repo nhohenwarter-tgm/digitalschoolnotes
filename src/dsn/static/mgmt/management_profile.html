@@ -9,12 +9,12 @@
             <span style="font-size: 18px;" class="glyphicon glyphicon-envelope"></span>
             <span ng-bind="email" style="word-wrap: break-word;"></span>
         </h3>
-        <span class="glyphicon glyphicon-time"></span> joined on <span ng-bind='date_joined'></span><br /><br />
-        <span ng-show="is_prouser"><span class="glyphicon glyphicon-star"></span> Dieser User ist Pro-Benutzer!</span><br />
-        <span ng-show="is_admin"><span class="glyphicon glyphicon-exclamation-sign"></span> Dieser User ist Administrator!</span>
+        <span class="glyphicon glyphicon-time"></span> <span translate="joined_on"></span> <span ng-bind='date_joined'></span><br /><br />
+        <span ng-show="is_prouser"><span class="glyphicon glyphicon-star"></span> <span translate="user_is_prouser"></span></span><br />
+        <span ng-show="is_admin"><span class="glyphicon glyphicon-exclamation-sign"></span> <span translate="user_is_admin"></span></span>
     </div>
     <div class="col-md-8">
-        <h2>Öffentliche Hefte</h2>
+        <h2 translate="public_notebooks"></h2>
         <div class="row" style="padding-bottom: 10px; padding-left: 15px;">
             <span class="col-md-2" ng-repeat="n in notebooks" style="padding-right: 30px; padding-top: 10px;" ng-hide="notebooks.length <= 0">
                 <a href="/notebook/{{ n._id['$oid'] }}" style="text-decoration: none;">
@@ -23,7 +23,7 @@
                     <div style="border-style: solid ridge ridge solid; border-width: 2px 5px 5px 2px; text-align: center; color:black; width: 100px;
                         height: 135px;">
                         <div style="padding-top: 10px; width: auto; height: 100%;
-                             cursor: pointer; word-wrap: break-word; background-color: #A0D4AE;">
+                             cursor: pointer; word-wrap: break-word;" randombackground>
                             <div style="background-color: white; margin-left: 5px; margin-right: 5px;
                             min-height: 61px; border: 1px groove black; display: flex;">
                                 <span style="align-items: center; margin: auto; justify-content: center;
@@ -33,6 +33,6 @@
                 </a>
             </span>
         </div>
-        <span ng-show="notebooks.length <= 0">Dieser Benutzer hat keine öffentlichen Hefte.</span>
+        <span ng-show="notebooks.length <= 0" translate="user_hasnopublicnotebooks"></span>
     </div>
 </div>

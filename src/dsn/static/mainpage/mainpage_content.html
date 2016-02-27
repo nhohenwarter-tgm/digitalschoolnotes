@@ -1,4 +1,4 @@
-<div>
+<div class="row">
     <!-- VIDEO -->
     <div class="col-md-2" ng-show="$parent.menu_toapp"></div>
     <div class="col-md-8">
@@ -16,40 +16,40 @@
 
             <div class="row">
                 <div class="form-group">
-                    <p  style="padding-left:20px; color: red;" ng-show="(submitted || register.firstname.$dirty) && register.firstname.$error.required">Bitte gib deinen Vornamen an.</p>
-                    <p  style="padding-left:20px; color: red;" ng-show="(submitted || register.lastname.$dirty) && register.lastname.$error.required">Bitte gib deinen Nachnamen an.</p>
-                    <p  style="color: red;" ng-show="(submitted || register.firstname.$dirty) && register.firstname.$error.maxlength">Dein Vorname ist zu lang (max. 30 Zeichen).</p>
-                    <p  style="color: red;" ng-show="(submitted || register.lastname.$dirty) && register.lastname.$error.maxlength">Dein Nachname ist zu lang (max. 30 Zeichen).</p>
+                    <p  style="padding-left:20px; color: red;" ng-show="(submitted || register.firstname.$dirty) && register.firstname.$error.required" translate="error_firstname_needed"></p>
+                    <p  style="padding-left:20px; color: red;" ng-show="(submitted || register.lastname.$dirty) && register.lastname.$error.required" translate="error_lastname_needed"></p>
+                    <p  style="color: red;" ng-show="(submitted || register.firstname.$dirty) && register.firstname.$error.maxlength" translate="error_firstname_toolong"></p>
+                    <p  style="color: red;" ng-show="(submitted || register.lastname.$dirty) && register.lastname.$error.maxlength" translate="error_lastname_toolong"></p>
                     <div class="col-md-6"  ng-class="{ 'has-error': register.firstname.$dirty && register.firstname.$invalid }">
-                        <input class="form-control" type="text" name="firstname" placeholder="Vorname*" ng-model="firstname" style="height: 50px;" ng-maxlength="30" required/>
+                        <input class="form-control" type="text" name="firstname" placeholder="{{ 'firstname' | translate }}*" ng-model="firstname" style="height: 50px;" ng-maxlength="30" required/>
                     </div>
                     <div class="col-md-6" ng-class="{ 'has-error': register.lastname.$dirty && register.lastname.$invalid }">
-                        <input class="form-control" type="text" name="lastname" placeholder="Nachname*" ng-model="lastname" style="height: 50px;" ng-maxlength="30" required/>
+                        <input class="form-control" type="text" name="lastname" placeholder="{{ 'lastname' | translate }}*" ng-model="lastname" style="height: 50px;" ng-maxlength="30" required/>
                     </div>
                 </div>
             </div>
             <div class="form-group" style="padding-top:15px;" ng-class="{ 'has-error': register.email.$dirty && register.email.$invalid }">
-                <p  style="color: red;" ng-show="(submitted || register.email.$dirty) && register.email.$error.required">Bitte gib deine E-Mail Adresse an.</p>
-                <p  style="color: red;" ng-show="(submitted || register.email.$dirty) && register.email.$error.pattern">Bitte gib eine valide E-Mail Adresse an.</p>
+                <p  style="color: red;" ng-show="(submitted || register.email.$dirty) && register.email.$error.required" translate="error_email_needed"></p>
+                <p  style="color: red;" ng-show="(submitted || register.email.$dirty) && register.email.$error.pattern" translate="error_email_invalid"></p>
                 <p style="color: red;" ng-show="emailerror">{{ email_error }}</p>
-                <input class="form-control" name="email" type="text" style="height: 50px;" placeholder="E-Mail Adresse*" ng-model="email"
+                <input class="form-control" name="email" type="text" style="height: 50px;" placeholder="{{ 'email_address' | translate }}*" ng-model="email"
                        ng-pattern="/[a-z0-9!#$%&'*+=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/" required/>
             </div>
             <div class="form-group" ng-class="{ 'has-error': register.pwd.$dirty && register.pwd.$invalid }">
-                <p  style="color: red;" ng-show="(submitted || register.pwd.$dirty) && register.pwd.$error.required">Bitte gib dein Passwort an.</p>
-                <p  style="color: red;" ng-show="(submitted || register.pwd.$dirty) && register.pwd.$error.minlength">Das Passwort ist zu kurz (mind. 8 Zeichen).</p>
-                <p  style="color: red;" ng-show="(submitted || register.pwd.$dirty) && register.pwd.$error.maxlength">Das Passwort ist zu lang (max. 128 Zeichen).</p>
+                <p  style="color: red;" ng-show="(submitted || register.pwd.$dirty) && register.pwd.$error.required" translate="error_password_needed"></p>
+                <p  style="color: red;" ng-show="(submitted || register.pwd.$dirty) && register.pwd.$error.minlength" translate="error_password_tooshort"></p>
+                <p  style="color: red;" ng-show="(submitted || register.pwd.$dirty) && register.pwd.$error.maxlength" translate="error_password_toolong"></p>
                 <p style="color: red;" ng-show="passworderror">{{ password_error }}</p>
-                <input class="form-control" type="password" ng-minlength="8" ng-maxlength="128" name="pwd" placeholder="Passwort*" ng-model="password" style="height: 50px;" required/>
+                <input class="form-control" type="password" ng-minlength="8" ng-maxlength="128" name="pwd" placeholder="{{ 'password' | translate }}*" ng-model="password" style="height: 50px;" required/>
             </div>
             <div class="form-group" ng-class="{ 'has-error': register.pwd_repeat.$dirty && register.pwd_repeat.$invalid }">
-                <p  style="color: red;" ng-show="(submitted || register.pwd_repeat.$dirty) && register.pwd_repeat.$error.required">Bitte gib deinen Passwort nochmal an.</p>
-                <input class="form-control" type="password" ng-minlength="8" name="pwd_repeat" placeholder="Passwort Wiederholung*" ng-model="password_repeat" style="height: 50px;" required/>
+                <p  style="color: red;" ng-show="(submitted || register.pwd_repeat.$dirty) && register.pwd_repeat.$error.required" translate="error_password_repeat"></p>
+                <input class="form-control" type="password" ng-minlength="8" name="pwd_repeat" placeholder="{{ 'password_repeat' | translate }}*" ng-model="password_repeat" style="height: 50px;" required/>
             </div>
             <div class="form-group">
-                <p  style="color: red;" ng-show="(submitted || register.accept.$dirty) && register.accept.$error.required">Bitte akzeptiere unsere Nutzungsbedingungen.</p>
+                <p  style="color: red;" ng-show="(submitted || register.accept.$dirty) && register.accept.$error.required" translate="error_accept_termsofuse"></p>
                 <div class="checkbox">
-                    <label><input type="checkbox" name="accept" ng-model="accept" required/>Ich akzeptiere die <a href="../dsn_agb.pdf" target="_blank">Nutzungsbedingungen</a></label>
+                    <label><input type="checkbox" name="accept" ng-model="accept" required /><span translate="i_accept_termsofuse"></span> <a href="../dsn_agb.pdf" target="_blank" translate="termsofuse"></a></label>
                 </div>
             </div>
             <div class="form-group">
@@ -57,7 +57,7 @@
                 <div id="captcha" vc-recaptcha key="publicKey"></div>
             </div>
             <div class="form-group">
-                <button type="submit" name="submit" class="btn btn-success">Registrieren</button>
+                <button type="submit" name="submit" class="btn btn-success" translate="register"></button>
             </div>
         </form>
     </div>
@@ -68,5 +68,159 @@
         <div class="row">
             <b ng-bind="message" style="font-size: 18px;"></b>
         </div>
+    </div>
+</div>
+
+<div id="features" class="row" style="padding-top: 30px; text-align: center;">
+    <h1 translate="menu_features"></h1>
+    <div class="row" style="padding-top: 20px;">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="row" style="padding-top: 20px;">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                    <div class="iconbox">
+                        <div class="iconbox-icon">
+                            <span class="glyphicon glyphicon-book"></span>
+                        </div>
+                        <div class="featureinfo">
+                            <h4 class="text-center" translate="feature_digital_notes"></h4>
+                            <p translate="feature_digital_notes_infotext"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                    <div class="iconbox">
+                        <div class="iconbox-icon">
+                            <span class="glyphicon glyphicon-globe"></span>
+                        </div>
+                        <div class="featureinfo">
+                            <h4 class="text-center" translate="feature_everywhere_accessible"></h4>
+                            <p translate="feature_everywhere_accessible_infotext"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="padding-top: 20px;">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                    <div class="iconbox">
+                        <div class="iconbox-icon">
+                            <span class="glyphicon glyphicon-user"></span>
+                        </div>
+                        <div class="featureinfo">
+                            <h4 class="text-center" translate="feature_collaborative_working"></h4>
+                            <p translate="feature_collaborative_working_infotext"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                    <div class="iconbox">
+                        <div class="iconbox-icon">
+                            <span class="glyphicon glyphicon-camera"></span>
+                        </div>
+                        <div class="featureinfo">
+                            <h4 class="text-center" translate="feature_ocr"></h4>
+                            <p translate="feature_ocr_infotext"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="padding-top: 20px;">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                    <div class="iconbox">
+                        <div class="iconbox-icon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </div>
+                        <div class="featureinfo">
+                            <h4 class="text-center" translate="feature_timetable"></h4>
+                            <p translate="feature_timetable_infotext"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                    <div class="iconbox">
+                        <div class="iconbox-icon">
+                            <span class="glyphicon glyphicon-console"></span>
+                        </div>
+                        <div class="featureinfo">
+                            <h4 class="text-center" translate="feature_elements"></h4>
+                            <p translate="feature_elements_infotext"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</div>
+
+<div id="pricing" class="row" style="padding-top: 30px; padding-bottom:60px; text-align: center;">
+    <h1 translate="menu_pricing"></h1>
+    <div class="row" style="padding-top: 20px;">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="col-md-4">
+                <!-- PRICE ITEM -->
+                <div class="panel price panel-red">
+                    <div class="panel-heading  text-center">
+                        <h3 translate="pricing_free"></h3>
+                    </div>
+                    <div class="panel-body text-center">
+                        <p class="lead" style="font-size:40px"><strong translate="pricing_free_costs"></strong></p>
+                    </div>
+                    <ul class="list-group list-group-flush text-center">
+                        <li class="list-group-item"><i class="icon-ok text-danger"></i> <span translate="pricing_free_features1"></span></li>
+                        <li class="list-group-item"><i class="icon-ok text-danger"></i> <span translate="pricing_free_features2"></span></li>
+                        <li class="list-group-item"><i class="icon-ok text-danger"></i> <span translate="pricing_free_features3"></span></li>
+                    </ul>
+                    <div class="panel-footer">
+                        <a class="btn btn-lg btn-block btn-danger" ng-click="goto('top')" translate="pricing_free_cta"></a>
+                    </div>
+                </div>
+                <!-- /PRICE ITEM -->
+            </div>
+
+            <div class="col-md-4">
+                <!-- PRICE ITEM -->
+                <div class="panel price panel-blue">
+                    <div class="panel-heading arrow_box text-center">
+                        <h3 translate="pricing_pro"></h3>
+                    </div>
+                    <div class="panel-body text-center">
+                        <p class="lead" style="font-size:40px"><strong translate="pricing_pro_costs"></strong></p>
+                    </div>
+                    <ul class="list-group list-group-flush text-center">
+                        <li class="list-group-item"><i class="icon-ok text-info"></i> <span translate="pricing_pro_features1"></span></li>
+                        <li class="list-group-item"><i class="icon-ok text-info"></i> <span translate="pricing_pro_features2"></span></li>
+                        <li class="list-group-item"><i class="icon-ok text-info"></i> <span translate="pricing_pro_features3"></span></li>
+                    </ul>
+                    <div class="panel-footer">
+                        <a class="btn btn-lg btn-block btn-info" href="#" translate="pricing_pro_cta"></a>
+                    </div>
+                </div>
+                <!-- /PRICE ITEM -->
+            </div>
+
+            <div class="col-md-4">
+                <!-- PRICE ITEM -->
+                <div class="panel price panel-green">
+                    <div class="panel-heading arrow_box text-center">
+                        <h3 translate="pricing_educational"></h3>
+                    </div>
+                    <div class="panel-body text-center">
+                        <p class="lead" style="font-size:40px"><strong translate="pricing_educational_costs"></strong></p>
+                    </div>
+                    <ul class="list-group list-group-flush text-center">
+                        <li class="list-group-item"><i class="icon-ok text-success"></i> <span translate="pricing_educational_features1"></span></li>
+                        <li class="list-group-item"><i class="icon-ok text-success"></i> <span translate="pricing_educational_features2"></span></li>
+                        <li class="list-group-item"><i class="icon-ok text-success"></i> <span translate="pricing_educational_features3"></span></li>
+                    </ul>
+                    <div class="panel-footer">
+                        <a class="btn btn-lg btn-block btn-success" href="#" translate="pricing_educational_cta"></a>
+                    </div>
+                </div>
+                <!-- /PRICE ITEM -->
+            </div>
+        </div>
+        <div class="col-md-1"></div>
     </div>
 </div>

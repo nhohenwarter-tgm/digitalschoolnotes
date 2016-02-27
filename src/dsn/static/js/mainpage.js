@@ -1,6 +1,7 @@
 var mainApp = angular.module('mainApp');
 
-mainApp.controller('mainpageCtrl', function($scope, $http, loggedIn){
+mainApp.controller('mainpageCtrl', function($scope, $http, $location, $anchorScroll, $window, $state, $translate, loggedIn){
+    scrollLocation = null;
     loggedIn.getUser().then(function(data){
             var user = data['user'];
             if(user == null){
@@ -13,13 +14,29 @@ mainApp.controller('mainpageCtrl', function($scope, $http, loggedIn){
         }, function(data){
 
         });
+
+    $scope.goto = function(locationId){
+        if($state.current.name == 'mainpage.content') {
+            var old = $location.hash();
+            $location.hash(locationId);
+            $anchorScroll();
+            $location.hash(old);
+        }else{
+            scrollLocation = locationId;
+            $state.go('mainpage.content');
+        }
+    }
 });
 
-mainApp.controller('contentCtrl', ['vcRecaptchaService','$scope','$http',function(vcRecaptchaService, $scope, $http){
+mainApp.controller('contentCtrl', ['vcRecaptchaService','$scope','$http', '$translate', function(vcRecaptchaService, $scope, $http, $translate){
+    if(scrollLocation != null){
+        $scope.goto(scrollLocation);
+        scrollLocation = null;
+    }
     $scope.registerSuccess = false;
     $scope.error = false;
-    $scope.publicKey = "6Ldj4A8TAAAAAANFOMC0XlVx3AG3KvX5vKhCXqQc"; //Echter Key
-    //$scope.publicKey = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"; // Testing
+    //$scope.publicKey = "6Ldj4A8TAAAAAANFOMC0XlVx3AG3KvX5vKhCXqQc"; //Echter Key
+    $scope.publicKey = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"; // Testing
 
     $scope.submitRegister = function(){
         $scope.submitted = true;
@@ -35,13 +52,17 @@ mainApp.controller('contentCtrl', ['vcRecaptchaService','$scope','$http',functio
         $scope.email_error = '';
         $scope.password_error = '';
         $scope.captcha_error = '';
-        if(vcRecaptchaService.getResponse() === ""){
+        if(vcRecaptchaService != null && vcRecaptchaService.getResponse() === ""){
             $scope.captchaerror = true;
-            $scope.captcha_error = "Bitte löse das Captcha.\n";
+            $translate("solve_captcha").then(function(message){
+                $scope.captcha_error = message+"\n";
+            });
         }
         if(password != password_repeat){
             $scope.passworderror = true;
-            $scope.password_error = "Die Passwörter stimmen nicht überein.\n";
+            $translate("error_password_dontmatch").then(function(message){
+                $scope.password_error = message+"\n";
+            });
         }
         password=CryptoJS.SHA256(password);
         password_repeat=CryptoJS.SHA256(password_repeat);
@@ -67,8 +88,9 @@ mainApp.controller('contentCtrl', ['vcRecaptchaService','$scope','$http',functio
                         vcRecaptchaService.reload();
                     }else{
                         $scope.registerSuccess = true;
-                        $scope.message = 'Vielen Dank für deine Registrierung! \n' +
-                            'Sobald du deine E-Mail Adresse bestätigt hast kannst du dich einloggen und sofort starten!';
+                        $translate("register_success_message").then(function(message){
+                            $scope.message = message+"\n";
+                        });
                     }
                 })
                 .error(function (data) {
@@ -78,15 +100,30 @@ mainApp.controller('contentCtrl', ['vcRecaptchaService','$scope','$http',functio
     }
 }]);
 
-mainApp.controller('loginCtrl', function($scope, $http, $state, loggedIn){
+mainApp.controller('loginCtrl', function($scope, $window, $http, $state, $rootScope, $translate, loggedIn){
     loggedIn.getUser().then(function(data){
         var user = data['user'];
         if(user != null && user.is_active){
-            $state.go('management.timetable');
+            if($rootScope.loginFromState != null){
+                var toState = $rootScope.loginFromState;
+                var toParams = $rootScope.loginFromParams;
+                $rootScope.loginFromState = null;
+                $rootScope.loginFromParams = null;
+                $state.go(toState, toParams);
+            }else {
+                $state.go('management.timetable');
+            }
         }
     }, function(data){
         $state.go('mainpage.content');
     });
+
+    if($state.current.name == 'mainpage.login.oautherror'){
+        $scope.error = true;
+        $translate("error_email_alreadyused").then(function(message){
+                $scope.login_error = message+"\n";
+        });
+    }
 
     $scope.submitLogin = function(){
         $scope.submitted = true;
@@ -104,7 +141,15 @@ mainApp.controller('loginCtrl', function($scope, $http, $state, loggedIn){
                         $scope.error = true;
                         $scope.login_error = data['login_error'];
                     }else{
-                        $state.go('management.timetable');
+                        if($rootScope.loginFromState != null){
+                            var toState = $rootScope.loginFromState;
+                            var toParams = $rootScope.loginFromParams;
+                            $rootScope.loginFromState = null;
+                            $rootScope.loginFromParams = null;
+                            $state.go(toState, toParams);
+                        }else {
+                            $state.go('management.timetable');
+                        }
                     }
                 })
                 .error(function(data){
@@ -114,7 +159,7 @@ mainApp.controller('loginCtrl', function($scope, $http, $state, loggedIn){
     }
 });
 
-mainApp.controller('validateEmailCtrl', function($scope, $http, $state){
+mainApp.controller('validateEmailCtrl', function($scope, $http, $state, $translate){
     var hash = $state.params.hash;
     $http({
         method: 'POST',
@@ -134,11 +179,11 @@ mainApp.controller('validateEmailCtrl', function($scope, $http, $state){
 
 });
 
-mainApp.controller('resetPwdCtrl', ['vcRecaptchaService','$scope','$http','$state',function(vcRecaptchaService, $scope, $http, $state){
+mainApp.controller('resetPwdCtrl', ['vcRecaptchaService','$scope','$http','$state','$translate', function(vcRecaptchaService, $scope, $http, $state, $translate){
     $scope.success = false;
     $scope.linkInvalid = false;
-    $scope.publicKey = "6Ldj4A8TAAAAAANFOMC0XlVx3AG3KvX5vKhCXqQc"; //Echter Key
-    //$scope.publicKey = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"; // Testing
+    //$scope.publicKey = "6Ldj4A8TAAAAAANFOMC0XlVx3AG3KvX5vKhCXqQc"; Echter Key
+    $scope.publicKey = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"; // Testing
 
     $scope.resetPasswordReq = function() {
         $scope.submitted = true;
@@ -146,9 +191,11 @@ mainApp.controller('resetPwdCtrl', ['vcRecaptchaService','$scope','$http','$stat
         $scope.reset_error = "";
         var email = $scope.email;
 
-        if(vcRecaptchaService.getResponse() === ""){
+        if(vcRecaptchaService != null && vcRecaptchaService.getResponse() === ""){
             $scope.error = true;
-            $scope.reset_error += "Bitte löse das Captcha.\n";
+            $translate("solve_captcha").then(function(message){
+                $scope.reset_error = message+"\n";
+            });
         }
 
         if(!$scope.error && $scope.resetpwdreq.$valid) {
@@ -185,7 +232,9 @@ mainApp.controller('resetPwdCtrl', ['vcRecaptchaService','$scope','$http','$stat
         $scope.reset_error = '';
         if(password != password_repeat) {
             $scope.error = true;
-            $scope.reset_error = 'Passwörter stimmen nicht überein\n';
+            $translate("error_password_dontmatch").then(function(message){
+                $scope.reset_error = message+"\n";
+            });
         }
         password = CryptoJS.SHA256(password)
         password_repeat = CryptoJS.SHA256(password_repeat)

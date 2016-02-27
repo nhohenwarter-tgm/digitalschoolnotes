@@ -7,26 +7,6 @@ from bson import ObjectId
 import datetime
 
 from dsn.settings import SALT
-"""
-Example:
-
-class Food(Document):
-    name = StringField(max_length=50)
-    votes = IntField(default=0)
-"""
-
-"""
-class Heft(Document):
-    name = models.CharField(max_length=100)
-    auto_creat = models.BooleanField()
-    share_with = models.
-    date =
-    titels =
-"""
-
-
-#TODO Add model for notebook
-#TODO Add model for timetable
 
 
 class AuthUserManager(UserManager):
@@ -77,6 +57,11 @@ class PasswordReset(EmbeddedDocument):
     date = DateTimeField(required=True)
 
 
+class OAuth(EmbeddedDocument):
+    provider = StringField(required=True)
+    id = StringField(required=True)
+
+
 class User(Document):
     id = ObjectIdField(unique=True, required=True, primary_key=True)
     email = EmailField(unique=True, required=True)
@@ -89,7 +74,9 @@ class User(Document):
     is_superuser = BooleanField(default=False)
     last_login = DateTimeField(default=datetime.datetime.now())
     date_joined = DateTimeField(default=datetime.datetime.now())
+    delete_date = DateTimeField()
     passwordreset = EmbeddedDocumentField(PasswordReset)
+    oauth = EmbeddedDocumentField(OAuth)
     validatetoken = StringField()
 
     user_permissions = ListField(ReferenceField(Permission))
@@ -155,6 +142,32 @@ class User(Document):
 
         user = cls(id=ObjectId(), email=email, date_joined=now, first_name=first_name, last_name=last_name)
         user.set_password(password)
+        user.save()
+        return user
+
+    @classmethod
+    def create_oauth_user(cls, email, first_name, last_name, provider, id):
+        """Create (and save) a new user with the given password and
+        email address.
+        """
+        now = datetime.datetime.now()
+
+        # Normalize the address by lowercasing the domain part of the email
+        # address.
+        if email is not None:
+            try:
+                email_name, domain_part = email.strip().split('@', 1)
+            except ValueError:
+                pass
+            else:
+                email = '@'.join([email_name.lower(), domain_part.lower()])
+
+        user = cls(id=ObjectId(), email=email, date_joined=now, first_name=first_name, last_name=last_name)
+        user.set_password("")
+
+        oauth = OAuth(provider=provider, id=id)
+        user.is_active=True
+        user.oauth=oauth
         user.save()
         return user
 
@@ -235,6 +248,16 @@ class User(Document):
         return self._profile_cache
 
 
+class NotebookContent(EmbeddedDocument):
+    id = IntField()
+    art = StringField()
+    position_x = IntField()
+    position_y = IntField()
+    position_site = IntField()
+    data = DictField()
+    is_active = BooleanField(default=False)
+    is_active_by = EmailField()
+
 
 class Notebook(Document):
     name = StringField(max_length=30)
@@ -243,38 +266,31 @@ class Notebook(Document):
     last_change = DateTimeField(default=datetime.datetime.now())
     email = EmailField()
     numpages = IntField(default=2)
-
-class TimeTableElem(Document):
-    subject = StringField(max_length=30)
-    teacher = StringField(max_length=50)
-    begin = StringField()
-    end = StringField()
-    room = StringField(max_length=40)
-
-    @classmethod
-    def create(self,subject,teacher,begin,end,room):
-        self.subject=subject
-        self.teacher=teacher
-        self.begin=begin
-        self.end=end
-        self.room=room
+    current_page = IntField(default=2)
+    content = SortedListField(EmbeddedDocumentField(NotebookContent), ordering="id", reverse=True)
+    collaborator = ListField(EmailField())
 
 class TimeTableTime(EmbeddedDocument):
     row=IntField()
     start= StringField()
     end=StringField()
 
+
 class TimeTableField(EmbeddedDocument):
     id=IntField()
     subject= StringField()
     teacher=StringField()
     room=StringField()
+    notebook=StringField()
+
 
 class TimeTable(Document):
     email=EmailField()
     times=EmbeddedDocumentListField(TimeTableTime)
     fields=EmbeddedDocumentListField(TimeTableField)
 
-
-
+class NotebookLog(Document):
+    notebook_id = ObjectIdField()
+    user = EmailField()
+    last_ping = DateTimeField()
 

@@ -7,17 +7,13 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="http://digitalschoolnotes.com:5001" style="padding-top: 5px; padding-bottom: 5px;" ng-click="$event.stopPropagation()">
+            <a class="navbar-brand" href="https://digitalschoolnotes.com:5001" style="padding-top: 5px; padding-bottom: 5px;" ng-click="$event.stopPropagation()">
                 <img alt="DigitalSchoolNotes" src="../../img/logo_small.png" style="max-height: 100%; height: 100%;">
             </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li><a ui-sref="admin.usermanagement"><span class="glyphicon glyphicon-user"></span> User Management</a></li>
-                <li><a ui-sref="admin.bills"><span class="glyphicon glyphicon-euro"></span> Bills</a></li>
-                <li><a ui-sref="admin.ldapConfiguration"><span class="glyphicon glyphicon-wrench"></span> LDAP Server Management</a></li>
-                <li><a ui-sref="admin.userquotas"><span class="glyphicon glyphicon-tasks"></span> User Quotas</a></li>
-                <li><a ui-sref="admin.statistics"><span class="glyphicon glyphicon-stats"></span> Statistics</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="" ng-controller="logoutCtrl" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>

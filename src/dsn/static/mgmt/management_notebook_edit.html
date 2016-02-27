@@ -1,25 +1,54 @@
-<form class="row" ng-submit="submitEditNotebook()" method="POST" name="editNotebook" novalidate>
+<form class="row" method="POST" name="editNotebook" novalidate>
     <span class="col-md-4"></span>
     <span class="col-md-4">
-        <h2 class="row" style="text-align: center;">Hefteinstellungen</h2>
-        <h4 style="padding-top: 20px;">Heftname</h4>
+        <h2 class="row" style="text-align: center;" translate="notebook_settings"></h2>
+        <h4 style="padding-top: 20px;" translate="notebook_name"></h4>
         <div class="row">
             <div class="col-md-12">
                 <span ng-bind="message" style="color: red;"></span>
-                <p  style="color: red;" ng-show="(editNotebook.name.$dirty) && editNotebook.name.$error.required">Bitte gib einen Namen an.</p>
-                <p  style="color: red;" ng-show="(editNotebook.name.$dirty) && editNotebook.name.$error.maxlength">Der Name ist zu lang (max. 30 Zeichen).</p>
+                <p  style="color: red;" ng-show="(editNotebook.name.$dirty) && editNotebook.name.$error.required" translate="error_notebookname_needed"></p>
+                <p  style="color: red;" ng-show="(editNotebook.name.$dirty) && editNotebook.name.$error.maxlength" translate="error_notebookname_toolong"></p>
                 <input class="form-control" type="text" name="name" ng-model="name" ng-maxlength="30" required/>
             </div>
         </div>
-        <h4 style="padding-top: 20px;">Sichtbarkeit</h4>
+        <h4 style="padding-top: 20px;" translate="visibility"></h4>
         <div class="row">
             <div class="col-md-12">
-                <input type="checkbox" name="is_public" ng-model="is_public" ng-checked="is_public"/> &Ouml;ffentlich
+                <input type="checkbox" name="is_public" ng-model="is_public" ng-checked="is_public" />
+                <span translate="visibility_public"></span>
             </div>
         </div>
+        <br>
+        <h4>Collaborators</h4>
+        <div class="row" ng-repeat="c in collaborator" style="background-color: rgb(224, 219, 225); margin-bottom: 10px; border-radius: 5px;">
+            <div class="col-md-11" style="padding-top: 5px;">
+                <span>{{ c }}</span>
+            </div>
+            <div class="col-md-1">
+                <button id="removeColl" class="btn btn-danger" ng-click="removeCollaborator(c)"><span class="glyphicon glyphicon-minus" style="color:white; float: right;"></span></button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-11">
+                <span ng-bind="message1" style="color: red;"></span>
+                <input auto-complete ui-items="names" class="form-control" ng-keyup="searchCollaborator()"
+                       name="add_collaborator" ng-model="add_collaborator"
+                        onkeydown = "if (event.keyCode == 13)
+                        document.getElementById('addColl').click()">
+                <!--http://jsfiddle.net/gjrwy5ua/-->
+            </div>
+            <div class="col-md-1">
+                <button id="addColl" class="btn btn-success" ng-click="addCollaborator()"><span class="glyphicon glyphicon-plus" style="color:white;"></span></button>
+            </div>
+            <!--
+            <div id="search-results" class="dropdown scrollable-menu" ng-repeat="c in findcollaborator">
+                <button ng-click="searchvalue(c)" class="list-group-item">{{ c.email }}</button>
+            </div>
+            -->
+        </div>
         <div class="row" style="padding-top: 30px;">
-                <button type="submit" id="submit" class="btn btn-success" style="margin-left: 15px;">&Auml;nderungen speichern</button>
-                <button id="cancel" class="btn btn-danger" ng-click="cancelEdit()" style="float: right; margin-right: 15px;">Abbrechen</button>
+            <button ng-click="submitEditNotebook()" id="submit" class="btn btn-success" style="margin-left: 15px;" translate="save_changes"></button>
+            <button id="cancel" class="btn btn-danger" ng-click="cancelEdit()" style="float: right; margin-right: 15px;" translate="cancel"></button>
         </div>
     </span>
     <span class="col-md-4"></span>

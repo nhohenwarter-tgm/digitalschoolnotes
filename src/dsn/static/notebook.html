@@ -1,94 +1,447 @@
 <div class="row">
     <div class="col-md-1"></div>
     <div class="col-md-10">
+        <div class="row">
+            <div class="col-md-12" align="center">
+                <div class="row" style="padding-bottom: 70px;">
+                    <!-- NAVBAR START -->
+                    <nav class="navbar navbar-default navbar-fixed-top" style="background-color: #669966;">
+                        <!-- BACK ARROW START -->
+                        <div class="navbar-header col-md-2">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                                    data-target="#navbar"
+                                    aria-expanded="false" aria-controls="navbar">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand glyphicon glyphicon-arrow-left" ng-click="redirectNotebook_2(notebook._id['$oid'])"
+                                   style="color: white; font-size: 30px; cursor: pointer;"></a>
+                        </div>
+                        <!-- BACK ARROW END -->
+                        <!-- TOOLBAR START -->
+                        <div class="col-md-6">
+                            <div id="navbar" class="navbar-collapse collapse row" ng-hide="publicViewed">
+                                <div align="center">
+                                    <ul class="nav navbar-nav col-md-8" style="font-size: 30px;">
+                                        <li ng-hide="publicViewed">
+                                            <a ng-click="addelement('textarea', '{&quot;data&quot;:&quot;&quot;}')">
+                                                <span class="glyphicon glyphicon-font"
+                                                      style="color: white; cursor: pointer;"></span>
+                                            </a>
+                                        </li>
 
-        <div class="row">
-            <div class="col-md-4">
-                <h3><a ui-sref="management.notebooks" class="glyphicon glyphicon-arrow-left" style="text-decoration: none; color: black;"></a></h3>
-            </div>
-            <div class="col-md-4" style="text-align: center;">
-                <h3>{{ notebook.name }}</h3>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-1"></div>
-            <div class="col-md-10" style="text-align: center;">
-                <nav>
-                    <ul class="pagination">
-                        <li>
-                            <a href="#" id="goto-start" aria-label="Start">
-                                <span aria-hidden="true">&laquo;</span>
+                                        <li ng-hide="publicViewed">
+                                            <a ng-click="codeElementCreate()">
+                                                <span class="glyphicon glyphicon-console"
+                                                      style="color: white; cursor: pointer;"></span>
+                                            </a>
+                                        </li>
+                                        <li ng-hide="publicViewed">
+                                            <a ng-click="addPicture()">
+                                                <span class="glyphicon glyphicon-picture"
+                                                      style="color: white; cursor: pointer;"></span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a ng-click="exportSite()">
+                                                    <span class="glyphicon glyphicon-export"
+                                                          style="color: white; cursor: pointer;"></span>
+                                            </a>
+                                        </li>
+                                        <li ng-hide="publicViewed">
+                                            <a ng-click="addOCRPic()">
+                                                    <span class="glyphicon glyphicon-text-background"
+                                                          style="color: white; cursor: pointer;"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- TOOLBAR END -->
+                        <!-- NOTEBOOK NAME START -->
+                        <div class="col-md-4">
+                            <div id="navbar" class="navbar-collapse collapse row navbar-left" style="width: 100%;">
+                                <ul class="nav navbar-nav col-md-7" style="font-size: 30px; width: 100%;">
+                                    <li style="color: white; font-size: 35px; font-weight: bold;
+                                    text-overflow: ellipsis; white-space: nowrap; overflow: hidden; width: 100%; text-align: right;">
+                                        {{ notebook['name'] }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- NOTEBOOK NAME END -->
+                    </nav>
+                    <!-- NAVBAR END -->
+                </div>
+                <!-- PAGE START -->
+                <div class="row" >
+                    <div class="col-md-1">
+                        <div class="row">
+                            <a ng-click="toPage(1)" class="glyphicon glyphicon-backward" id="turn_left_fast"
+                               style="font-size: 40px; color: black; text-decoration: none; cursor: pointer;
+                                position: fixed; margin-left: -50px;">
                             </a>
-                        </li>
-                        <li>
-                            <a href="#" id="goto-prev" aria-label="Previous">
-                                <span aria-hidden="true">Prev</span>
+                            <a ng-click="toPage(currentPage-1)" class="glyphicon glyphicon-chevron-left" id="turn_left"
+                               style="font-size: 40px; color: black; text-decoration: none; cursor: pointer;
+                                position: fixed;">
                             </a>
-                        </li>
-                        <li>
-                            <a href="#" id="goto-next" aria-label="Next">
-                                <span aria-hidden="true">Next</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" id="goto-end" aria-label="End">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="col-md-1"></div>
-        </div>
-        <div class="row" style="padding-top: 50px;">
-            <div class="col-md-1">
-                <div style="border: 1px solid black; font-size: 25px; text-align: center;" ng-hide="publicViewed">
-                    <div class="row">
-                        <a class="glyphicon glyphicon-font"
-                           style="text-decoration: none; color: black; cursor: pointer; cursor: hand;"></a>
+                        </div>
                     </div>
-                    <div class="row">
-                        <a class="glyphicon glyphicon-pencil"
-                           style="text-decoration: none; color: black; cursor: pointer; cursor: hand;"></a>
+                    <div class="col-md-10" style="border-style: solid ridge ridge solid; border-width: 2px 5px 5px 2px; text-align: center;
+                        color:black; background-color: white; overflow:hidden;" id="notebook">
+                        <!-- PAGE CONTENT START -->
+                        <div>
+                            <div style="margin-top: {{ notebookHeight-40 }}px;
+                                    margin-left: {{ notebookWidth-40 }}px;">
+                                <h3>{{ currentPage }}</h3>
+                            </div>
+                                    <span ng-repeat="element in sites[currentPage]"
+                                          ng-mouseenter="hovered=true;" ng-mouseleave="hovered=false;"
+                                          id="{{ element.art }}_{{ element.id }}" style="position: absolute;
+                                          top: {{ element.position_y }}px; left: {{ element.position_x }}px;
+                                            min-width: 50px;">
+                                        <!-- TEXT ELEMENT -->
+                                        <span ng-if="element.art == 'textarea'" style="word-wrap: break-word;">
+                                            <!-- Edit -->
+                                            <textarea ng-if="editMode == element.id"
+                                                      ng-model="models[element.art][element.id][0]" ckeditor>
+
+                                            </textarea>
+                                            <span ng-show="models[element.art][element.id][2] == 'red'" class="glyphicon glyphicon-exclamation-sign"
+                                                      ng-style='{"color": models[element.art][element.id][2], "cursor": "pointer"}'></span>
+                                            <!-- Read-Only -->
+                                            <div ng-if="editMode != element.id"
+                                                 style="border: 1px solid black; min-height: 20px; min-width: 20px; text-align: left; padding:5px;">
+                                                <div ng-bind-html="models[element.art][element.id][0]" style="word-wrap: break-word; "></div>
+                                            </div>
+                                        </span>
+                                        <!-- CODE ELEMENT -->
+                                        <span ng-if="element.art == 'code'" >
+                                            <!-- Edit -->
+                                            <section ng-if="editMode == element.id">
+                                                <textarea ng-model="models[element.art][element.id][0]"
+                                                          class="codestyle" rows="6"
+                                                          cols="70" ui-codemirror="{lineNumbers: true, width: 800, height:auto, indentWithTabs: true, lineWrapping: true, scrollbarStyle: 'null', mode: '{{ models['code'][element.id][1]}}'}">
+
+                                                </textarea>
+
+                                                <!--<select ng-model="models[element.art][element.id][1]" ng-options="m for m in modes"
+                                                        ng-change="modeChanged(element.id)"></select> -->
+                                            </section>
+                                            <span ng-show="models[element.art][element.id][2] == 'red'" class="glyphicon glyphicon-exclamation-sign"
+                                                      ng-style='{"color": models[element.art][element.id][2], "cursor": "pointer"}'></span>
+                                            <!-- Read-Only -->
+                                            <section id="{{ element.art }}_{{ element.id }}"
+                                                     ng-if="editMode != element.id">
+                                                <textarea ng-model="models[element.art][element.id][0]"
+                                                          class="codestyle" rows="6"
+                                                          cols="70" ui-codemirror="{lineNumbers: true, width: 800, height:auto, indentWithTabs: true, lineWrapping: true, scrollbarStyle: 'null', readOnly: 'nocursor', mode: '{{ models['code'][element.id][1]}}'}">
+
+                                                </textarea>
+                                            </section>
+                                        </span>
+
+                                        <!-- IMAGE ELEMENT -->
+                                        <span ng-if="element.art == 'image'" >
+                                            <!-- Edit -->
+                                            <section ng-if="editMode == element.id">
+                                                <image ng-src="{{ models[element.art][element.id][0] }}"
+                                                        ng-style='{"width": models[element.art][element.id][1]+"px",
+                                                        "height": models[element.art][element.id][2]+"px"}' />
+
+                                                <!--<select ng-model="models[element.art][element.id][1]" ng-options="m for m in modes"
+                                                        ng-change="modeChanged(element.id)"></select> -->
+                                            </section>
+
+                                            <!-- Read-Only -->
+                                            <section id="{{ element.art }}_{{ element.id }}"
+                                                     ng-if="editMode != element.id && (models[element.art][element.id][1] != 0 && models[element.art][element.id][2] != 0)">
+                                                <image ng-src="{{ models[element.art][element.id][0] }}"
+                                                       ng-style='{"width": models[element.art][element.id][1]+"px",
+                                                        "height": models[element.art][element.id][2]+"px"}' />
+                                            </section>
+
+                                            <!-- Read-Only -->
+                                            <section id="{{ element.art }}_{{ element.id }}"
+                                                     ng-if="editMode != element.id && (models[element.art][element.id][1] == 0 || models[element.art][element.id][2] == 0 )">
+                                                <image ng-src="{{ models[element.art][element.id][0] }}"
+                                                       ng-style='{"width": auto,
+                                                        "height": auto}' />
+                                            </section>
+                                        </span>
+                                        <!-- EDIT / DELETE -->
+                                        <!--<div ng-hide="publicViewed || models[element.art][element.id][2] == 'red'">-->
+                                        <div ng-hide="publicViewed ||
+                                        (models[element.art][element.id][2] == 'red' && editMode != element.id)">
+                                            <span ng-show="hovered && editMode != element.id"
+                                                  class="glyphicon glyphicon-trash"
+                                                  ng-click="codeElementDelete(element.id,element.art)"
+                                                  style="cursor: pointer; font-size: 18px; color:black; padding-top: 3px;">
+
+                                            </span>
+                                            <span ng-show="hovered && editMode != element.id"
+                                                  class="glyphicon glyphicon-pencil"
+                                                  ng-click="setEditMode(element.id,element.id,element.art)"
+                                                  style="cursor: pointer; font-size: 18px; color:black; padding-top: 3px;">
+
+                                            </span>
+
+                                            <span ng-show="hovered && editMode != element.id && 'code' == element.art"
+                                                  class="glyphicon glyphicon-cog"
+                                                  ng-click="codeModeEdit(element.id,element.art)"
+                                                  style="cursor: pointer; font-size: 18px; color:black; padding-top: 3px;">
+
+                                            </span>
+
+                                            <div style="color: red; text-align: center; padding-bottom: 10px;"
+                                                 ng-if="editMode == element.id && element.art != 'image'">
+                                                <span translate="editmode_activated"></span>
+                                                <span style="cursor: pointer; text-decoration: underline;"
+                                                      ng-click="setEditMode(null,element.id,element.art)" translate="editmode_end"></span>
+                                            </div>
+                                        </div>
+                                    </span>
+                        </div>
+                        <!-- PAGE CONTENT END -->
                     </div>
-                    <div class="row">
-                        <a class="glyphicon glyphicon-picture"
-                           style="text-decoration: none; color: black; cursor: pointer; cursor: hand;"></a>
-                    </div>
-                    <div class="row">
-                        <a class="glyphicon glyphicon-facetime-video"
-                           style="text-decoration: none; color: black; cursor: pointer; cursor: hand;"></a>
-                    </div>
-                    <div class="row">
-                        <a clas="glyphicon glyphicon-console"
-                           style="text-decoration: none; color: black; cursor: pointer; cursor: hand;"></a>
+                    <div class="col-md-1" style="text-align: left;">
+                        <div class="row">
+                            <div ng-hide="!additem">
+                                <a ng-click="toPage(currentPage+1)" class="glyphicon glyphicon-chevron-right"
+                                   id="turn_right"
+                                   style="font-size: 40px; color: black; text-decoration: none; cursor: pointer;
+                                position: fixed;">
+                                </a>
+
+                                <a ng-click="toPage(notebook['numpages'])" class="glyphicon glyphicon-forward"
+                                   id="turn_right_fast"
+                                   style="font-size: 40px; color: black; text-decoration: none; cursor: pointer;
+                                position: fixed; margin-left: 50px;">
+                                </a>
+                            </div>
+                            <div ng-hide="additem">
+                                <a ng-click="toPage(currentPage+1)" class="glyphicon glyphicon-plus"
+                                   id="turn_next_page"
+                                   style="font-size: 40px; color: black; text-decoration: none; cursor: pointer;
+                                position: fixed; margin-left: 50px;">
+                                </a>
+                            </div>
+
+
+                        </div>
                     </div>
                 </div>
+                <!-- PAGE END -->
             </div>
-            <div class="col-md-10">
-                <div id="book" style="text-align: center;">
-                    <div>
-                        <h3>Yay, Page 1!</h3>
-                    </div>
-                    <div>
-                        <h3>Yay, Page 2!</h3>
-                    </div>
-                    <div>
-                        <h3>Yay, Page 3!</h3>
-                    </div>
-                    <div>
-                        <h3>Yay, Page 4!</h3>
-                    </div>
-                    <div>
-                        <h3>Yay, Page 5!</h3>
-                    </div>
-                    <div>
-                        <h3>Yay, Page 6!</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-1"></div>
         </div>
     </div>
     <div class="col-md-1"></div>
 </div>
+
+<script type="text/ng-template" id="codeElementSettings">
+    <div class="ngdialog-message">
+        <h2>Code Element</h2>
+
+        <div>Mithilfe dieses Elementes kannst du Programmcode formatiert darstellen. Bitte w&auml;hle die Sprache aus, in
+            welcher
+            dein Code geschrieben ist.
+        </div>
+        <br/>
+
+        <div class="radio">
+                <div class="col-md-6">
+
+                    <label>
+                        <input type="radio" name="lang" ng-model="value" value="application/xml" ng-change="setCodeElementLanguage(value)" ng-checked="'application/xml'==codeLanguage">
+                        XML
+                    </label><br/>
+                    <label>
+                        <input type="radio" name="lang" ng-model="value" value="text/html" ng-change="setCodeElementLanguage(value)" ng-checked="'text/html' == codeLanguage">
+                        HTML
+                    </label><br/>
+                    <label>
+                        <input type="radio" name="lang" ng-model="value" value="text/x-java" ng-change="setCodeElementLanguage(value)" ng-checked="'text/x-java'==codeLanguage">
+                        Java
+                    </label><br/>
+                    <label>
+                        <input type="radio" name="lang" ng-model="value" value="text/javascript" ng-change="setCodeElementLanguage(value)" ng-checked="'text/javascript' == codeLanguage">
+                        Javascript
+                    </label><br/>
+                    <label>
+                        <input type="radio" name="lang" ng-model="value" value="text/x-php" ng-change="setCodeElementLanguage(value)" ng-checked="'text/x-php' ==codeLanguage">
+                        PHP
+                    </label><br/>
+                    <label>
+                        <input type="radio" name="lang" ng-model="value" value="text/x-ruby" ng-change="setCodeElementLanguage(value)" ng-checked="'text/x-ruby' == codeLanguage">
+                        Ruby
+                    </label><br/>
+                </div>
+                <div class="col-md-6">
+                    <label>
+                        <input type="radio" name="lang" ng-model="value" value="text/x-sh" ng-change="setCodeElementLanguage(value)" ng-checked="'text/x-sh' == codeLanguage">
+                        Shell
+                    </label><br/>
+                    <label>
+                        <input type="radio" name="lang" ng-model="value" value="text/x-mysql" ng-change="setCodeElementLanguage(value)" ng-checked="'text/x-mysql' == codeLanguage">
+                        SQL
+                    </label><br/>
+                    <label>
+                        <input type="radio" name="lang" ng-model="value" value="text/x-csrc" ng-change="setCodeElementLanguage(value)" ng-checked="'text/x-csrc' == codeLanguage">
+                        C
+                    </label><br/>
+                    <label>
+                        <input type="radio" name="lang" ng-model="value" value="text/x-c++src" ng-change="setCodeElementLanguage(value)" ng-checked="'text/x-c++src' == codeLanguage">
+                        C++
+                    </label><br/>
+                    <label>
+                        <input type="radio" name="lang" ng-model="value" value="text/x-csharp" ng-change="setCodeElementLanguage(value)" ng-checked="'text/x-csharp' == codeLanguage">
+                        C#
+                    </label><br/>
+                    <label>
+                        <input type="radio" name="lang" ng-model="value" value="text/x-python" ng-change="setCodeElementLanguage(value)" ng-checked="'text/x-python' == codeLanguage">
+                        Python
+                    </label><br/>
+                </div>
+        </div>
+
+    </div>
+    <div class="ngdialog-buttons mt">
+        <button id="cancel" class="btn btn-danger" ng-click="closeThisDialog()"
+                style="float: right;  margin-right: 15px; margin-top:20px;">Abbrechen
+        </button>
+        <button id="submit" class="btn btn-success" ng-click="closeThisDialog();addCodeElement();"
+                style="float: right; margin-top:20px; margin-left: 15px; margin-right: 15px;">Speichern
+        </button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="deleteElementSettings">
+    <div class="ngdialog-message">
+        <h2>Element l&ouml;schen</h2>
+
+        <div>Bist du sicher, dass du dieses Element l&ouml;schen willst.</div>
+        <br/>
+    </div>
+    <div class="ngdialog-buttons mt">
+        <button id="cancel" class="btn btn-danger" ng-click="closeThisDialog()"
+                style="float: right;  margin-right: 15px;">Abbrechen
+        </button>
+        <button type="submit" id="submit" class="btn btn-success"
+                ng-click="deleteelement(deleteid,deleteart);closeThisDialog();"
+                style="float: right; margin-left: 15px; margin-right: 15px;">L&ouml;schen
+        </button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="addPicture">
+    <div class="ngdialog-message">
+        <h2>Bild hinzuf&uuml;gen</h2>
+        <div role="alert">
+            <span class="error" ng-show="errormessage" style="color:#FF0000">{{ errormessage }}</span>
+            <span class="error" ng-show="!myFile" style="color:#FF0000">F&uuml;ge deinem Heft ein Bild hinzu.</span>
+        </div>
+        <div>
+        <label class="control-label"></label>
+        <input id="input-1" type="file" accept="image/png, image/gif, image/jpeg" file-model="myFile" class="file"></div>
+        <br/>
+    </div>
+    <div role="alert">
+      <span class="error" ng-show="showError" style="color:#FF0000">Bitte gib eine Zahl ein.</span>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-4">
+            <label for="ex1">Breite(px):</label>
+            <input ng-model="width" ng-change="onlyNumbers1()" class="form-control" id="ex1" type="text">
+        </div>
+        <div class="col-xs-4">
+            <label for="ex1">Höhe(px):</label>
+            <input ng-model="height" ng-change="onlyNumbers1()" class="form-control" id="ex1" type="text">
+        </div>
+    </div>
+
+    <div class="ngdialog-buttons mt">
+        <button id="cancel" class="btn btn-danger" ng-click="closeThisDialog()"
+                style="float: right;  margin-right: 15px;">Abbrechen
+        </button>
+        <button type="submit" id="submit" class="btn btn-success" ng-disabled="showError || !myFile"
+                ng-click="uploadFile();"
+                style="float: right; margin-left: 15px; margin-right: 15px;">Hochladen
+        </button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="editPicture">
+    <div class="ngdialog-message">
+        <h2>Bildgröße ändern</h2>
+        <br/>
+    </div>
+    <div role="alert">
+      <span class="error" ng-show="showError" style="color:#FF0000">Bitte gib eine Zahl bei der Breite und Höhe an.</span>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-4">
+            <label for="ex1">Breite(px):</label>
+            <input ng-model="width" ng-change="onlyNumbers()" class="form-control" id="ex1" type="text">
+        </div>
+        <div class="col-xs-4">
+            <label for="ex1">Höhe(px):</label>
+            <input ng-model="height" ng-change="onlyNumbers()" class="form-control" only-digits id="ex1" type="text">
+        </div>
+    </div>
+
+    <div class="ngdialog-buttons mt">
+        <button id="cancel" class="btn btn-danger" ng-click="closeThisDialog()"
+                style="float: right;  margin-right: 15px;">Abbrechen
+        </button>
+        <button type="submit" id="submit" class="btn btn-success" ng-disabled="showError"
+                ng-click="editPictureElement();closeThisDialog();"
+                style="float: right; margin-left: 15px; margin-right: 15px;">Ändern
+        </button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="ocrFileDialog">
+    <div class="ngdialog-message">
+        <h2>Analysiere ein Bild (OCR)</h2>
+        <div role="alert">
+            <span class="error" ng-show="errormessage" style="color:#FF0000">{{ errormessage }}</span>
+            <span class="error" ng-show="!ocrFile" style="color:#FF0000">F&uuml;ge deinem Heft ein Bild hinzu.</span>
+        </div>
+        <div><input id="input-ocrfile" type="file" accept="image/png, image/gif, image/jpeg" file-model="ocrFile" class="file"></div>
+        <br/>
+    </div>
+
+    <div class="ngdialog-buttons mt">
+        <button id="cancelocr" class="btn btn-danger" ng-click="closeThisDialog()"
+                style="float: right;  margin-right: 15px;">Abbrechen
+        </button>
+        <button type="submit" id="submitocr" class="btn btn-success" ng-disabled="!ocrFile"
+                ng-click="uploadOCRFile();"
+                style="float: right; margin-left: 15px; margin-right: 15px;">Analysieren
+        </button>
+    </div>
+</script>
+
+
+<script type="text/ng-template" id="exportCode">
+    <div class="ngdialog-message">
+        <h2>Seite exportieren</h2>
+
+        <div>In welches Heft möchtest du die Heftseite importieren?</div>
+        <select class="form-control" name="repeatSelect" id="repeatSelect" ng-model="notebook.import">
+            <option ng-repeat="option in notebooks" value="{{option._id}}">{{option.name}}</option>
+        </select>
+        <br/>
+    </div>
+    <div class="ngdialog-buttons mt">
+        <button id="cancel" class="btn btn-danger" ng-click="closeThisDialog()"
+                style="float: right;  margin-right: 15px;">Abbrechen
+        </button>
+        <button type="submit" id="submit" class="btn btn-success"
+                ng-click="importsite();closeThisDialog();"
+                style="float: right; margin-left: 15px; margin-right: 15px;">Importieren
+        </button>
+    </div>
+</script>

@@ -1,0 +1,667 @@
+# German (Germany) translations for PROJECT.
+# Copyright (C) 2016 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2016-02-22 13:23+0100\n"
+"PO-Revision-Date: 2016-01-09 16:36+0100\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de_DE\n"
+"Language-Team: de_DE <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.2.0\n"
+
+#: ../dsn/settings.py:162
+msgid "English"
+msgstr "Englisch"
+
+#: ../dsn/settings.py:163
+msgid "German"
+msgstr "Deutsch"
+
+#: ../dsn/authentication/captcha.py:24
+msgid "invalid_captcha"
+msgstr "Captcha ist nicht valide"
+
+#: ../dsn/authentication/email.py:7 ../dsn/static/js/translations.js:31
+msgid "reset_password"
+msgstr "Passwort zurücksetzen"
+
+#: ../dsn/authentication/email.py:16
+msgid "validation_of_emailaddress"
+msgstr "Bestätigung deiner E-Mail Adresse"
+
+#: ../dsn/authentication/email.py:24 ../dsn/authentication/email.py:32
+msgid "account_deletion"
+msgstr "Löschung deines Accounts"
+
+#: ../dsn/authentication/password_reset.py:15
+msgid "reseterror_accountisoauth"
+msgstr ""
+"Account wurde über OAuth erstellt! Passwort kann nicht zurückgesetzt "
+"werden!"
+
+#: ../dsn/authentication/password_reset.py:19
+msgid "emailaddress_wrong"
+msgstr "E-Mail Adresse ist nicht korrekt!"
+
+#: ../dsn/authentication/password_reset.py:46
+#: ../dsn/authentication/registration.py:17 ../dsn/static/js/translations.js:44
+msgid "error_password_dontmatch"
+msgstr "Passwörter stimmen nicht überein!"
+
+#: ../dsn/authentication/password_reset.py:48
+#: ../dsn/authentication/password_reset.py:50
+msgid "reseterror_link_invalid"
+msgstr "Der Link ist nicht mehr gültig!"
+
+#: ../dsn/authentication/registration.py:13 ../dsn/static/js/translations.js:87
+msgid "error_email_alreadyused"
+msgstr "Diese E-Mail Adresse wird bereits verwendet!"
+
+#: ../dsn/static/js/translations.js:1
+msgid "menu_features"
+msgstr "Funktionen"
+
+#: ../dsn/static/js/translations.js:2
+msgid "solve_captcha"
+msgstr "Bitte löse das Captcha."
+
+#: ../dsn/static/js/translations.js:3
+msgid "legal_notice"
+msgstr "Impressum"
+
+#: ../dsn/static/js/translations.js:4
+msgid "menu_pricing"
+msgstr "Preise"
+
+#: ../dsn/static/js/translations.js:5
+msgid "menu_about"
+msgstr "Über uns"
+
+#: ../dsn/static/js/translations.js:6
+msgid "menu_login"
+msgstr "Anmelden"
+
+#: ../dsn/static/js/translations.js:7
+msgid "menu_toapp"
+msgstr "Zur App"
+
+#: ../dsn/static/js/translations.js:8
+msgid "error_email_needed"
+msgstr "Bitte gib deine E-Mail Adresse ein."
+
+#: ../dsn/static/js/translations.js:9
+msgid "error_password_needed"
+msgstr "Bitte gib dein Passwort ein."
+
+#: ../dsn/static/js/translations.js:10
+msgid "forgot_password"
+msgstr "Passwort vergessen?"
+
+#: ../dsn/static/js/translations.js:11
+msgid "oauth_accept_termsofuse"
+msgstr "Durch die Anmeldung mit Facebook oder Google+ akzeptierst du unsere"
+
+#: ../dsn/static/js/translations.js:12
+msgid "termsofuse"
+msgstr "Nutzungsbedingungen"
+
+#: ../dsn/static/js/translations.js:13
+msgid "email_address"
+msgstr "E-Mail Adresse"
+
+#: ../dsn/static/js/translations.js:14
+msgid "password"
+msgstr "Passwort"
+
+#: ../dsn/static/js/translations.js:15
+msgid "error_firstname_needed"
+msgstr "Bitte gib deinen Vornamen an."
+
+#: ../dsn/static/js/translations.js:16
+msgid "error_lastname_needed"
+msgstr "Bitte gib deinen Nachnamen an."
+
+#: ../dsn/static/js/translations.js:17
+msgid "error_firstname_toolong"
+msgstr "Dein Vorname ist zu lang (max. 30 Zeichen)."
+
+#: ../dsn/static/js/translations.js:18
+msgid "error_lastname_toolong"
+msgstr "Dein Nachname ist zu lang (max. 30 Zeichen)."
+
+#: ../dsn/static/js/translations.js:19
+msgid "firstname"
+msgstr "Vorname"
+
+#: ../dsn/static/js/translations.js:20
+msgid "lastname"
+msgstr "Nachname"
+
+#: ../dsn/static/js/translations.js:21
+msgid "error_email_invalid"
+msgstr "Bitte gib eine valide E-Mail Adresse an."
+
+#: ../dsn/static/js/translations.js:22
+msgid "error_password_tooshort"
+msgstr "Das Passwort ist zu kurz (mind. 8 Zeichen)."
+
+#: ../dsn/static/js/translations.js:23
+msgid "error_password_toolong"
+msgstr "Das Passwort ist zu lang (max. 128 Zeichen)."
+
+#: ../dsn/static/js/translations.js:24
+msgid "error_password_repeat"
+msgstr "Bitte gib dein Passwort nochmal an."
+
+#: ../dsn/static/js/translations.js:25
+msgid "error_accept_termsofuse"
+msgstr "Bitte akzeptiere unsere Nutzungsbedingungen."
+
+#: ../dsn/static/js/translations.js:26
+msgid "i_accept_termsofuse"
+msgstr "Ich akzeptiere die"
+
+#: ../dsn/static/js/translations.js:27
+msgid "register"
+msgstr "Registrieren"
+
+#: ../dsn/static/js/translations.js:28
+msgid "password_repeat"
+msgstr "Passwort Wiederholung"
+
+#: ../dsn/static/js/translations.js:29
+msgid "set_new_password"
+msgstr "Neues Passwort setzen"
+
+#: ../dsn/static/js/translations.js:30
+msgid "set_new_password_desc"
+msgstr "Setze hier nun bitte dein neues Passwort."
+
+#: ../dsn/static/js/translations.js:32
+msgid "reset_password_desc"
+msgstr "Falls du dein Passwort vergessen hast, kannst du es hier zurücksetzen."
+
+#: ../dsn/static/js/translations.js:33
+msgid "reset_password_instructions"
+msgstr ""
+"Eine E-Mail wurde erfolgreich an deine E-Mail Adresse geschickt.Bitte "
+"folge den Anweisungen in dieser E-Mail."
+
+#: ../dsn/static/js/translations.js:34
+msgid "search"
+msgstr "Suche"
+
+#: ../dsn/static/js/translations.js:35
+msgid "logout"
+msgstr "Abmelden"
+
+#: ../dsn/static/js/translations.js:36
+msgid "menu_timetable"
+msgstr "Stundenplan"
+
+#: ../dsn/static/js/translations.js:37
+msgid "menu_notebooks"
+msgstr "Hefte"
+
+#: ../dsn/static/js/translations.js:38
+msgid "menu_accountsettings"
+msgstr "Kontoeinstellungen"
+
+#: ../dsn/static/js/translations.js:39
+msgid "menu_upgradenow"
+msgstr "Jetzt upgraden"
+
+#: ../dsn/static/js/translations.js:40
+msgid "current_password"
+msgstr "Aktuelles Passwort"
+
+#: ../dsn/static/js/translations.js:41
+msgid "change_password"
+msgstr "Passwort ändern"
+
+#: ../dsn/static/js/translations.js:42
+msgid "new_password"
+msgstr "Neues Passwort"
+
+#: ../dsn/static/js/translations.js:43
+msgid "repeat_new_password"
+msgstr "Neues Passwort wiederholen"
+
+#: ../dsn/static/js/translations.js:45
+msgid "save_changes"
+msgstr "Änderungen speichern"
+
+#: ../dsn/static/js/translations.js:46
+msgid "cancel"
+msgstr "Abbrechen"
+
+#: ../dsn/static/js/translations.js:47
+msgid "delete_account"
+msgstr "Account löschen"
+
+#: ../dsn/static/js/translations.js:48
+msgid "notebook_settings"
+msgstr "Hefteinstellungen"
+
+#: ../dsn/static/js/translations.js:49
+msgid "notebook_name"
+msgstr "Heftname"
+
+#: ../dsn/static/js/translations.js:50
+msgid "error_notebookname_needed"
+msgstr "Bitte gib einen Namen an."
+
+#: ../dsn/static/js/translations.js:51
+msgid "error_notebookname_toolong"
+msgstr "Der Name ist zu lang (max. 30 Zeichen)."
+
+#: ../dsn/static/js/translations.js:52
+msgid "visibility"
+msgstr "Sichtbarkeit"
+
+#: ../dsn/static/js/translations.js:53
+msgid "visibility_public"
+msgstr "Öffentlich"
+
+#: ../dsn/static/js/translations.js:54
+msgid "notebook_createnew"
+msgstr "Heft erstellen"
+
+#: ../dsn/static/js/translations.js:55
+msgid "joined_on"
+msgstr "beigetreten am"
+
+#: ../dsn/static/js/translations.js:56
+msgid "user_is_prouser"
+msgstr "Dieser User ist Pro-Benutzer!"
+
+#: ../dsn/static/js/translations.js:57
+msgid "user_is_admin"
+msgstr "Dieser User ist Administrator!"
+
+#: ../dsn/static/js/translations.js:58
+msgid "public_notebooks"
+msgstr "Öffentliche Hefte"
+
+#: ../dsn/static/js/translations.js:59
+msgid "user_hasnopublicnotebooks"
+msgstr "Dieser Benutzer hat keine öffentlichen Hefte."
+
+#: ../dsn/static/js/translations.js:60
+msgid "user_found"
+msgstr "User wurden gefunden"
+
+#: ../dsn/static/js/translations.js:61
+msgid "editmode_activated"
+msgstr "Bearbeitungsmodus aktiviert!"
+
+#: ../dsn/static/js/translations.js:62
+msgid "editmode_end"
+msgstr "Beenden"
+
+#: ../dsn/static/js/translations.js:63
+msgid "time"
+msgstr "Zeit"
+
+#: ../dsn/static/js/translations.js:64
+msgid "monday"
+msgstr "Montag"
+
+#: ../dsn/static/js/translations.js:65
+msgid "tuesday"
+msgstr "Dienstag"
+
+#: ../dsn/static/js/translations.js:66
+msgid "wednesday"
+msgstr "Mittwoch"
+
+#: ../dsn/static/js/translations.js:67
+msgid "thursday"
+msgstr "Donnerstag"
+
+#: ../dsn/static/js/translations.js:68
+msgid "friday"
+msgstr "Freitag"
+
+#: ../dsn/static/js/translations.js:69
+msgid "saturday"
+msgstr "Samstag"
+
+#: ../dsn/static/js/translations.js:70
+msgid "edit_lesson"
+msgstr "Stunde bearbeiten"
+
+#: ../dsn/static/js/translations.js:71
+msgid "error_timetablesubjectdescription_toolong"
+msgstr "Die Bezeichnung ist zu lang (max. 30 Zeichen)."
+
+#: ../dsn/static/js/translations.js:72
+msgid "subject"
+msgstr "Fach"
+
+#: ../dsn/static/js/translations.js:73
+msgid "teacher"
+msgstr "Lehrer"
+
+#: ../dsn/static/js/translations.js:74
+msgid "error_timetableteacherdescription_toolong"
+msgstr "Die Bezeichnung ist zu lang (max. 50 Zeichen)."
+
+#: ../dsn/static/js/translations.js:75
+msgid "error_timetableroomdescription_toolong"
+msgstr "Die Bezeichnung ist zu lang (max. 30 Zeichen)."
+
+#: ../dsn/static/js/translations.js:76
+msgid "room"
+msgstr "Raum"
+
+#: ../dsn/static/js/translations.js:77
+msgid "no_notebook_assigned"
+msgstr "Kein Heft zugeordnet"
+
+#: ../dsn/static/js/translations.js:78
+msgid "save"
+msgstr "Speichern"
+
+#: ../dsn/static/js/translations.js:79
+msgid "edit_timetabletimes"
+msgstr "Stundenzeiten bearbeiten"
+
+#: ../dsn/static/js/translations.js:80
+msgid "error_timetabletime_needed"
+msgstr "Bitte gib eine Zeit an."
+
+#: ../dsn/static/js/translations.js:81
+msgid "error_timetabletime_invalid"
+msgstr "Bitte gib eine valide Zeit an (z.B. \"08:00\")."
+
+#: ../dsn/static/js/translations.js:82
+msgid "begin"
+msgstr "Beginn"
+
+#: ../dsn/static/js/translations.js:83
+msgid "end"
+msgstr "Ende"
+
+#: ../dsn/static/js/translations.js:84
+msgid "prev"
+msgstr "Zurück"
+
+#: ../dsn/static/js/translations.js:85
+msgid "next"
+msgstr "Weiter"
+
+#: ../dsn/static/js/translations.js:86
+msgid "register_success_message"
+msgstr ""
+"Vielen Dank für deine Registrierung!\n"
+"Sobald du deine E-Mail Adresse bestätigt hast kannst du dich einloggen "
+"und sofort starten!"
+
+#: ../dsn/static/js/translations.js:88
+msgid "account_delete_warnmessage"
+msgstr ""
+"Bist du sicher, dass du deinen Account löschen möchtest?\n"
+"Diese Aktion kann nachher nicht mehr rückgängig gemacht werden! Deine "
+"Hefte werden endgültig gelöscht!"
+
+#: ../dsn/static/js/translations.js:89
+msgid "notebook_delete_warnmessage"
+msgstr "Möchtest du dieses Heft wirklich löschen?"
+
+#: ../dsn/static/js/translations.js:90 ../dsn/views/management_views.py:98
+#: ../dsn/views/management_views.py:101
+msgid "notebook_max_warnmessage"
+msgstr "Du hast die maximale Anzahl an Heften bereits erreicht!"
+
+#: ../dsn/static/js/translations.js:91
+msgid "error_timetable_notebooknotassigned"
+msgstr "Dieser Stunde ist kein Heft zugeordnet!"
+
+#: ../dsn/static/js/translations.js:92
+msgid "error_timetable_notebooknotfound"
+msgstr "Das zugeordnete Heft konnte nicht gefunden werden!"
+
+#: ../dsn/static/js/translations.js:93
+msgid "loginerror_please_login_first"
+msgstr "Bitte melde dich zuerst an!"
+
+#: ../dsn/static/js/translations.js:94
+msgid "my_notebooks"
+msgstr "Meine Hefte"
+
+#: ../dsn/static/js/translations.js:95
+msgid "shared_notebooks"
+msgstr "Für mich freigebene Hefte"
+
+#: ../dsn/static/js/translations.js:96
+msgid "collaboration_notebook_exit_warnmessage"
+msgstr ""
+"Bist du sicher, dass du an diesem Heft nicht mehr teilnehmen möchtest? Du"
+" wirst dieses Heft nachher nicht mehr ansehen oder bearbeiten können!"
+
+#: ../dsn/static/js/translations.js:97
+msgid "confirm_password_needed_infomessage"
+msgstr "Bitte gib dein aktuelles Passwort an, um die Änderungen zu bestätigen!"
+
+#: ../dsn/static/js/translations.js:98
+msgid "close"
+msgstr "Schließen"
+
+#: ../dsn/static/js/translations.js:99
+msgid "reset"
+msgstr "Zurücksetzen"
+
+#: ../dsn/static/js/translations.js:100
+msgid "confirmation_of_change"
+msgstr "Bestätigung der Änderungen"
+
+#: ../dsn/static/js/translations.js:101
+msgid "success"
+msgstr "Erfolg!"
+
+#: ../dsn/static/js/translations.js:102
+msgid "changes_successfully_saved"
+msgstr "Deine Änderungen wurden erfolgreich übernommen!"
+
+#: ../dsn/static/js/translations.js:103
+msgid "change_userdata"
+msgstr "User-Daten bearbeiten"
+
+#: ../dsn/static/js/translations.js:104
+msgid "account_delete_infomessage"
+msgstr ""
+"Hier kannst du deinen Account löschen! Aber Achtung: Diese Aktion kann "
+"nachher nicht mehr rückgängig gemacht werden! Deine Hefte werden "
+"endgültig gelöscht und du wirst nachher keinen Zugriff mehrauf die "
+"Funktionalitäten dieser Applikation haben!"
+
+#: ../dsn/static/js/translations.js:105
+msgid "feature_digital_notes"
+msgstr "Digitale Mitschrift"
+
+#: ../dsn/static/js/translations.js:106
+msgid "feature_digital_notes_infotext"
+msgstr ""
+"Heutzutage wird es immer wichtiger Notizen  immer und überall verfügbar "
+"zu haben. Das ermöglichen wir mit unseren personalisierten, digitalen "
+"Heften."
+
+#: ../dsn/static/js/translations.js:107
+msgid "feature_everywhere_accessible"
+msgstr "Immer und überall verfügbar"
+
+#: ../dsn/static/js/translations.js:108
+msgid "feature_everywhere_accessible_infotext"
+msgstr ""
+"Durch eine moderne Infrastruktur und ein ausgeklügeltes Konzept ist DSN "
+"fast immer und überall erreichbar. Ob gerade zu Hause beim Lernen oder "
+"während der Mathematik-Stunde, auf DSN kannst du dich verlassen!"
+
+#: ../dsn/static/js/translations.js:109
+msgid "feature_collaborative_working"
+msgstr "Gemeinsames Arbeiten"
+
+#: ../dsn/static/js/translations.js:110
+msgid "feature_collaborative_working_infotext"
+msgstr ""
+"In Zukunft bestimmt die Zusammenarbeit maßgeblich unseren schulischen "
+"Alltag. Obgemeinsame Referate, wissenschaftliche Arbeiten oder einfach "
+"nur Notizen. Sobald man etwas als Team und gemeinsam an Dokumenten "
+"arbeiten will, wird man mit langwierigem Dateiverkehr konfrontiert. Das "
+"Zauberwort heißt Collaboration-Systems! Wir ermöglichen ein "
+"gleichzeitiges Arbeiten an Dokumenten."
+
+#: ../dsn/static/js/translations.js:111
+msgid "feature_ocr"
+msgstr "Bild zu Text"
+
+#: ../dsn/static/js/translations.js:112
+msgid "feature_ocr_infotext"
+msgstr ""
+"Optical Character Recognition. Klingt kryptisch? Ist aber ziemlich cool. "
+"Wir machen Schluss mit mühsamem Abschreiben von fremden Mitschriften! Mit"
+" unserem OCR-Feature kannst du ganz einfach ein Foto der Heftseite machen"
+" und direkt als Text deinem digitalen Heft hinzufügen."
+
+#: ../dsn/static/js/translations.js:113
+msgid "feature_timetable"
+msgstr "Stundenplan"
+
+#: ../dsn/static/js/translations.js:114
+msgid "feature_timetable_infotext"
+msgstr ""
+"Trage deine Schulstunden in den Stundenplan ein und verknüpfe dazu ganz "
+"einfach deine Hefte!"
+
+#: ../dsn/static/js/translations.js:115
+msgid "feature_elements"
+msgstr "Elemente"
+
+#: ../dsn/static/js/translations.js:116
+msgid "feature_elements_infotext"
+msgstr ""
+"Es sind die verschiedenen Eingabeelemente die unsere Hefte ausmachen. Ob "
+"einfacher Text, Code-Snippets oder Bilder - alles möglich mit DSN!"
+
+#: ../dsn/static/js/translations.js:117
+msgid "pricing_free"
+msgstr "GRATIS"
+
+#: ../dsn/static/js/translations.js:118
+msgid "pricing_free_costs"
+msgstr "€0 / immer"
+
+#: ../dsn/static/js/translations.js:119
+msgid "pricing_free_features1"
+msgstr "250MB Speicher für Bilder"
+
+#: ../dsn/static/js/translations.js:120
+msgid "pricing_free_features2"
+msgstr "Werbung wird angezeigt"
+
+#: ../dsn/static/js/translations.js:121
+msgid "pricing_free_features3"
+msgstr "Begrenzte Anzahl an Heften"
+
+#: ../dsn/static/js/translations.js:122
+msgid "pricing_free_cta"
+msgstr "JETZT REGISTRIEREN!"
+
+#: ../dsn/static/js/translations.js:123
+msgid "pricing_pro"
+msgstr "PRO ACCOUNT"
+
+#: ../dsn/static/js/translations.js:124
+msgid "pricing_pro_costs"
+msgstr "€4.99 / Monat"
+
+#: ../dsn/static/js/translations.js:125
+msgid "pricing_pro_features1"
+msgstr "1GB Speicher für Bilder"
+
+#: ../dsn/static/js/translations.js:126
+msgid "pricing_pro_features2"
+msgstr "Werbefrei"
+
+#: ../dsn/static/js/translations.js:127
+msgid "pricing_pro_features3"
+msgstr "Unbegrenzte Hefte"
+
+#: ../dsn/static/js/translations.js:128
+msgid "pricing_pro_cta"
+msgstr "JETZT KAUFEN!"
+
+#: ../dsn/static/js/translations.js:129
+msgid "pricing_educational"
+msgstr "EDUCATIONAL"
+
+#: ../dsn/static/js/translations.js:130
+msgid "pricing_educational_costs"
+msgstr "Nach Anfrage"
+
+#: ../dsn/static/js/translations.js:131
+msgid "pricing_educational_features1"
+msgstr "Mengenrabatt ab 50 Accounts"
+
+#: ../dsn/static/js/translations.js:132
+msgid "pricing_educational_features2"
+msgstr "Werbefrei"
+
+#: ../dsn/static/js/translations.js:133
+msgid "pricing_educational_features3"
+msgstr "Unbegrenzte Hefte"
+
+#: ../dsn/static/js/translations.js:134
+msgid "pricing_educational_cta"
+msgstr "KONTAKTIERE UNS!"
+
+#: ../dsn/static/js/translations.js:135
+msgid "timetable_editmode_infotext"
+msgstr ""
+"Im Bearbeitungsmodus (Zahnrad) kannst du die Einheiten und Zeiten in "
+"deinem Stundenplan bearbeiten und daraus ganz einfach Schulhefte generieren "
+"und zuweisen. Bei Klick auf das Stunden- oder Zeitfeld kannst du deinen "
+"Stundenplan ganz einfach bearbeiten. Deine Änderungen werden beim Verlassen des "
+"Bearbeitungsmodus automatisch gespeichert."
+
+#: ../dsn/views/mainpage_views.py:81 ../dsn/views/mainpage_views.py:92
+msgid "wrong_login_credentials"
+msgstr "E-Mail Adresse oder Passwort falsch!"
+
+#: ../dsn/views/mainpage_views.py:141
+msgid "success_validate"
+msgstr "Deine E-Mail Adresse wurde erfolgreich bestätigt!"
+
+#: ../dsn/views/management_views.py:106 ../dsn/views/management_views.py:138
+msgid "notebookname_already_used"
+msgstr "Dieser Name ist bereits vergeben!"
+
+#: ../dsn/views/management_views.py:156
+msgid "collaborator_already_in_use"
+msgstr "Dieser User wurde bereits hinzugefügt!"
+
+#: ../dsn/views/management_views.py:161
+msgid "collaboration_error_own_user"
+msgstr "Du kannst dich nicht selbst zu deinem eigenen Heft einladen!"
+
+#: ../dsn/views/management_views.py:166
+msgid "no_user"
+msgstr "Dieser User existiert nicht!"
+
+#: ../dsn/views/management_views.py:460 ../dsn/views/management_views.py:474
+msgid "error_wrong_password"
+msgstr "Bitte wiederhole dein aktuelles Passwort!"
+
+#~ msgid "emailaddress_already_used"
+#~ msgstr "Diese E-Mail Adresse wird bereits verwendet!"
+

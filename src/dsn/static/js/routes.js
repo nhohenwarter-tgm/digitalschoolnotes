@@ -1,6 +1,24 @@
-var mainApp = angular.module('mainApp', ['ui.router','ngCookies','vcRecaptcha']);
+var mainApp = angular.module('mainApp', ['ui.router','ngCookies','vcRecaptcha', 'ui.codemirror', 'ngDialog',
+    'ngSanitize', 'pascalprecht.translate']);
 
-mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, $translateProvider, ngDialogProvider) {
+
+    $translateProvider.registerAvailableLanguageKeys(['en', 'de'], {
+                'en_*': 'en',
+                'de_*': 'de',
+                '*': 'en'
+            });
+    $translateProvider.useStaticFilesLoader({
+                prefix: '/locale/angular/angular-',
+                suffix: '.json'
+            })
+            .fallbackLanguage('en')
+            //.useLoaderCache(true)
+            .preferredLanguage('de');
+
+    $translateProvider.useSanitizeValueStrategy('escaped');
+
+    ngDialogProvider.setForceHtmlReload(true);
 
     $urlRouterProvider.otherwise('/');
 
@@ -12,7 +30,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         controller: 'mainpageCtrl',
         data: {
             authorization: false,
-            admin: false
+            admin: false,
+            oauth: true
         }
     });
 
@@ -24,7 +43,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         controller: 'managementCtrl',
         data: {
             authorization: true,
-            admin: false
+            admin: false,
+            oauth: true
         }
     });
 
@@ -35,7 +55,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         controller: 'notebookEditCtrl',
         data: {
             authorization: true,
-            admin: false
+            admin: false,
+            oauth: true
         }
     });
 
@@ -46,7 +67,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         controller: 'impressumCtrl',
         data: {
             authorization: false,
-            admin: false
+            admin: false,
+            oauth: true
         }
     });
 
@@ -57,7 +79,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         controller: 'contentCtrl',
         data: {
             authorization: false,
-            admin: false
+            admin: false,
+            oauth: true
         }
     });
 
@@ -68,7 +91,20 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         controller: 'loginCtrl',
         data: {
             authorization: false,
-            admin: false
+            admin: false,
+            oauth: true
+        }
+    });
+
+    // LOGIN OAUTHERROR
+    $stateProvider.state('mainpage.login.oautherror', {
+        url: '/oautherror',
+        templateUrl: '/mainpage/login.html',
+        controller: 'loginCtrl',
+        data: {
+            authorization: false,
+            admin: false,
+            oauth: true
         }
     });
 
@@ -79,7 +115,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         controller: 'validateEmailCtrl',
         data: {
             authorization: false,
-            admin: false
+            admin: false,
+            oauth: true
         }
     });
 
@@ -90,7 +127,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         controller: 'resetPwdCtrl',
         data: {
             authorization: false,
-            admin: false
+            admin: false,
+            oauth: false
         }
     });
 
@@ -101,7 +139,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         controller: 'resetPwdCtrl',
         data: {
             authorization: false,
-            admin: false
+            admin: false,
+            oauth: false
         }
     });
 
@@ -112,7 +151,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         controller: 'timetableCtrl',
         data: {
             authorization: true,
-            admin: false
+            admin: false,
+            oauth: true
         }
     });
 
@@ -123,7 +163,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         controller: 'accsettingsCtrl',
         data: {
             authorization: true,
-            admin: false
+            admin: false,
+            oauth: false
         }
     });
 
@@ -134,7 +175,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         controller: 'searchCtrl',
         data: {
             authorization: true,
-            admin: false
+            admin: false,
+            oauth: true
         }
     });
 
@@ -145,7 +187,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         controller: 'notebooksCtrl',
         data: {
             authorization: true,
-            admin: false
+            admin: false,
+            oauth: true
         }
     });
 
@@ -156,7 +199,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         controller: 'notebooksCreateCtrl',
         data: {
             authorization: true,
-            admin: false
+            admin: false,
+            oauth: true
         }
     });
 
@@ -167,7 +211,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         controller: 'editNotebookCtrl',
         data: {
             authorization: true,
-            admin: false
+            admin: false,
+            oauth: true
         }
     });
 
@@ -178,7 +223,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         controller: 'profileCtrl',
         data: {
             authorization: true,
-            admin: false
+            admin: false,
+            oauth: true
         }
     });
 
@@ -208,7 +254,11 @@ mainApp.service('loggedIn', function ($http, $q) {
     };
 });
 
-mainApp.run(function($rootScope, $state, $http, $window, $urlRouter, loggedIn){
+
+
+mainApp.run(function($rootScope, $state, $http, $window, $urlRouter, $translate, loggedIn){
+    $rootScope.loginFromState = null;
+    $rootScope.loginFromParams = null;
     authenticated = false;
     $http({
         method  : 'GET',
@@ -222,6 +272,22 @@ mainApp.run(function($rootScope, $state, $http, $window, $urlRouter, loggedIn){
         .error(function(data){
 
         });
+
+
+    $rootScope.changeLanguage = function (lang) {
+        $http({
+            method  : 'POST',
+            url     : '/api/change_lang',
+            headers : {'Content-Type': 'application/json'},
+            data    : {'language': lang}
+        }).success(function (data) {
+            $translate.use(lang);
+        }).error(function (data) {
+
+        });
+    };
+
+    $rootScope.changeLanguage($translate.preferredLanguage());
 
     $rootScope.$on('$stateChangeStart',function(event, toState, toParams, fromState, fromParams){
         if(toState.name == 'notebookedit'){
@@ -240,6 +306,7 @@ mainApp.run(function($rootScope, $state, $http, $window, $urlRouter, loggedIn){
             var auth = false;
         }
         var authorization = toState.data.authorization;
+        var oauth_allowed = toState.data.oauth;
         if (authorization && !auth) {
             event.preventDefault();
             loggedIn.getUser().then(function (data) {
@@ -251,15 +318,25 @@ mainApp.run(function($rootScope, $state, $http, $window, $urlRouter, loggedIn){
                 }
                 if (auth == true) {
                     authenticated = true;
-                    $state.go(toState, toParams);
+                    if(!oauth_allowed && user['oauth']) {
+                        $state.go('management.timetable');
+                    }else{
+                        $state.go(toState, toParams);
+                    }
                 } else {
+                    $rootScope.loginFromState = toState;
+                    $rootScope.loginFromParams = toParams;
                     $rootScope.error = true;
-                    $rootScope.login_error = 'Bitte melde dich zuerst an!';
+                    $translate("loginerror_please_login_first").then(function(message) {
+                        $rootScope.login_error = 'Bitte melde dich zuerst an!';
+                    });
                     $state.go('mainpage.login');
                 }
             }, function (data) {
                 $rootScope.error = true;
-                $rootScope.login_error = 'Bitte melde dich zuerst an!';
+                $translate("loginerror_please_login_first").then(function(message) {
+                    $rootScope.login_error = message;
+                });
                 $state.go('mainpage.login');
             });
         }

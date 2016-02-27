@@ -1,4 +1,4 @@
-var administrationApp = angular.module('administrationApp', ['ui.router']);
+var administrationApp = angular.module('administrationApp', ['ui.router', 'ngDialog']);
 
 administrationApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
 
@@ -37,50 +37,6 @@ administrationApp.config(function ($stateProvider, $urlRouterProvider, $location
         }
     });
 
-    // BILLS
-    $stateProvider.state('admin.bills', {
-        url: '',
-        templateUrl: '/admin/admin_bills.html',
-        controller: 'billsCtrl',
-        data: {
-            authorization: true,
-            admin: true
-        }
-    });
-
-    // LDAP CONFIGURATION
-    $stateProvider.state('admin.ldapConfiguration', {
-        url: '',
-        templateUrl: '/admin/admin_ldapConfiguration.html',
-        controller: 'ldapConfigurationCtrl',
-        data: {
-            authorization: true,
-            admin: true
-        }
-    });
-
-    // USER QUOTAS
-    $stateProvider.state('admin.userquotas', {
-        url: '',
-        templateUrl: '/admin/admin_userquotas.html',
-        controller: 'userquotasCtrl',
-        data: {
-            authorization: true,
-            admin: true
-        }
-    });
-
-    // STATISTICS
-    $stateProvider.state('admin.statistics', {
-        url: '',
-        templateUrl: '/admin/admin_statistics.html',
-        controller: 'statisticsCtrl',
-        data: {
-            authorization: true,
-            admin: true
-        }
-    });
-
     $locationProvider.html5Mode(true);
 
     // CSRF TOKEN
@@ -93,7 +49,7 @@ administrationApp.controller('adminCtrl', function () {
 
 });
 
-administrationApp.controller('usermanagementCtrl', function ($scope, $http, $filter, $window) {
+administrationApp.controller('usermanagementCtrl', function ($scope, $http, $filter, $window, ngDialog, loggedIn) {
 
     $scope.itemsPerPage = 20;
     $scope.security_list = [{name: 'Benutzer', security_level: 1},
@@ -127,8 +83,7 @@ administrationApp.controller('usermanagementCtrl', function ($scope, $http, $fil
             })
             .error(function (data) {
             });
-    }
-
+    };
 
     $http({
         method: 'GET',
@@ -194,19 +149,15 @@ administrationApp.controller('usermanagementCtrl', function ($scope, $http, $fil
             + "&body=" + escape(body);
 
         window.location.href = link;
-    }
+    };
 
-    $scope.delete = function (email) {
-
-        deleteUser = $window.confirm('Wollen Sie den User ' + email + ' wirklich löschen?');
-        if (deleteUser) {
-            alert('Der User ' + email + ' wurde erfolgreich gelöscht');
+    $scope.delete = function () {
             $http({
                 method: 'POST',
                 url: '/api/admin_user',
                 headers: {'Content-Type': 'application/json'},
                 data: {
-                    email: email,
+                    email: $scope.deleteuseremail,
                     text: $scope.q,
                     spalte: $scope.spalte,
                     Page: $scope.currentPage+1,
@@ -221,34 +172,30 @@ administrationApp.controller('usermanagementCtrl', function ($scope, $http, $fil
                 })
                 .error(function (data) {
                 });
-        }
-    }
 
-    $scope.update = function (email, securty_level, index) {
-        securty_level_old = $scope.users[index].security_level;
-        Userup = $window.confirm('Soll der User ' + email + ' wirklich auf die Berechtigungsstufe ' + $scope.security_list[securty_level - 1].name + ' geändert werden?');
-        if (Userup) {
-            alert('Der User ' + email + ' wurde erfolgreich auf ' + $scope.security_list[securty_level - 1].name + 'geändert');
+    };
+
+    $scope.update = function (choice) {
+        securty_level_old = $scope.users[$scope.securitychangeindex].security_level;
+        if (choice) {
             $http({
                 method: 'POST',
                 url: '/api/admin_user_update',
                 headers: {'Content-Type': 'application/json'},
                 data: {
-                    email: email,
-                    security_level: securty_level
+                    email: $scope.securitychangeemail,
+                    security_level: $scope.security_list[$scope.securitychangevalue-1].security_level+""
                 }
             })
                 .success(function (data) {
-                    $scope.users[index].security_level = securty_level;
-                    document.getElementById(email).selectedIndex = "" + securty_level - 1;
+
                 })
                 .error(function (data) {
                 });
         } else {
-            $scope.selectedDay;
-            document.getElementById(email).selectedIndex = "" + securty_level_old - 1;
+            document.getElementById($scope.securitychangeemail).selectedIndex = "" + securty_level_old - 1;
         }
-    }
+    };
 
     $scope.search = function (current) {
         $http({
@@ -271,7 +218,7 @@ administrationApp.controller('usermanagementCtrl', function ($scope, $http, $fil
             })
             .error(function (data) {
             });
-    }
+    };
 
     $scope.sort = function (spalte, current) {
         if ($scope.order == null) {
@@ -299,100 +246,52 @@ administrationApp.controller('usermanagementCtrl', function ($scope, $http, $fil
             })
             .error(function (data) {
             });
-    }
-});
-
-
-administrationApp.controller('billsCtrl', function ($scope) {
-
-});
-
-administrationApp.controller('ldapConfigurationCtrl', function ($scope) {
-
-});
-
-administrationApp.controller('userquotasCtrl', function ($scope) {
-
-});
-
-/**
-administrationApp.controller('usermanagementdetailsCtrl', function ($scope) {
-    $scope.today = function () {
-        $scope.dt = new Date();
-    };
-    $scope.today();
-
-    $scope.clear = function () {
-        $scope.dt = null;
     };
 
-    // Disable weekend selection
-    $scope.disabled = function (date, mode) {
-        return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
-    };
-
-    $scope.toggleMin = function () {
-        $scope.minDate = $scope.minDate ? null : new Date();
-    };
-    $scope.toggleMin();
-    $scope.maxDate = new Date(2020, 5, 22);
-
-    $scope.open = function ($event) {
-        alert("A");
-        $scope.status.opened = true;
-    };
-
-    $scope.setDate = function (year, month, day) {
-        $scope.dt = new Date(year, month, day);
-    };
-
-    $scope.dateOptions = {
-        formatYear: 'yy',
-        startingDay: 1
-    };
-
-    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-    $scope.format = $scope.formats[0];
-
-    $scope.status = {
-        opened: false
-    };
-
-    var tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    var afterTomorrow = new Date();
-    afterTomorrow.setDate(tomorrow.getDate() + 2);
-    $scope.events =
-        [
-            {
-                date: tomorrow,
-                status: 'full'
-            },
-            {
-                date: afterTomorrow,
-                status: 'partially'
+    $scope.securityElementEdit = function (email,value,index) {
+        $scope.securitychangeemail = email;
+        $scope.securitychangevalue = value;
+        $scope.securitychangeindex = index;
+        loggedIn.getUser().then(function (data) {
+            if (data['user']['email'] != email) {
+                ngDialog.open({
+                    template: 'securityCode',
+                    className: 'ngdialog-theme-default',
+                    scope: $scope
+                });
+            }else{
+                ngDialog.open({
+                    template: 'invalidOwnUser',
+                    className: 'ngdialog-theme-default',
+                    scope: $scope
+                });
             }
-        ];
+        });
+    };
 
-    $scope.getDayClass = function (date, mode) {
-        if (mode === 'day') {
-            var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
-
-            for (var i = 0; i < $scope.events.length; i++) {
-                var currentDay = new Date($scope.events[i].date).setHours(0, 0, 0, 0);
-
-                if (dayToCheck === currentDay) {
-                    return $scope.events[i].status;
+    $scope.deleteUserElement = function (email,buttontext) {
+        loggedIn.getUser().then(function (data) {
+            if (data['user']['email'] != email) {
+                ngDialog.open({
+                    template: 'deleteUser',
+                    className: 'ngdialog-theme-default',
+                    scope: $scope
+                });
+                $scope.deleteuseremail = email;
+                if (buttontext == "Account löschen") {
+                    $scope.deletebuttontext = "Wollen Sie den User " + email + " wirklich löschen?";
+                } else {
+                    $scope.deletebuttontext = "Soll die Löschung von User " + email + " aufgehoben werden?";
                 }
+            }else{
+                ngDialog.open({
+                    template: 'invalidOwnUser',
+                    className: 'ngdialog-theme-default',
+                    scope: $scope
+                });
             }
-        }
-
-        return '';
+        });
     };
-});
-**/
-administrationApp.controller('statisticsCtrl', function ($scope) {
-
 });
 
 administrationApp.controller('logoutCtrl', function ($scope, $http, $window) {
@@ -406,7 +305,6 @@ administrationApp.controller('logoutCtrl', function ($scope, $http, $window) {
                 $window.location.href = '/';
             })
             .error(function (data) {
-                alert('Beim ausloggen ist ein Fehler aufgetreten! Bitte versuche es erneut!');
             });
     }
 });

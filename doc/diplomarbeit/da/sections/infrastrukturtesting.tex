@@ -1,0 +1,100 @@
+%\section*{Infrastruktur und Testing}
+\cfoot{Niklas Hohenwarter}
+
+\subsubsection{Infrastruktur}
+Eine stabile und sichere Infrastruktur und gut getestete Software ist heutzutage ein Muss für jedes IT Projekt. \\
+Die Infrastruktur ist wichtig, da in der Vergangenheit oft kleine Projekte bereits wenige Tage nach Veröffentlichung von sehr hohen Userzahlen berichten konnten. Wenn hier zuvor die Infrastruktur gut geplant und implementiert wurde, ist es kein Problem viele User zu bewältigen.\\ 
+Ohne Tests wird heute keine Software mehr veröffentlicht, da etwaige Fehler für die Benutzer sehr abschreckend sein können bzw. dem Unternehmen viel Geld kosten können.
+\paragraph{Serverhosting}
+Die wichtigste technische Grundlage für das Projekt DigitalSchoolNotes ist der Projektserver. Auf diesem Server, wird das Projekt entwickelt und getestet. Hier ist es besonders wichtig, dass das gesamte Team mit der gleichen Umgebung arbeitet, da sonst die einzelnen Codeteile des Teams nicht zusammen funktionieren. Desweiteren wird der Server dazu verwendet, die Zwischenversionen des Projektes öffentlich verfügbar zu machen. Dies ist für das Team essentiell, da dadurch der \gls{Stakeholder} jederzeit Zugriff auf eine aktuelle und stabile Version des Projektes hat. Dadurch kann das Team Änderungswünsche des Stakeholders leichter erfassen und realisieren.\\
+
+Für die Auswahl des Serverhosters wurden einige Kriterien festgelegt. Diese lauten wie folgt:
+\begin{itemize}
+\item \textbf{Serverstandort:} Der Standort des Projektservers sollte möglichst nahe beim Endbenutzer sein, um die \gls{Latenz} gering zu halten.
+\item \textbf{Verfügbarkeit:} Der Server sollte eine hohe Mindestverfügbarkeit haben. Dadurch kann sich der Endbenutzer darauf verlassen, dass das Service erreichbar ist. Der Minimalwert für die Verfügbarkeit wurde auf 99,6\% festgelegt. Das bedeutet, dass der Server für maximal 35h im Jahr nicht verfügbar ist.
+\item \textbf{Support:} Der Hoster sollte Support unter der Woche und in Notfällen rund um die Uhr bieten.
+\item \textbf{Preis:} Um die Etnwicklungskosten möglichst gering zu halten wurde der maximale Monatspreis auf 10€ festgelegt.
+\item \textbf{Wartung:} Der Server sollte sich über ein Webinterface warten lassen.
+\end{itemize}
+
+Die oben genannten Kriterien reduzierten die Anzahl der möglichen Hoster stark. Das Team entschied sich für den Hoster netcup GmbH mit sitz in Deutschland. Dieser erfüllte alle Anforderungen und teile des Teams hatten bereits gute Erfahrungen mit dieser Firma gemacht.
+
+Das ausgewählte Produkt der netcup GmbH heißt "Root-Server M v6". Dieser bietet folgende Features:
+\begin{itemize}
+\item \textbf{Virtualisierungstechnik:}KVM
+\item \textbf{CPU:}Intel®Xeon® E5-26xxV3 2,3GHz 2Cores
+\item \textbf{RAM:}6GB DDR4
+\item \textbf{Speicher:}120GB SSD
+\end{itemize}
+
+\paragraph{Erreichbarkeit}
+Der Server ist unter der IP-Adresse 37.120.161.195 erreichbar. Da IP-Adressen schwer zu merken sind wurde ebenfalls eine Domain für das Projekt gekauft. Diese Lautet "digitalschoolnotes.com'' und löst auf die oben genannte IP-Adresse auf.
+
+\paragraph{Benutzerverwaltung am Projektserver}
+Jedes Projektteam Mitglied hat einen eigenen Unix Account auf dem Projektserver. Der Vorname der Person ist der Benutzername. Das Benutzerpasswort ist von jedem Teammitglied selbst gewählt. Alle Teammitglieder haben sudo rechte. 
+
+\paragraph{Mailsystem}
+Das Projektteam hat einen Email-Verteiler mit der Adresse info@digitalschoolnotes.com. Jedes Teammitglied hat eine E-Mail Adresse nach dem Schema des \gls{TGM}s(z.B. nhohenwarter@digitalschoolnotes.com). \\
+Der Scrummaster ist unter scrummaster@digitalschoolnotes.com erreichbar.
+
+\paragraph{Serverzugriff}
+Um den Server zu konfigurieren und zu verwalten wird mit dem Protokoll SSH darauf zugegriffen. Aus Sicherheitsgründen wurde die Anmeldung mit Passwort verboten und es können hierfür nurnoch SSH Keys verwendet werden. Diese sind um einiges sicherer.
+\newpage
+
+\paragraph{Firewall}
+Um den Server vor Angriffen und unerwünschten Zugriffen zu schützen wurde eine Firewall installiert. Diese blockiert alle unerwünschten Anfragen. Prinzipiell sind alle Ports geschlossen. Es werden nur Ports geöffnet, welche für das Betreiben des Projektes notwendig sind.\\
+Es folgt eine Liste der fregegebenen Ports:
+\begin{itemize}
+\item 22	SSH
+\item 53	DNS
+\item 80	HTTP
+\item 443	HTTPS
+\item 5001-5005 Django Development
+\end{itemize}
+
+Die Konfiguration der Firewall des Projektservers sieht wie folgt aus:
+\begin{lstlisting}
+# Flush the tables to apply changes
+iptables -F
+
+# Default policy to drop 'everything' but our output to internet
+iptables -P FORWARD DROP
+iptables -P INPUT   DROP
+iptables -P OUTPUT  ACCEPT
+
+# Allow established connections (the responses to our outgoing traffic)
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+# Allow local programs that use loopback (Unix sockets)
+iptables -A INPUT -s 127.0.0.0/8 -d 127.0.0.0/8 -i lo -j ACCEPT
+iptables -A FORWARD -s 127.0.0.0/8 -d 127.0.0.0/8 -i lo -j ACCEPT
+
+#Allowed Ports
+iptables -A INPUT -p tcp --dport 22 -m state --state NEW -j ACCEPT
+iptables -A INPUT -p tcp --dport 80 -m state --state NEW -j ACCEPT
+iptables -A INPUT -p tcp --dport 443 -m state --state NEW -j ACCEPT
+iptables -A INPUT -p tcp --dport 53 -m state --state NEW -j ACCEPT
+iptables -A INPUT -p udp --dport 53 -m state --state NEW -j ACCEPT
+iptables -A INPUT -p tcp --dport 5001 -m state --state NEW -j ACCEPT
+iptables -A INPUT -p tcp --dport 5002 -m state --state NEW -j ACCEPT
+iptables -A INPUT -p tcp --dport 5003 -m state --state NEW -j ACCEPT
+iptables -A INPUT -p tcp --dport 5004 -m state --state NEW -j ACCEPT
+iptables -A INPUT -p tcp --dport 5005 -m state --state NEW -j ACCEPT
+\end{lstlisting}
+
+Da normalerweise nach einem Reboot des Servers die Firewallkonfiguration verloren geht, musste diese persistiert werden. Das wird durch das Paket \textbf{\textit{iptables-persistent}} erledigt. Die Konfiguration dieses Paketes geschieht wie folgt\cite{FIREWALL_PERSISTENT}:
+
+\begin{lstlisting}
+# Install
+sudo apt-get install iptables-persistent
+
+# Save Rules
+iptables-save > /etc/iptables/rules.v4
+\end{lstlisting}
+\paragraph{Bruteforce Prevention}
+\paragraph{Webserver}
+\paragraph{SSL}
+\paragraph{Produktivbetrieb}
+\paragraph{Testbetrieb}
+\paragraph{Verfügbarkeit}
+\subsubsection{Testing}

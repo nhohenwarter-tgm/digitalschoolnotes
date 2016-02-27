@@ -9,23 +9,30 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" ui-sref=".content" style="padding-top: 5px; padding-bottom: 5px;">
+                <a class="navbar-brand" ng-click="goto('top')" style="cursor: pointer; padding-top: 5px; padding-bottom: 5px;">
                     <img alt="DigitalSchoolNotes" src="../../img/logo_large.png" style="max-height: 100%; height: 100%;">
                 </a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href=""><span class="glyphicon glyphicon-flash"></span> Features</a></li>
-                    <li><a href=""><span class="glyphicon glyphicon-piggy-bank"></span> Pricing</a></li>
-                    <li><a href=""><span class="glyphicon glyphicon-info-sign"></span> About</a></li>
-                    <li ng-show="menu_login" class="active"><a ui-sref="mainpage.login"><span class="glyphicon glyphicon-user"></span> Login</a></li>
-                    <li ng-show="menu_toapp" class="active"><a ui-sref="management.timetable"><span class="glyphicon glyphicon-home"></span> Zur App</a></li>
+                    <li><a ng-click="goto('features')" style="cursor: pointer;"><span class="glyphicon glyphicon-flash"></span>
+                        <span translate="menu_features">Features</span>
+                    </a></li>
+                    <li><a ng-click="goto('pricing')" style="cursor: pointer;"><span class="glyphicon glyphicon-piggy-bank"></span>
+                        <span translate="menu_pricing">Pricing</span>
+                    </a></li>
+                    <li ng-show="menu_login" class="active"><a ui-sref="mainpage.login"><span class="glyphicon glyphicon-user"></span>
+                        <span translate="menu_login">Login</span>
+                    </a></li>
+                    <li ng-show="menu_toapp" class="active"><a ui-sref="management.timetable"><span class="glyphicon glyphicon-home"></span>
+                        <span translate="menu_toapp">Zur App</span>
+                    </a></li>
                 </ul>
             </div>
         </div>
     </nav>
     <!-- NAVBAR END -->
     <!-- CONTENT START -->
-    <div style="padding-top: 60px;" ui-view></div>
+    <div style="padding-top: 60px;" ui-view id="top"></div>
     <!-- CONTENT END -->
 </div>

@@ -1,7 +1,6 @@
 package management;
 
 import junit.framework.TestCase;
-import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,11 +26,15 @@ public class Profile extends TestCase{
         this.driver = Parameters.driver;
         this.baseUrl = Parameters.baseUrl;
         driver.get(baseUrl + "/");
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
         driver.get(baseUrl + "/login");
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
         driver.findElement(By.name("email")).clear();
         driver.findElement(By.name("email")).sendKeys("test@test.test");
         driver.findElement(By.name("pwd")).sendKeys("12341234");
         driver.findElement(By.id("submit")).click();
+        Thread.sleep(Parameters.SLEEP_PAGELOAD);
+        driver.findElement(By.id("lang_de")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
     }
 
@@ -49,10 +52,8 @@ public class Profile extends TestCase{
         driver.findElement(By.partialLinkText("test@test.test")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
         String page = driver.getPageSource();
-        int matches = 0;
-        Matcher matcher = Pattern.compile("\\bTest\\b").matcher(page);
-        while (matcher.find()) matches++;
-        if(matches != 2) throw new NotFoundException();
+        if(!page.contains("Test_firstname")) throw new NotFoundException();
+        if(!page.contains("Test_lastname")) throw new NotFoundException();
         if(!page.contains("test@test.test")) throw new NotFoundException();
         if(!page.contains("Test1")) throw new NotFoundException();
         if(!page.contains("Test2")) throw new NotFoundException();
