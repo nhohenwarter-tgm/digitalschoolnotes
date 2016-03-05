@@ -242,12 +242,8 @@
 
 <script type="text/ng-template" id="codeElementSettings">
     <div class="ngdialog-message">
-        <h2>Code Element</h2>
-
-        <div>Mithilfe dieses Elementes kannst du Programmcode formatiert darstellen. Bitte w&auml;hle die Sprache aus, in
-            welcher
-            dein Code geschrieben ist.
-        </div>
+        <h2 translate="code_element_changelang"></h2>
+        <div translate="code_element_changelang_infomessage"></div>
         <br/>
 
         <div class="radio">
@@ -309,39 +305,36 @@
     </div>
     <div class="ngdialog-buttons mt">
         <button id="cancel" class="btn btn-danger" ng-click="closeThisDialog()"
-                style="float: right;  margin-right: 15px; margin-top:20px;">Abbrechen
+                style="float: right;  margin-right: 15px; margin-top:20px;" translate="cancel">
         </button>
         <button id="submit" class="btn btn-success" ng-click="closeThisDialog();addCodeElement();"
-                style="float: right; margin-top:20px; margin-left: 15px; margin-right: 15px;">Speichern
+                style="float: right; margin-top:20px; margin-left: 15px; margin-right: 15px;" translate="save">
         </button>
     </div>
 </script>
 
 <script type="text/ng-template" id="deleteElementSettings">
     <div class="ngdialog-message">
-        <h2>Element l&ouml;schen</h2>
+        <h2 translate="delete_element"></h2>
 
-        <div>Bist du sicher, dass du dieses Element l&ouml;schen willst.</div>
+        <div translate="delete_element_infomessage"></div>
         <br/>
     </div>
     <div class="ngdialog-buttons mt">
         <button id="cancel" class="btn btn-danger" ng-click="closeThisDialog()"
-                style="float: right;  margin-right: 15px;">Abbrechen
+                style="float: right;  margin-right: 15px;" translate="cancel">
         </button>
         <button type="submit" id="submit" class="btn btn-success"
                 ng-click="closeThisDialog();deleteelement(deleteid,deleteart);"
-                style="float: right; margin-left: 15px; margin-right: 15px;">L&ouml;schen
+                style="float: right; margin-left: 15px; margin-right: 15px;" translate="delete">
         </button>
     </div>
 </script>
 
 <script type="text/ng-template" id="addPicture">
     <div class="ngdialog-message">
-        <h2>Bild hinzuf&uuml;gen</h2>
-        <span>
-            F&uuml;ge deinem Heft ein Bild hinzu.<br />
-            (Hinweis: Es k&ouml;nnte ein wenig Zeit in Anspruch nehmen, bis das Bild in deinem Heft angezeigt wird!)
-        </span>
+        <h2 translate="image_add"></h2>
+        <span translate="image_add_infomessage"></span>
         <div role="alert">
             <span class="error" ng-show="errormessage" style="color:#FF0000">{{ errormessage }}</span>
         </div>
@@ -351,66 +344,66 @@
         <br/>
     </div>
     <div role="alert">
-      <span class="error" ng-show="showError" style="color:#FF0000">Bitte gib eine Zahl ein.</span>
+      <span class="error" ng-show="showError" style="color:#FF0000" translate="image_error_setsize"></span>
     </div>
     <div class="form-group">
         <div class="col-xs-4">
-            <label for="ex1">Breite(px):</label>
+            <label for="ex1" translate="image_change_size_width"></label>
             <input ng-model="width" ng-change="onlyNumbers1()" class="form-control" id="ex1" type="text">
         </div>
         <div class="col-xs-4">
-            <label for="ex1">Höhe(px):</label>
+            <label for="ex1" translate="image_change_size_height"></label>
             <input ng-model="height" ng-change="onlyNumbers1()" class="form-control" id="ex1" type="text">
         </div>
     </div>
 
     <div class="ngdialog-buttons mt">
         <button id="cancel" class="btn btn-danger" ng-click="closeThisDialog()"
-                style="float: right;  margin-right: 15px;">Abbrechen
+                style="float: right;  margin-right: 15px;" translate="cancel">
         </button>
         <button type="submit" id="submit" class="btn btn-success" ng-disabled="showError || !myFile"
                 ng-click="uploadFile();"
-                style="float: right; margin-left: 15px; margin-right: 15px;">Hochladen
+                style="float: right; margin-left: 15px; margin-right: 15px;" translate="upload">
         </button>
     </div>
 </script>
 
 <script type="text/ng-template" id="editPicture">
     <div class="ngdialog-message">
-        <h2>Bildgröße ändern</h2>
+        <h2 translate="image_change_size"></h2>
         <br/>
     </div>
     <div role="alert">
-      <span class="error" ng-show="showError" style="color:#FF0000">Bitte gib eine Zahl bei der Breite und Höhe an.</span>
+      <span class="error" ng-show="showError" style="color:#FF0000" translate="image_change_size_infomessage"></span>
     </div>
     <div class="form-group">
         <div class="col-xs-4">
-            <label for="ex1">Breite(px):</label>
+            <label for="ex1" translate="image_change_size_width"></label>
             <input ng-model="width" ng-change="onlyNumbers()" class="form-control" id="ex1" type="text">
         </div>
         <div class="col-xs-4">
-            <label for="ex1">Höhe(px):</label>
+            <label for="ex1" translate="image_change_size_height"></label>
             <input ng-model="height" ng-change="onlyNumbers()" class="form-control" only-digits id="ex1" type="text">
         </div>
     </div>
 
     <div class="ngdialog-buttons mt">
         <button id="cancel" class="btn btn-danger" ng-click="closeThisDialog()"
-                style="float: right;  margin-right: 15px;">Abbrechen
+                style="float: right;  margin-right: 15px;" translate="cancel">
         </button>
         <button type="submit" id="submit" class="btn btn-success" ng-disabled="showError"
                 ng-click="editPictureElement();closeThisDialog();"
-                style="float: right; margin-left: 15px; margin-right: 15px;">Ändern
+                style="float: right; margin-left: 15px; margin-right: 15px;" translate="save_changes">
         </button>
     </div>
 </script>
 
 <script type="text/ng-template" id="ocrFileDialog">
     <div class="ngdialog-message">
-        <h2>Analysiere ein Bild (OCR)</h2>
+        <h2 translate="ocr_analyse_image"></h2>
         <div role="alert">
             <span class="error" ng-show="errormessage" style="color:#FF0000">{{ errormessage }}</span>
-            <span class="error" ng-show="!ocrFile" style="color:#FF0000">F&uuml;ge deinem Heft ein Bild hinzu.</span>
+            <span class="error" ng-show="!ocrFile" style="color:#FF0000" translate="ocr_analyse_image_infomessage"></span>
         </div>
         <div><input id="input-ocrfile" type="file" accept="image/png, image/gif, image/jpeg" file-model="ocrFile" class="file"></div>
         <br/>
@@ -418,11 +411,11 @@
 
     <div class="ngdialog-buttons mt">
         <button id="cancelocr" class="btn btn-danger" ng-click="closeThisDialog()"
-                style="float: right;  margin-right: 15px;">Abbrechen
+                style="float: right;  margin-right: 15px;" translate="cancel">
         </button>
         <button type="submit" id="submitocr" class="btn btn-success" ng-disabled="!ocrFile"
                 ng-click="uploadOCRFile();"
-                style="float: right; margin-left: 15px; margin-right: 15px;">Analysieren
+                style="float: right; margin-left: 15px; margin-right: 15px;" translate="analyse">
         </button>
     </div>
 </script>
@@ -430,9 +423,9 @@
 
 <script type="text/ng-template" id="exportCode">
     <div class="ngdialog-message">
-        <h2>Seite exportieren</h2>
+        <h2 translate="import_site"></h2>
 
-        <div>In welches Heft möchtest du die Heftseite importieren?</div>
+        <div translate="import_site_infomessage"></div>
         <select class="form-control" name="repeatSelect" id="repeatSelect" ng-model="notebook.import">
             <option ng-repeat="option in notebooks" value="{{option._id}}">{{option.name}}</option>
         </select>
@@ -440,11 +433,11 @@
     </div>
     <div class="ngdialog-buttons mt">
         <button id="cancel" class="btn btn-danger" ng-click="closeThisDialog()"
-                style="float: right;  margin-right: 15px;">Abbrechen
+                style="float: right;  margin-right: 15px;" translate="cancel">
         </button>
         <button type="submit" id="submit" class="btn btn-success"
                 ng-click="importsite();closeThisDialog();"
-                style="float: right; margin-left: 15px; margin-right: 15px;">Importieren
+                style="float: right; margin-left: 15px; margin-right: 15px;" translate="import">
         </button>
     </div>
 </script>
