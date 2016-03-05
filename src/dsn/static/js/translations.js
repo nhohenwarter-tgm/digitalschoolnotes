@@ -151,3 +151,4 @@ gettext("delete_element_infomessage");
 gettext("delete_element");
 gettext("code_element_changelang");
 gettext("code_element_changelang_infomessage");
+gettext("import");

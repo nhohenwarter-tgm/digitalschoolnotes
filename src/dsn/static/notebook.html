@@ -346,18 +346,18 @@
     <div role="alert">
       <span class="error" ng-show="showError" style="color:#FF0000" translate="image_error_setsize"></span>
     </div>
-    <div class="form-group">
-        <div class="col-xs-4">
+    <div class="form-group row">
+        <div class="col-md-4">
             <label for="ex1" translate="image_change_size_width"></label>
             <input ng-model="width" ng-change="onlyNumbers1()" class="form-control" id="ex1" type="text">
         </div>
-        <div class="col-xs-4">
+        <div class="col-md-4">
             <label for="ex1" translate="image_change_size_height"></label>
             <input ng-model="height" ng-change="onlyNumbers1()" class="form-control" id="ex1" type="text">
         </div>
     </div>
 
-    <div class="ngdialog-buttons mt">
+    <div class="ngdialog-buttons mt row">
         <button id="cancel" class="btn btn-danger" ng-click="closeThisDialog()"
                 style="float: right;  margin-right: 15px;" translate="cancel">
         </button>
@@ -376,18 +376,18 @@
     <div role="alert">
       <span class="error" ng-show="showError" style="color:#FF0000" translate="image_change_size_infomessage"></span>
     </div>
-    <div class="form-group">
-        <div class="col-xs-4">
+    <div class="form-group row">
+        <div class="col-md-4">
             <label for="ex1" translate="image_change_size_width"></label>
             <input ng-model="width" ng-change="onlyNumbers()" class="form-control" id="ex1" type="text">
         </div>
-        <div class="col-xs-4">
+        <div class="col-md-4">
             <label for="ex1" translate="image_change_size_height"></label>
             <input ng-model="height" ng-change="onlyNumbers()" class="form-control" only-digits id="ex1" type="text">
         </div>
     </div>
 
-    <div class="ngdialog-buttons mt">
+    <div class="ngdialog-buttons mt row">
         <button id="cancel" class="btn btn-danger" ng-click="closeThisDialog()"
                 style="float: right;  margin-right: 15px;" translate="cancel">
         </button>

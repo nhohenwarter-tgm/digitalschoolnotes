@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-03-05 15:08+0100\n"
+"POT-Creation-Date: 2016-03-05 15:55+0100\n"
 "PO-Revision-Date: 2016-01-09 16:36+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: de_DE\n"
@@ -682,7 +682,8 @@ msgstr "Bitte gib eine Größe für das Bild an!"
 msgid "image_add_infomessage"
 msgstr ""
 "Füge deinem Heft ein Bild hinzu.\n"
-"(Hinweis: Es könnte ein wenig Zeit in Anspruch nehmen, bis das Bild in deinem Heft angezeigt wird!)"
+"(Hinweis: Es könnte ein wenig Zeit in Anspruch nehmen, bis das Bild in "
+"deinem Heft angezeigt wird!)"
 
 #: ../dsn/static/js/translations.js:148
 msgid "image_add"
@@ -695,8 +696,8 @@ msgstr "Löschen"
 #: ../dsn/static/js/translations.js:150
 msgid "delete_element_infomessage"
 msgstr ""
-"Bist du sicher, dass du dieses Element löschen willst? "
-"Diese Änderung kann nicht mehr rückgängig gemacht werden!"
+"Bist du sicher, dass du dieses Element löschen willst? Diese Änderung "
+"kann nicht mehr rückgängig gemacht werden!"
 
 #: ../dsn/static/js/translations.js:151
 msgid "delete_element"
@@ -708,7 +709,13 @@ msgstr "Programmiersprache ändern"
 
 #: ../dsn/static/js/translations.js:153
 msgid "code_element_changelang_infomessage"
-msgstr "Bitte wähle die Programmiersprache aus, in der du deinen Programmcode schreiben möchtest."
+msgstr ""
+"Bitte wähle die Programmiersprache aus, in der du deinen Programmcode "
+"schreiben möchtest."
+
+#: ../dsn/static/js/translations.js:154
+msgid "import"
+msgstr "Importieren"
 
 #: ../dsn/views/mainpage_views.py:81 ../dsn/views/mainpage_views.py:92
 msgid "wrong_login_credentials"
@@ -734,7 +741,7 @@ msgstr "Du kannst dich nicht selbst zu deinem eigenen Heft einladen!"
 msgid "no_user"
 msgstr "Dieser User existiert nicht!"
 
-#: ../dsn/views/management_views.py:469 ../dsn/views/management_views.py:483
+#: ../dsn/views/management_views.py:470 ../dsn/views/management_views.py:484
 msgid "error_wrong_password"
 msgstr "Bitte wiederhole dein aktuelles Passwort!"
 
