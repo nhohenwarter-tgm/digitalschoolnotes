@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-02-22 13:23+0100\n"
+"POT-Creation-Date: 2016-03-05 15:55+0100\n"
 "PO-Revision-Date: 2016-01-09 16:36+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: de_DE\n"
@@ -629,10 +629,93 @@ msgstr "KONTAKTIERE UNS!"
 msgid "timetable_editmode_infotext"
 msgstr ""
 "Im Bearbeitungsmodus (Zahnrad) kannst du die Einheiten und Zeiten in "
-"deinem Stundenplan bearbeiten und daraus ganz einfach Schulhefte generieren "
-"und zuweisen. Bei Klick auf das Stunden- oder Zeitfeld kannst du deinen "
-"Stundenplan ganz einfach bearbeiten. Deine Änderungen werden beim Verlassen des "
-"Bearbeitungsmodus automatisch gespeichert."
+"deinem Stundenplan bearbeiten und daraus ganz einfach Schulhefte "
+"generieren und zuweisen. Bei Klick auf das Stunden- oder Zeitfeld kannst "
+"du deinen Stundenplan ganz einfach bearbeiten. Deine Änderungen werden "
+"beim Verlassen des Bearbeitungsmodus automatisch gespeichert."
+
+#: ../dsn/static/js/translations.js:136
+msgid "analyse"
+msgstr "Analysieren"
+
+#: ../dsn/static/js/translations.js:137
+msgid "ocr_analyse_image"
+msgstr "Analysiere ein Bild (OCR)"
+
+#: ../dsn/static/js/translations.js:138
+msgid "ocr_analyse_image_infomessage"
+msgstr "Bitte wähle ein Bild aus."
+
+#: ../dsn/static/js/translations.js:139
+msgid "import_site"
+msgstr "Seite importieren"
+
+#: ../dsn/static/js/translations.js:140
+msgid "import_site_infomessage"
+msgstr "In welches Heft möchtest du die Heftseite importieren?"
+
+#: ../dsn/static/js/translations.js:141
+msgid "image_change_size"
+msgstr "Bildgröße ändern"
+
+#: ../dsn/static/js/translations.js:142
+msgid "image_change_size_infomessage"
+msgstr "Bitte gib die neue Größe des Bildes an."
+
+#: ../dsn/static/js/translations.js:143
+msgid "image_change_size_width"
+msgstr "Breite(px) "
+
+#: ../dsn/static/js/translations.js:144
+msgid "image_change_size_height"
+msgstr "Höhe(px) "
+
+#: ../dsn/static/js/translations.js:145
+msgid "upload"
+msgstr "Hochladen"
+
+#: ../dsn/static/js/translations.js:146
+msgid "image_error_setsize"
+msgstr "Bitte gib eine Größe für das Bild an!"
+
+#: ../dsn/static/js/translations.js:147
+msgid "image_add_infomessage"
+msgstr ""
+"Füge deinem Heft ein Bild hinzu.\n"
+"(Hinweis: Es könnte ein wenig Zeit in Anspruch nehmen, bis das Bild in "
+"deinem Heft angezeigt wird!)"
+
+#: ../dsn/static/js/translations.js:148
+msgid "image_add"
+msgstr "Bild hinzufügen"
+
+#: ../dsn/static/js/translations.js:149
+msgid "delete"
+msgstr "Löschen"
+
+#: ../dsn/static/js/translations.js:150
+msgid "delete_element_infomessage"
+msgstr ""
+"Bist du sicher, dass du dieses Element löschen willst? Diese Änderung "
+"kann nicht mehr rückgängig gemacht werden!"
+
+#: ../dsn/static/js/translations.js:151
+msgid "delete_element"
+msgstr "Element löschen"
+
+#: ../dsn/static/js/translations.js:152
+msgid "code_element_changelang"
+msgstr "Programmiersprache ändern"
+
+#: ../dsn/static/js/translations.js:153
+msgid "code_element_changelang_infomessage"
+msgstr ""
+"Bitte wähle die Programmiersprache aus, in der du deinen Programmcode "
+"schreiben möchtest."
+
+#: ../dsn/static/js/translations.js:154
+msgid "import"
+msgstr "Importieren"
 
 #: ../dsn/views/mainpage_views.py:81 ../dsn/views/mainpage_views.py:92
 msgid "wrong_login_credentials"
@@ -658,7 +741,7 @@ msgstr "Du kannst dich nicht selbst zu deinem eigenen Heft einladen!"
 msgid "no_user"
 msgstr "Dieser User existiert nicht!"
 
-#: ../dsn/views/management_views.py:460 ../dsn/views/management_views.py:474
+#: ../dsn/views/management_views.py:470 ../dsn/views/management_views.py:484
 msgid "error_wrong_password"
 msgstr "Bitte wiederhole dein aktuelles Passwort!"
 

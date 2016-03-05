@@ -52,8 +52,8 @@ public class Profile extends TestCase{
         driver.findElement(By.partialLinkText("test@test.test")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
         String page = driver.getPageSource();
-        if(!page.contains("Test_firstname")) throw new NotFoundException();
-        if(!page.contains("Test_lastname")) throw new NotFoundException();
+        if(!page.contains("Test")) throw new NotFoundException();
+        if(!page.contains("Test")) throw new NotFoundException();
         if(!page.contains("test@test.test")) throw new NotFoundException();
         if(!page.contains("Test1")) throw new NotFoundException();
         if(!page.contains("Test2")) throw new NotFoundException();

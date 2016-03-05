@@ -1,6 +1,6 @@
 import admin.ContactUser;
 import admin.UserManagement;
-import edit.Notebook;
+import edit.*;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 import mainpage.Login;
@@ -26,6 +26,14 @@ public class Suite {
         suite.addTestSuite(TimetableView.class);
         suite.addTestSuite(TimetableEditLessons.class);
         suite.addTestSuite(DeleteAccount.class);
+        suite.addTestSuite(Bildelement.class);
+        suite.addTestSuite(Codeelement.class);
+        suite.addTestSuite(CreateMoveDeleteElement.class);
+        suite.addTestSuite(ImportPage.class);
+        suite.addTestSuite(MoveElement.class);
+        suite.addTestSuite(OCR.class);
+        suite.addTestSuite(Textelement.class);
+        suite.addTestSuite(DeleteNotebook.class);
         return suite;
     }
 

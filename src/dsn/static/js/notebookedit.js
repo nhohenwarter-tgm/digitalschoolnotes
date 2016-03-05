@@ -265,17 +265,20 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     };
 
     $scope.editelement = function (id, art, data, active) {
-            $http({
-                method: 'POST',
-                url: '/api/edit_notebook_content',
-                data: {id: $stateParams.id, content_id: id, content_art: art, content_data: data, is_active: active}
-            }).success(function (data) {
-                $scope.notebook = JSON.parse(data['notebook']);
-                $scope.content = $scope.notebook['content'];
-                if(!active) {
-                    $scope.update();
-                }
-            });
+        if(active == null){
+            active = false;
+        }
+        $http({
+            method: 'POST',
+            url: '/api/edit_notebook_content',
+            data: {id: $stateParams.id, content_id: id, content_art: art, content_data: data, is_active: active}
+        }).success(function (data) {
+            $scope.notebook = JSON.parse(data['notebook']);
+            $scope.content = $scope.notebook['content'];
+            if(!active) {
+                $scope.update();
+            }
+        });
     };
 
     $scope.codeModeEdit = function (id, art){
