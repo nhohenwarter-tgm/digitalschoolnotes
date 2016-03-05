@@ -23,7 +23,7 @@ public class Parameters{
     public static int browser = CHROME; //HIER BROWSER AENDERN
     public static int port = 80; //HIER PORT AENDERN
 
-    public static boolean stable = false;
+    public static boolean stable = true;
 
     //E-Mail Adresse, bei der die E-Mails tatsächlich abgerufen werden können (muss existierender Benutzer in DSN sein!)
     public static String testingEmail = "info@niklashohenwarter.com"; //HIER EMAIL AENDERN
