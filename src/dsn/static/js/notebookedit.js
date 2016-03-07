@@ -1,6 +1,7 @@
 var mainApp = angular.module('mainApp');
 
-mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $sce, $window, loggedIn, ngDialog, $timeout, $state, $filter, fileUpload, Active) {
+mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $sce, $window, loggedIn, ngDialog,
+                                                 $timeout, $state, $filter, fileUpload, Active) {
 
     $scope.publicViewed = true;
     $scope.currentPage = 1;
@@ -226,7 +227,6 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     $scope.deleteelement = function (id, art) {
         if(art == 'image'){
             $scope.imageElementDelete(id);
-            $window.location.reload();
         }
         $http({
             method: 'POST',
@@ -265,17 +265,20 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     };
 
     $scope.editelement = function (id, art, data, active) {
-            $http({
-                method: 'POST',
-                url: '/api/edit_notebook_content',
-                data: {id: $stateParams.id, content_id: id, content_art: art, content_data: data, is_active: active}
-            }).success(function (data) {
-                $scope.notebook = JSON.parse(data['notebook']);
-                $scope.content = $scope.notebook['content'];
-                if(!active) {
-                    $scope.update();
-                }
-            });
+        if(active == null){
+            active = false;
+        }
+        $http({
+            method: 'POST',
+            url: '/api/edit_notebook_content',
+            data: {id: $stateParams.id, content_id: id, content_art: art, content_data: data, is_active: active}
+        }).success(function (data) {
+            $scope.notebook = JSON.parse(data['notebook']);
+            $scope.content = $scope.notebook['content'];
+            if(!active) {
+                $scope.update();
+            }
+        });
     };
 
     $scope.codeModeEdit = function (id, art){
@@ -403,7 +406,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
             data = "{\"data\":\""+single_object['data']['data']+"\", \"language\":\"" + $scope.codeLanguage + "\"}";
             $scope.editelement($scope.cid, 'code',data);
         }
-    }
+    };
 
     // NgDialog zum erstellen, bearbeiten und exportieren von Code Elementen
     $scope.codeElementCreate = function () {
@@ -522,8 +525,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
                 if ($scope.height){height = $scope.height;}
                 data_data = "{\"data\":\"" + data['message'] + "\", \"width\":\"" + width + "\", \"height\":\"" + height + "\"}";
                 $scope.addelement('image', data_data);
-                $window.location.reload();
-                $window.location.reload();
+                $scope.update();
 
             });
             ngDialog.close({
@@ -570,7 +572,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
             }
             if(flagw && flagh)$scope.showError = false;
         }
-    }
+    };
 
     $scope.onlyNumbers1 = function(){
         var flagw = true;
@@ -600,22 +602,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
     };
 
     $scope.redirectNotebook_2 = function (id) {
-        /**
-        $http({
-            method: 'POST',
-            url: '/api/notebook_logout',
-            headers: {'Content-Type': 'application/json'},
-            data: {
-                notebook_id: id
-            }
-        })
-            .success(function (data) {
-            **/
-                $state.go('management.notebooks');
-    /**
-    })
-            .error(function (data) {
-            });**/
+        $state.go('management.notebooks');
     };
 
     $scope.poll = function(){

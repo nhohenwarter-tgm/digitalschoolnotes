@@ -266,7 +266,8 @@ def view_add_notebook_content(request):
                 id = notebook.content[0].id + 1
         except NoneType:
             id = 1
-        content = NotebookContent(id=id, art=params['content_art'], position_x = 1, position_y = 1, position_site = params['content_site'])
+        content = NotebookContent(id=id, art=params['content_art'], position_x = 1, position_y = 1,
+                                  position_site = params['content_site'], is_active = False, is_active_by = None)
         content.data = json.loads(params['content_data'])
         notebook.content.append(content)
         notebook.save()

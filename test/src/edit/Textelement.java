@@ -1,17 +1,18 @@
-package management;
+package edit;
 
 import junit.framework.TestCase;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.*;
 import util.Parameters;
 
+import javax.swing.*;
+
 
 /**
- * Testet ob der Stundenplan angezeigt werden kann
+ * Testet das Textelement
  */
-public class TimetableView extends TestCase{
+public class Textelement extends TestCase{
     private WebDriver driver;
     private String baseUrl;
     private boolean acceptNextAlert = true;
@@ -36,38 +37,24 @@ public class TimetableView extends TestCase{
     }
 
     /**
-     * Testet ob der Stundenolan angezeigt wird
+     * Testet ob der Text in einem Textelement "gestylet" werden kann
      * @throws Exception
      */
     @Test
-    public void testViewTimetable() throws Exception {
+    public void testImportPage() throws Exception {
         driver.get(baseUrl + "/management");
+        driver.findElement(By.partialLinkText("Hefte")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
-        boolean bool = true;
-        assertFalse(!driver.findElement(By.tagName("table")).isDisplayed());
-        assertFalse(!driver.findElement(By.xpath("//*[contains(text(), 'Montag')]")).isDisplayed());
-        assertFalse(!driver.findElement(By.xpath("//*[contains(text(), 'Samstag')]")).isDisplayed());
+        driver.findElement(By.xpath("//*[contains(text(), 'Test2')]")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
-    }
-
-    /**
-     * Testet ob ein Heft einer fremden Person geöffnet werden kann
-     * @throws Exception
-     */
-    @Test
-    public void testOpenNotebookViaTimetable() throws Exception {
-        driver.get(baseUrl + "/management");
-        Thread.sleep(Parameters.SLEEP_PAGELOAD);
-        driver.findElement(By.id("lesson_monday_1")).click();
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        driver.get(baseUrl + "/logout");
-        driver.quit();
-        String verificationErrorString = verificationErrors.toString();
-        if (!"".equals(verificationErrorString)) {
-            fail(verificationErrorString);
+        JOptionPane.showMessageDialog(null,
+                "Bitte erstelle ein Textelement und wende ein paar Styleoptionen an drücke dann OK",
+                "Action Required!",
+                JOptionPane.WARNING_MESSAGE);
+        int dialogResult = JOptionPane.showConfirmDialog (null,
+                "Werden die Styles korrekt angezeigt?","Warning",JOptionPane.YES_NO_OPTION);
+        if(dialogResult != JOptionPane.YES_OPTION) {
+        throw new Exception("Fehler Text-Style");
         }
     }
 

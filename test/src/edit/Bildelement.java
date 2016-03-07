@@ -1,17 +1,18 @@
-package management;
+package edit;
 
 import junit.framework.TestCase;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.*;
 import util.Parameters;
 
+import javax.swing.*;
+
 
 /**
- * Testet ob der Stundenplan angezeigt werden kann
+ * Testet die Funktionen des Bildelementes
  */
-public class TimetableView extends TestCase{
+public class Bildelement extends TestCase{
     private WebDriver driver;
     private String baseUrl;
     private boolean acceptNextAlert = true;
@@ -36,38 +37,28 @@ public class TimetableView extends TestCase{
     }
 
     /**
-     * Testet ob der Stundenolan angezeigt wird
+     * Testet ob die Größe eines Bildelementes im nachhinein geändert werden kann
      * @throws Exception
      */
     @Test
-    public void testViewTimetable() throws Exception {
+    public void testResizeImage() throws Exception {
         driver.get(baseUrl + "/management");
+        driver.findElement(By.partialLinkText("Hefte")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
-        boolean bool = true;
-        assertFalse(!driver.findElement(By.tagName("table")).isDisplayed());
-        assertFalse(!driver.findElement(By.xpath("//*[contains(text(), 'Montag')]")).isDisplayed());
-        assertFalse(!driver.findElement(By.xpath("//*[contains(text(), 'Samstag')]")).isDisplayed());
+        driver.findElement(By.xpath("//*[contains(text(), 'Test2')]")).click();
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
-    }
-
-    /**
-     * Testet ob ein Heft einer fremden Person geöffnet werden kann
-     * @throws Exception
-     */
-    @Test
-    public void testOpenNotebookViaTimetable() throws Exception {
-        driver.get(baseUrl + "/management");
-        Thread.sleep(Parameters.SLEEP_PAGELOAD);
-        driver.findElement(By.id("lesson_monday_1")).click();
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        driver.get(baseUrl + "/logout");
-        driver.quit();
-        String verificationErrorString = verificationErrors.toString();
-        if (!"".equals(verificationErrorString)) {
-            fail(verificationErrorString);
+        JOptionPane.showMessageDialog(null,
+                "Bitte erstelle ein Bildelement neue und drücke dann OK",
+                "Action Required!",
+                JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(null,
+                "Bitte ändere die Größe des Bildes und drücke dann OK",
+                "Action Required!",
+                JOptionPane.WARNING_MESSAGE);
+        int dialogResult = JOptionPane.showConfirmDialog (null,
+                "Wurde die Größe des Bildes geändert?","Warning",JOptionPane.YES_NO_OPTION);
+        if(dialogResult != JOptionPane.YES_OPTION) {
+        throw new Exception("Fehler beim ändern der Größe des Bildes");
         }
     }
 
