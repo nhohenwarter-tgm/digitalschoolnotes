@@ -14,7 +14,8 @@ def build_request_uri(request):
     :param request:
     :return: URI als String
     """
-    return "https://digitalschoolnotes.com:"+str(int(request.META['SERVER_PORT'])-3000)
+    print(str(int(request.META['SERVER_PORT'])-3000))
+    return "https://digitalschoolnotes.com"
 
 def oauth_google_request(request):
     """

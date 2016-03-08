@@ -58,7 +58,7 @@ public class TimetableView extends TestCase{
     public void testOpenNotebookViaTimetable() throws Exception {
         driver.get(baseUrl + "/management");
         Thread.sleep(Parameters.SLEEP_PAGELOAD);
-        driver.findElement(By.xpath("//*[contains(text(), 'ng-bind=\"field[11][1]\"')]"));
+        driver.findElement(By.id("lesson_monday_1")).click();
     }
 
     @After

@@ -1,0 +1,59 @@
+Thomas: 
+
+"Außerdem war ich für die Umsetzung des Textelements verantwortlich" --> scheiße 
+"Zusätzlich hab ich mich im Zuge der Implementierung  mit dem Textelement auseindandergesetzt"..
+
+
+"war der kritische Punkt" --> "war ein besonders kritischer Punkt"
+
+"Durch Research
+wurden sogenannten „on-Events“ gefunden." --> würde ich nicht sagen 
+--> speicherung weglassen? --> oder intuitiv.. 
+
+
+Selina: 
+
+"Zu den Problemen beim Datenmanagement" --> nein 
+
+besser --> "Aufgrund der Komplexität des Datenmanagemant bin ich bei der Einbindung..  ... auf einige Schwiriegkeiten .. "
+
+
+"Das Heft war eine 2 seitige Ansicht des Hefts" ?! --> Zu Beginn wurde ein Heft noch zweiseitig dargestellt wobei hier .. "
+
+
+Philipp:
+
+--> Unter dem Begriff Usermanagement versteht sich --> KEIN DEUTSCH
+besser --> Im Bereich Usermanagement war vor allem das Erzeugen, Löschen und Verwalten von Benutzerkonten ein großes Thema.
+
+--> du kontrollierst keine user (gehirnkontrolle oder was?)
+
+ 
+"Es soll dazu dienen" --> Satz weghauen --> besser "Ich war also dafür verantwortlich dass jeder User der sich registriert
+eindeutig identifiziert werden kann und individuelle rechte erhält"
+
+--> "Diese fordert von unserem .. " --> "Dazu muss ein zukünfitiger DSN-User seinen Vornamen, .. angeben"
+
+--> "Aus Sicherheitsgründen .. , um sich vor einer brute force attacke zu schützen" --> doppelt gemoppelt
+besser --> "Aus sicherheitsgründen muss das Passwort eines jeden Users mindestens 8 Zeichen enthalten."
+
+--> Captcha 3 sätze die das selbe sagen --> weghauen --> besser "Zusätzlich findet sich bei der Registrierung ein Captcha um zu verhindern dass sich eine software oder ein bot bei uns registrieren könnte. 
+
+"Beim Login meldet sich der User .. "
+" oder man nutzt die möglichkeit einer oauth anmeldung"
+
+statt "DSN bietet dabei die Möglichkeit.. " --> "Wir bieten dabei die Möglichkeit sich .. "
+
+--> Admin ist eine Rolle aber du redest davon als ob es ein Interface wäre --> richtig wäre das admin interface wurde von website getrennt..
+
+"oder ihnen mit einer Mail etwas hinzuweisen " --> "oder sie mittels mail auf etwas hinzuweisen"
+
+"nach bestimmten nutzern gesucht werden"
+
+30 Tage --> 90 Tage
+
+Diese Benachritigung soll den User auf den zu löschenden Account aufmerksam machen ..
+
+--> gegen welche richtlinen? kennst du die richtlinien? wo stehen die richtlinien?
+
+

@@ -5,12 +5,31 @@
 Unter dem Begriff Usermanagement versteht sich, dass verwalten und kontrollieren von Benutzerkonten. Es soll dazu dienen jeden registrierten User eindeutig zu identifizieren und zu kontrollieren, ob die monatlichen Raten für einen Pro-Account überwiesen wurden. Außerdem soll die bereits in Anspruch genommene Speicherkapazität überwacht werden. Dazu ist notwendig, dass jeder User durch eine Kombination von Daten, einmalig, unterscheidbar von anderen ist.
 \subsubsection{Authentisierung}
 Unter Authentisierung versteht man den Nachweis der behaupteten Identität der BenutzerInnen. Im Falle von DSN handelt es sich hierbei um die eindeutige Email-Adresse, welche einmalig im System benutzt wird. Unter der Identität versteht sich die Sicherheit von wem die Information stammt. Jedes handeln eines Benutzers kann jemanden zugewiesen werden.\\
-Ein weiterer Identitätspunkt wäre, dass zu geheim haltenden Passwort, welches aus Sicherheitsgründen mindestens 8 Zeichen beinhalten muss. Durch 8 Zeichen möchten wir Cyberkriminelle das Knacken von Passwörtern erschweren. Für die Abschließung der Registrierung müssen die Nutzungsbedingungen akzipiert werden. \grqq{} Allgemeine Geschäftsbedingungen (AGB) sind vertragliche Klauseln, die zur Standardisierung und Konkretisierung von Massenverträgen dienen. Sie werden von einer Vertragspartei einseitig gestellt und bedürfen daher einer bes. Kontrolle, um ihren Missbrauch zu verhindern.\grqq{}\cite{AGB}\\
+Ein weiterer Identitätspunkt wäre, dass zu geheim haltenden Passwort, welches aus Sicherheitsgründen mindestens 8 Zeichen beinhalten muss. Durch 8 Zeichen möchten wir Cyberkriminelle das Knacken von Passwörtern erschweren. Für die Abschließung der Registrierung müssen die Nutzungsbedingungen akzipiert werden. \grqq{}Allgemeine Geschäftsbedingungen (AGB) sind vertragliche Klauseln, die zur Standardisierung und Konkretisierung von Massenverträgen dienen. Sie werden von einer Vertragspartei einseitig gestellt und bedürfen daher einer bes. Kontrolle, um ihren Missbrauch zu verhindern.\grqq{}\cite{AGB}\\
 \cite{VERTEILTE_SYSTEME}\cite{PASSWORT_SCHUTZ}
 
-\includegraphics[width=0.35\textwidth]{images/usermanagement/Registrierung}\\
+\begin{figure}[ht]
+\includegraphics[width=0.35\textwidth]{images/usermanagement/Registrierung}
+	\caption{Authentisierung bei DSN}
+	\label{fig1}
+\end{figure}
 
-Um auszuschließen, dass sich eine Software bzw. ein Roboter einen Account auf DSN erzeugt, wird ein Captcha verwendet. Ein Captcha dient zur Sicherheit und soll überprüfen wer die Eingabe getätigt hat. Das Captcha muss serverseitig validiert werden. Mit den Daten des Formulars wird ein weiteres Attribut namens recaptcha erhalten. In diesem steht ein Key der zur Validierung an Google gesendet werden muss. Google möchte zur Validierung den Key, die IP des Users und den Secret App Key. Google gibt dann zurück, ob alles korrekt ist, also ob der User ein menschliches Lebewesen ist. Um die Validierung mehrmals einsetzen zu können, haben wir eine Methode dafür geschrieben:
+Um auszuschließen, dass sich eine Software bzw. ein Roboter einen Account auf DSN erstellt, wird ein Captcha verwendet. Ein Captcha dient zur Sicherheit und soll überprüfen wer die Eingabe tätigte.
+Um das Captcha anzuzeigen muss eine JS Lib eingebunden werden \cite{CAPTCHA}.
+\begin{lstlisting}
+<script src="https://www.google.com/recaptcha/api.js?
+onload=vcRecaptchaApiLoaded&render=explicit" async defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-recaptcha/2.2.5/
+angular-recaptcha.min.js"></script>
+\end{lstlisting}
+
+Dannach kann das Captcha einfach wie folgt ins Form eingebunden werden:
+\begin{lstlisting}
+<div vc-recaptcha key="publicKey"></div>
+\end{lstlisting}
+
+publicKey definiert den Public Key des Recaptchas. Dieser wird im Javascript file über \$scope zugewiesen.
+Das Captcha wird nach der Benutzereingabe serverseitig validiert. Mit den Daten des Registrierungsformular wird ein weiteres Attribut namens recaptcha erhalten. In diesem steht ein Key der zur Validierung an Google gesendet werden muss. Google möchte zur Validierung den Key, die IP des Users und den Secret App Key. Google gibt dann zurück, ob alles korrekt ablief, also ob es sich bei dem User tatsächlich um ein menschliches Lebewesen handelt. Um die Validierung mehrmals einsetzen zu können, haben wir eine Methode dafür geschrieben:
 
 \begin{lstlisting}
 def validate_captcha(recaptcha, ip):
@@ -31,56 +50,18 @@ def validate_captcha(recaptcha, ip):
 \end{lstlisting}
 
 
-Um das Captcha anzuzeigen muss eine JS Lib eingebunden werden \cite{CAPTCHA}.
-\begin{lstlisting}
-<script src="https://www.google.com/recaptcha/api.js?
-onload=vcRecaptchaApiLoaded&render=explicit" async defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-recaptcha/2.2.5/
-angular-recaptcha.min.js"></script>
-\end{lstlisting}
+Wenn das Captcha gelöst wurde, kann man damit das Form genau ein Mal absenden. Im Falle, dass das Formular nochmals abgesendet werden muss, ist es notwendig das Captcha zurück zu setzen.
 
-
-Dannach kann das Captcha einfach wie folgt ins Form eingebunden werden:
-\begin{lstlisting}
-<div vc-recaptcha key="publicKey"></div>
-\end{lstlisting}
-
-publicKey definiert den Public Key des Recaptchas. Dieser wird im Javascript file über \$scope zugewiesen. Das Captcha wird nun angezeigt. Um zu überprüfen ob es ausgefüllt wurde folgendes unternommen:
-\begin{lstlisting}
-if(vcRecaptchaService.getResponse() === ""){
-    $scope.captchaerror = true;
-    $scope.captcha_error = "Bitte loese das Captcha.";
-}
-\end{lstlisting}
-
-Wenn das Captcha gelöst wurde, kann man damit das Form genau ein Mal absenden. Falls es nochmal abgesendet werden muss, muss das Captcha zurückgesetzt werden. Dies kann wie folgt umgesetzt werden:
-\begin{lstlisting}
-vcRecaptchaService.reload();
-\end{lstlisting}
-
-\includegraphics[width=0.35\textwidth]{images/usermanagement/Captcha}\\
+\begin{figure}[ht]
+\includegraphics[width=0.35\textwidth]{images/usermanagement/Captcha}
+	\caption{Auslösen des Captchas}
+	\label{fig2}
+\end{figure}
 
 \subsubsection{Datenmodell}
 Da Django-Authentifizierungs Funktionalitäten nur für relative DBMS ausgelegt sind, daher für den vorgesehenen Anwendungszweck nicht geeignet sind, mussten Änderungen vorgenommen werden, um die Authentifizierung über MongoDB zu ermöglichen.\\
-
-Im File settings.py muss zu \textit{INSTALLED\_APPS} 
-\textit{'mongoengine.django.mongo\_auth'} hinzugefügt werden.
-Außerdem muss im selben File folgender Code eingefügt werden:
+Nun muss das User-Model, das eben auf Mongo Basis definiert wurde, noch im File models.py erstellt werden. Der Code für das Model wurde aus dem entsprechenden Source-Code von MongoEngine \cite{MONGOENGINE} kopiert und an unseren Anwendungszweck angepasst.
 \begin{lstlisting}
-AUTHENTICATION_BACKENDS = (
-    'mongoengine.django.auth.MongoEngineBackend',
-)
-
-AUTH_USER_MODEL=('mongo_auth.MongoUser')
-MONGOENGINE_USER_DOCUMENT = 'dsn.models.User'
-\end{lstlisting}
-
-Nun muss das User-Model, das eben definiert wurde, noch im File models.py erstellt werden. Der Code für das Model wurde aus dem entsprechenden Source-Code von MongoEngine \cite{MONGOENGINE} kopiert und an unseren Anwendungszweck angepasst.
-\begin{lstlisting}
-from mongoengine.django.auth import UserManager, Permission, \
- 	make_password, check_password, SiteProfileNotAvailable, \
- 	_user_get_all_permissions, _user_has_module_perms, _user_has_perm
-from mongoengine.django import auth
 class User(Document):
     id = ObjectIdField(unique=True, required=True, primary_key=True)
     email = EmailField(unique=True, required=True)
@@ -94,83 +75,11 @@ class User(Document):
     last_login = DateTimeField(default=datetime.datetime.now())
     date_joined = DateTimeField(default=datetime.datetime.now())
     passwordreset= EmbeddedDocumentField(PasswordReset)
-
     user_permissions = ListField(ReferenceField(Permission))
-
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['last_name', 'first_name']
-
-    meta = {
-        'allow_inheritance': True,
-        'indexes': [
-            {'fields': ['email'], 'unique': True, 'sparse': True}
-        ]
-    }
-
-   [...]
-
-    ATclassmethod
-    def create_user(cls, email, password, first_name, last_name):
-        now = datetime.datetime.now()
-
-   [...]
- 	  user = cls(id=ObjectId(), email=email, date_joined=now, \
- 				first_name=first_name, last_name=last_name)
-        user.set_password(password)
-        user.save()
-        return user
-
     [...]
 \end{lstlisting}
 
-Außerdem muss in \textit{models.py} noch ein UserManager erstellt werden:
-\begin{lstlisting}
-class AuthUserManager(UserManager):
-    def create_user(self, email, password, first_name, last_name):
-        if email and password:
-            try:
-                User.objects.get(email=email)
-                return None
-            except DoesNotExist:
-                try:
-                    email_name, domain_part = email.strip().split('AT', 1)
-                except ValueError:
-                    pass
-                else:
-                    email = 'AT'.join([email_name, domain_part.lower()])
-
-                user = User(username=email, email=email, \
- 					first_name=first_name, last_name=last_name)
-                user.set_password(password)
-                user.save()
-                return user
-        else:
-            return None
-
-    def create_superuser(self, email, password, first_name, last_name):
-        if email and password:
-            try:
-                User.objects.get(email=email)
-                return None
-            except DoesNotExist:
-                try:
-                    email_name, domain_part = email.strip().split('AT', 1)
-                
- 	    except ValueError:
-                    pass
-                else:
-                    email = 'AT'.join([email_name, domain_part.lower()])
-
-                user = User(email=email, is_superuser=True, \
- 					first_name=first_name, last_name=last_name)
-                user.set_password(password)
-                user.save()
-                return user
-        else:
-            return None
-\end{lstlisting}
-
-Da MongoDB den PrimaryKey als ObjectId verlang, muss im bestehenden Original Django-Code folgende Änderungen vorgenommen werden \cite{ISSUE}:
+Da MongoDB den PrimaryKey als ObjectId verlangt, mussten im bestehenden Original Django-Code folgende Änderungen vorgenommen werden \cite{ISSUE}:\\
 Im File \textit{usr/local/lib/python3.4/dist-packages/django/db/models/fields} in Zeile 964: 
 \textit{return int(value)}
 ändern zu:
@@ -182,13 +91,17 @@ Im File /usr/local/lib/python3.4/dist-packages/django/contrib/auth in Zeile 111:
  	request.session[SESSION\_KEY] = user.\_meta.pk.value\_to\_string(user)
 except Exception:
  	request.session[SESSION\_KEY] = user.id}
- 	
+
+Nach der Authentisierung wird der/die zukünftige BenutzerIn nach dem beschriebenen Datenmodell in die MongoDB hinzugefügt. Da der Registierungsprozess noch nicht abgeschlossen ist, ist das \textit{isactive} Attribute noch auf \textit{False} gesetzt.
+Solange das Attribut nicht in einen anderen Zustand übergeht, ist dem/der BenutzerIn nicht erlaubt sich auf DSN anzumelden. Es kann auch sein, dass sich ein bereits registrierter Account sich in diesem Dilemma befinden kann. Das könnte z.B. der Fall sein wenn jemand gegen die Regeln und Gesetze von DSN verstoßt und daraufhin gespeert wird. Dann bleibt ihm nichts anderes übrig Kontakt mit dem Administrator aufzunehmen.  
+DATENBANK AUFRUF MAXMUSTERMANN
+
 \subsubsection{Email}
 Um den Registrierungsprozess zu beenden, wird dem nahestehenden User ein Token per Mail zugesendet. Dieser dient der Identifizierung und Authentifizierung und könnte folgendermaßen aussehen http://digitalschoolnotes.com/validate/
-\\dad9574635aad7d6549536db38f7839c042f7704b3bd74acc427f075d0601470. Bei der Erstellung eines solchen Tokens werden man Email-Adresse des Benutzer und das aktuelle Datum kombiniert. Diese werden miteinander verknüpft, in einen Hash umgewandelt und in die Datenbank abgespeichert. \textit{"validatetoken" : 
+\\dad9574635aad7d6549536db38f7839c042f7704b3bd74acc427f075d0601470. Bei der Erstellung eines solchen Tokens werden die Email-Adresse des Benutzer, welche als Nachweis dient um zu wissen welcher Account aktiviert werden soll und das aktuelle Datum kombiniert. Diese werden miteinander verknüpft, in einen Hash umgewandelt und in die Datenbank abgespeichert. \textit{"validatetoken" : 
 \\"f043ea6e44aea716d08ae2cb70d91bcbb50196da1eb89b4727c124508dbf0d85"}\\
-Das Datum dient dazu um dem Token ein Zeitstempel zu geben, dieser bezweckt die Gültigkeit. Wenn dieser Hash nicht in den nächsten 24 Stunden verwendet wird, dann ist der Zeitstempel abgelaufen und es muss ein neuer angefordert werden. Hingegen die Email Adresse dient dem Nachweis, welcher Account aktiviert wird.
-Im File authentication/registration.py in Zeile 23:
+Das Datum dient dazu um dem Token ein Zeitstempel zu geben, dieser bezweckt die Gültigkeit. Wenn dieser Hash nicht in den kommenden 24 Stunden eingelöst wird, verfällt dieser Token, da der Zeitstempel abgelaufen ist und es muss vom User ein neuer angefordert werden. 
+Im File authentication/registration.py in Zeile 23 ist die Umsetzung des Registrierungtoken dargestellt:
 \begin{lstlisting}
 def create_validation_token(email):
     user = User.objects.get(email=email)
@@ -201,7 +114,7 @@ def create_validation_token(email):
     return 'http://digitalschoolnotes.com/validate/' + hashed
 \end{lstlisting}
 
-Um eine Email verschicken zu können müssen folgende Konfigurationen unternommen werden. Als erstes muss im \textit{settings.py} der Email Server definiert werden.
+Um eine Email verschicken zu können müssen folgende Konfigurationen unternommen werden. Im \textit{settings.py} muss der Email-Server definiert werden.
 \begin{lstlisting}
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'mxf92d.netcup.net'
@@ -213,9 +126,13 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 \end{lstlisting}
 
 \subsubsection{Anmelden}
-Wenn der neue Benutzer den Registrierprozess erfolgreich absolviert hat, steht es jetzt frei sich anzumelden. Entweder durch Angabe der Email-Adresse und Passwort oder mittels OAuth. Mit OAuth besteht die Möglichkeit die Registrierung auszulassen und sich direkt anzumelden. OAuth steht für Open Authentication und bietet dem Nutzer die Möglichkeit Daten über einen Webserverice auszutauschen. „OAuth sichert die Programmschnittstelle von Web-Anwendungen ab und verwendet für die Übertragung der Nutzeridentifikation dessen Passwort und einen Token“\cite{OAUTH}. Bei dem Zugriff auf die sensiblen Daten muss der Benutzer keine zusätzlichen Information und auch keine Identität preisgeben. Der Provider holt sich die Benutzerdaten von Facebook oder Google+ und erstellt für den User einen Account.
+Wenn der neue Benutzer den Registrierprozess erfolgreich abgeschlossen hat, steht ihm/ihr jetzt frei sich anzumelden. Entweder durch Angabe der Email-Adresse und Passwort oder mittels OAuth. Mit OAuth besteht die Möglichkeit die Registrierung auszulassen und sich direkt anzumelden. OAuth steht für Open Authentication und bietet dem Nutzer die Möglichkeit Daten über einen Webserverice auszutauschen. „OAuth sichert die Programmschnittstelle von Web-Anwendungen ab und verwendet für die Übertragung der Nutzeridentifikation dessen Passwort und einen Token“\cite{OAUTH}. Bei dem Zugriff auf die sensiblen Daten muss der Benutzer keine zusätzlichen Information und auch keine Identität preisgeben. Der Provider holt sich die Benutzerdaten von Facebook oder Google+ und erstellt für den User einen Account.
 
-\includegraphics[width=0.35\textwidth]{images/usermanagement/Anmelden}\\
+\begin{figure}[ht]
+\includegraphics[width=0.35\textwidth]{images/usermanagement/Anmelden}
+	\caption{Klassische Anmeldung oder mittels OAuth}
+	\label{fig3}
+\end{figure}
 
 Um einen Benutzer anzumelden, muss zunächst ein User-Objekt mit der übergebenen Email Adresse von der Datenbank abgefragt werden. Sollte diese E-Mail Adresse keinem Benutzer zugeordnet sein, existiert der Benutzer noch nicht. Ansonsten muss mit \textit{.check\_password(...)} das eingegebene Passwort überprüft werden. Sollte dieses korrekt sein, kann der User angemeldet werden. Dazu muss das Authentication-Backend und ein Session Timeout gesetzt werden und der Benutzer über die Funktion \textit{login()} eingeloggt werden:
 \begin{lstlisting}
@@ -235,13 +152,30 @@ Um einen angemeldeten Benutzer wieder abzumelden muss lediglich folgende Funktio
 
 \subsubsection{Usersicht}
 
-\includegraphics[width=0.35\textwidth]{images/usermanagement/Usersicht}\\
+\begin{figure}[ht]
+\includegraphics[width=0.85\textwidth]{images/usermanagement/Usersicht}
+	\caption{Navigationsleiste als User}
+	\label{fig4}
+\end{figure}
 
 Ein angemeldeter Benutzer kann seine Benutzerinformationen nachgiebig unter Kontoeinstellungen ändern. Für die Änderung seiner Daten, muss aus Sicherheitsgründen, dass aktuelle Passwort eingegeben werden.
 
-\includegraphics[width=0.35\textwidth]{images/usermanagement/Kontoeinstellungen}\\
+\begin{figure}[ht]
+\includegraphics[width=0.35\textwidth]{images/usermanagement/Kontoeinstellungen}
+	\caption{Kontoeinstellungen}
+	\label{fig5}
+\end{figure}
 
-Im System befinden sich drei verschiedene Berechtigungsstufen, welche sind: der Standard-Benutzer, Pro-Benutzer und Administrator. Jedem/r registrierten AnwenderIn ist zu Beginn ein Standard-Benutzer. Ihnen stehen eine begrenzte Anzahl an digitalen Heften zur Verfügung. Durch eine geringe monatliche Zahlung kann der Standard-Account zum Pro-Account upgegradet werden, wodurch dem/r SchülerIn erweiterte Funktion angeboten werden. Zum einen stehen mehr Hefte zur Verfügung, es wird keine Werbung angezeigt, sowie keine Speicherbeschränkung. Die letzte Berechtigungsstufe sind Administratoren. Sie sind ebenfalls Pro-User, haben im Gegensatz einen eigenen Admin-Bereich, wo sämtliche Daten über Benutzer verwaltet und kontrolliert werden können. Dieser Bereich kann mit /admin nach der URL aufgerufen werden. Er unterscheidet sich durch den schwarzen Menübalken.
+Im System befinden sich drei verschiedene Berechtigungsstufen, welche sind: der Standard-Benutzer, Pro-Benutzer und Administrator. Jedem/r registrierten AnwenderIn ist zu Beginn ein Standard-Benutzer. Ihnen stehen eine begrenzte Anzahl an digitalen Heften zur Verfügung. Durch eine geringe monatliche Zahlung kann der Standard-Account zum Pro-Account upgegradet werden, wodurch dem/r SchülerIn erweiterte Funktion angeboten werden. Zum einen stehen mehr Hefte zur Verfügung, es wird keine Werbung angezeigt, sowie keine Speicherbeschränkung. Die letzte Berechtigungsstufe sind Administratoren. Sie sind ebenfalls Pro-User, haben im Gegensatz einen eigenen Admin-Bereich, wo sämtliche Daten über Benutzer verwaltet und kontrolliert werden können. Dieser Bereich kann mit /admin nach der URL aufgerufen werden. Er unterscheidet sich durch den schwarzen Menübalken.\\
+Jede/r BenutzerIn hat die Möglichkeit nach seinen Freunden oder anderen registrierten Anwendern zu suchen. Rechts oben in der Navigationleiste befindet sich ein Suchbalken, der es Anwendern ermöglicht nach Vornamen, Nachnamen oder nach Email-Adressen zu suchen.
+
+\begin{figure}[ht]
+\includegraphics[width=0.85\textwidth]{images/usermanagement/Search}
+	\caption{Usersuche}
+	\label{fig6}
+\end{figure}
+
+Bei Klick auf den gefundenen User gelangt auf dessen Profil. Auf dem Profil ist zu einem der volle Name zu sehen, die Email-Adresse und die Berechtigungsstufe, ob es sich um einen Standardbenutzer, Pro-Benutzer oder Administrator handelt. Ein weiterer wichtiger Punkt sind die öffentlichen Hefte. Jeder User ist in der Lage von öffentlichen Heften andere einzelne Seiten zu exportieren.
 
 \subsubsection{Adminsicht}
 
