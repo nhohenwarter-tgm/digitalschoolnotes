@@ -492,7 +492,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
                 scope: $scope
             });
         }else{
-            if(file.size < 5242880) {
+            if(file.size > 5242880) {
                 $scope.errormessage = "file size is more than 5MB";
             }else{
                 $scope.errormessage = "filetyp is not supported";
@@ -535,7 +535,7 @@ mainApp.controller('notebookEditCtrl', function ($scope, $http, $stateParams, $s
                 scope: $scope
             });
         }else{
-            if(file.size < 5242880) {
+            if(file.size > 5242880) {
                 $scope.errormessage = "file size is more than 5MB";
             }else{
                 $scope.errormessage = "filetyp is not supported";
