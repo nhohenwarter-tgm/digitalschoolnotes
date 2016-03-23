@@ -16,7 +16,7 @@ Ein weiterer Identitätspunkt wäre, dass zu geheim haltenden Passwort, welches 
 
 Um auszuschließen, dass sich eine Software bzw. ein Roboter einen Account auf DSN erstellt, wird ein Captcha verwendet. Ein Captcha dient zur Sicherheit und soll überprüfen wer die Eingabe tätigte.
 Um das Captcha anzuzeigen muss eine JS Lib eingebunden werden \cite{CAPTCHA}.
-\begin{lstlisting}
+\begin{lstlisting}[caption={Einbindung der JS-Library Recaptcha}]
 <script src="https://www.google.com/recaptcha/api.js?
 onload=vcRecaptchaApiLoaded&render=explicit" async defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-recaptcha/2.2.5/
