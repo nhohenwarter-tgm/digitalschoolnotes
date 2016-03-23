@@ -81,7 +81,7 @@ target/
 *.out
 *.synctex.gz
 *.lol
-
+DA.pdf
 #Mac
 Thumbs.db
 
