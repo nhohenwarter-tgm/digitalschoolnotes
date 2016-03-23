@@ -1,4 +1,77 @@
 %\section*{Datenmanagement}
 \cfoot{Selina Brinnich}
 
-%Text...
+Ein gutes Datenmanagement ist eine Grundvoraussetzung für eine
+gut funktionierende Applikation. Alle Daten müssen persistiert werden, um nicht verloren zu gehen. Zudem soll durch ein gut organisiertes Datenmanagement eine einfache und effiziente Verwaltung der Daten gesichert werden.
+
+\subsubsection{Persistierung von Daten}
+Die Persistierung von Daten ist besonders wichtig. Das Abspeichern aller Daten dient dem Zweck, die Daten auch zu einem späteren Zeitpunkt oder beispielsweise nach einem Reboot des Servers noch abrufen zu können. Um das zu erreichen, wird eine Datenbank benötigt, die sich um die Persistierung kümmert. Dabei wird zwischen zwei Arten von Datenbankkonzepten unterschieden: Relationale Datenbanken und NoSQL Datenbanken. Im folgenden werden beide Konzepte näher erläutert und ein Vergleich zwischen den beiden Arten erstellt.
+\paragraph{Relationale Datenbanken}
+% Erklärung Relationale DB...
+% Vorteile + Nachteile
+\paragraph{NoSQL Datenbanken}
+% Erklärung NoSQL DB...
+% Vorteile + Nachteile
+\paragraph{Vergleich}
+% Was war uns wichtig...
+% Warum NoSQL, warum MongoDB...
+
+
+\subsubsection{Datenmodell}
+Um einen einheitlichen Zugriff auf Daten zu ermöglichen, muss ein Datenmodell entwickelt werden. Ein Datenmodell bezeichnet eine Struktur beziehungsweise den Aufbau der einzelnen Datensätze. Dabei ist zu beachten, dass in der Applikation Daten unterschiedlichster Art gespeichert werden. Das bedeutet, dass diese unterschiedlichen Typen logischerweise auch unterschiedliche Datenmodelle zugrunde haben müssen. Zur Organisation dieser unterschiedlichen Arten von Daten gibt es in MongoDB sogenannte Collections. Diese Collections beinhalten alle Datensätze eines Typs, beispielsweise alle Einträge von Benutzern. In unserer Applikation gibt es folgende Collections:
+\begin{itemize}
+\item \textbf{user}\\ Zur Abspeicherung von Benutzeraccounts
+\item \textbf{notebook}\\ Zur Abspeicherung von Schulheften; beinhaltet auch alle Daten innerhalb des Heftes (Texte, Bilder,...)
+\item \textbf{time\_table}\\ Zur Abspeicherung eines Stundenplans; beinhaltet die einzelnen Stundenzeiten sowie eine Fachbezeichnung, einen Lehrer und einen Raum pro Tag und Stunde
+\end{itemize}
+
+\paragraph{User}
+Die Collection \textit{user} beinhaltet alle relevanten Daten zur Abspeicherung von Benutzeraccounts. Folgendes Datenmodell liegt dem zugrunde:
+\begin{itemize}
+\item \textbf{\_id}\\ Eine Object-ID zur eindeutigen Identifizierung eines Eintrags
+\item \textbf{email}\\ Die E-Mail Adresse des jeweiligen Benutzers
+\item \textbf{first\_name}\\ Der Vorname des jeweiligen Benutzers
+\item \textbf{last\_name}\\ Der Nachname des jeweiligen Benutzers
+\item \textbf{password}\\ Ein Hash eines selbst definierten Passwortes des jeweiligen Benutzers
+\item \textbf{is\_prouser}\\ Beschreibt, ob der jeweilige Benutzer einen Pro-Account besitzt
+\item \textbf{is\_active}\\ Beschreibt, ob der jeweilige Benutzer bereits seine E-Mail Adresse bestätigt hat
+\item \textbf{is\_superuser}\\ Beschreibt, ob der jeweilige Benutzer ein Administrator der Applikation ist
+\item \textbf{last\_login}\\ Das Datum, an dem der jeweilige Benutzer sich das letzte Mal erfolgreich an der Applikation angemeldet hat
+\item \textbf{date\_joined}\\ Das Datum, an dem der jeweilige Benutzer sich an der Applikation registriert hat
+\item \textbf{validatetoken}\\ Ein Hash, der als Token zur Bestätigung der E-Mail Adresse des jeweiligen Benutzers dient, sofern dieser die Bestätigung noch nicht durchgeführt hat
+\item \textbf{passwordreset}\\ Ein Hash sowie ein Datum, welche zur Zurücksetzung des Passwortes des jeweiligen Benutzers dienen, sofern dieser angegeben hat, sein Passwort vergessen zu haben
+\end{itemize}
+Benutzer werden innerhalb der Applikation mithilfe ihrer E-Mail Adresse identifiziert. Das bedeutet, dass die Eigenschaft \textit{email} bei jedem Eintrag in der Datenbank einzigartig sein muss, ebenso wie die ID des Eintrags.
+
+\paragraph{Notebook}
+Die Collection \textit{notebook} beinhaltet die Daten, die ein einzelnes Heft betreffen. Dazu wird folgende Struktur definiert:
+\begin{itemize}
+\item \textbf{\_id}\\ Eine Object-ID zur eindeutigen Identifizierung eines Eintrags
+\item \textbf{name}\\ Der Anzeigename des Heftes, der vom Benutzer festgelegt wurde
+\item \textbf{is\_public}\\ Beschreibt, ob das Heft öffentlich (von allen Benutzern der Applikation) einsehbar ist
+\item \textbf{create\_date}\\ Das Erstellungsdatum des Heftes
+\item \textbf{last\_change}\\ Das Datum, an dem das Heft das letzte Mal bearbeitet wurde
+\item \textbf{email}\\ Die E-Mail Adresse des Besitzers des Heftes
+\item \textbf{numpages}\\ Die Anzahl an Seiten, die das Heft besitzt
+\item \textbf{current\_page}\\ Die Seite, die aufgeschlagen wird, sobald der Benutzer das Heft das nächste Mal öffnet
+\item \textbf{content}\\ Eine Liste, die alle Inhalte des Heftes (Texte, Bilder,...) beinhaltet
+\item \textbf{collaborator} Eine Liste an E-Mail Adressen von Benutzern der Applikation, die neben dem Besitzer des Heftes ebenfalls die Inhalte des Heftes bearbeiten dürfen
+\end{itemize}
+Der Name eines Heftes ist pro Benutzer einzigartig zu vergeben, um das Heft identifizieren zu können. Abgesehen von der Eigenschaft \textit{\_id} kann ein Heft also auch mithilfe der beiden Eigenschaften \textit{name} und \textit{email} eindeutig identifiziert werden. Die Eigenschaft \textit{content} besteht aus einer Liste. Diese Liste beinhaltet individuell viele JSON-Objekte, die jeweils ein Objekt innerhalb des Heftes darstellen (Text, Bild,...). Diese JSON-Objekte bestehen wiederum aus einer ID zur Identifizierung, der Art des Elementes (Textelement, Bildelement,...), der genauen Position innerhalb des Heftes (Seitenzahl und x-Koordinate, sowie y-Koordinate auf dieser Seite) und dem eigentlichen Inhalt, beispielsweise dem Text den der Benutzer eingegeben hat, sollte es sich um ein Textelement handeln.
+
+\paragraph{Timetable}
+In der Collection \textit{time\_table} werden alle Daten der Stundenpläne von Benutzern gespeichert. Das beinhaltet sowohl die einzelnen Fächer, Lehrer und Räume pro Stunde, als auch die per Benutzer definierten Zeiten für jede Stunde. Zur Persistierung wird folgendes Datenmodell verwendet:
+\begin{itemize}
+\item \textbf{\_id}\\ Eine Object-ID zur eindeutigen Identifizierung eines Eintrags
+\item \textbf{email}\\ Die E-Mail Adresse des Benutzers, dem der Stundenplan zugeordnet ist
+\item \textbf{times}\\ Eine Liste, die die Anfangs- und Endzeiten jeder Stunde im Stundenplan enthält
+\item \textbf{fields}\\ Eine Liste, die alle einzelnen Stunden im Stundenplan mit Fach, Lehrer und Raum enthält
+\end{itemize}
+Der Stundenplan wird einem Benutzer mithilfe der Eigenschaft \textit{email} zugeordnet und damit auch eindeutig identifiziert, da jeder Benutzer nur einen Stundenplan besitzen kann. \\
+Die Eigenschaften \textit{times} und \textit{fields} sind jeweils Listen, die mehrere JSON-Objekte enthalten.Ein JSON-Objekt in der Liste \textit{times} enthält die jeweilige Stunde (1-xx) und die Anfangs- und Endzeit für diese Stunde. Ein JSON-Objekt in der Liste \textit{fields} enthält eine ID zum Identifizieren der jeweiligen Stunde (Zusammengesetzt aus Reihenzahl und Spaltenzahl im Stundenplan), eine Bezeichnung des Faches, das in dieser Stunde unterrichtet wird, dem Namen des Lehrers, der das jeweilige Fach unterrichtet und dem Raum, in dem der Unterricht stattfindet, sowie ein Heftname eines Heftes, das dem jeweiligen Benutzer gehört. Mithilfe des Heftnamens kann ein Heft mit einer Stunde im Stundenplan verknüpft und zugeordnet werden.
+
+\subsubsection{Datenzugriff}
+Der Zugriff auf Daten in der Datenbank kann über zwei Arten erfolgen. Entweder es wird direkt über die Konsole von MongoDB zugegriffen, oder der Datenzugriff erfolgt über die Applikation. \\
+Der Zugriff auf Daten bezeichnet dabei unterschiedliche Operationen. Es können neue Daten erstellt, vorhandene Daten ausgelesen und bestehende Daten bearbeitet oder gelöscht werden.
+\paragraph{Direkter Zugriff auf die Datenbank}
+\paragraph{Zugriff aus der Applikation}
