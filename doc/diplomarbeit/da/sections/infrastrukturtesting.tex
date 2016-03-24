@@ -104,14 +104,14 @@ Als Webserver für unsere Applikation wurde Nginx gewählt. Dieser wurde vor all
 Der Webserver ist hauptsächlich für den statischen Content(HTML, Javascript, CSS, Bilder...) zuständig. Die funktioniert indem alle statischen Inhalte in einem Ordner abgelegt werden. Damit weiß Nginx, dass er für diese Inhalte zuständig ist.
 
 \paragraph{SSL}
-Um die Daten und Privatsphäre unserer Kunden zu schützen wird bei allen Aufrufen der Website mit \gls{SSL} verschlüsselt. Um eine legitime SSL Verschlüsselung zu gewährleisten ist ein valides Zertifikat notwendig. Dieses muss von einer Zertifizierungsstelle erworben werden. Das verwendete Zertifikat für das Projekt wurde von der Zertifizierungsstelle namens thawte Inc. erworben. \\
+Um die Daten und Privatsphäre unserer Kunden zu schützen wird bei allen Aufrufen der Website mit \gls{SSL} verschlüsselt. Um eine legitime SSL Verschlüsselung zu gewährleisten ist ein valides Zertifikat notwendig. Dieses muss von einer Zertifizierungsstelle erworben werden. Das verwendete Zertifikat für das Projekt wurde von der Zertifizierungsstelle namens thawte Inc. erworben. 
 
-Das Zertifikat validiert die Domain(Domain Validated). Das bedeutet, dass zur Austellung des Zertifikates eine Email an den Besitzer der Domain geschickt wird. Wenn der Besitzer der Doamin der Zertifizierung zustimmt wird diese durchgeführt. \\
+Das Zertifikat validiert die Domain(Domain Validated). Das bedeutet, dass zur Austellung des Zertifikates eine Email an den Besitzer der Domain geschickt wird. Wenn der Besitzer der Doamin der Zertifizierung zustimmt wird diese durchgeführt. 
 
 Um das Zertifikat nun verwenden zu können muss es mit dem Intermediate Zertifikat der Zertifizierungsstelle verbunden werden. Dadurch ist ein eindeutiger Zertifizierungsfluss hergestellt. Dannach kann es auf den Webserver deployed werden.
    
 \paragraph{Produktivbetrieb}
-Im Produktivbetrieb ist der Betrieb der Software auf zwei Dienste aufgeteilt. Der statische Teil der Applikation wird wie bereits vorhin beschrieben von Nginx dem User zur Verfügung gestellt. \\
+Im Produktivbetrieb ist der Betrieb der Software auf zwei Dienste aufgeteilt. Der statische Teil der Applikation wird wie bereits vorhin beschrieben von Nginx dem User zur Verfügung gestellt. 
 
 Der dynamische Teil - das Backend - stellt unser Django Server dar. Hier werden die kritischen Operationen wie Datenbankzugriffe oder die Authentifizierung durchgeführt. Wird nun unsere \gls{API} (der dynamische Teil) aufgerufen, leitet Nginx die Anfrage an den Django Server weiter. \\
 
@@ -119,20 +119,20 @@ Der dynamische Teil - das Backend - stellt unser Django Server dar. Hier werden 
 
 Der Django Server läuft mittels gunicorn. Gunicorn ist ein \gls{WSGI} HTTP Server und somit die Schnittstelle zwischen dem Webserver und Django. Gunicorn startet für Django mehrere Worker Prozesse, wodurch die Anfragen theoretisch auf mehrere CPU Kerne aufgeteilt werden können. Desweiteren startet es die einzelnen Prozesse automatisch neu falls diese abstürzen.
 \paragraph{Testbetrieb}
-Der Testbetrieb läuft relativ ähnlich wie der Produktivbetrieb ab. Jedes Teammitglied arbeitet an einer eigenen Instanz des Codes. Dadurch behindert sich das Team nicht gegenseitig falls Fehler auftreten. Um dies zu ermöglichen hat jede Person einen eigenen Port zugewiesen bekommen auf der seine Version der Applikation zu erreichen ist. \\
+Der Testbetrieb läuft relativ ähnlich wie der Produktivbetrieb ab. Jedes Teammitglied arbeitet an einer eigenen Instanz des Codes. Dadurch behindert sich das Team nicht gegenseitig falls Fehler auftreten. Um dies zu ermöglichen hat jede Person einen eigenen Port zugewiesen bekommen auf der seine Version der Applikation zu erreichen ist. 
 
 Hat diese Person nun eine Änderung am Code vorgenommen muss dieser auf den Server hochgeladen werden. Nun kann innerhalb der IDE der Django Server gestartet und beendet werden. Dies ist wichtig, da dadurch auch die Fehlermeldungen von Django innerhalb der \gls{IDE} sichtbar sind. Für den statischen Teil ist auch hier Nginx zuständig.
 
 \newpage
 
 \paragraph{Verfügbarkeit}
-Um in Zukunft die Verfügbarkeit zu verbessern gibt es vile Möglichkeiten. Um die Wahrscheinlichkeit eines kritischen Serverausfalles zu reduzieren könnten mehrere Server angemietet werden. Eine andere Möglichkeit wäre es das Hosting in eine Cloud auszulagern(Amazon Web Services, Google, Azure...). \\
+Um in Zukunft die Verfügbarkeit zu verbessern gibt es vile Möglichkeiten. Um die Wahrscheinlichkeit eines kritischen Serverausfalles zu reduzieren könnten mehrere Server angemietet werden. Eine andere Möglichkeit wäre es das Hosting in eine Cloud auszulagern(Amazon Web Services, Google, Azure...). 
 
-Um die Performance und Verfügbarkeit zu erhöhen sollte ein Loadbalancer verwendet werden. Dieser teilt die eingehenden Anfragen auf mehrere andere Server auf und reduziert damit die Last der einzelnen Server und erhöht die Performance. Hierbei ist darauf zu achten, dass der Loadbalancer Healthchecks durchführen muss. Mithilfe dieser kann der Loadbalancer überprüfen ob die Server noch aktiv sind und somit Anfragen entgegennehmen und bearbeiten können. Sollte ein Server ausfallen leitet der Loadbalancer keine Anfragen mehr an diesen weiter. Der Loadbalancer sollte redundant ausgeführt sein, da ohne ihn die Seite nicht mehr erreichbar ist. \\
+Um die Performance und Verfügbarkeit zu erhöhen sollte ein Loadbalancer verwendet werden. Dieser teilt die eingehenden Anfragen auf mehrere andere Server auf und reduziert damit die Last der einzelnen Server und erhöht die Performance. Hierbei ist darauf zu achten, dass der Loadbalancer Healthchecks durchführen muss. Mithilfe dieser kann der Loadbalancer überprüfen ob die Server noch aktiv sind und somit Anfragen entgegennehmen und bearbeiten können. Sollte ein Server ausfallen leitet der Loadbalancer keine Anfragen mehr an diesen weiter. Der Loadbalancer sollte redundant ausgeführt sein, da ohne ihn die Seite nicht mehr erreichbar ist. 
 
-Um die Performance der Datenbank zu erhöhen sollte diese auf einem eigenen Server betrieben werden. Des Weiteren sollte hier Loadbalancing oder Clustering betrieben werden um die Ausfallssicherheit zu erhöhen. \\
+Um die Performance der Datenbank zu erhöhen sollte diese auf einem eigenen Server betrieben werden. Des Weiteren sollte hier Loadbalancing oder Clustering betrieben werden um die Ausfallssicherheit zu erhöhen. 
 
-Die Applikation sollte in Containern(z.B. Docker) mit Containermanagement deployed werden um die Verfügbarkeit zu erhöhen. Somit könnte bei einem Fehler der Container einfach entfernt und ein neuer gestartet werden. \\
+Die Applikation sollte in Containern(z.B. Docker) mit Containermanagement deployed werden um die Verfügbarkeit zu erhöhen. Somit könnte bei einem Fehler der Container einfach entfernt und ein neuer gestartet werden. 
 
 Um die Erreichbarkeit der Domain zu gewährleisten sollten redundante DNS Server verwendet werden. Hier gibt es auch die Möglichkeit ein CDN Network (z.B. Cloudflare, Cloudfront...) zu verwenden um einen Performancevorteil zu erlangen. Durch das CDN wird auch die Serverlast reduziert.
 
@@ -141,7 +141,7 @@ Um die Erreichbarkeit der Domain zu gewährleisten sollten redundante DNS Server
 Um eine Einwandfreihe Benutzung einer Software zu ermöglichen muss diese getestet werden. Mittels Tests können Fehler gefunden und repariert werden. Um Zeit zu Sparen werden diese Tests mit Testing-Frameworks automatisiert.
 
 \paragraph{Testing Level}
-Beim Softwaretesting wird in zwei Kategorien eingeteilt: Functional Testing und Non-functional Testing. Functional Testing testet definierte Spezifikationen. Damit soll sichergestellt werden, dass die Applikation sich so verhält wie erwartet. Non-functional Testing testet Dinge wie Performance und Erreichbarkeit.\cite{TESTING1}\\
+Beim Softwaretesting wird in zwei Kategorien eingeteilt: Functional Testing und Non-functional Testing. Functional Testing testet definierte Spezifikationen. Damit soll sichergestellt werden, dass die Applikation sich so verhält wie erwartet. Non-functional Testing testet Dinge wie Performance und Erreichbarkeit.\cite{TESTING1}
 
 Das Functional Testing lässt sich in vier Level aufteilen, welche auch in folgender Grafik dargestellt werden.
 
@@ -158,9 +158,9 @@ Bei System Tests wird die ganze Applikation getestet. Hier ist es das Ziel die S
 Acceptance Tests sind das letzte Test Level. Hier wird geprüft ob die Softwareversion für eine Veröffentlichung bereit ist. Dazu müssen die Endanwender ausprobieren ob die Software wie gewünscht funktioniert. \cite{TESTING3}
 
 \paragraph{Testerstellung}
-Die einzelnen Tests werden in Java programmiert. Beim ausführen der Tests wird ein Browser gestartet welcher dann die gewünschten Websiteaufrufe tätigt. Tests können zu Test Suites zusammengefasst werden. Dadurch werden alle Tests in der Suite nacheinander ausgeführt. \\
+Die einzelnen Tests werden in Java programmiert. Beim ausführen der Tests wird ein Browser gestartet welcher dann die gewünschten Websiteaufrufe tätigt. Tests können zu Test Suites zusammengefasst werden. Dadurch werden alle Tests in der Suite nacheinander ausgeführt. 
 
-Um im Browser auf ein Element mit Selenium klicken zu können muss dieses eindeutig identifizierbar sein. Hierbei gibt es mehrere Möglichkeiten. Eine eindeutige Identifizierung ist über ID, Name, CSS Klasse, Link Text oder XPATH möglich. \\
+Um im Browser auf ein Element mit Selenium klicken zu können muss dieses eindeutig identifizierbar sein. Hierbei gibt es mehrere Möglichkeiten. Eine eindeutige Identifizierung ist über ID, Name, CSS Klasse, Link Text oder XPATH möglich. 
 
 \begin{lstlisting}[caption = Selenium Element Selektoren, label = testing1]
 driver.findElement(By.id("email")).click();
@@ -170,7 +170,7 @@ driver.findElement(By.partialLinkText("Klick mich")).click();
 driver.findElement(By.xpath("//*[contains(text(), 'Mail senden')]")).click();
 \end{lstlisting}
 
-Selenium kann auch Formulare ausfüllen. Dazu muss das Element eindeutig angesprochen werden und dann kann wie oben im Beispiel statt dem \textit{.click()} ein \textit{.sendKeys("")} verwendet werden. \\
+Selenium kann auch Formulare ausfüllen. Dazu muss das Element eindeutig angesprochen werden und dann kann wie oben im Beispiel statt dem \textit{.click()} ein \textit{.sendKeys("")} verwendet werden. 
 
 \newpage
 
@@ -189,10 +189,10 @@ if(!page.contains("Bitte bestaetige zuerst deine E-Mail Adresse!")) throw new No
 \end{lstlisting}
 
 \paragraph{Probleme}
-Die Verwendung des Selenium Frameworks bereitete einige Probleme. Selenium kann nur mit Elementen interagieren welche auch sichtbar sind. Dadurch können z.B. Buttons welche nur bei Hover angezeigt werden schwer getestet werden. Hierführ muss Selenium zuerst die Maus in die Hover Region bewegen und kann erst dann den Button drücken \\
+Die Verwendung des Selenium Frameworks bereitete einige Probleme. Selenium kann nur mit Elementen interagieren welche auch sichtbar sind. Dadurch können z.B. Buttons welche nur bei Hover angezeigt werden schwer getestet werden. Hierführ muss Selenium zuerst die Maus in die Hover Region bewegen und kann erst dann den Button drücken 
 
-Um ein Element Testen zu können muss es eindeutig identifizierbar sein. Dies ist allerdings bei vielen Elementen in unserer Software nicht möglich. Zum Beispiel sind die einzelnen Buttons im Texteditor im Heft nicht eindeutig identifizierbar. Diese können also nicht automatisiert getestet werden. Stattdessen wurden hier geführte Acceptance Tests durchgeführt. Das bedeutet, dass Selenium die Seite aufruft, eine Anweisung an den User gibt und dannach fragt ob das gewünschte Ergebnis eingetroffen ist. \\
+Um ein Element Testen zu können muss es eindeutig identifizierbar sein. Dies ist allerdings bei vielen Elementen in unserer Software nicht möglich. Zum Beispiel sind die einzelnen Buttons im Texteditor im Heft nicht eindeutig identifizierbar. Diese können also nicht automatisiert getestet werden. Stattdessen wurden hier geführte Acceptance Tests durchgeführt. Das bedeutet, dass Selenium die Seite aufruft, eine Anweisung an den User gibt und dannach fragt ob das gewünschte Ergebnis eingetroffen ist. 
 
-Die auf DSN verwendeten Captchas bei der Registrierung und dem Passwort Reset können ebenfalls nicht automatisiert getestet werden. Captchas sollen im Endeffekt die automatische Ausfüllung eines Formulares ja auch verhindern. Bei einem Test füllt Selenium das Formular bis auf das Captcha aus. Das Captcha muss dann händisch gelöst werden. \\
+Die auf DSN verwendeten Captchas bei der Registrierung und dem Passwort Reset können ebenfalls nicht automatisiert getestet werden. Captchas sollen im Endeffekt die automatische Ausfüllung eines Formulares ja auch verhindern. Bei einem Test füllt Selenium das Formular bis auf das Captcha aus. Das Captcha muss dann händisch gelöst werden. 
 
 Die Tests werden relativ langsam ausgeführt. So dauert es ca. 30 Minuten alle DSN Tests auszuführen. Dies liegt vor allem an der Netwerklatenz der einzelnen Websiteaufrufe. Die Tests könnten paralellisiert auf mehreren Servern ausgeführt werden, jedoch ist die Einrichtung eines solchen Testing Clusters kompliziert.
