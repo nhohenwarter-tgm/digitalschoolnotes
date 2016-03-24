@@ -72,6 +72,96 @@ Die Eigenschaften \textit{times} und \textit{fields} sind jeweils Listen, die me
 
 \subsubsection{Datenzugriff}
 Der Zugriff auf Daten in der Datenbank kann über zwei Arten erfolgen. Entweder es wird direkt über die Konsole von MongoDB zugegriffen, oder der Datenzugriff erfolgt über die Applikation. \\
-Der Zugriff auf Daten bezeichnet dabei unterschiedliche Operationen. Es können neue Daten erstellt, vorhandene Daten ausgelesen und bestehende Daten bearbeitet oder gelöscht werden.
+Der Zugriff auf Daten bezeichnet dabei unterschiedliche Operationen. Es können neue Daten erstellt, vorhandene Daten ausgelesen und bestehende Daten bearbeitet oder gelöscht werden. Wie all diese Operationen jeweils auf beide der genannten Arten des Zugriffs durchgeführt werden können, wird im folgenden näher erläutert.
 \paragraph{Direkter Zugriff auf die Datenbank}
+Ein direkter Zugriff auf Daten in der Datenbank kann über die Konsole von MongoDB ausgeführt werden. Die Konsole kann nach Installieren von MongoDB mithilfe dem Befehl \textit{mongo} geöffnet werden. Anschließend können weitere Operationen durchgeführt werden.
+
+Um eine Datenbank für den Datenzugriff auszuwählen, wird der Befehl \textit{use dbname} benötigt. Dieser erstellt auch gleichzeitig eine neue Datenbank, sollte noch keine mit dem angegebenen Namen existieren. Nach Auswählen der gewünschten Datenbank können nun Collections angelegt werden, um die Daten später besser zu organisieren. Dies geschieht mittels dem Befehl \textit{db.createCollection(collname)}. MongoDB kann allerdings auch automatisch eine neue Collection erstellen, sobald versucht wird einen neuen Datensatz in eine bisher nicht existente Collection einzufügen.
+
+Nachdem eine Datenbank und Collections angelegt wurden, können weitere Operationen durchgeführt werden.
+
+Mithilfe des Befehls \textit{db.collname.insert(document)} kann ein neuer Datensatz in eine gewünschte Collection eingefügt werden. \textit{document} bezeichnet dabei einen JSON-String. Dieser kann beispielsweise folgendermaßen aussehen:\\
+\textit{\{"name":"Test", \"email":"test@email.com"\}}\\
+Der String kann dabei aus beliebig vielen Key-Value Paaren bestehen.
+
+Der Befehl \textit{db.collname.find()} kann dazu verwendet werden, bestehende Datensätze innerhalb einer Collection zu suchen und anzuzeigen. Dabei kann optional ein Parameter angegeben werden, um  Suchkriterien festzulegen. Um beispielsweise Benutzer mit einem bestimmten Namen zu suchen, kann folgendermaßen vorgegangen werden:\\
+\textit{db.user.find(\{"name":"Test"\})}\\
+Hierbei würden nun alle Benutzer mit dem Namen "Test" angezeigt werden. Sollte nur ein Suchergebnis erwartet werden, kann zudem auch der Befehl \textit{.findOne()} verwendet werden.
+
+Mithilfe von \textit{db.collname.update(criteria,updated)} kann ein bestehender Datensatz verändert werden. \textit{criteria} entspricht dabei einem JSON-String, der als Suchkriterium dient. Nur Datensätze, die diesem Kriterium entsprechen, werden verändert. \textit{updated} bezeichnet den neuen JSON-String, durch den der alte Datensatz ersetzt werden soll. Soll nicht der ganze Datensatz ersetzt werden, sondern lediglich ein oder mehrere Eigenschaften des bestehenden Datensatzes, so kann \textit{\$set} folgendermaßen verwendet werden:\\
+\textit{db.user.update(\{"name":"Test"\},\{\$set:\{"name":"Test2"\}\},\{multi:true\})}\\
+Hier werden alle Datensätze in der Collection \textit{user}, die den Namen "Test" haben so bearbeitet, dass nun "Test2" als Name festgelegt wird. Der zusätzliche Parameter \textit{\{multi:true\}} besagt dabei, dass nicht nur der erste Datensatz, der auf das Suchkriterium zutrifft, bearbeitet werden soll, sondern alle, die dem Muster entsprechen.
+
+Um einen bereits bestehenden Datensatz wieder aus der Collection zu löschen, kann der Befehl \textit{db.collname.remove()} verwendet werden. Sollte hierbei kein Parameter angegeben werden, werden alle Datensätze aus der Collection gelöscht. Mithilfe eines JSON-Strings als Parameter kann das Löschen auf Datensätze beschränkt werden, die einem bestimmten Kriterium entsprechen.
+
 \paragraph{Zugriff aus der Applikation}
+Um innerhalb der Applikation auf Daten aus der Datenbank zugreifen zu können, muss Django entsprechend konfiguriert werden. Django unterstützt standardmäßig lediglich relationale DBMS. Da im Projekt jedoch als Datenbank die NoSQL-Datenbank “MongoDB” verwendet wird, muss dies extra konfiguriert werden.
+
+Dazu muss MongoEngine, ein Verbindungsstück zwischen Django und MongoDB, installiert werden. Dabei sollte die Version 0.9.0 verwendet werden, da die neueste Version 0.10.0 aktuell einen Bug hat, durch welchen man sich nicht mehr mit einer Datenbank verbinden kann.\\
+\textit{pip3 install mongoengine==0.9.0}
+
+Um Django mitzuteilen, dass MongoDB im Hintergrund verwendet werden soll, müssen im File \textit{prototype/settings.py} folgende Zeilen auskommentiert beziehungsweise hinzugefügt werden:
+
+\begin{lstlisting}[caption=MongoDB Konfiguration in Django]
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#    }
+#}
+import mongoengine
+
+DATABASES = {
+    'default': {
+        'ENGINE': '',
+    },
+}
+SESSION_ENGINE = 'mongoengine.django.sessions'
+
+_MONGODB_HOST = 'localhost' #Hostname
+_MONGODB_NAME = 'dsn' #DB-Name
+_MONGODB_DATABASE_HOST = 'mongodb://%s' % (_MONGODB_HOST)
+mongoengine.connect(_MONGODB_NAME, host=_MONGODB_DATABASE_HOST)
+\end{lstlisting}
+
+Um von Django aus auf Daten in MongoDB zugreifen beziehungsweise neue Daten hineinspeichern zu können, müssen vorher sogenannte Models erstellt werden. Diese sind im File \textit{models.py} definiert und bilden die Struktur der Daten in der Datenbank ab. Dies kann beispielsweise folgendermaßen aussehen:
+
+\begin{lstlisting}[caption=Beispiel für ein Datenbankmodell in Django]
+from mongoengine import *
+
+class Notebook(Document):
+    name = StringField(max_length=30)
+    is_public = BooleanField()
+    create_date = DateTimeField()
+    last_change = DateTimeField()
+    email = EmailField()
+\end{lstlisting}
+
+Der Klassenname (hier: Notebook) entspricht in der Datenbank später dem Collection-Namen. Wichtig bei der Klassendefinition ist, dass von \textit{Document} geerbt wird. \textit{Document} definiert Funktionen zum Auslesen der Daten der entsprechenden Collection aus der Datenbank, zum Erstellen eines neuen Objektes und zum Abspeichern des Objektes in der Datenbank. Die einzelnen Attribute der Klasse werden in der Datenbank als JSON abgebildet, wobei der Key der Name des Attributes ist.
+
+Nachdem MongoEngine innerhalb von Django konfiguriert wurde und alle benötigten Datenbankmodelle aller verwendeten Collections erstellt wurden, können Operationen zum Hinzufügen, Lesen, Bearbeiten und Löschen von Datensätzen in der Datenbank in den entsprechenden Collections ausgeführt werden.
+
+Mittels \textit{collectionName.objects()} können bestehende Datensätze der entsprechenden Collection ausgelesen werden. Dabei liefert MongoEngine alle Objekte aus der angegeben Collection. Wenn nicht alle Objekte einer Collection gefragt sind, sondern nur eine gewisse Anzahl, können diese mit folgendem Befehl abgefragt werden:\\
+\textit{Tabellenname.objects[x:y]}
+
+Um bestimmte Objekte innerhalb einer Collection nach selbst definierten Suchkriterien zu filtern kann folgende Syntax verwendet werden:
+
+\begin{lstlisting}[caption=Syntax für eine Suchanfrage an die Datenbank in Django]
+user = User.objects()
+user(
+     Q(email__icontains=suchtext) | 	 
+     Q(first_name__icontains=suchtext) | 
+     Q(last_name__icontains=suchtext)
+     )
+\end{lstlisting}
+
+Hierbei wird nach allen Benutzern gesucht, die \textit{suchtext} entweder in der E-Mail Adresse oder im Vor- beziehungsweise Nachnamen angegeben haben. \textit{icontains} gibt dabei an, dass die Groß- und Kleinschreibung bei der Suche nicht relevant ist. Sollte jedoch gewünscht sein, dass auch die Groß- und Kleinschreibung bei der Suche beachtet wird, muss statt \textit{icontains} das Stichwort \textit{contains} verwendet werden.
+
+Objekte können auch nach einer bestimmten Spalte sortiert werden. Um die Objekte aufsteigend zu sortieren, kann folgender Befehl verwendet werden:\\
+\textit{users.order\_by(spaltenname)}\\
+Zum absteigenden Sortieren wird folgende Syntax benötigt:\\
+\textit{users.order\_by('- '+spaltenname)}
+
+Falls ein vorhandenes Objekt aus der Collection gelöscht werden soll, muss dieses zuvor mithilfe einer Suchanfrage abgefragt werden und dann mit der Funktion \textit{.delete()} entfernt werden. 
+
+Nachdem ein Ergebnis auf eine Suchanfrage zurückgeliefert wurde, können einzelne Attribute des erhaltenen Objektes verändert werden. Um diese Änderungen anschließend zu persistieren, muss die Funktion \textit{.save()} auf das entsprechende Objekt ausgeführt werden.
