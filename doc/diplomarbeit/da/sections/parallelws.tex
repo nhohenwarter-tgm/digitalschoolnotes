@@ -1,14 +1,25 @@
 %\section*{Parallel Working System}
 \cfoot{Thomas Stedronsky}
+Mit dem Parallel Working System ist es dem Benutzer möglich Hefte mit anderen Benutzern zu teilen und diese anschließend gleichzeitig zu bearbeiten. Es kann immer ein Element pro User bearbeitet werden. Während dieses Element bearbeitet wird können anderen Benutzer dieses Element weder löschen, bearbeiten oder verschieben. 
+\subsubsection{Bestehende Systeme}
+\paragraph{Google Docs}
+\paragraph{Microsoft Portal}
+\subsubsection{Umsetzung}
+Das Parallel Working System besteht aus zwei Module. Mit dem ersten Modul ist es möglich Hefte mit anderen Nutzern zu teilen. Das zweite integrierte Modul ist für die ständige Aktualisierung und Synchronisation des Heftinhaltes verantwortlich. Wobei das zweite Modul deutlich größer ist.
+\paragraph{Hefte teilen}
+Jedes Heft hat ein Attribut \textit{collaborator}(siehe 5.3.2.2). Dieses Attribut ist die Vorraussetzung um das Heft mit anderen Benutzern zu teilen. 
+Um anderen Nutzern ein bestimmtes Heft freizugeben gibt es folgende Oberfläche:
+\insertpicture{images/pws/add_collaborator}{Hinzufügen eines weiteren Nutzers}{(selfmade)}{itm:collaborator-chart}{0.70}
+Wie man in der Abbildung erkennen kann, werden außerdem Vorschläge von E-Mail Adressen gegeben, um den User den Umgang mit dem PWS zu erleichtern.\\
 
-Bereits bestehende PWS Systeme
+Ist ein Heft nun für einen User freigegeben, so wird das Heft in dessen Heftkollektion unter 'Für mich freigegebene Hefte' angezeigt. \\
+Um die Teilung eines Heftes aufzuheben gibt es zwei Möglichkeiten. Entweder der Besitzer des Heftes löscht den User als \textit{collaborator} mittels dem roten Minus neben den Namen (siehe Abbildung 11). Die andere Möglichkeit ist, dass der geteilte User sich selbst die Rechte entzieht.
+\insertpicture{images/pws/show_notebook}{Für mich freigegeben Hefte}{(selfmade)}{itm:showNotebook-chart}{0.70} 
 
-Umsetzungsversuch auf unser Projekt angepasst
+Der Benutzer denn ein Heft freigegeben wurde hat nur die Bearbeitungsrechte, er kann weder den Namen ändern noch das Heft löschen. Wird das Notebook vom Besitzer gelöscht, dann wird das Heft auch bei allen Mitbesitzern gelöscht. Hefte können nicht übergeben werden.
+\paragraph{Aktualisierung und Synchronisation}
+\subsubsection{Probleme}
+\subsubsection{Ausblick}
 
-Vorgehensweise
-
-Verbesserungsvorschlöge
-
-Ausblick 
 
 %Text...
