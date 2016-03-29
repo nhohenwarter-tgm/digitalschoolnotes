@@ -1,4 +1,33 @@
 %\section*{Auswertung und Benchmarks}
-\cfoot{}
+\cfoot{Niklas Hohenwarter}
+Dieses Kapitel befasst sich mit den messbaren Ergebnissen des Projektes und der technischen Auswertung. Es wird überprüft ob die richtigen Frameworks zur realisierung verwendet wurden und ob die Software ausreichend performant ist und vom Benutzer akzeptiert wird.
 
-%Text...
+\subsection{Benutzerakzeptanz}
+Um die Benutzerakzeptanz bzw. das Interface Design zu überprüfen gibt es eine vielzahl von Richtlinien. Desweiteren gibt es auch ganze Bücher und Papers, welche sich mit diesen Themen befassen. In unserem Projekt haben wir uns nur auf zehn Richtlinien\cite{INTDES1} beschränkt, an welche wir uns halten wollten. 
+
+Es ist wichtig dem User mittels einem eindeutigen Design die Website zu vermitteln. Dieses Design soll vom Benutzer wiedererkannt werden, damit er immer weiß ob der Benutzer sich gerade auf der DSN Website befindet. Dazu wurde Innerhalb der ganzen Applikation grün in großen Mengen als Signalfarbe verwendet. Desweiteren ist in jeder Ansicht außer der Heftansicht immer das DSN Logo sichtbar.
+
+Eine eindeutige Benutzerführung ist ebenfalls essentiell. Aus diesem Grund ist das Registrierungsformular direkt auf der Startseite positioniert. Nach der Registrierung erhält der Benutzer eine Email, welche Ihn zum Login leitet. Von dort aus wird der Benutzer zum Stundenplan geleitet welchen er dann eintragen kann. Über ein großes Hauptmenü am oberen Bildschirmrand können alle anderen gewünschten Funktionen erreicht werden.
+
+Eine klare Call-to-Action führung findet sich ebenfalls auf der Website. Ein in zukunft erstelltes Werbevideo klärt den Benutzer beim ersten Besuch der Website über die Funktionen von DSN auf. Im Video wird der User zu einer Registrierung animiert.
+
+Das Feedback an den User fehlt leider ein bisschen auf der DSN Website. Es ist nicht immer klar ob die Website gerade lädt oder ob einfach nichts passiert. Hier werden in Zukunft noch Ladeanimationen eingefügt um den Benutzer über einen Ladevorgang zu informieren.
+
+Es ist wichtig bei der Registrierung so wenig Informationen wie möglich abzufragen, um die Hemmschwelle der Registrierung möglichst gering zu halten. Dies ist vor allem durch die OAuth Registrierung gut realisiert wurden, da hier nur ein Button gedrückt werden muss.
+
+Die Applikation hat in allen Eingabefeldern Default-Werte um den User besser durch das Formular zu führen. Dies hilft dem User beim Ausfüllen und erklärt Ihm welche Daten eingegeben werden müssen.
+
+Der User sollte immer das Gefühl haben zu wissen was mit seinen eingegebenen Daten passiert. Dies ist notwendig um die eingabe von richtigen Daten zu fördern und um dem User zu erklären wozu die Daten benötigt werden.
+
+Um den Ärger über die Applikation gering zu halten gibt es keinen Button, welcher das gesamte Formular zurücksetzt. Somit kann der User nicht aus versehen alle mühsam eingegebenen Formularfelder unabsichtlich löschen.
+
+In der DSN Applikation gibt es viele eindeutige Fehlermeldungen um den Benutzer über seine Fehleingabe aufzuklären und um eine richtige eingabe zu fördern.
+
+In DSN gibt es beabsichtigt keine Breadcrumbs da diese den Benutzer oft verwirren. Die führung der Menüs ist sehr einfach, somit werden diese auch nicht benötigt.
+
+\subsection{Änderungsvorschläge}
+Im nachhinein betrachtet wäre es eine gute Idee gewesen, das Full Stack Framework MeteorJS zu verwenden. Durch die Verwendung von Meteor hätten sich im laufe des Projektes einige Vorteile ergeben. 
+
+Zum einen war das Team bezüglich der vielschichtigen Softwarearchitektur verwirrt. Es war für viele nicht klar welche Änderung sich auf welchen Teil der Software auswirkt und wie diese Änderung aktiv geschalten wird. Dadurch wurde viel Zeit verloren. Hier hätte ein Full Stack Framework den Vorteil gehabt, dass die gesamte Software mit einem Befehl zentral Deploybar gewesen wäre. 
+
+Des Weiteren bietet Meteor viele Features die händisch implementiert wurden. So ist die Benutzerverwaltung oder die Anmeldung über OAUth bereits ein fertiges Modul in Meteor. Außerdem werden die Daten automatisch zwischen Server und Client synchron gehalten, wodurch es um eineiges einfacher gewesen wäre das PWS zu integrieren.
