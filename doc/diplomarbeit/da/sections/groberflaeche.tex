@@ -1,4 +1,57 @@
 %\section*{Graphische Oberfläche}
 \cfoot{Selina Brinnich}
 
-%Text...
+Eine intuitive Oberfläche ist besonders wichtig, um Benutzern eine einfache und schnelle Verwendung der Applikation zu ermöglichen. Daher wurde beim Erstellen eines Designs für die grafische Oberfläche darauf besonders viel Wert gelegt.
+
+Um eine ansprechende grafische Oberfläche erstellen zu können, wurde das CSS-Framework \textit{Bootstrap} eingebunden und verwendet.
+
+\subsubsection{Layout}
+Für die Applikation sollte ein möglichst einfaches Layout erstellt werden, sodass nicht zu viel Inhalt auf nur einer Seite zu sehen ist, denn das könnte die Benutzer überfordern. Daher folgt das Layout folgendem Entwurf.
+
+\insertpicture{images/design/layout.png}{Layout der grafischen Oberfläche}{(selfmade)}{itm:layout}{1.0}
+
+Die Menüleiste ist, wie zu sehen, am oberen Rand zu finden, die Fußzeile am unteren Rand. Außer dem ist auf der Webseite nur noch der eigentliche Seiteninhalt zu sehen, wobei auch dieser möglichst einfach gehalten wird. Dadurch, dass der Seiteninhalt die Mitte der Webseite beansprucht, wird der Fokus der Benutzer vor allem darauf gelenkt.
+
+Umgesetzt wurde dieses Layout mithilfe von Bootstrap. Bootstrap bietet eine Möglichkeit, das Layout responsive zu gestalten. Dies geschieht mit Reihen und Spalten, in die das Layout aufgeteilt wird. Dabei beinhaltet jede Reihe zwölf Spalten. Diese Spalten passen sich je nach verfügbaren Pixeln automatisch an den jeweiligen verfügbaren Platz an.\\
+Das obige Layout würde dann aus drei Reihen bestehen: Menüleiste, Abstände und Seiteninhalt, sowie Fußzeile. Menüleiste und Fußzeile würden jeweils volle zwölf Spalten einnehmen. Die mittlere Reihe würde aufgeteilt werden. Beispielsweise könnten zwei Spalten für den linken Abstand, acht Spalten für den Seiteninhalt und wieder zwei Spalten für den rechten Abstand vergeben werden.
+
+Durch den Aufbau mittels Reihen und Spalten wird das Layout auf allen Computern sehr ähnlich dargestellt. Das Design bleibt überall erhalten. Zudem ist die Unterstützung für Handys und Tablets integriert. Das System der Reihen und Spalten funktioniert auf allen Geräten, auch auf Handys und Tablets wird die Breite der Spalten so angepasst, dass das Layout so gut wie möglich erhalten bleibt.
+
+\subsubsection{Einfache Menüstruktur}
+Mithilfe einer einfachen Menüstruktur finden sich Benutzer auf der Webseite sofort zurecht und müssen nicht lange nach der gewünschten Funktion suchen. Eine möglichst einfache Menüstruktur wurde umgesetzt, indem es keinerlei Untermenüs gibt. Die Menüleiste besteht aus einzelnen Einträgen, bei denen sofort erkenntlich ist, welche Funktion sie haben.\\
+
+\insertpicture{images/design/menu_main.png}{Menüleiste der Hauptseite}{(selfmade)}{itm:menu_main}{1.0}
+
+Die Menüleiste der Hauptseite ist auf drei Menüpunkte beschränkt. Klickt der Benutzer auf \textit{Funktionen} oder \textit{Preise}, wird auf der Seite automatisch gescrollt, bis der jeweilige Inhalt zu sehen ist. Diese beiden Menüpunkte dienen dazu, den Benutzer über die Applikation zu informieren. Der Menüpunkt \textit{Anmelden} dient Benutzern, die sich bereits an der Applikation registriert haben, dazu, sich an der Applikation anzumelden um sie verwenden zu können. Dieser Menüpunkt ist mit dunklerer Farbe hervorgehoben, um Benutzer sofort darauf aufmerksam zu machen.
+
+\insertpicture{images/design/menu_mgmt.png}{Menüleiste nach dem Anmelden}{(selfmade)}{itm:menu_mgmt}{1.0}
+
+Sobald sich ein Benutzer an der Applikation angemeldet hat, wird obige Menüleiste angezeigt. Nach dem Anmelden wird der Benutzer auf den Menüpunkt \textit{Stundenplan} geleitet. Über die Menüpunkte \textit{Hefte} und \textit{Kontoeinstellungen} kann der Benutzer in der Applikation navigieren. Zudem ist in dieser Menüleiste ein Suchfeld, um nach anderen Benutzern der Applikation zu suchen, sowie ein Menüpunkt \textit{Abmelden}, um sich von der Applikation abmelden zu können.
+
+\insertpicture{images/design/menu_admin.png}{Menüleiste der Admin-Seite}{(selfmade)}{itm:menu_admin}{1.0}
+
+Ein Administrator hat die Möglichkeit, die oben abgebildete Menüleiste auf der Admin-Seite zu sehen. Hier gibt es nur zwei Menüpunkte: \textit{User Management}, um Benutzer der Applikation verwalten zu können und \textit{Logout}, um sich von der Applikation abzumelden.
+
+Jedes der oben beschriebenen Menüs hat, wie zu sehen, keine Unterpunkte und nur sehr wenige Menüpunkte. Dadurch wird ein schnelleres Navigieren innerhalb der Webseite und eine einfachere Verwendung der Applikation ermöglicht.
+
+\subsubsection{Unterstützende Bildzeichen}
+Unterstützende Bildzeichen, in Bootstrap \textit{Glyphicon} genannt, werden überall in der Applikation eingesetzt. Mithilfe dieser Symbole können Benutzer bestimmte Funktionen schneller identifizieren und damit verwenden.
+
+\insertpicture{images/design/glyphicons.png}{Glyphicons innerhalb der Applikation}{(selfmade)}{itm:glyphicons}{0.8}
+
+Abbildung \ref{itm:glyphicons} zeigt ein Beispiel, wie Glyphicons innerhalb der Applikation verwendet werden. Hier werden zusätzlich zu den Menüpunkten einer Menüleiste unterstützende Bildzeichen eingesetzt. Das Symbol eines Kalenders soll den Stundenplan darstellen, ein Heft soll auf die Ansicht aller Hefte hindeuten und das Zahnrad-Symbol unterstützt die Funktion der Kontoeinstellungen.
+
+Mithilfe dieser Symbole wird den Benutzern eine schnellere Navigation innerhalb der Webseite ermöglicht.
+
+\subsubsection{Heftansicht}
+Die Heftansicht dient der Verwendung der Kernfunktion der Applikation, daher ist ein passendes Design für diese Ansicht besonders wichtig.
+
+Das Design für die Heftansicht wurde zu Beginn des Projektes wie in Abbildung \ref{itm:notebook_old} gestaltet.
+
+\insertpicture{images/design/notebook_old.png}{Frühes Design der Heftansicht}{(selfmade)}{itm:notebook_old}{1.0}
+
+Zu späterem Zeitpunkt hat sich allerdings herausgestellt, dass dieses Design zu einigen Problemen führt. Das größte Problem dabei war, dass die Ansicht des Heftes dieses Designs zu klein war. Ein effektives Arbeiten innerhalb des Heftes wäre für Benutzer kaum möglich. Daher musste ein neues verbessertes Design erstellt werden. Nach einem Redesign kam eine Ansicht wie in Abbildung \ref{itm:notebook_new} zu sehen zustande.
+
+\insertpicture{images/design/notebook_new.png}{Verbessertes Design der Heftansicht}{(selfmade)}{itm:notebook_new}{1.0}
+
+Das neue Design hat eine verbesserte Menüleiste, um Heftelemente innerhalb des Heftes einfügen zu können. Außerdem wurde die Ansicht des Heftes deutlich vergrößert. Dadurch kann den Benutzern ein effektiveres Arbeiten und eine bessere und einfachere Verwendung der Heftfunktionen ermöglicht werden.

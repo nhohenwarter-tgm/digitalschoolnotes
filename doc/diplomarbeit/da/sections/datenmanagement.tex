@@ -6,16 +6,6 @@ gut funktionierende Applikation. Alle Daten müssen persistiert werden, um nicht
 
 \subsubsection{Persistierung von Daten}
 Die Persistierung von Daten ist besonders wichtig. Das Abspeichern aller Daten dient dem Zweck, die Daten auch zu einem späteren Zeitpunkt oder beispielsweise nach einem Reboot des Servers noch abrufen zu können. Um das zu erreichen, wird eine Datenbank benötigt, die sich um die Persistierung kümmert. Dabei wird zwischen zwei Arten von Datenbankkonzepten unterschieden: Relationale Datenbanken und NoSQL Datenbanken. Im folgenden werden beide Konzepte näher erläutert und ein Vergleich zwischen den beiden Arten erstellt.
-\paragraph{Relationale Datenbanken}
-% Erklärung Relationale DB...
-% Vorteile + Nachteile
-\paragraph{NoSQL Datenbanken}
-% Erklärung NoSQL DB...
-% Vorteile + Nachteile
-\paragraph{Vergleich}
-% Was war uns wichtig...
-% Warum NoSQL, warum MongoDB...
-
 
 \subsubsection{Datenmodell}
 Um einen einheitlichen Zugriff auf Daten zu ermöglichen, muss ein Datenmodell entwickelt werden. Ein Datenmodell bezeichnet eine Struktur beziehungsweise den Aufbau der einzelnen Datensätze. Dabei ist zu beachten, dass in der Applikation Daten unterschiedlichster Art gespeichert werden. Das bedeutet, dass diese unterschiedlichen Typen logischerweise auch unterschiedliche Datenmodelle zugrunde haben müssen. Zur Organisation dieser unterschiedlichen Arten von Daten gibt es in MongoDB sogenannte Collections. Diese Collections beinhalten alle Datensätze eines Typs, beispielsweise alle Einträge von Benutzern. In unserer Applikation gibt es folgende Collections:
