@@ -1,6 +1,7 @@
 %\section*{Infrastruktur und Testing}
 \cfoot{Niklas Hohenwarter}
 
+Infrastruktur und Testing sind für jedes Projekt essentiell. Die Infrastruktur ist notwendig, damit das gesamte Team mit den gleichen Versionen der Framweorks arbeiten kann und um eine stable Version der Software hosten zu können. Tests werden benötigt um die Funktionalität der Software zu überprüfen.
 \subsubsection{Infrastruktur}
 Eine stabile und sichere Infrastruktur und gut getestete Software ist heutzutage ein Muss für jedes IT Projekt. \\
 Die Infrastruktur ist wichtig, da in der Vergangenheit oft kleine Projekte bereits wenige Tage nach Veröffentlichung von sehr hohen Userzahlen berichten konnten. Wenn hier zuvor die Infrastruktur gut geplant und implementiert wurde, ist es kein Problem viele User zu bewältigen.\\ 
@@ -17,7 +18,6 @@ Für die Auswahl des Serverhosters wurden einige Kriterien festgelegt. Diese lau
 \item \textbf{Wartung:} Der Server sollte sich über ein Webinterface warten lassen.
 \end{itemize}
 
-\newpage
 
 Die oben genannten Kriterien reduzierten die Anzahl der möglichen Hoster stark. Das Team entschied sich für den Hoster netcup GmbH mit sitz in Deutschland. Dieser erfüllte alle Anforderungen und teile des Teams hatten bereits gute Erfahrungen mit dieser Firma gemacht.
 
@@ -41,7 +41,6 @@ Der Scrummaster ist unter scrummaster@digitalschoolnotes.com erreichbar.
 
 \paragraph{Serverzugriff}
 Um den Server zu konfigurieren und zu verwalten wird mit dem Protokoll \gls{SSH} darauf zugegriffen. Aus Sicherheitsgründen wurde die Anmeldung mit Passwort verboten und es können hierfür nurnoch SSH Keys verwendet werden. Diese sind um einiges sicherer.
-\newpage
 
 \paragraph{Firewall}
 Um den Server vor Angriffen und unerwünschten Zugriffen zu schützen wurde eine Firewall installiert. Diese blockiert alle unerwünschten Anfragen. Prinzipiell sind alle Ports geschlossen. Es werden nur Ports geöffnet, welche für das Betreiben des Projektes notwendig sind.\\
