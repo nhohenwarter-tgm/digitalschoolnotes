@@ -6,24 +6,31 @@ Um einen besseren Überblick über bereits bestehende Collaboration System zu be
 \paragraph{Google Docs}
 Mit Google Docs wurde einer der berühtmesten Vertreter der Realtime Web-Kommunikation analysiert. Die Grundidee von Google Docs ist allerdings eine andere, hierbei kann man in Realtime im gesamten Textdokument arbeiten. Bei DSN ist das gleichezeitige Arbeiten auf Elemente beschränkt.\\
 \\
-Google Docs verwendet eine eigene Google Realtime API welche die Collaboration Vorgänge abwickelt. Diese Java Script Library enthält Events und Methoden, die für die Erstellung einer Kollaborativen Software verwendet werden können. 
+Google Docs verwendet eine eigene Google Realtime API, welche die Collaboration Vorgänge abwickelt. Diese Java Script Library enthält Events und Methoden, die für die Erstellung einer Kollaborativen Software verwendet werden können.\\
+\\
+Diese Google Realtime API arbeitet mit einem Aktualisierungsprinzip, dass nur dann aktualisiert wenn eine Änderung am Shared Medium vorgenommen wurde. Im Hintergrund wird dann eine Benachrichtung an die entsprechenden User gesendet um das Dokument akutell zu halten. Diese Realtime API arbeit mit einem Daten Modell, das sich "eventually consistent" nennt. Dadurch ist es möglich, dass jeder dieselben Daten sieht.\cite{GOOGLE}\\
+\\
+Diese Google Realtime API konnte allerdings nicht beim Parallel Working System verwendet werden, weil die Google API ein eigenes Datenmodell benötigt und nur schwer auf ein bereits bestehendes Datenmodell aufbauen kann. Außerdem kann diese API nicht mit Server-Frameworks zusammengefügt werden, da bei DigitalSchoolNotes eine Reihe von Frameworks verwendet wurden, hätte dies einen großen Aufwand erfordert. Darum wurde diese Google API nicht für die Implementierung des Parallel Working Systems verwendet.\\\\
 \paragraph{Microsoft Portal}
+trolololo
+
+Ich brauch da eine Lizenz dazu um da etwas herrauszufinden. Allein mit Internet Research wird das nix :/
+\newpage
 \subsubsection{Umsetzung}
 Das Parallel Working System besteht aus zwei Modulen. Mit dem ersten Modul ist es möglich Hefte mit anderen Nutzern zu teilen und das andere Modul ist für die ständige Aktualisierung und Synchronisation des Heftinhaltes verantwortlich. 
 \paragraph{Hefte teilen}
-Jedes Heft hat ein Attribut \textit{collaborator}(siehe 5.3.2.2). Dieses Attribut ist die Vorraussetzung um das Heft mit anderen Benutzern zu teilen. 
+Jedes Heft hat ein Attribut \textit{collaborator}(siehe \ref{sec:Notebook}). Dieses Attribut ist die Vorraussetzung um das Heft mit anderen Benutzern zu teilen. 
 Um anderen Nutzern ein bestimmtes Heft freizugeben gibt es folgende Oberfläche:
 \insertpicture{images/pws/add_collaborator}{Hinzufügen eines weiteren Nutzers}{(selfmade)}{itm:collaborator-chart}{0.70}
-Wie man in der Abbildung erkennen kann, werden außerdem Vorschläge von E-Mail Adressen gegeben, um den User den Umgang mit dem PWS zu erleichtern.\\
-
+Wie man aus der Abbildung 15 entnehmen kann schlägt das System nach fortgeschrittener Eingabe User vor, um diese hinzuzufügen. Durch diese Funktion soll der Komfort beim hinzufügen eines Collaborators gefördert werden. Bei diesen Suchvorschlägen handelt es sich um die E-Mail Adresse die gleichzeitig die eindeutige Identifizierung des Users darstellt.
 Ist ein Heft nun für einen User freigegeben, so wird das Heft in dessen Heftkollektion unter 'Für mich freigegebene Hefte' angezeigt. \\
 
-\insertpicture{images/pws/show_notebook}{Für mich freigegebene Hefte}{(selfmade)}{itm:showNotebook-chart}{0.70} 
+\insertpicture{images/pws/show_notebook}{Für mich freigegebene Hefte}{(selfmade)}{itm:showNotebook-chart}{0.50} 
 
 Im Prinzip kann jedes Heft mit beliebig vielen Nutzern geteilt werden, dabei spielt es keine Rolle ob es ein privates oder öffentliches Heft ist. 
 Der Benutzer denn ein Heft freigegeben wurde hat nur die Bearbeitungsrechte, er kann weder den Namen ändern noch das Heft löschen. Wird das Notebook vom Besitzer gelöscht, dann wird das Heft auch bei allen Mitbesitzern gelöscht. Hefte können nicht übergeben werden.
 \\
-Um die Teilung eines Heftes aufzuheben gibt es zwei Möglichkeiten. Entweder der Besitzer des Heftes löscht den User als \textit{collaborator} mittels dem roten Minus neben den Namen (siehe Abbildung 11). Die andere Möglichkeit ist, dass der geteilte User sich selbst die Rechte entzieht.
+Um die Teilung eines Heftes aufzuheben gibt es zwei Möglichkeiten. Entweder der Besitzer des Heftes löscht den User als \textit{collaborator} mittels dem roten Minus neben den Namen (siehe \ref{showNotebook-chart}). Die andere Möglichkeit ist, dass der geteilte User sich selbst die Rechte entzieht.
 \paragraph{Aktualisierung und Synchronisation}
 Jedes NotebookContent-Element besitzt folgende Attribute:
 \begin{lstlisting}[caption={Parallel Working System Attribute}]
@@ -63,12 +70,10 @@ Mit dieser Funktion kann das System die aktiven Nutzer herausfiltern und anschli
 Das Prinzip ist, dass immer nur ein Benutzer des Heftes an einem Element arbeiten kann und in dieser Phase von keinen anderen User irritiert werden kann. Dadurch soll gewährleistet werden, dass zwei oder mehr Nutzer an einem Element Änderungen vornehmen und dadurch ein Lost-Update verursachen. Durch die Maßnahme, dass nur eine Person ein Element editieren kann sind die Elemente unmittelbar nach der Aktualisierung für alle User aktuell, dadurch wird dem Lost-Update Problem entgegen gewirkt.\\
 Um zu vermeiden das ein User ein Element unbegrenzt blockiert, gibt es ein Timeout, dass den Benutzer nach einer bestimmten Zeit vom Element abmeldet, wenn dieser im Element keinen Tastendruck oder Mausklick ausführt. Wenn dieser User vom System abgemeldet wird ist das Element anschließend wieder für alle User verfügbar.\\
 \\
-Um den anderen Benutzern zu signalisieren, dass ein Element gerade aktiv ist, wird allen anderen Usern ein rote Rufzeichen über dem Element angezeigt. Ist dies der Fall ist das gesamte Element nicht editierbar. 
+Um den anderen Benutzern zu signalisieren, dass ein Element gerade aktiv ist, wird allen anderen Usern ein rotes Rufzeichen über dem Element angezeigt. Ist dies der Fall ist das gesamte Element nicht editierbar. 
 \insertpicture{images/pws/show_rufzeichen}{Element gesperrt - PWS}{(selfmade)}{itm:collaborator-chart}{1.0}
-Dieses Zeichen verschwindet automatisch, sobald das Element für alle User wieder zugänglich ist. Durch diese Methodik sollen Missverständnisse ausgeschlossen werden. Versucht der Benutzer trotzdem das Element zu verschieben, zu löschen oder in den Bearbeitungsmodus zu gelangen, dann wird eine Meldung angezeigt, dass dies erst geht sobald der aktive Benutzer den Bearbeitungsmodus verlassen hat. \\
+Dieses Zeichen verschwindet automatisch, sobald das Element für alle User wieder zugänglich ist. Durch diese Methodik sollen Missverständnisse ausgeschlossen werden. Versucht der Benutzer trotzdem das Element zu verschieben, zu löschen oder in den Bearbeitungsmodus zu gelangen, wird eine Meldung angezeigt, dass dies erst geht sobald der aktive Benutzer den Bearbeitungsmodus verlassen hat. \\
 \\
-Da muss noch was hin!
-\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 Die Aktualisierung und Synchronisation funktioniert in zwei Schritten.\\
 Zu aller erst gibt es ein definiertes Aktualisierungsintervall, mit diesem Intervall wird gesteuert in welchen Abständen das System nach neuen Heftinhalt sucht. Die Funktion die dieses Intervall steuert sieht wie folgt aus:
 \begin{lstlisting}[caption={Aktualisierung - PWS}]
@@ -103,15 +108,24 @@ if(JSON.stringify($scope.content) != JSON.stringify(content)) {
 \end{lstlisting}
 Diese Anweisung gleicht ab ob sich der Heftinhalt in der Datenbank vom angezeigten unterscheidet. Dies wird gemacht, um nicht ständig zu aktualisieren obwohl keine Änderung vorliegt. Dies ist Beispielsweise der Fall wenn ich mich gerade allein im Heft befinde, dann können keine Änderungen außer die selbst vorgenommenen vorliegen. Ist diese if-Anweisung allerdings erfüllt, dann wird die Oberfläche mit der Funktion \textit{scope.update()} aktualisiert.\\ 
 \\
-Durch diese beiden Schritte ist das System immer auf den aktuellen Stand und ermöglicht somit eine Umgebung in der mehrere User gleichzeitig an einem Heft arbeiten können. 
+Durch diese beiden Schritte ist das System immer auf den aktuellen Stand und ermöglicht somit eine Umgebung in der mehrere User gleichzeitig an einem Heft arbeiten können.\\
+\\
+Das Parallel Working System wurde speziell für Gruppenarbeiten entwickelt. Dadurch soll der Komfort für ein gemeinsam geführtes Dokument gesteigert werden. Da das Heft immmer auf dem aktuellen Stand ist, können gemeinsame Projekte optimal mit DigitalSchoolNotes und dem Parallel Working System  durchgeführt werden. 
  
 \subsubsection{Probleme}
 Es gibt zahlreiche Collaboration-Frameworks die eine Echtzeitkommunikation ermöglichen. Die erste Überlegung war so ein Framework zu verwenden wie Beispielsweise APE Project\cite{APE}. Mit diesen Framework ist es möglich Web Kommunikation in Echtzeit abzuhandeln. Allerdings stellte sich das vor einige Probleme, da dieses Framework nur sehr schwer in das bereits bestehende Projekt integriert werden konnte. Daraufhin wurde diese Idee verworfen und es wurde eine eigenständige Echtzeit Lösung angestrebt. Dadurch konnte das Parellel Working System besser auf dessen Bedürfnisse angepasst werden, dies hat den Implementierungsprozess deutlich vereinfacht. \\
 \\
 Ein deutlich größeres Problem trat bei der Implementierung der Sperrung der Elemente auf. Die Problematik war, das trotz aktiver Bearbeitung eines Elements trotzdem mehrere Nutzer dieses Element bearbeiten konnten. Dadurch kam es zu Synchronisationsfehler auf. Durch eine zusätzliche Abfrage vor Eintritt in den Bearbeitungsmodus wurde diesem Problem entgegen gewirkt. \\
 \\
-Die stetige Aktualisierung der Heftseite zeigte einige Schwierigkeiten auf. Durch das ständige neu Laden der Seite wurde sehr viel an Traffic verschwendet. Dadurch gab es Performance Verluste. Um dieses Problem zu lösen wurde die bereits erwähnte Zusatzfunktion, mit der nur bei einer Änderung aktualisiert wird eingebaut. Durch diese Maßnahme konnten Ressourcen eingespart werden. 
+Die stetige Aktualisierung der Heftseite zeigte einige Schwierigkeiten auf. Durch das ständige neu Laden der Seite wurde sehr viel an Traffic verschwendet. Dadurch gab es Performance Verluste. Um dieses Problem zu lösen wurde die bereits erwähnte Zusatzfunktion, mit der nur bei einer Änderung aktualisiert wird eingebaut. Durch diese Maßnahme konnten Ressourcen eingespart werden.\\
+\\
+Da die zahlreichen Heftelemente alle mit verschiedenen JavaScript-Frameworks implementiert wurden, gab es Probleme diese einheitlich in das Parallel Working System zu integrieren. Dadurch das ein einheitliches Datenmodell verwendet wurde, konnte das PWS an die Bedürfnisse der einzelnen Elemente angepasst werden. 
 \subsubsection{Ausblick}
-
-
+Um das Parallel Working System weiter zu verbessern gibt es Ideen um dieses System schneller und performanter zu machen.\\
+\\
+Um eine höhere Performance zu erlangen gibt es die Möglichkeit das Aktualisierungsverfahren zu verändern. Die Aktualisierung in gleichbleibenenden Abständen ist nicht die performanteste Lösung. Es gibt ein Pull und Push Prinzip wie es Beispielsweise die Google Realtime API verwendet. Mit diesem Verfahren wird nach jeder Änderung am System eine Push-Benachrichtung an den Server geschickt. Anschließend werden die aktiven Nutzer benachrichtigt und können danach kann der geänderte Inhalt aktualisiert werden.\\
+Um dieses Verfahren in das Parallel Working System zu integrieren muss das System an mehreren Stellen angepasst werden. Durch diese Anpassungen würde das System aber effizienter arbeiten und würde das System noch näher an eine Echtzeit-Kommunikation herranbringen.\\
+Diese Ändnerung hätte zur Folge das keine Differenz zwsichen Änderung und Aktualisierung mehr besteht, dadurch könnte besser gemeinsam an einer Heftseite gearbeitet werden.\\
+\\
+Um weiteren Nutzerkomfort zu schaffen müsste das Prinzip, dass nur ein Nutzer pro Element arbeiten darf optimiert werden. Es gäbe die Möglichkeit diese Regel aufzuheben und ein gleichzeitiges Arbeiten an einem Element zu erlauben. Dies wäre der letzte Schritt zur endgültigen Echtzeit-Kommunikation. Allerdings mit dieser Änderung müsste das ganze Konzept von DigitalSchoolNotes überarbeitet werden, um dies zu ermöglichen. Denn mit der derzeitigen Version wird erst ab verlassen des Bearbeitungsmodus der aktuelle Stand gespeichert und für alle Nutzer im Heft zu Verfügung gestellt. Mit diesem neuen Prinzip müsste jeder Tastendruck in Echtzeit an die aktiven Nutzer übermittelt werden, um keine Konflikte aufkommen zu lassen. Diese Funktion könnte nur mit einen dementsprechenden Framework durchgeführt werden. Es musste eine Machbarkeitsstudie durchgeführt werden, um abzuklären ob eine solch aufwendige Änderung mit dem aktuellen System umsetzbar wäre. 
 %Text...
