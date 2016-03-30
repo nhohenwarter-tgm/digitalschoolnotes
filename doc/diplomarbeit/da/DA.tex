@@ -18,7 +18,6 @@
 \usepackage{parskip}
 \usepackage{hyperref}
 \usepackage{titlesec}
-\usepackage{multirow}
 
 \clearscrheadfoot
 \pagestyle{scrheadings}
@@ -47,101 +46,35 @@ right  = 3cm]{geometry}
 
 \begin{document}
 
+
 \begin{titlepage}
 \begin{center}
 
 % Deckblatt
-\setlength{\arrayrulewidth}{0.3mm}
-\begin{table}[]
-\centering
-\begin{tabular}{lcl}
-\multirow{4}{*}{
-\includegraphics[width=0.15\textwidth]{images/tgm_logo}} & \textbf{\Large Technologisches Gewerbemuseum}                  & \multirow{4}{*}{\includegraphics[width=0.12\textwidth]{images/htl_logo}} \\
-                           & &\\ & \textbf{Höhere Lehranstalt für Informationstechnologie} &                   \\
-                           & Ausbildungsschwerpunkt Systemtechnik                    &                  \\\hline
-\end{tabular}
-\end{table}
-
-\textbf{\LARGE DIPLOMARBEIT}
-
+\includegraphics[width=0.25\textwidth]{images/dsn_logo}\\
 \vspace{5mm}
 
-Gesamtprojekt
+\LARGE TGM - HTBLuVA Wien XX \\ IT Abteilung  \\[1.5cm]
 
-\textbf{\Large DigitalSchoolNotes}
+% Titel
+\rule{1.0\textwidth}{1mm}
+{ \huge \bfseries \\[0.4cm]  \huge Diplomarbeit \\ \LARGE DigitalSchoolNotes \\[0.4cm] }
 
-\vspace{15mm}
+\rule{1.0\textwidth}{1mm}
 
-\end{center}
 
-\textbf{User- und Rollenmanagement}\\
-Philipp Adler \rule[-0.2cm]{1.3cm}{0pt} 5BHIT \hfill Betreuer: Michael Borko, BSc \rule[-0.2cm]{2cm}{0pt}\\
-\rule[-0.2cm]{9.8cm}{0pt} Dipl.-Ing. Mag. Christoph Brein
-
-\textbf{Datenmanagement}\\
-Selina Brinnich \rule[-0.2cm]{1cm}{0pt} 5BHIT \hfill Betreuer: Michael Borko, BSc \rule[-0.2cm]{2cm}{0pt}\\
-\rule[-0.2cm]{9.8cm}{0pt} Dipl.-Ing. Mag. Christoph Brein
-
-\textbf{Infrastruktur und Testing}\\
-Niklas Hohenwarter \rule[-0.2cm]{0.2cm}{0pt} 5BHIT \hfill Betreuer: Michael Borko, BSc \rule[-0.2cm]{2cm}{0pt}\\
-\rule[-0.2cm]{9.8cm}{0pt} Dipl.-Ing. Mag. Christoph Brein
-
-\textbf{Optical Character Recognition}\\
-Adin Karic \rule[-0.2cm]{1.8cm}{0pt} 5BHIT \hfill Betreuer: Michael Borko, BSc \rule[-0.2cm]{2cm}{0pt}\\
-\rule[-0.2cm]{9.8cm}{0pt} Dipl.-Ing. Mag. Christoph Brein
-
-\textbf{Parallel Working System}\\
-Thomas Stedronsky \rule[-0.2cm]{0.2cm}{0pt} 5BHIT \hfill Betreuer: Michael Borko, BSc \rule[-0.2cm]{2cm}{0pt}\\
-\rule[-0.2cm]{9.8cm}{0pt} Dipl.-Ing. Mag. Christoph Brein
-
-\vspace{10mm}
-
-ausgeführt im Schuljahr 2015/16
-
-\rule{1.0\textwidth}{0.3mm}\\
-Abgabevermerk: 
-
-Datum: \today \hfill \hfill übernommen von:\rule[-0.2cm]{3cm}{0pt}
-
-\begin{center}
 
 \noindent 
 
+
 \vfill
 
+% Fusszeile
+{\small Version: \today ~um  \thistime    }
 \end{center}
 
 %\end{center}
 \end{titlepage}
-
-%\begin{titlepage}
-%\begin{center}
-%
-%% Deckblatt
-%\includegraphics[width=0.25\textwidth]{images/dsn_logo}\\
-%\vspace{5mm}
-%
-%\LARGE TGM - HTBLuVA Wien XX \\ IT Abteilung  \\[1.5cm]
-%
-%% Titel
-%\rule{1.0\textwidth}{1mm}
-%{ \huge \bfseries \\[0.4cm]  \huge Diplomarbeit \\ \LARGE DigitalSchoolNotes \\[0.4cm] }
-%
-%\rule{1.0\textwidth}{1mm}
-%
-%
-%
-%\noindent 
-%
-%
-%\vfill
-%
-%% Fusszeile
-%{\small Version: \today ~um  \thistime    }
-%\end{center}
-%
-%%\end{center}
-%\end{titlepage}
 
 
 %HEADER AND FOOTER
@@ -159,37 +92,7 @@ Datum: \today \hfill \hfill übernommen von:\rule[-0.2cm]{3cm}{0pt}
 
 \newpage %----------------------------------------------------------------------------------------------
 % Erklärung
-%\includepdf[scale=1.2,pages=-]{documents/erklaerung}
-\section*{Eidesstattliche Erklärung}
-Ich erkläre an Eides statt, dass ich die vorliegende Diplomarbeit selbstständig und ohne fremde Hilfe verfasst, andere als die angegbenen Quellen nicht benutzt und die benutzten Quellen wörtlich und inhaltlich entnommenen Stellen als solche erkenntlich gemacht habe. \\
-
-\rule[-0.2cm]{1cm}{0pt} Wien, am 30.03.2016 \\ \\
-
-\hfill \hfill \rule[-0.2cm]{6cm}{0.5pt} \rule[-0.2cm]{2cm}{0pt}
-
-\hfill \hfill Philipp Adler \rule[-0.2cm]{5.5cm}{0pt}\\ \\
-
-\hfill \hfill \rule[-0.2cm]{6cm}{0.5pt} \rule[-0.2cm]{2cm}{0pt}
-
-\hfill \hfill Selina Brinnich \rule[-0.2cm]{5.2cm}{0pt}\\ \\
-
-\hfill \hfill \rule[-0.2cm]{6cm}{0.5pt} \rule[-0.2cm]{2cm}{0pt}
-
-\hfill \hfill Niklas Hohenwarter \rule[-0.2cm]{4.4cm}{0pt}\\ \\
-
-\hfill \hfill \rule[-0.2cm]{6cm}{0.5pt} \rule[-0.2cm]{2cm}{0pt}
-
-\hfill \hfill Adin Karic \rule[-0.2cm]{6.0cm}{0pt}\\ \\
-
-\hfill \hfill \rule[-0.2cm]{6cm}{0.5pt} \rule[-0.2cm]{2cm}{0pt}
-
-\hfill \hfill Thomas Stedronsky \rule[-0.2cm]{4.4cm}{0pt}
-
-\newpage
-\vspace*{\fill} 
-\input{sections/gender}
-\label{gender}
-\vspace*{\fill}
+\includepdf[scale=1.2,pages=-]{documents/erklaerung}
 \newpage
 \input{sections/abstractEN}
 \input{sections/abstractDE}
@@ -208,7 +111,6 @@ Ich erkläre an Eides statt, dass ich die vorliegende Diplomarbeit selbstständi
 
 \section{Problembeschreibung}
 \label{sec:problembeschreibung}
-\input{sections/problembeschreibung}
 
 \subsection{Umfeldanalyse}
 \label{subsec:umfeldanalyse}
@@ -229,7 +131,6 @@ Ich erkläre an Eides statt, dass ich die vorliegende Diplomarbeit selbstständi
 
 \section{Stand der Technik}
 \label{sec:standdertechnik}
-\input{sections/standdertechnik}
 
 \subsection{Frameworks}
 \label{subsec:frameworks}
@@ -245,7 +146,6 @@ Ich erkläre an Eides statt, dass ich die vorliegende Diplomarbeit selbstständi
 
 \section{Design}
 \label{sec:design}
-\input{sections/design}
 
 \subsection{Software-Architektur}
 \label{subsec:softwarearchitektur}
@@ -267,7 +167,6 @@ Ich erkläre an Eides statt, dass ich die vorliegende Diplomarbeit selbstständi
 
 \section{Implementierung}
 \label{sec:implementierung}
-\input{sections/implementierung}
 
 \subsection{Infrastruktur und Testing}
 \label{subsec:infrastrukturtesting}
