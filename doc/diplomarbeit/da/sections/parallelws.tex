@@ -12,21 +12,22 @@ Diese Google Realtime API arbeitet mit einem Aktualisierungsprinzip, dass nur da
 \\
 Diese Google Realtime API konnte allerdings nicht beim Parallel Working System verwendet werden, weil die Google API ein eigenes Datenmodell benötigt und nur schwer auf ein bereits bestehendes Datenmodell aufbauen kann. Außerdem kann diese API nicht mit Server-Frameworks zusammengefügt werden, da bei DigitalSchoolNotes eine Reihe von Frameworks verwendet wurden, hätte dies einen großen Aufwand erfordert. Darum wurde diese Google API nicht für die Implementierung des Parallel Working Systems verwendet.\\\\
 \paragraph{Microsoft Portal}
-Arbeitet ähnlich wie Google Docs
+Mit Microsoft Portal ist es möglich im Web-Browser Office-Apps zu verwenden. Unter anderen Word Online, diese Online Textverarbeitung ist eine abgeschwächte Version des klassichen Desktop Word.
 
-Verfolgt das selbe Prinzip wie Google Docs eines voll in Echtzeit einsehbaren Textdokument
+Allerdings geht durch die eingeschränkte Funktionalität einiges an Nutzerkomfort verloren. Dadurch ist es legiglich möglich Standardfunktionen wie beispielsweise zu verwenden die sich im Raster Start, Einfügen, Seitenlayout, Überprüfen und Ansicht befinden, aber selbst dort können Funktionen nicht enthalten sein.
 
-Versucht die klassischen Funktionen von MS Word in den Browser zu integrieren.
+Bis zur Office 2013 war der Microsoft Portal Dienst nur im Internet Explorer verfügbar. Dies hat zur Folge, dass es in anderen Browser öfter zu Fehler kommen kann. In diesem Punkt hat das System noch Aufholbedarf.
 
-Abgeschwächte Version zur normalen Version von Word 
+Microsoft Portal verwendet wie Google Docs ein Pull und Push Prinzip zu Aktualisierung der Dokumente. Allerdings gibt es keine Möglichkeit die verwendeten APIs zu verwenden, da die verwendeten Bibliotheken nicht öffentlich zugänglich sind. Dadurch könnten lediglich Ideen aus dieser bestehenden Software mitgenommen werden und keine verwendbaren APIs und dergleichen.
 
-Lange Zeit war Office Online nur im Internet Explorer verfügbar, seit Office 2013 nicht mehr.
-
-Kein Zugriff auf die Verwendeten Frameworks bzw APIs
-
-Hefte können geteilt werden und gleichzeitig bearbeitet werden, allerdings nicht wirklich in Echtzeit bearbeitet. Erst mit kleinen Verzögerungen
 \paragraph{Fazit}
+Google Docs und Microsoft Portal verfolgen dasselbe Ziel, beide wollen eine konsistente Echtzeit Kommunikation in Dokumenten schaffen. Wobei man sagen muss, dass dies bei Google Docs fehlerfreier funktioniert.\\
+Bei dem Microsoft ist es schade, dass es lediglich eine Lite-Version in der Online Variante gibt, dadurch verliert das Produkt an Wert.
 
+Ein großes Augenmerk liegt auf der Vorgehensweise der einzelnen Systeme. Beide arbeiten mit einen Pull und Push Verfahren. Da Microsoft die verwendeten APIs nicht öffentlich zu Verfügung stellt, war dies keine Hilfe.\\
+Bei Google gibt es mehr Einblick, durch die öffentliche Google Realtime API konnten erste Erkenntnisse daraus gewonnen werden. Dadurch wurde wie bereits erwähnt eine eigene Lösung angestrebt.
+
+Im Vergleich schneidet Google Docs besser ab als Microsoft Portal, das liegt daran, dass die Technologie bei Google Docs ausgereifter ist und dadurch ohne große Fehler einzusetzen ist.
 \newpage
 \subsubsection{Umsetzung}
 Das Parallel Working System besteht aus zwei Modulen. Mit dem ersten Modul ist es möglich Hefte mit anderen Nutzern zu teilen und das andere Modul ist für die ständige Aktualisierung und Synchronisation des Heftinhaltes verantwortlich. 

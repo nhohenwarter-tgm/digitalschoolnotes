@@ -1,6 +1,53 @@
 %\subsubsection*{Textelement}
 \cfoot{Thomas Stedronsky}
-Ck Editor
+Um Informationen im Sinne von Text in ein Heft einzufügen, gibt es ein Textelement. Mit diesem Textelement lässt sich Text eingeben und bearbeiten. Es können Funktionen wie Fett, Kursiv, Durchgestrichen, Liste, Aufzählung, etc. auf den Text angewendet werden. Außerdem können Tabellen in dem Textelement erzeugt werden, welche beliebig groß definiert werden können. Sollte der Benutzer Sonderzeichen einbinden wollen geht dies mit dem Sonderzeichen Tool im Textelement. Außerdem kann ein Hyperlink eingebunden werden, der den Link automatisch auf einen neuen Tab weiterleitet.
 
-Speicherung
-%Text...
+Dieses Element wurde mittels des Frameworks CKEditor immplentiert. Mit diesem Framework war es möglich einen Texteditor in das bereits bestehende Heft einzufügen. Der CKEditor konnte frei konfiguriert werden und somit optimal auf die Anforderungen von DigitalSchoolNotes angepasst werden.
+
+\insertpicture{images/elemente/elementetext}{Textelement}{(selfmade)}{itm:textelement}{0.8}
+Mittels Klick auf das A Icon ist es möglich ein Textelement im Heft zu platzieren.
+
+Im Bearbeitungsmodus war es möglich den Text mit bestimmten Effekten hervorzuheben oder Hyperlinks einzufügen.
+\insertpicture{images/elemente/textbearbeitung}{Textelement im Bearbeitungsmodus}{(selfmade)}{itm:textelementbearb}{1.0}
+
+Nach verlassen des Bearbeitungsmodus wurden die angewendeten Effekte übernommen und entsprechend angezeigt.
+\insertpicture{images/elemente/textansicht}{Textelement im Ansichtsmodus}{(selfmade)}{itm:textelementansicht}{1.0}
+
+Ein besonders kritischer Punkt beim Textelement war die Speicherung beziehungsweise die übernahme des geschrieben Inhaltes in den Ansichtsmodus. CKEditor verwendet hierbei eine eigene Speicherstruktur, diese vor der Verwendung auf die neuen Anforderungen angepasst werden musste. Nach erfolgreicher Anpassung ist es nun möglich den geschrieben Inhalt inklusive hervorgehobenen Text in den Ansichtsmodus zu übernehemn.
+
+Die Speicherung wird von on-Events übernommen, die nach einer bestimmten Aktion den Updatevorgang auslösen.
+\begin{lstlisting}[caption={Speicherung des Textelements}]
+function updateModel() {
+	scope.$apply(function () {
+          ngModel.$setViewValue(ck.getData());
+    });
+}
+
+ck.on('dataReady', updateModel);
+ck.on('key', updateModel);
+ck.on('paste', updateModel);
+ck.on('selectionChange', updateModel);
+\end{lstlisting}
+
+Das Textelement wurde wie folgt in das Heft integriert. Diese Abschnitt wird nach dem Klick auf das Icon ausgeführt und in das Heft integriert.
+\begin{lstlisting}[caption={Einbindung des Textelements}]
+<span ng-if="element.art == 'textarea'" style="word-wrap: break-word;">
+	<!-- Edit -->
+        <textarea ng-if="editMode == element.id"
+             ng-model="models[element.art][element.id][0]" ckeditor>
+
+        </textarea>
+        <span ng-show="models[element.art][element.id][2] == 'red'" class="glyphicon glyphicon-exclamation-sign"
+             ng-style='{"color": models[element.art][element.id][2], "cursor": "pointer"}'>
+	</span>
+        <!-- Read-Only -->
+             <div ng-if="editMode != element.id"
+                   style="border: 1px solid black; min-height: 20px; 
+			  min-width: 20px; text-align: left; padding:5px;">
+                   <div ng-bind-html="models[element.art][element.id][0]" style="word-wrap: break-word; ">
+	           </div>
+             </div>
+</span>
+\end{lstlisting}
+
+
