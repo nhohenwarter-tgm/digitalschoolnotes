@@ -18,6 +18,7 @@
 \usepackage{parskip}
 \usepackage{hyperref}
 \usepackage{titlesec}
+\usepackage{multirow}
 
 \clearscrheadfoot
 \pagestyle{scrheadings}
@@ -51,20 +52,21 @@ right  = 3cm]{geometry}
 \begin{center}
 
 % Deckblatt
-\includegraphics[width=0.25\textwidth]{images/dsn_logo}\\
+\setlength{\arrayrulewidth}{0.3mm}
+\begin{table}[]
+\centering
+\begin{tabular}{lcl}
+\multirow{4}{*}{
+\includegraphics[width=0.15\textwidth]{images/tgm_logo}} & \textbf{\Large Technologisches Gewerbemuseum}                  & \multirow{4}{*}{\includegraphics[width=0.12\textwidth]{images/htl_logo}} \\
+                           & &\\ & \textbf{Höhere Lehranstalt für Informationstechnologie} &                   \\
+                           & Ausbildungsschwerpunkt Systemtechnik                    &                  \\\hline
+\end{tabular}
+\end{table}
+
+\textbf{\LARGE DIPLOMARBEIT}
+
 \vspace{5mm}
 
-<<<<<<< HEAD
-\LARGE TGM - HTBLuVA Wien XX \\ IT Abteilung  \\[1.5cm]
-
-% Titel
-\rule{1.0\textwidth}{1mm}
-{ \huge \bfseries \\[0.4cm]  \huge Diplomarbeit \\ \LARGE DigitalSchoolNotes \\[0.4cm] }
-
-\rule{1.0\textwidth}{1mm}
-
-
-=======
 Gesamtprojekt
 
 \textbf{\Large DigitalSchoolNotes}
@@ -103,18 +105,12 @@ Abgabevermerk:
 Datum: \today \hfill \hfill übernommen von:\rule[-0.2cm]{3cm}{0pt}
 
 \begin{center}
->>>>>>> 7362b972c5ffd8f2c7d90ec4a06bbb569aa78875
 
 \noindent 
 
-
 \vfill
 
-% Fusszeile
-{\small Version: \today ~um  \thistime    }
 \end{center}
-
-%\end{center}
 \end{titlepage}
 
 
@@ -133,11 +129,46 @@ Datum: \today \hfill \hfill übernommen von:\rule[-0.2cm]{3cm}{0pt}
 
 \newpage %----------------------------------------------------------------------------------------------
 % Erklärung
-\includepdf[scale=1.2,pages=-]{documents/erklaerung}
+%\includepdf[scale=1.2,pages=-]{documents/erklaerung}
+\section*{Eidesstattliche Erklärung}
+Ich erkläre an Eides statt, dass ich die vorliegende Diplomarbeit selbstständig und ohne fremde Hilfe verfasst, andere als die angegbenen Quellen nicht benutzt und die benutzten Quellen wörtlich und inhaltlich entnommenen Stellen als solche erkenntlich gemacht habe. \\
+
+\rule[-0.2cm]{1cm}{0pt} Wien, am 31.03.2016 \\ \\
+
+\hfill \hfill \rule[-0.2cm]{6cm}{0.5pt} \rule[-0.2cm]{2cm}{0pt}
+
+\hfill \hfill Philipp Adler \rule[-0.2cm]{5.5cm}{0pt}\\ \\
+
+\hfill \hfill \rule[-0.2cm]{6cm}{0.5pt} \rule[-0.2cm]{2cm}{0pt}
+
+\hfill \hfill Selina Brinnich \rule[-0.2cm]{5.2cm}{0pt}\\ \\
+
+\hfill \hfill \rule[-0.2cm]{6cm}{0.5pt} \rule[-0.2cm]{2cm}{0pt}
+
+\hfill \hfill Niklas Hohenwarter \rule[-0.2cm]{4.4cm}{0pt}\\ \\
+
+\hfill \hfill \rule[-0.2cm]{6cm}{0.5pt} \rule[-0.2cm]{2cm}{0pt}
+
+\hfill \hfill Adin Karic \rule[-0.2cm]{6.0cm}{0pt}\\ \\
+
+\hfill \hfill \rule[-0.2cm]{6cm}{0.5pt} \rule[-0.2cm]{2cm}{0pt}
+
+\hfill \hfill Thomas Stedronsky \rule[-0.2cm]{4.4cm}{0pt}
+
 \newpage
+
+\vspace*{\fill} 
+\input{sections/gender}
+\label{gender}
+\vspace*{\fill}
+
+\newpage
+
 \input{sections/abstractEN}
 \input{sections/abstractDE}
+
 \newpage
+
 \input{sections/danksagungen}
 \label{pageRomanEnd}
 
@@ -152,6 +183,7 @@ Datum: \today \hfill \hfill übernommen von:\rule[-0.2cm]{3cm}{0pt}
 
 \section{Problembeschreibung}
 \label{sec:problembeschreibung}
+\input{sections/problembeschreibung}
 
 \subsection{Umfeldanalyse}
 \label{subsec:umfeldanalyse}
@@ -172,6 +204,7 @@ Datum: \today \hfill \hfill übernommen von:\rule[-0.2cm]{3cm}{0pt}
 
 \section{Stand der Technik}
 \label{sec:standdertechnik}
+\input{sections/standdertechnik}
 
 \subsection{Frameworks}
 \label{subsec:frameworks}
@@ -187,6 +220,7 @@ Datum: \today \hfill \hfill übernommen von:\rule[-0.2cm]{3cm}{0pt}
 
 \section{Design}
 \label{sec:design}
+\input{sections/design}
 
 \subsection{Software-Architektur}
 \label{subsec:softwarearchitektur}
@@ -208,6 +242,7 @@ Datum: \today \hfill \hfill übernommen von:\rule[-0.2cm]{3cm}{0pt}
 
 \section{Implementierung}
 \label{sec:implementierung}
+\input{sections/implementierung}
 
 \subsection{Infrastruktur und Testing}
 \label{subsec:infrastrukturtesting}
