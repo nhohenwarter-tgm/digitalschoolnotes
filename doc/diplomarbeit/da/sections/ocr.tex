@@ -2,7 +2,7 @@
 \cfoot{Adin Karic}
 Optical Character Recognition oder auch Optische Zeichenerkennung bezeichnet die automatisierte Texterkennung innerhalb von Bildern. Mit diesem Verfahren können also Bilder eingelesen werden und die darin enthaltenen Zeichen als diese erkannt und ausgegeben werden. OCR ermöglicht es den Nutzern von Digital School Notes Bilder auf den Server zu laden, den textuellen Inhalt aus diesen Bildern zu filtern und als bearbeitbares Textelement in ein Heft einzufügen.
 
-\insertpicture{images/ocr/ocrbsp.png}{Beispiel einer Texterkennung \cite{OCRBSP}}{\cite{OCRBSP}}{itm:ocrbsp}{1.0}
+\insertpicture{images/ocr/ocrbsp.png}{Beispiel einer Texterkennung}{\cite{OCRBSP}}{itm:ocrbsp}{1.0}
 
 Die ersten Versuche einer automatischen Zeichenerkennung lassen sich auf die 30er Jahre datieren. Die damals entworfene Maschine für das künstliche Lesen konnte mit einem Mustervergleich die zehn arabischen Ziffern automatisch erkennen. Solche Texterkennungssysteme konnten sich vor allem sehr früh bei Banken und Versicherungen etablieren. Bereits zu Beginn der 60er Jahre war es möglich, mit entsprechenden Rechnern, geschrieben oder gedruckte Zeichen auf Belegen zu identifizieren.
 
@@ -24,7 +24,7 @@ Zudem gibt es verschiedene Arten der konkreten Zeichenerkennung.
 \paragraph{Bitmustervergleich}
 Ein besonders einfaches und wahrscheinlich das älteste Verfahren zur Zeichenerkennung ist der Bitmustervergleich (Matrizenvergleich). Das in den 30er Jahren entwickelte Verfahren vergleicht Zeichen miteinander, indem es die Differenz des digitalisierten Zeichens zu den gespeicherten Zeichenmustern betrachtet. Wenn ein betrachtetes Zeichen eine geringe Differenz zum gespeicherten Muster zeigt, wird es als dieses Zeichen identifiziert. Für jedes Zeichen existiert also eine Matrix, in der dieses Zeichen in ein Pixelmuster zerlegt wird.
 
-\insertpicture{images/ocr/bitmuster.jpg}{Bitmustervergleich \cite{OCRB}}{\cite{OCRB}}{itm:bitm}{1.0}
+\insertpicture{images/ocr/bitmuster.jpg}{Bitmustervergleich}{\cite{OCRB}}{itm:bitm}{1.0}
 
 Beim diesem Vergleich wird das spezifische Pixelmuster des gescannten Zeichens nacheinander mit den vorhandenen Mustern in einer Datenbank verglichen. Dadurch wird durch die Übereinstimmung der Bildpunkte eine Korrelation errechnet. Die Schwierigkeiten bei diesem Verfahren bestehen darin, dass die beiden zu vergleichenden Bitmuster selten wirklich identisch sind. Das liegt einerseits an der Qualität des gescannten Zeichens, welche von Helligkeit und Kontrast abhängig ist. Andererseits könnten beim Scanvorgang selbst einige Verzerrungen oder Verschmutzungen auftreten. Die Größenunterschiede können zusätzlich eine wesentliche Rolle spielen, da die Muster zunächst auf eine einheitliche Größe angepasst werden müssen. Bei diesem Vorgang können wichtige Detailinformationen verloren gehen.
 
@@ -33,7 +33,7 @@ Um diesen Problemen aus dem Weg zu gehen versucht man mit Hilfsmitteln, sogenann
 \paragraph{Klassifikation}
 Bei der Klassifikation handelt es sich um ein komplexeres, aber auch flexibleres Verfahren. Die Zeichen werden hier anhand sogenannter Klassen analysiert. Es werden nicht alle Pixel der Zeichen, sondern nur spezifische Merkmale untersucht, die wiederum in einzelne Klassen unterteilt werden. Die Entwickler des Verfahrens können bestimmen nach welchen Klassen unterteilt wird und wie viele Klassen es überhaupt gibt.
 
-\insertpicture{images/ocr/klassi.jpg}{Klassenbaum für Merkmalsanalyse \cite{OCRB}}{\cite{OCRB}}{itm:klassi}{1.0}
+\insertpicture{images/ocr/klassi.jpg}{Klassenbaum für Merkmalsanalyse}{\cite{OCRB}}{itm:klassi}{1.0}
 
 In einem Klassenbaum werden die Zeichen systematisch anhand ihrer Merkmale in Klassen unterteilt. Innerhalb der Klassen muss dann wieder eine weitere Klassifikation stattfinden um am Ende des Prozesses ein eindeutiges Zeichen zuzuordnen. Es kann auch durchaus vorkommen, dass verschiedene Zeichen in mehreren Klassen vorkommen. Typische Kriterien für die Klassenbildung sind zum Beispiel die Anzahl der Zyklen, die Anzahl der Teile und die Eindringtiefe (Größe der Zeichen).
 
@@ -47,7 +47,7 @@ Diese Methode wird auch strukturelle Formenanalyse genannt und orientiert sich e
 
 Der erste Schritt bei der topologischen Analyse ist die Reduzierung des Pixelbilds auf dessen Grundelemente. Dieser Vorgang wird Vektorisierung genannt. Die überflüssigen Pixel werden also alle entfernt und es entsteht ein ,,Zeichenskelett". Danach folgt die eigentliche Zeichenanalyse. Das Verfahren sucht nun nach Beschreibungen die mit den Einzelelementen des reduzierten Zeichens übereinstimmen. 
 
-\insertpicture{images/ocr/vektor.jpg}{Vektorisierung eines Zeichens \cite{OCRB}}{\cite{OCRB}}{itm:vektor}{1.0}
+\insertpicture{images/ocr/vektor.jpg}{Vektorisierung eines Zeichens}{\cite{OCRB}}{itm:vektor}{1.0}
 
 Diese Methode ermöglicht eine sehr fehlertolerante Zeichenerkennung. Sie benutzt komplexe Algorithmen, konzentriert sich aber nur auf wenige Elemente und erreicht dadurch eine angemessene Geschwindigkeit.
 
@@ -81,7 +81,7 @@ tesseract test3.jpg out3
 
 Hier erkennt man den analysierte Bild sowie den Output der tesseract-Engine.
 
-\insertpicture{images/ocr/fresh.jpg}{Beispielbild für OCR-Analyse (selfmade)}{(selfmade)}{itm:fresh}{1.0}
+\insertpicture{images/ocr/fresh.jpg}{Beispielbild für OCR-Analyse}{(selfmade)}{itm:fresh}{1.0}
 
 Output:
 
@@ -118,11 +118,11 @@ Bei der optischen Zeichenanalyse (OCR) wird der am Bild vorhandene Text durch ei
 
 Um ein Bild zu analysieren klickt der User zunächst auf folgenden Button im Heft:
 
-\insertpicture{images/ocr/bu.png}{OCR-Button (selfmade)}{(selfmade)}{itm:but}{1.0}
+\insertpicture{images/ocr/bu.png}{OCR-Button}{(selfmade)}{itm:but}{1.0}
 
 Darauf öffnet sich ein Dialog mit einem Dateieingabefeld:
 
-\insertpicture{images/ocr/di.png}{OCR-Dialog (selfmade)}{(selfmade)}{itm:di}{1.0}
+\insertpicture{images/ocr/di.png}{OCR-Dialog}{(selfmade)}{itm:di}{1.0}
 
 Nachdem auf den Button "Analysieren" geklickt wurde wird das Bild auf den Server geladen und mittels OCR analysiert. Das Ergebnis dabei ist ein neu erstelltes Textelement im Heft mit dem textuellen Inhalt des angegebenen Bildes.
 
@@ -184,9 +184,9 @@ return JsonResponse({'ocrt': ocrtext})
 
 Abschließend wird mit dem daraus analysierten Text ein neues Textelement im Heft erzeugt. Dazu wird die addelement Methode aufgerufen. Aus folgendem Bild ergibt sich dann das folgende Textelement.
 
-\insertpicture{images/ocr/bspbild.jpg}{Beispielbild für OCR-Analyse (selfmade)}{(selfmade)}{itm:bsp}{0.55}
+\insertpicture{images/ocr/bspbild.jpg}{Beispielbild für OCR-Analyse}{(selfmade)}{itm:bsp}{0.55}
 
-\insertpicture{images/ocr/bsptext.png}{Erzeugtes Textelement (selfmade)}{(selfmade)}{itm:text}{0.35}
+\insertpicture{images/ocr/bsptext.png}{Erzeugtes Textelement}{(selfmade)}{itm:text}{0.35}
 
 \subsubsection{Ausblick}
 Eine Optimierung des OCR-Moduls hinsichtlich Erkennungsgenauigkeit und Handschrifterkennung wurde angedacht. In Zukunft könnte man das OCR-Modul durch entsprechendes (automatisiertes) Training in dieser Hinsicht weiterentwickeln. Eine höhere Fehlertoleranz bei Bildern mit schlechter Qualität ist ebenso wünschenswert.
