@@ -31,10 +31,10 @@ Hefte können geteilt werden und gleichzeitig bearbeitet werden, allerdings nich
 \subsubsection{Umsetzung}
 Das Parallel Working System besteht aus zwei Modulen. Mit dem ersten Modul ist es möglich Hefte mit anderen Nutzern zu teilen und das andere Modul ist für die ständige Aktualisierung und Synchronisation des Heftinhaltes verantwortlich. 
 \paragraph{Hefte teilen}
-Jedes Heft hat ein Attribut \textit{collaborator}(siehe \ref{sec:Notebook}). Dieses Attribut ist die Vorraussetzung um das Heft mit anderen Benutzern zu teilen. 
+Jedes Heft hat ein Attribut \textit{collaborator}(siehe Kapitel \ref{sec:datamgmt-notebook}). Dieses Attribut ist die Vorraussetzung um das Heft mit anderen Benutzern zu teilen. 
 Um anderen Nutzern ein bestimmtes Heft freizugeben gibt es folgende Oberfläche:
 \insertpicture{images/pws/add_collaborator}{Hinzufügen eines weiteren Nutzers}{(selfmade)}{itm:collaborator-chart}{0.70}
-Wie man aus der Abbildung 15 entnehmen kann schlägt das System nach fortgeschrittener Eingabe User vor, um diese hinzuzufügen. Durch diese Funktion soll der Komfort beim hinzufügen eines Collaborators gefördert werden. Bei diesen Suchvorschlägen handelt es sich um die E-Mail Adresse die gleichzeitig die eindeutige Identifizierung des Users darstellt.
+Wie man aus der Abbildung \ref{itm:collaborator-chart} entnehmen kann schlägt das System nach fortgeschrittener Eingabe User vor, um diese hinzuzufügen. Durch diese Funktion soll der Komfort beim hinzufügen eines Collaborators gefördert werden. Bei diesen Suchvorschlägen handelt es sich um die E-Mail Adresse die gleichzeitig die eindeutige Identifizierung des Users darstellt.
 Ist ein Heft nun für einen User freigegeben, so wird das Heft in dessen Heftkollektion unter 'Für mich freigegebene Hefte' angezeigt. \\
 
 \insertpicture{images/pws/show_notebook}{Für mich freigegebene Hefte}{(selfmade)}{itm:showNotebook-chart}{0.50} 
@@ -42,7 +42,7 @@ Ist ein Heft nun für einen User freigegeben, so wird das Heft in dessen Heftkol
 Im Prinzip kann jedes Heft mit beliebig vielen Nutzern geteilt werden, dabei spielt es keine Rolle ob es ein privates oder öffentliches Heft ist. 
 Der Benutzer denn ein Heft freigegeben wurde hat nur die Bearbeitungsrechte, er kann weder den Namen ändern noch das Heft löschen. Wird das Notebook vom Besitzer gelöscht, dann wird das Heft auch bei allen Mitbesitzern gelöscht. Hefte können nicht übergeben werden.
 \\
-Um die Teilung eines Heftes aufzuheben gibt es zwei Möglichkeiten. Entweder der Besitzer des Heftes löscht den User als \textit{collaborator} mittels dem roten Minus neben den Namen (siehe \ref{showNotebook-chart}). Die andere Möglichkeit ist, dass der geteilte User sich selbst die Rechte entzieht.
+Um die Teilung eines Heftes aufzuheben gibt es zwei Möglichkeiten. Entweder der Besitzer des Heftes löscht den User als \textit{collaborator} mittels dem roten Minus neben den Namen (siehe Abbildung \ref{itm:showNotebook-chart}). Die andere Möglichkeit ist, dass der geteilte User sich selbst die Rechte entzieht.
 \paragraph{Aktualisierung und Synchronisation}
 Jedes NotebookContent-Element besitzt folgende Attribute:
 \begin{lstlisting}[caption={Parallel Working System Attribute}]
@@ -83,7 +83,7 @@ Das Prinzip ist, dass immer nur ein Benutzer des Heftes an einem Element arbeite
 Um zu vermeiden das ein User ein Element unbegrenzt blockiert, gibt es ein Timeout, dass den Benutzer nach einer bestimmten Zeit vom Element abmeldet, wenn dieser im Element keinen Tastendruck oder Mausklick ausführt. Wenn dieser User vom System abgemeldet wird ist das Element anschließend wieder für alle User verfügbar.\\
 \\
 Um den anderen Benutzern zu signalisieren, dass ein Element gerade aktiv ist, wird allen anderen Usern ein rotes Rufzeichen über dem Element angezeigt. Ist dies der Fall ist das gesamte Element nicht editierbar. 
-\insertpicture{images/pws/show_rufzeichen}{Element gesperrt - PWS}{(selfmade)}{itm:collaborator-chart}{1.0}
+\insertpicture{images/pws/show_rufzeichen}{Element gesperrt - PWS}{(selfmade)}{itm:collaborator-gesperrt}{1.0}
 Dieses Zeichen verschwindet automatisch, sobald das Element für alle User wieder zugänglich ist. Durch diese Methodik sollen Missverständnisse ausgeschlossen werden. Versucht der Benutzer trotzdem das Element zu verschieben, zu löschen oder in den Bearbeitungsmodus zu gelangen, wird eine Meldung angezeigt, dass dies erst geht sobald der aktive Benutzer den Bearbeitungsmodus verlassen hat. \\
 \\
 Die Aktualisierung und Synchronisation funktioniert in zwei Schritten.\\
