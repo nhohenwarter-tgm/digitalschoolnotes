@@ -38,19 +38,17 @@ Standardmäßig, wird ein POST an \textit{api/change\_lang} mit dem JSON Paramet
 %Services
 
 \subsubsection{DSN Architektur}
-\insertpicture{images/design/architektur.jpg}{Softwarearchitektur}{(selfmade)}{itm:architektur-chart}{0.75}
-Unser System besteht aus einem Frontend- und Backend-Server.\\
+Unser System setzt sich aus einem Frontend-, Backend-Server und einer dokumentenbasierten Datenbank zusammen. Das Frontend ist für die Darstellung statistischer Daten verantwortlich. Im Gegensatz dazu kümmert sich das Backend mit MongoDB um den dynamischen Teil.
+\paragraph{Interaktionen zwischen Frameworks}
+\insertpicture{images/design/feinarchitektur.jpg}{Technologische Übersicht}{(selfmade)}{itm:feinarchitektur-chart}{0.75}
+
+Der Client kann über HTTP oder SSL die DSN-Webseite aufrufen. Je nach Anfrage wird eine Verbindung mit dem Frontend- oder Backend-Server aufgebaut.\\
+
 Der Nginx-Server, Frontend, beinhaltet statitsche Daten, wie HTML-Seiten, CSS- \& JS-Dateien und Bilder. Diese werden durch ein JavaScript File namens routes.js verwaltet. Eingehenden HTTP-Requests werden in diesem File gemappet. Fordert ein User z.B. mit einem GET die Loginpage, wird auf diese weitergeleitet. Jede HTML-Seite hat ihren eigenen Controller, basierend auf JavaScript. Er kümmert sich um die Useraktionen und ändert je nach Anforderung den Inhalt der Website.\\
+
+\insertpicture{images/design/architektur.jpg}{Aufbau der Server}{(selfmade)}{itm:architektur-chart}{0.75}
+
 Sollte es zu komplexeren Aufgaben kommen, wo statischer Inhalt keine Hilfe ist, wird die Kommunikation mit dem Django-Server, Backend, erforderlich. Django ist ein Web Framework, basierend auf Python. Wie bei Frontend, existiert ein File, dass alles managt. Die \textit{urls.py} Datei nimmt HTTP-Anfragen entgegen und delegiert diese auf jeweiligen Funktionen im views Ordner. Diese hantieren mit den empfangenen JSON-Objekten. Handelt es sich bei der Anfrage, um die Auflistung von Schulheften oder Heftinhalten, ist eine DB-Abfrage erforderlich.\\
 Dank dem \textit{models.py} File liefert MongoDB kein JSON, sondern spezifizierte Objekte, die die Arbeit erleichtern.
-%Dient-Architektur
-%Software-Architektur
 
-\subsubsection{Interaktion zwischen JS-Frameworks}
-Während der laufenden Entwicklung von DSN, sind bei der Einbindung von JS-Frameworks Probleme aufgetretten. Schwieriger als Gedacht, zeigte sich die Einbindung und Verarbeitung von unserem Textelement CKEditor und Codeelement CodeMirror.\\
 
-Die Texteditor ließ sich ohne viel Aufwand in das bestehende System integrieren. DSN bieten den Anwender die Möglichkeit zwischen Elementen Ansichts- und Elementen im Bearbeitungsmodus zu wählen. Zu Beginn war nur der Bearbeitungsmodus gegeben. Entgegen dem Sinne der Entwickler, wurden Änderungen im Hauptcode des Textelements vorgenommen, um das Problem zu lösen. Nun konnte das JavaScript Framework auf die Useraktionen agieren und die das Textfeld mit den Optionen auf- und zuklappen.\\
-Die beiden Modies funktionieren erfreulicherweise, doch wie erfolgt die Persistierung im Hintergrund? Dazu musste AngularJS mit dem CKEditor verbunden werden. So war es möglich, den Text aus dem Element auszulesen, an Django zu senden und schlussendlich in die Datenbank zu speichern. Dadurch war das System in der Lage, die im Bearbeitungsmodus hinterlegten Effekte, korrekt darzustellen.\\
-
-Das Codeelement ist dem Textelement ähnlich, mit der Ausnahme, dass es keine zusätzlichen Funktionen wie Fett, kursiv, etc. bietet. Stattdessen kann der User auswählen, in welcher Syntax sein Code gehighlightet werden soll. Genau diese Funktion wurde zum Problem.\\
-Der Inhalt wurde entsprechend formatiert, aber beim nächsten Aufruf war diese vergessen. Wie beim Textelement, kam es bei der Funktion Speichern zu Schwierigkeiten. Wir haben AngularJS so angepasst, dass dieses die benutzerspezifische Sprache in die Datenbank speichert und ausliest. Diese Daten werden an das Codelement übergeben und automatisch formatiert.
