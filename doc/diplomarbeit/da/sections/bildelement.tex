@@ -1,4 +1,12 @@
 %\subsubsection*{Bildelement}
 \cfoot{Niklas Hohenwarter}
 
-%Text...
+Durch das Bildelement können Grafiken aus dem Unterricht oder Internet in ein Heft integriert werden. Durch die Einbindung von Grafiken kann einfacher gelernt werden und der Schüler hat mehr Möglichkeiten zur Gestaltung seines Schulheftes.
+
+Um ein Bild einfügen zu können, muss der Bilder Button in der Werkzeugleiste im Heft geklickt werden (siehe Abbildung \ref{itm:notebook_new}). Dannach äffnet sich folgende Ansicht im Heft:
+
+\insertpicture{images/elemente/bildelement.png}{Bild zum Heft hinzufügen}{(selfmade)}{itm:addimage-notebook}{0.7}
+
+Durch einen Klick auf Browse öffnet sich ein Dateiexplorer über welchen ein Bild welches hochgeladen werden soll ausgewählt werden kann. Hierbei wurden nur Bilddateien erlaubt, andere Dateiformate können nicht ausgewählt werden. Des Weiteren kann über zwei Eingabefelder die Breite und Höhe des Bildes angegeben werden. Das Bild wird hierbei jedoch nicht zugeschnitten, sondern nur verkleinert dargestellt. Dadurch haben die hochgeladenen Dateien höhere Dateigrößen, jedoch kann im Nachhinein das Bild durch eine Änderung der Größe größer dargestellt werden. 
+
+Nachdem alle Formularfelder korrekt ausgefüllt wurden, kann der Button "Hochladen" gedrückt werden. Nach einem Klick auf den Button wird das Bild auf den Projektserver hochgeladen. Dort wird dann überprüft ob es sich um ein Bild handelt. Falls die Datei ein Bild ist wird sie mittels Bildverarbeitung optimiert um Speicherplatz zu sparen. Nach diesem Schritt wird das Bild in die Amazon S3 Cloud hochgeladen. Das Bild wird nun von Amazon redundant gespeichert. Um es später ins Heft einbinden zu können, gibt Amazon einen Link zum Bild zurück. Dannach kann das Bild vom Projektserver gelöscht werden und der Link zum Bild wird in der Datenbank abgespeichert. Nun kann das Bild mittels HTML in das Heft eingebunden werden. 
