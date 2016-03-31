@@ -79,7 +79,7 @@ Um Tesseract-OCR (engine) zu installieren, installiert man die folgenden Pakete 
 \newpage
 
 Zum Testen der Analyse führt man tesseract mit folgendem Befehl in der Commandline aus:
-\begin{lstlisting}[caption={tesseract-Ausführung}]
+\begin{lstlisting}[caption={tesseract-Ausführung}, language=bash]
 tesseract test3.jpg out3
 \end{lstlisting}
 \cite{TESS1} \cite{TESS2}
@@ -100,7 +100,7 @@ die alle Abteilungen. Werlstatten und A / m
 
 Für die Installation der Python-Anbindung pytesseract sind folgende Befehle notwendig.
 
-\begin{lstlisting}[caption={pytesseract-Installation}]
+\begin{lstlisting}[caption={pytesseract-Installation}, language=bash]
 apt-get install python3
 apt-get install python3-pip
 pip3 install pytesseract
@@ -110,7 +110,7 @@ apt-get install python3-pil
 
 Mit einem Testscript in Python kann die optische Zeichenanalyse ausgeführt werden.
 
-\begin{lstlisting}[caption={pytesseract-Code}]
+\begin{lstlisting}[caption={pytesseract-Code}, language=Python]
 import pytesseract
 from PIL import Image
 print (pytesseract.image_to_string(Image.open('test3.jpg')))
@@ -133,7 +133,7 @@ Nachdem auf den Button ,,Analysieren" geklickt wurde wird das Bild auf den Serve
 
 Wie schon erwähnt erscheint bei Klick auf den OCR-Button ein Dialog in welchem man die zu analysierende Bilddatei angeben kann. Bei Klick auf den Button ,,Analysieren" wird folgende Subroutine aufgerufen:
 
-\begin{lstlisting}[caption={Upload OCR-File}]
+\begin{lstlisting}[caption={Upload OCR-File}, language=Python]
 $scope.uploadOCRFile = function(){
         var file = $scope.ocrFile;
         if((file.type == "image/jpeg" || file.type == "image/png" || 				file.type == "image/gif") && file.size < 5242880) {
@@ -168,13 +168,13 @@ Hier ist zu sehen, dass zunächst der Dateityp und die Dateigröße überprüft 
 
 In dieser Methode erhält das File einen neu und zufällig generierten Namen und wird auf den Server lokal hochgeladen. Dann wird schließlich die Methode die für das eigentliche Analysieren zuständig ist aufgerufen:
 
-\begin{lstlisting}[caption={OCR-Analyse}]
+\begin{lstlisting}[caption={OCR-Analyse}, language=Python]
 ocrtext=analyseOCR(os.getcwd()+"/dsn/static/upload/"+filename+"."+typ)
 \end{lstlisting}
 
 Schließlich kommt in der Methode analyseOCR das pytesseract-Framework zum Einsatz:
 
-\begin{lstlisting}[caption={analyseOCR mittels pytesseract}]
+\begin{lstlisting}[caption={analyseOCR mittels pytesseract}, language=Python]
 def analyseOCR(file):
 	s = 						 str(pytesseract.image_to_string(Image.open(file)).encode(sys.stdout.encoding, 	errors='replace'))
     s = s[2:-1]
@@ -184,7 +184,7 @@ def analyseOCR(file):
 
 Nach der Analyse wird der erkannte Text als JSONResponse zurückgegeben und das lokal hochgeladene Bild wird wieder vom Server gelöscht.
 
-\begin{lstlisting}[caption={Fileentfernung und Rückgabe des OCR-Textes}]
+\begin{lstlisting}[caption={Fileentfernung und Rückgabe des OCR-Textes}, language=Python]
 os.remove(os.getcwd()+"/dsn/static/upload/"+filename+"."+typ)
 return JsonResponse({'ocrt': ocrtext})
 \end{lstlisting}

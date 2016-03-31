@@ -15,7 +15,7 @@ Neben der Email-Adresse, ist ein weiterer Identitätspunkt, das geheime Passwort
 
 Ein Captcha (Completely Automated Public Turing test to tell Computers and Humans Apart) soll bei der Registrierung verhindern, dass eine Software oder ein Bot einen Account erzeugt.\\
 Generell, dient es der Sicherheit und hat die Aufgabe, jede Eingabe auf ihre Herkunft zu prüfen. Um ein Captcha anzuzeigen, ist die Einbindung einer JavaScript Library notwendig. \cite{CAPTCHA}.
-\begin{lstlisting}[caption={Einbindung der JS-Library Recaptcha}]
+\begin{lstlisting}[caption={Einbindung der JS-Library Recaptcha}, language=HTML]
 <script src="https://www.google.com/recaptcha/api.js?
 onload=vcRecaptchaApiLoaded&render=explicit" async defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-recaptcha/2.2.5/
@@ -57,7 +57,7 @@ Beim Anmelden wird kontrolliert, ob die angegebene Email-Adresse in der Datenban
 Surft ein Benutzer auf unserer Seite, arbeitet im Hintergrund ein Session Timeout, welches die Aktivtät des eingeloggten Benutzer überprüft.\\
 Im Falle einer Inaktivität von 1 Stunde, wird der Anwender automatisch abgemeldet und zur Anmeldeseite zurückgeleitet. Es dient als Vorbeugemaßnahmen und kontrolliert unauthorizierte Aktivtäten.
 
-\begin{lstlisting}[caption={Session Timeout}]
+\begin{lstlisting}[caption={Session Timeout}, language=Python]
 try:
     user = User.objects.get(email='exampleATexample.com')
 except:
@@ -117,7 +117,7 @@ Unsere Usermanagement-Page wurde so designt, dass durch kurze Ladezeit, dem Admi
 Pro-User, die den Zahlungen nicht nachkommen, geben dem Administrator das Recht, diesen löschen. DSN gibt dem User die Möglichkeit, seine Daten bzw. Hefte zu sichern, bevor er gelöscht wird. Der Benutzer empfängt rechtzeitig eine Aufforderungs-Mail, wo darauf hingewiesen wird, dass sein Account und alle dazugehörigen Daten nach 7 Tagen gelöscht werden. Am Server von DSN läuft ein Cron-Daemon, welcher täglich prüft, wann der zu löschende User entfernt werden soll. \grqq{}Der Cron-Daemon ist ein Dienst, der automatisch Skripte und Programme zu vorgegebenen Zeiten starten kann.\grqq{}\cite{CRON}\\
 Im Falle, dass jemand länger als 3 Monate interaktiv ist, wird ihm ebenfalls eine Informationsmail geschickt. Wenn sich der User binnen 7 Tagen nicht einloggt, wird der Account mit allen Daten gelöscht. \cite{COMMANDS}\cite{CRON}
 
-\begin{lstlisting}[caption={Cronjob für die {\"U}berpr{\"u}fung der Inaktivt{\"a}t und L{\"o}schung}]
+\begin{lstlisting}[caption={Cronjob für die {\"U}berpr{\"u}fung der Inaktivt{\"a}t und L{\"o}schung}, language=bash]
 # m h  dom mon dow   command
 # * *   */1   *   *    python3 /home/stable/dsn/manage.py inform
 # * *   */1   *   *    python3 /home/stable/dsn/manage.py delete

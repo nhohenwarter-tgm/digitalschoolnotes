@@ -59,7 +59,7 @@ Es folgt eine Liste der freigegebenen Ports:
 \newpage
 
 Die Konfiguration der Firewall des Projektservers sieht wie folgt aus:
-\begin{lstlisting}[caption = Firewall Rules des Projektservers, label = firewall1]
+\begin{lstlisting}[caption = Firewall Rules des Projektservers, label = firewall1, language=bash]
 # Flush the tables to apply changes
 iptables -F
 
@@ -90,7 +90,7 @@ iptables -A INPUT -p tcp --dport 5005 -m state --state NEW -j ACCEPT
 
 Da normalerweise nach einem Reboot des Servers die Firewallkonfiguration verloren geht, musste diese persistiert werden. Das wird durch das Paket \textbf{\textit{iptables-persistent}} erledigt. Die Konfiguration dieses Paketes geschieht wie folgt\cite{FIREWALL_PERSISTENT}:
 
-\begin{lstlisting}[caption = Installation iptables-persistent, label = firewall2]
+\begin{lstlisting}[caption = Installation iptables-persistent, label = firewall2, language=bash]
 # Install
 sudo apt-get install iptables-persistent
 

@@ -22,7 +22,7 @@ Im Folgenden wird genauer auf jede der aufgezählten Datenbanken eingegangen, um
 MySQL ist eine Open-Source Datenbank von Oracle. Sie verspricht vor allem Einfachheit in der Anwendung.\cite{ABOUTMYSQL}
 
 Die Installation von MySQL ist sehr einfach und schnell erledigt. Die Datenbank kann mithilfe folgender Befehle installiert werden:
-\begin{lstlisting}[caption=Installation von MySQL \cite{MYSQLINSTALL}]
+\begin{lstlisting}[caption=Installation von MySQL \cite{MYSQLINSTALL}, language=bash]
 sudo apt-get install mysql-server mysql-client
 sudo mysqladmin -u root -h localhost password 'mypassword'
 sudo apt-get install php5-mysql
@@ -31,10 +31,10 @@ sudo apt-get install php5-mysql
 \newpage
 
 Bei der Konfiguration von MySQL muss zunächst ein neuer Benutzer erstellt und anschließend die entsprechenden Rechte gesetzt werden:
-\begin{lstlisting}[caption=Konfiguration von MySQL \cite{ADDUSERMYSQL}]
+\begin{lstlisting}[caption=Konfiguration von MySQL \cite{ADDUSERMYSQL}, language=SQL, escapeinside={(*}{*)}]
 mysql -u root -p
-CREATE USER 'eval'@'localhost' IDENTIFIED BY 'password';
-GRANT ALL PRIVILEGES ON eval.* TO 'eval'@'localhost';
+CREATE USER 'eval'(*@*)'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON eval.* TO 'eval'(*@*)'localhost';
 CREATE DATABASE eval;
 FLUSH PRIVILEGES;
 mysql -u eval -p
@@ -54,14 +54,14 @@ Um einen vorhandenen Datensatz zu löschen kann folgender Befehl ausgeführt wer
 PostgreSQL ist eine Open-Source Datenbank. Sie verspricht vor allem eine hohe Zuverlässigkeit und Datenintegrität.\cite{ABOUTPOSTGRES}
 
 Die Installation von PostgreSQL ist sehr einfach. Sie verläuft sehr schnell und es muss nur ein einziger Befehl ausgeführt werden. Die Datenbank kann mithilfe folgendem Befehl installiert werden:
-\begin{lstlisting}[caption=Installation von PostgreSQL \cite{POSTGRES}]
+\begin{lstlisting}[caption=Installation von PostgreSQL \cite{POSTGRES}, language=bash]
 apt-get install postgresql postgresql-client
 \end{lstlisting}
 
 \newpage
 
 Bei der Konfiguration von PostgreSQL muss ein neuer Benutzer erstellt und anschließend die entsprechenden Rechte gesetzt werden:
-\begin{lstlisting}[caption=Konfiguration von PostgreSQL \cite{POSTGRES}]
+\begin{lstlisting}[caption=Konfiguration von PostgreSQL \cite{POSTGRES}, language=SQL]
 su postgres
 psql
 CREATE USER mypguser WITH PASSWORD 'mypguserpass';
@@ -88,7 +88,7 @@ Um einen vorhandenen Datensatz zu löschen kann folgender Befehl ausgeführt wer
 MongoDB ist eine Open-Source NoSQL Datenbank. Sie verspricht vor allem eine hohe Flexibilität, Skalierbarkeit und Performance. \cite{ABOUTMONGODB}
 
 Die Installation von MongoDB verläuft folgendermaßen:
-\begin{lstlisting}[caption=Installation von MongoDB \cite{MONGODBINSTALL}]
+\begin{lstlisting}[caption=Installation von MongoDB \cite{MONGODBINSTALL}, language=bash]
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10
 echo "deb http://repo.mongodb.org/apt/debian wheezy/mongodb-org/3.0 main" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
 sudo apt-get update
@@ -111,13 +111,13 @@ Um einen vorhandenen Datensatz zu löschen kann folgender Befehl ausgeführt wer
 Couchbase ist eine Open-Source NoSQL Datenbank. Sie verspricht vor allem eine hohe Skalierbarkeit.\cite{ABOUTCOUCHBASE}
 
 Die Installation von Couchbase verläuft über ein externes .deb Packet. Zur Installation werden folgende Befehle benötigt:
-\begin{lstlisting}[caption=Installation von Couchbase \cite{COUCHBASEINSTALL}]
+\begin{lstlisting}[caption=Installation von Couchbase \cite{COUCHBASEINSTALL}, language=bash]
 wget http://packages.couchbase.com/releases/4.0.0-rc0/couchbase- server-community_4.0.0-rc0-ubuntu14.04_amd64.deb
 dpkg -i couchbase-server-community_4.0.0-rc0-ubuntu14.04_amd64.deb
 \end{lstlisting}
 
 Bei der Konfiguration von Couchbase muss das CLI Programm in die Bashrc hinzugefügt werden:
-\begin{lstlisting}[caption=Konfiguration von Couchbase]
+\begin{lstlisting}[caption=Konfiguration von Couchbase, language=bash]
 if [ -d "/opt/couchbase/bin" ] ; then 
       export PATH="/opt/couchbase/bin:$PATH" 
 fi

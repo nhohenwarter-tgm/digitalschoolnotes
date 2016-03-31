@@ -33,7 +33,7 @@ Unter dem Codeelement gibt es noch drei Buttons die nur sichtbar sind wenn man m
 
 Bei Klick auf den Code-Button wird die Methode codeElementCreate() ausgeführt. Dort wird ein ngDialog mit dem codeElementSettings-template geöffnet wo der User zum ersten Mal die Programmiersprache auswählen kann. Nachdem dies ausgewählt wurde wird die Methode addCodeElement() ausgeführt.
 
-\begin{lstlisting}[caption={Code-Element Persistierung}]
+\begin{lstlisting}[caption={Code-Element Persistierung}, language=Javascript]
 $scope.addCodeElement = function(){
 
     if(!$scope.wf) {

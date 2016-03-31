@@ -97,7 +97,7 @@ Dazu muss MongoEngine, ein Verbindungsstück zwischen Django und MongoDB, instal
 
 Um Django mitzuteilen, dass MongoDB im Hintergrund verwendet werden soll, müssen im File \textit{prototype/settings.py} folgende Zeilen auskommentiert beziehungsweise hinzugefügt werden:
 
-\begin{lstlisting}[caption=MongoDB Konfiguration in Django]
+\begin{lstlisting}[caption=MongoDB Konfiguration in Django, language=Python]
 #DATABASES = {
 #    'default': {
 #        'ENGINE': 'django.db.backends.sqlite3',
@@ -121,7 +121,7 @@ mongoengine.connect(_MONGODB_NAME, host=_MONGODB_DATABASE_HOST)
 
 Um von Django aus auf Daten in MongoDB zugreifen beziehungsweise neue Daten hineinspeichern zu können, müssen vorher sogenannte Models erstellt werden. Diese sind im File \textit{models.py} definiert und bilden die Struktur der Daten in der Datenbank ab. Dies kann beispielsweise folgendermaßen aussehen:
 
-\begin{lstlisting}[caption=Beispiel für ein Datenbankmodell in Django]
+\begin{lstlisting}[caption=Beispiel für ein Datenbankmodell in Django, language=Python]
 from mongoengine import *
 
 class Notebook(Document):
@@ -141,7 +141,7 @@ Mittels \textit{collectionName.objects()} können bestehende Datensätze der ent
 
 Um bestimmte Objekte innerhalb einer Collection nach selbst definierten Suchkriterien zu filtern kann folgende Syntax verwendet werden:
 
-\begin{lstlisting}[caption=Syntax für eine Suchanfrage an die Datenbank in Django]
+\begin{lstlisting}[caption=Syntax für eine Suchanfrage an die Datenbank in Django, language=Python]
 user = User.objects()
 user(
      Q(email__icontains=suchtext) | 	 

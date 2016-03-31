@@ -22,13 +22,13 @@ Für die Auswahl unserer Web Frameworks wurden Flask, Django und Play verglichen
 \grqq{}Flask ist ein microframework für Python, basierend auf Werkzeug, Jinja 2.\grqq{}\cite{FLASK} Es ist frei verfügbar und aufgrund seiner Größe, schnell und einfach zu installieren und konfigurieren. Da es zu den kleineren Web Frameworks zählt, wird wenig Funktionalität geboten, welche aber durch einfache Erweiterungen behoben werden kann.\cite{FLASK}
 
 Die Installation von Flask ist ziemlich simpel. Es kann mit folgenden Befehl installiert werden:
-\begin{lstlisting}[caption={Installation von Flask \cite{FLASK}}]
+\begin{lstlisting}[caption={Installation von Flask \cite{FLASK}}, language=bash]
 pip3 install Flask
 \end{lstlisting}
 
 Für ein einfaches \grqq{}Hello World\grqq{}-Programm, geschrieben in Flask, braucht es eine Funktion, die die Message ausgibt und eine Main-Methode, welche die Applikation startet.
 
-\begin{lstlisting}[caption={Flask Hello-World \cite{FLASK}}, escapeinside={(*}{*)}]
+\begin{lstlisting}[caption={Flask Hello-World \cite{FLASK}}, escapeinside={(*}{*)}, language=Python]
 from flask import Flask
 
 app = Flask(__name__)
@@ -47,13 +47,13 @@ Mit dem Befehl \textit{python3 hello.py} lässt sich das Programm ausführen.
 Django ist ein Open-Source Python Web Framework für die schnelle Entwicklung einer Webanwendung. Es bietet eine detailierte und umfangreiche Dokumentation über alle Funktionalitäten und wird außerdem durch große Community unterstützt. Obwohl es mit sehr vielen Features ausgestattet ist, ist es einfach erweiterbar und kann mit wenig Aufwand installiert und konfiguriert werden.\cite{DJANGO}
 
 Installiert wurde das Web Framework folgenderweise:
-\begin{lstlisting}[caption={Installation von Django\cite{DJANGOIN}}]
+\begin{lstlisting}[caption={Installation von Django\cite{DJANGOIN}}, language=bash]
 apt-get install python3-django
 \end{lstlisting}
 
 Zur Erstellung eines \grqq{}Hello-World\grqq{}-Programmes muss zu Beginn ein Projekt erzeugt werden. Im nächsten Schritt ist die Datenbank entsprechend der Project-Settings zu konfigurieren. Anschließend wird im Unterordner app ein neues File \grqq{}hello.py\grqq{} mit folgenden Code erstellt:
 
-\begin{lstlisting}[caption={Django Hello-World \cite{DJANGOCODE}}]
+\begin{lstlisting}[caption={Django Hello-World \cite{DJANGOCODE}}, language=Python]
 from django.http import HttpResponse
 
 def hello_world(request):
@@ -68,7 +68,7 @@ Trotz vorhandener Ausbaufähigkeit, erwies sich die Umsetzung als kompliziert. D
 
 Um Play zu installieren muss das Framework zunächst von\\
 https://www.playframework.com/download heruntergeladen werden. Das downgeloadete zip-File muss entpackt und der darin enthaltene Activiator zum PATH hinzugefügt werden. Danach wird der Activiator mit folgendem Befehl gestartet\cite{PLAYCON}:
-\begin{lstlisting}[caption={Konifiguration von Play \cite{PLAYCON}}]
+\begin{lstlisting}[caption={Konifiguration von Play \cite{PLAYCON}}, language=bash]
 activiator ui
 \end{lstlisting}
 
@@ -100,7 +100,7 @@ Im Falle von DSN, dienen Sie als Schnittstelle zum Webserver und außerdem, dazu
 Dojo ist eine JS-Bibliothek von Dojo Foundation, die Entwicklern JS- und Ajax-basierende Module anbietet. Das Framework ist modular aufgebaut, das für eine gute Übersicht im Code sorgt. Dojo ist frei anwendbar und plattformunabhängig. Die Dokumentation besteht aus einer übersichtlichen Auflistung von step-by-step Tutorials. \cite{DOJO}
 
 Das Installieren bzw. Anwenden des Frameworks ist sehr einfach. Eine Möglichkeit besteht darin, den gesamten Source-Ordner herunterzuladen, in dem sich der Core mit den Kernfunktionalitäten befindet oder ganz einfach den Link der dojo.js Datei im Header angeben.
-\begin{lstlisting}[caption={Dojo einbinden\cite{DOJODOWN}}]
+\begin{lstlisting}[caption={Dojo einbinden\cite{DOJODOWN}}, language=HTML]
 <script src="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js">
 </script>
 \end{lstlisting}
@@ -119,7 +119,7 @@ Für die Verwendung von Sencha müssen die benötigiten Module bzw. Library im H
 jQuery, ist ein plattformunabhängiges JavaScript Framework, von der jQuery Foundation. Die Open-Source-Software steht frei für jegliche Verwendung zur Verfügung, solange im Projekt überall die Copyrights stehen. Mit einer umfangreiche Klassenbibliothek unterstützt jQuery den Umgang mit DOM (Document Object Model). DOM wandelt alle HTML-Elemente in Objekte um, die während der Laufzeit dynamisch angepasst werden.\cite{JQUERY} 
 
 Für die Nutzung ist die jQuery.js Datei in den Header einzubinden.
-\begin{lstlisting}[caption={jQuery einbinden\cite{JQUERYDOWN}}]
+\begin{lstlisting}[caption={jQuery einbinden\cite{JQUERYDOWN}}, language=HTML]
 <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
 \end{lstlisting}
 Nebenbei sei erwähnt, dass mittels dem '\$' Zeichen die Funktionen aufgerufen werden.
@@ -132,7 +132,7 @@ AngularJS ist ein JavaScript Framework von Google, welches einen MVC-Ansatz verf
 Für die Verwendung des Frameworks wird der HTML-Code einfach um AngularJS-Attribute erweitert. Dadurch besteht eine strikte HTML und JS Trennung, welches die Lesbarkeit, Übersichtlichkeit und Testbarkeit des Cods verbessert. \cite{ANGULARJS}
 
 Um AngularJS in der Praxis einsetzen zu können, muss die JS-Bibliothek im Header inkludiert werden: 
-\begin{lstlisting}[caption={AngularJS einbinden\cite{ANGULARJSDOWN}}]
+\begin{lstlisting}[caption={AngularJS einbinden\cite{ANGULARJSDOWN}}, language=HTML]
 <script 
 src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular.min.js">
 </script>
@@ -147,7 +147,7 @@ Meteor ist ein full-stack JavaScript Framework, welches alle Plattformen unterst
 \newpage
 
 Die Installation dauerte im Gegensatz zu anderen JavaScript Frameworks länger. Es gab nicht die Möglichkeit einer Header-Einbindung, sondern musste mit folgenden Befehl installiert und getestet werden:
-\begin{lstlisting}[caption={Installation von Meteor \cite{METEORINSTALL}}]
+\begin{lstlisting}[caption={Installation von Meteor \cite{METEORINSTALL}}, language=bash]
 curl https://install.meteor.com/ | sh
 meteor create ~/my_cool_app
 cd ~/my_cool_app
@@ -177,7 +177,7 @@ Yaml ist ein CSS-Framework von Dirk Jesse, welches von allen modernen Browsern, 
 Das Framework wird unter der Creative Commons Attribution 2.0 Lizenz (CC-BY 2.0) veröffentlicht, die privaten als auch kommerziellen Gebrauch erlaubt.
 
 Die aktuellste Version kann von der Hauptseite http://www.yaml.de heruntergeladen und entpackt werden. Im entpackten Ordner befinden sich alle notwendigen .css Dateien und Demos, die für den Prototyp essentiell sind. Bei der Verwendung muss in den HTML Files der Pfad zum CSS File und bei HTML Tags die gewünschte class angegeben werden. 
-\begin{lstlisting}[caption={YAML einbinden \cite{YAMLPROTO}}]
+\begin{lstlisting}[caption={YAML einbinden \cite{YAMLPROTO}}, language=HTML]
 <link rel="stylesheet" href="yaml/core/base.css" type="text/css"/>
 <link rel="stylesheet" href="css/styles.css" type="text/css"/>
 \end{lstlisting}
@@ -191,7 +191,7 @@ Pure ist eine nur 4kb große, kombrimierte CSS-Datei, dass heißt im Vergleich z
 Der Unterschied zu anderen CSS-Frameworks wie Bootstrap oder Yaml ist, dass es ohne JavaScript Plugins ausgeliefert wird. JavaScript wird nur für Dropdown-Menüs und fixed top- bzw. bottom-Navigation eingesetzt. Pure bietet sechs Bausteine, welche die Hauptanforderungen eines jeden Entwicklers abdecken. Da Pure wegen der kleinen Größe nur die notwendige Funktionalität anbietet, ist es bei Bedarf erweiterbar.
 
 Für die Verwendung von Pure muss hauptsächlich der Link, zu dem css. File im Header des HTML-Files eingefügt werden. \cite{PURE}
-\begin{lstlisting}[caption={Pure einbinden \cite{PURE}}]
+\begin{lstlisting}[caption={Pure einbinden \cite{PURE}}, language=HTML]
 <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
 \end{lstlisting}
 
@@ -203,7 +203,7 @@ Das frei verfügbare CSS-Framework Bootstrap von Yahoo unterstützt alle Element
 Für den Einsatz, muss Bootstrap von der offiziellen Seite http://getbootstrap.com heruntergeladen werden. Es ist nicht verpflichtend, die komplette Bibliothek zu übernehmen, sondern Komponenten, je nach Bedarf.
  
 Die Installation bezieht sich lediglich auf das Einbinden der bereitgestellten Dateien in das eigene Projekt. Bootstrap wird als ein ZIP-Archiv bereitgestellt. In diesem befindet sich eine CSS-Datei und eine Javascript Datei. Die beiden Dateien müssen anschließend in den $<$head$>$ der Webseite eingebunden werden. \cite{BOOTSTRAP}
-\begin{lstlisting}[caption={Bootstrap einbinden \cite{BOOTSTRAP}}]
+\begin{lstlisting}[caption={Bootstrap einbinden \cite{BOOTSTRAP}}, language=HTML]
 <link rel="stylesheet"
 href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js">
@@ -254,7 +254,7 @@ Watir ist ein Testing-Tool basierend auf Ruby. Egal, in welcher Sprache das Proj
 Die Dokumentation war schwerig zu finden und ist außerdem sehr unübersichtlich. \cite{WATIR}
 
 Um Watir zu installieren müssen folgende Befehle in der Konsole ausgeführt werden: 
-\begin{lstlisting}[caption={Installation von Watir \cite{WATIRINSTALL}}]
+\begin{lstlisting}[caption={Installation von Watir \cite{WATIRINSTALL}}, language=bash]
 sudo apt-get install ruby ruby-dev
 sudo apt-get install rubygems
 gem update --system --no-rdoc --no-ri
@@ -268,7 +268,7 @@ Die Ausführung der Tests war aus 2 Gründen nicht umsetzbar. Zum einen ließ si
 Das Testing Framework, Robot Framework ist auf Akzeptanztests ausgelegt. Es ist frei unter Apache 2.0 Lizenz verfügbar. Die Dokumentation ist viel zu unübersichtlich und die Beispiele werden nicht step-by-step erklärt, was die Umsetzung des Prototypen unmöglich machte. \cite{ROBOTFRAMEWORK}
 
 Die Installation verlief unter Python mit den Befehlen:
-\begin{lstlisting}[caption={Installation von Robot Framework \cite{ROBOTFRAMEWORKINSTALL}}]
+\begin{lstlisting}[caption={Installation von Robot Framework \cite{ROBOTFRAMEWORKINSTALL}}, language=bash]
 sudo apt-get install python-pip
 sudo pip install robotframework
 sudo pip install docutils

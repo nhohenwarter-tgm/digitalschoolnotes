@@ -51,7 +51,7 @@ Der Benutzer denn ein Heft freigegeben wurde hat nur die Bearbeitungsrechte, er 
 Um die Teilung eines Heftes aufzuheben gibt es zwei Möglichkeiten. Entweder der Besitzer des Heftes löscht den User als \textit{collaborator} mittels dem roten Minus neben den Namen (siehe Abbildung \ref{itm:collaborator-chart}). Die andere Möglichkeit ist, dass der geteilte User sich selbst die Rechte entzieht.
 \paragraph{Aktualisierung und Synchronisation}
 Jedes NotebookContent-Element besitzt folgende Attribute:
-\begin{lstlisting}[caption={Parallel Working System Attribute}]
+\begin{lstlisting}[caption={Parallel Working System Attribute}, language=Python]
 is_active = BooleanField(default=False)
 is_active_by = EmailField()
 \end{lstlisting}
@@ -60,17 +60,17 @@ Mit dieser Struktur kann darauf geschlossen werden, ob ein Element gerade aktiv 
 Mit diesen Attributen werden die ganzen Anfragen die vom Nutzer auftreten abgefragt und dementsprechend abgehandelt. Es ist wichtig zu wissen wer dieses Element gerade bearbeitet, um aktive Nutzer nicht durch Aktualisierungen zu behindern.Die Attribute \textit{is active} und \textit{is active by} ändern sich wenn der Bearbeitungsmodus eines Elements aktiviert oder deaktiviert wird.
 
 Bei einer Aktivierung und folgendenen Bearbeitung des Elements wird das Attribut \textit{is active} auf \textit{true} gesetzt.
-\begin{lstlisting}[caption={Bearbeitungsmodus true - PWS}]
+\begin{lstlisting}[caption={Bearbeitungsmodus true - PWS}, language=Javascript]
 $scope.editelement(id, art, {"data": $scope.models[art][id][0]},true);
 \end{lstlisting}
 
 Sollte der Bearbeitungsmodus vom Benutzer wieder verlassen werden so wird das Attribut wieder auf den Default-Wert \textit{false} zurückgesetzt.
-\begin{lstlisting}[caption={Bearbeitungsmodus false - PWS}]
+\begin{lstlisting}[caption={Bearbeitungsmodus false - PWS}, language=Javascript]
 $scope.editelement(id, art, {"data": $scope.models[art][id][0]},false);
 \end{lstlisting}
 
 Um die derzeitigen User in einem bestimmten Heft auszumachen gibt es die folgende Funktion:
-\begin{lstlisting}[caption={Abfrage der aktiven Nutzer - PWS}]
+\begin{lstlisting}[caption={Abfrage der aktiven Nutzer - PWS}, language=Javascript]
 def view_get_is_active(request):
     if not request.user.is_authenticated():
         return JsonResponse({})
@@ -95,7 +95,7 @@ Dieses Zeichen verschwindet automatisch, sobald das Element für alle User wiede
 
 Die Aktualisierung und Synchronisation funktioniert in zwei Schritten.\\
 Zu aller erst gibt es ein definiertes Aktualisierungsintervall, mit diesem Intervall wird gesteuert in welchen Abständen das System nach neuen Heftinhalt sucht. Die Funktion die dieses Intervall steuert sieht wie folgt aus:
-\begin{lstlisting}[caption={Aktualisierung - PWS}]
+\begin{lstlisting}[caption={Aktualisierung - PWS}, language=Javascript]
 $scope.poll = function(){
     $timeout(function() {
         var content = $scope.notebook['content'];
@@ -123,7 +123,7 @@ Die Funktion ist eine rekursive Funktion. Diese Funktion ruft sich selbst in ein
 Bevor allerdings eine Aktualisierung beim User im Heft ausgeführt wird muss überprüft werden, ob sich der entsprechende Benutzer nicht gerade im Bearbeitungsmodus befindet. Dies muss gemacht werden um einen eventuellen Fortschritt des User nicht durch eine Aktualisierung zu löschen. Mit dieser Sicherheitsvorkehrung wird dieser erst nach Verlassen des Bearbeitungsmodus aktualisiert. Sobald der Bearbeitungsmodus verlassen wird gibt es immer eine Aktualisierung des Heftinhaltes auf der jeweiligen Seite. Das System erkennt auf welcher Seite sich der User gerade befindet und aktualisiert genau diese Seite. Sobald der Benutzer die Seite ändert wird diese automatisch neu geladen. Somit können Ressourcen eingespart werden und das System gewinnt an Performance.
 
 Um wirklich nur dann zu aktualisieren wenn tatsächlich eine Veränderung des Heftinhaltes vorliegt gibt es in der Aktualisierungsfunktion eine zusätzliche Überprüfung. 
-\begin{lstlisting}[caption={Synchronisation - PWS}]
+\begin{lstlisting}[caption={Synchronisation - PWS}, language=Javascript]
 if(JSON.stringify($scope.content) != JSON.stringify(content)) {
 	$scope.update();
 }

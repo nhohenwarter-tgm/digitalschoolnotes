@@ -16,7 +16,7 @@ Nach verlassen des Bearbeitungsmodus wurden die angewendeten Effekte übernommen
 Ein besonders kritischer Punkt beim Textelement war die Speicherung beziehungsweise die übernahme des geschrieben Inhaltes in den Ansichtsmodus. CKEditor verwendet hierbei eine eigene Speicherstruktur, diese vor der Verwendung auf die neuen Anforderungen angepasst werden musste. Nach erfolgreicher Anpassung ist es nun möglich den geschrieben Inhalt inklusive hervorgehobenen Text in den Ansichtsmodus zu übernehemn.
 
 Die Speicherung wird von on-Events übernommen, die nach einer bestimmten Aktion den Updatevorgang auslösen.
-\begin{lstlisting}[caption={Speicherung des Textelements}]
+\begin{lstlisting}[caption={Speicherung des Textelements}, language=Javascript]
 function updateModel() {
 	scope.$apply(function () {
           ngModel.$setViewValue(ck.getData());
@@ -30,7 +30,7 @@ ck.on('selectionChange', updateModel);
 \end{lstlisting}
 
 Das Textelement wurde wie folgt in das Heft integriert. Diese Abschnitt wird nach dem Klick auf das Icon ausgeführt und in das Heft integriert.
-\begin{lstlisting}[caption={Einbindung des Textelements}]
+\begin{lstlisting}[caption={Einbindung des Textelements}, language=HTML]
 <span ng-if="element.art == 'textarea'" style="word-wrap: break-word;">
 	<!-- Edit -->
         <textarea ng-if="editMode == element.id"
