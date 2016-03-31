@@ -65,13 +65,13 @@ Trotz vorhandener Ausbaufähigkeit, erwies sich die Umsetzung als kompliziert. D
 
 Um Play zu installieren muss das Framework zunächst von\\
 https://www.playframework.com/download heruntergeladen werden. Das downgeloadete zip-File muss entpackt und der darin enthaltene Activiator zum PATH hinzugefügt werden. Danach wird der Activiator mit folgendem Befehl gestartet\cite{PLAYCON}:
-\begin{lstlisting}[caption={Konifiguration von Play\cite{PLAYCON}}]
+\begin{lstlisting}[caption={Konifiguration von Play \cite{PLAYCON}}]
 activiator ui
 \end{lstlisting}
 
 Für das \grqq{}Hello-World\grqq{}-Programm braucht es ein neues Projekt. Im Unterordner /controllers muss folgende Methode hinzugefügt werden:
 
-\begin{lstlisting}[caption={Play Hello-World\cite{PLAYCON}}]
+\begin{lstlisting}[caption={Play Hello-World \cite{PLAYCON}}]
 public static Result hello() {
 	return ok(main.render("Hello World",new
 		play.twirl.api.Html("Hello Play World!")));
