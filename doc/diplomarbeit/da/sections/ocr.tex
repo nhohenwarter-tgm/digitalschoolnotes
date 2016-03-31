@@ -2,11 +2,11 @@
 \cfoot{Adin Karic}
 Optical Character Recognition oder auch Optische Zeichenerkennung bezeichnet die automatisierte Texterkennung innerhalb von Bildern. Mit diesem Verfahren können also Bilder eingelesen werden und die darin enthaltenen Zeichen als diese erkannt und ausgegeben werden. OCR ermöglicht es den Nutzern von Digital School Notes Bilder auf den Server zu laden, den textuellen Inhalt aus diesen Bildern zu filtern und als bearbeitbares Textelement in ein Heft einzufügen.
 
-\insertpicture{images/ocr/ocrbsp.png}{Beispiel einer Texterkennung}{\cite{OCRBSP}}{itm:ocrbsp}{1.0}
+\insertpicture{images/ocr/ocrbsp.png}{Beispiel einer Texterkennung}{\cite{OCRBSP}}{itm:ocrbsp}{0.7}
 
 Die ersten Versuche einer automatischen Zeichenerkennung lassen sich auf die 30er Jahre datieren. Die damals entworfene Maschine für das künstliche Lesen konnte mit einem Mustervergleich die zehn arabischen Ziffern automatisch erkennen. Solche Texterkennungssysteme konnten sich vor allem sehr früh bei Banken und Versicherungen etablieren. Bereits zu Beginn der 60er Jahre war es möglich, mit entsprechenden Rechnern, geschrieben oder gedruckte Zeichen auf Belegen zu identifizieren.
 
-In den folgenden Jahren gelang dann aber auch der Durchbruch beim Erkennen von Buchstaben. Dabei war die Anzahl der benötigten Schriftarten jedoch sehr begrenzt. Dier erste Schriftfamilie OCR-A beinhaltete neben Ziffern und Großbuchstaben auch 30 Sonderzeichen. Die Weiterentwicklung davon, OCR-B, ermöglichte auch die Erkennung von Kleinbuchstaben.
+In den folgenden Jahren gelang dann aber auch der Durchbruch beim Erkennen von Buchstaben. Dabei war die Anzahl der benötigten Schriftarten jedoch sehr begrenzt. Die erste Schriftfamilie OCR-A beinhaltete neben Ziffern und Großbuchstaben auch 30 Sonderzeichen. Die Weiterentwicklung davon, OCR-B, ermöglichte auch die Erkennung von Kleinbuchstaben.
 
 In den 70er Jahren haben sich bei Banken und Versicherungen schließlich intelligentere Systeme etabliert die neben ungenormten Schriftarten auch Handschriften erkennen konnten. Da diese Lesegeräte Komplettsysteme waren, also aus Hardware und Software bestanden, waren die Preise dementsprechend hoch.
 
@@ -24,7 +24,7 @@ Zudem gibt es verschiedene Arten der konkreten Zeichenerkennung.
 \paragraph{Bitmustervergleich}
 Ein besonders einfaches und wahrscheinlich das älteste Verfahren zur Zeichenerkennung ist der Bitmustervergleich (Matrizenvergleich). Das in den 30er Jahren entwickelte Verfahren vergleicht Zeichen miteinander, indem es die Differenz des digitalisierten Zeichens zu den gespeicherten Zeichenmustern betrachtet. Wenn ein betrachtetes Zeichen eine geringe Differenz zum gespeicherten Muster zeigt, wird es als dieses Zeichen identifiziert. Für jedes Zeichen existiert also eine Matrix, in der dieses Zeichen in ein Pixelmuster zerlegt wird.
 
-\insertpicture{images/ocr/bitmuster.jpg}{Bitmustervergleich}{\cite{OCRB}}{itm:bitm}{1.0}
+\insertpicture{images/ocr/bitmuster.jpg}{Bitmustervergleich}{\cite{OCRB}}{itm:bitm}{0.7}
 
 Beim diesem Vergleich wird das spezifische Pixelmuster des gescannten Zeichens nacheinander mit den vorhandenen Mustern in einer Datenbank verglichen. Dadurch wird durch die Übereinstimmung der Bildpunkte eine Korrelation errechnet. Die Schwierigkeiten bei diesem Verfahren bestehen darin, dass die beiden zu vergleichenden Bitmuster selten wirklich identisch sind. Das liegt einerseits an der Qualität des gescannten Zeichens, welche von Helligkeit und Kontrast abhängig ist. Andererseits könnten beim Scanvorgang selbst einige Verzerrungen oder Verschmutzungen auftreten. Die Größenunterschiede können zusätzlich eine wesentliche Rolle spielen, da die Muster zunächst auf eine einheitliche Größe angepasst werden müssen. Bei diesem Vorgang können wichtige Detailinformationen verloren gehen.
 
@@ -47,7 +47,7 @@ Diese Methode wird auch strukturelle Formenanalyse genannt und orientiert sich e
 
 Der erste Schritt bei der topologischen Analyse ist die Reduzierung des Pixelbilds auf dessen Grundelemente. Dieser Vorgang wird Vektorisierung genannt. Die überflüssigen Pixel werden also alle entfernt und es entsteht ein ,,Zeichenskelett". Danach folgt die eigentliche Zeichenanalyse. Das Verfahren sucht nun nach Beschreibungen die mit den Einzelelementen des reduzierten Zeichens übereinstimmen. 
 
-\insertpicture{images/ocr/vektor.jpg}{Vektorisierung eines Zeichens}{\cite{OCRB}}{itm:vektor}{1.0}
+\insertpicture{images/ocr/vektor.jpg}{Vektorisierung eines Zeichens}{\cite{OCRB}}{itm:vektor}{0.5}
 
 Diese Methode ermöglicht eine sehr fehlertolerante Zeichenerkennung. Sie benutzt komplexe Algorithmen, konzentriert sich aber nur auf wenige Elemente und erreicht dadurch eine angemessene Geschwindigkeit.
 
@@ -55,6 +55,8 @@ Diese Methode ermöglicht eine sehr fehlertolerante Zeichenerkennung. Sie benutz
 Neuronale Netze sollen die Schwächen der bereits genannten Verfahren beheben. Mit solchen Neuronalen Netzen wird versucht, intelligentes Verhalten auf Computern nachzuvollziehen. Dabei stellt die Neuroinformatik eine Alternative zur klassischen algorithmischen Informatik dar. Die parallele und verteilte Informationsverarbeitung selbst, geschieht mit Hilfe einer Vielzahl von Elementen, den sogenannten Neuronen.
 
 Eine wesentliche Eigenschaft bei diesem Verfahren ist die Selbstprogrammierung. Das System kann sein Wissen durch selbstständiges Lernen erweitern. Das Neuronale Netz muss aber zunächst kalibriert werden, dies geschieht beispielsweise mit einem Training aus Identifikationsmustern. Sobald das System ein vorliegendes Problem dann mit einem vernachlässigbaren Fehler lösen kann, kann die Kalibrierung abgeschlossen werden.
+
+\newpage
 
 Die Synapsen eines Neuronalen Netzes, also die Verbindungen zwischen den Neuronen sind nicht statisch und können sich während des Lernprozesses verändern. Es können neue Synapsen entstehen, bestehende Kontakte können ihren Übertragungswiderstand ändern oder ganz aufgelöst werden. Besonders bei der handschriftlichen Erkennung haben neuronale Netze in den letzten Jahren bessere Ergebnisse geliefert als die konkurrierenden Verfahren. Durch eine zusätzliche Erhöhung der Rechenleistung mittels GPU-Implementierungen konnten Wissenschaftler mit dieser Methode viele Wettbewerbe der Mustererkennung gewinnen. \cite{OCRB}
 
@@ -73,6 +75,9 @@ Um Tesseract-OCR (engine) zu installieren, installiert man die folgenden Pakete 
 \item tesseract-ocr
 \item tesseract-ocr-deu
 \end{itemize}
+
+\newpage
+
 Zum Testen der Analyse führt man tesseract mit folgendem Befehl in der Commandline aus:
 \begin{lstlisting}[caption={tesseract-Ausführung}]
 tesseract test3.jpg out3
@@ -81,7 +86,7 @@ tesseract test3.jpg out3
 
 Hier erkennt man den analysierte Bild sowie den Output der tesseract-Engine.
 
-\insertpicture{images/ocr/fresh.jpg}{Beispielbild für OCR-Analyse}{(selfmade)}{itm:fresh}{1.0}
+\insertpicture{images/ocr/fresh.jpg}{Beispielbild für OCR-Analyse}{(selfmade)}{itm:fresh}{0.8}
 
 Output:
 
@@ -118,15 +123,15 @@ Bei der optischen Zeichenanalyse (OCR) wird der am Bild vorhandene Text durch ei
 
 Um ein Bild zu analysieren klickt der User zunächst auf folgenden Button im Heft:
 
-\insertpicture{images/ocr/bu.png}{OCR-Button}{(selfmade)}{itm:but}{1.0}
+\insertpicture{images/ocr/bu.png}{OCR-Button}{(selfmade)}{itm:but}{0.6}
 
 Darauf öffnet sich ein Dialog mit einem Dateieingabefeld:
 
-\insertpicture{images/ocr/di.png}{OCR-Dialog}{(selfmade)}{itm:di}{1.0}
+\insertpicture{images/ocr/di.png}{OCR-Dialog}{(selfmade)}{itm:di}{0.8}
 
-Nachdem auf den Button "Analysieren" geklickt wurde wird das Bild auf den Server geladen und mittels OCR analysiert. Das Ergebnis dabei ist ein neu erstelltes Textelement im Heft mit dem textuellen Inhalt des angegebenen Bildes.
+Nachdem auf den Button ,,Analysieren" geklickt wurde wird das Bild auf den Server geladen und mittels OCR analysiert. Das Ergebnis dabei ist ein neu erstelltes Textelement im Heft mit dem textuellen Inhalt des angegebenen Bildes.
 
-Wie schon erwähnt erscheint bei Klick auf den OCR-Button ein Dialog in welchem man die zu analysierende Bilddatei angeben kann. Bei Klick auf den Button "Analysieren" wird folgende Subroutine aufgerufen:
+Wie schon erwähnt erscheint bei Klick auf den OCR-Button ein Dialog in welchem man die zu analysierende Bilddatei angeben kann. Bei Klick auf den Button ,,Analysieren" wird folgende Subroutine aufgerufen:
 
 \begin{lstlisting}[caption={Upload OCR-File}]
 $scope.uploadOCRFile = function(){
@@ -157,7 +162,9 @@ $scope.uploadOCRFile = function(){
     };
 \end{lstlisting}
 
-Hier ist zu sehen, dass zunächst der Dateityp und die Dateigröße überprüft wird. Wenn alles den Kriterien entspricht wird die Methode uploadFileToUrl aufgerufen. Unter der URL url(r'\^api/analyseOCR', 'dsn.views.notebook\_views.view\_analyseOCR', name="analyseOCR") findet sich die Python-Methode view\_analyseOCR().
+Hier ist zu sehen, dass zunächst der Dateityp und die Dateigröße überprüft wird. Wenn alles den Kriterien entspricht wird die Methode uploadFileToUrl aufgerufen. Unter der URL url(r'\^{}api/analyseOCR', 'dsn.views.notebook\_views.view\_analyseOCR', name=,,analyseOCR") findet sich die Python-Methode view\_analyseOCR().
+
+\newpage
 
 In dieser Methode erhält das File einen neu und zufällig generierten Namen und wird auf den Server lokal hochgeladen. Dann wird schließlich die Methode die für das eigentliche Analysieren zuständig ist aufgerufen:
 

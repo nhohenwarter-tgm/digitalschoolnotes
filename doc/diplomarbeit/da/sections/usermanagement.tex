@@ -7,11 +7,13 @@ Authentisierung bedeutet, Nachweis der behaupteten Identität. Im Falle von DSN 
 \paragraph{Registrierung}
 Neben der Email-Adresse, ist ein weiterer Identitätspunkt, das geheime Passwort. Aus Sicherheitsgründen muss es mindestens 8 Zeichen beinhalten, wodurch Cyberkriminellen das Knacken von Passwörtern erschwert wird. Zum Abschluss der Registrierung müssen noch die Nutzungsbedingungen akzeptiert werden.\\
 \grqq{}Allgemeine Geschäftsbedingungen (AGB) sind vertragliche Klauseln, die zur Standardisierung und Konkretisierung von Massenverträgen dienen. Sie werden von einer Vertragspartei einseitig gestellt und bedürfen daher einer bes. Kontrolle, um ihren Missbrauch zu verhindern.\grqq{}\cite{AGB}\\
-\cite{VERTEILTE_SYSTEME}\cite{PASSWORT_SCHUTZ}\\
+\cite{VERTEILTE_SYSTEME}\cite{PASSWORT_SCHUTZ}
 
 \insertpicture{images/usermanagement/Registrierung}{Authentisierung bei DSN}{(selfmade)}{itm:authentisierung-chart}{0.20}
 
-Ein Captcha(Completely Automated Public Turing test to tell Computers and Humans Apart) soll bei der Registrierung verhindern, dass eine Software oder ein Bot einen Account erzeugt.\\
+\newpage
+
+Ein Captcha (Completely Automated Public Turing test to tell Computers and Humans Apart) soll bei der Registrierung verhindern, dass eine Software oder ein Bot einen Account erzeugt.\\
 Generell, dient es der Sicherheit und hat die Aufgabe, jede Eingabe auf ihre Herkunft zu prüfen. Um ein Captcha anzuzeigen, ist die Einbindung einer JavaScript Library notwendig. \cite{CAPTCHA}.
 \begin{lstlisting}[caption={Einbindung der JS-Library Recaptcha}]
 <script src="https://www.google.com/recaptcha/api.js?
@@ -20,12 +22,14 @@ onload=vcRecaptchaApiLoaded&render=explicit" async defer></script>
 angular-recaptcha.min.js"></script>
 \end{lstlisting}
 
-Bei jeder Registrierung generiert sich das Captcha neu, dadurch kann es nur einmal eingelöst werden.\\
+Bei jeder Registrierung generiert sich das Captcha neu, dadurch kann es nur einmal eingelöst werden.
 
 \insertpicture{images/usermanagement/Captcha}{Auslösen des Captchas}{(selfmade)}{itm:captcha-chart}{0.35}
 
+\newpage
+
 \paragraph{Datenbank}
-Nach der Authentisierung wird der zukünftige Benutzer, nach dem im Kapitel 5.3.2.1 beschriebenen Datenmodell, in die Datenbank persistiert. Der Registierungsprozess ist erst nach einlösen des Validierungstoken abgeschlossen. Bis dahin, ist dem Benutzer nicht möglich, sich auf DSN anzumelden. \\
+Nach der Authentisierung wird der zukünftige Benutzer, nach dem im Kapitel 5.3.2.1 beschriebenen Datenmodell, in die Datenbank persistiert. Der Registierungsprozess ist erst nach einlösen des Validierungstoken abgeschlossen. Bis dahin, ist dem Benutzer nicht möglich, sich auf DSN anzumelden.
 
 Zusätzlich kann das Problem, dass sich ein bereits registrierter Account nicht anmelden kann. Zum Beispiel, wenn jemand Aufgrund einer Regelverletzung von DSN gespeert ist. Der User hat keine andere Wahl, als Kontakt zum Administrator aufzunehmen.
 
@@ -36,19 +40,19 @@ http://digitalschoolnotes.com/validate/
 \\dad9574635aad7d6549536db38f7839c042f7704b3bd74acc427f075d0601470
 \end{lstlisting}
 
-Bei der Erstellung eines solchen Tokens wird die Email-Adresse des Benutzers und das aktuelle Datum kombiniert. Die Email-Adresse dient dazu, um zu wissen, welcher Account aktiviert werden soll. Die beiden Werte werden miteinander verknüpft und in einen Hash umgewandelt. Dieser Hash dient als Aktivierungstoken.\\
+Bei der Erstellung eines solchen Tokens wird die Email-Adresse des Benutzers und das aktuelle Datum kombiniert. Die Email-Adresse dient dazu, um zu wissen, welcher Account aktiviert werden soll. Die beiden Werte werden miteinander verknüpft und in einen Hash umgewandelt. Dieser Hash dient als Aktivierungstoken.
 
 Dem Token wird mittels Datum eine Lebensdauer zugeteilt. Falls die Einlösung des Hash nicht nicht innerhalb der nächsten 24 Stunden erfolgt, verfällt dieser und es muss vom User neu angefordert werden. 
 
 \paragraph{Anmeldung}
-Hat der Benutzer den Registrierprozess erfolgreich abgeschlossen, steht ihm jetzt frei, sich anzumelden. Der Login erfolgt anhand der Angabe der Email-Adresse plus Passwort oder er nutzt die Möglichkeit einer OAuth-Anmeldung.\\
+Hat der Benutzer den Registrierprozess erfolgreich abgeschlossen, steht ihm jetzt frei, sich anzumelden. Der Login erfolgt anhand der Angabe der Email-Adresse plus Passwort oder er nutzt die Möglichkeit einer OAuth-Anmeldung.
 
 OAuth steht für Open Authentication und bietet dem Nutzer die Möglichkeit, Daten über einen Webservice auszutauschen. \grqq{}OAuth sichert die Programmschnittstelle von Web-Anwendungen und verwendet für die Übertragung der Nutzeridentifikation dessen Passwort und einen Token\grqq{}\cite{OAUTH}. Beim Zugriff auf sensible Daten muss der Benutzer keine zusätzlichen Information und auch keine Identität preisgeben. Der Provider holt sich die Benutzerdaten von Facebook oder Google+ und erstellt für den User einen Account.\\
 Sozusagen besteht für unsere Endanwender die Möglichkeit, den vorher beschriebenen Registierungsprozess auszulassen und sich direkt über OAuth zu registrieren und anzumelden.
 
 \insertpicture{images/usermanagement/Anmelden}{Klassische Anmeldung oder mittels OAuth}{(selfmade)}{itm:login-chart}{0.35}
 
-Beim Anmelden wird kontrolliert, ob die angegebene Email-Adresse in der Datenbank existiert. Ist sie keinem Benutzer zugeordnet, existiert dieser nicht und die Authentifikation schlägt fehl. Andernfalls wird das eingegebene Passwort überprüft. Ist dieses korrekt, wird der Anwender in den Userbereich weitergeleitet.\\
+Beim Anmelden wird kontrolliert, ob die angegebene Email-Adresse in der Datenbank existiert. Ist sie keinem Benutzer zugeordnet, existiert dieser nicht und die Authentifikation schlägt fehl. Andernfalls wird das eingegebene Passwort überprüft. Ist dieses korrekt, wird der Anwender in den Userbereich weitergeleitet.
 
 Surft ein Benutzer auf unserer Seite, arbeitet im Hintergrund ein Session Timeout, welches die Aktivtät des eingeloggten Benutzer überprüft.\\
 Im Falle einer Inaktivität von 1 Stunde, wird der Anwender automatisch abgemeldet und zur Anmeldeseite zurückgeleitet. Es dient als Vorbeugemaßnahmen und kontrolliert unauthorizierte Aktivtäten.
@@ -86,7 +90,7 @@ Ein weiterer wichtiger Punkt sind die öffentlichen Hefte. Jedem User steht es f
 \newpage 
 
 \subsubsection{Berechtigungen}
-Im System befinden sich drei verschiedene Berechtigungsstufen, nämlich: der Standard-Benutzer, Pro-Benutzer und Administrator. Jeder registrierte Anwender ist zu Beginn ein Standard-Benutzer.\\
+Im System befinden sich drei verschiedene Berechtigungsstufen, nämlich: der Standard-Benutzer, Pro-Benutzer und Administrator. Jeder registrierte Anwender ist zu Beginn ein Standard-Benutzer.
 
 \begin{itemize}
 \item \textbf{Standard-Benutzer}\\ Der Standard-Benutzer hat Gelegenheit, als Erstanwender die vielen Vorteile, wie OCR oder PWS, zu nutzen. Unser System bietet dafür eine Testdauer von 90 Tagen an und steht in Form von digitalen Heften in begrenzter Stückzahl zur Verfügung.
@@ -100,6 +104,8 @@ Sämtliche Daten über Benutzer werden im /admin Bereich aufgelistet. Er untersc
 \insertpicture{images/usermanagement/Adminsicht}{Navigationsleiste als Admin}{(selfmade)}{itm:navigation-admin-chart}{0.85}
 \paragraph{User Management}
 Die User Management Page listet alle Benutzer von DSN tabellarisch auf. Der Admin hat Einsicht auf die Email-Adresse, Vorname, Nachname und auf die Berechtigungsstufe.
+
+\newpage
 
 Dem Administrator steht es frei, Benutzer zu löschen, deren Berechtigungsstufe zu ändern oder mittels Mail, auf Probleme etc., hinzuweisen. Neben der Auflistung aller User, kann im Bedarfsfall nach Einzelnen gesucht werden. Die Sucheingabe wird mit vorhandenen Daten verglichen. Zusätzlich besteht die Möglichkeit die Tabelle in alphabetischer Reihenfolge zu sortieren.
 

@@ -9,6 +9,8 @@ Ohne Tests wird heute keine Software mehr veröffentlicht, da etwaige Fehler fü
 \paragraph{Serverhosting}
 Die wichtigste technische Grundlage für das Projekt DigitalSchoolNotes ist der Projektserver. Auf diesem Server, wird das Projekt entwickelt und getestet. Hier ist es besonders wichtig, dass das gesamte Team mit der gleichen Umgebung arbeitet, da sonst die einzelnen Codeteile des Teams nicht zusammen funktionieren. Desweiteren wird der Server dazu verwendet, die Zwischenversionen des Projektes öffentlich verfügbar zu machen. Dies ist für das Team essentiell, da dadurch der \gls{Stakeholder} jederzeit Zugriff auf eine aktuelle und stabile Version des Projektes hat. Dadurch kann das Team Änderungswünsche des Stakeholders leichter erfassen und realisieren.\\
 
+\newpage
+
 Für die Auswahl des Serverhosters wurden einige Kriterien festgelegt. Diese lauten wie folgt:
 \begin{itemize}
 \item \textbf{Serverstandort:} Der Standort des Projektservers sollte möglichst nahe beim Endbenutzer sein, um die \gls{Latenz} gering zu halten.
@@ -43,8 +45,9 @@ Der Scrummaster ist unter scrummaster@digitalschoolnotes.com erreichbar.
 Um den Server zu konfigurieren und zu verwalten wird mit dem Protokoll \gls{SSH} darauf zugegriffen. Aus Sicherheitsgründen wurde die Anmeldung mit Passwort verboten und es können hierfür nurnoch SSH Keys verwendet werden. Diese sind um einiges sicherer.
 
 \paragraph{Firewall}
-Um den Server vor Angriffen und unerwünschten Zugriffen zu schützen wurde eine Firewall installiert. Diese blockiert alle unerwünschten Anfragen. Prinzipiell sind alle Ports geschlossen. Es werden nur Ports geöffnet, welche für das Betreiben des Projektes notwendig sind.\\
-Es folgt eine Liste der fregegebenen Ports:
+Um den Server vor Angriffen und unerwünschten Zugriffen zu schützen wurde eine Firewall installiert. Diese blockiert alle unerwünschten Anfragen. Prinzipiell sind alle Ports geschlossen. Es werden nur Ports geöffnet, welche für das Betreiben des Projektes notwendig sind.
+
+Es folgt eine Liste der freigegebenen Ports:
 \begin{itemize}
 \item 22	SSH
 \item 53	\gls{DNS}
@@ -52,6 +55,8 @@ Es folgt eine Liste der fregegebenen Ports:
 \item 443	\gls{HTTPS}
 \item 5001-5005 Django Development
 \end{itemize}
+
+\newpage
 
 Die Konfiguration der Firewall des Projektservers sieht wie folgt aus:
 \begin{lstlisting}[caption = Firewall Rules des Projektservers, label = firewall1]
@@ -122,8 +127,6 @@ Der Testbetrieb läuft relativ ähnlich wie der Produktivbetrieb ab. Jedes Teamm
 
 Hat diese Person nun eine Änderung am Code vorgenommen muss dieser auf den Server hochgeladen werden. Nun kann innerhalb der IDE der Django Server gestartet und beendet werden. Dies ist wichtig, da dadurch auch die Fehlermeldungen von Django innerhalb der \gls{IDE} sichtbar sind. Für den statischen Teil ist auch hier Nginx zuständig.
 
-\newpage
-
 \paragraph{Verfügbarkeit}
 Um in Zukunft die Verfügbarkeit zu verbessern gibt es vile Möglichkeiten. Um die Wahrscheinlichkeit eines kritischen Serverausfalles zu reduzieren könnten mehrere Server angemietet werden. Eine andere Möglichkeit wäre es das Hosting in eine Cloud auszulagern(Amazon Web Services, Google, Azure...). 
 
@@ -134,6 +137,8 @@ Um die Performance der Datenbank zu erhöhen sollte diese auf einem eigenen Serv
 Die Applikation sollte in Containern(z.B. Docker) mit Containermanagement deployed werden um die Verfügbarkeit zu erhöhen. Somit könnte bei einem Fehler der Container einfach entfernt und ein neuer gestartet werden. 
 
 Um die Erreichbarkeit der Domain zu gewährleisten sollten redundante DNS Server verwendet werden. Hier gibt es auch die Möglichkeit ein CDN Network (z.B. Cloudflare, Cloudfront...) zu verwenden um einen Performancevorteil zu erlangen. Durch das CDN wird auch die Serverlast reduziert.
+
+\newpage
 
 \subsubsection{Testing}
 Um eine Einwandfreihe Benutzung einer Software zu ermöglichen muss diese getestet werden. Mittels Tests können Fehler gefunden und repariert werden. Um Zeit zu Sparen werden diese Tests mit Testing-Frameworks automatisiert.
@@ -147,9 +152,9 @@ Das Functional Testing lässt sich in vier Level aufteilen, welche auch in folge
 
 Mithilfe von Unit Tests wird die Funktionalität des Programmes überprüft. Hier werden Methoden oder Programmteilen - sogenannten Units - Daten übergeben. Diese werden dann verarbeitet und das Ergebnis wird überprüft. Diese Tests werden bereits während der Entwicklung erstellt und stellen sicher, dass neue Änderungen am Code den bereits vorhandenen Code nicht kompromitieren. \cite{TESTING3}
 
-Integration Tests prüfen die Kompatibilität zwischen dein einzelnen Units. Es kann sein, dass Units alleine funktionieren, jedoch zusammen mit anderen Units nicht. Des Weiteren wird hier auch die Performance überprüft. Jede einzelne Unit kann effizient sein, sind die Units jedoch schlecht integriert ensteht trotzdem ein ineffizientes Programm. \cite{TESTING3}
-
 \newpage
+
+Integration Tests prüfen die Kompatibilität zwischen dein einzelnen Units. Es kann sein, dass Units alleine funktionieren, jedoch zusammen mit anderen Units nicht. Des Weiteren wird hier auch die Performance überprüft. Jede einzelne Unit kann effizient sein, sind die Units jedoch schlecht integriert ensteht trotzdem ein ineffizientes Programm. \cite{TESTING3}
 
 Bei System Tests wird die ganze Applikation getestet. Hier ist es das Ziel die Software auf  Erfüllung der Qualitätsstandards und Anforderungen zu Testen. Diese Tests werden von eigenständigen Testern durchgeführt, welche nicht an der Entwicklung des Programmes beteiligt waren. \cite{TESTING3}
 

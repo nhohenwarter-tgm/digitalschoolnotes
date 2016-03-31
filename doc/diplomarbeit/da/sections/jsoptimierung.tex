@@ -24,9 +24,9 @@ var G = new function(){};   // special case: object constructor
 
 \end{lstlisting}
 
-\newpage
-
 Doch wie kann dieses Problem nun umgangen werden? Am besten ist es, sich am Anfang eines Projektes auf eine Schreibweise für z.B. Funktionsdeklarationen zu einigen. Dies macht zumindest den Code im eigenen Projekt um einiges vergleichbarer. Wenn sich das Team einen gemeinsamen Code Style aneignet, dann kann der bereits verfasste Code besser wiederverwendet und verstanden werden.
+
+\newpage
 
 \subsubsection{Debugging}
 Der Javascript Code im Projekt wurde großteils mit \textit{console.log()} und \textit{alert()} debuggt. Da diese beiden Befehle nach einer gewissen Zeit nicht mehr zuverlässig funktionierten, wurde es um einiges schwieriger Fehler aufzuspüren. Der Befehl wurde manchmal richtig ausgeführt, manchmal nicht an der Stelle an welcher sie geschrieben wurden und manchmal wurden sie garnicht beachtet. 
@@ -38,6 +38,8 @@ Ein Firefox Plugin namens Firebug unterstützt diese Variablenüberprüfung und 
 \insertpicture{images/design/firebug.png}{Firebug Javascript Debugger}{\cite{FIREBUG}}{itm:firebug-screenshot}{0.95}
 
 Die Fehlfunktion von \textit{console.log()} und \textit{alert()} erklärte sich das Team durch die vielen eingebundenen Libraries. Eine dieser Libraries könnte diese Funktion vielleicht überschrieben haben.
+
+\newpage
 
 \subsubsection{Scripteinbindung}
 Je weniger Scripts eingebunden werden müssen desto besser. Müssen jedoch wie in diesem Projekt relativ viele Javascripts Frameworks und Scripts eingebunden werden, dann sollten die Imports organisiert werden und ein paar Regeln folgen.

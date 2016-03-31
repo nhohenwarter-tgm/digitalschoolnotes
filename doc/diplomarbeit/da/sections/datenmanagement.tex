@@ -15,6 +15,8 @@ Um einen einheitlichen Zugriff auf Daten zu ermöglichen, muss ein Datenmodell e
 \item \textbf{time\_table}\\ Zur Abspeicherung eines Stundenplans; beinhaltet die einzelnen Stundenzeiten sowie eine Fachbezeichnung, einen Lehrer und einen Raum pro Tag und Stunde
 \end{itemize}
 
+\newpage
+
 \paragraph{User}
 Die Collection \textit{user} beinhaltet alle relevanten Daten zur Abspeicherung von Benutzeraccounts. Folgendes Datenmodell liegt dem zugrunde:
 \begin{itemize}
@@ -82,6 +84,8 @@ Hierbei würden nun alle Benutzer mit dem Namen "Test" angezeigt werden. Sollte 
 Mithilfe von \textit{db.collname.update(criteria,updated)} kann ein bestehender Datensatz verändert werden. \textit{criteria} entspricht dabei einem JSON-String, der als Suchkriterium dient. Nur Datensätze, die diesem Kriterium entsprechen, werden verändert. \textit{updated} bezeichnet den neuen JSON-String, durch den der alte Datensatz ersetzt werden soll. Soll nicht der ganze Datensatz ersetzt werden, sondern lediglich ein oder mehrere Eigenschaften des bestehenden Datensatzes, so kann \textit{\$set} folgendermaßen verwendet werden:\\
 \textit{db.user.update(\{"name":"Test"\},\{\$set:\{"name":"Test2"\}\},\{multi:true\})}\\
 Hier werden alle Datensätze in der Collection \textit{user}, die den Namen "Test" haben so bearbeitet, dass nun "Test2" als Name festgelegt wird. Der zusätzliche Parameter \textit{\{multi:true\}} besagt dabei, dass nicht nur der erste Datensatz, der auf das Suchkriterium zutrifft, bearbeitet werden soll, sondern alle, die dem Muster entsprechen.
+
+\newpage
 
 Um einen bereits bestehenden Datensatz wieder aus der Collection zu löschen, kann der Befehl \textit{db.collname.remove()} verwendet werden. Sollte hierbei kein Parameter angegeben werden, werden alle Datensätze aus der Collection gelöscht. Mithilfe eines JSON-Strings als Parameter kann das Löschen auf Datensätze beschränkt werden, die einem bestimmten Kriterium entsprechen.
 

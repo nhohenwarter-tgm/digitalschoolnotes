@@ -11,6 +11,7 @@ Doch was versteckt hinter einer so großen und komplexen Anwendung? Das folgende
 \item \textbf{Ebene 1: Client}\\ Unser Anwender, der mittels Browser auf unsere Website surft und seine Mitschriften verwaltet.
 \item \textbf{Ebene 2: Web-Server}\\ Nginx nimmt HTTP-Anfragen(GET \& POST) entgegen und überprüft die vom User übermittelten Parameter.
 \item \textbf{Ebene 3: Applikation-Server}\\ Hinter Ebene 3 verbirgt sich die eigentliche Geschäftslogik, die maßgebend für unser System ist. Bei DSN werden alle HTTP-Anfragen, die an /api/ gehen, an das Web-Framework Django weitergeleitet. Sie ist sozusagen die Schnittstelle zwischen Datenbank und Client.
+\newpage
 \item \textbf{Ebene 4: Datenbank-Server}\\ Die Datenbank hat die Aufgabe, wichtige, geheimzuhaltende Daten zu persistieren und bei Anfragen, schnell Antworten zu liefern.\\
 Es muss sich nicht unbedingt um einen Datenbank-Server handeln, sondern es gibt die Möglichkeit, seine Daten auf mehreren Stationen aufzuteilen. Weiters können wichtige von unwichtigen Daten getrennt werden. Das steigert die Performance sowie die Ausfallsicherheit.
 \end{itemize}
@@ -37,16 +38,18 @@ Standardmäßig, wird ein POST an \textit{api/change\_lang} mit dem JSON Paramet
 %Schittstellen
 %Services
 
+\newpage
+
 \subsubsection{DSN Architektur}
 Unser System setzt sich aus einem Frontend-, Backend-Server und einer dokumentenbasierten Datenbank zusammen. Das Frontend ist für die Darstellung statistischer Daten verantwortlich. Im Gegensatz dazu kümmert sich das Backend mit MongoDB um den dynamischen Teil.
 \paragraph{Interaktionen zwischen Frameworks}
-\insertpicture{images/design/feinarchitektur.jpg}{Technologische Übersicht}{(selfmade)}{itm:feinarchitektur-chart}{0.75}
+\insertpicture{images/design/feinarchitektur.jpg}{Technologische Übersicht}{(selfmade)}{itm:feinarchitektur-chart}{1.0}
 
-Der Client kann über HTTP oder SSL die DSN-Webseite aufrufen. Je nach Anfrage wird eine Verbindung mit dem Frontend- oder Backend-Server aufgebaut.\\
+Der Client kann über HTTP oder SSL die DSN-Webseite aufrufen. Je nach Anfrage wird eine Verbindung mit dem Frontend- oder Backend-Server aufgebaut.
 
-Der Nginx-Server, Frontend, beinhaltet statitsche Daten, wie HTML-Seiten, CSS- \& JS-Dateien und Bilder. Diese werden durch ein JavaScript File namens routes.js verwaltet. Eingehenden HTTP-Requests werden in diesem File gemappet. Fordert ein User z.B. mit einem GET die Loginpage, wird auf diese weitergeleitet. Jede HTML-Seite hat ihren eigenen Controller, basierend auf JavaScript. Er kümmert sich um die Useraktionen und ändert je nach Anforderung den Inhalt der Website.\\
+Der Nginx-Server, Frontend, beinhaltet statitsche Daten, wie HTML-Seiten, CSS- \& JS-Dateien und Bilder. Diese werden durch ein JavaScript File namens routes.js verwaltet. Eingehenden HTTP-Requests werden in diesem File gemappet. Fordert ein User z.B. mit einem GET die Loginpage, wird auf diese weitergeleitet. Jede HTML-Seite hat ihren eigenen Controller, basierend auf JavaScript. Er kümmert sich um die Useraktionen und ändert je nach Anforderung den Inhalt der Website.
 
-\insertpicture{images/design/architektur.jpg}{Aufbau der Server}{(selfmade)}{itm:architektur-chart}{0.75}
+\insertpicture{images/design/architektur.jpg}{Aufbau der Server}{(selfmade)}{itm:architektur-chart}{1.0}
 
 Sollte es zu komplexeren Aufgaben kommen, wo statischer Inhalt keine Hilfe ist, wird die Kommunikation mit dem Django-Server, Backend, erforderlich. Django ist ein Web Framework, basierend auf Python. Wie bei Frontend, existiert ein File, dass alles managt. Die \textit{urls.py} Datei nimmt HTTP-Anfragen entgegen und delegiert diese auf jeweiligen Funktionen im views Ordner. Diese hantieren mit den empfangenen JSON-Objekten. Handelt es sich bei der Anfrage, um die Auflistung von Schulheften oder Heftinhalten, ist eine DB-Abfrage erforderlich.\\
 Dank dem \textit{models.py} File liefert MongoDB kein JSON, sondern spezifizierte Objekte, die die Arbeit erleichtern.

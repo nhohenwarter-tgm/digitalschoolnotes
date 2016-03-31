@@ -28,6 +28,8 @@ sudo mysqladmin -u root -h localhost password 'mypassword'
 sudo apt-get install php5-mysql
 \end{lstlisting}
 
+\newpage
+
 Bei der Konfiguration von MySQL muss zunächst ein neuer Benutzer erstellt und anschließend die entsprechenden Rechte gesetzt werden:
 \begin{lstlisting}[caption=Konfiguration von MySQL \cite{ADDUSERMYSQL}]
 mysql -u root -p
@@ -55,6 +57,8 @@ Die Installation von PostgreSQL ist sehr einfach. Sie verläuft sehr schnell und
 \begin{lstlisting}[caption=Installation von PostgreSQL \cite{POSTGRES}]
 apt-get install postgresql postgresql-client
 \end{lstlisting}
+
+\newpage
 
 Bei der Konfiguration von PostgreSQL muss ein neuer Benutzer erstellt und anschließend die entsprechenden Rechte gesetzt werden:
 \begin{lstlisting}[caption=Konfiguration von PostgreSQL \cite{POSTGRES}]
@@ -95,7 +99,7 @@ Eine weitere Konfiguration ist nicht notwendig.
 
 Nach der Installation können weitere Operationen ausgeführt werden.\\
 Ein neuer Datensatz kann folgendermaßen in die Datenbank eingefügt werden:\\
-\textit{db.test.insert(\{"name": "Test", \"email": "test@email.com"\})}
+\textit{db.test.insert(\{"name": "Test", \"email": "test@email.com"\})}\\
 Um die vorhandenen Datensätze wieder auszulesen, wird folgende Zeile benötigt:\\
 \textit{db.test.find(\{"name": "Test"\})}\\
 Ein bestehender Datensatz kann mit folgender Zeile verändert werden:\\
