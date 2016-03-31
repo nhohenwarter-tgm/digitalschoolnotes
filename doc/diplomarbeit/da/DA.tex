@@ -19,6 +19,7 @@
 \usepackage{hyperref}
 \usepackage{titlesec}
 \usepackage{multirow}
+\usepackage{afterpage}
 
 \clearscrheadfoot
 \pagestyle{scrheadings}
@@ -44,9 +45,15 @@ right  = 3cm]{geometry}
 \input{preamble}
 \input{glossaries}
 
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage}
+
 
 \begin{document}
-
+\afterpage{\blankpage}
 
 \begin{titlepage}
 \begin{center}
@@ -120,15 +127,9 @@ Datum: \today \hfill \hfill übernommen von:\rule[-0.2cm]{3cm}{0pt}
 \ifoot{© DigitalSchoolNotes - 2015/16}
 \ofoot{\pagemark}
 
-\newpage %----------------------------------------------------------------------------------------------
-
-{\small\color{white}.}
-\vspace{-0.7cm}
-\renewcommand*\contentsname{Inhalt}
-\tableofcontents
-
-\newpage %----------------------------------------------------------------------------------------------
+\newpage  %----------------------------------------------------------------------------------------------
 % Erklärung
+\afterpage{\blankpage}
 %\includepdf[scale=1.2,pages=-]{documents/erklaerung}
 \section*{Eidesstattliche Erklärung}
 Ich erkläre an Eides statt, dass ich die vorliegende Diplomarbeit selbstständig und ohne fremde Hilfe verfasst, andere als die angegbenen Quellen nicht benutzt und die benutzten Quellen wörtlich und inhaltlich entnommenen Stellen als solche erkenntlich gemacht habe. \\
@@ -157,6 +158,23 @@ Ich erkläre an Eides statt, dass ich die vorliegende Diplomarbeit selbstständi
 
 \newpage
 
+\afterpage{\blankpage}
+\vspace*{\fill} 
+\input{sections/danksagungen}
+\label{danksagung}
+\vspace*{\fill} 
+
+\newpage
+
+\afterpage{\blankpage}
+\vspace*{\fill} 
+\input{sections/zitat}
+\label{zitat}
+\vspace*{\fill} 
+
+\newpage
+
+\afterpage{\blankpage}
 \vspace*{\fill} 
 \input{sections/gender}
 \label{gender}
@@ -164,13 +182,17 @@ Ich erkläre an Eides statt, dass ich die vorliegende Diplomarbeit selbstständi
 
 \newpage
 
+\afterpage{\blankpage}
 \input{sections/abstractEN}
 \input{sections/abstractDE}
 
 \newpage
+%----------------------------------------------------------------------------------------------
 
-\input{sections/danksagungen}
-\label{pageRomanEnd}
+{\small\color{white}.}
+\vspace{-0.7cm}
+\renewcommand*\contentsname{Inhalt}
+\tableofcontents
 
 \newpage %----------------------------------------------------------------------------------------------
 
