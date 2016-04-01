@@ -13,7 +13,7 @@ Neben der Email-Adresse ist ein weiterer Identitätspunkt das geheime Passwort. 
 
 \newpage
 
-Ein CAPTCHA soll bei der Registrierung verhindern, dass eine Software oder ein Bot einen Account erzeugt.\\
+Ein \gls{CAPTCHA} soll bei der Registrierung verhindern, dass eine Software oder ein Bot einen Account erzeugt.\\
 Generell dient es der Sicherheit und hat die Aufgabe, jede Eingabe auf ihre Herkunft zu prüfen. Um ein Captcha anzuzeigen, ist die Einbindung einer JavaScript Library notwendig. \cite{CAPTCHA}.
 \begin{lstlisting}[caption={Einbindung der JS-Library Recaptcha}, language=HTML]
 <script src="https://www.google.com/recaptcha/api.js?
@@ -33,8 +33,9 @@ Nach der Authentisierung wird der zukünftige Benutzer, nach dem im Kapitel 5.3.
 
 \paragraph{Email}
 Um den Registrierungsprozess zu beenden, wird dem User ein Token per Mail von unserem Mailserver zugesandt. Dieser Token dient der Identifizierung und Authentifizierung und könnte folgendermaßen aussehen:
-\begin{lstlisting}[caption={Validierungstoken für die Aktivierung des DSN-Accounts}]
-http://digitalschoolnotes.com/validate/dad9574635aad7d6549536db38f7839c042f7704b3bd74acc427f075d0601470
+\begin{lstlisting}[caption={Validierungstoken für die Aktivierung des DSN-Accounts}, language=bash]
+http://digitalschoolnotes.com/validate/
+dad9574635aad7d6549536db38f7839c042f7704b3bd74acc427f075d0601470
 \end{lstlisting}
 
 Bei der Erstellung eines solchen Tokens wird die Email-Adresse des Benutzers und das aktuelle Datum kombiniert. Die beiden Werte werden miteinander verknüpft und in einen Hash umgewandelt. Dieser Hash dient als Aktivierungstoken.
@@ -42,7 +43,7 @@ Bei der Erstellung eines solchen Tokens wird die Email-Adresse des Benutzers und
 Dem Token wird mittels Datum eine Lebensdauer zugeteilt. Falls die Einlösung des Hash nicht innerhalb der nächsten 24 Stunden erfolgt, verfällt dieser und muss vom User neu angefordert werden. 
 
 \paragraph{Anmeldung}
-Hat der Benutzer den Registrierungsprozess erfolgreich abgeschlossen, steht es ihm jetzt frei, sich anzumelden. Der Login erfolgt anhand der Angabe der Email-Adresse plus Passwort oder er nutzt die Möglichkeit einer OAuth-Anmeldung.
+Hat der Benutzer den Registrierungsprozess erfolgreich abgeschlossen, steht es ihm jetzt frei, sich anzumelden. Der Login erfolgt anhand der Angabe der Email-Adresse plus Passwort oder er nutzt die Möglichkeit einer \gls{OAuth}-Anmeldung.
 
 OAuth bietet dem Nutzer die Möglichkeit, Daten über einen Webservice auszutauschen. \textit{,,OAuth sichert die Programmschnittstelle von Web-Anwendungen und verwendet für die Übertragung der Nutzeridentifikation dessen Passwort und einen Token''}\cite{OAUTH}. Beim Zugriff auf sensible Daten muss der Benutzer keine zusätzlichen Information und auch keine Identität preisgeben. Der Dienstanbieter holt sich die Benutzerdaten von Facebook oder Google+ und erstellt für den User einen Account.\\
 Sozusagen besteht für unsere Endanwender die Möglichkeit, den vorher beschriebenen Registierungsprozess auszulassen und sich direkt über OAuth anzumelden.

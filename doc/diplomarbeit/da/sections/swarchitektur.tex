@@ -25,7 +25,7 @@ Standardmäßig, wird ein POST an \textit{api/change\_lang} mit dem JSON Paramet
 \item Hinter der gesendeten Adresse befindet sich eine Funktion, welche den Inhalt der DSN-Seite anhand der übergebenen Parameter auf die gewählte Sprache ändert.
 \item Das Ergebnis, die Homepage in der gewählten Sprache, wird an den Client zurückgeliefert.
 \item Im nächsten Schritt möchte sich der bestehende DSN-User beim System anmelden. Dafür klickt er auf den Login-Button, wodurch eine GET(/login) Anfrage an dem Server geschickt wird.
-\item Mittels REST, Representational State Transfer, wird automatisch zum Login weitergeleitet. Eine erfolgreiche Anmeldung benötigt eine bereits registrierte Email-Adresse, sowie das mindestens 8 stellige Passwort.
+\item Mittels \gls{REST}, Representational State Transfer, wird automatisch zum Login weitergeleitet. Eine erfolgreiche Anmeldung benötigt eine bereits registrierte Email-Adresse, sowie das mindestens 8 stellige Passwort.
 \item Durch die Eingabe der Benutzerdaten schickt der Anwender seine Email-Adresse und das verschlüsselte Passwort als JSON-Objekt an den Web-Server. Das POST wird an api/login gesendet.
 \item Dynamische Inhalte werden an Django weitergeleitet.
 \item Hinter api/login verbirgt sich eine Funktion, die vom JSON-Objekt die Email-Adresse holt. Mit dieser Info stellt der Server bei der Datenbank die Anfrage, ob der User registriert ist und sich rechtmäßig anmelden darf.
