@@ -1,13 +1,12 @@
 %\section*{Infrastruktur und Testing}
 \cfoot{Niklas Hohenwarter}
 
-Infrastruktur und Testing sind für jedes Projekt essentiell. Die Infrastruktur ist notwendig, damit das gesamte Team mit den gleichen Versionen der Framweorks arbeiten kann und um eine stable Version der Software hosten zu können. Tests werden benötigt um die Funktionalität der Software zu überprüfen.
+Infrastruktur und Testing sind für jedes Projekt essentiell. Die Infrastruktur ist notwendig, damit das gesamte Team mit den gleichen Versionen der Frameworks arbeiten kann und um eine stable Version der Software hosten zu können. Tests werden benötigt, um die Funktionalität der Software zu überprüfen.
 \subsubsection{Infrastruktur}
-Eine stabile und sichere Infrastruktur und gut getestete Software ist heutzutage ein Muss für jedes IT Projekt. \\
-Die Infrastruktur ist wichtig, da in der Vergangenheit oft kleine Projekte bereits wenige Tage nach Veröffentlichung von sehr hohen Userzahlen berichten konnten. Wenn hier zuvor die Infrastruktur gut geplant und implementiert wurde, ist es kein Problem viele User zu bewältigen.\\ 
-Ohne Tests wird heute keine Software mehr veröffentlicht, da etwaige Fehler für die Benutzer sehr abschreckend sein können bzw. dem Unternehmen viel Geld kosten können.
+Eine stabile und sichere Infrastruktur ist heutzutage ein Muss für jedes IT Projekt. \\
+Die Infrastruktur ist wichtig, da in der Vergangenheit oft kleine Projekte bereits wenige Tage nach Veröffentlichung von sehr hohen Userzahlen berichten konnten. Wenn hier zuvor die Infrastruktur gut geplant und implementiert wurde, ist es kein Problem viele User zu bewältigen.
 \paragraph{Serverhosting}
-Die wichtigste technische Grundlage für das Projekt DigitalSchoolNotes ist der Projektserver. Auf diesem Server, wird das Projekt entwickelt und getestet. Hier ist es besonders wichtig, dass das gesamte Team mit der gleichen Umgebung arbeitet, da sonst die einzelnen Codeteile des Teams nicht zusammen funktionieren. Desweiteren wird der Server dazu verwendet, die Zwischenversionen des Projektes öffentlich verfügbar zu machen. Dies ist für das Team essentiell, da dadurch der \gls{Stakeholder} jederzeit Zugriff auf eine aktuelle und stabile Version des Projektes hat. Dadurch kann das Team Änderungswünsche des Stakeholders leichter erfassen und realisieren.\\
+Die wichtigste technische Grundlage für das Projekt DigitalSchoolNotes ist der Projektserver. Auf diesem Server, wird das Projekt entwickelt und getestet. Hier ist es besonders wichtig, dass das gesamte Team mit der gleichen Umgebung arbeitet, da sonst die einzelnen Codeteile des Teams nicht zusammen funktionieren. Des Weiteren wird der Server dazu verwendet, die Zwischenversionen des Projektes öffentlich verfügbar zu machen. Dies ist für das Team essentiell, da dadurch der \gls{Stakeholder} jederzeit Zugriff auf eine aktuelle und stabile Version des Projektes hat. Dadurch kann das Team Änderungswünsche des Stakeholders leichter erfassen und realisieren.\\
 
 \newpage
 
@@ -16,12 +15,11 @@ Für die Auswahl des Serverhosters wurden einige Kriterien festgelegt. Diese lau
 \item \textbf{Serverstandort:} Der Standort des Projektservers sollte möglichst nahe beim Endbenutzer sein, um die \gls{Latenz} gering zu halten.
 \item \textbf{Verfügbarkeit:} Der Server sollte eine hohe Mindestverfügbarkeit haben. Dadurch kann sich der Endbenutzer darauf verlassen, dass das Service erreichbar ist. Der Minimalwert für die Verfügbarkeit wurde auf 99,6\% festgelegt. Das bedeutet, dass der Server für maximal 35h im Jahr nicht verfügbar ist.
 \item \textbf{Support:} Der Hoster sollte Support unter der Woche und in Notfällen rund um die Uhr bieten.
-\item \textbf{Preis:} Um die Etnwicklungskosten möglichst gering zu halten wurde der maximale Monatspreis auf 10€ festgelegt.
+\item \textbf{Preis:} Um die Entwicklungskosten möglichst gering zu halten, wurde der maximale Monatspreis auf 10 Euro festgelegt.
 \item \textbf{Wartung:} Der Server sollte sich über ein Webinterface warten lassen.
 \end{itemize}
 
-
-Die oben genannten Kriterien reduzierten die Anzahl der möglichen Hoster stark. Das Team entschied sich für den Hoster netcup GmbH mit sitz in Deutschland. Dieser erfüllte alle Anforderungen und teile des Teams hatten bereits gute Erfahrungen mit dieser Firma gemacht.
+Die oben genannten Kriterien reduzierten die Anzahl der möglichen Hoster stark. Das Team entschied sich für den Hoster netcup GmbH mit Sitz in Deutschland. Dieser erfüllte alle Anforderungen und Teile des Teams hatten bereits gute Erfahrungen mit dieser Firma gemacht.
 
 Das ausgewählte Produkt der netcup GmbH heißt "Root-Server M v6". Dieser bietet folgende Features:
 \begin{itemize}
@@ -32,20 +30,20 @@ Das ausgewählte Produkt der netcup GmbH heißt "Root-Server M v6". Dieser biete
 \end{itemize}
 
 \paragraph{Erreichbarkeit}
-Der Server ist unter der IP-Adresse 37.120.161.195 erreichbar. Da IP-Adressen schwer zu merken sind wurde ebenfalls eine Domain für das Projekt gekauft. Diese Lautet "digitalschoolnotes.com'' und löst auf die oben genannte IP-Adresse auf.
+Der Server ist unter der IP-Adresse 37.120.161.195 erreichbar. Da IP-Adressen schwer zu merken sind, wurde ebenfalls eine Domain für das Projekt gekauft. Diese lautet "digitalschoolnotes.com'' und löst auf die oben genannte IP-Adresse auf.
 
 \paragraph{Benutzerverwaltung am Projektserver}
-Jedes Projektteam Mitglied hat einen eigenen Unix Account auf dem Projektserver. Der Vorname der Person ist der Benutzername. Das Benutzerpasswort ist von jedem Teammitglied selbst gewählt. Alle Teammitglieder haben sudo rechte. 
+Jedes Projektteam Mitglied hat einen eigenen Unix Account auf dem Projektserver. Der Vorname der Person ist der Benutzername. Das Benutzerpasswort ist von jedem Teammitglied selbst gewählt. Alle Teammitglieder haben sudo Rechte. 
 
 \paragraph{Mailsystem}
 Das Projektteam hat einen Email-Verteiler mit der Adresse info@digitalschoolnotes.com. Jedes Teammitglied hat eine E-Mail Adresse nach dem Schema des \gls{TGM}s(z.B. nhohenwarter@digitalschoolnotes.com). \\
 Der Scrummaster ist unter scrummaster@digitalschoolnotes.com erreichbar.
 
 \paragraph{Serverzugriff}
-Um den Server zu konfigurieren und zu verwalten wird mit dem Protokoll \gls{SSH} darauf zugegriffen. Aus Sicherheitsgründen wurde die Anmeldung mit Passwort verboten und es können hierfür nurnoch SSH Keys verwendet werden. Diese sind um einiges sicherer.
+Um den Server zu konfigurieren und zu verwalten, wird mit dem Protokoll \gls{SSH} darauf zugegriffen. Aus Sicherheitsgründen wurde die Anmeldung mit Passwort verboten und es können hierfür nur noch SSH Keys verwendet werden. Diese sind um einiges sicherer.
 
 \paragraph{Firewall}
-Um den Server vor Angriffen und unerwünschten Zugriffen zu schützen wurde eine Firewall installiert. Diese blockiert alle unerwünschten Anfragen. Prinzipiell sind alle Ports geschlossen. Es werden nur Ports geöffnet, welche für das Betreiben des Projektes notwendig sind.
+Um den Server vor Angriffen und unerwünschten Zugriffen zu schützen, wurde eine Firewall installiert. Diese blockiert alle unerwünschten Anfragen. Prinzipiell sind alle Ports geschlossen. Es werden nur Ports geöffnet, welche für das Betreiben des Projektes notwendig sind.
 
 Es folgt eine Liste der freigegebenen Ports:
 \begin{itemize}
@@ -99,52 +97,52 @@ iptables-save > /etc/iptables/rules.v4
 \end{lstlisting}
 
 \paragraph{Bruteforce Prevention}
-Um Bruteforce Angriffe auf den SSH Dienst zu erschweren wurde am Server fail2ban eingerichtet. Dieses Tool zählt fehlgeschlagene Anmeldeversuche mit und sperrt die IP Adresse des Angreifers nach einer festgelegten Anzahl an Versuchen. Dieses Verfahren ist äußerst effektiv, da der Angreifer dadurch keine Chance hat eine große Anzahl an Passwörtern auszuprobieren(z.B. Wörterbuchangriff). Da auf dem Projektserver die Anmeldung nur mit SSH Key möglich ist, hat der Client welcher sich zum Server verbinden will sechs Versuche einen korrekten SSH Key zu übermitteln.
+Um Bruteforce Angriffe auf den SSH Dienst zu erschweren, wurde am Server fail2ban eingerichtet. Dieses Tool zählt fehlgeschlagene Anmeldeversuche mit und sperrt die IP Adresse des Angreifers nach einer festgelegten Anzahl an Versuchen. Dieses Verfahren ist äußerst effektiv, da der Angreifer dadurch keine Chance hat, eine große Anzahl an Passwörtern auszuprobieren(z.B. Wörterbuchangriff). Da auf dem Projektserver die Anmeldung nur mit SSH Key möglich ist, hat der Client, welcher sich zum Server verbinden will, sechs Versuche einen korrekten SSH Key zu übermitteln.
 \paragraph{Webserver}
-Als Webserver für unsere Applikation wurde Nginx gewählt. Dieser wurde vor allem gewählt, da das Team bereits in der Vergangenheit mit dieser Software gearbeitet hat. Mithilfe von Nginx kann ebenfalls ein Loadbalancer realisiert werden. Dies ist ein wichtiger Punkt um die Software skalierbar zu halten. \\
+Als Webserver für unsere Applikation wurde Nginx gewählt. Dieser wurde vor allem gewählt, da das Team bereits in der Vergangenheit mit dieser Software gearbeitet hat. Mithilfe von Nginx kann ebenfalls ein Loadbalancer realisiert werden. Dies ist ein wichtiger Punkt, um die Software skalierbar zu halten. \\
 
 \insertpicture{images/infrastruktur/loadbalancing.png}{Loadbalancing}{\cite{LB1}}{itm:loadbalancing-chart}{0.72}
 
-Der Webserver ist hauptsächlich für den statischen Content(HTML, Javascript, CSS, Bilder...) zuständig. Die funktioniert indem alle statischen Inhalte in einem Ordner abgelegt werden. Damit weiß Nginx, dass er für diese Inhalte zuständig ist.
+Der Webserver ist hauptsächlich für den statischen Content(HTML, Javascript, CSS, Bilder...) zuständig. Dies funktioniert, indem alle statischen Inhalte in einem Ordner abgelegt werden. Damit weiß Nginx, dass er für diese Inhalte zuständig ist.
 
 \paragraph{SSL}
-Um die Daten und Privatsphäre unserer Kunden zu schützen wird bei allen Aufrufen der Website mit \gls{SSL} verschlüsselt. Um eine legitime SSL Verschlüsselung zu gewährleisten ist ein valides Zertifikat notwendig. Dieses muss von einer Zertifizierungsstelle erworben werden. Das verwendete Zertifikat für das Projekt wurde von der Zertifizierungsstelle namens thawte Inc. erworben. 
+Um die Daten und Privatsphäre unserer Kunden zu schützen, wird bei allen Aufrufen der Website mit \gls{SSL} verschlüsselt. Um eine legitime SSL Verschlüsselung zu gewährleisten, ist ein valides Zertifikat notwendig. Dieses muss von einer Zertifizierungsstelle erworben werden. Das verwendete Zertifikat für das Projekt wurde von der Zertifizierungsstelle Namens thawte Inc. erworben. 
 
-Das Zertifikat validiert die Domain(Domain Validated). Das bedeutet, dass zur Austellung des Zertifikates eine Email an den Besitzer der Domain geschickt wird. Wenn der Besitzer der Doamin der Zertifizierung zustimmt wird diese durchgeführt. 
+Das Zertifikat validiert die Domain(Domain Validated). Das bedeutet, dass zur Ausstellung des Zertifikates eine Email an den Besitzer der Domain geschickt wird. Wenn der Besitzer der Domain der Zertifizierung zustimmt, wird diese durchgeführt. 
 
-Um das Zertifikat nun verwenden zu können muss es mit dem Intermediate Zertifikat der Zertifizierungsstelle verbunden werden. Dadurch ist ein eindeutiger Zertifizierungsfluss hergestellt. Dannach kann es auf den Webserver deployed werden.
+Um das Zertifikat nun verwenden zu können, muss es mit dem Intermediate Zertifikat der Zertifizierungsstelle verbunden werden. Dadurch ist ein eindeutiger Zertifizierungsfluss hergestellt. Danach kann es auf den Webserver deployed werden.
    
 \paragraph{Produktivbetrieb}
-Im Produktivbetrieb ist der Betrieb der Software auf zwei Dienste aufgeteilt. Der statische Teil der Applikation wird wie bereits vorhin beschrieben von Nginx dem User zur Verfügung gestellt. 
+Im Produktivbetrieb ist der Betrieb der Software auf zwei Dienste aufgeteilt. Der statische Teil der Applikation wird, wie bereits vorhin beschrieben, von Nginx dem User zur Verfügung gestellt. 
 
-Der dynamische Teil - das Backend - stellt unser Django Server dar. Hier werden die kritischen Operationen wie Datenbankzugriffe oder die Authentifizierung durchgeführt. Wird nun unsere \gls{API} (der dynamische Teil) aufgerufen, leitet Nginx die Anfrage an den Django Server weiter. \\
+Der dynamische Teil - das Backend - stellt unser Django Server dar. Hier werden die kritischen Operationen, wie Datenbankzugriffe oder die Authentifizierung, durchgeführt. Wird nun unsere \gls{API} (der dynamische Teil) aufgerufen, leitet Nginx die Anfrage an den Django Server weiter. \\
 
 \insertpicture{images/infrastruktur/deployment.png}{Deployment Struktur}{(selfmade)}{itm:deployment-chart}{0.8}
 
-Der Django Server läuft mittels gunicorn. Gunicorn ist ein \gls{WSGI} HTTP Server und somit die Schnittstelle zwischen dem Webserver und Django. Gunicorn startet für Django mehrere Worker Prozesse, wodurch die Anfragen theoretisch auf mehrere CPU Kerne aufgeteilt werden können. Desweiteren startet es die einzelnen Prozesse automatisch neu falls diese abstürzen.
+Der Django Server läuft mittels gunicorn. Gunicorn ist ein \gls{WSGI} HTTP Server und somit die Schnittstelle zwischen dem Webserver und Django. Gunicorn startet für Django mehrere Worker Prozesse, wodurch die Anfragen theoretisch auf mehrere CPU Kerne aufgeteilt werden können. Des Weiteren startet es die einzelnen Prozesse automatisch neu, falls diese abstürzen.
 \paragraph{Testbetrieb}
-Der Testbetrieb läuft relativ ähnlich wie der Produktivbetrieb ab. Jedes Teammitglied arbeitet an einer eigenen Instanz des Codes. Dadurch behindert sich das Team nicht gegenseitig falls Fehler auftreten. Um dies zu ermöglichen hat jede Person einen eigenen Port zugewiesen bekommen auf der seine Version der Applikation zu erreichen ist. 
+Der Testbetrieb läuft relativ ähnlich wie der Produktivbetrieb ab. Jedes Teammitglied arbeitet an einer eigenen Instanz des Codes. Dadurch behindert sich das Team nicht gegenseitig, falls Fehler auftreten. Um dies zu ermöglichen, hat jede Person einen eigenen Port zugewiesen bekommen, auf der seine Version der Applikation zu erreichen ist. 
 
-Hat diese Person nun eine Änderung am Code vorgenommen muss dieser auf den Server hochgeladen werden. Nun kann innerhalb der IDE der Django Server gestartet und beendet werden. Dies ist wichtig, da dadurch auch die Fehlermeldungen von Django innerhalb der \gls{IDE} sichtbar sind. Für den statischen Teil ist auch hier Nginx zuständig.
+Hat diese Person nun eine Änderung am Code vorgenommen, muss dieser auf den Server hochgeladen werden. Nun kann innerhalb der IDE der Django Server gestartet und beendet werden. Dies ist wichtig, da dadurch auch die Fehlermeldungen von Django innerhalb der \gls{IDE} sichtbar sind. Für den statischen Teil ist auch hier Nginx zuständig.
 
 \paragraph{Verfügbarkeit}
-Um in Zukunft die Verfügbarkeit zu verbessern gibt es vile Möglichkeiten. Um die Wahrscheinlichkeit eines kritischen Serverausfalles zu reduzieren könnten mehrere Server angemietet werden. Eine andere Möglichkeit wäre es das Hosting in eine Cloud auszulagern(Amazon Web Services, Google, Azure...). 
+Um in Zukunft die Verfügbarkeit zu verbessern, gibt es viele Möglichkeiten. Um die Wahrscheinlichkeit eines kritischen Serverausfalles zu reduzieren könnten, mehrere Server angemietet werden. Eine andere Möglichkeit wäre es, das Hosting in eine Cloud auszulagern(Amazon Web Services, Google, Azure...). 
 
-Um die Performance und Verfügbarkeit zu erhöhen sollte ein Loadbalancer verwendet werden. Dieser teilt die eingehenden Anfragen auf mehrere andere Server auf und reduziert damit die Last der einzelnen Server und erhöht die Performance. Hierbei ist darauf zu achten, dass der Loadbalancer Healthchecks durchführen muss. Mithilfe dieser kann der Loadbalancer überprüfen ob die Server noch aktiv sind und somit Anfragen entgegennehmen und bearbeiten können. Sollte ein Server ausfallen leitet der Loadbalancer keine Anfragen mehr an diesen weiter. Der Loadbalancer sollte redundant ausgeführt sein, da ohne ihn die Seite nicht mehr erreichbar ist. 
+Um die Performance und Verfügbarkeit zu erhöhen, sollte ein Loadbalancer verwendet werden. Dieser teilt die eingehenden Anfragen auf mehrere andere Server auf und reduziert damit die Last der einzelnen Server und erhöht die Performance. Hierbei ist darauf zu achten, dass der Loadbalancer Healthchecks durchführen muss. Mithilfe dieser kann der Loadbalancer überprüfen, ob die Server noch aktiv sind und somit Anfragen entgegennehmen und bearbeiten können. Sollte ein Server ausfallen, leitet der Loadbalancer keine Anfragen mehr an diesen weiter. Der Loadbalancer sollte redundant ausgeführt sein, da ohne ihn die Seite nicht mehr erreichbar ist. 
 
-Um die Performance der Datenbank zu erhöhen sollte diese auf einem eigenen Server betrieben werden. Des Weiteren sollte hier Loadbalancing oder Clustering betrieben werden um die Ausfallssicherheit zu erhöhen. 
+Um die Performance der Datenbank zu erhöhen, sollte diese auf einem eigenen Server betrieben werden. Des Weiteren sollte hier Loadbalancing oder Clustering betrieben werden, um die Ausfallsicherheit zu erhöhen. 
 
-Die Applikation sollte in Containern(z.B. Docker) mit Containermanagement deployed werden um die Verfügbarkeit zu erhöhen. Somit könnte bei einem Fehler der Container einfach entfernt und ein neuer gestartet werden. 
+Die Applikation sollte in Containern(z.B. Docker) mit Containermanagement deployed werden, um die Verfügbarkeit zu erhöhen. Somit könnte bei einem Fehler der Container einfach entfernt und ein Neuer gestartet werden. 
 
-Um die Erreichbarkeit der Domain zu gewährleisten sollten redundante DNS Server verwendet werden. Hier gibt es auch die Möglichkeit ein CDN Network (z.B. Cloudflare, Cloudfront...) zu verwenden um einen Performancevorteil zu erlangen. Durch das CDN wird auch die Serverlast reduziert.
+Um die Erreichbarkeit der Domain zu gewährleisten, sollten redundante DNS Server verwendet werden. Hier gibt es auch die Möglichkeit, ein CDN Network (z.B. Cloudflare, Cloudfront...) zu verwenden, um einen Performancevorteil zu erlangen. Durch das CDN wird auch die Serverlast reduziert.
 
 \newpage
 
 \subsubsection{Testing}
-Um eine Einwandfreihe Benutzung einer Software zu ermöglichen muss diese getestet werden. Mittels Tests können Fehler gefunden und repariert werden. Um Zeit zu Sparen werden diese Tests mit Testing-Frameworks automatisiert.
+Um eine Einwandfreie Benutzung einer Software zu ermöglichen, muss diese getestet werden. Mittels Tests können Fehler gefunden und repariert werden. Um Zeit zu sparen werden diese Tests mit Testing-Frameworks automatisiert.
 
 \paragraph{Testing Level}
-Beim Softwaretesting wird in zwei Kategorien eingeteilt: Functional Testing und Non-functional Testing. Functional Testing testet definierte Spezifikationen. Damit soll sichergestellt werden, dass die Applikation sich so verhält wie erwartet. Non-functional Testing testet Dinge wie Performance und Erreichbarkeit.\cite{TESTING1}
+Beim Softwaretesting wird in zwei Kategorien eingeteilt: Functional Testing und Non-functional Testing. Functional Testing testet definierte Spezifikationen. Damit soll sichergestellt werden, dass die Applikation sich so verhält, wie erwartet. Non-functional Testing testet Dinge wie Performance und Erreichbarkeit.\cite{TESTING1}
 
 Das Functional Testing lässt sich in vier Level aufteilen, welche auch in folgender Grafik dargestellt werden.
 
@@ -154,16 +152,16 @@ Mithilfe von Unit Tests wird die Funktionalität des Programmes überprüft. Hie
 
 \newpage
 
-Integration Tests prüfen die Kompatibilität zwischen dein einzelnen Units. Es kann sein, dass Units alleine funktionieren, jedoch zusammen mit anderen Units nicht. Des Weiteren wird hier auch die Performance überprüft. Jede einzelne Unit kann effizient sein, sind die Units jedoch schlecht integriert ensteht trotzdem ein ineffizientes Programm. \cite{TESTING3}
+Integration Tests prüfen die Kompatibilität zwischen den einzelnen Units. Es kann sein, dass Units alleine funktionieren, jedoch zusammen mit anderen Units nicht. Des Weiteren wird hier auch die Performance überprüft. Jede einzelne Unit kann effizient sein, sind die Units jedoch schlecht integriert, ensteht trotzdem ein ineffizientes Programm. \cite{TESTING3}
 
-Bei System Tests wird die ganze Applikation getestet. Hier ist es das Ziel die Software auf  Erfüllung der Qualitätsstandards und Anforderungen zu Testen. Diese Tests werden von eigenständigen Testern durchgeführt, welche nicht an der Entwicklung des Programmes beteiligt waren. \cite{TESTING3}
+Bei System Tests wird die ganze Applikation getestet. Hier ist es das Ziel, die Software auf  Erfüllung der Qualitätsstandards und Anforderungen zu testen. Diese Tests werden von eigenständigen Testern durchgeführt, welche nicht an der Entwicklung des Programmes beteiligt waren. \cite{TESTING3}
 
-Acceptance Tests sind das letzte Test Level. Hier wird geprüft ob die Softwareversion für eine Veröffentlichung bereit ist. Dazu müssen die Endanwender ausprobieren ob die Software wie gewünscht funktioniert. \cite{TESTING3}
+Acceptance Tests sind das letzte Test Level. Hier wird geprüft, ob die Softwareversion für eine Veröffentlichung bereit ist. Dazu müssen die Endanwender ausprobieren, ob die Software wie gewünscht funktioniert. \cite{TESTING3}
 
 \paragraph{Testerstellung}
-Die einzelnen Tests werden in Java programmiert. Beim ausführen der Tests wird ein Browser gestartet welcher dann die gewünschten Websiteaufrufe tätigt. Tests können zu Test Suites zusammengefasst werden. Dadurch werden alle Tests in der Suite nacheinander ausgeführt. 
+Die einzelnen Tests werden in Java programmiert. Beim Ausführen der Tests wird ein Browser gestartet, welcher dann die gewünschten Websiteaufrufe tätigt. Tests können zu Test Suites zusammengefasst werden. Dadurch werden alle Tests in der Suite nacheinander ausgeführt. 
 
-Um im Browser auf ein Element mit Selenium klicken zu können muss dieses eindeutig identifizierbar sein. Hierbei gibt es mehrere Möglichkeiten. Eine eindeutige Identifizierung ist über ID, Name, CSS Klasse, Link Text oder XPATH möglich. 
+Um im Browser auf ein Element mit Selenium klicken zu können, muss dieses eindeutig identifizierbar sein. Hierbei gibt es mehrere Möglichkeiten. Eine eindeutige Identifizierung ist über ID, Name, CSS Klasse, Link Text oder XPATH möglich. 
 
 \begin{lstlisting}[caption = Selenium Element Selektoren, label = testing1]
 driver.findElement(By.id("email")).click();
@@ -192,10 +190,10 @@ if(!page.contains("Bitte bestaetige zuerst deine E-Mail Adresse!")) throw new No
 \end{lstlisting}
 
 \paragraph{Probleme}
-Die Verwendung des Selenium Frameworks bereitete einige Probleme. Selenium kann nur mit Elementen interagieren welche auch sichtbar sind. Dadurch können z.B. Buttons welche nur bei Hover angezeigt werden schwer getestet werden. Hierführ muss Selenium zuerst die Maus in die Hover Region bewegen und kann erst dann den Button drücken 
+Die Verwendung des Selenium Frameworks bereitete einige Probleme. Selenium kann nur mit Elementen interagieren, welche auch sichtbar sind. Dadurch können z.B. Buttons, welche nur bei Hover angezeigt werden, schwer getestet werden. Hierfür muss Selenium zuerst die Maus in die Hover Region bewegen und kann erst dann den Button drücken 
 
-Um ein Element Testen zu können muss es eindeutig identifizierbar sein. Dies ist allerdings bei vielen Elementen in unserer Software nicht möglich. Zum Beispiel sind die einzelnen Buttons im Texteditor im Heft nicht eindeutig identifizierbar. Diese können also nicht automatisiert getestet werden. Stattdessen wurden hier geführte Acceptance Tests durchgeführt. Das bedeutet, dass Selenium die Seite aufruft, eine Anweisung an den User gibt und dannach fragt ob das gewünschte Ergebnis eingetroffen ist. 
+Um ein Element testen zu können, muss es eindeutig identifizierbar sein. Dies ist allerdings bei vielen Elementen in unserer Software nicht möglich. Zum Beispiel sind die einzelnen Buttons im Texteditor im Heft nicht eindeutig identifizierbar. Diese können also nicht automatisiert getestet werden. Stattdessen wurden hier geführte Acceptance Tests durchgeführt. Das bedeutet, dass Selenium die Seite aufruft, eine Anweisung an den User gibt und danach fragt, ob das gewünschte Ergebnis eingetroffen ist. 
 
 Die auf DSN verwendeten Captchas bei der Registrierung und dem Passwort Reset können ebenfalls nicht automatisiert getestet werden. Captchas sollen im Endeffekt die automatische Ausfüllung eines Formulares ja auch verhindern. Bei einem Test füllt Selenium das Formular bis auf das Captcha aus. Das Captcha muss dann händisch gelöst werden. 
 
-Die Tests werden relativ langsam ausgeführt. So dauert es ca. 30 Minuten alle DSN Tests auszuführen. Dies liegt vor allem an der Netwerklatenz der einzelnen Websiteaufrufe. Die Tests könnten paralellisiert auf mehreren Servern ausgeführt werden, jedoch ist die Einrichtung eines solchen Testing Clusters kompliziert.
+Die Tests werden relativ langsam ausgeführt. So dauert es ca. 30 Minuten alle DSN Tests auszuführen. Dies liegt vor allem an der Netwerklatenz der einzelnen Websiteaufrufe. Die Tests könnten parallelisiert auf mehreren Servern ausgeführt werden, jedoch ist die Einrichtung eines solchen Testing Clusters kompliziert.

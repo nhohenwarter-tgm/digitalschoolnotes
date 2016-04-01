@@ -1,20 +1,20 @@
 %\section*{User und Rollenmanagement}
 \cfoot{Philipp Adler}
 
-Usermanagement steht für das Erzeugen, Verwalten und Löschen von Benutzerkonten. Es soll dazu dienen, jedem registrierten User eindeutig zu identifizieren und kontrollieren, z.B. ob die monatliche Rate für den Pro-Account überwiesen wurde. Außerdem soll die bereits in Anspruch genommene Speicherkapazität überwacht werden. Dazu ist es notwendig, dass jeder DSN-User, durch eine Kombination von Daten differenzierbar ist.
+Usermanagement steht für das Erzeugen, Verwalten und Löschen von Benutzerkonten. Es soll dazu dienen, jeden registrierten User eindeutig zu identifizieren und zu kontrollieren, z.B. ob die monatliche Rate für den Pro-Account überwiesen wurde. Außerdem soll die bereits in Anspruch genommene Speicherkapazität überwacht werden. Dazu ist es notwendig, dass jeder DSN-User, durch eine Kombination von Daten, differenzierbar ist.
 \subsubsection{Authentisierung}
-Authentisierung bedeutet, Nachweis der behaupteten Identität. Im Falle von DSN handelt es sich hierbei um die eindeutige Email-Adresse, welche einmalig im System verwendet wird. Es soll Gewissheit geben, von wem die Information stammt. Dadurch kann jedes Handeln jemanden zugewiesen werden. Falls, die vorgegebenen Richtlinen nicht eingehalten werden, kann DSN sofort reagieren.
+Authentisierung bedeutet Nachweis der behaupteten Identität. Im Falle von DSN handelt es sich hierbei um die eindeutige Email-Adresse, welche einmalig im System verwendet wird. Es soll Gewissheit darüber geben, von wem die Information stammt. Dadurch kann jedes Handeln jemandem zugewiesen werden. Falls die vorgegebenen Richtlinien nicht eingehalten werden, kann DSN sofort reagieren.
 \paragraph{Registrierung}
-Neben der Email-Adresse, ist ein weiterer Identitätspunkt, das geheime Passwort. Aus Sicherheitsgründen muss es mindestens 8 Zeichen beinhalten, wodurch Cyberkriminellen das Knacken von Passwörtern erschwert wird. Zum Abschluss der Registrierung müssen noch die Nutzungsbedingungen akzeptiert werden.\\
-\grqq{}Allgemeine Geschäftsbedingungen (AGB) sind vertragliche Klauseln, die zur Standardisierung und Konkretisierung von Massenverträgen dienen. Sie werden von einer Vertragspartei einseitig gestellt und bedürfen daher einer bes. Kontrolle, um ihren Missbrauch zu verhindern.\grqq{}\cite{AGB}\\
+Neben der Email-Adresse ist ein weiterer Identitätspunkt das geheime Passwort. Aus Sicherheitsgründen muss es mindestens 8 Zeichen beinhalten, wodurch Cyberkriminellen das Knacken von Passwörtern erschwert wird. Zum Abschluss der Registrierung müssen noch die Nutzungsbedingungen akzeptiert werden.\\
+\textit{,,Allgemeine Geschäftsbedingungen (AGB) sind vertragliche Klauseln, die zur Standardisierung und Konkretisierung von Massenverträgen dienen. Sie werden von einer Vertragspartei einseitig gestellt und bedürfen daher einer bes. Kontrolle, um ihren Missbrauch zu verhindern.''}\cite{AGB}\\
 \cite{VERTEILTE_SYSTEME}\cite{PASSWORT_SCHUTZ}
 
-\insertpicture{images/usermanagement/Registrierung}{Authentisierung bei DSN}{(selfmade)}{itm:authentisierung-chart}{0.20}
+\insertpicture{images/usermanagement/Registrierung}{Registrierung bei DSN}{(selfmade)}{itm:authentisierung-chart}{0.20}
 
 \newpage
 
-Ein Captcha (Completely Automated Public Turing test to tell Computers and Humans Apart) soll bei der Registrierung verhindern, dass eine Software oder ein Bot einen Account erzeugt.\\
-Generell, dient es der Sicherheit und hat die Aufgabe, jede Eingabe auf ihre Herkunft zu prüfen. Um ein Captcha anzuzeigen, ist die Einbindung einer JavaScript Library notwendig. \cite{CAPTCHA}.
+Ein CAPTCHA soll bei der Registrierung verhindern, dass eine Software oder ein Bot einen Account erzeugt.\\
+Generell dient es der Sicherheit und hat die Aufgabe, jede Eingabe auf ihre Herkunft zu prüfen. Um ein Captcha anzuzeigen, ist die Einbindung einer JavaScript Library notwendig. \cite{CAPTCHA}.
 \begin{lstlisting}[caption={Einbindung der JS-Library Recaptcha}, language=HTML]
 <script src="https://www.google.com/recaptcha/api.js?
 onload=vcRecaptchaApiLoaded&render=explicit" async defer></script>
@@ -24,38 +24,35 @@ angular-recaptcha.min.js"></script>
 
 Bei jeder Registrierung generiert sich das Captcha neu, dadurch kann es nur einmal eingelöst werden.
 
-\insertpicture{images/usermanagement/Captcha}{Auslösen des Captchas}{(selfmade)}{itm:captcha-chart}{0.35}
+\insertpicture{images/usermanagement/Captcha}{Lösen des Captchas}{(selfmade)}{itm:captcha-chart}{0.35}
 
 \newpage
 
 \paragraph{Datenbank}
-Nach der Authentisierung wird der zukünftige Benutzer, nach dem im Kapitel 5.3.2.1 beschriebenen Datenmodell, in die Datenbank persistiert. Der Registierungsprozess ist erst nach einlösen des Validierungstoken abgeschlossen. Bis dahin, ist dem Benutzer nicht möglich, sich auf DSN anzumelden.
-
-Zusätzlich kann das Problem, dass sich ein bereits registrierter Account nicht anmelden kann. Zum Beispiel, wenn jemand Aufgrund einer Regelverletzung von DSN gespeert ist. Der User hat keine andere Wahl, als Kontakt zum Administrator aufzunehmen.
+Nach der Authentisierung wird der zukünftige Benutzer, nach dem im Kapitel 5.3.2.1 beschriebenen Datenmodell, in die Datenbank persistiert. Der Registierungsprozess ist erst nach Einlösen des Validierungstokens abgeschlossen. Bis dahin ist es dem Benutzer nicht möglich, sich auf DSN anzumelden.
 
 \paragraph{Email}
-Um den Registrierungsprozess zu beenden, wird dem nahestehenden User ein Token per Mail von unserem Mailserver zugesandt. Dieser Token dient der Identifizierung und Authentifizierung und könnte folgendermaßen aussehen:
+Um den Registrierungsprozess zu beenden, wird dem User ein Token per Mail von unserem Mailserver zugesandt. Dieser Token dient der Identifizierung und Authentifizierung und könnte folgendermaßen aussehen:
 \begin{lstlisting}[caption={Validierungstoken für die Aktivierung des DSN-Accounts}]
-http://digitalschoolnotes.com/validate/
-\\dad9574635aad7d6549536db38f7839c042f7704b3bd74acc427f075d0601470
+http://digitalschoolnotes.com/validate/dad9574635aad7d6549536db38f7839c042f7704b3bd74acc427f075d0601470
 \end{lstlisting}
 
-Bei der Erstellung eines solchen Tokens wird die Email-Adresse des Benutzers und das aktuelle Datum kombiniert. Die Email-Adresse dient dazu, um zu wissen, welcher Account aktiviert werden soll. Die beiden Werte werden miteinander verknüpft und in einen Hash umgewandelt. Dieser Hash dient als Aktivierungstoken.
+Bei der Erstellung eines solchen Tokens wird die Email-Adresse des Benutzers und das aktuelle Datum kombiniert. Die beiden Werte werden miteinander verknüpft und in einen Hash umgewandelt. Dieser Hash dient als Aktivierungstoken.
 
-Dem Token wird mittels Datum eine Lebensdauer zugeteilt. Falls die Einlösung des Hash nicht nicht innerhalb der nächsten 24 Stunden erfolgt, verfällt dieser und es muss vom User neu angefordert werden. 
+Dem Token wird mittels Datum eine Lebensdauer zugeteilt. Falls die Einlösung des Hash nicht innerhalb der nächsten 24 Stunden erfolgt, verfällt dieser und muss vom User neu angefordert werden. 
 
 \paragraph{Anmeldung}
-Hat der Benutzer den Registrierprozess erfolgreich abgeschlossen, steht ihm jetzt frei, sich anzumelden. Der Login erfolgt anhand der Angabe der Email-Adresse plus Passwort oder er nutzt die Möglichkeit einer OAuth-Anmeldung.
+Hat der Benutzer den Registrierungsprozess erfolgreich abgeschlossen, steht es ihm jetzt frei, sich anzumelden. Der Login erfolgt anhand der Angabe der Email-Adresse plus Passwort oder er nutzt die Möglichkeit einer OAuth-Anmeldung.
 
-OAuth steht für Open Authentication und bietet dem Nutzer die Möglichkeit, Daten über einen Webservice auszutauschen. \grqq{}OAuth sichert die Programmschnittstelle von Web-Anwendungen und verwendet für die Übertragung der Nutzeridentifikation dessen Passwort und einen Token\grqq{}\cite{OAUTH}. Beim Zugriff auf sensible Daten muss der Benutzer keine zusätzlichen Information und auch keine Identität preisgeben. Der Provider holt sich die Benutzerdaten von Facebook oder Google+ und erstellt für den User einen Account.\\
-Sozusagen besteht für unsere Endanwender die Möglichkeit, den vorher beschriebenen Registierungsprozess auszulassen und sich direkt über OAuth zu registrieren und anzumelden.
+OAuth bietet dem Nutzer die Möglichkeit, Daten über einen Webservice auszutauschen. \textit{,,OAuth sichert die Programmschnittstelle von Web-Anwendungen und verwendet für die Übertragung der Nutzeridentifikation dessen Passwort und einen Token''}\cite{OAUTH}. Beim Zugriff auf sensible Daten muss der Benutzer keine zusätzlichen Information und auch keine Identität preisgeben. Der Dienstanbieter holt sich die Benutzerdaten von Facebook oder Google+ und erstellt für den User einen Account.\\
+Sozusagen besteht für unsere Endanwender die Möglichkeit, den vorher beschriebenen Registierungsprozess auszulassen und sich direkt über OAuth anzumelden.
 
 \insertpicture{images/usermanagement/Anmelden}{Klassische Anmeldung oder mittels OAuth}{(selfmade)}{itm:login-chart}{0.35}
 
 Beim Anmelden wird kontrolliert, ob die angegebene Email-Adresse in der Datenbank existiert. Ist sie keinem Benutzer zugeordnet, existiert dieser nicht und die Authentifikation schlägt fehl. Andernfalls wird das eingegebene Passwort überprüft. Ist dieses korrekt, wird der Anwender in den Userbereich weitergeleitet.
 
-Surft ein Benutzer auf unserer Seite, arbeitet im Hintergrund ein Session Timeout, welches die Aktivtät des eingeloggten Benutzer überprüft.\\
-Im Falle einer Inaktivität von 1 Stunde, wird der Anwender automatisch abgemeldet und zur Anmeldeseite zurückgeleitet. Es dient als Vorbeugemaßnahmen und kontrolliert unauthorizierte Aktivtäten.
+Surft ein Benutzer auf unserer Seite, arbeitet im Hintergrund ein Session Timeout, welches die Aktivität des eingeloggten Benutzers überprüft.\\
+Im Falle einer Inaktivität von einer Stunde, wird der Anwender automatisch abgemeldet und zur Anmeldeseite zurückgeleitet. Es dient als Vorbeugemaßnahme und kontrolliert unauthorisierte Aktivitäten.
 
 \begin{lstlisting}[caption={Session Timeout}, language=Python]
 try:
@@ -75,22 +72,22 @@ if user is not None and user.check_password('myPassword'):
 
 In der Navigationsleiste befinden sich:
 \begin{itemize}
-\item \textbf{Stundenplan}\\ Im Stundenplan kann jeder seine Schulstunden und Schulfächer manuell eintragen. Im Hintergrund werden diverse Fächer mit einem Schulheft verknüpft.
+\item \textbf{Stundenplan}\\ Im Stundenplan kann jeder seine Schulstunden und Schulfächer manuell eintragen.
 \item \textbf{Hefte}\\ Hier werden die Schulhefte aufgelistet, welche während der Schulstunden zum Einsatz kommen.
-\item \textbf{Kontoeinstellungen}\\ Die Kontoeinstellungen sind in 3 Bereiche gegliedert.
+\item \textbf{Kontoeinstellungen}\\ Die Kontoeinstellungen sind in drei Bereiche gegliedert.
 \begin{enumerate}
 \item \textbf{User-Daten bearbeiten}\\ Ändern der Benutzerinformationen
 \item \textbf{Passwort ändern}\\ Überschreiben des alten Passworts
-\item \textbf{Account löschen}\\ Alle angelegten Hefte, sowie der DSN-Account werden gelöscht.
+\item \textbf{Account löschen}\\ Alle angelegten Hefte, sowie der DSN-Account werden gelöscht
 \end{enumerate}
-\item \textbf{Suche}\\ Jeder Benutzer hat die Möglichkeit, nach Freunden oder anderen registrierten Anwendern, mittels Vorname, Nachname oder Email-Adresse, zu suchen. Auf dessen Profil, ist der vollständige Name, die Email-Adresse und die Berechtigungsstufe, ob Standardbenutzer, Pro-Benutzer oder Administrator, zu sehen.\\
-Ein weiterer wichtiger Punkt sind die öffentlichen Hefte. Jedem User steht es frei, von diesen, einzelne Heftseiten in seine Eigenen zu importieren.
+\item \textbf{Suche}\\ Jeder Benutzer hat die Möglichkeit, nach Freunden oder anderen registrierten Anwendern, mittels Vorname, Nachname oder Email-Adresse, zu suchen. Auf dessen Profil ist der vollständige Name, die Email-Adresse und die Berechtigungsstufe, ob Standardbenutzer, Pro-Benutzer oder Administrator, zu sehen.\\
+Ein weiterer wichtiger Punkt sind die öffentlichen Hefte. Jedem User steht es frei, von diesen, einzelne Heftseiten in seine eigenen Hefte zu importieren.
 \item \textbf{Abmelden}\\ Abmelden des Accounts
 \end{itemize}
 \newpage 
 
 \subsubsection{Berechtigungen}
-Im System befinden sich drei verschiedene Berechtigungsstufen, nämlich: der Standard-Benutzer, Pro-Benutzer und Administrator. Jeder registrierte Anwender ist zu Beginn ein Standard-Benutzer.
+Im System befinden sich drei verschiedene Berechtigungsstufen, nämlich: Standard-Benutzer, Pro-Benutzer und Administrator. Jeder registrierte Anwender ist zu Beginn ein Standard-Benutzer.
 
 \begin{itemize}
 \item \textbf{Standard-Benutzer}\\ Der Standard-Benutzer hat Gelegenheit, als Erstanwender die vielen Vorteile, wie OCR oder PWS, zu nutzen. Unser System bietet dafür eine Testdauer von 90 Tagen an und steht in Form von digitalen Heften in begrenzter Stückzahl zur Verfügung.
@@ -100,24 +97,24 @@ Das Konzept gibt es bereits, aber die Umsetzung ist noch in der Entwicklungsphas
 \end{itemize}
 
 \subsubsection{Adminbereich}
-Sämtliche Daten über Benutzer werden im /admin Bereich aufgelistet. Er unterscheidet sich, im Vergleich zum Userbereich, durch den schwarzen Menübalken.
+Sämtliche Daten über Benutzer werden im \textit{/admin} Bereich aufgelistet. 
 \insertpicture{images/usermanagement/Adminsicht}{Navigationsleiste als Admin}{(selfmade)}{itm:navigation-admin-chart}{0.85}
 \paragraph{User Management}
 Die User Management Page listet alle Benutzer von DSN tabellarisch auf. Der Admin hat Einsicht auf die Email-Adresse, Vorname, Nachname und auf die Berechtigungsstufe.
 
 \newpage
 
-Dem Administrator steht es frei, Benutzer zu löschen, deren Berechtigungsstufe zu ändern oder mittels Mail, auf Probleme etc., hinzuweisen. Neben der Auflistung aller User, kann im Bedarfsfall nach Einzelnen gesucht werden. Die Sucheingabe wird mit vorhandenen Daten verglichen. Zusätzlich besteht die Möglichkeit die Tabelle in alphabetischer Reihenfolge zu sortieren.
+Dem Administrator steht es frei, Benutzer zu löschen, deren Berechtigungsstufe zu ändern oder mittels Mail auf Probleme etc. hinzuweisen. Neben der Auflistung aller User kann im Bedarfsfall nach Einzelnen gesucht werden. Die Sucheingabe wird mit vorhandenen Daten verglichen. Zusätzlich besteht die Möglichkeit, die Tabelle in alphabetischer Reihenfolge zu sortieren.
 
 \insertpicture{images/usermanagement/Usermanagment}{Usermangement-Page}{(selfmade)}{itm:navigation-admin-chart}{0.85}
 
-Unsere Usermanagement-Page wurde so designt, dass durch kurze Ladezeit, dem Administrator diese Seite rasch zur Verfügung steht. Die Performancesteigerung sich ergibt daraus, dass nur eine bestimmte Anzahl an DSN-Usern in Form einer Tabelle vom Server geladen wird. Ist das Ende einer Tabellenseite erreicht, kann auf die nächste Seite umgeblättert werden. Alle User finden sich so in der Liste wieder.
+Unsere Usermanagement-Page wurde so designed, dass durch kurze Ladezeit dem Administrator diese Seite rasch zur Verfügung steht. Die Performancesteigerung ergibt sich daraus, dass nur eine bestimmte Anzahl an DSN-Usern in Form einer Tabelle vom Server geladen wird. Ist das Ende einer Tabellenseite erreicht, kann auf die nächste Seite umgeblättert werden. Alle User finden sich so in der Liste wieder.
 
 \paragraph{Benachrichtigung}
-Pro-User, die den Zahlungen nicht nachkommen, geben dem Administrator das Recht, diesen löschen. DSN gibt dem User die Möglichkeit, seine Daten bzw. Hefte zu sichern, bevor er gelöscht wird. Der Benutzer empfängt rechtzeitig eine Aufforderungs-Mail, wo darauf hingewiesen wird, dass sein Account und alle dazugehörigen Daten nach 7 Tagen gelöscht werden. Am Server von DSN läuft ein Cron-Daemon, welcher täglich prüft, wann der zu löschende User entfernt werden soll. \grqq{}Der Cron-Daemon ist ein Dienst, der automatisch Skripte und Programme zu vorgegebenen Zeiten starten kann.\grqq{}\cite{CRON}\\
-Im Falle, dass jemand länger als 3 Monate interaktiv ist, wird ihm ebenfalls eine Informationsmail geschickt. Wenn sich der User binnen 7 Tagen nicht einloggt, wird der Account mit allen Daten gelöscht. \cite{COMMANDS}\cite{CRON}
+Pro-User, die den Zahlungen nicht nachkommen, geben dem Administrator das Recht, diesen zu löschen. DSN gibt dem User die Möglichkeit, seine Daten bzw. Hefte zu sichern, bevor er gelöscht wird. Der Benutzer empfängt rechtzeitig eine Aufforderungs-Mail, in welcher darauf hingewiesen wird, dass sein Account und alle dazugehörigen Daten nach 7 Tagen gelöscht werden. Am Server von DSN läuft ein Cron-Daemon, welcher täglich prüft, wann der zu löschende User entfernt werden soll. \textit{,,Der Cron-Daemon ist ein Dienst, der automatisch Skripte und Programme zu vorgegebenen Zeiten starten kann.''}\cite{CRON}\\
+Im Falle, dass jemand länger als 3 Monate inaktiv ist, wird ihm ebenfalls eine Informationsmail geschickt. Wenn sich der User binnen 7 Tagen nicht einloggt, wird der Account mit allen Daten gelöscht. \cite{COMMANDS}\cite{CRON}
 
-\begin{lstlisting}[caption={Cronjob für die {\"U}berpr{\"u}fung der Inaktivt{\"a}t und L{\"o}schung}, language=bash]
+\begin{lstlisting}[caption={Cronjob für die {\"U}berpr{\"u}fung der Inaktivit{\"a}t und L{\"o}schung}, language=bash]
 # m h  dom mon dow   command
 # * *   */1   *   *    python3 /home/stable/dsn/manage.py inform
 # * *   */1   *   *    python3 /home/stable/dsn/manage.py delete

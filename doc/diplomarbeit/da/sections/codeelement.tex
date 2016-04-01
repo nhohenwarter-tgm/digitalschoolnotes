@@ -1,7 +1,7 @@
 %\subsubsection*{Codeelement}
 \cfoot{Adin Karic}
 
-Zur Realisierung des Codeelements wurde das Framework codemirror \cite{CODEM} benutzt. Das Codeelement soll es dem Benutzer ermöglichen auf einfache und intuitive Weise Codesnippets in seiner Mitschrift zu erstellen und zu bearbeiten. Besondere Features sind hier das Anzeigen der Zeilennummern sowie das Syntax-Highlighting (abhängig von der jeweiligen Programmiersprache). In der vorliegenden Implementation werden folgende Sprachen unterstützt:
+Zur Realisierung des Codeelements wurde das Framework codemirror \cite{CODEM} benutzt. Das Codeelement soll es dem Benutzer ermöglichen, auf einfache und intuitive Weise Codesnippets in seiner Mitschrift zu erstellen und zu bearbeiten. Besondere Features sind hier das Anzeigen der Zeilennummern, sowie das Syntax-Highlighting (abhängig von der jeweiligen Programmiersprache). In der vorliegenden Implementation werden folgende Sprachen unterstützt:
 \begin{itemize}
 \item XML, HTML
 \item JavaScript
@@ -19,19 +19,19 @@ Wenn der Benutzer nun konkret ein Codeelement hinzufügen will, betätigt er zun
 
 \newpage
 
-Nach Betätigen des Code-Buttons erscheint eine Auswahl von (Programmier-)Sprachen. Hier legt der Beneutzer fest wie der Inhalt im Codeelement hervorgehoben wird. (Dies ist von Sprache zu Sprache anders und kann auch im Nachhinein geändert werden)
+Nach Betätigen des Code-Buttons erscheint eine Auswahl von (Programmier-)Sprachen. Hier legt der Benutzer fest, wie der Inhalt im Codeelement hervorgehoben wird. (Dies ist von Sprache zu Sprache anders und kann auch im Nachhinein geändert werden)
 
 \insertpicture{images/elemente/c2.png}{Programmiersprache auswählen}{(selfmade)}{itm:code2}{0.7}
 
 Anschließend erscheint das leere Codeelement im Heft.
 
-\insertpicture{images/elemente/c3.png}{leeres Code-Element}{(selfmade)}{itm:code3}{0.3}
+\insertpicture{images/elemente/c3.png}{Leeres Code-Element}{(selfmade)}{itm:code3}{0.3}
 
-Unter dem Codeelement gibt es noch drei Buttons die nur sichtbar sind wenn man mit der Maus darüber fährt. Mit Druck auf den ersten Button (also den Mülleimer) kann das Element (nachdem man nochmals bestätigt hat) gelöscht werden. Um in den Bearbeitungsmodus des Codeelements zu wechseln betätigt der User den zweiten Button (also den Stift). Um im Nachhinein die Auswahl der Programmiersprache zu ändern (siehe Dialog oben) muss auf den dritten Button, also das Zahnrad, geklickt werden.
+Unter dem Codeelement gibt es noch drei Buttons, die nur sichtbar sind, wenn man mit der Maus darüber fährt. Mit Druck auf den ersten Button (also den Mülleimer) kann das Element (nachdem man nochmals bestätigt hat) gelöscht werden. Um in den Bearbeitungsmodus des Codeelements zu wechseln betätigt der User den zweiten Button (also den Stift). Um im Nachhinein die Auswahl der Programmiersprache zu ändern (siehe Dialog oben) muss auf den dritten Button, also das Zahnrad, geklickt werden.
 
 \insertpicture{images/elemente/c4.png}{Code-Bearbeitung}{(selfmade)}{itm:code4}{1.0}
 
-Bei Klick auf den Code-Button wird die Methode codeElementCreate() ausgeführt. Dort wird ein ngDialog mit dem codeElementSettings-template geöffnet wo der User zum ersten Mal die Programmiersprache auswählen kann. Nachdem dies ausgewählt wurde wird die Methode addCodeElement() ausgeführt.
+Bei Klick auf den Code-Button wird die Methode \textit{codeElementCreate()} ausgeführt. Dort wird ein ngDialog mit dem codeElementSettings-template geöffnet in welchem der User zum ersten Mal die Programmiersprache auswählen kann. Nachdem dies ausgewählt wurde, wird die Methode \textit{addCodeElement()} ausgeführt.
 
 \begin{lstlisting}[caption={Code-Element Persistierung}, language=Javascript]
 $scope.addCodeElement = function(){
@@ -57,4 +57,4 @@ $scope.addCodeElement = function(){
 }
 \end{lstlisting}
 
-Bei Klick auf das Zahnrad kann dann noch die eingestellte Programmiersprache geändert werden. Dabei wird die Methode setCodeElementLanguage() ausgeführt.
+Bei Klick auf das Zahnrad kann dann noch die eingestellte Programmiersprache geändert werden. Dabei wird die Methode \textit{setCodeElementLanguage()} ausgeführt.
