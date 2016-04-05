@@ -6,7 +6,7 @@ Infrastruktur und Testing sind für jedes Projekt essentiell. Die Infrastruktur 
 Eine stabile und sichere Infrastruktur ist heutzutage ein Muss für jedes IT Projekt. \\
 Die Infrastruktur ist wichtig, da in der Vergangenheit oft kleine Projekte bereits wenige Tage nach Veröffentlichung von sehr hohen Userzahlen berichten konnten. Wenn hier zuvor die Infrastruktur gut geplant und implementiert wurde, ist es kein Problem viele User zu bewältigen.
 \paragraph{Serverhosting}
-Die wichtigste technische Grundlage für das Projekt DigitalSchoolNotes ist der Projektserver. Auf diesem Server, wird das Projekt entwickelt und getestet. Hier ist es besonders wichtig, dass das gesamte Team mit der gleichen Umgebung arbeitet, da sonst die einzelnen Codeteile des Teams nicht zusammen funktionieren. Des Weiteren wird der Server dazu verwendet, die Zwischenversionen des Projektes öffentlich verfügbar zu machen. Dies ist für das Team essentiell, da dadurch der \gls{Stakeholder} jederzeit Zugriff auf eine aktuelle und stabile Version des Projektes hat. Dadurch kann das Team Änderungswünsche des Stakeholders leichter erfassen und realisieren.\\
+Die wichtigste technische Grundlage für das Projekt DigitalSchoolNotes ist der Projektserver. Auf diesem Server, wird das Projekt entwickelt und getestet. Hier ist es besonders wichtig, dass das gesamte Team mit der gleichen Umgebung arbeitet, da sonst die einzelnen Codeteile des Teams nicht zusammen funktionieren. Des Weiteren wird der Server dazu verwendet, die Zwischenversionen des Projektes öffentlich verfügbar zu machen. Dies ist für das Team essentiell, da dadurch jederzeit Zugriff auf eine aktuelle und stabile Version des Projektes gegeben ist. Dadurch kann das Team Änderungswünsche des Stakeholders leichter erfassen und realisieren.\\
 
 \newpage
 
@@ -128,7 +128,7 @@ Hat diese Person nun eine Änderung am Code vorgenommen, muss dieser auf den Ser
 \paragraph{Verfügbarkeit}
 Um in Zukunft die Verfügbarkeit zu verbessern, gibt es viele Möglichkeiten. Um die Wahrscheinlichkeit eines kritischen Serverausfalles zu reduzieren könnten, mehrere Server angemietet werden. Eine andere Möglichkeit wäre es, das Hosting in eine Cloud auszulagern(Amazon Web Services, Google, Azure...). 
 
-Um die Performance und Verfügbarkeit zu erhöhen, sollte ein Loadbalancer verwendet werden. Dieser teilt die eingehenden Anfragen auf mehrere andere Server auf und reduziert damit die Last der einzelnen Server und erhöht die Performance. Hierbei ist darauf zu achten, dass der Loadbalancer Healthchecks durchführen muss. Mithilfe dieser kann der Loadbalancer überprüfen, ob die Server noch aktiv sind und somit Anfragen entgegennehmen und bearbeiten können. Sollte ein Server ausfallen, leitet der Loadbalancer keine Anfragen mehr an diesen weiter. Der Loadbalancer sollte redundant ausgeführt sein, da ohne ihn die Seite nicht mehr erreichbar ist. 
+Um die Performance und Verfügbarkeit zu erhöhen, sollte ein Loadbalancer verwendet werden. Dieser teilt die eingehenden Anfragen auf mehrere andere Server auf und reduziert damit die Last der einzelnen Server.Dies erhöht die Performance. Hierbei ist darauf zu achten, dass der Loadbalancer Healthchecks durchführen muss. Mithilfe dieser kann der Loadbalancer überprüfen, ob die Server noch aktiv sind und somit Anfragen entgegennehmen und bearbeiten können. Sollte ein Server ausfallen, leitet der Loadbalancer keine Anfragen mehr an diesen weiter. Der Loadbalancer sollte redundant ausgeführt sein, da ohne ihn die Seite nicht mehr erreichbar ist. 
 
 Um die Performance der Datenbank zu erhöhen, sollte diese auf einem eigenen Server betrieben werden. Des Weiteren sollte hier Loadbalancing oder Clustering betrieben werden, um die Ausfallsicherheit zu erhöhen. 
 
@@ -139,7 +139,7 @@ Um die Erreichbarkeit der Domain zu gewährleisten, sollten redundante DNS Serve
 \newpage
 
 \subsubsection{Testing}
-Um eine Einwandfreie Benutzung einer Software zu ermöglichen, muss diese getestet werden. Mittels Tests können Fehler gefunden und repariert werden. Um Zeit zu sparen werden diese Tests mit Testing-Frameworks automatisiert.
+Um eine Einwandfreie Benutzung einer Software zu ermöglichen, muss diese getestet werden. Mittels Tests können Fehler gefunden und repariert werden. Diese Tests werden um Zeit zu sparen häufig mit Testing-Frameworks automatisiert.
 
 \paragraph{Testing Level}
 Beim Softwaretesting wird in zwei Kategorien eingeteilt: Functional Testing und Non-functional Testing. Functional Testing testet definierte Spezifikationen. Damit soll sichergestellt werden, dass die Applikation sich so verhält, wie erwartet. Non-functional Testing testet Dinge wie Performance und Erreichbarkeit.\cite{TESTING1}
@@ -171,7 +171,7 @@ driver.findElement(By.partialLinkText("Klick mich")).click();
 driver.findElement(By.xpath("//*[contains(text(), 'Mail senden')]")).click();
 \end{lstlisting}
 
-Selenium kann auch Formulare ausfüllen. Dazu muss das Element eindeutig angesprochen werden und dann kann wie oben im Beispiel statt dem \textit{.click()} ein \textit{.sendKeys("")} verwendet werden. 
+Selenium kann auch Formulare ausfüllen. Dazu müssen die Formularfelder eindeutig angesprochen werden können. Wenn dies der Fall ist, kann wie oben im Beispiel statt dem \textit{.click()} ein \textit{.sendKeys("")} verwendet werden. 
 
 \newpage
 

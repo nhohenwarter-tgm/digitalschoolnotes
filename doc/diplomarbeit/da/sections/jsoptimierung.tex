@@ -4,11 +4,11 @@
 Im Laufe des Projektes gab es immer mehr Probleme im Zusammenhang mit Javascript. Einfache Befehle wie \textit{console.log()} funktionierten nicht mehr ordnungsgemäß. Das Problem konnte bis zum Ende des Projektes nicht behoben werden, jedoch soll dieses Kapitel für zukünftige Projekte hilfreich sein.
 
 \subsubsection{Code Style}
-In Javascript gibt es meist viele Möglichkeiten den selben Code zu schreiben. Dadurch ist es schwierig, sich in neue Frameworks oder anderes einzuarbeiten. Wenn ein bestimmtes Problem auftritt und eine Lösung im Internet gesucht wird, dann kann ein Anfänger nicht unterscheiden, ob diese Lösung nun nur eine andere Schreibweise einer anderen Lösung ist oder ein komplett anderer Ansatz. 
+In Javascript gibt es meist viele Möglichkeiten den selben Code zu schreiben. Dadurch ist es schwierig, sich in neue Frameworks oder anderes einzuarbeiten. Wenn ein bestimmtes Problem auftritt und eine Lösung im Internet gesucht wird, kann ein Anfänger nicht unterscheiden, ob diese Lösung nun nur eine andere Schreibweise einer anderen Lösung ist oder ein komplett anderer Ansatz. 
 
 Es hat natürlich auch Vorteile eine Sprache so schwach reguliert zu gestalten. Jeder Programmierer kann sich einen Stil aussuchen, der ihm gefällt und mit welchem er gut arbeiten kann. Des Weiteren sind unterschiedliche Schreibweisen des Codes auch unterschiedlich effektiv. 
 
-Doch ist soetwas wirklich nötig? Es gibt genug Sprachen in welchen ganz genau festgelegt ist, wie etwas durchzuführen ist. Javascript gehört hier leider nicht dazu. Es würde auf jeden Fall das Verständnis der Sprache vereinfachen. 
+Doch ist so etwas wirklich nötig? Es gibt genug Sprachen in welchen ganz genau festgelegt ist, wie etwas durchzuführen ist. Javascript gehört hier leider nicht dazu. Es würde auf jeden Fall das Verständnis der Sprache vereinfachen. 
 
 \begin{lstlisting}[caption = Unterschiedliche Möglichkeiten eine Funktion zu deklarieren\cite{JSOP1}, label = jsopfn, language=Javascript]
 function A(){};             // function declaration
@@ -24,14 +24,14 @@ var G = new function(){};   // special case: object constructor
 
 \end{lstlisting}
 
-Doch wie kann dieses Problem nun umgangen werden? Am besten ist es, sich am Anfang eines Projektes auf eine Schreibweise für z.B. Funktionsdeklarationen zu einigen. Dies macht zumindest den Code im eigenen Projekt um einiges vergleichbarer. Wenn sich das Team einen gemeinsamen Code Style aneignet, dann kann der bereits verfasste Code besser wiederverwendet und verstanden werden.
+Doch wie kann dieses Problem nun umgangen werden? Am besten ist es, sich am Anfang eines Projektes auf eine Schreibweise für z.B. Funktionsdeklarationen zu einigen. Dies macht zumindest den Code im eigenen Projekt um einiges vergleichbarer. Wenn sich das Team einen gemeinsamen Code Style aneignet, kann der bereits verfasste Code besser wiederverwendet und verstanden werden.
 
 \newpage
 
 \subsubsection{Debugging}
-Der Javascript Code im Projekt wurde großteils mit \textit{console.log()} und \textit{alert()} debuggt. Da diese beiden Befehle nach einer gewissen Zeit nicht mehr zuverlässig funktionierten, wurde es um einiges schwieriger Fehler aufzuspüren. Die Befehle wurden manchmal richtig ausgeführt, manchmal nicht an der Stelle an welcher sie geschrieben wurden und manchmal wurden sie garnicht beachtet. 
+Der Javascript Code im Projekt wurde großteils mit \textit{console.log()} und \textit{alert()} debuggt. Da diese beiden Befehle nach einer gewissen Zeit nicht mehr zuverlässig funktionierten, wurde es um einiges schwieriger Fehler aufzuspüren. Die Befehle wurden manchmal richtig ausgeführt, manchmal nicht an der Stelle an welcher sie geschrieben wurden und manchmal wurden sie gar nicht beachtet. 
 
-Hier sollten die Debugger in den Browsern weiterhelfen. Jeder moderne Browser, wie z.B. Firefox oder Chrome, hat einen solchen eingebaut. Mit diesem lassen sich wie in jedem anderen Debugger Breakpoints setzen. In Folge dessen kann das Programm dann Schritt für Schritt durchgesteppt werden. Des Weiteren kann auch der Inhalt der Variablen eingesehen werden. 
+Hier sollten die Debugger in den Browsern weiterhelfen. Jeder moderne Browser, wie z.B. Firefox oder Chrome, hat einen solchen eingebaut. Mit diesem lassen sich wie in jedem anderen Debugger Breakpoints setzen. In Folge dessen kann das Programm dann Schritt für Schritt debuggt werden. Des Weiteren kann auch der Inhalt der Variablen eingesehen werden. 
 
 Ein Firefox Plugin namens Firebug unterstützt diese Variablenüberprüfung und einige andere Features, welche es in normalen Browser Debuggern nicht gibt und sollte daher unbedingt in zukünftigen Projekten verwendet werden. Hiermit hätte während des Projektes nach einer gewissen Einarbeitungsphase einiges an Zeit gespart werden können. 
 
@@ -53,4 +53,4 @@ Falls ein Framework aus vielen Javascript Files besteht, dann sollten diese, fal
 \subsubsection{Optimierung}
 Um die Ladezeit der Scripts zu optimieren, sollten diese komprimiert werden. Dies geschieht, indem alle Leerzeichen, Absätze und Kommentare entfernt werden. Dadurch kann erheblich die Dateigröße reduziert und somit die Übertragungszeit minimiert werden. 
 
-Scripts, welche nicht sofort benötigt werden, sollten nachgeladen werden. Dies kann mit den \textit{async} und \textit{defer} Statements bei der Scripteinbindung erreicht werden. Doch Achtung: nicht bei allen Scripts funktioniert das. Wenn die falschen Scripts nachgeladen werden, dann funktioniert die ganze Seite nicht mehr.
+Scripts, welche nicht sofort benötigt werden, sollten nachgeladen werden. Dies kann mit den \textit{async} und \textit{defer} Statements bei der Scripteinbindung erreicht werden. Doch Achtung: nicht bei allen Scripts funktioniert das. Wenn die falschen Scripts nachgeladen werden, funktioniert die gesamte Seite nicht mehr.
