@@ -1,25 +1,25 @@
 %\section*{Infrastruktur und Testing}
 \cfoot{Niklas Hohenwarter}
 
-Infrastruktur und Testing sind für jedes Projekt essentiell. Die Infrastruktur ist notwendig, damit das gesamte Team mit den gleichen Versionen der Frameworks arbeiten kann und um eine stable Version der Software hosten zu können. Tests werden benötigt, um die Funktionalität der Software zu überprüfen.
+Infrastruktur und Testing sind für jedes Projekt essentiell. Die Infrastruktur ist notwendig, damit das gesamte Team mit den gleichen Versionen der Frameworks arbeiten kann und um eine stabile Version der Software bereitstellen zu können. Tests werden benötigt, um die Funktionalität der Software zu überprüfen.
 \subsubsection{Infrastruktur}
 Eine stabile und sichere Infrastruktur ist heutzutage ein Muss für jedes IT Projekt. \\
 Die Infrastruktur ist wichtig, da in der Vergangenheit oft kleine Projekte bereits wenige Tage nach Veröffentlichung von sehr hohen Userzahlen berichten konnten. Wenn hier zuvor die Infrastruktur gut geplant und implementiert wurde, ist es kein Problem viele User zu bewältigen.
 \paragraph{Serverhosting}
-Die wichtigste technische Grundlage für das Projekt DigitalSchoolNotes ist der Projektserver. Auf diesem Server, wird das Projekt entwickelt und getestet. Hier ist es besonders wichtig, dass das gesamte Team mit der gleichen Umgebung arbeitet, da sonst die einzelnen Codeteile des Teams nicht zusammen funktionieren. Des Weiteren wird der Server dazu verwendet, die Zwischenversionen des Projektes öffentlich verfügbar zu machen. Dies ist für das Team essentiell, da dadurch der \gls{Stakeholder} jederzeit Zugriff auf eine aktuelle und stabile Version des Projektes hat. Dadurch kann das Team Änderungswünsche des Stakeholders leichter erfassen und realisieren.\\
+Die wichtigste technische Grundlage für das Projekt DigitalSchoolNotes ist der Projektserver. Auf diesem Server, wird das Projekt entwickelt und getestet. Hier ist es besonders wichtig, dass das gesamte Team mit der gleichen Umgebung arbeitet, da sonst die einzelnen Codeteile des Teams nicht zusammen funktionieren. Des Weiteren wird der Server dazu verwendet, die Zwischenversionen des Projektes öffentlich verfügbar zu machen. Dies ist für das Team essentiell, da dadurch jederzeit Zugriff auf eine aktuelle und stabile Version des Projektes gegeben ist. Dadurch kann das Team Änderungswünsche des Stakeholders leichter erfassen und realisieren.\\
 
 \newpage
 
 Für die Auswahl des Serverhosters wurden einige Kriterien festgelegt. Diese lauten wie folgt:
 \begin{itemize}
 \item \textbf{Serverstandort:} Der Standort des Projektservers sollte möglichst nahe beim Endbenutzer sein, um die \gls{Latenz} gering zu halten.
-\item \textbf{Verfügbarkeit:} Der Server sollte eine hohe Mindestverfügbarkeit haben. Dadurch kann sich der Endbenutzer darauf verlassen, dass das Service erreichbar ist. Der Minimalwert für die Verfügbarkeit wurde auf 99,6\% festgelegt. Das bedeutet, dass der Server für maximal 35h im Jahr nicht verfügbar ist.
+\item \textbf{Verfügbarkeit:} Der Server sollte eine hohe Mindestverfügbarkeit haben. Dadurch kann sich der Endbenutzer darauf verlassen, dass das Service erreichbar ist. Der Minimalwert für die Verfügbarkeit wurde auf 99,6\% festgelegt. Das bedeutet, dass der Server für maximal 35h im Jahr nicht verfügbar ist. Eine höhere Ausfallzeit wäre nicht akzeptabel.
 \item \textbf{Support:} Der Hoster sollte Support unter der Woche und in Notfällen rund um die Uhr bieten.
 \item \textbf{Preis:} Um die Entwicklungskosten möglichst gering zu halten, wurde der maximale Monatspreis auf 10 Euro festgelegt.
 \item \textbf{Wartung:} Der Server sollte sich über ein Webinterface warten lassen.
 \end{itemize}
 
-Die oben genannten Kriterien reduzierten die Anzahl der möglichen Hoster stark. Das Team entschied sich für den Hoster netcup GmbH mit Sitz in Deutschland. Dieser erfüllte alle Anforderungen und Teile des Teams hatten bereits gute Erfahrungen mit dieser Firma gemacht.
+Die oben genannten Kriterien reduzierten die Anzahl der möglichen Hoster stark. Das Team entschied sich für den Anbieter netcup GmbH mit Sitz in Deutschland. Dieser erfüllte alle Anforderungen und Teile des Teams hatten bereits gute Erfahrungen mit dieser Firma gemacht.
 
 Das ausgewählte Produkt der netcup GmbH heißt "Root-Server M v6". Dieser bietet folgende Features:
 \begin{itemize}
@@ -37,13 +37,33 @@ Jedes Projektteam Mitglied hat einen eigenen Unix Account auf dem Projektserver.
 
 \paragraph{Mailsystem}
 Das Projektteam hat einen Email-Verteiler mit der Adresse info@digitalschoolnotes.com. Jedes Teammitglied hat eine E-Mail Adresse nach dem Schema des \gls{TGM}s(z.B. nhohenwarter@digitalschoolnotes.com). \\
-Der Scrummaster ist unter scrummaster@digitalschoolnotes.com erreichbar.
+Der Scrummaster ist unter scrummaster@digitalschoolnotes.com erreichbar. Das Mailsystem wird vom Anbieter netcup verwaltet und über eine Weboberfläche konfiguriert.
 
 \paragraph{Serverzugriff}
-Um den Server zu konfigurieren und zu verwalten, wird mit dem Protokoll \gls{SSH} darauf zugegriffen. Aus Sicherheitsgründen wurde die Anmeldung mit Passwort verboten und es können hierfür nur noch SSH Keys verwendet werden. Diese sind um einiges sicherer.
+Um den Server zu konfigurieren und zu verwalten, wird mit dem Protokoll \gls{SSH} darauf zugegriffen. Aus Sicherheitsgründen wurde die Anmeldung mit Passwort verboten und es können hierfür nur noch SSH Keys verwendet werden.
+\begin{lstlisting}[caption = Auszug der SSH Server Konfiguration, label = ssh1, language=bash] 
+# What ports, IPs and protocols we listen for
+Port 22
+# Use these options to restrict which interfaces/protocols sshd will bind to
+#ListenAddress ::
+#ListenAddress 0.0.0.0
+Protocol 2
+[...]
+# Authentication:
+LoginGraceTime 120
+PermitRootLogin no
+StrictModes yes
+RSAAuthentication yes
+PubkeyAuthentication yes
+[...]
+# To enable empty passwords, change to yes (NOT RECOMMENDED)
+PermitEmptyPasswords no
+# Change to no to disable tunnelled clear text passwords
+PasswordAuthentication no
+\end{lstlisting}
 
 \paragraph{Firewall}
-Um den Server vor Angriffen und unerwünschten Zugriffen zu schützen, wurde eine Firewall installiert. Diese blockiert alle unerwünschten Anfragen. Prinzipiell sind alle Ports geschlossen. Es werden nur Ports geöffnet, welche für das Betreiben des Projektes notwendig sind.
+Um den Server vor Angriffen und unerwünschten Zugriffen zu schützen, wurde eine Software-Firwall namens iptables installiert. Diese blockiert alle unerwünschten Anfragen. Prinzipiell sind alle Ports geschlossen. Es werden nur Ports geöffnet, welche für das Betreiben des Projektes notwendig sind.
 
 Es folgt eine Liste der freigegebenen Ports:
 \begin{itemize}
@@ -96,17 +116,30 @@ sudo apt-get install iptables-persistent
 iptables-save > /etc/iptables/rules.v4
 \end{lstlisting}
 
+Einige Angriffe können mit dieser Firewallkonfiguration nicht abgewährt werden. Um komplexe Angriffe abzuwehren wird eine permormantere dedizierte Hardware-Firewall mit strengeren Filterregeln benötigt. Normalerweise werden auch Standardports wie zum Beispiel Port 22 für SSH geändert um das automatisierte Angreifen zu erschweren. Diese Maßnahme konnte aufgrund der Schulfirewall leider nicht durchgeführt werden.
+
 \paragraph{Bruteforce Prevention}
-Um Bruteforce Angriffe auf den SSH Dienst zu erschweren, wurde am Server fail2ban eingerichtet. Dieses Tool zählt fehlgeschlagene Anmeldeversuche mit und sperrt die IP Adresse des Angreifers nach einer festgelegten Anzahl an Versuchen. Dieses Verfahren ist äußerst effektiv, da der Angreifer dadurch keine Chance hat, eine große Anzahl an Passwörtern auszuprobieren(z.B. Wörterbuchangriff). Da auf dem Projektserver die Anmeldung nur mit SSH Key möglich ist, hat der Client, welcher sich zum Server verbinden will, sechs Versuche einen korrekten SSH Key zu übermitteln.
+Um Bruteforce Angriffe auf den SSH Dienst zu erschweren, wurde am Server fail2ban eingerichtet. Dieses Tool zählt fehlgeschlagene Anmeldeversuche mit und sperrt die IP Adresse des Angreifers nach einer festgelegten Anzahl an Versuchen. Dieses Verfahren ist äußerst effektiv, da der Angreifer dadurch keine Chance hat, eine große Anzahl an Passwörtern auszuprobieren(z.B. Wörterbuchangriff). Da auf dem Projektserver die Anmeldung nur mit SSH Key möglich ist, hat der Client, welcher sich zum Server verbinden will, sechs Versuche einen korrekten SSH Key zu übermitteln. \cite{FAIL2BAN}
+
+\begin{lstlisting}[caption = Auszug aus der fail2ban Konfiguration, label = fail2ban1, language=bash]
+[ssh]
+
+enabled  = true
+port     = ssh
+filter   = sshd
+logpath  = /var/log/auth.log
+maxretry = 6
+\end{lstlisting}
+
 \paragraph{Webserver}
-Als Webserver für unsere Applikation wurde Nginx gewählt. Dieser wurde vor allem gewählt, da das Team bereits in der Vergangenheit mit dieser Software gearbeitet hat. Mithilfe von Nginx kann ebenfalls ein Loadbalancer realisiert werden. Dies ist ein wichtiger Punkt, um die Software skalierbar zu halten. \\
+Als Webserver für unsere Applikation wurde Nginx gewählt. Dieser wurde vor allem gewählt, da sie sehr weit verbreitet ist und schon Erfahrung mit dieser Software bestand. Mithilfe von Nginx kann ebenfalls ein Loadbalancer realisiert werden. Dies ist ein wichtiger Punkt, um den Webserver später skalieren zu können. \\
 
 \insertpicture{images/infrastruktur/loadbalancing.png}{Loadbalancing}{\cite{LB1}}{itm:loadbalancing-chart}{0.72}
 
 Der Webserver ist hauptsächlich für den statischen Content(HTML, Javascript, CSS, Bilder...) zuständig. Dies funktioniert, indem alle statischen Inhalte in einem Ordner abgelegt werden. Damit weiß Nginx, dass er für diese Inhalte zuständig ist.
 
 \paragraph{SSL}
-Um die Daten und Privatsphäre unserer Kunden zu schützen, wird bei allen Aufrufen der Website mit \gls{SSL} verschlüsselt. Um eine legitime SSL Verschlüsselung zu gewährleisten, ist ein valides Zertifikat notwendig. Dieses muss von einer Zertifizierungsstelle erworben werden. Das verwendete Zertifikat für das Projekt wurde von der Zertifizierungsstelle Namens thawte Inc. erworben. 
+Um die Daten und Privatsphäre unserer Kunden zu schützen, wird bei allen Aufrufen der Website mit \gls{SSL} verschlüsselt. Um eine legitime SSL Verschlüsselung zu gewährleisten, ist ein valides Zertifikat notwendig. Dieses muss von einer Zertifizierungsstelle erworben werden. Das verwendete Zertifikat für das Projekt wurde von der Zertifizierungsstelle Namens thawte Inc. erworben.  Die Kosten dafür lagen bei 35 Euro. \cite{CERTIFICATE}
 
 Das Zertifikat validiert die Domain(Domain Validated). Das bedeutet, dass zur Ausstellung des Zertifikates eine Email an den Besitzer der Domain geschickt wird. Wenn der Besitzer der Domain der Zertifizierung zustimmt, wird diese durchgeführt. 
 
@@ -128,7 +161,7 @@ Hat diese Person nun eine Änderung am Code vorgenommen, muss dieser auf den Ser
 \paragraph{Verfügbarkeit}
 Um in Zukunft die Verfügbarkeit zu verbessern, gibt es viele Möglichkeiten. Um die Wahrscheinlichkeit eines kritischen Serverausfalles zu reduzieren könnten, mehrere Server angemietet werden. Eine andere Möglichkeit wäre es, das Hosting in eine Cloud auszulagern(Amazon Web Services, Google, Azure...). 
 
-Um die Performance und Verfügbarkeit zu erhöhen, sollte ein Loadbalancer verwendet werden. Dieser teilt die eingehenden Anfragen auf mehrere andere Server auf und reduziert damit die Last der einzelnen Server und erhöht die Performance. Hierbei ist darauf zu achten, dass der Loadbalancer Healthchecks durchführen muss. Mithilfe dieser kann der Loadbalancer überprüfen, ob die Server noch aktiv sind und somit Anfragen entgegennehmen und bearbeiten können. Sollte ein Server ausfallen, leitet der Loadbalancer keine Anfragen mehr an diesen weiter. Der Loadbalancer sollte redundant ausgeführt sein, da ohne ihn die Seite nicht mehr erreichbar ist. 
+Um die Performance und Verfügbarkeit zu erhöhen, sollte ein Loadbalancer verwendet werden. Dieser teilt die eingehenden Anfragen auf mehrere andere Server auf und reduziert damit die Last der einzelnen Server.Dies erhöht die Performance. Hierbei ist darauf zu achten, dass der Loadbalancer Healthchecks durchführen muss. Mithilfe dieser kann der Loadbalancer überprüfen, ob die Server noch aktiv sind und somit Anfragen entgegennehmen und bearbeiten können. Sollte ein Server ausfallen, leitet der Loadbalancer keine Anfragen mehr an diesen weiter. Der Loadbalancer sollte redundant ausgeführt sein, da ohne ihn die Seite nicht mehr erreichbar ist. 
 
 Um die Performance der Datenbank zu erhöhen, sollte diese auf einem eigenen Server betrieben werden. Des Weiteren sollte hier Loadbalancing oder Clustering betrieben werden, um die Ausfallsicherheit zu erhöhen. 
 
@@ -139,7 +172,7 @@ Um die Erreichbarkeit der Domain zu gewährleisten, sollten redundante DNS Serve
 \newpage
 
 \subsubsection{Testing}
-Um eine Einwandfreie Benutzung einer Software zu ermöglichen, muss diese getestet werden. Mittels Tests können Fehler gefunden und repariert werden. Um Zeit zu sparen werden diese Tests mit Testing-Frameworks automatisiert.
+Um eine Einwandfreie Benutzung einer Software zu ermöglichen, muss diese getestet werden. Mittels Tests können Fehler gefunden und repariert werden. Diese Tests werden um Zeit zu sparen häufig mit Testing-Frameworks automatisiert.
 
 \paragraph{Testing Level}
 Beim Softwaretesting wird in zwei Kategorien eingeteilt: Functional Testing und Non-functional Testing. Functional Testing testet definierte Spezifikationen. Damit soll sichergestellt werden, dass die Applikation sich so verhält, wie erwartet. Non-functional Testing testet Dinge wie Performance und Erreichbarkeit.\cite{TESTING1}
@@ -171,7 +204,7 @@ driver.findElement(By.partialLinkText("Klick mich")).click();
 driver.findElement(By.xpath("//*[contains(text(), 'Mail senden')]")).click();
 \end{lstlisting}
 
-Selenium kann auch Formulare ausfüllen. Dazu muss das Element eindeutig angesprochen werden und dann kann wie oben im Beispiel statt dem \textit{.click()} ein \textit{.sendKeys("")} verwendet werden. 
+Selenium kann auch Formulare ausfüllen. Dazu müssen die Formularfelder eindeutig angesprochen werden können. Wenn dies der Fall ist, kann wie oben im Beispiel statt dem \textit{.click()} ein \textit{.sendKeys("")} verwendet werden. 
 
 \newpage
 
