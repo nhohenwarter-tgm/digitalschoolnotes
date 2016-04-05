@@ -1,8 +1,8 @@
 %\subsubsection*{Textelement}
 \cfoot{Thomas Stedronsky}
-Um Informationen im Sinne von Text in ein Heft einzufügen gibt es ein Textelement. Mit diesem Textelement lässt sich Text eingeben und bearbeiten. Es können Funktionen wie Fett, Kursiv, Durchgestrichen, Liste, Aufzählung, etc. auf den Text angewendet werden. Außerdem können Tabellen in dem Textelement erzeugt werden, welche beliebig groß definiert werden können. Sollte der Benutzer Sonderzeichen einbinden wollen, geht dies mit dem Sonderzeichen Tool im Textelement. Außerdem kann ein Hyperlink eingebunden werden, der den Link automatisch in einem neuen Tab öffnet.
+Um Informationen in textueller Form in ein Heft einzufügen gibt es ein Textelement. Mit diesem Textelement lässt sich Text eingeben und bearbeiten. Es können Funktionen wie fett, kursiv, durchgestrichen, Liste, Aufzählung, etc. auf den Text angewendet werden. Außerdem können Tabellen in dem Textelement erzeugt werden, welche beliebig groß definiert werden können. Sollte der Benutzer Sonderzeichen einbinden wollen, geht dies mit dem Sonderzeichen Tool im Textelement. Außerdem kann ein Hyperlink eingebunden werden, der den Link automatisch in einem neuen Tab öffnet.
 
-Dieses Element wurde mittels des Frameworks CKEditor implementiert. Mit diesem Framework war es möglich, einen Texteditor in das bereits bestehende Heft einzufügen. Der CKEditor konnte frei konfiguriert werden und somit optimal auf die Anforderungen von DigitalSchoolNotes angepasst werden.
+Dieses Element wurde mittels des Frameworks CKEditor implementiert. Mit diesem Framework war es möglich, einen Texteditor in das bereits bestehende Heft einzufügen. Der CKEditor konnte frei konfiguriert werden und somit optimal auf die Anforderungen von DigitalSchoolNotes angepasst werden. Diese Änderungen wurden in der Konfigurationsdatei von CKEditor vorgenommen. Es wurden Funktionen beziehungsweise die dazu gehörigen GUI-Element aus der Ansicht entfernt wie beispielsweise die Rechtschreibprüfung, da diese nicht Fehlerfrei funktioniert.\cite{CKEDITOR}
 
 \insertpicture{images/elemente/elementetext}{Textelement}{(selfmade)}{itm:textelement}{0.8}
 Mittels Klick auf das A Icon ist es möglich, ein Textelement im Heft zu platzieren.
@@ -10,12 +10,11 @@ Mittels Klick auf das A Icon ist es möglich, ein Textelement im Heft zu platzie
 Im Bearbeitungsmodus ist es möglich, den Text mit bestimmten Effekten hervorzuheben oder Hyperlinks einzufügen.
 \insertpicture{images/elemente/textbearbeitung}{Textelement im Bearbeitungsmodus}{(selfmade)}{itm:textelementbearb}{1.0}
 
-Nach Verlassen des Bearbeitungsmodus wird die angewendeten Effekte übernommen und entsprechend angezeigt.
+Nach Verlassen des Bearbeitungsmodus werden die angewendeten Effekte übernommen und entsprechend angezeigt.
 \insertpicture{images/elemente/textansicht}{Textelement im Ansichtsmodus}{(selfmade)}{itm:textelementansicht}{1.0}
+Ein besonders kritischer Punkt beim Textelement war die Speicherung beziehungsweise die Übernahme des geschriebenen Inhaltes in den Ansichtsmodus. CKEditor verwendet hierbei eine eigene Speicherstruktur, welche vor der Verwendung auf die neuen Anforderungen angepasst werden musste. Nach erfolgreicher Anpassung dieser Struktur ist es nun möglich den geschrieben Inhalt inklusive hervorgehobenem Text in den Ansichtsmodus zu übernehmen.
 
-Ein besonders kritischer Punkt beim Textelement war die Speicherung beziehungsweise die Übernahme des geschriebenen Inhaltes in den Ansichtsmodus. CKEditor verwendet hierbei eine eigene Speicherstruktur, welche vor der Verwendung auf die neuen Anforderungen angepasst werden musste. Nach erfolgreicher Anpassung ist es nun möglich den geschrieben Inhalt inklusive hervorgehobenem Text in den Ansichtsmodus zu übernehmen.
-
-Die Speicherung wird von on-Events übernommen, die nach einer bestimmten Aktion den Updatevorgang auslösen.
+Diese Anpassungen wurden mittels on Events realisiert, die Speicherung wurde von diesen Events übernommen. Diese lösen nach einem bestimmten Vorgang wie beispielsweise einem Tastendruck eine Funktion aus. In dem konkreten Fall beim Textelement wird unter anderem nach einem Tastendruck die Aktualisierungsmethode \textit{updateModel} aufgerufen, welche die aktuellen Daten des Textelements übergibt.
 \begin{lstlisting}[caption={Speicherung des Textelements}, language=Javascript]
 function updateModel() {
 	scope.$apply(function () {
