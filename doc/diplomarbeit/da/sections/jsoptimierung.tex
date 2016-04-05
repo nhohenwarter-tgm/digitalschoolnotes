@@ -1,14 +1,14 @@
 %\section*{Javascript Optimierung}
 \cfoot{Niklas Hohenwarter}
 
-Im Laufe des Projektes gab es immer mehr Probleme im Zusammenhang mit Javascript. Einfache Befehle wie \textit{console.log()} funktionierten nicht mehr ordnungsgemäß. Das Problem konnte bis zum Ende des Projektes nicht behoben werden, jedoch soll dieses Kapitel für zukünftige Projekte hilfreich sein.
+Im Laufe des Projektes gab es immer mehr Probleme im Zusammenhang mit JavaScript. Einfache Befehle wie \textit{console.log()} funktionierten nicht mehr ordnungsgemäß. Das Problem konnte bis zum Ende des Projektes nicht behoben werden, jedoch soll dieses Kapitel für zukünftige Projekte hilfreich sein.
 
 \subsubsection{Code Style}
-In Javascript gibt es meist viele Möglichkeiten den selben Code zu schreiben. Dadurch ist es schwierig, sich in neue Frameworks oder anderes einzuarbeiten. Wenn ein bestimmtes Problem auftritt und eine Lösung im Internet gesucht wird, kann ein Anfänger nicht unterscheiden, ob diese Lösung nun nur eine andere Schreibweise einer anderen Lösung ist oder ein komplett anderer Ansatz. 
+In JavaScript gibt es meist viele Möglichkeiten den selben Code zu schreiben. Dadurch ist es schwierig, sich in neue Frameworks einzuarbeiten. Wenn ein bestimmtes Problem auftritt und eine Lösung im Internet gesucht wird, kann ein Anfänger nicht unterscheiden, ob diese Lösung nun nur eine andere Schreibweise einer anderen Lösung ist oder ein komplett anderer Ansatz. 
 
 Es hat natürlich auch Vorteile eine Sprache so schwach reguliert zu gestalten. Jeder Programmierer kann sich einen Stil aussuchen, der ihm gefällt und mit welchem er gut arbeiten kann. Des Weiteren sind unterschiedliche Schreibweisen des Codes auch unterschiedlich effektiv. 
 
-Doch ist so etwas wirklich nötig? Es gibt genug Sprachen in welchen ganz genau festgelegt ist, wie etwas durchzuführen ist. Javascript gehört hier leider nicht dazu. Es würde auf jeden Fall das Verständnis der Sprache vereinfachen. 
+Doch ist so etwas wirklich nötig? Es gibt genug Sprachen in welchen ganz genau festgelegt ist, wie etwas durchzuführen ist. JavaScript gehört hier leider nicht dazu. Es würde auf jeden Fall das Verständnis der Sprache vereinfachen. 
 
 \begin{lstlisting}[caption = Unterschiedliche Möglichkeiten eine Funktion zu deklarieren\cite{JSOP1}, label = jsopfn, language=Javascript]
 function A(){};             // function declaration
@@ -29,28 +29,28 @@ Doch wie kann dieses Problem nun umgangen werden? Am besten ist es, sich am Anfa
 \newpage
 
 \subsubsection{Debugging}
-Der Javascript Code im Projekt wurde großteils mit \textit{console.log()} und \textit{alert()} debuggt. Da diese beiden Befehle nach einer gewissen Zeit nicht mehr zuverlässig funktionierten, wurde es um einiges schwieriger Fehler aufzuspüren. Die Befehle wurden manchmal richtig ausgeführt, manchmal nicht an der Stelle an welcher sie geschrieben wurden und manchmal wurden sie gar nicht beachtet. 
+Der JavaScript Code im Projekt wurde großteils mit \textit{console.log()} und \textit{alert()} debuggt. Da diese beiden Befehle nach einer gewissen Zeit nicht mehr zuverlässig funktionierten, wurde es um einiges schwieriger Fehler aufzuspüren. Die Befehle wurden manchmal richtig ausgeführt, manchmal nicht an der Stelle an welcher sie geschrieben wurden und manchmal wurden sie gar nicht beachtet. 
 
 Hier sollten die Debugger in den Browsern weiterhelfen. Jeder moderne Browser, wie z.B. Firefox oder Chrome, hat einen solchen eingebaut. Mit diesem lassen sich wie in jedem anderen Debugger Breakpoints setzen. In Folge dessen kann das Programm dann Schritt für Schritt debuggt werden. Des Weiteren kann auch der Inhalt der Variablen eingesehen werden. 
 
-Ein Firefox Plugin namens Firebug unterstützt diese Variablenüberprüfung und einige andere Features, welche es in normalen Browser Debuggern nicht gibt und sollte daher unbedingt in zukünftigen Projekten verwendet werden. Hiermit hätte während des Projektes nach einer gewissen Einarbeitungsphase einiges an Zeit gespart werden können. 
+Ein Firefox Plugin namens Firebug unterstützt diese Variablenüberprüfung und einige andere Features, welche es in normalen Browser Debuggern nicht gibt und sollte daher unbedingt in zukünftigen Projekten verwendet werden. Hiermit hätte während des Projektes nach einer gewissen Einarbeitungsphase einiges an Zeit gespart werden können. \cite{FIREBUGJS} 
 
-\insertpicture{images/design/firebug.png}{Firebug Javascript Debugger}{\cite{FIREBUG}}{itm:firebug-screenshot}{0.95}
+\insertpicture{images/design/firebug.png}{Firebug JavaScript Debugger}{\cite{FIREBUG}}{itm:firebug-screenshot}{0.95}
 
 Die Fehlfunktion von \textit{console.log()} und \textit{alert()} erklärte sich das Team durch die vielen eingebundenen Libraries. Eine dieser Libraries könnte diese Funktion vielleicht überschrieben haben.
 
 \newpage
 
 \subsubsection{Scripteinbindung}
-Je weniger Scripts eingebunden werden müssen desto besser. Müssen jedoch, wie in diesem Projekt relativ, viele Javascript Frameworks und Scripts eingebunden werden, dann sollten die Imports organisiert werden und ein paar Regeln folgen.
+Grundsätzlich ist das Einbinden von Scripts so weit wie möglich zu minimieren. Müssen jedoch, wie in diesem Projekt, relativ viele JavaScript Frameworks und Scripts eingebunden werden, dann sollten die Imports organisiert werden und ein paar Regeln folgen.
 
-Falls möglich sollten die Scripts über ein CDN eingebunden werden, um die Performance zu erhöhen. Des Weiteren wird damit auch Bandbreite und Traffic gespart. 
+Falls möglich sollten die Scripts über ein Content Delivery Network(CDN) eingebunden werden, um die Performance zu erhöhen. Ein CDN Provider hat viele Server welche geografisch günstig verteilt sind. Diese Server halten Cache-Versionen von Websites und Dokumenten. Der User erhält falls möglich eine Antwort vom CDN Server anstatt vom weiter entfernten Webserver. Durch eine geringe Distanz und das Caching hat die Anfrage eine geringe Latenz und dadurch wird die Ladezeit der Website verbessert. Des Weiteren wird damit auch Bandbreite und Traffic gespart. \cite{CDN1}
 
 Alle Scripts sollten mit der gleichen Schreibweise des Script Tags eingebunden werden, um die Imports übersichtlich zu halten. 
 
-Falls ein Framework aus vielen Javascript Files besteht, dann sollten diese, falls möglich, in weniger Files zusammengefasst werden. Dadurch werden die Imports übersichtlicher und die Scripts können schneller geladen werden.
+Falls ein Framework aus vielen JavaScript Files besteht, dann sollten diese, falls möglich, in weniger Files zusammengefasst werden. Dadurch werden die Imports übersichtlicher und die Scripts können schneller geladen werden. \cite{COMBINEJS}
 
 \subsubsection{Optimierung}
 Um die Ladezeit der Scripts zu optimieren, sollten diese komprimiert werden. Dies geschieht, indem alle Leerzeichen, Absätze und Kommentare entfernt werden. Dadurch kann erheblich die Dateigröße reduziert und somit die Übertragungszeit minimiert werden. 
 
-Scripts, welche nicht sofort benötigt werden, sollten nachgeladen werden. Dies kann mit den \textit{async} und \textit{defer} Statements bei der Scripteinbindung erreicht werden. Doch Achtung: nicht bei allen Scripts funktioniert das. Wenn die falschen Scripts nachgeladen werden, funktioniert die gesamte Seite nicht mehr.
+Scripts, welche nicht sofort benötigt werden, sollten asynchron nachgeladen werden. Dies kann mit den \textit{async} und \textit{defer} Statements bei der Scripteinbindung erreicht werden. Dies funktioniert jedoch nicht bei allen Scripts. Es sollten nur nicht für den Aufbau der Website essentielle Files nachgeladen werden, da ansonsten Anzeigefehler oder Funktionsausfälle auftreten.
