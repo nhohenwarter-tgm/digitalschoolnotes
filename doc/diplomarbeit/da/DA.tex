@@ -20,6 +20,7 @@
 \usepackage{titlesec}
 \usepackage{multirow}
 \usepackage{afterpage}
+\usepackage[none]{hyphenat}
 
 \clearscrheadfoot
 \pagestyle{scrheadings}
@@ -40,6 +41,9 @@ right  = 3cm]{geometry}
 {\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
 \titlespacing*{\paragraph}
 {0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+%Hyphenation
+\sloppy
 
 %Includes
 \input{preamble}
