@@ -20,10 +20,11 @@ Es muss sich nicht unbedingt um einen Datenbank-Server handeln, sondern es gibt 
 \begin{enumerate}
 \item Im ersten Schritt ruft der Anwender mittels einer GET-Anfrage die DSN-Webseite zum ersten Mal auf. Im Hintergrund werden alle notwendigen CSS- und JavaScript-Dateien geladen.
 \item Bevor die Hauptseite erscheint, überprüft der Server die Sprachauswahl. Es besteht die Wahl zwischen zwei Sprachen, nämlich Englisch oder Deutsch.\\
-Standardmäßig, wird ein POST an \textit{api/change\_lang} mit dem JSON Parameter($\{language:"de"\}$) gesendet.
+Standardmäßig, wird ein POST an \textit{api/change\_lang} mit dem JSON Parameter\\
+($\{language:"de"\}$) gesendet.
 \item Da es sich um eine \textit{/api/} Funktion handelt, leitet der Nginx-Server, der nur für den statischen Teil zuständig ist, die Anfrage weiter zum Django-Server.
 \item Hinter der gesendeten Adresse befindet sich eine Funktion, welche den Inhalt der DSN-Seite anhand der übergebenen Parameter auf die gewählte Sprache ändert.
-\item Das Ergebnis, die Website in der gewählten Sprache, wird an den Client zurückgeliefert.
+\item Das Ergebnis, die Website in der gewählten Sprache, wird an den Client zurück-geliefert.
 \item Im nächsten Schritt möchte sich der bestehende DSN-User beim System anmelden. Dafür klickt er auf den Login-Button, wodurch eine GET(\textit{/login}) Anfrage an dem Server geschickt wird.
 \item Mittels \gls{REST}, Representational State Transfer, wird automatisch zum Login weitergeleitet. Eine erfolgreiche Anmeldung benötigt eine bereits registrierte Email-Adresse, sowie das dazugehörige Passwort.
 \item Durch die Eingabe der Benutzerdaten schickt der Anwender seine Email-Adresse und das verschlüsselte Passwort als JSON-Objekt an den Web-Server. Das POST wird an \textit{api/login} gesendet.

@@ -1,7 +1,9 @@
 %\section*{Frameworks}
 \cfoot{Philipp Adler}
 
-Frameworks stellen die Grundstruktur für die Entwicklung von Programmen zur Verfügung. Sozusagen ermöglichen sie durch vordefinierte Grundbausteine eine schnelle, reibungslose Entwicklung. Mithilfe von Schnittstellen und Bibliotheken soll dem Entwickler Arbeit abgenommen werden. Die nachfolgenden Frameworks wurden auf einer Linux-Distribution installiert, sowie konfiguriert und getestet.\\
+Frameworks stellen die Grundstruktur für die Entwicklung von Programmen zur Verfügung. Sozusagen ermöglichen sie durch vordefinierte Grundbausteine eine schnelle, reibungslose Entwicklung. Mithilfe von Schnittstellen und Bibliotheken soll dem Entwickler Arbeit abgenommen werden. Anforderungen, wie Kommunikation mit anderen Systemen, Imports und Validierung von Daten, werden dank des Frameworks automatisch im Hintergrund abgewickelt.
+
+Die nachfolgenden Frameworks wurden auf einer Linux-Distribution installiert, sowie konfiguriert und getestet.\\
 Für unser System benötigen wir:
 \begin{itemize}
 \item ein \textbf{Web Framework} als Grundgerüst
@@ -14,11 +16,9 @@ Für unser System benötigen wir:
 \subsubsection{Web Frameworks}
 Web Frameworks haben das Ziel, dem Entwickler einer Webanwendung mit Hilfe von vordefinierten Klassen zu unterstützen. Sie sorgen dafür, dass eine Verbindung mit der Datenbank aufgebaut wird, Inhalte dynamisch angezeigt werden und ein Anmeldesystem zur Verfügung steht.\\
 Web Frameworks teilen das Projekt in zwei Teile, dem Backend und Frontend.\\
-Für die Auswahl unserer Web Frameworks wurden Flask, Django und Play verglichen. Für die Auswahl des Web Frameworks wurden von jeder Kategorie, Full-Stack-Framework und Non-Full-Stack-Framework, das ?????? ausgewählt.
+Für die Auswahl unserer Web Frameworks wurden Flask, Django und Play verglichen. Da sich das Team für die Backend-Programmiersprache Python entschieden hat, stand von vornherein ein eingeschränktes Angebot an Web Frameworks zur Verfügung. Von jeder Kategorie, Full-Stack-Framework, Non-Full-Stack-Framework und micro-Framework, wurde das meist verwendeste ausgewählt. 
 
 Dabei wurde beachtet, wie aufwendig die Installation und Konfiguration ist, wie weit es ausbaufähig ist und welche Funktionalität bereits zur Verfügung steht.
-
-\newpage
 
 \paragraph{Flask}
 \textit{,,Flask ist ein microframework für Python, basierend auf Werkzeug, Jinja 2.''}\cite{FLASK} Es ist frei verfügbar und aufgrund seiner geringen Größe schnell und einfach zu installieren und konfigurieren. Da es zu den kleineren Web Frameworks zählt, wird wenig Funktionalität geboten, welche aber durch einfache Erweiterungen behoben werden kann.\cite{FLASK}
@@ -66,8 +66,8 @@ Wird der Server mit dem Befehl \textit{python manage.py runserver} gestartet, er
 
 \paragraph{Play}
 Play, ein leichtgewichtiges Web Framework basierend auf Java und Scala, steht für den kommerziellen Gebrauch kostenlos zur Verfügung. Allerdings ist die herstellerspezifische Dokumentation nicht besonders ausführlich.\\
-Die Installation gestaltete sich im Vergleich zu anderen Web Frameworks zeitaufwendiger.\cite{PLAY}
-
+Die Installation gestaltete sich im Vergleich zu anderen Web Frameworks zeitaufwendiger. \cite{PLAY}
+\\
 Um Play zu installieren muss das Framework zunächst von\\
 \textit{https://www.playframework.com/download} heruntergeladen werden. Das downgeloadete zip-File muss entpackt und der darin enthaltene Activator zum PATH hinzugefügt werden. Danach wird der Activator mit folgendem Befehl gestartet\cite{PLAYCON}:
 \begin{lstlisting}[caption={Konifiguration von Play \cite{PLAYCON}}, language=bash]
@@ -146,8 +146,6 @@ Verpflichtend für die Anwendung von AngularJS ist das Setzen des \textit{ng-app
 \paragraph{Meteor}
 Meteor ist ein full-stack JavaScript Framework, welches alle Plattformen unterstützt. Erwähnenswert ist, dass Meteor mit einer nicht-relationalen Datenbanken, insbesondere MongoDB, kooperiert. Ähnlich wie Java besitzt es eine große, strukturierte Programmierschnittstelle, deren einzelne Methoden ausführlich beschrieben sind. Die Nutzung von Meteor ist frei. Eine eigene Community, namens Meteorpedia, steht für die Problemlösung zur Verfügung. Ein weiterer Vorteil ist das ,,live deploying''. Dadurch wird es dem Entwickler ermöglicht, Änderungen automatisch in Echtzeit hochzuladen und auszuführen. \cite{METEOR}
 
-\newpage
-
 Die Installation dauerte, im Gegensatz zu anderen JavaScript Frameworks, länger. Es gab nicht die Möglichkeit den Pfad der JavaScript-Library im Dokument anzugeben, stattdessen musste es mit folgendem Befehl installiert und getestet werden:
 \begin{lstlisting}[caption={Installation von Meteor \cite{METEORINSTALL}}, language=bash]
 curl https://install.meteor.com/ | sh
@@ -161,16 +159,16 @@ meteor
 \paragraph{Vergleich}
 Wichtig für das DSN Team ist es, die Kosten so gering wie möglich zu halten, sowie das Vorhandensein einer ausführlichen Dokumentation. Zum besseren Verständnis mit Beispielen untermauert. Das Team entschied sich für AngularJS und jQuery, weil es neben den oben genannten Forderungen viele Funktionalitäten anbietet und mit dem Web Framework Django harmoniert.
 
+\newpage
+
 \subsubsection{CSS-Frameworks}
-Nicht nur das Backend spielt im System eine wichtige Rolle, sondern auch Design und Gestaltung einer Website. CSS-Frameworks bieten dafür die entsprechenden Umsetzungsstrategien an. Sie sprechen User an, denen Klarheit und Übersichtlichkeit wichtig ist, interagieren mit dem Anwender und animieren ihn, das System zu verwenden. \\
+Nicht nur das Backend spielt im System eine wichtige Rolle, sondern auch Design und Gestaltung einer Website. CSS-Frameworks bieten dafür die entsprechenden responsive Umsetzungsstrategien an. Sie sprechen User an, denen Klarheit und Übersichtlichkeit wichtig ist, interagieren mit dem Anwender und animieren ihn, das System zu verwenden. \\
 Ein CSS-Framework soll folgende Eigenschaften besitzen:
 \begin{itemize}
 \item einfach zu installieren und konfigurieren
 \item browserunabhängig und sich dynamisch an Devices anpasst
 \item zahlreiche, vordefinierte Funktionen bietet, die ausführlich dokumentiert sind
-\end{itemize}
-
-\newpage
+\end{itemize} \cite{CSS}
 
 \paragraph{Yaml}
 Yaml ist ein CSS-Framework von Dirk Jesse, welches von allen modernen Browsern, wie Chrome, Firefox, Opera, Safari und Internet Explorer, unterstützt wird. Es passt sich an jeden Screen dynamisch an, sei es bei diversen Browsern oder auch auf mobilen Endgeräten wie iPhone und iPad. Hinzuzufügen ist, dass das Framework modular aufgebaut ist. Neben dem Kernmodul, welches flexible Layouts, variable Spaltenbreiten, sowie Grid-Layouts mit fester Breite beinhaltet, können nach Belieben weitere Module eingebunden werden. Yaml bietet eine umfangreiche deutschsprachige Dokumentation, die alle notwendigen Informationen enthält. \cite{YAML}
@@ -215,16 +213,6 @@ Aufgrund der erstellten Prototypen und der ausführlichen Dokumentation, fiel di
 In diesem Kapitel werden alle notwendigen Elemente dargestellt, die in den Schulheften der Anwender zur Verfügung stehen. Sie bieten dem Anwender die Möglichkeit Inhalte in das Heft einzufügen. Damit gemeint sind, das Codeelement und Textelement. Mithilfe des Textelements können Notizen, mit dem Codeelement Programmausschnitte, als digitale Mitschrift ins Schulheft eingetragen werden.\\
 Dem DSN-Team ist es wichtig, dass sich die Elemente den Anforderungen entsprechend anpassen können.
 
-\paragraph{CodeMirror}
-CodeMirror ist ein Texteditor basierend auf JavaScript, welcher dank MIT Lizenz kommerziell genutzt werden darf. CodeMirror wird von Firefox, Chrome, Safari, Edge und Opera unterstützt. Durch die Einbindung von Frameworks ist es möglich, ein Textfeld darzustellen. Dank unterschiedlicher Sprachunterstützungen erkennt das System automatisch die Syntax und hebt diese farbig hervor. Zur besseren Orientierung werden Zeilennummern eingeblendet. \cite{CODEMIRROR}
-
-\insertpicture{images/framework/CodeMirror}{CodeMirror Einbindung}{\cite{CODEMIRROR}}{itm:codemirror-chart}{0.55}
-
-\paragraph{Ace}
-Ace ist ein freiverfügbarer, unter BSD veröffentlichter, JavaScript geschriebener Codeeditor von Ajax.org. Der Editor kombiniert die Eigenschaften von Sublime, Vim und TextMate. Es bietet Funktionalitäten wie Drag \& Drop, Copy \& Paste, zusammen- \& auseinanderklappen von Codeteilen und highlighted in mehreren Sprachen. \cite{ACE, BSD}
-
-\insertpicture{images/framework/Ace}{Ace Einbindung}{\cite{ACE}}{itm:ace-chart}{0.75}
-
 \paragraph{CKEditor}
 Der CKEditor von CKSource ist ein Texteditor, der sich in Websites einbinden und verwenden lässt. Als vorteilhaft erweist sich die Kompatibilität mit den meistverwendeten Webbrowsern. Durch dieses Framework ist es möglich, einen Textblock zu erstellen und diesen individuell zu bearbeiten.
 
@@ -233,18 +221,29 @@ Außerdem ist es möglich, seinen CKEditor an die eigenen Bedürfnisse anzupasse
 \insertpicture{images/framework/CKEditor}{CKEditor}{\cite{CKEDITOR}}{itm:ckeditor-chart}{0.55}
 
 \paragraph{Markdown}
-Die Vue.js Library bietet eine Reihe an Webinterfaces an, wie den Texteditor Markdown. Da es sich hierbei um eine komplett Framework handelt, können bestehende Bespiele einfach in ein Projekt integriert und angepasst werden. Der Prototyp konnte ohne Aufwand umgesetzt werden, jedoch lässt sich der eingebebene Text nicht formartieren. \cite{MARKDOWN}
+Die Vue.js Library bietet eine Reihe an Webinterfaces an, wie den Texteditor Markdown. Da es sich hierbei um ein Framework handelt, können bestehende Bespiele einfach in ein Projekt integriert und angepasst werden. Der Prototyp konnte ohne Aufwand umgesetzt werden, jedoch ließ sich der eingebebene Text nicht formartieren. \cite{MARKDOWN}
 
 \insertpicture{images/framework/Markdown}{Markdown}{\cite{MARKDOWN}}{itm:markdown-chart}{0.55}
 
-\paragraph{Vergleich}
+\paragraph{CodeMirror}
+CodeMirror ist ein Codeeditor basierend auf JavaScript, welcher dank MIT Lizenz kommerziell genutzt werden darf. CodeMirror wird von Firefox, Chrome, Safari, Edge und Opera unterstützt. Durch die Einbindung von Frameworks ist es möglich, ein Textfeld darzustellen. Dank unterschiedlicher Sprachunterstützungen erkennt das System automatisch die Syntax und hebt diese farbig hervor. Zur besseren Orientierung werden Zeilennummern eingeblendet. \cite{CODEMIRROR}
 
+\insertpicture{images/framework/CodeMirror}{CodeMirror Einbindung}{\cite{CODEMIRROR}}{itm:codemirror-chart}{0.55}
+
+\paragraph{Ace}
+Ace ist ein freiverfügbarer, unter BSD veröffentlichter, JavaScript geschriebener Codeeditor von Ajax.org. Der Editor kombiniert die Eigenschaften von Sublime, Vim und TextMate. Es bietet Funktionalitäten wie Drag \& Drop, Copy \& Paste und highlighted in mehreren Sprachen. \cite{ACE, BSD}
+
+\insertpicture{images/framework/Ace}{Ace Einbindung}{\cite{ACE}}{itm:ace-chart}{0.75}
+
+\paragraph{Vergleich}
+Die Entscheidung in Bezug auf den geeigneten Texteditor, fiel zugunsten des CKEditor. Dieser entsprach den Projektanfordungen, da er sich an unsere System anpassen ließ. Außerdem bietet er die Möglichkeit den Text nach verschiedenen Verfahren zu formatieren.\\
+Die beiden Codeeditoren, CodeMirror und Ace, waren ziemlich ähnlich in der Funktionsweise. Jedoch nach einem intersiveren prototyping, hat sich CodeMirror, aufgrund der Anpassung an unserem System, herauskristallisiert.
 
 \newpage
 
 \subsubsection{GUI-Testing}
 Um eine Software auf seine einwandfreie Funktion zu testen, wird ein geeignetes GUI-Testing Framework benötigt. Die Aufgabe besteht darin, automatisiert mögliche Benutzerinteraktionen zu kontrollieren und auch grafische Elemente zu überprüfen.\\
-Dem Team ist es ein Anliegen, dass sich das Tool einwandfrei installieren lässt. Des Weiteren sollte es sich auf den meisten Browsern ausführen lassen.
+Dem Team ist es ein Anliegen, dass sich das Tool einwandfrei installieren lässt. Des Weiteren soll es sich auf den meisten Browsern ausführen lassen.
 
 \paragraph{Sahi OS}
 Sahi OS ist ein automatisiertes Open Source Testing Framework. Neben der kostenlosen Version mit einer eingeschränkten Anzahl an Features gibt es eine Kostenpflichtige, mit umfangreichen Features. Die Testfälle lassen sich nur auf Firefox, Chrome und IE ausführen. Bei Auftreten von Fehlern, hilft die gut beschriebene, aber etwas unübersichtliche Dokumentation.

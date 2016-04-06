@@ -44,7 +44,7 @@ Dem Token wird mittels Datum eine Lebensdauer zugeteilt. Falls die Einlösung de
 Hat der Benutzer den Registrierungsprozess erfolgreich abgeschlossen, steht es ihm jetzt frei, sich anzumelden. Der Login erfolgt anhand der Angabe der Email-Adresse plus Passwort oder er nutzt die Möglichkeit einer \gls{OAuth}-Anmeldung.
 
 OAuth bietet dem Nutzer die Möglichkeit, Daten über einen Webservice auszutauschen. \textit{,,OAuth sichert die Programmschnittstelle von Web-Anwendungen und verwendet für die Übertragung der Nutzeridentifikation dessen Passwort und einen Token''}\cite{OAUTH}. Beim Zugriff auf sensible Daten muss der Benutzer keine zusätzliche Information und auch keine Identität preisgeben. Der Dienstanbieter holt sich die Benutzerdaten von Facebook oder Google+ und erstellt für den User einen Account.\\
-Dadurch besteht für unsere Endanwender die Möglichkeit, den vorher beschriebenen Registierungsprozess auszulassen und sich direkt über OAuth anzumelden. Bei Anmeldung wir kontrolliert, ob die Email-Adresse des sozialen Netzwerk Konto in der Datenbank bereits exisiert. Da bei OAuth kein Passwort angegeben in die Datenbank gespeichert wird, wird der User anhand der Email gemappt.
+Dadurch besteht für unsere Endanwender die Möglichkeit, den vorher beschriebenen Registierungsprozess auszulassen und sich direkt über OAuth anzumelden. Bei der Anmeldung wir kontrolliert, ob die Email-Adresse des sozialen Netzwerk Kontos in der Datenbank bereits existiert. Da bei OAuth-Anmeldung kein Passwort angegeben wird, wird der User anhand seiner Email gemappt.
 
 
 
