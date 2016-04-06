@@ -192,7 +192,7 @@ server {
 
 \end{lstlisting}
 
-Hat diese Person nun eine Änderung am Code in seiner IDE vorgenommen, wird das entsprechende File automatisch über SFTP auf den Server hochgeladen. Nun kann innerhalb der IDE der Django Server gestartet und beendet werden. Dies ist wichtig, da dadurch auch die Fehlermeldungen von Django innerhalb der \gls{IDE} sichtbar sind. Für den statischen Teil ist auch hier Nginx zuständig.
+Hat diese Person nun eine Änderung am Code in seiner IDE vorgenommen, wird das entsprechende File automatisch über \gls{SFTP} auf den Server hochgeladen. Nun kann innerhalb der IDE der Django Server gestartet und beendet werden. Dies ist wichtig, da dadurch auch die Fehlermeldungen von Django innerhalb der \gls{IDE} sichtbar sind. Für den statischen Teil ist auch hier Nginx zuständig.
 
 \paragraph{Verfügbarkeit}
 Um die Verfügbarkeit zu verbessern, gibt es viele Möglichkeiten. Um die Wahrscheinlichkeit eines kritischen Serverausfalles zu reduzieren könnten, mehrere Server angemietet werden. Eine andere Möglichkeit wäre es, das Hosting in eine Cloud auszulagern(Amazon Web Services, Google, Azure...). 
@@ -203,7 +203,7 @@ Um die Performance der Datenbank zu erhöhen, sollte diese auf einem eigenen Ser
 
 Die Applikation sollte in Containern(z.B. Docker) mit Containermanagement deployed werden, um die Verfügbarkeit zu erhöhen. Somit könnte bei einem Fehler der Container einfach entfernt und ein Neuer gestartet werden. 
 
-Um die Erreichbarkeit der Domain zu gewährleisten, sollten redundante DNS Server verwendet werden. Hier gibt es auch die Möglichkeit, ein CDN Network (z.B. Cloudflare, Cloudfront...) zu verwenden, um einen Performancevorteil zu erlangen. Durch das CDN wird auch die Serverlast reduziert.
+Um die Erreichbarkeit der Domain zu gewährleisten, sollten redundante DNS Server verwendet werden. Hier gibt es auch die Möglichkeit, ein \gls{CDN} Network (z.B. Cloudflare, Cloudfront...) zu verwenden, um einen Performancevorteil zu erlangen. Durch das CDN wird auch die Serverlast reduziert.
 
 \newpage
 
@@ -230,7 +230,7 @@ Acceptance Tests sind das letzte Test Level. Hier wird geprüft, ob die Software
 \paragraph{Testerstellung}
 Die einzelnen Tests werden in Java programmiert. Es gibt auch die Möglichkeit die Tests in anderen Sprachen zu erstellen, jedoch kann zu Java am meisten Dokumentation und Hilfestellung gefunden werden. Beim Ausführen der Tests wird ein Browser gestartet, welcher dann die gewünschten Websiteaufrufe tätigt. Tests können zu Test Suites zusammengefasst werden. Dadurch werden alle Tests in der Suite nacheinander ausgeführt. 
 
-Um im Browser auf ein Element mit Selenium klicken zu können, muss dieses eindeutig identifizierbar sein. Hierbei gibt es mehrere Möglichkeiten. Eine eindeutige Identifizierung ist über ID, Name, CSS Klasse, Link Text oder XPATH möglich. \cite{SELENIUMID}
+Um im Browser auf ein Element mit Selenium klicken zu können, muss dieses eindeutig identifizierbar sein. Hierbei gibt es mehrere Möglichkeiten. Eine eindeutige Identifizierung ist über ID, Name, CSS Klasse, Link Text oder \gls{XPATH} möglich. \cite{SELENIUMID}
 
 \begin{lstlisting}[caption = Selenium Element Selektoren, label = testing1]
 driver.findElement(By.id("email")).click();
