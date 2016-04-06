@@ -95,12 +95,8 @@ Hier werden alle Datensätze in der Collection \textit{user}, die den Namen ''Te
 Um einen bereits bestehenden Datensatz wieder aus der Collection zu löschen, kann der Befehl \textit{db.collname.remove()} verwendet werden. Sollte hierbei kein Parameter angegeben werden, werden alle Datensätze aus der Collection gelöscht. Mithilfe eines JSON-Strings als Parameter kann das Löschen auf Datensätze beschränkt werden, die einem bestimmten Kriterium entsprechen.
 
 \paragraph{Zugriff aus der Applikation}
-<<<<<<< HEAD
 \label{sec:applikation}
-Um innerhalb der Applikation auf Daten aus der Datenbank zugreifen zu können, muss Django entsprechend konfiguriert werden. Django unterstützt standardmäßig lediglich relationale DBMS. Da im Projekt jedoch als Datenbank die NoSQL-Datenbank “MongoDB” verwendet wird, muss dies extra konfiguriert werden.
-=======
 Um innerhalb der Applikation auf Daten aus der Datenbank zugreifen zu können, muss Django entsprechend konfiguriert werden. Django unterstützt standardmäßig lediglich relationale DBMS. Da im Projekt jedoch die NoSQL-Datenbank “MongoDB” verwendet wird, muss dies extra konfiguriert werden.
->>>>>>> origin/development
 
 Dazu muss MongoEngine, ein Verbindungsstück zwischen Django und MongoDB, installiert werden. Dabei sollte die Version 0.9.0 verwendet werden, da die neueste Version 0.10.0 aktuell einen Bug hat, durch welchen man sich nicht mehr mit einer Datenbank verbinden kann.\\
 \begin{lstlisting}[caption=Installation von MongoEngine, language=Python]

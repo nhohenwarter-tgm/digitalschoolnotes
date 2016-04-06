@@ -1,0 +1,152 @@
+%\section*{Technologien}
+\cfoot{Selina Brinnich}
+
+Abgesehen von Frameworks wird bei der Umsetzung der Applikation zudem eine Datenbank benötigt. Es existieren eine vielzahl von unterschiedlichen Datenbanken. Eine richtige Auswahl zu treffen ist besonders wichtig, da die Applikation die benötigten Daten möglichst schnell zurückliefern soll und auf keinen Fall Daten verloren gehen sollen. \\
+Bei der Persistierung von Daten wird dabei zwischen zwei Konzepten von Datenbanken unterschieden: relationale Datenbanken und NoSQL Datenbanken. Um einen Vergleich aufstellen zu können, wurden jeweils zwei Datenbanken für jedes der beiden Konzepte ausgewählt und genauer betrachtet. Die Auswahl betrifft dabei folgende vier Datenbanken:\\
+\begin{itemize}
+\item Relationale Datenbanken
+\begin{itemize}
+\item MySQL
+\item PostgreSQL
+\end{itemize}
+\item NoSQL Datenbanken (Dokumentenbasiert)
+\begin{itemize}
+\item MongoDB
+\item Couchbase
+\end{itemize}
+\end{itemize}
+
+Im Folgenden wird genauer auf jede der aufgezählten Datenbanken eingegangen, um einen Vergleich aufstellen zu können. Dabei wird der Aufwand der Installation und Konfiguration, sowie die Einfachheit der grundlegenden Operationen genauer betrachtet.
+
+\subsubsection{MySQL}
+\label{subsubsec:mysql}
+MySQL ist eine Open-Source Datenbank von Oracle. Sie verspricht vor allem Einfachheit in der Anwendung.\cite{ABOUTMYSQL}
+
+Die Installation von MySQL ist sehr einfach und schnell erledigt. Die Datenbank kann mithilfe folgender Befehle installiert werden:
+\begin{lstlisting}[caption=Installation von MySQL \cite{MYSQLINSTALL}, language=bash]
+sudo apt-get install mysql-server mysql-client
+sudo mysqladmin -u root -h localhost password 'mypassword'
+\end{lstlisting}
+
+\newpage
+
+Bei der Konfiguration von MySQL muss zunächst ein neuer Benutzer erstellt und anschließend die entsprechenden Rechte gesetzt werden:
+\begin{lstlisting}[caption=Konfiguration von MySQL \cite{ADDUSERMYSQL}, language=SQL, escapeinside={(*}{*)}]
+mysql -u root -p
+CREATE USER 'eval'(*@*)'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON eval.* TO 'eval'(*@*)'localhost';
+CREATE DATABASE eval;
+FLUSH PRIVILEGES;
+mysql -u eval -p
+\end{lstlisting}
+
+Nach der Installation und Konfiguration können weitere Operationen ausgeführt werden.
+
+\begin{table}[htb]
+\def\arraystretch{1.3}
+\centering
+\begin{tabular}{|c|l|}
+\hline
+\textbf{Operation} & \multicolumn{1}{c|}{\textbf{Befehl}}                            \\ \hline
+Einfügen           & INSERT INTO test VALUES ("Xandra Mcknight");                    \\ \hline
+Auslesen           & SELECT * FROM test;                                             \\ \hline
+Bearbeiten         & UPDATE test SET name='Peter Test' WHERE name='Xandra Mcknight'; \\ \hline
+Löschen            & DELETE FROM test WHERE name='Xandra Mcknight';                  \\ \hline
+\end{tabular}
+\end{table}
+
+\subsubsection{PostgreSQL}
+PostgreSQL ist eine Open-Source Datenbank. Sie verspricht vor allem eine hohe Zuverlässigkeit und Datenintegrität.\cite{ABOUTPOSTGRES}
+
+Die Installation von PostgreSQL ist sehr einfach. Sie verläuft sehr schnell und es muss nur ein einziger Befehl ausgeführt werden. Die Datenbank kann mithilfe folgendem Befehl installiert werden:
+\begin{lstlisting}[caption=Installation von PostgreSQL \cite{POSTGRES}, language=bash]
+apt-get install postgresql postgresql-client
+\end{lstlisting}
+
+\newpage
+
+Bei der Konfiguration von PostgreSQL muss ein neuer Benutzer erstellt und anschließend die entsprechenden Rechte gesetzt werden:
+\begin{lstlisting}[caption=Konfiguration von PostgreSQL \cite{POSTGRES}, language=SQL]
+su postgres
+psql
+CREATE USER mypguser WITH PASSWORD 'mypguserpass';
+CREATE DATABASE mypgdatabase OWNER mypguser;
+\q
+vim /etc/postgresql/X.Y/main/pg_hba.conf
+Change: local	all	all	peer
+To: local	all	all	md5
+/etc/init.d/postgresql reload
+psql -d mypgdatabase -U mypguser
+\end{lstlisting}
+
+Nach der Installation und Konfiguration können weitere Operationen ausgeführt werden (siehe Kapitel \ref{subsubsec:mysql}).
+
+\subsubsection{MongoDB}
+MongoDB ist eine dokumentenbasierte Open-Source NoSQL Datenbank. Sie verspricht vor allem eine hohe Flexibilität, Skalierbarkeit und Performance. \cite{ABOUTMONGODB}
+
+Die Installation von MongoDB verläuft folgendermaßen:
+\begin{lstlisting}[caption=Installation von MongoDB \cite{MONGODBINSTALL}, language=bash]
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10
+echo "deb http://repo.mongodb.org/apt/debian wheezy/mongodb-org/3.0 main" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
+sudo apt-get update
+sudo apt-get install -y mongodb-org
+sudo service mongod start
+\end{lstlisting}
+Eine weitere Konfiguration ist nicht notwendig.
+
+\newpage
+
+Nach der Installation kann am Server über den Befehl \textit{mongo}  die MongoDB-Konsole aufgerufen werden, um weitere Operationen ausführen zu können.
+
+\begin{table}[htb]
+\def\arraystretch{1.3}
+\centering
+\begin{tabular}{|c|l|}
+\hline
+\textbf{Operation} & \multicolumn{1}{c|}{\textbf{Befehl}}                            \\ \hline
+Einfügen           & db.test.insert(\{"name": "Test", ''email'': "test@email.com"\})                    \\ \hline
+Auslesen           & db.test.find(\{"name": "Test"\}) \\ \hline
+Bearbeiten         & db.test.update(\{"name": "Test"\},\{\$set:\{"name": "Test2"\}\}) \\ \hline
+Löschen            & db.test.remove(\{"name": "Test"\}) \\ \hline
+\end{tabular}
+\end{table}
+
+\subsubsection{Couchbase}
+Couchbase ist eine Open-Source NoSQL Datenbank. Sie verspricht vor allem eine hohe Skalierbarkeit.\cite{ABOUTCOUCHBASE}
+
+Couchbase kann über ein externes .deb Paket installiert werden. Dazu werden folgende Befehle benötigt:
+\begin{lstlisting}[caption=Installation von Couchbase \cite{COUCHBASEINSTALL}, language=bash]
+wget http://packages.couchbase.com/releases/4.0.0-rc0/couchbase- server-community_4.0.0-rc0-ubuntu14.04_amd64.deb
+dpkg -i couchbase-server-community_4.0.0-rc0-ubuntu14.04_amd64.deb
+\end{lstlisting}
+
+Bei der Konfiguration von Couchbase muss das CLI Programm in die Bashrc hinzugefügt werden:
+\begin{lstlisting}[caption=Konfiguration von Couchbase, language=bash]
+if [ -d "/opt/couchbase/bin" ] ; then 
+      export PATH="/opt/couchbase/bin:$PATH" 
+fi
+\end{lstlisting}
+
+\newpage
+
+Nach der Installation und Konfiguration können weitere Operationen ausgeführt werden. \cite{COUCHBASECRUD}
+
+\begin{table}[htb]
+\def\arraystretch{1.3}
+\centering
+\begin{tabular}{|c|l|}
+\hline
+\textbf{Operation} & \multicolumn{1}{c|}{\textbf{Befehl}}                            \\ \hline
+Einfügen           & \begin{tabular}[c]{@{}l@{}}cbtransfer CSV\_FILE http://IP:PORT -B TARGET\_BUCKET \\ -u USERNAME -p PASSWORD\end{tabular}                    \\ \hline
+Auslesen           & \begin{tabular}[c]{@{}l@{}}cbtransfer http://IP:PORT csv:FILE -b SOURCE\_BUCKET \\ -u USERNAME -p PASSWORD\end{tabular} \\ \hline
+Bearbeiten         & \begin{tabular}[c]{@{}l@{}}cbtransfer FILE http://IP:PORT -B TARGET\_BUCKET \\ --destination-operation=add/set -u USERNAME -p PASSWORD\end{tabular} \\ \hline
+Löschen            & \begin{tabular}[c]{@{}l@{}}couchbase-cli bucket-delete -c IP:PORT --bucket=NAME \\ -u USERNAME -p PASSWORD\end{tabular} \\ \hline
+\end{tabular}
+\end{table}
+
+\subsubsection{Vergleich}
+Anhand der zuvor genauer betrachteten Datenbanken und deren erstellter Prototypen kann nun eine Entscheidung darüber getroffen werden, welche der Datenbanken bei der Applikation zur Verwendung kommen soll.
+
+Die beiden relationalen Datenbanken haben den großen Vorteil, dass sie für die grundlegenden Operationen eine standardisierte Sprache verwenden: SQL. Dadurch wird die Verwendung deutlich erleichtert. Allerdings ist bei der Applikation die Verwendung einer relationalen Datenbank nicht sehr sinnvoll, da sich die Daten vor allem innerhalb der Hefte sehr unterscheiden können und keine eindeutige Struktur dafür definiert werden kann. Zudem soll die Struktur offen für nachträgliche Erweiterungen sein, um sie bei einer zukünftigen Implementierung von weiteren Heftelementen nicht neu anpassen zu müssen. Bei relationalen Datenbanken muss allerdings bereits zu Beginn eine fixe Struktur festgelegt werden. NoSQL Datenbanken hingegen haben den großen Vorteil, dass sie unterschiedliche Strukturen unterstützen und nicht von Anfang an festgelegt werden muss, wie die Daten genau aufgebaut sind. Daher ist die Verwendung einer NoSQL Datenbank bei der Applikation sinnvoller.
+
+Nun bleibt noch die Entscheidung, welche der beiden NoSQL Datenbanken verwendet werden soll. Der große Vorteil von Couchbase ist die hohe Skalierbarkeit und gute Performance. Allerdings ist die Verwendung von MongoDB deutlich einfacher. Zudem existiert für MongoDB eine wesentlich größere Community und bessere Tutorials, die während der Entwicklung sehr hilfreich sein und viel Arbeit und vor allem Zeit ersparen können. Aus diesem Grund wurde MongoDB als besser geeignet für das Projekt angesehen und wird demnach für die Persistierung der Daten für die Applikation eingesetzt.

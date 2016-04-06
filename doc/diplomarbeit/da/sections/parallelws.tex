@@ -1,37 +1,7 @@
 %\section*{Parallel Working System}
 \cfoot{Thomas Stedronsky}
 Mit dem Parallel Working System ist es dem Benutzer möglich, Hefte mit anderen Benutzern zu teilen und diese anschließend gleichzeitig zu bearbeiten. Es kann immer ein Element pro User bearbeitet werden. Während dieses Element bearbeitet wird, können andere Benutzer dieses Element weder löschen, bearbeiten, noch verschieben. 
-\subsubsection{Bestehende Systeme}
-Um einen besseren Überblick über bereits bestehende Collaboration Systeme zu bekommen, wurden anfangs solche analysiert. Im Zuge der Evaluierung wurden deswegen die Systeme von Google Docs und Microsoft Portal unter die Lupe genommen.
-\paragraph{Google Docs}
-Mit Google Docs wurde einer der bekanntesten Vertreter der Realtime Web-Kommunikation analysiert. Die Grundidee von Google Docs ist allerdings eine andere, hierbei kann man in Realtime im gesamten Textdokument arbeiten. Bei DSN ist das gleichzeitige Arbeiten auf Elemente beschränkt.
 
-Google Docs verwendet eine eigene Google Realtime API, welche die Collaboration Vorgänge abwickelt. Diese JavaScript Library enthält Events und Methoden, die für die Erstellung einer kollaborativen Software verwendet werden können.
-
-Diese Google Realtime API arbeitet mit einem Aktualisierungsprinzip, das nur dann aktualisiert, wenn eine Änderung am Shared Medium vorgenommen wurde. Im Hintergrund wird dann eine Benachrichtung an die entsprechenden User gesendet, um das Dokument aktuell zu halten. Diese Realtime API arbeit mit einem Daten Modell, das sich ,,eventually consistent'' nennt. Dadurch ist es möglich, dass jeder dieselben Daten sieht.\cite{GOOGLE}
-
-Diese Google Realtime API konnte allerdings nicht beim Parallel Working System verwendet werden, weil die Google API ein eigenes Datenmodell benötigt und nur schwer auf einem bereits bestehendes Datenmodell aufbauen kann. Außerdem kann diese API nicht mit Javascript-Frameworks zusammengefügt werden. Da bei DigitalSchoolNotes eine Reihe von Frameworks verwendet wurden, hätte dies einen großen Aufwand erfordert. Darum wurde diese Google API nicht für die Implementierung des Parallel Working Systems verwendet.
-
-\newpage
-
-\paragraph{Microsoft Portal}
-Mit Microsoft Portal ist es möglich, im Web-Browser Office-Apps zu verwenden, unter anderen Word Online. Diese Online Textverarbeitung ist eine abgeschwächte Version des klassichen Desktop Words.
-
-Allerdings geht durch die eingeschränkte Funktionalität einiges an Nutzerkomfort verloren. Dadurch ist es lediglich möglich, Standardfunktionen zu verwenden die sich im Raster Desktop Word in den Reitern Start, Einfügen, Seitenlayout, Überprüfen und Ansicht befinden. Es sind jedoch nicht alle Funktionen dieser Reiter implementiert.
-
-Bis zu Office 2013 war der Microsoft Portal Dienst nur im Internet Explorer verfügbar. Dies hat zur Folge, dass es in anderen Browsern öfter zu Fehlern kommen kann. In diesem Punkt hat das System noch Aufholbedarf.
-
-Microsoft Portal verwendet, wie Google Docs, ein Pull und Push Prinzip zur Aktualisierung der Dokumente. Allerdings gibt es keine Möglichkeit, die verwendeten APIs zu verwenden, da die verwendeten Bibliotheken nicht öffentlich zugänglich sind. Dadurch könnten lediglich Ideen aus dieser bestehenden Software mitgenommen werden und keine verwendbaren APIs.
-
-\paragraph{Fazit}
-Google Docs und Microsoft Portal verfolgen dasselbe Ziel, beide wollen eine konsistente Echtzeit Kommunikation in Dokumenten schaffen. Wobei man sagen muss, dass dies bei Google Docs mit weniger Fehlern funktioniert.\\
-Bei Microsoft Portal ist lediglich eine Lite-Version von Office in der Online Variante verfügbar, wodurch das Produkt einiges an Funktionen vermissen lässt.
-
-Ein großes Augenmerk liegt auf der Vorgehensweise der einzelnen Systeme. Beide arbeiten mit einem Pull und Push Verfahren. Da Microsoft die verwendeten APIs nicht öffentlich zur Verfügung stellt, war dies keine Hilfe.\\
-Bei Google gibt es mehr Einblick, durch die öffentliche Google Realtime API konnten erste Erkenntnisse daraus gewonnen werden. Dadurch wurde, wie bereits erwähnt, eine eigene Lösung angestrebt.
-
-Im Vergleich schneidet Google Docs besser ab als Microsoft Portal was daran liegt, dass die Technologie bei Google Docs ausgereifter ist und dadurch ohne große Fehler einzusetzen ist.
-\newpage
 \subsubsection{Umsetzung}
 Das Parallel Working System besteht aus zwei Modulen. Mit dem ersten Modul ist es möglich, Hefte mit anderen Nutzern zu teilen . Das andere Modul ist für die ständige Aktualisierung und Synchronisation des Heftinhaltes verantwortlich. 
 \paragraph{Hefte teilen}
@@ -58,6 +28,8 @@ is_active_by = EmailField()
 Mit dieser Struktur kann darauf geschlossen werden, ob ein Element gerade aktiv ist und wer der aktive Nutzer ist. Diese Grundstruktur ist der Baustein, worauf das Gesamte Parallel Working System aufbaut.
 
 Aus diesen Attributen werden alle Anfragen, welche vom Nutzer auftreten, abgefragt und dementsprechend abgehandelt. Es ist wichtig zu wissen, wer dieses Element gerade bearbeitet, um aktive Nutzer nicht durch Aktualisierungen zu behindern.Die Attribute \textit{is\_active} und \textit{is\_active\_by} ändern sich, wenn der Bearbeitungsmodus eines Elements aktiviert oder deaktiviert wird.
+
+\newpage
 
 Bei einer Aktivierung und folgendenen Bearbeitung des Elements, wird das Attribut \textit{is\_active} auf \textit{true} gesetzt.
 \begin{lstlisting}[caption={Bearbeitungsmodus true - PWS}, language=Javascript]
@@ -88,10 +60,12 @@ Mit dieser Funktion kann das System die aktiven Nutzer herausfiltern und anschli
 
 Das Prinzip ist, dass immer nur ein Benutzer des Heftes an einem Element arbeiten kann und in dieser Phase von keinem anderen User irritiert werden kann. Dadurch soll verhindert werden, dass zwei oder mehr Nutzer an einem Element Änderungen vornehmen und dadurch ein Lost-Update verursachen. Durch die Maßnahme, dass nur eine Person ein Element editieren kann sind die Elemente unmittelbar nach der Aktualisierung für alle User aktuell. Dadurch wird dem Lost-Update Problem entgegen gewirkt.\cite{DATENBANKSYSTEME}\\
 Um zu vermeiden, dass ein User ein Element unbegrenzt blockiert, gibt es ein Timeout, welches den Benutzer nach einer bestimmten Zeit vom Element abmeldet, wenn dieser im Element keinen Tastendruck oder Mausklick ausführt. Wenn dieser User vom System abgemeldet wird, ist das Element anschließend wieder für alle User verfügbar.
-\newpage
+
 Um den anderen Benutzern zu signalisieren, dass ein Element gerade aktiv ist, wird allen anderen Usern ein rotes Rufzeichen über dem Element angezeigt. Ist dies der Fall, ist das gesamte Element nicht editierbar. 
 \insertpicture{images/pws/show_rufzeichen}{Element gesperrt - PWS}{(selfmade)}{itm:collaborator-gesperrt}{1.0}
 Dieses Zeichen verschwindet automatisch, sobald das Element für alle User wieder zugänglich ist. Durch diese Methodik sollen Missverständnisse ausgeschlossen werden. Versucht der Benutzer trotzdem das Element zu verschieben, zu löschen oder in den Bearbeitungsmodus zu gelangen, wird eine Meldung angezeigt, dass dies erst geht sobald der aktive Benutzer den Bearbeitungsmodus verlassen hat. 
+
+\newpage
 
 Die Aktualisierung und Synchronisation funktioniert in zwei Schritten.\\
 Zuerst gibt es ein definiertes Aktualisierungsintervall mit diesem Intervall wird gesteuert, in welchen Abständen das System nach neuen Heftinhalten sucht. Die Funktion, die dieses Intervall steuert, sieht wie folgt aus:
@@ -117,10 +91,10 @@ $scope.poll = function(){
 $scope.poll();
 \end{lstlisting}
 
-\newpage
-
 Die Funktion ist rekursiv. Sie ruft sich selbst in einem vordefinierten Intervall auf. Durch den selbstständigen Funktionsaufruf ist es möglich, die Funktion im Hintergrund des Systems laufen zu lassen. Sobald ein Heft aufgerufen wird, startet diese Funktion und stoppt erst wieder, wenn sich der Benutzer aus dem Heft abmeldet. Somit soll gewährleistet werden, dass der Benutzer gleich nach Eintritt in das Heft auf den aktuellen Stand zurückgreifen kann. Es wird dem User die manuelle Aktualisierung abgenommen. Das System kümmert sich komplett eigenständig darum, dass der User immer den aktuellen Stand der einzelnen Elemente angezeigt bekommt. \\
 Bevor allerdings eine Aktualisierung beim User im Heft ausgeführt wird, muss überprüft werden, ob sich der entsprechende Benutzer nicht gerade im Bearbeitungsmodus befindet. Dies muss gemacht werden, um einen eventuellen Fortschritt des Users nicht durch eine Aktualisierung zu löschen. Mit dieser Sicherheitsvorkehrung wird dieser erst nach Verlassen des Bearbeitungsmodus aktualisiert. Sobald der Bearbeitungsmodus verlassen wird, gibt es immer eine Aktualisierung des Heftinhaltes auf der jeweiligen Seite. Das System erkennt, auf welcher Seite sich der User gerade befindet und aktualisiert genau diese Seite. Sobald der Benutzer die Seite ändert, wird diese automatisch neu geladen. Somit können Ressourcen eingespart werden und das System gewinnt an Performance.
+
+\newpage
 
 Um wirklich nur dann zu aktualisieren, wenn tatsächlich eine Veränderung des Heftinhaltes vorliegt, gibt es in der Aktualisierungsfunktion eine zusätzliche Überprüfung. 
 \begin{lstlisting}[caption={Synchronisation - PWS}, language=Javascript]
@@ -139,15 +113,8 @@ Es gibt zahlreiche Collaboration-Frameworks, die eine Echtzeitkommunikation er-\
 
 Ein deutlich größeres Problem trat bei der Implementierung der Sperrung der Elemente auf. Die Problematik war, dass trotz aktiver Bearbeitung eines Elements mehrere Nutzer dieses Element bearbeiten konnten. Dies führte zu Synchronisationsfehlern. Durch eine zusätzliche Abfrage vor Eintritt in den Bearbeitungsmodus, wurde dieses Problem behoben. 
 
+\newpage
+
 Die stetige Aktualisierung der Heftseite zeigte einige Schwierigkeiten auf. Durch das ständige Neuladen der Seite wurde sehr viel an Traffic verschwendet. Dadurch gab es Performance Verluste. Um dieses Problem zu lösen, wurde die bereits erwähnte Zusatzfunktion, mit der nur bei einer Änderung aktualisiert wird, eingebaut, wodurch Ressourcen eingespart werden konnten.
 
 Da die zahlreichen Heftelemente mit verschiedenen JavaScript-Frameworks implementiert wurden, gab es Probleme, diese einheitlich in das Parallel Working System zu integrieren. Dadurch, dass ein einheitliches Datenmodell verwendet wurde, konnte das PWS an die Bedürfnisse der einzelnen Elemente angepasst werden. 
-\subsubsection{Ausblick}
-Um das Parallel Working System weiter zu verbessern, gibt es Ideen, um dieses System schneller und performanter zu machen.
-
-Um eine höhere Performance zu erlangen, gibt es die Möglichkeit, das Aktualisierungsverfahren zu verändern. Die Aktualisierung in gleichbleibenden Abständen ist nicht die performanteste Lösung. Es gibt ein Pull und Push Prinzip, wie es beispielsweise die Google Realtime API verwendet. Mit diesem Verfahren wird nach jeder Änderung am System eine Push-Benachrichtung an den Server geschickt. Anschließend werden die aktiven Nutzer benachrichtigt und der geänderte Inhalt kann aktualisiert werden.
-\newpage
-Um dieses Verfahren in das Parallel Working System zu integrieren, müsste das System an mehreren Stellen angepasst werden, wodurch das System aber effizienter arbeiten würde und somit noch näher an eine Echtzeit-Kommunikation herankommen würde.\\
-Diese Änderung hätte zur Folge das sich keine Differenz zwischen Änderung und Aktualisierung mehr ergäben, wodurch besser gemeinsam an einer Heftseite gearbeitet werden könnte.
-
-Um weiteren Nutzerkomfort zu schaffen, müsste das Prinzip, dass nur ein Nutzer pro Element arbeiten darf, optimiert werden. Es gäbe die Möglichkeit, diese Regel aufzuheben und ein gleichzeitiges Arbeiten an einem Element zu erlauben. Dies wäre der letzte Schritt zur endgültigen Echtzeit-Kommunikation. Allerdings müsste mit dieser Änderung das ganze Konzept von DigitalSchoolNotes überarbeitet werden, um dies zu ermöglichen. Denn mit der derzeitigen Version wird erst ab Verlassen des Bearbeitungsmodus der aktuelle Stand gespeichert und für alle Nutzer im Heft zur Verfügung gestellt. Mit diesem neuen Prinzip müsste jeder Tastendruck in Echtzeit an die aktiven Nutzer übermittelt werden, um keine Konflikte aufkommen zu lassen. Diese Funktion könnte nur mit einem dementsprechenden Framework durchgeführt werden. Es müsste eine Machbarkeitsstudie durchgeführt werden, um abzuklären, ob eine solch aufwendige Änderung mit dem aktuellen System umsetzbar wäre.
