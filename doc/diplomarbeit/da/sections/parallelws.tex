@@ -3,7 +3,7 @@
 Mit dem Parallel Working System ist es dem Benutzer möglich, Hefte mit anderen Benutzern zu teilen und diese anschließend gleichzeitig zu bearbeiten. Es kann immer ein Element pro User bearbeitet werden. Während dieses Element bearbeitet wird, können andere Benutzer dieses Element weder löschen, bearbeiten, noch verschieben. 
 
 \subsubsection{Umsetzung}
-Das Parallel Working System besteht aus zwei Modulen. Mit dem ersten Modul ist es möglich, Hefte mit anderen Nutzern zu teilen . Das andere Modul ist für die ständige Aktualisierung und Synchronisation des Heftinhaltes verantwortlich. 
+Das Parallel Working System besteht aus zwei Modulen. Mit dem ersten Modul ist es möglich, Hefte mit anderen Nutzern zu teilen. Das andere Modul ist für die ständige Aktualisierung und Synchronisation des Heftinhaltes verantwortlich. 
 \paragraph{Hefte teilen}
 Jedes Heft hat ein Attribut \textit{collaborator}(siehe Kapitel \ref{sec:datamgmt-notebook}). Dieses Attribut ist die Voraussetzung, um das Heft mit anderen Benutzern zu teilen. 
 Um anderen Nutzern ein bestimmtes Heft freizugeben, gibt es folgende Oberfläche:
@@ -109,12 +109,12 @@ Durch diese beiden Schritte ist das System immer auf aktuellem Stand und ermögl
 Das Parallel Working System wurde speziell für Gruppenarbeiten entwickelt. Dadurch soll der Komfort für ein gemeinsam geführtes Dokument gesteigert werden. Da das Heft immmer auf dem aktuellen Stand ist, können gemeinsame Projekte optimal mit DigitalSchoolNotes und dem Parallel Working System  durchgeführt werden. 
  
 \subsubsection{Probleme}
-Es gibt zahlreiche Collaboration-Frameworks, die eine Echtzeitkommunikation er-\\möglichen. Die erste Überlegung war, so ein Framework zu verwenden, wie beispielsweise APE Project\cite{APE}. Mit diesem Framework ist es möglich, Web Kommunikation in Echtzeit abzuhandeln. Allerdings gab es einige Probleme, da dieses Framework nur sehr schwer in das bereits bestehende Projekt integriert werden konnte. Daraufhin wurde diese Idee verworfen und es wurde eine eigenständige Echtzeit Lösung angestrebt. Dadurch konnte das Parellel Working System besser auf die Anforderungen von DSN angepasst werden. Dies hat den Implementierungsprozess deutlich vereinfacht.
+Es gibt zahlreiche Collaboration-Frameworks, die eine Echtzeitkommunikation er-\\möglichen. Die erste Überlegung war, so ein Framework zu verwenden, wie beispielsweise APE Project\cite{APE}. Mit diesem Framework ist es möglich, Web-Kommunikation in Echtzeit abzuhandeln. Allerdings gab es einige Probleme, da dieses Framework nur sehr schwer in das bereits bestehende Projekt integriert werden konnte. Daraufhin wurde diese Idee verworfen und es wurde eine eigenständige Echtzeit Lösung angestrebt. Dadurch konnte das Parellel Working System besser auf die Anforderungen von DSN angepasst werden. Dies hat den Implementierungsprozess deutlich vereinfacht.
 
 Ein deutlich größeres Problem trat bei der Implementierung der Sperrung der Elemente auf. Die Problematik war, dass trotz aktiver Bearbeitung eines Elements mehrere Nutzer dieses Element bearbeiten konnten. Dies führte zu Synchronisationsfehlern. Durch eine zusätzliche Abfrage vor Eintritt in den Bearbeitungsmodus, wurde dieses Problem behoben. 
 
 \newpage
 
-Die stetige Aktualisierung der Heftseite zeigte einige Schwierigkeiten auf. Durch das ständige Neuladen der Seite wurde sehr viel an Traffic verschwendet. Dadurch gab es Performance Verluste. Um dieses Problem zu lösen, wurde die bereits erwähnte Zusatzfunktion, mit der nur bei einer Änderung aktualisiert wird, eingebaut, wodurch Ressourcen eingespart werden konnten.
+Die stetige Aktualisierung der Heftseite zeigte einige Schwierigkeiten auf. Durch das ständige Neuladen der Seite wurde sehr viel an Traffic verschwendet. Dadurch gab es Performanceverluste. Um dieses Problem zu lösen, wurde die bereits erwähnte Zusatzfunktion, mit der nur bei einer Änderung aktualisiert wird, eingebaut, wodurch Ressourcen eingespart werden konnten.
 
 Da die zahlreichen Heftelemente mit verschiedenen JavaScript-Frameworks implementiert wurden, gab es Probleme, diese einheitlich in das Parallel Working System zu integrieren. Dadurch, dass ein einheitliches Datenmodell verwendet wurde, konnte das PWS an die Bedürfnisse der einzelnen Elemente angepasst werden. 
