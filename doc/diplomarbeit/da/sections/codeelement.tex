@@ -19,7 +19,7 @@ Wenn der Benutzer nun konkret ein Codeelement hinzufügen will, betätigt er zun
 
 \newpage
 
-Nach Betätigen des Code-Buttons erscheint eine Auswahl von (Programmier-)Sprachen. Hier legt der Benutzer fest, wie der Inhalt im Codeelement hervorgehoben wird. (Dies ist von Sprache zu Sprache anders und kann auch im Nachhinein geändert werden)
+Nach Betätigen des Code-Buttons erscheint eine Auswahl an (Programmier-)Sprachen. Hier legt der Benutzer fest, wie der Inhalt im Codeelement hervorgehoben wird. (Dies ist von Sprache zu Sprache verschieden und kann auch im Nachhinein geändert werden)
 
 \insertpicture{images/elemente/c2.png}{Programmiersprache auswählen}{(selfmade)}{itm:code2}{0.7}
 
@@ -31,7 +31,7 @@ Unter dem Codeelement gibt es noch drei Buttons, die nur sichtbar sind, wenn man
 
 \insertpicture{images/elemente/c4.png}{Code-Bearbeitung}{(selfmade)}{itm:code4}{1.0}
 
-Bei Klick auf den Code-Button wird die Methode \textit{codeElementCreate()} ausgeführt. Dort wird ein ngDialog mit dem codeElementSettings-template geöffnet in welchem der User zum ersten Mal die Programmiersprache auswählen kann. Nachdem dies ausgewählt wurde, wird die Methode \textit{addCodeElement()} ausgeführt.
+Bei Klick auf den Code-Button wird die Methode \textit{codeElementCreate()} ausgeführt. Dort wird ein Dialog geöffnet in welchem der User zum ersten Mal die Programmiersprache auswählen kann. Nachdem dies ausgewählt wurde, wird die Methode \textit{addCodeElement()} ausgeführt.
 
 \begin{lstlisting}[caption={Code-Element Persistierung}, language=Javascript]
 $scope.addCodeElement = function(){
