@@ -4,11 +4,11 @@ Optical Character Recognition (OCR) oder auch Optische Zeichenerkennung bezeichn
 
 \insertpicture{images/ocr/ocrbsp.png}{Beispiel einer Texterkennung}{\cite{OCRBSP}}{itm:ocrbsp}{0.7}
 
-Die ersten Versuche einer automatischen Zeichenerkennung lassen sich auf die 30er Jahre datieren. Die damals entworfene Maschine für das künstliche Lesen konnte mit einem Mustervergleich die zehn arabischen Ziffern automatisch erkennen. Solche Texterkennungssysteme konnten sich vor allem sehr früh bei Banken und Versicherungen etablieren. Bereits zu Beginn der 60er Jahre war es möglich, mit entsprechenden Rechnern, geschriebene oder gedruckte Zeichen auf Belegen zu identifizieren.
+Die ersten Versuche einer automatischen Zeichenerkennung lassen sich auf die 30er Jahre datieren. Die damals entworfene Maschine für das künstliche Lesen konnte mit einem Mustervergleich die zehn arabischen Ziffern automatisch erkennen. Solche Texterkennungssysteme konnten sich vor allem sehr früh bei Banken und Versicherungen etablieren. Bereits zu Beginn der 60er Jahre war es möglich, mit entsprechenden Rechnern, geschriebene oder gedruckte Zeichen auf Belegen zu identifizieren. \cite{OCRB}
 
 In den folgenden Jahren gelang dann aber auch der Durchbruch beim Erkennen von Buchstaben. Dabei war die Anzahl der benötigten Schriftarten jedoch sehr begrenzt. Die erste Schriftfamilie, OCR-A, beinhaltete neben Ziffern und Großbuchstaben auch 30 Sonderzeichen. Die Weiterentwicklung davon, OCR-B, ermöglichte auch die Erkennung von Kleinbuchstaben. \cite{OCRB}
 
-In den 70er Jahren haben sich bei Banken und Versicherungen schließlich intelligentere Systeme etabliert, die neben ungenormten Schriftarten auch Handschriften erkennen konnten. Da diese Lesegeräte Komplettsysteme waren, also aus Hardware und Software bestanden, waren die Preise dementsprechend hoch.
+In den 70er Jahren haben sich bei Banken und Versicherungen schließlich intelligentere Systeme etabliert, die neben ungenormten Schriftarten auch Handschriften erkennen konnten. Da diese Lesegeräte Komplettsysteme waren, also aus Hardware und Software bestanden, waren die Preise dementsprechend hoch. \cite{OCRB}
 
 Erst seit Mitte der 80er Jahre etablierten sich, aufgrund der Entwicklung von Flachbett- und anderen Scannern, sowie leistungsfähigeren Computern, billigere Systeme, die gute Lösungen anboten. Diese OCR-Lösungen haben sich im Laufe der Jahrzehnte stetig weiterentwickelt, bis zu der professionellen Software, die man heute im Handel oder frei verfügbar im Internet findet. \cite{OCRB}
 
@@ -43,7 +43,7 @@ Durch diese Umstände reagiert dieses Verfahren viel flexibler auf verschiedene 
 
 \paragraph{Topologische Analyse}
 
-Diese Methode wird auch strukturelle Formenanalyse genannt und orientiert sich, ebenso wie die Klassifikation, an spezifischen Eigenschaften der Zeichen und nicht an umfangreichen Mustervergleichen.
+Diese Methode wird auch strukturelle Formenanalyse genannt und orientiert sich, ebenso wie die Klassifikation, an spezifischen Eigenschaften der Zeichen und nicht an umfangreichen Mustervergleichen. \cite{OCRB}
 
 Der erste Schritt bei der topologischen Analyse ist die Reduzierung des Pixelbilds auf dessen Grundelemente. Dieser Vorgang wird Vektorisierung genannt. Die überflüssigen Pixel werden also alle entfernt und es entsteht ein ,,Zeichenskelett". Danach folgt die eigentliche Zeichenanalyse. Das Verfahren sucht nun nach Beschreibungen, die mit den Einzelelementen des reduzierten Zeichens übereinstimmen. \cite{OCRB}
 
@@ -52,7 +52,7 @@ Der erste Schritt bei der topologischen Analyse ist die Reduzierung des Pixelbil
 Diese Methode ermöglicht eine sehr fehlertolerante Zeichenerkennung. Sie benutzt komplexe Algorithmen, konzentriert sich aber nur auf wenige Elemente und erreicht dadurch eine angemessene Geschwindigkeit. \cite{OCRB}
 
 \paragraph{Neuronale Netze}
-Neuronale Netze sollen die Schwächen der bereits genannten Verfahren beheben. Mit solchen neuronalen Netzen wird versucht, intelligentes Verhalten auf Computern nachzuvollziehen. Dabei stellt die Neuroinformatik eine Alternative zur klassischen algorithmischen Informatik dar. Die parallele und verteilte Informationsverarbeitung selbst geschieht mit Hilfe einer Vielzahl von Elementen, den sogenannten Neuronen.
+Neuronale Netze sollen die Schwächen der bereits genannten Verfahren beheben. Mit solchen neuronalen Netzen wird versucht, intelligentes Verhalten auf Computern nachzuvollziehen. Dabei stellt die Neuroinformatik eine Alternative zur klassischen algorithmischen Informatik dar. Die parallele und verteilte Informationsverarbeitung selbst geschieht mit Hilfe einer Vielzahl von Elementen, den sogenannten Neuronen. \cite{OCRB}
 
 Eine wesentliche Eigenschaft bei diesem Verfahren ist die Selbstprogrammierung. Das System kann sein Wissen durch selbstständiges Lernen erweitern. Das neuronale Netz muss aber zunächst kalibriert werden, dies geschieht beispielsweise mit einem Training aus Identifikationsmustern. Sobald das System ein vorliegendes Problem dann mit einem vernachlässigbaren Fehler lösen kann, kann die Kalibrierung abgeschlossen werden. \cite{OCRB}
 
@@ -61,7 +61,7 @@ Eine wesentliche Eigenschaft bei diesem Verfahren ist die Selbstprogrammierung. 
 Die Synapsen eines neuronalen Netzes, also die Verbindungen zwischen den Neuronen, sind nicht statisch und können sich während des Lernprozesses verändern. Es können neue Synapsen entstehen, bestehende Kontakte können ihren Übertragungswiderstand ändern oder ganz aufgelöst werden. Besonders bei der handschriftlichen Erkennung haben neuronale Netze in den letzten Jahren bessere Ergebnisse geliefert als die konkurrierenden Verfahren. Durch eine zusätzliche Erhöhung der Rechenleistung mittels GPU-Implementierungen, konnten Wissenschaftler mit dieser Methode viele Wettbewerbe der Mustererkennung gewinnen. \cite{OCRB}
 
 \subsubsection{ICR und IWR}
-Bei der Intelligent Character Recognition werden die digitalen Abbilder der Zeichen mit Wörterbüchern verglichen und anschließend  die wahrscheinliche Fehlerfreiheit der Zeichen analysiert. Abhängig von dieser wahrscheinlichen Fehlerfreiheit wird das Zeichen identifiziert oder einer erneuten Bewertung unterzogen.
+Bei der Intelligent Character Recognition werden die digitalen Abbilder der Zeichen mit Wörterbüchern verglichen und anschließend  die wahrscheinliche Fehlerfreiheit der Zeichen analysiert. Abhängig von dieser wahrscheinlichen Fehlerfreiheit wird das Zeichen identifiziert oder einer erneuten Bewertung unterzogen. \cite{OCRB}
 
 Die Intelligent Word Recognition vergleicht Einzelzeichen, die nicht separat erkannt werden können, mit Wörterbüchern. Die Erkennungsgenauigkeit ist von der Größe des eingebundenen Wörterbuchs abhängig. IWR liefert besonders bei der Handschrifterkennung gute Erfolge. \cite{OCRB}
 
