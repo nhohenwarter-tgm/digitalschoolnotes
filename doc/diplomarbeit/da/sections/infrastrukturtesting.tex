@@ -199,7 +199,7 @@ Um die Verfügbarkeit zu verbessern, gibt es viele Möglichkeiten. Um die Wahrsc
 
 Um die Performance und Verfügbarkeit zu erhöhen, sollte ein Loadbalancer verwendet werden. Dieser teilt die eingehenden Anfragen auf mehrere andere Server auf und reduziert damit die Last der einzelnen Server.Dies erhöht die Performance. Hierbei ist darauf zu achten, dass der Loadbalancer Healthchecks durchführen muss. Mithilfe dieser kann der Loadbalancer überprüfen, ob die Server noch aktiv sind und somit Anfragen entgegennehmen und bearbeiten können. Sollte ein Server ausfallen, leitet der Loadbalancer keine Anfragen mehr an diesen weiter. Der Loadbalancer sollte redundant ausgeführt sein, da ohne ihn die Seite nicht mehr erreichbar ist. 
 
-Um die Performance der Datenbank zu erhöhen, sollte diese auf einem eigenen Server betrieben werden. Des Weiteren sollte hier Loadbalancing oder Clustering betrieben werden, um die Ausfallsicherheit zu erhöhen. \citep{CLUSTER}
+Um die Performance der Datenbank zu erhöhen, sollte diese auf einem eigenen Server betrieben werden. Des Weiteren sollte hier Loadbalancing oder Clustering betrieben werden, um die Ausfallsicherheit zu erhöhen. \cite{CLUSTER}
 
 Die Applikation sollte in Containern(z.B. Docker) mit Containermanagement deployed werden, um die Verfügbarkeit zu erhöhen. Somit könnte bei einem Fehler der Container einfach entfernt und ein Neuer gestartet werden. 
 
@@ -228,9 +228,9 @@ Bei System Tests wird die ganze Applikation getestet. Hier ist es das Ziel, die 
 Acceptance Tests sind das letzte Test Level. Hier wird geprüft, ob die Softwareversion für eine Veröffentlichung bereit ist. Dazu müssen die Endanwender ausprobieren, ob die Software wie gewünscht funktioniert. \cite{TESTING3}
 
 \paragraph{Testerstellung}
-Die einzelnen Tests werden in Java programmiert. Beim Ausführen der Tests wird ein Browser gestartet, welcher dann die gewünschten Websiteaufrufe tätigt. Tests können zu Test Suites zusammengefasst werden. Dadurch werden alle Tests in der Suite nacheinander ausgeführt. 
+Die einzelnen Tests werden in Java programmiert. Es gibt auch die Möglichkeit die Tests in anderen Sprachen zu erstellen, jedoch kann zu Java am meisten Dokumentation und Hilfestellung gefunden werden. Beim Ausführen der Tests wird ein Browser gestartet, welcher dann die gewünschten Websiteaufrufe tätigt. Tests können zu Test Suites zusammengefasst werden. Dadurch werden alle Tests in der Suite nacheinander ausgeführt. 
 
-Um im Browser auf ein Element mit Selenium klicken zu können, muss dieses eindeutig identifizierbar sein. Hierbei gibt es mehrere Möglichkeiten. Eine eindeutige Identifizierung ist über ID, Name, CSS Klasse, Link Text oder XPATH möglich. 
+Um im Browser auf ein Element mit Selenium klicken zu können, muss dieses eindeutig identifizierbar sein. Hierbei gibt es mehrere Möglichkeiten. Eine eindeutige Identifizierung ist über ID, Name, CSS Klasse, Link Text oder XPATH möglich. \cite{SELENIUMID}
 
 \begin{lstlisting}[caption = Selenium Element Selektoren, label = testing1]
 driver.findElement(By.id("email")).click();
@@ -254,7 +254,8 @@ driver.findElement(By.name("pwd")).sendKeys("12341234");
 driver.findElement(By.id("submit")).click();
 Thread.sleep(Parameters.SLEEP_PAGELOAD);
 String page = driver.getPageSource();
-if(!page.contains("Bitte bestaetige zuerst deine E-Mail Adresse!")) throw new NotFoundException();
+if(!page.contains("Bitte bestaetige zuerst deine E-Mail Adresse!"))
+ throw new NotFoundException();
 }
 \end{lstlisting}
 
@@ -263,6 +264,6 @@ Die Verwendung des Selenium Frameworks bereitete einige Probleme. Selenium kann 
 
 Um ein Element testen zu können, muss es eindeutig identifizierbar sein. Dies ist allerdings bei vielen Elementen in unserer Software nicht möglich. Zum Beispiel sind die einzelnen Buttons im Texteditor im Heft nicht eindeutig identifizierbar. Diese können also nicht automatisiert getestet werden. Stattdessen wurden hier geführte Acceptance Tests durchgeführt. Das bedeutet, dass Selenium die Seite aufruft, eine Anweisung an den User gibt und danach fragt, ob das gewünschte Ergebnis eingetroffen ist. 
 
-Die auf DSN verwendeten Captchas bei der Registrierung und dem Passwort Reset können ebenfalls nicht automatisiert getestet werden. Captchas sollen im Endeffekt die automatische Ausfüllung eines Formulares ja auch verhindern. Bei einem Test füllt Selenium das Formular bis auf das Captcha aus. Das Captcha muss dann händisch gelöst werden. 
+Die auf DSN verwendeten Captchas bei der Registrierung und dem Passwort Reset können ebenfalls nicht automatisiert getestet werden. Captchas sollen im Endeffekt die automatische Ausfüllung eines Formulares ja auch verhindern. Bei einem Test füllt Selenium das Formular bis auf das Captcha aus. Das Captcha muss dann händisch gelöst werden. \cite{SELENIUMCAPTCHA}
 
-Die Tests werden relativ langsam ausgeführt. So dauert es ca. 30 Minuten alle DSN Tests auszuführen. Dies liegt vor allem an der Netwerklatenz der einzelnen Websiteaufrufe. Die Tests könnten parallelisiert auf mehreren Servern ausgeführt werden, jedoch ist die Einrichtung eines solchen Testing Clusters kompliziert.
+Die Tests werden relativ langsam ausgeführt. So dauert es ca. 30 Minuten alle DSN Tests auszuführen. Dies liegt vor allem an der Netwerklatenz der einzelnen Websiteaufrufe. Die Tests könnten parallelisiert auf mehreren Servern ausgeführt werden, jedoch ist die Einrichtung eines solchen Testing Clusters kompliziert. \cite{SELENIUMGRID}
