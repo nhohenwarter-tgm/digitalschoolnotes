@@ -5,7 +5,27 @@ Usermanagement steht für das Erzeugen, Verwalten und Löschen von Benutzerkonte
 \subsubsection{Authentisierung}
 Im Falle von DSN muss eine eindeutige Email-Adresse verwendet werden. Es soll Gewissheit darüber geben, von wem die Information stammt. Dadurch kann jedes Handeln jemandem zugewiesen werden. Falls die vorgegebenen Richtlinien nicht eingehalten werden, kann DSN sofort reagieren.
 \paragraph{Registrierung}
-Neben der Email-Adresse ist ein weiterer Identitätspunkt das geheime Passwort. Aus Sicherheitsgründen muss es mindestens acht Zeichen beinhalten, wodurch Cyberkriminellen das Knacken von Passwörtern erschwert wird. Zum Abschluss der Registrierung müssen noch die Nutzungsbedingungen akzeptiert werden.\\
+Neben den Personaldaten und der Email-Adresse ist ein weiterer Identitätspunkt das geheime Passwort. Aus Sicherheitsgründen muss es mindestens acht Zeichen beinhalten, wodurch Cyberkriminellen das Knacken von Passwörtern erschwert wird. Zum Abschluss der Registrierung müssen noch die Nutzungsbedingungen akzeptiert werden.
+
+\begin{lstlisting}[caption={Session Timeout}, language=Python]
+try:# speichert die Registrierungs daten in das Formular
+	form = RegistrationForm()
+	form.accepted = params['accept']
+	form.email = params['email']
+	form.firstname = params['firstname']
+	form.lastname = params['lastname']
+	form.password = params['password']
+	form.password_repeat = params['password_repeat']
+except KeyError:
+	print("----Someone broke the Registration!!!!---")
+# Validierung der Benutzereingaben
+val = validate_registration(form.email, form.password, form.password_repeat, params['recaptcha'],get_ip(request))
+if val is True:# der User wird in die Datenbank gespeichert und bekommt anschliessend eine Bestaetigungsmail
+	User.create_user(email=params['email'], password=params['password'], first_name=params['firstname'], last_name=params['lastname'])
+	link = create_validation_token(params['email'])
+	validationmail(params['email'], params['firstname'], link)
+\end{lstlisting}
+
 \textit{,,Allgemeine Geschäftsbedingungen (AGB) sind vertragliche Klauseln, die zur Standardisierung und Konkretisierung von Massenverträgen dienen. Sie werden von einer Vertragspartei einseitig gestellt und bedürfen daher einer bes. Kontrolle, um ihren Missbrauch zu verhindern.''}\cite{AGB}\\
 \cite{VERTEILTE_SYSTEME,PASSWORT_SCHUTZ}
 
@@ -45,9 +65,6 @@ Hat der Benutzer den Registrierungsprozess erfolgreich abgeschlossen, steht es i
 
 OAuth bietet dem Nutzer die Möglichkeit, Daten über einen Webservice auszutauschen. \textit{,,OAuth sichert die Programmschnittstelle von Web-Anwendungen und verwendet für die Übertragung der Nutzeridentifikation dessen Passwort und einen Token''}\cite{OAUTH}. Beim Zugriff auf sensible Daten muss der Benutzer keine zusätzliche Information und auch keine Identität preisgeben. Der Dienstanbieter holt sich die Benutzerdaten von Facebook oder Google+ und erstellt für den User einen Account.\\
 Dadurch besteht für unsere Endanwender die Möglichkeit, den vorher beschriebenen Registierungsprozess auszulassen und sich direkt über OAuth anzumelden. Bei der Anmeldung wir kontrolliert, ob die Email-Adresse des sozialen Netzwerk Kontos in der Datenbank bereits existiert. Da bei OAuth-Anmeldung kein Passwort angegeben wird, wird der User anhand seiner Email gemappt.
-
-
-
 
 \insertpicture{images/usermanagement/Anmelden}{Klassische Anmeldung oder mittels OAuth}{(selfmade)}{itm:login-chart}{0.35}
 
@@ -111,6 +128,18 @@ Dem Administrator steht es frei, Benutzer zu löschen, deren Berechtigungsstufe 
 \insertpicture{images/usermanagement/Usermanagment}{Usermangement-Page}{(selfmade)}{itm:navigation-admin-chart}{0.85}
 
 Unsere Usermanagement-Page wurde so designed, dass durch kurze Ladezeit dem Administrator diese Seite rasch zur Verfügung steht. Die Performancesteigerung ergibt sich daraus, dass nur eine bestimmte Anzahl an DSN-Usern in Form einer Tabelle vom Server geladen wird. Ist das Ende einer Tabellenseite erreicht, kann auf die nächste Seite umgeblättert werden. Alle User finden sich so in der Liste wieder.
+
+\begin{lstlisting}[caption={Fetching der User}, language=Python]
+if request.method == "GET":#beim ersten Aufruf der Seite
+	users = User.objects[0:20]
+	length = len(User.objects)
+elif request.method == "POST":#beim Umblaettern
+	params = json.loads(request.body.decode('utf-8'))
+	von = (params['Page']-1)*params['counter']
+	bis = params['counter']*params['Page']
+	users = User.objects[von:bis]
+\end{lstlisting}
+
 
 \paragraph{Benachrichtigung}
 Pro-Benutzer, die den Zahlungen nicht nachkommen, geben dem Administrator das Recht, diesen zu löschen. DSN gibt dem Kunden die Möglichkeit, seine Daten bzw. Hefte zu sichern, bevor er gelöscht wird. Der Benutzer empfängt rechtzeitig eine Aufforderungs-Mail, in welcher darauf hingewiesen wird, dass sein Account und alle dazugehörigen Daten nach 7 Tagen gelöscht werden. Am Server von DSN läuft ein Cron-Daemon, welcher täglich prüft, wann der zu löschende User entfernt werden soll. \textit{,,Der Cron-Daemon ist ein Dienst, der automatisch Skripte und Programme zu vorgegebenen Zeiten starten kann.''}\cite{CRON}\\
