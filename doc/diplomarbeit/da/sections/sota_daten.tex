@@ -1,8 +1,33 @@
-%\section*{Technologien}
+%\section*{Datenverwaltung}
 \cfoot{Selina Brinnich}
 
-Abgesehen von Frameworks wird bei der Umsetzung der Applikation zudem eine Datenbank benötigt. Es existieren eine vielzahl von unterschiedlichen Datenbanken. Eine richtige Auswahl zu treffen ist besonders wichtig, da die Applikation die benötigten Daten möglichst schnell zurückliefern soll und auf keinen Fall Daten verloren gehen sollen. \\
-Bei der Persistierung von Daten wird dabei zwischen zwei Konzepten von Datenbanken unterschieden: relationale Datenbanken und NoSQL Datenbanken. Um einen Vergleich aufstellen zu können, wurden jeweils zwei Datenbanken für jedes der beiden Konzepte ausgewählt und genauer betrachtet. Die Auswahl betrifft dabei folgende vier Datenbanken:\\
+Abgesehen von Frameworks wird bei der Umsetzung der Applikation zudem eine Datenbank benötigt. Es existieren eine vielzahl von unterschiedlichen Datenbanken. Eine richtige Auswahl zu treffen ist besonders wichtig, da die benötigten Daten möglichst konsistent gehalten werden sollen und auf keinen Fall Daten verloren gehen sollen. 
+
+Bei der Persistierung von Daten wird dabei zwischen zwei Konzepten von Datenbanken unterschieden: relationale Datenbanken und NoSQL Datenbanken. \cite{DATENRELNOSQL}
+
+\subsubsection{Relationale Datenbanken}
+Relationale Datenbanken folgen alle dem SQL-Standard. Der SQL-Standard definiert einheitliche Befehle zur Verwaltung der Daten in der Datenbank. Bei allen Datenbanken, die diesem Standard folgen, können somit dieselben Anweisungen zur Abfrage und Verwaltung der gespeicherten Daten verwendet werden. \\
+Um Daten in einer relationalen Datenbank abspeichern zu können, muss vorher eine Datenstruktur erstellt werden. Diese Datenstruktur besteht aus Tabellen, in die die Datensätze gruppiert werden. Jede Tabelle besteht wiederum aus einer oder mehreren Spalten, die festlegen, welche Daten in dieser Tabelle gespeichert werden können. Ein einzelner Datensatz ist dann eine Reihe in einer entsprechenden Tabelle. Sollte ein Attribut (eine Spalte) auf einen Wert in einer anderen Tabelle referenzieren, so kann ebenso eine Relation (eine Beziehung bzw. eine Verbindung) zwischen den beiden Tabellen definiert werden.\\
+Die Vorteile bei dem relationalen Konzept liegen vor allem in der einheitlichen Abfragesprache SQL. Damit ist es sehr einfach, sich in eine andere relationale Datenbank einzufinden und diese schnell verwenden zu können. Zudem ist bei relationalen Datenbanken zumeist eine hohe Datenverlässlichkeit geboten. Der größte Nachteil daran ist die feste Datenstruktur, die bereits zu Beginn klar definiert werden muss und zu späterem Zeitpunkt nicht einfach verändert werden kann. \cite{DATENRELNOSQL}
+
+\newpage
+
+\subsubsection{NoSQL Datenbanken}
+NoSQL ist ein Konzept, das sich aufgrund von aufgetretenen Problemen bei relationalen Datenbanken entwickelt hat. NoSQL Datenbanken halten sich, im Gegensatz zu relationalen Datenbanken, nicht an strikt festgelegte Strukturen.\\
+Bei NoSQL Datenbanken wird prinzipiell zwischen vier Arten unterschieden:
+\begin{itemize}
+\item \textbf{Key-Value}\\Verwendet Werte-Paare, die aus jeweils einem Schlüssel und einem dazu passenden Wert bestehen. Der Wert kann mithilfe des Schlüssels ausgelesen werden. Key-Value Datenbanken besitzen keine Struktur und keine Relationen zwischen Datensätzen. Sie werden hauptsächlich für eine schnelle Speicherung von simplen Datensätzen verwendet.
+\item \textbf{Spaltenorientiert}\\Spaltenorientierte Datenbanken bauen auf dem Prinzip von Key-Value Datenbanken auf. Sie gruppieren die Key-Value Paare. Eine dieser Gruppierungen enthält dann mehrere Key-Value Paare, die die sogenannten Spalten darstellen, wobei die Spalten, anders als bei relationalen Datenbanken, nicht zwingend dieselbe Struktur aufweisen müssen. Diese Art von Datenbank wird hauptsächlich für eine große Anzahl an zu speichernden Datensätzen verwendet, wenn eine einfache Key-Value Datenbank nicht mehr ausreicht.
+\item \textbf{Dokumentenbasiert}\\Dokumentenbasierte Datenbanken haben prinzipiell einen ähnlichen Ansatz wie Spaltenorientierte. Jedoch erlauben sie eine deutlich tiefer gehende Verschachtelung von Key-Value Paaren und damit auch komplexere Strukturen.
+\item \textbf{Graph}\\Graphendatenbanken verwenden eine Baumartige Struktur, bestehend aus sogenannten Knoten und Kanten, die durch Relationen miteinander verbunden sind. Diese Art von Datenbank ist besonders dann sinnvoll, wenn klare Verbindungen von Daten gefragt sind.
+\end{itemize}
+
+Ein großer Vorteil von NoSQL Datenbanken ist vor allem die flexible Struktur. Die Datenstruktur muss nicht, wie bei relationalen Datenbanken, bereits zu Beginn klar definiert werden, sondern kann für jeden Datensatz individuell ausfallen. Dadurch ist zudem nicht nur eine vertikale, sondern auch eine horizontale Skalierung einfach möglich. Ein großer Nachteil ist indes die Unterschiedlichkeit in der Abfrage von Daten, da jede NoSQL Datenbank eine eigene Form der Abfrage besitzt. \cite{DATENRELNOSQL,DATENNOSQL}
+
+\newpage
+
+\subsubsection{Vergleich}
+Um einen Vergleich zwischen relationalen Datenbanken und NoSQL Datenbanken aufstellen zu können, wurden jeweils zwei Datenbanken für jedes der beiden Konzepte ausgewählt und genauer betrachtet. Bei NoSQL Datenbanken wurden dabei nur dokumentenbasierte Ansätze genauer betrachtet, da diese die Anforderungen der Applikation am besten erfüllen. Die Auswahl betrifft folgende vier Datenbanken:
 \begin{itemize}
 \item Relationale Datenbanken
 \begin{itemize}
@@ -18,7 +43,7 @@ Bei der Persistierung von Daten wird dabei zwischen zwei Konzepten von Datenbank
 
 Im Folgenden wird genauer auf jede der aufgezählten Datenbanken eingegangen, um einen Vergleich aufstellen zu können. Dabei wird der Aufwand der Installation und Konfiguration, sowie die Einfachheit der grundlegenden Operationen genauer betrachtet.
 
-\subsubsection{MySQL}
+\paragraph{MySQL}
 \label{subsubsec:mysql}
 MySQL ist eine Open-Source Datenbank von Oracle. Sie verspricht vor allem Einfachheit in der Anwendung.\cite{ABOUTMYSQL}
 
@@ -55,7 +80,7 @@ Löschen            & DELETE FROM test WHERE name='Xandra Mcknight';            
 \end{tabular}
 \end{table}
 
-\subsubsection{PostgreSQL}
+\paragraph{PostgreSQL}
 PostgreSQL ist eine Open-Source Datenbank. Sie verspricht vor allem eine hohe Zuverlässigkeit und Datenintegrität.\cite{ABOUTPOSTGRES}
 
 Die Installation von PostgreSQL ist sehr einfach. Sie verläuft sehr schnell und es muss nur ein einziger Befehl ausgeführt werden. Die Datenbank kann mithilfe folgendem Befehl installiert werden:
@@ -81,7 +106,7 @@ psql -d mypgdatabase -U mypguser
 
 Nach der Installation und Konfiguration können weitere Operationen ausgeführt werden (siehe Kapitel \ref{subsubsec:mysql}).
 
-\subsubsection{MongoDB}
+\paragraph{MongoDB}
 MongoDB ist eine dokumentenbasierte Open-Source NoSQL Datenbank. Sie verspricht vor allem eine hohe Flexibilität, Skalierbarkeit und Performance. \cite{ABOUTMONGODB}
 
 Die Installation von MongoDB verläuft folgendermaßen:
@@ -111,7 +136,7 @@ Löschen            & db.test.remove(\{"name": "Test"\}) \\ \hline
 \end{tabular}
 \end{table}
 
-\subsubsection{Couchbase}
+\paragraph{Couchbase}
 Couchbase ist eine Open-Source NoSQL Datenbank. Sie verspricht vor allem eine hohe Skalierbarkeit.\cite{ABOUTCOUCHBASE}
 
 Couchbase kann über ein externes .deb Paket installiert werden. Dazu werden folgende Befehle benötigt:
@@ -144,7 +169,7 @@ Löschen            & \begin{tabular}[c]{@{}l@{}}couchbase-cli bucket-delete -c 
 \end{tabular}
 \end{table}
 
-\subsubsection{Vergleich}
+\paragraph{Fazit}
 Anhand der zuvor genauer betrachteten Datenbanken und deren erstellter Prototypen kann nun eine Entscheidung darüber getroffen werden, welche der Datenbanken bei der Applikation zur Verwendung kommen soll.
 
 Die beiden relationalen Datenbanken haben den großen Vorteil, dass sie für die grundlegenden Operationen eine standardisierte Sprache verwenden: SQL. Dadurch wird die Verwendung deutlich erleichtert. Allerdings ist bei der Applikation die Verwendung einer relationalen Datenbank nicht sehr sinnvoll, da sich die Daten vor allem innerhalb der Hefte sehr unterscheiden können und keine eindeutige Struktur dafür definiert werden kann. Zudem soll die Struktur offen für nachträgliche Erweiterungen sein, um sie bei einer zukünftigen Implementierung von weiteren Heftelementen nicht neu anpassen zu müssen. Bei relationalen Datenbanken muss allerdings bereits zu Beginn eine fixe Struktur festgelegt werden. NoSQL Datenbanken hingegen haben den großen Vorteil, dass sie unterschiedliche Strukturen unterstützen und nicht von Anfang an festgelegt werden muss, wie die Daten genau aufgebaut sind. Daher ist die Verwendung einer NoSQL Datenbank bei der Applikation sinnvoller.

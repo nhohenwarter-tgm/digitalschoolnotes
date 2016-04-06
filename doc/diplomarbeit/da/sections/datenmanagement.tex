@@ -44,7 +44,17 @@ Die Collection \textit{notebook} beinhaltet die Daten, die ein einzelnes Heft be
 \item \textbf{email}\\ Die E-Mail Adresse des Besitzers des Heftes
 \item \textbf{numpages}\\ Die Anzahl an Seiten, die das Heft besitzt
 \item \textbf{current\_page}\\ Die Seite, die aufgeschlagen wird, sobald der Benutzer das Heft das nächste Mal öffnet
-\item \textbf{content}\\ Eine Liste, die alle Inhalte des Heftes (Texte, Bilder,...) beinhaltet
+\item \textbf{content}\\ Eine Liste, die alle Inhalte des Heftes (Texte, Bilder,...) beinhaltet. Ein Heftelement beinhaltet jeweils folgende Eigenschaften:
+\begin{itemize}
+\item \textbf{id}
+\item \textbf{art}
+\item \textbf{position\_x}
+\item \textbf{position\_y}
+\item \textbf{position\_site}
+\item \textbf{data}
+\item \textbf{is\_active}
+\item \textbf{is\_active\_by}
+\end{itemize}
 \item \textbf{collaborator} Eine Liste an E-Mail Adressen von Benutzern der Applikation, die neben dem Besitzer des Heftes ebenfalls die Inhalte des Heftes bearbeiten dürfen
 \end{itemize}
 Der Name eines Heftes ist pro Benutzer einzigartig zu vergeben, um das Heft identifizieren zu können. Abgesehen von der Eigenschaft \textit{\_id} kann ein Heft also auch mithilfe der beiden Eigenschaften \textit{name} und \textit{email} eindeutig identifiziert werden. Die Eigenschaft \textit{content} besteht aus einer Liste. Diese Liste beinhaltet individuell viele JSON-Objekte, die jeweils ein Objekt innerhalb des Heftes darstellen (Text, Bild,...). Diese JSON-Objekte bestehen wiederum aus einer ID zur Identifizierung, der Art des Elementes (Textelement, Bildelement,...), der genauen Position innerhalb des Heftes (Seitenzahl und x-Koordinate, sowie y-Koordinate auf dieser Seite) und dem eigentlichen Inhalt, beispielsweise dem Text den der Benutzer eingegeben hat, sollte es sich um ein Textelement handeln. Zudem wird zu jedem dieser Elemente gespeichert, ob gerade ein Benutzer dieses Element bearbeitet und wenn ja, welcher Benutzer sich im Bearbeitungsmodus befindet.
@@ -57,7 +67,7 @@ In der Collection \textit{time\_table} werden alle Daten der Stundenpläne von B
 \item \textbf{times}\\ Eine Liste, die die Anfangs- und Endzeiten jeder Stunde im Stundenplan enthält
 \item \textbf{fields}\\ Eine Liste, die alle einzelnen Stunden im Stundenplan mit Fach, Lehrer und Raum enthält
 \end{itemize}
-Der Stundenplan wird einem Benutzer mithilfe der Eigenschaft \textit{email} zugeordnet und damit auch eindeutig identifiziert, da jeder Benutzer nur einen Stundenplan besitzen kann. 
+Der Stundenplan wird einem Benutzer mithilfe der Eigenschaft \textit{email} zugeordnet und damit auch eindeutig identifiziert, da jeder Benutzer nur einen Stundenplan besitzt. 
 
 Die Eigenschaften \textit{times} und \textit{fields} sind jeweils Listen, die mehrere JSON-Objekte enthalten.\\
 Ein JSON-Objekt in der Liste \textit{times} enthält die jeweilige Stunde (1-xx) und die Anfangs- und Endzeit für diese Stunde. Ein JSON-Objekt in der Liste \textit{fields} enthält eine ID zum Identifizieren der jeweiligen Stunde (Zusammengesetzt aus Reihenzahl und Spaltenzahl im Stundenplan), eine Bezeichnung des Faches, das in dieser Stunde unterrichtet wird, dem Namen des Lehrers, der das jeweilige Fach unterrichtet und dem Raum, in dem der Unterricht stattfindet, sowie ein Heftname eines Heftes, das dem jeweiligen Benutzer gehört. Mithilfe des Heftnamens kann ein Heft mit einer Stunde im Stundenplan verknüpft und zugeordnet werden.
@@ -78,13 +88,13 @@ db.user.insert({"name":"Test", "email":"test@email.com"\})
 \end{lstlisting}
 Der JSON-String kann dabei aus beliebig vielen Key-Value Paaren bestehen.
 
+\newpage
+
 Der Befehl \textit{db.collname.find()} kann dazu verwendet werden, bestehende Datensätze innerhalb einer Collection zu suchen und anzuzeigen. Dabei kann optional ein Parameter angegeben werden, um  Suchkriterien festzulegen. Um beispielsweise Benutzer mit einem bestimmten Namen zu suchen, kann folgendermaßen vorgegangen werden:\\
 \begin{lstlisting}[caption=Suchen nach Datensätzen, language=Python]
 db.user.find({"name":"Test"})
 \end{lstlisting}
 Hierbei würden nun alle Benutzer mit dem Namen "Test'' angezeigt werden. Sollte nur ein Suchergebnis erwartet werden, kann zudem auch der Befehl \textit{.findOne()} verwendet werden.
-
-\newpage
 
 Mithilfe von \textit{db.collname.update(criteria,updated)} kann ein bestehender Datensatz ver-ändert werden. \textit{criteria} entspricht dabei einem JSON-String, der als Suchkriterium dient. Nur Datensätze, die diesem Kriterium entsprechen, werden verändert. \textit{updated} bezeichnet den neuen JSON-String, durch den der alte Datensatz ersetzt werden soll. Soll nicht der ganze Datensatz ersetzt werden, sondern lediglich ein oder mehrere Eigenschaften des bestehenden Datensatzes, so kann \textit{\$set} folgendermaßen verwendet werden:\\
 \begin{lstlisting}[caption=Bearbeiten eines bestehenden Datensatzes, language=Python]
@@ -94,6 +104,8 @@ Hier werden alle Datensätze in der Collection \textit{user}, die den Namen ''Te
 
 Um einen bereits bestehenden Datensatz wieder aus der Collection zu löschen, kann der Befehl \textit{db.collname.remove()} verwendet werden. Sollte hierbei kein Parameter angegeben werden, werden alle Datensätze aus der Collection gelöscht. Mithilfe eines JSON-Strings als Parameter kann das Löschen auf Datensätze beschränkt werden, die einem bestimmten Kriterium entsprechen.
 
+\newpage
+
 \paragraph{Zugriff aus der Applikation}
 \label{sec:applikation}
 Um innerhalb der Applikation auf Daten aus der Datenbank zugreifen zu können, muss Django entsprechend konfiguriert werden. Django unterstützt standardmäßig lediglich relationale DBMS. Da im Projekt jedoch die NoSQL-Datenbank “MongoDB” verwendet wird, muss dies extra konfiguriert werden.
@@ -102,8 +114,6 @@ Dazu muss MongoEngine, ein Verbindungsstück zwischen Django und MongoDB, instal
 \begin{lstlisting}[caption=Installation von MongoEngine, language=Python]
 pip3 install mongoengine==0.9.0
 \end{lstlisting}
-
-\newpage
 
 Um Django mitzuteilen, dass MongoDB im Hintergrund verwendet werden soll, müssen im File \textit{prototype/settings.py} folgende Zeilen auskommentiert beziehungsweise hinzugefügt werden:
 
@@ -128,6 +138,8 @@ _MONGODB_NAME = 'dsn' #DB-Name
 _MONGODB_DATABASE_HOST = 'mongodb://%s' % (_MONGODB_HOST)
 mongoengine.connect(_MONGODB_NAME, host=_MONGODB_DATABASE_HOST)
 \end{lstlisting}
+
+\newpage
 
 Um von Django aus auf Daten in MongoDB zugreifen beziehungsweise neue Daten hineinspeichern zu können, müssen vorher sogenannte Models erstellt werden. Diese sind im File \textit{models.py} definiert und bilden die Struktur der Daten in der Datenbank ab. Dies kann beispielsweise folgendermaßen aussehen:
 
@@ -157,6 +169,8 @@ user(
      Q(last_name__icontains=suchtext)
      )
 \end{lstlisting}
+
+\newpage
 
 Hierbei wird nach allen Benutzern gesucht, die \textit{suchtext} entweder in der E-Mail Adresse oder im Vor- beziehungsweise Nachnamen angegeben haben. \textit{icontains} gibt dabei an, dass die Groß- und Kleinschreibung bei der Suche nicht relevant ist. Sollte jedoch gewünscht sein, dass auch die Groß- und Kleinschreibung bei der Suche beachtet wird, muss statt \textit{icontains} das Stichwort \textit{contains} verwendet werden.
 
