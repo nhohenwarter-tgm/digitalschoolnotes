@@ -1,16 +1,16 @@
 %\section*{Optical Character Recognition}
 \cfoot{Adin Karic}
-Optical Character Recognition oder auch Optische Zeichenerkennung bezeichnet die automatisierte Texterkennung innerhalb von Bildern. Mit diesem Verfahren können also Bilder eingelesen werden und die darin enthaltenen Zeichen als diese erkannt und ausgegeben werden. OCR ermöglicht es den Nutzern von Digital School Notes Bilder auf den Server zu laden, den textuellen Inhalt aus diesen Bildern zu filtern und als bearbeitbares Textelement in ein Heft einzufügen.
+Optical Character Recognition (OCR) oder auch Optische Zeichenerkennung bezeichnet die automatisierte Texterkennung innerhalb von Bildern. Mit diesem Verfahren können also Bilder eingelesen werden und die darin enthaltenen Zeichen als diese erkannt und ausgegeben werden. OCR ermöglicht es den Nutzern von Digital School Notes Bilder auf den Server zu laden, den textuellen Inhalt aus diesen Bildern zu filtern und als bearbeitbares Textelement in ein Heft einzufügen.
 
 \insertpicture{images/ocr/ocrbsp.png}{Beispiel einer Texterkennung}{\cite{OCRBSP}}{itm:ocrbsp}{0.7}
 
-Die ersten Versuche einer automatischen Zeichenerkennung lassen sich auf die 30er Jahre datieren. Die damals entworfene Maschine für das künstliche Lesen konnte mit einem Mustervergleich die zehn arabischen Ziffern automatisch erkennen. Solche Texterkennungssysteme konnten sich vor allem sehr früh bei Banken und Versicherungen etablieren. Bereits zu Beginn der 60er Jahre war es möglich, mit entsprechenden Rechnern, geschriebene oder gedruckte Zeichen auf Belegen zu identifizieren.
+Die ersten Versuche einer automatischen Zeichenerkennung lassen sich auf die 30er Jahre datieren. Die damals entworfene Maschine für das künstliche Lesen konnte mit einem Mustervergleich die zehn arabischen Ziffern automatisch erkennen. Solche Texterkennungssysteme konnten sich vor allem sehr früh bei Banken und Versicherungen etablieren. Bereits zu Beginn der 60er Jahre war es möglich, mit entsprechenden Rechnern, geschriebene oder gedruckte Zeichen auf Belegen zu identifizieren. \cite{OCRB}
 
-In den folgenden Jahren gelang dann aber auch der Durchbruch beim Erkennen von Buchstaben. Dabei war die Anzahl der benötigten Schriftarten jedoch sehr begrenzt. Die erste Schriftfamilie, OCR-A, beinhaltete neben Ziffern und Großbuchstaben auch 30 Sonderzeichen. Die Weiterentwicklung davon, OCR-B, ermöglichte auch die Erkennung von Kleinbuchstaben.
+In den folgenden Jahren gelang dann aber auch der Durchbruch beim Erkennen von Buchstaben. Dabei war die Anzahl der benötigten Schriftarten jedoch sehr begrenzt. Die erste Schriftfamilie, OCR-A, beinhaltete neben Ziffern und Großbuchstaben auch 30 Sonderzeichen. Die Weiterentwicklung davon, OCR-B, ermöglichte auch die Erkennung von Kleinbuchstaben. \cite{OCRB}
 
-In den 70er Jahren haben sich bei Banken und Versicherungen schließlich intelligentere Systeme etabliert, die neben ungenormten Schriftarten auch Handschriften erkennen konnten. Da diese Lesegeräte Komplettsysteme waren, also aus Hardware und Software bestanden, waren die Preise dementsprechend hoch.
+In den 70er Jahren haben sich bei Banken und Versicherungen schließlich intelligentere Systeme etabliert, die neben ungenormten Schriftarten auch Handschriften erkennen konnten. Da diese Lesegeräte Komplettsysteme waren, also aus Hardware und Software bestanden, waren die Preise dementsprechend hoch. \cite{OCRB}
 
-Erst seit Mitte der 80er Jahre etablierten sich, aufgrund der Entwicklung von Flachbett- und anderen Scannern, sowie leistungsfähigeren Computern, billigere Systeme, die gute Lösungen anboten. Diese OCR-Lösungen haben sich im Laufe der Jahrzehnte stetig weiterentwickelt, bis zu der professionellen Software, die man heute im Handel oder frei verfügbar im Internet findet.
+Erst seit Mitte der 80er Jahre etablierten sich, aufgrund der Entwicklung von Flachbett- und anderen Scannern, sowie leistungsfähigeren Computern, billigere Systeme, die gute Lösungen anboten. Diese OCR-Lösungen haben sich im Laufe der Jahrzehnte stetig weiterentwickelt, bis zu der professionellen Software, die man heute im Handel oder frei verfügbar im Internet findet. \cite{OCRB}
 
 \subsubsection{OCR-Verfahren}
 Das Verfahren zur optischen Zeichenerkennung teilt sich grob gesagt in drei Teile:
@@ -19,56 +19,56 @@ Das Verfahren zur optischen Zeichenerkennung teilt sich grob gesagt in drei Teil
 \item Mustererkennung
 \item Umwandlung in das Ausgabeformat
 \end{itemize}
-Zudem gibt es verschiedene Arten der konkreten Zeichenerkennung.
+Zudem gibt es verschiedene Arten der konkreten Zeichenerkennung. \cite{OCRB}
 
 \paragraph{Bitmustervergleich}
-Ein besonders einfaches und wahrscheinlich das älteste Verfahren zur Zeichenerkennung ist der Bitmustervergleich (Matrizenvergleich). Das in den 30er Jahren entwickelte Verfahren vergleicht Zeichen miteinander, indem es die Differenz des digitalisierten Zeichens zu den gespeicherten Zeichenmustern betrachtet. Wenn ein betrachtetes Zeichen eine geringe Differenz zum gespeicherten Muster zeigt, wird es als dieses Zeichen identifiziert. Für jedes Zeichen existiert also eine Matrix, in der dieses Zeichen in ein Pixelmuster zerlegt wird.
+Ein besonders einfaches und wahrscheinlich das älteste Verfahren zur Zeichenerkennung ist der Bitmustervergleich (Matrizenvergleich). Das in den 30er Jahren entwickelte Verfahren vergleicht Zeichen miteinander, indem es die Differenz des digitalisierten Zeichens zu den gespeicherten Zeichenmustern betrachtet. Wenn ein betrachtetes Zeichen eine geringe Differenz zum gespeicherten Muster zeigt, wird es als dieses Zeichen identifiziert. Für jedes Zeichen existiert also eine Matrix, in der dieses Zeichen in ein Pixelmuster zerlegt wird. \cite{OCRB}
 
 \insertpicture{images/ocr/bitmuster.jpg}{Bitmustervergleich}{\cite{OCRB}}{itm:bitm}{0.7}
 
-Bei diesem Vergleich wird das spezifische Pixelmuster des gescannten Zeichens nacheinander mit den vorhandenen Mustern in einer Datenbank verglichen. Dadurch wird durch die Übereinstimmung der Bildpunkte eine Korrelation errechnet. Die Schwierigkeiten bei diesem Verfahren bestehen darin, dass die beiden zu vergleichenden Bitmuster selten wirklich identisch sind. Das liegt einerseits an der Qualität des gescannten Zeichens, welche von Helligkeit und Kontrast abhängig ist. Andererseits könnten beim Scanvorgang selbst einige Verzerrungen oder Verschmutzungen auftreten. Die Größenunterschiede können zusätzlich eine wesentliche Rolle spielen, da die Muster zunächst auf eine einheitliche Größe angepasst werden müssen. Bei diesem Vorgang können wichtige Detailinformationen verloren gehen.
+Bei diesem Vergleich wird das spezifische Pixelmuster des gescannten Zeichens nacheinander mit den vorhandenen Mustern in einer Datenbank verglichen. Dadurch wird durch die Übereinstimmung der Bildpunkte eine Korrelation errechnet. Die Schwierigkeiten bei diesem Verfahren bestehen darin, dass die beiden zu vergleichenden Bitmuster selten wirklich identisch sind. Das liegt einerseits an der Qualität des gescannten Zeichens, welche von Helligkeit und Kontrast abhängig ist. Andererseits könnten beim Scanvorgang selbst einige Verzerrungen oder Verschmutzungen auftreten. Die Größenunterschiede können zusätzlich eine wesentliche Rolle spielen, da die Muster zunächst auf eine einheitliche Größe angepasst werden müssen. Bei diesem Vorgang können wichtige Detailinformationen verloren gehen. \cite{OCRB}
 
-Um diesen Problemen aus dem Weg zu gehen, versucht man mit Hilfsmitteln, sogenannten Normierungsverfahren, die Konturen der Zeichen zu begradigen. So könnten Zeichen, die auch geringe Abweichungen zu den Musterzeichen aufweisen, erkannt werden. Die erzielte Genauigkeit beim Erkennen der Zeichen ist ein wesentlicher Faktor zur Beurteilung der verschiedenen Verfahren. Beim Bitmustervergleich ist die Erkennungsgenauigkeit einfach zu niedrig. Aufgrund dieser Tatsache hat sich das Verfahren auch nicht durchsetzen können. Ein Bitmustervergleich ist nur dann vorteilhaft, wenn die Vorlagen eine sehr gute Qualität haben und wenige Schriftarten benutzt wurden. Unter diesen Voraussetzungen ist ein Bitmustervergleich meist schneller als die anderen Methoden.
+Um diesen Problemen aus dem Weg zu gehen, versucht man mit Hilfsmitteln, sogenannten Normierungsverfahren, die Konturen der Zeichen zu begradigen. So könnten Zeichen, die auch geringe Abweichungen zu den Musterzeichen aufweisen, erkannt werden. Die erzielte Genauigkeit beim Erkennen der Zeichen ist ein wesentlicher Faktor zur Beurteilung der verschiedenen Verfahren. Beim Bitmustervergleich ist die Erkennungsgenauigkeit einfach zu niedrig. Aufgrund dieser Tatsache hat sich das Verfahren auch nicht durchsetzen können. Ein Bitmustervergleich ist nur dann vorteilhaft, wenn die Vorlagen eine sehr gute Qualität haben und wenige Schriftarten benutzt wurden. Unter diesen Voraussetzungen ist ein Bitmustervergleich meist schneller als die anderen Methoden. \cite{OCRB}
 
 \paragraph{Klassifikation}
-Bei der Klassifikation handelt es sich um ein komplexeres, aber auch flexibleres Verfahren. Die Zeichen werden hier anhand sogenannter Klassen analysiert. Es werden nicht alle Pixel der Zeichen, sondern nur spezifische Merkmale untersucht, die wiederum in einzelne Klassen unterteilt werden. Die Entwickler des Verfahrens können bestimmen, nach welchen Klassen unterteilt wird und wie viele Klassen es überhaupt gibt.
+Bei der Klassifikation handelt es sich um ein komplexeres, aber auch flexibleres Verfahren. Die Zeichen werden hier anhand sogenannter Klassen analysiert. Es werden nicht alle Pixel der Zeichen, sondern nur spezifische Merkmale untersucht, die wiederum in einzelne Klassen unterteilt werden. Die Entwickler des Verfahrens können bestimmen, nach welchen Klassen unterteilt wird und wie viele Klassen es überhaupt gibt. \cite{OCRB}
 
 \insertpicture{images/ocr/klassi.jpg}{Klassenbaum für Merkmalsanalyse}{\cite{OCRB}}{itm:klassi}{1.0}
 
-In einem Klassenbaum werden die Zeichen systematisch anhand ihrer Merkmale in Klassen unterteilt. Innerhalb der Klassen muss dann wieder eine weitere Klassifikation stattfinden, um am Ende des Prozesses ein eindeutiges Zeichen zuzuordnen. Es kann auch durchaus vorkommen, dass verschiedene Zeichen in mehreren Klassen vorkommen. Typische Kriterien für die Klassenbildung sind zum Beispiel die Anzahl der Zyklen, die Anzahl der Teile und die Eindringtiefe (Größe der Zeichen).
+In einem Klassenbaum werden die Zeichen systematisch anhand ihrer Merkmale in Klassen unterteilt. Innerhalb der Klassen muss dann wieder eine weitere Klassifikation stattfinden, um am Ende des Prozesses ein eindeutiges Zeichen zuzuordnen. Es kann auch durchaus vorkommen, dass verschiedene Zeichen in mehreren Klassen vorkommen. Typische Kriterien für die Klassenbildung sind zum Beispiel die Anzahl der Zyklen, die Anzahl der Teile und die Eindringtiefe (Größe der Zeichen). \cite{OCRB}
 
-Diese Merkmalsanalyse liefert zu jedem Zeichen einen Merkmalsvektor mit entsprechenden Merkmalseinträgen. Den Merkmalen werden also konkrete Werte, die diese Merkmale beschreiben, zugeordnet. Sobald ein solcher Vektor mit den Merkmalen eines schon bekannten Zeichens übereinstimmt, kann das Zeichen identifiziert werden.
+Diese Merkmalsanalyse liefert zu jedem Zeichen einen Merkmalsvektor mit entsprechenden Merkmalseinträgen. Den Merkmalen werden also konkrete Werte, die diese Merkmale beschreiben, zugeordnet. Sobald ein solcher Vektor mit den Merkmalen eines schon bekannten Zeichens übereinstimmt, kann das Zeichen identifiziert werden. \cite{OCRB}
 
-Durch diese Umstände reagiert dieses Verfahren viel flexibler auf verschiedene Schriftarten. Nur bei sehr starken Abweichungen der Merkmale kann es zu Schwierigkeiten bei der Analyse kommen. Die Auswahl der richtigen Klassenmerkmale und der Anzahl der nötigen Klassen ist entscheidend für dieses Verfahren. Bei zu starken Unterschieden im Schriftbild kann es jedoch zur Überforderung dieser Methode kommen.
+Durch diese Umstände reagiert dieses Verfahren viel flexibler auf verschiedene Schriftarten. Nur bei sehr starken Abweichungen der Merkmale kann es zu Schwierigkeiten bei der Analyse kommen. Die Auswahl der richtigen Klassenmerkmale und der Anzahl der nötigen Klassen ist entscheidend für dieses Verfahren. Bei zu starken Unterschieden im Schriftbild kann es jedoch zur Überforderung dieser Methode kommen. \cite{OCRB}
 
 \paragraph{Topologische Analyse}
 
-Diese Methode wird auch strukturelle Formenanalyse genannt und orientiert sich, ebenso wie die Klassifikation, an spezifischen Eigenschaften der Zeichen und nicht an umfangreichen Mustervergleichen.
+Diese Methode wird auch strukturelle Formenanalyse genannt und orientiert sich, ebenso wie die Klassifikation, an spezifischen Eigenschaften der Zeichen und nicht an umfangreichen Mustervergleichen. \cite{OCRB}
 
-Der erste Schritt bei der topologischen Analyse ist die Reduzierung des Pixelbilds auf dessen Grundelemente. Dieser Vorgang wird Vektorisierung genannt. Die überflüssigen Pixel werden also alle entfernt und es entsteht ein ,,Zeichenskelett". Danach folgt die eigentliche Zeichenanalyse. Das Verfahren sucht nun nach Beschreibungen, die mit den Einzelelementen des reduzierten Zeichens übereinstimmen. 
+Der erste Schritt bei der topologischen Analyse ist die Reduzierung des Pixelbilds auf dessen Grundelemente. Dieser Vorgang wird Vektorisierung genannt. Die überflüssigen Pixel werden also alle entfernt und es entsteht ein ,,Zeichenskelett". Danach folgt die eigentliche Zeichenanalyse. Das Verfahren sucht nun nach Beschreibungen, die mit den Einzelelementen des reduzierten Zeichens übereinstimmen. \cite{OCRB}
 
 \insertpicture{images/ocr/vektor.jpg}{Vektorisierung eines Zeichens}{\cite{OCRB}}{itm:vektor}{0.5}
 
-Diese Methode ermöglicht eine sehr fehlertolerante Zeichenerkennung. Sie benutzt komplexe Algorithmen, konzentriert sich aber nur auf wenige Elemente und erreicht dadurch eine angemessene Geschwindigkeit.
+Diese Methode ermöglicht eine sehr fehlertolerante Zeichenerkennung. Sie benutzt komplexe Algorithmen, konzentriert sich aber nur auf wenige Elemente und erreicht dadurch eine angemessene Geschwindigkeit. \cite{OCRB}
 
 \paragraph{Neuronale Netze}
-Neuronale Netze sollen die Schwächen der bereits genannten Verfahren beheben. Mit solchen neuronalen Netzen wird versucht, intelligentes Verhalten auf Computern nachzuvollziehen. Dabei stellt die Neuroinformatik eine Alternative zur klassischen algorithmischen Informatik dar. Die parallele und verteilte Informationsverarbeitung selbst geschieht mit Hilfe einer Vielzahl von Elementen, den sogenannten Neuronen.
+Neuronale Netze sollen die Schwächen der bereits genannten Verfahren beheben. Mit solchen neuronalen Netzen wird versucht, intelligentes Verhalten auf Computern nachzuvollziehen. Dabei stellt die Neuroinformatik eine Alternative zur klassischen algorithmischen Informatik dar. Die parallele und verteilte Informationsverarbeitung selbst geschieht mit Hilfe einer Vielzahl von Elementen, den sogenannten Neuronen. \cite{OCRB}
 
-Eine wesentliche Eigenschaft bei diesem Verfahren ist die Selbstprogrammierung. Das System kann sein Wissen durch selbstständiges Lernen erweitern. Das neuronale Netz muss aber zunächst kalibriert werden, dies geschieht beispielsweise mit einem Training aus Identifikationsmustern. Sobald das System ein vorliegendes Problem dann mit einem vernachlässigbaren Fehler lösen kann, kann die Kalibrierung abgeschlossen werden.
+Eine wesentliche Eigenschaft bei diesem Verfahren ist die Selbstprogrammierung. Das System kann sein Wissen durch selbstständiges Lernen erweitern. Das neuronale Netz muss aber zunächst kalibriert werden, dies geschieht beispielsweise mit einem Training aus Identifikationsmustern. Sobald das System ein vorliegendes Problem dann mit einem vernachlässigbaren Fehler lösen kann, kann die Kalibrierung abgeschlossen werden. \cite{OCRB}
 
 \newpage
 
 Die Synapsen eines neuronalen Netzes, also die Verbindungen zwischen den Neuronen, sind nicht statisch und können sich während des Lernprozesses verändern. Es können neue Synapsen entstehen, bestehende Kontakte können ihren Übertragungswiderstand ändern oder ganz aufgelöst werden. Besonders bei der handschriftlichen Erkennung haben neuronale Netze in den letzten Jahren bessere Ergebnisse geliefert als die konkurrierenden Verfahren. Durch eine zusätzliche Erhöhung der Rechenleistung mittels GPU-Implementierungen, konnten Wissenschaftler mit dieser Methode viele Wettbewerbe der Mustererkennung gewinnen. \cite{OCRB}
 
 \subsubsection{ICR und IWR}
-Bei der Intelligent Character Recognition werden die digitalen Abbilder der Zeichen mit Wörterbüchern verglichen und anschließend wird die wahrscheinliche Fehlerfreiheit der Zeichen analysiert. Abhängig von dieser wahrscheinlichen Fehlerfreiheit wird das Zeichen identifiziert oder einer erneuten Bewertung unterzogen.
+Bei der Intelligent Character Recognition werden die digitalen Abbilder der Zeichen mit Wörterbüchern verglichen und anschließend  die wahrscheinliche Fehlerfreiheit der Zeichen analysiert. Abhängig von dieser wahrscheinlichen Fehlerfreiheit wird das Zeichen identifiziert oder einer erneuten Bewertung unterzogen. \cite{OCRB}
 
-Die Intelligent Word Recognition vergleicht Einzelzeichen, die nicht separat erkannt werden können, mit Wörterbüchern. Die Erkennungsgenauigkeit ist von der Größe des eingebundenen Wörterbuchs abhängig. IWR liefert besonders bei der Handschrifterkennung gute Erfolge.
+Die Intelligent Word Recognition vergleicht Einzelzeichen, die nicht separat erkannt werden können, mit Wörterbüchern. Die Erkennungsgenauigkeit ist von der Größe des eingebundenen Wörterbuchs abhängig. IWR liefert besonders bei der Handschrifterkennung gute Erfolge. \cite{OCRB}
 
 \subsubsection{Implementierung}
 In den folgenden Kapiteln ist die Implementierung des OCR-Moduls beschrieben.
 \paragraph{Tesseract OCR und pytesseract-Modul}
-Der erste Schritt zur Implementierung war die Evaluierung der geeigneten OCR-Software. Diese wurde im Evaluierungssprint des Projektes evaluiert. Es wurden drei Softwarepakete evaluiert: Tesseract OCR (pytesseract), OCRopus und OmniPage Ultimate. Nach dem Vergleich dieser Lösungen hinsichtlich mehrerer Kriterien fiel die Entscheidung auf die tesseract-Engine und das dazugehörige Python-Modul pytesseract.
+Der erste Schritt zur Implementierung war die Evaluation der geeigneten OCR-Software. Es wurden drei Softwarepakete evaluiert: Tesseract OCR (pytesseract), OCRopus und OmniPage Ultimate. Nach dem Vergleich dieser Lösungen hinsichtlich mehrerer Kriterien (Komplexität, Dokumentation, Lizenzkosten, Erkennungsgenauigkeit) fiel die Entscheidung auf die tesseract-Engine und das dazugehörige Python-Modul pytesseract.
 
 Um Tesseract-OCR (engine) zu installieren, installiert man die folgenden Pakete auf dem Server:
 \begin{itemize}
@@ -76,15 +76,18 @@ Um Tesseract-OCR (engine) zu installieren, installiert man die folgenden Pakete 
 \item tesseract-ocr-deu
 \end{itemize}
 
+\begin{lstlisting}[caption={tesseract-Installation}, language=bash]
+apt-get install tesseract-ocr tesseract-ocr-deu
+\end{lstlisting}
+
 \newpage
 
-Zum Testen der Analyse führt man tesseract mit folgendem Befehl in der Commandline aus:
+Zum Testen der Analyse wird tesseract mit folgendem Befehl in der Commandline ausgeführt \cite{TESS1, TESS2}:
 \begin{lstlisting}[caption={tesseract-Ausführung}, language=bash]
 tesseract test3.jpg out3
 \end{lstlisting}
-\cite{TESS1} \cite{TESS2}
 
-Hier erkennt man das analysierte Bild, sowie den Output der tesseract-Engine.
+Anschließend folgt das analysierte Bild, sowie der Output der tesseract-Engine.
 
 \insertpicture{images/ocr/fresh.jpg}{Beispielbild für OCR-Analyse}{(selfmade)}{itm:fresh}{0.8}
 
@@ -98,7 +101,7 @@ Entwicklung einer neuen Webseite.
 
 die alle Abteilungen. Werlstatten und A / m
 
-Für die Installation der Python-Anbindung pytesseract sind folgende Befehle notwendig.
+Für die Installation der Python-Anbindung pytesseract sind folgende Befehle notwendig. \cite{PYTES, PYTES2, PYTES3}
 
 \begin{lstlisting}[caption={pytesseract-Installation}, language=bash]
 apt-get install python3
@@ -106,7 +109,6 @@ apt-get install python3-pip
 pip3 install pytesseract
 apt-get install python3-pil
 \end{lstlisting}
-\cite{PYTES} \cite{PYTES2} \cite{PYTES3}
 
 Mit einem Testscript in Python kann die optische Zeichenanalyse ausgeführt werden.
 
@@ -117,9 +119,9 @@ print (pytesseract.image_to_string(Image.open('test3.jpg')))
 \end{lstlisting}
 
 \paragraph{Implementierung des OCR-Moduls}
-Um Bilder hochladen zu können und eine Bild-zu-Text-Analyse zu ermöglichen, wurde ein OCR-Modul implementiert. Die Idee dahinter ist, dass die Benutzer unserer Hefte möglichst einfach Bilder auswählen und einer Zeichenanalyse (OCR) unterziehen können. Dabei werden prinzipiell die Dateiformate .jpeg .png und .gif akzeptiert.
+Um Bilder hochladen zu können und eine Bild-zu-Text-Analyse zu ermöglichen, wurde ein OCR-Modul implementiert. Die Idee dahinter ist, dass die Benutzer möglichst einfach Bilder auswählen und einer Zeichenanalyse (OCR) unterziehen können. Die Größe der Bilddateien ist mit fünf Megabyte begrenzt. Dabei werden prinzipiell die Dateiformate .jpeg .png und .gif akzeptiert.
 
-Bei der optischen Zeichenanalyse (OCR) wird der am Bild vorhandene Text durch eine OCR-Engine analysiert und in ein Textformat umgewandelt. Für unsere Lösung wurde das python-Framework pytesseract mit der OCR-Engine tesseract benutzt.
+Bei der optischen Zeichenanalyse (OCR) wird der am Bild vorhandene Text durch eine OCR-Engine analysiert und in ein Textformat umgewandelt. Für die Lösung wurde das python-Framework pytesseract mit der OCR-Engine tesseract benutzt.
 
 Um ein Bild zu analysieren, klickt der User zunächst auf folgenden Button im Heft:
 
@@ -129,15 +131,15 @@ Darauf öffnet sich ein Dialog mit einem Dateieingabefeld:
 
 \insertpicture{images/ocr/di.png}{OCR-Dialog}{(selfmade)}{itm:di}{0.8}
 
-Nachdem auf den Button ,,Analysieren" geklickt wurde, wird das Bild auf den Server geladen und mittels OCR analysiert. Das Ergebnis dabei ist ein neu erstelltes Textelement im Heft mit dem textuellen Inhalt des angegebenen Bildes.
+Nachdem auf den Button ,,Analysieren" geklickt wurde, wird das Bild auf den Server geladen und mittels OCR analysiert. Das Ergebnis ist ein neu erstelltes Textelement im Heft mit dem textuellen Inhalt des angegebenen Bildes.
 
-Wie schon erwähnt, erscheint bei Klick auf den OCR-Button ein Dialog, in welchem die zu analysierende Bilddatei angeben werden kann. Bei Klick auf den Button ,,Analysieren" wird folgende Subroutine aufgerufen:
+Bei Klick auf den Button ,,Analysieren" wird folgende Subroutine aufgerufen:
 
 \begin{lstlisting}[caption={Upload OCR-File}, language=Python]
 $scope.uploadOCRFile = function(){
         var file = $scope.ocrFile;
         if((file.type == "image/jpeg" || file.type == "image/png" ||
-        	file.type == "image/gif") && file.size < 5242880) {
+        	file.type == "image/gif") && file.size < maxFileSize) {
             $scope.errormessage = "";
             var uploadUrl = "/api/analyseOCR";
             var message = fileUpload.uploadFileToUrl(file, uploadUrl);
@@ -154,7 +156,7 @@ $scope.uploadOCRFile = function(){
                 scope: $scope
             });
         }else{
-            if(file.size > 5242880) {
+            if(file.size > maxFileSize) {
                 $scope.errormessage = "file size is more than 5MB";
             }else{
                 $scope.errormessage = "filetyp is not supported";
