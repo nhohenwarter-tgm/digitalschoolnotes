@@ -4,11 +4,15 @@
 Usermanagement steht für das Erzeugen, Verwalten und Löschen von Benutzerkonten. Es soll dazu dienen, jeden registrierten User eindeutig zu identifizieren und zu kontrollieren, z.B. ob die monatliche Rate für den Pro-Account überwiesen wurde. Außerdem soll die bereits in Anspruch genommene Speicherkapazität überwacht werden. Dazu ist es notwendig, dass jeder DSN-User, durch eine Kombination von Daten, differenzierbar ist.
 \subsubsection{Authentisierung}
 Im Falle von DSN muss eine eindeutige Email-Adresse verwendet werden. Es soll Gewissheit darüber geben, von wem die Information stammt. Dadurch kann jedes Handeln jemandem zugewiesen werden. Falls die vorgegebenen Richtlinien nicht eingehalten werden, kann DSN sofort reagieren.
+
 \paragraph{Registrierung}
 Neben den Personaldaten und der Email-Adresse ist ein weiterer Identitätspunkt das geheime Passwort. Aus Sicherheitsgründen muss es mindestens acht Zeichen beinhalten, wodurch Cyberkriminellen das Knacken von Passwörtern erschwert wird. Zum Abschluss der Registrierung müssen noch die Nutzungsbedingungen akzeptiert werden.
 
+\newpage
+
 \begin{lstlisting}[caption={Session Timeout}, language=Python]
-try:# speichert die Registrierungs daten in das Formular
+try:
+	# Speichert die Registrierungsdaten in das Formular
 	form = RegistrationForm()
 	form.accepted = params['accept']
 	form.email = params['email']
@@ -19,9 +23,13 @@ try:# speichert die Registrierungs daten in das Formular
 except KeyError:
 	print("----Someone broke the Registration!!!!---")
 # Validierung der Benutzereingaben
-val = validate_registration(form.email, form.password, form.password_repeat, params['recaptcha'],get_ip(request))
-if val is True:# der User wird in die Datenbank gespeichert und bekommt anschliessend eine Bestaetigungsmail
-	User.create_user(email=params['email'], password=params['password'], first_name=params['firstname'], last_name=params['lastname'])
+val = validate_registration(form.email, form.password, form.password_repeat, 
+	params['recaptcha'],get_ip(request))
+if val is True:
+	# der User wird in die Datenbank gespeichert und bekommt 
+	# anschliessend eine Bestaetigungsmail
+	User.create_user(email=params['email'], password=params['password'], 
+		first_name=params['firstname'], last_name=params['lastname'])
 	link = create_validation_token(params['email'])
 	validationmail(params['email'], params['firstname'], link)
 \end{lstlisting}
@@ -29,9 +37,9 @@ if val is True:# der User wird in die Datenbank gespeichert und bekommt anschlie
 \textit{,,Allgemeine Geschäftsbedingungen (AGB) sind vertragliche Klauseln, die zur Standardisierung und Konkretisierung von Massenverträgen dienen. Sie werden von einer Vertragspartei einseitig gestellt und bedürfen daher einer bes. Kontrolle, um ihren Missbrauch zu verhindern.''}\cite{AGB}\\
 \cite{VERTEILTE_SYSTEME,PASSWORT_SCHUTZ}
 
-\insertpicture{images/usermanagement/Registrierung}{Registrierung bei DSN}{(selfmade)}{itm:authentisierung-chart}{0.35}
-
 \newpage
+
+\insertpicture{images/usermanagement/Registrierung}{Registrierung bei DSN}{(selfmade)}{itm:authentisierung-chart}{0.35}
 
 Ein \gls{CAPTCHA} soll bei der Registrierung verhindern, dass eine Software oder ein Roboter ein Konto erzeugt. Generell dient es der Sicherheit und hat die Aufgabe, jede Eingabe auf ihre Herkunft zu prüfen. Um ein Captcha anzuzeigen, ist die Einbindung einer JavaScript Library notwendig. \cite{CAPTCHA}
 \begin{lstlisting}[caption={Einbindung der JS-Library Recaptcha}, language=HTML]
@@ -44,8 +52,6 @@ angular-recaptcha.min.js"></script>
 Bei jeder Registrierung generiert sich das Captcha neu, dadurch kann es nur einmal eingelöst werden.
 
 \insertpicture{images/usermanagement/Captcha}{Lösen des Captchas}{(selfmade)}{itm:captcha-chart}{0.35}
-
-\newpage
 
 \paragraph{Datenbank}
 Nach der Authentisierung wird der zukünftige Benutzer, nach dem im Kapitel 5.3.2.1 beschriebenen Datenmodell, in die Datenbank persistiert. Der Registierungsprozess ist erst nach Einlösen des Validierungstokens abgeschlossen. Bis dahin ist es dem Benutzer nicht möglich, sich auf DSN anzumelden.
@@ -73,6 +79,8 @@ Beim Anmelden wird kontrolliert, ob die angegebene Email-Adresse in der Datenban
 Surft ein Benutzer auf unserer Seite, arbeitet im Hintergrund ein Session Timeout, welches die Aktivität des eingeloggten Benutzers überprüft.\\
 Im Falle einer Inaktivität von einer Stunde, wird der Anwender automatisch abgemeldet und zur Anmeldeseite zurückgeleitet. Es dient als Vorbeugemaßnahme und kontrolliert unauthorisierte Aktivitäten.
 
+\newpage
+
 \begin{lstlisting}[caption={Session Timeout}, language=Python]
 try:
     user = User.objects.get(email='exampleATexample.com')
@@ -83,7 +91,8 @@ if user is not None and user.check_password('myPassword'):
     login(request, user)
     request.session.set_expiry(60 * 60 * 1) # 1 hour timeout
 \end{lstlisting}
-\newpage 
+
+\newpage
 
 \subsubsection{Userbereich}
 

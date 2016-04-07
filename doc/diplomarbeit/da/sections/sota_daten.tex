@@ -43,6 +43,8 @@ Um einen Vergleich zwischen relationalen Datenbanken und NoSQL Datenbanken aufst
 
 Im Folgenden wird genauer auf jede der aufgezählten Datenbanken eingegangen, um einen Vergleich aufstellen zu können. Dabei wird der Aufwand der Installation und Konfiguration, sowie die Einfachheit der grundlegenden Operationen genauer betrachtet.
 
+\newpage
+
 \paragraph{MySQL}
 \label{subsubsec:mysql}
 MySQL ist eine Open-Source Datenbank von Oracle. Sie verspricht vor allem Einfachheit in der Anwendung.\cite{ABOUTMYSQL}
@@ -52,8 +54,6 @@ Die Installation von MySQL ist sehr einfach und schnell erledigt. Die Datenbank 
 sudo apt-get install mysql-server mysql-client
 sudo mysqladmin -u root -h localhost password 'mypassword'
 \end{lstlisting}
-
-\newpage
 
 Bei der Konfiguration von MySQL muss zunächst ein neuer Benutzer erstellt und anschließend die entsprechenden Rechte gesetzt werden:
 \begin{lstlisting}[caption=Konfiguration von MySQL \cite{ADDUSERMYSQL}, language=SQL, escapeinside={(*}{*)}]
@@ -75,10 +75,12 @@ Nach der Installation und Konfiguration können weitere Operationen ausgeführt 
 \textbf{Operation} & \multicolumn{1}{c|}{\textbf{Befehl}}                            \\ \hline
 Einfügen           & INSERT INTO test VALUES ("Xandra Mcknight");                    \\ \hline
 Auslesen           & SELECT * FROM test;                                             \\ \hline
-Bearbeiten         & UPDATE test SET name='Peter Test' WHERE name='Xandra Mcknight'; \\ \hline
+Bearbeiten         & \begin{tabular}[c]{@{}l@{}}UPDATE test SET name='Peter Test' WHERE \\name='Xandra Mcknight';\end{tabular} \\ \hline
 Löschen            & DELETE FROM test WHERE name='Xandra Mcknight';                  \\ \hline
 \end{tabular}
 \end{table}
+
+\newpage
 
 \paragraph{PostgreSQL}
 PostgreSQL ist eine Open-Source Datenbank. Sie verspricht vor allem eine hohe Zuverlässigkeit und Datenintegrität.\cite{ABOUTPOSTGRES}
@@ -87,8 +89,6 @@ Die Installation von PostgreSQL ist sehr einfach. Sie verläuft sehr schnell und
 \begin{lstlisting}[caption=Installation von PostgreSQL \cite{POSTGRES}, language=bash]
 apt-get install postgresql postgresql-client
 \end{lstlisting}
-
-\newpage
 
 Bei der Konfiguration von PostgreSQL muss ein neuer Benutzer erstellt und anschließend die entsprechenden Rechte gesetzt werden:
 \begin{lstlisting}[caption=Konfiguration von PostgreSQL \cite{POSTGRES}, language=SQL]
@@ -106,20 +106,21 @@ psql -d mypgdatabase -U mypguser
 
 Nach der Installation und Konfiguration können weitere Operationen ausgeführt werden (siehe Kapitel \ref{subsubsec:mysql}).
 
+\newpage
+
 \paragraph{MongoDB}
 MongoDB ist eine dokumentenbasierte Open-Source NoSQL Datenbank. Sie verspricht vor allem eine hohe Flexibilität, Skalierbarkeit und Performance. \cite{ABOUTMONGODB}
 
 Die Installation von MongoDB verläuft folgendermaßen:
 \begin{lstlisting}[caption=Installation von MongoDB \cite{MONGODBINSTALL}, language=bash]
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10
-echo "deb http://repo.mongodb.org/apt/debian wheezy/mongodb-org/3.0 main" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
+echo "deb http://repo.mongodb.org/apt/debian wheezy/mongodb-org/3.0 main" 
+| sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
 sudo apt-get update
 sudo apt-get install -y mongodb-org
 sudo service mongod start
 \end{lstlisting}
 Eine weitere Konfiguration ist nicht notwendig.
-
-\newpage
 
 Nach der Installation kann am Server über den Befehl \textit{mongo}  die MongoDB-Konsole aufgerufen werden, um weitere Operationen ausführen zu können.
 
@@ -136,12 +137,15 @@ Löschen            & db.test.remove(\{"name": "Test"\}) \\ \hline
 \end{tabular}
 \end{table}
 
+\newpage
+
 \paragraph{Couchbase}
 Couchbase ist eine Open-Source NoSQL Datenbank. Sie verspricht vor allem eine hohe Skalierbarkeit.\cite{ABOUTCOUCHBASE}
 
 Couchbase kann über ein externes .deb Paket installiert werden. Dazu werden folgende Befehle benötigt:
 \begin{lstlisting}[caption=Installation von Couchbase \cite{COUCHBASEINSTALL}, language=bash]
-wget http://packages.couchbase.com/releases/4.0.0-rc0/couchbase- server-community_4.0.0-rc0-ubuntu14.04_amd64.deb
+wget http://packages.couchbase.com/releases/4.0.0-rc0/
+couchbase-server-community_4.0.0-rc0-ubuntu14.04_amd64.deb
 dpkg -i couchbase-server-community_4.0.0-rc0-ubuntu14.04_amd64.deb
 \end{lstlisting}
 
@@ -151,8 +155,6 @@ if [ -d "/opt/couchbase/bin" ] ; then
       export PATH="/opt/couchbase/bin:$PATH" 
 fi
 \end{lstlisting}
-
-\newpage
 
 Nach der Installation und Konfiguration können weitere Operationen ausgeführt werden. \cite{COUCHBASECRUD}
 
@@ -168,6 +170,8 @@ Bearbeiten         & \begin{tabular}[c]{@{}l@{}}cbtransfer FILE http://IP:PORT -
 Löschen            & \begin{tabular}[c]{@{}l@{}}couchbase-cli bucket-delete -c IP:PORT --bucket=NAME \\ -u USERNAME -p PASSWORD\end{tabular} \\ \hline
 \end{tabular}
 \end{table}
+
+\newpage
 
 \paragraph{Fazit}
 Anhand der zuvor genauer betrachteten Datenbanken und deren erstellter Prototypen kann nun eine Entscheidung darüber getroffen werden, welche der Datenbanken bei der Applikation zur Verwendung kommen soll.

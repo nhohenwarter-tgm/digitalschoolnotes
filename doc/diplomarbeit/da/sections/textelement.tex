@@ -36,14 +36,17 @@ Das Textelement wurde wie folgt in das Heft integriert. Dieser Abschnitt wird na
              ng-model="models[element.art][element.id][0]" ckeditor>
 
         </textarea>
-        <span ng-show="models[element.art][element.id][2] == 'red'" class="glyphicon glyphicon-exclamation-sign"
-             ng-style='{"color": models[element.art][element.id][2], "cursor": "pointer"}'>
+        <span ng-show="models[element.art][element.id][2] == 'red'"
+        	class="glyphicon glyphicon-exclamation-sign"
+             ng-style='{"color": models[element.art][element.id][2],
+             	"cursor": "pointer"}'>
 	</span>
         <!-- Read-Only -->
              <div ng-if="editMode != element.id"
                    style="border: 1px solid black; min-height: 20px; 
 			  min-width: 20px; text-align: left; padding:5px;">
-                   <div ng-bind-html="models[element.art][element.id][0]" style="word-wrap: break-word; ">
+                   <div ng-bind-html="models[element.art][element.id][0]"
+                   		style="word-wrap: break-word; ">
 	           </div>
              </div>
 </span>

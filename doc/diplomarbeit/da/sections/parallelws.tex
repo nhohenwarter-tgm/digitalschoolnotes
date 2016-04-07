@@ -51,12 +51,16 @@ def view_get_is_active(request):
         findnotebook = None
         content = notebook.content
         for item in content:
-            if str(item["id"]) == str(request.POST.get('content_id')) and item["art"] == request.POST.get('content_art'):
+            if str(item["id"]) == str(request.POST.get('content_id')) and
+            		item["art"] == request.POST.get('content_art'):
                 findnotebook = item
                 break
-        return JsonResponse({"active":  findnotebook.is_active, "active_by": findnotebook.is_active_by})
+        return JsonResponse({"active":  findnotebook.is_active, 
+        	"active_by": findnotebook.is_active_by})
 \end{lstlisting}
 Mit dieser Funktion kann das System die aktiven Nutzer herausfiltern und anschließend die Daten weiter verwenden, um die Aktualisierung und Synchronisation zu steuern. Diese Daten befinden sich in einem Log in der Datenbank. Dieses Log speichert nur die aktiven Nutzer im Heft, um nachvollziehen zu können wer sich gerade in welchem Heft aufhält.
+
+\newpage
 
 Das Prinzip ist, dass immer nur ein Benutzer des Heftes an einem Element arbeiten kann und in dieser Phase von keinem anderen User irritiert werden kann. Dadurch soll verhindert werden, dass zwei oder mehr Nutzer an einem Element Änderungen vornehmen und dadurch ein Lost-Update verursachen. Durch die Maßnahme, dass nur eine Person ein Element editieren kann sind die Elemente unmittelbar nach der Aktualisierung für alle User aktuell. Dadurch wird dem Lost-Update Problem entgegen gewirkt.\cite{DATENBANKSYSTEME}\\
 Um zu vermeiden, dass ein User ein Element unbegrenzt blockiert, gibt es ein Timeout, welches den Benutzer nach einer bestimmten Zeit vom Element abmeldet, wenn dieser im Element keinen Tastendruck oder Mausklick ausführt. Wenn dieser User vom System abgemeldet wird, ist das Element anschließend wieder für alle User verfügbar.

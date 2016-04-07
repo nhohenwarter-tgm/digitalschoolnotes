@@ -20,6 +20,7 @@
 \usepackage{titlesec}
 \usepackage{multirow}
 \usepackage{afterpage}
+\usepackage[none]{hyphenat}
 
 \clearscrheadfoot
 \pagestyle{scrheadings}
@@ -40,6 +41,9 @@ right  = 3cm]{geometry}
 {\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
 \titlespacing*{\paragraph}
 {0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+%Hyphenation
+\sloppy
 
 %Includes
 \input{preamble}
@@ -209,6 +213,8 @@ Datum: \today \hfill \hfill übernommen von:\rule[-0.2cm]{3cm}{0pt}
 \section{Problembeschreibung}
 \label{sec:problembeschreibung}
 \input{sections/problembeschreibung}
+
+\newpage
 
 \subsection{Umfeldanalyse}
 \label{subsec:umfeldanalyse}
@@ -396,7 +402,7 @@ Datum: \today \hfill \hfill übernommen von:\rule[-0.2cm]{3cm}{0pt}
 \label{subsec:zeitaufzeichnung}
 \begingroup
 \renewcommand{\section}[2]{}
-Die Aufzeichnung der Arbeitszeit wurde online in einem Google-Spreadsheet durchgeführt. Jedes Teammitglied war selbst für das Eintragen seiner Arbeitszeit verantwortlich. Die folgende Tabelle zeigt die Summe der Arbeitsstunden pro Teammitglied. Das komplette Spreadsheet kann unter https://goo.gl/SuY1RF gefunden werden.
+Die Aufzeichnung der Arbeitszeit wurde online in einem Google-Spreadsheet durchgeführt. Jedes Teammitglied war selbst für das Eintragen seiner Arbeitszeit verantwortlich. Die folgende Tabelle zeigt die Summe der Arbeitsstunden pro Teammitglied. Das komplette Spreadsheet kann unter \textit{https://goo.gl/SuY1RF} eingesehen werden.
 \begin{table}[htb]
 \centering
 \def\arraystretch{1.3}

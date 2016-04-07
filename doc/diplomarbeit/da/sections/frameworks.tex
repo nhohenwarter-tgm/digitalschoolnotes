@@ -67,8 +67,10 @@ Wird der Server mit dem Befehl \textit{python manage.py runserver} gestartet, er
 \paragraph{Play}
 Play, ein leichtgewichtiges Web Framework basierend auf Java und Scala, steht für den kommerziellen Gebrauch kostenlos zur Verfügung. Allerdings ist die herstellerspezifische Dokumentation nicht besonders ausführlich.\\
 Die Installation gestaltete sich im Vergleich zu anderen Web Frameworks zeitaufwendiger. \cite{PLAY}
-\\
-Um Play zu installieren muss das Framework zunächst von\\
+
+\newpage
+
+Um Play zu installieren muss das Framework zunächst von
 \textit{https://www.playframework.com/download} heruntergeladen werden. Das downgeloadete zip-File muss entpackt und der darin enthaltene Activator zum PATH hinzugefügt werden. Danach wird der Activator mit folgendem Befehl gestartet\cite{PLAYCON}:
 \begin{lstlisting}[caption={Konifiguration von Play \cite{PLAYCON}}, language=bash]
 activator ui
@@ -88,6 +90,8 @@ Zu guter Letzt wird der Prototyp mit dem Befehl \textit{activator run} im Projek
 \paragraph{Vergleich}
 Das Team hatte im Vorfeld mit der Programmierung von Web Frameworks noch keine Erfahrungswerte. \\
 Aufgrund der leicht verständlichen Dokumentation, der zahlreichen Funktionialitäten wie Authentifikation, REST API, sowie der gut vernetzten Community und hat sich Django klar herauskristallisiert. Als wichtige Entscheidungshilfe galten die erstellten Prototypen. Die schnelle, einfache Entwicklung, sowie die Installation und Konfiguration des Frameworks, hinterließ beim Team einen guten Eindruck.
+
+\newpage
 
 \subsubsection{JS-Frameworks}
 JavaScript-Frameworks werden verwendet, um Benutzereingaben entgegenzunehmen, diese Daten zu validieren und zu verarbeiten und am Ende das Ergebnis zu retounieren.\\
@@ -134,6 +138,8 @@ Als OpenSource Framework ist dem Entwickler die freie Nutzung und Veränderung d
 
 Für die Verwendung des Frameworks wird der HTML-Code um AngularJS-Attribute erweitert. Dadurch besteht eine strikte HTML und JS Trennung, welches die Lesbarkeit, Übersichtlichkeit und Testbarkeit des Codes verbessert. \cite{ANGULARJS}
 
+\newpage
+
 Um AngularJS in der Praxis einsetzen zu können, muss die JS-Bibliothek im Header inkludiert werden: 
 \begin{lstlisting}[caption={AngularJS einbinden\cite{ANGULARJSDOWN}}, language=HTML]
 <script 
@@ -154,12 +160,12 @@ cd ~/my_cool_app
 meteor
 \end{lstlisting}
 
-\textit{meteor create} erstellt ein neues Meteor Projekt. Durch die Angabe von \textit{$\sim$/my\_cool\_app} wird ein default Projekt erstellt, das gleichzeitig als Prototyp genutzt werden kann. Bei diesem Prototypen handelt es sich um einen Klickzähler, der bei jedem Klick die Variable um 1 erhöht und anschließend ausgibt.
+\textit{meteor create} erstellt ein neues Meteor Projekt. Durch die Angabe von \textit{$\sim$/my\_cool\_app} wird ein default Projekt erstellt, das gleichzeitig als Prototyp genutzt werden kann. Bei diesem Prototypen handelt es sich um einen Klickzähler, der bei jedem Klick die Variable um eins erhöht und anschließend ausgibt.
+
+\newpage
 
 \paragraph{Vergleich}
 Wichtig für das DSN Team ist es, die Kosten so gering wie möglich zu halten, sowie das Vorhandensein einer ausführlichen Dokumentation. Zum besseren Verständnis mit Beispielen untermauert. Das Team entschied sich für AngularJS und jQuery, weil es neben den oben genannten Forderungen viele Funktionalitäten anbietet und mit dem Web Framework Django harmoniert.
-
-\newpage
 
 \subsubsection{CSS-Frameworks}
 Nicht nur das Backend spielt im System eine wichtige Rolle, sondern auch Design und Gestaltung einer Website. CSS-Frameworks bieten dafür die entsprechenden responsive Umsetzungsstrategien an. Sie sprechen User an, denen Klarheit und Übersichtlichkeit wichtig ist, interagieren mit dem Anwender und animieren ihn, das System zu verwenden. \\
@@ -190,7 +196,8 @@ Der Unterschied zu anderen CSS-Frameworks, wie Bootstrap oder Yaml, ist, dass es
 
 Für die Verwendung von Pure muss hauptsächlich der Link zu dem CSS File im Header des HTML-Files eingefügt werden. \cite{PURE}
 \begin{lstlisting}[caption={Pure einbinden \cite{PURE}}, language=HTML]
-<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+<link rel="stylesheet" 
+href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
 \end{lstlisting}
 
 Der Prototyp, ein Anmeldeformular, konnte durch das gut beschriebene Tutorial, sehr schnell und leicht nachgebildet werden.
@@ -198,11 +205,14 @@ Der Prototyp, ein Anmeldeformular, konnte durch das gut beschriebene Tutorial, s
 \paragraph{Bootstrap}
 Das frei verfügbare CSS-Framework Bootstrap von Twitter unterstützt allgemeine Gestaltungselemente, die ein flexibles Responsive Design ermöglichen. Dem Entwickler steht es frei, welche Komponenten er verwenden möchte. Bootstrap passt sich dynamisch an den Bildschirm an. Es ist plattformunabhängig und bietet eine sehr genaue Dokumentation mit Navigationsbalken.
 
+\newpage
+
 Für den Einsatz muss Bootstrap von der offiziellen Seite \textit{http://getbootstrap.com} heruntergeladen werden. Die Installation bezieht sich lediglich auf das Einbinden der bereitgestellten Dateien in das eigene Projekt. Bootstrap wird als ein ZIP-Archiv bereitgestellt. In diesem befindet sich eine CSS-Datei und eine Javascript Datei. Die beiden Dateien müssen anschließend in den \textit{$<$head$>$} der Webseite eingebunden werden. \cite{BOOTSTRAP}
 \begin{lstlisting}[caption={Bootstrap einbinden \cite{BOOTSTRAP}}, language=HTML]
 <link rel="stylesheet"
 href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js">
+<script 
+src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js">
 </script>
 \end{lstlisting}
 
@@ -213,17 +223,19 @@ Aufgrund der erstellten Prototypen und der ausführlichen Dokumentation, fiel di
 In diesem Kapitel werden alle notwendigen Elemente dargestellt, die in den Schulheften der Anwender zur Verfügung stehen. Sie bieten dem Anwender die Möglichkeit Inhalte in das Heft einzufügen. Damit gemeint sind, das Codeelement und Textelement. Mithilfe des Textelements können Notizen, mit dem Codeelement Programmausschnitte, als digitale Mitschrift ins Schulheft eingetragen werden.\\
 Dem DSN-Team ist es wichtig, dass sich die Elemente den Anforderungen entsprechend anpassen können.
 
+\newpage
+
 \paragraph{CKEditor}
 Der CKEditor von CKSource ist ein Texteditor, der sich in Websites einbinden und verwenden lässt. Als vorteilhaft erweist sich die Kompatibilität mit den meistverwendeten Webbrowsern. Durch dieses Framework ist es möglich, einen Textblock zu erstellen und diesen individuell zu bearbeiten.
 
 Außerdem ist es möglich, seinen CKEditor an die eigenen Bedürfnisse anzupassen.\cite{CKEDITOR}
 
-\insertpicture{images/framework/CKEditor}{CKEditor}{\cite{CKEDITOR}}{itm:ckeditor-chart}{0.55}
+\insertpicture{images/framework/CKEditor}{CKEditor}{\cite{CKEDITOR}}{itm:ckeditor-chart}{0.5}
 
 \paragraph{Markdown}
 Die Vue.js Library bietet eine Reihe an Webinterfaces an, wie den Texteditor Markdown. Da es sich hierbei um ein Framework handelt, können bestehende Bespiele einfach in ein Projekt integriert und angepasst werden. Der Prototyp konnte ohne Aufwand umgesetzt werden, jedoch ließ sich der eingebebene Text nicht formartieren. \cite{MARKDOWN}
 
-\insertpicture{images/framework/Markdown}{Markdown}{\cite{MARKDOWN}}{itm:markdown-chart}{0.55}
+\insertpicture{images/framework/Markdown}{Markdown}{\cite{MARKDOWN}}{itm:markdown-chart}{0.5}
 
 \paragraph{CodeMirror}
 CodeMirror ist ein Codeeditor basierend auf JavaScript, welcher dank MIT Lizenz kommerziell genutzt werden darf. CodeMirror wird von Firefox, Chrome, Safari, Edge und Opera unterstützt. Durch die Einbindung von Frameworks ist es möglich, ein Textfeld darzustellen. Dank unterschiedlicher Sprachunterstützungen erkennt das System automatisch die Syntax und hebt diese farbig hervor. Zur besseren Orientierung werden Zeilennummern eingeblendet. \cite{CODEMIRROR}
@@ -239,8 +251,6 @@ Ace ist ein freiverfügbarer, unter BSD veröffentlichter, JavaScript geschriebe
 Die Entscheidung in Bezug auf den geeigneten Texteditor, fiel zugunsten des CKEditor. Dieser entsprach den Projektanfordungen, da er sich an unsere System anpassen ließ. Außerdem bietet er die Möglichkeit den Text nach verschiedenen Verfahren zu formatieren.\\
 Die beiden Codeeditoren, CodeMirror und Ace, waren ziemlich ähnlich in der Funktionsweise. Jedoch nach einem intersiveren prototyping, hat sich CodeMirror, aufgrund der Anpassung an unserem System, herauskristallisiert.
 
-\newpage
-
 \subsubsection{GUI-Testing}
 Um eine Software auf seine einwandfreie Funktion zu testen, wird ein geeignetes GUI-Testing Framework benötigt. Die Aufgabe besteht darin, automatisiert mögliche Benutzerinteraktionen zu kontrollieren und auch grafische Elemente zu überprüfen.\\
 Dem Team ist es ein Anliegen, dass sich das Tool einwandfrei installieren lässt. Des Weiteren soll es sich auf den meisten Browsern ausführen lassen.
@@ -251,8 +261,10 @@ Sahi OS ist ein automatisiertes Open Source Testing Framework. Neben der kostenl
 Die Installation erwies sich als sehr einfach. Auf \textit{http://sahi.sourceforge.net/install.html\#install} gibt es einen Installer zum Download, welcher das Programm auf Port 9999 startet. Obwohl kaum Probleme beim Erstellen der Testfälle mittels GUI Tool und per Script aufgetreten sind, ließ sich der Prototyp nicht ausführen. Die sehr kleine Community konnte uns auch nicht weiterhelfen.
 
 \paragraph{Watir}
-Watir ist ein Testing-Tool basierend auf Ruby. Egal, in welcher Sprache das Projekt geschrieben oder welcher Browser verwendet wird, Watir unterstützt es.\\
+Watir ist ein Testing-Tool basierend auf Ruby. Egal, in welcher Sprache das Projekt geschrieben oder welcher Browser verwendet wird, Watir unterstützt es. \\
 Die Dokumentation war schwierig zu finden und ist außerdem sehr unübersichtlich. \cite{WATIR}
+
+\newpage
 
 Um Watir zu installieren müssen folgende Befehle in der Konsole ausgeführt werden: 
 \begin{lstlisting}[caption={Installation von Watir \cite{WATIRINSTALL}}, language=bash]
@@ -276,6 +288,9 @@ sudo pip install docutils
 \end{lstlisting}
 
 Obwohl die Installationsanleitung korrekt befolgt wurde, konnten bestimmte Libraries nicht gefunden werden. Fazit: die Tests konnten nicht ausgeführt werden. 
+
+\newpage
+
 \paragraph{Selenium}
 Eines der bekanntesten freien Testing Frameworks ist Selenium. Selenium unterstützt die meisten Browser und besitzt eine große Community. Die Testfälle können auf allen gängigen Programmiersprachen erzeugt werden.
 

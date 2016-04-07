@@ -46,3 +46,6 @@ Um weiteren Nutzerkomfort zu schaffen, müsste das Prinzip, dass nur ein Nutzer 
 \cfoot{}
 \subsection{OCR-Modul Optimierung}
 Eine Optimierung des OCR-Moduls hinsichtlich Erkennungsgenauigkeit und Handschrifterkennung wurde angedacht. In Zukunft könnte man das OCR-Modul durch entsprechendes (automatisiertes) Training in dieser Hinsicht weiterentwickeln. Eine höhere Fehlertoleranz bei Bildern mit schlechter Qualität ist ebenso wünschenswert.
+
+\subsection{Verbesserung der Datenbank-Schnittstelle}
+Um den Zugriff auf Daten zu vereinfachen, wäre eine Verbesserung der Datenbank-Schnittstelle sinnvoll. Dafür könnten Interfaces definiert werden, die einen einheitlichen Zugriff auf Daten ermöglichen würden. Innerhalb der Applikation würde dann nicht mehr auf Methoden des Connectors MongoEngine zugegriffen werden, sondern nur mehr auf die eigens definierte Schnittstelle. Das hätte den Vorteil, dass ein einfacherer und einheitlicherer Zugriff auf die Daten in der Datenbank erfolgen würde und zudem auch die Datenbank bei eventuellen zukünftigen Umstrukturierungen einfacher ausgetauscht werden könnte. Bei so einem Austausch müssten dann nur die Methodenaufrufe in den entsprechenden Interfaces verändert werden. In der restlichen Applikation würden die Methodenaufrufe unverändert bleiben. Dadurch würde eine deutliche Verbesserung erzielt werden.

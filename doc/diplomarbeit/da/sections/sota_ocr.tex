@@ -31,6 +31,8 @@ Bei diesem Vergleich wird das spezifische Pixelmuster des gescannten Zeichens na
 
 Um diesen Problemen aus dem Weg zu gehen, versucht man mit Hilfsmitteln, sogenannten Normierungsverfahren, die Konturen der Zeichen zu begradigen. So könnten Zeichen, die auch geringe Abweichungen zu den Musterzeichen aufweisen, erkannt werden. Die erzielte Genauigkeit beim Erkennen der Zeichen ist ein wesentlicher Faktor zur Beurteilung der verschiedenen Verfahren. Beim Bitmustervergleich ist die Erkennungsgenauigkeit einfach zu niedrig. Aufgrund dieser Tatsache hat sich das Verfahren auch nicht durchsetzen können. Ein Bitmustervergleich ist nur dann vorteilhaft, wenn die Vorlagen eine sehr gute Qualität haben und wenige Schriftarten benutzt wurden. Unter diesen Voraussetzungen ist ein Bitmustervergleich meist schneller als die anderen Methoden. \cite{OCRB,OCRP}
 
+\newpage
+
 \textbf{Klassifikation}\\
 Bei der Klassifikation handelt es sich um ein komplexeres, aber auch flexibleres Verfahren. Die Zeichen werden hier anhand sogenannter Klassen analysiert. Es werden nicht alle Pixel der Zeichen, sondern nur spezifische Merkmale untersucht, die wiederum in einzelne Klassen unterteilt werden. Die Entwickler des Verfahrens können bestimmen, nach welchen Klassen unterteilt wird und wie viele Klassen es überhaupt gibt. \cite{OCRB}
 
@@ -39,6 +41,8 @@ Bei der Klassifikation handelt es sich um ein komplexeres, aber auch flexibleres
 In einem Klassenbaum werden die Zeichen systematisch anhand ihrer Merkmale in Klassen unterteilt. Innerhalb der Klassen muss dann wieder eine weitere Klassifikation stattfinden, um am Ende des Prozesses ein eindeutiges Zeichen zuzuordnen. Es kann auch durchaus vorkommen, dass verschiedene Zeichen in mehreren Klassen vorkommen. Typische Kriterien für die Klassenbildung sind zum Beispiel die Anzahl der Zyklen, die Anzahl der Teile und die Eindringtiefe (Größe der Zeichen). \cite{OCRB}
 
 Diese Merkmalsanalyse liefert zu jedem Zeichen einen Merkmalsvektor mit entsprechenden Merkmalseinträgen. Den Merkmalen werden also konkrete Werte, die diese Merkmale beschreiben, zugeordnet. Sobald ein solcher Vektor mit den Merkmalen eines schon bekannten Zeichens übereinstimmt, kann das Zeichen identifiziert werden. \cite{OCRB}
+
+\newpage
 
 Durch diese Umstände reagiert dieses Verfahren viel flexibler auf verschiedene Schriftarten. Nur bei sehr starken Abweichungen der Merkmale kann es zu Schwierigkeiten bei der Analyse kommen. Die Auswahl der richtigen Klassenmerkmale und der Anzahl der nötigen Klassen ist entscheidend für dieses Verfahren. Bei zu starken Unterschieden im Schriftbild kann es jedoch zur Überforderung dieser Methode kommen. \cite{OCRB}
 

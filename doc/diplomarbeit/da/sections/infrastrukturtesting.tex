@@ -118,6 +118,8 @@ sudo apt-get install iptables-persistent
 iptables-save > /etc/iptables/rules.v4
 \end{lstlisting}
 
+\newpage
+
 Einige Angriffe können mit dieser Firewallkonfiguration nicht abgewährt werden. Um komplexe Angriffe abzuwehren wird eine permormantere dedizierte Hardware-Firewall mit strengeren Filterregeln benötigt. Normalerweise werden auch Standardports wie zum Beispiel Port 22 für SSH geändert um das automatisierte Angreifen zu erschweren. Diese Maßnahme konnte aufgrund der Schulfirewall leider nicht durchgeführt werden.
 
 \paragraph{Bruteforce Prevention}
@@ -132,6 +134,8 @@ filter   = sshd
 logpath  = /var/log/auth.log
 maxretry = 6
 \end{lstlisting}
+
+\newpage
 
 \paragraph{Webserver}
 \label{websrv}

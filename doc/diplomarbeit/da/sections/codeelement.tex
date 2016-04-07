@@ -35,24 +35,17 @@ Bei Klick auf den Code-Button wird die Methode \textit{codeElementCreate()} ausg
 
 \begin{lstlisting}[caption={Code-Element Persistierung}, language=Javascript]
 $scope.addCodeElement = function(){
-
     if(!$scope.wf) {
-
-        data = "{\"data\":\"\", \"language\":\"" + $scope.codeLanguage + "\"}";
+        data = "{\"data\":\"\", \"language\":\""+$scope.codeLanguage+"\"}";
         console.log(data);
-
         $scope.addelement('code', data);
-
     }else{
-
         $scope.wf = false;
-
-        single_object = $filter('filter')($scope.content, function (d) {return d.id === $scope.cid;})[0];
-
-        data = "{\"data\":\""+single_object['data']['data']+"\", \"language\":\"" + $scope.codeLanguage + "\"}";
-
+        single_object = $filter('filter')($scope.content, function (d) 
+        	{return d.id === $scope.cid;})[0];
+        data = "{\"data\":\""+single_object['data']['data']+"\",
+        		 \"language\":\"" + $scope.codeLanguage + "\"}";
         $scope.editelement($scope.cid, 'code',data);
-
     }
 }
 \end{lstlisting}
