@@ -78,6 +78,7 @@ Auslesen           & SELECT * FROM test;                                        
 Bearbeiten         & \begin{tabular}[c]{@{}l@{}}UPDATE test SET name='Peter Test' WHERE \\name='Xandra Mcknight';\end{tabular} \\ \hline
 Löschen            & DELETE FROM test WHERE name='Xandra Mcknight';                  \\ \hline
 \end{tabular}
+\caption{CRUD-Operationen in MySQL}
 \end{table}
 
 \newpage
@@ -135,6 +136,7 @@ Auslesen           & db.test.find(\{"name": "Test"\}) \\ \hline
 Bearbeiten         & db.test.update(\{"name": "Test"\},\{\$set:\{"name": "Test2"\}\}) \\ \hline
 Löschen            & db.test.remove(\{"name": "Test"\}) \\ \hline
 \end{tabular}
+\caption{CRUD-Operationen in MongoDB}
 \end{table}
 
 \newpage
@@ -169,6 +171,7 @@ Auslesen           & \begin{tabular}[c]{@{}l@{}}cbtransfer http://IP:PORT csv:FI
 Bearbeiten         & \begin{tabular}[c]{@{}l@{}}cbtransfer FILE http://IP:PORT -B TARGET\_BUCKET \\ --destination-operation=add/set -u USERNAME -p PASSWORD\end{tabular} \\ \hline
 Löschen            & \begin{tabular}[c]{@{}l@{}}couchbase-cli bucket-delete -c IP:PORT --bucket=NAME \\ -u USERNAME -p PASSWORD\end{tabular} \\ \hline
 \end{tabular}
+\caption{CRUD-Operationen in Couchbase}
 \end{table}
 
 \newpage
