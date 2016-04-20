@@ -6,7 +6,7 @@
 \usepackage{graphicx}
 \usepackage[colorinlistoftodos]{todonotes}
 \usepackage{listings}
-\usepackage{glossaries}
+\usepackage[section=subsection]{glossaries}
 \usepackage{placeins}
 \usepackage{fixltx2e}
 \usepackage{pdfpages}
@@ -56,7 +56,6 @@ plainheadsepline]{scrpage2}
 
 
 \begin{document}
-\afterpage{\blankpage}
 
 \begin{titlepage}
 \begin{center}
@@ -382,11 +381,11 @@ Ich erkläre an Eides statt, dass ich die vorliegende Diplomarbeit selbstständi
 \section*{Anhang}
 \label{sec:anhang}
 
-\subsection*{Glossar}
-\label{subsec:glossar}
+%\subsection*{Glossar}
+%\label{subsec:glossar}
 \begingroup
 \renewcommand{\chapter}[2]{}
-\printglossary[style=tree]
+\printglossary[style=tree,title=Glossar]
 \endgroup
 \newpage
 
