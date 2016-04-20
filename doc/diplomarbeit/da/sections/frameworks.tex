@@ -13,6 +13,8 @@ Für unser System benötigen wir:
 \item \textbf{GUI-Testing} um zu garantieren, dass die Funktionen reibungslos laufen
 \end{itemize}
 
+\newpage
+
 \subsubsection{Web Frameworks}
 Web Frameworks haben das Ziel, dem Entwickler einer Webanwendung mit Hilfe von vordefinierten Klassen zu unterstützen. Sie sorgen dafür, dass eine Verbindung mit der Datenbank aufgebaut wird, Inhalte dynamisch angezeigt werden und ein Anmeldesystem zur Verfügung steht.\\
 Web Frameworks teilen das Projekt in zwei Teile, dem Backend und Frontend.\\
@@ -27,6 +29,8 @@ Die Installation von Flask ist ziemlich simpel. Es kann mit folgendem Befehl ins
 \begin{lstlisting}[caption={Installation von Flask \cite{FLASK}}, language=bash]
 pip3 install Flask
 \end{lstlisting}
+
+\newpage
 
 Für ein einfaches ,,Hello World''-Programm, geschrieben in Flask, braucht es eine Funktion, die die Nachricht ,,Hello World'' ausgibt und eine Main-Methode, welche die Applikation startet.
 
@@ -53,6 +57,8 @@ Installiert wurde das Web Framework folgenderweise:
 apt-get install python3-django
 \end{lstlisting}
 
+\newpage
+
 Zur Erstellung eines ,,Hello-World''-Programmes muss zu Beginn ein Projekt erzeugt werden. Im nächsten Schritt ist die Datenbank entsprechend der Project-Settings zu konfigurieren. Anschließend wird im Unterordner \textit{app} ein neues File ,,hello.py'' mit folgenden Code erstellt:
 
 \begin{lstlisting}[caption={Django Hello-World \cite{DJANGOCODE}}, language=Python]
@@ -68,11 +74,9 @@ Wird der Server mit dem Befehl \textit{python manage.py runserver} gestartet, er
 Play, ein leichtgewichtiges Web Framework basierend auf Java und Scala, steht für den kommerziellen Gebrauch kostenlos zur Verfügung. Allerdings ist die herstellerspezifische Dokumentation nicht besonders ausführlich.\\
 Die Installation gestaltete sich im Vergleich zu anderen Web Frameworks zeitaufwendiger. \cite{PLAY}
 
-\newpage
-
 Um Play zu installieren muss das Framework zunächst von
 \textit{https://www.playframework.com/download} heruntergeladen werden. Das downgeloadete zip-File muss entpackt und der darin enthaltene Activator zum PATH hinzugefügt werden. Danach wird der Activator mit folgendem Befehl gestartet\cite{PLAYCON}:
-\begin{lstlisting}[caption={Konifiguration von Play \cite{PLAYCON}}, language=bash]
+\begin{lstlisting}[caption={Konfiguration von Play \cite{PLAYCON}}, language=bash]
 activator ui
 \end{lstlisting}
 
@@ -90,8 +94,6 @@ Zu guter Letzt wird der Prototyp mit dem Befehl \textit{activator run} im Projek
 \paragraph{Vergleich}
 Das Team hatte im Vorfeld mit der Programmierung von Web Frameworks noch keine Erfahrungswerte. \\
 Aufgrund der leicht verständlichen Dokumentation, der zahlreichen Funktionialitäten wie Authentifikation, REST API, sowie der gut vernetzten Community und hat sich Django klar herauskristallisiert. Als wichtige Entscheidungshilfe galten die erstellten Prototypen. Die schnelle, einfache Entwicklung, sowie die Installation und Konfiguration des Frameworks, hinterließ beim Team einen guten Eindruck.
-
-\newpage
 
 \subsubsection{JS-Frameworks}
 JavaScript-Frameworks werden verwendet, um Benutzereingaben entgegenzunehmen, diese Daten zu validieren und zu verarbeiten und am Ende das Ergebnis zu retounieren.\\
@@ -132,13 +134,13 @@ Für die Nutzung ist die jQuery.js Datei in den Header einzubinden.
 
 Für den Entwickler ist jQuery ein leicht verständliches Framework mit einer Vielzahl von Funktionen. In kurzer Zeit ist es möglich große Fortschritte zu erzielen. So war auch die Erfahrung bei der Umsetzung des Prototyps. \cite{JQUERYTOOL}
 
+\newpage
+
 \paragraph{AngularJS}
 AngularJS ist ein JavaScript Framework von Google, welches ein Model View Controller-Softwaredesign verfolgt. Die vier wichtigsten Browser Chrome, Firefox, Safari und Edge werden unterstützt. Die Dokumentation beinhaltet ausführliche Informationen über Funktionen, die zusätzlich mit Beispielen untermauert sind. 
 Als OpenSource Framework ist dem Entwickler die freie Nutzung und Veränderung des Codes erlaubt.
 
 Für die Verwendung des Frameworks wird der HTML-Code um AngularJS-Attribute erweitert. Dadurch besteht eine strikte HTML und JS Trennung, welches die Lesbarkeit, Übersichtlichkeit und Testbarkeit des Codes verbessert. \cite{ANGULARJS}
-
-\newpage
 
 Um AngularJS in der Praxis einsetzen zu können, muss die JS-Bibliothek im Header inkludiert werden: 
 \begin{lstlisting}[caption={AngularJS einbinden\cite{ANGULARJSDOWN}}, language=HTML]
@@ -152,6 +154,8 @@ Verpflichtend für die Anwendung von AngularJS ist das Setzen des \textit{ng-app
 \paragraph{Meteor}
 Meteor ist ein full-stack JavaScript Framework, welches alle Plattformen unterstützt. Erwähnenswert ist, dass Meteor mit einer nicht-relationalen Datenbanken, insbesondere MongoDB, kooperiert. Ähnlich wie Java besitzt es eine große, strukturierte Programmierschnittstelle, deren einzelne Methoden ausführlich beschrieben sind. Die Nutzung von Meteor ist frei. Eine eigene Community, namens Meteorpedia, steht für die Problemlösung zur Verfügung. Ein weiterer Vorteil ist das ,,live deploying''. Dadurch wird es dem Entwickler ermöglicht, Änderungen automatisch in Echtzeit hochzuladen und auszuführen. \cite{METEOR}
 
+\newpage
+
 Die Installation dauerte, im Gegensatz zu anderen JavaScript Frameworks, länger. Es gab nicht die Möglichkeit den Pfad der JavaScript-Library im Dokument anzugeben, stattdessen musste es mit folgendem Befehl installiert und getestet werden:
 \begin{lstlisting}[caption={Installation von Meteor \cite{METEORINSTALL}}, language=bash]
 curl https://install.meteor.com/ | sh
@@ -161,8 +165,6 @@ meteor
 \end{lstlisting}
 
 \textit{meteor create} erstellt ein neues Meteor Projekt. Durch die Angabe von \textit{$\sim$/my\_cool\_app} wird ein default Projekt erstellt, das gleichzeitig als Prototyp genutzt werden kann. Bei diesem Prototypen handelt es sich um einen Klickzähler, der bei jedem Klick die Variable um eins erhöht und anschließend ausgibt.
-
-\newpage
 
 \paragraph{Vergleich}
 Wichtig für das DSN Team ist es, die Kosten so gering wie möglich zu halten, sowie das Vorhandensein einer ausführlichen Dokumentation. Zum besseren Verständnis mit Beispielen untermauert. Das Team entschied sich für AngularJS und jQuery, weil es neben den oben genannten Forderungen viele Funktionalitäten anbietet und mit dem Web Framework Django harmoniert.
@@ -175,6 +177,8 @@ Ein CSS-Framework soll folgende Eigenschaften besitzen:
 \item browserunabhängig und sich dynamisch an Devices anpasst
 \item zahlreiche, vordefinierte Funktionen bietet, die ausführlich dokumentiert sind
 \end{itemize} \cite{CSS}
+
+\newpage
 
 \paragraph{Yaml}
 Yaml ist ein CSS-Framework von Dirk Jesse, welches von allen modernen Browsern, wie Chrome, Firefox, Opera, Safari und Internet Explorer, unterstützt wird. Es passt sich an jeden Screen dynamisch an, sei es bei diversen Browsern oder auch auf mobilen Endgeräten wie iPhone und iPad. Hinzuzufügen ist, dass das Framework modular aufgebaut ist. Neben dem Kernmodul, welches flexible Layouts, variable Spaltenbreiten, sowie Grid-Layouts mit fester Breite beinhaltet, können nach Belieben weitere Module eingebunden werden. Yaml bietet eine umfangreiche deutschsprachige Dokumentation, die alle notwendigen Informationen enthält. \cite{YAML}
@@ -194,6 +198,8 @@ Pure ist eine nur 4kb große CSS-Datei. Hauptsächlich besteht es aus einem Set 
 
 Der Unterschied zu anderen CSS-Frameworks, wie Bootstrap oder Yaml, ist, dass es keine JavaScript Plugins beinhaltet. Pure bietet sechs Bausteine, welche die Hauptanforderungen eines jeden Entwicklers abdecken. Da Pure wegen der kleinen Größe nur die notwendigste Funktionalität anbietet, ist es bei Bedarf erweiterbar.
 
+\newpage
+
 Für die Verwendung von Pure muss hauptsächlich der Link zu dem CSS File im Header des HTML-Files eingefügt werden. \cite{PURE}
 \begin{lstlisting}[caption={Pure einbinden \cite{PURE}}, language=HTML]
 <link rel="stylesheet" 
@@ -204,8 +210,6 @@ Der Prototyp, ein Anmeldeformular, konnte durch das gut beschriebene Tutorial, s
 
 \paragraph{Bootstrap}
 Das frei verfügbare CSS-Framework Bootstrap von Twitter unterstützt allgemeine Gestaltungselemente, die ein flexibles Responsive Design ermöglichen. Dem Entwickler steht es frei, welche Komponenten er verwenden möchte. Bootstrap passt sich dynamisch an den Bildschirm an. Es ist plattformunabhängig und bietet eine sehr genaue Dokumentation mit Navigationsbalken.
-
-\newpage
 
 Für den Einsatz muss Bootstrap von der offiziellen Seite \textit{http://getbootstrap.com} heruntergeladen werden. Die Installation bezieht sich lediglich auf das Einbinden der bereitgestellten Dateien in das eigene Projekt. Bootstrap wird als ein ZIP-Archiv bereitgestellt. In diesem befindet sich eine CSS-Datei und eine Javascript Datei. Die beiden Dateien müssen anschließend in den \textit{$<$head$>$} der Webseite eingebunden werden. \cite{BOOTSTRAP}
 \begin{lstlisting}[caption={Bootstrap einbinden \cite{BOOTSTRAP}}, language=HTML]
@@ -219,11 +223,11 @@ src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js">
 \paragraph{Vergleich}
 Aufgrund der erstellten Prototypen und der ausführlichen Dokumentation, fiel die Entscheidung auf Bootstrap. Bootstrap unterstützt die meist verwendeten Browser, passt sich dynamisch dem Bildschirm an und ist mit wenig Aufwand einsetzbar. Die Syntax des CSS-Frameworks ist klar verständlich und hat außerdem den Vorteil, dass es viele Möglichkeiten der Formatierung und Validierung gibt.
 
+\newpage
+
 \subsubsection{Element-Frameworks}
 In diesem Kapitel werden alle notwendigen Elemente dargestellt, die in den Schulheften der Anwender zur Verfügung stehen. Sie bieten dem Anwender die Möglichkeit Inhalte in das Heft einzufügen. Damit gemeint sind, das Codeelement und Textelement. Mithilfe des Textelements können Notizen, mit dem Codeelement Programmausschnitte, als digitale Mitschrift ins Schulheft eingetragen werden.\\
 Dem DSN-Team ist es wichtig, dass sich die Elemente den Anforderungen entsprechend anpassen können.
-
-\newpage
 
 \paragraph{CKEditor}
 Der CKEditor von CKSource ist ein Texteditor, der sich in Websites einbinden und verwenden lässt. Als vorteilhaft erweist sich die Kompatibilität mit den meistverwendeten Webbrowsern. Durch dieses Framework ist es möglich, einen Textblock zu erstellen und diesen individuell zu bearbeiten.
@@ -232,8 +236,10 @@ Außerdem ist es möglich, seinen CKEditor an die eigenen Bedürfnisse anzupasse
 
 \insertpicture{images/framework/CKEditor}{CKEditor}{\cite{CKEDITOR}}{itm:ckeditor-chart}{0.5}
 
+\newpage
+
 \paragraph{Markdown}
-Die Vue.js Library bietet eine Reihe an Webinterfaces an, wie den Texteditor Markdown. Da es sich hierbei um ein Framework handelt, können bestehende Bespiele einfach in ein Projekt integriert und angepasst werden. Der Prototyp konnte ohne Aufwand umgesetzt werden, jedoch ließ sich der eingebebene Text nicht formartieren. \cite{MARKDOWN}
+Die Vue.js Library bietet eine Reihe an Webinterfaces an, wie den Texteditor Markdown. Da es sich hierbei um ein Framework handelt, können bestehende Bespiele einfach in ein Projekt integriert und angepasst werden. Der Prototyp konnte ohne Aufwand umgesetzt werden, jedoch ließ sich der eingebebene Text nicht formatieren. \cite{MARKDOWN}
 
 \insertpicture{images/framework/Markdown}{Markdown}{\cite{MARKDOWN}}{itm:markdown-chart}{0.5}
 
@@ -241,6 +247,8 @@ Die Vue.js Library bietet eine Reihe an Webinterfaces an, wie den Texteditor Mar
 CodeMirror ist ein Codeeditor basierend auf JavaScript, welcher dank MIT Lizenz kommerziell genutzt werden darf. CodeMirror wird von Firefox, Chrome, Safari, Edge und Opera unterstützt. Durch die Einbindung von Frameworks ist es möglich, ein Textfeld darzustellen. Dank unterschiedlicher Sprachunterstützungen erkennt das System automatisch die Syntax und hebt diese farbig hervor. Zur besseren Orientierung werden Zeilennummern eingeblendet. \cite{CODEMIRROR}
 
 \insertpicture{images/framework/CodeMirror}{CodeMirror Einbindung}{\cite{CODEMIRROR}}{itm:codemirror-chart}{0.55}
+
+\newpage
 
 \paragraph{Ace}
 Ace ist ein freiverfügbarer, unter BSD veröffentlichter, JavaScript geschriebener Codeeditor von Ajax.org. Der Editor kombiniert die Eigenschaften von Sublime, Vim und TextMate. Es bietet Funktionalitäten wie Drag \& Drop, Copy \& Paste und highlighted in mehreren Sprachen. \cite{ACE, BSD}
@@ -264,8 +272,6 @@ Die Installation erwies sich als sehr einfach. Auf \textit{http://sahi.sourcefor
 Watir ist ein Testing-Tool basierend auf Ruby. Egal, in welcher Sprache das Projekt geschrieben oder welcher Browser verwendet wird, Watir unterstützt es. \\
 Die Dokumentation war schwierig zu finden und ist außerdem sehr unübersichtlich. \cite{WATIR}
 
-\newpage
-
 Um Watir zu installieren müssen folgende Befehle in der Konsole ausgeführt werden: 
 \begin{lstlisting}[caption={Installation von Watir \cite{WATIRINSTALL}}, language=bash]
 sudo apt-get install ruby ruby-dev
@@ -280,6 +286,8 @@ Die Ausführung der Tests war aus zwei Gründen nicht umsetzbar. Zum Einen ließ
 \paragraph{Robot Framework}
 Das Robot Framework ist auf Akzeptanztests ausgelegt. Akzeptanztests überprüfen, ob die Funktionalität den Erwartungen der Kunden entsprechen.  Robot Framework ist frei unter Apache 2.0 Lizenz verfügbar. Die Dokumentation und die Beispiele werden nicht Schritt für Schritt erklärt, was die Umsetzung des Prototypen unmöglich machte. \cite{ROBOTFRAMEWORK}
 
+\newpage
+
 Die Installation verlief unter Python mit den Befehlen:
 \begin{lstlisting}[caption={Installation von Robot Framework \cite{ROBOTFRAMEWORKINSTALL}}, language=bash]
 sudo apt-get install python-pip
@@ -288,8 +296,6 @@ sudo pip install docutils
 \end{lstlisting}
 
 Obwohl die Installationsanleitung korrekt befolgt wurde, konnten bestimmte Libraries nicht gefunden werden. Fazit: die Tests konnten nicht ausgeführt werden. 
-
-\newpage
 
 \paragraph{Selenium}
 Eines der bekanntesten freien Testing Frameworks ist Selenium. Selenium unterstützt die meisten Browser und besitzt eine große Community. Die Testfälle können auf allen gängigen Programmiersprachen erzeugt werden.

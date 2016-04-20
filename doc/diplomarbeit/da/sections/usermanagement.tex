@@ -92,8 +92,6 @@ if user is not None and user.check_password('myPassword'):
     request.session.set_expiry(60 * 60 * 1) # 1 hour timeout
 \end{lstlisting}
 
-\newpage
-
 \subsubsection{Userbereich}
 
 \insertpicture{images/usermanagement/Usersicht}{Navigationsleiste als User}{(selfmade)}{itm:navigation-chart}{0.85}
@@ -108,11 +106,11 @@ In der Navigationsleiste befinden sich:
 \item \textbf{Passwort ändern}\\ Überschreiben des alten Passworts
 \item \textbf{Account löschen}\\ Alle angelegten Hefte, sowie der DSN-Account werden gelöscht
 \end{enumerate}
+\newpage
 \item \textbf{Suche}\\ Jeder Benutzer hat die Möglichkeit, nach Freunden oder anderen registrierten Anwendern, mittels Vorname, Nachname oder Email-Adresse, zu suchen. Auf dessen Profil ist der vollständige Name, die Email-Adresse und die Berechtigungsstufe, ob Standardbenutzer, Pro-Benutzer oder Administrator, zu sehen.\\
 Ein weiterer wichtiger Punkt sind die öffentlichen Hefte. Jedem User steht es frei, von diesen, einzelne Heftseiten in seine eigenen Hefte zu importieren.
 \item \textbf{Abmelden}\\ Abmelden des Accounts
 \end{itemize}
-\newpage 
 
 \subsubsection{Berechtigungen}
 Im System befinden sich drei verschiedene Berechtigungsstufen: Standard-Benutzer, Pro-Benutzer und Administrator. Jeder registrierte Anwender ist zu Beginn ein Standard-Benutzer.
@@ -129,8 +127,6 @@ Sämtliche Daten über Benutzer werden im \textit{/admin} Bereich aufgelistet.
 \insertpicture{images/usermanagement/Adminsicht}{Navigationsleiste als Admin}{(selfmade)}{itm:navigation-admin-chart}{0.85}
 \paragraph{User Management}
 Die Benutzerverwaltungsseite listet alle Benutzer von DSN tabellarisch auf. Der Admin hat Einsicht auf die Email-Adresse, Vorname, Nachname und auf die Berechtigungsstufe.
-
-\newpage
 
 Dem Administrator steht es frei, Benutzer zu löschen, deren Berechtigungsstufe zu ändern oder mittels Mail auf Probleme hinzuweisen. Neben der Auflistung aller User kann im Bedarfsfall nach Einzelnen gesucht werden. Die Sucheingabe wird mit vorhandenen Daten verglichen. Zusätzlich besteht die Möglichkeit, die Tabelle in alphabetischer Reihenfolge zu sortieren.
 
@@ -149,6 +145,7 @@ elif request.method == "POST":#beim Umblaettern
 	users = User.objects[von:bis]
 \end{lstlisting}
 
+\newpage
 
 \paragraph{Benachrichtigung}
 Pro-Benutzer, die den Zahlungen nicht nachkommen, geben dem Administrator das Recht, diesen zu löschen. DSN gibt dem Kunden die Möglichkeit, seine Daten bzw. Hefte zu sichern, bevor er gelöscht wird. Der Benutzer empfängt rechtzeitig eine Aufforderungs-Mail, in welcher darauf hingewiesen wird, dass sein Account und alle dazugehörigen Daten nach 7 Tagen gelöscht werden. Am Server von DSN läuft ein Cron-Daemon, welcher täglich prüft, wann der zu löschende User entfernt werden soll. \textit{,,Der Cron-Daemon ist ein Dienst, der automatisch Skripte und Programme zu vorgegebenen Zeiten starten kann.''}\cite{CRON}\\

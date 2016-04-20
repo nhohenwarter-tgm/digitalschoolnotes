@@ -37,6 +37,8 @@ Der Product Owner ist hauptsächlich für die zu implementierenden Funktionen, s
 \textbf{Scrum Master}\\
 Der Scrum Master ist für die erfolgreiche Umsetzung von Scrum als Projektmanagementmethode verantwortlich. Er definiert die Regeln des Scrum und achtet auf deren Einhaltung. In enger Zusammenarbeit mit dem Entwicklungsteam ist er dafür verantwortlich, dass Hindernisse, die eine erfolgreiche Umsetzung gefährden könnten, aus dem Weg geräumt werden. Der Scrum Master stellt gegenüber dem Entwicklungsteam eine ,,dienende", situative Führungskraft dar und erteilt selbst keine Arbeitsanweisungen. \cite{SCRUM}
 
+\newpage
+
 \textbf{Entwicklungsteam}\\
 Das Entwicklungsteam ist in erster Linie für die Implementierung der vom Product Owner festgelegten Produktfunktionalitäten zuständig. Ein Entwicklungsteam besteht meistens aus drei bis neun Mitgliedern. Es organisiert sich weitgehend selbst und hält die Qualitätsstandards aufrecht. Eine interdisziplinäre Besetzung des Entwicklungsteams ist essentiell, um die in den Sprints anstehenden Aufgaben möglichst unabhängig voneinander lösen zu können. Die Teammitglieder selbst sind neben speziellen Fähigkeiten aber auch Generalisten, da sie bei Ausfallen eines Teammitglieds dessen Arbeit fortführen können müssen. Eine entsprechende Dokumentation sollte hier hilfreich sein. Eine wichtige Aufgabe des Entwicklungsteams ist zudem die Schätzung des Aufwands der verschiedenen Einträge im Product Backlog. Dies wird üblicherweise mit Story Points realisiert, welche für eine bestimmte Zeitdauer stehen. \cite{SCRUM}
 
@@ -50,23 +52,21 @@ Das Release Backlog fasst alle User Stories zusammen, welche in einem bestimmten
 \textbf{Sprint Backlog}\\
 Das Sprint Backlog definiert die für einen bestimmten Sprint umzusetzenden Produktfunktionalitäten (diese stammen aus einem bestimmten Release Backlog). Das Sprint Backlog wird laufend von den Teammitgliedern aktualisiert, also zum Beispiel wenn eine User Story umgesetzt wurde. Aus den verschiedenen Parametern eines Sprints lässt sich schließlich ein Burndown chart für jeden Sprint generieren. \cite{SCRUM}
 
+\newpage
+
 \textbf{Defect Backlog}\\
 Im Defect Backlog werden mögliche Fehler oder Hindernisse bei der Implementierung der User Stories festgehalten. Es dient dazu sich einen Überblick über die verschiedenen Arten und das Aufkommen von Bugs zu machen. Ein Sprint wird erst dann abgenommen, wenn alle User Stories des betreffenden Sprints weitgehend fehlerfrei sind. \cite{SCRUM}
 
 \textbf{Impediment Backlog}\\
 Ähnlich wie beim Defect Backlog besteht das Impediment Backlog aus Hindernissen. Diese Hindernisse sind aber keine technischen Fehler, sondern meist organisatorische Hindernisse oder jene, welche das Projektmanagement betreffen. Für die Erstellung des Impediment Backlogs, sowie für die Beseitigung der Hindernisse, ist der Scrum Master verantwortlich. \cite{SCRUM}
 
-\newpage
-
 \textbf{Sprint-Burndown-Chart}\\
 Das Sprint-Burndown-Chart dient zur Visualisierung des Arbeitsfortschritts im aktuellen Sprint. Es wird nach Erledigen der User Stories im Sprint laufend aktualisiert und kann dem Team und dem Product Owner gefährliche Verzögerungen zeigen. Dabei ist auf der Ordinate der (Rest-)Aufwand in Stunden (oder eben Story Points) und auf der Abszisse die Zeit aufgetragen. Mit der Erledigung von User Stories sinkt der Restaufwand und es vergeht natürlich Zeit. Dadurch lässt sich der tatsächliche Fortschritt sowie der prognostizierte Termin für das Fertigstellen aller User Stories (Restaufwand = 0) darstellen.\cite{SCRUM}
 
-\insertpicture{images/Projektkoordination/burndownErk.png}{Beispiel eines Sprint-Burndown-Charts}{\cite{BURNERK}}{itm:burnerk}{1.0}
+\insertpicture{images/Projektkoordination/burndownErk.png}{Beispiel eines Sprint-Burndown-Charts}{\cite{BURNERK}}{itm:burnerk}{0.8}
 
 \textbf{Sprint-Endbericht}\\
 Immer wenn ein Sprint beendet wird, wird ein Sprint-Endbericht vom Product Owner erstellt. Dieser umfasst den Sprint-Verlauf, also die umgesetzten Funktionalitäten, die Hindernisse, sowie das Sprint-Burndown-Chart.
-
-\newpage
 
 \paragraph{Scrum-Ablauf}
 Scrum beginnt mit der Festlegung der verschiedenen Rollen. Es werden also Product Owner, Scrum Master, sowie das Entwicklungsteam bestimmt. Der nächste Schritt ist das Erstellen und Sammeln der sogenannten User Stories. Diese User Stories stellen im Grunde die Funktionen des zukünftigen Produktes dar. Aus diesen User Stories wird nun ein Product Backlog definiert. Dabei entscheidet der Product Owner maßgeblich, welche User Stories hineinkommen und welche gestrichen werden. Der Product Owner und das Enwicklungsteam schätzen dann den Aufwand der verschiedenen User Stories in Story Points oder Zeiteinheiten. Als Nächstes priorisiert der Product Owner, welche Funktionalitäten wann (in welchem Sprint) umgesetzt werden. \cite{SCRUM}
@@ -85,9 +85,9 @@ Durch diese Fragen möchte der Scrum Master ein Maximum an Information gewinnen.
 
 Am Ende eines Sprints steht die Sprint Review. Sie stellt die Abnahme der in diesem Sprint implementierten Funktionalitäten dar. Der Product Owner nimmt, meist gemeinsam mit dem Auftraggeber, diese Funktionen ab und erstellt daraus den Sprint-Endbericht. \cite{SCRUM}
 
-Nach dem Sprint Review erfolgt die Sprint Retrospektive. Hierbei geht es nicht um die umgesetzten Anforderungen sondern allein um das Feedback des Teams hinsichtlich der Zusammenarbeit und Organisation. Dabei nennen die Mitglieder positive und negative Aspekte des Sprints. Abschließend wird zu jedem negativen Punkt eine Verbesserungsmaßnahme definiert. \cite{SCRUM}
-
 \newpage
+
+Nach dem Sprint Review erfolgt die Sprint Retrospektive. Hierbei geht es nicht um die umgesetzten Anforderungen sondern allein um das Feedback des Teams hinsichtlich der Zusammenarbeit und Organisation. Dabei nennen die Mitglieder positive und negative Aspekte des Sprints. Abschließend wird zu jedem negativen Punkt eine Verbesserungsmaßnahme definiert. \cite{SCRUM}
 
 Sollte es der Fall sein, dass alle User Stories aus dem Product Backlog abgearbeitet sind, findet nach diesem Sprint eine Endabnahme statt und das fertige Produkt liegt vor. Ansonsten wird das Ganze wiederholt und ein neuer Sprint mit neuem Sprint Backlog wird gestartet. Das Ergebnis eines jeden Sprints ist ein Produktinkrement, also eine verbesserte Version des Produktes. \cite{SCRUM}
 
@@ -96,10 +96,10 @@ Sollte es der Fall sein, dass alle User Stories aus dem Product Backlog abgearbe
 \paragraph{Vorteile von Scrum}
 Scrum bringt, als agiler und schlanker Ansatz des Projektmanagements, einige Vorteile mit sich, weswegen sich das Projektteam für Scrum entschieden hat. Durch Scrum erhält der Auftraggeber schon sehr früh einen Einblick in den Entwicklungsstand und kann daher mit einer Änderung von Anforderungen oder Ähnlichem auf die Produktentwicklung Einfluss nehmen. Das ist einer der großen Vorteile von Scrum. Der Auftraggeber weiß zu jeder Zeit, wie es mit dem Projektfortschritt steht und kann gegebenenfalls eingreifen, falls etwas schief läuft.\cite{SCRUM}
 
+\newpage
+
 Ein weiterer Vorteil ist die aktive Miteinbeziehung des Auftraggebers, was in meist zufriedenstellender Software mündet.
 Im Gegensatz zu der statischen, langen Planung einer klassischen Vorgehensweise, ist eine Änderung der Anforderungen bei Scrum jederzeit möglich. Zudem steigt die Produktivität, weil nur die wirklich effektiv benötigten Funktionen umgesetzt werden. Außerdem erhöht Scrum, durch die selbstorganisierten Teams, maßgeblich die Motivation der Teammitglieder. \cite{SCRUM}
-
-\newpage
 
 \subsubsection{Scrum im Team}
 Das Diplomprojektsteam hat sich für die Durchführung des Projektes für den agilen Ansatz Scrum entschieden. Die Gruppe zählte fünf Personen. Niklas Hohenwarter wurde auf der Projektwoche in Kärnten vom Team zum Product Owner gewählt. Selina Brinnich fungierte als technische Architektin. Das Entwicklungsteam bestand aus Philipp Adler, Adin Karic und Thomas Stedronsky, wobei hier der Begriff Entwicklungsteam nicht zu wörtlich zu nehmen ist, denn es waren alle fünf Teilnehmer aktiv an der Entwicklung des Produktes beteiligt. Als Scrum Master stellte sich Prof. Borko zur Verfügung.
@@ -118,27 +118,29 @@ Durch die Priorisierung wurden die ersten User Stories in ein Sprint Backlog gep
 
 \insertpicture{images/Projektkoordination/sprint0.png}{Burndown-Chart des Evaluierungssprints}{(selfmade)}{itm:bur}{0.8}
 
+\newpage
+
 Im ersten Implementierungssprint ging es vor allem um die Implementierung der System-Basis für unser Projekt. Dabei wurden Funktionen wie das Registrieren und Anmelden der Nutzer, die Profile der Nutzer, einfache Hefterstellung, allgemeine Benutzerverwaltung, sowie ein einfacher Stundenplan umgesetzt.
 
 \insertpicture{images/Projektkoordination/sprint1.png}{Burndown-Chart des ersten Sprints}{(selfmade)}{itm:bur}{0.8}
-
-\newpage
 
 Der zweite Sprint befasste sich hauptsächlich mit der Umsetzung des Stundenplans sowie den allgemeinen Kontoeinstellungen der Nutzer. Zusätzlich wurde in diesem Sprint an trivialen Heftoperationen wie zum Beispiel dem Löschen von Elementen gearbeitet.
 
 \insertpicture{images/Projektkoordination/sprint2.png}{Burndown-Chart des zweiten Sprints}{(selfmade)}{itm:bur}{0.8}
 
+\newpage
+
 Im dritten Sprint ging es meist um die Heftfunktionen und die Heftansicht. In diesem Sprint wurde die Ansicht des Heftes neu gestaltet, das Blättern in Heften wurde ermöglicht und das Importieren von Heftseiten aus anderen Heften wurde implementiert.
 
 \insertpicture{images/Projektkoordination/sprint3.png}{Burndown-Chart des dritten Sprints}{(selfmade)}{itm:bur}{0.8}
-
-\newpage
 
 Die Planung des vierten Sprints war die Folge einer Restrukturierung und der Neupriorisierung des Product Owners. Aufgrund der Komplexität der Implementierung der JS-Frameworks in das bestehende System ist hier zusätzlicher Arbeitsaufwand entstanden. Oberste Maxime war die Fertigstellung der drei Heftelemente: das Textelement, das Programmcodeelement und das Bildelement.
 
 Der letzte Sprint befasste sich vor allem mit zwei Funktionen des Produktes. Das gemeinsame Arbeiten (Parallel Working System) und das OCR-Modul (optische Zeichenerkennung) wurden umgesetzt. Zudem wurden allfällige Mängel und Fehler behoben.
 
 \insertpicture{images/Projektkoordination/burnges.png}{Burndown-Chart des gesamten Projektes}{(selfmade)}{itm:bur}{0.8}
+
+\newpage
 
 Nach jedem Sprint fand eine Sprint-Abnahme durch den Product Owner und den Auftraggeber statt. Dabei wurden die funktionalen Anforderungen, die in dem jeweiligen Sprint umzusetzen waren, überprüft und abgenommen. Nach der Sprint-Abnahme erfolgte das Sprint-Retrospektive-Meeting in dem positive und negative Aspekte der Zusammenarbeit und Organisation in diesem Sprint diskutiert wurden. Der letzte Schritt stellte die Formulierung von Verbesserungsvorschlägen und deren Umsetzung für die folgenden Sprints dar.
 

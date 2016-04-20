@@ -34,6 +34,8 @@ Auf dem Server ist Debian 8.2 installiert. Die Kernel Version ist 3.16.0-4-amd64
 \paragraph{Erreichbarkeit}
 Der Server ist unter der IP-Adresse 37.120.161.195 erreichbar. Da IP-Adressen schwer zu merken sind, wurde ebenfalls eine Domain für das Projekt gekauft. Diese lautet "digitalschoolnotes.com'' und löst auf die oben genannte IP-Adresse auf.
 
+\newpage
+
 \paragraph{Benutzerverwaltung am Projektserver}
 Jedes Projektteam Mitglied hat einen eigenen Unix Account auf dem Projektserver. Der Vorname der Person ist der Benutzername. Das Benutzerpasswort ist von jedem Teammitglied selbst gewählt. Alle Teammitglieder haben sudo Rechte. 
 
@@ -135,8 +137,6 @@ logpath  = /var/log/auth.log
 maxretry = 6
 \end{lstlisting}
 
-\newpage
-
 \paragraph{Webserver}
 \label{websrv}
 Als Webserver für unsere Applikation wurde Nginx gewählt. Dieser wurde vor allem gewählt, da sie sehr weit verbreitet ist und schon Erfahrung mit dieser Software bestand. Mithilfe von Nginx kann ebenfalls ein Loadbalancer realisiert werden. Dies ist ein wichtiger Punkt, um den Webserver später skalieren zu können. \\
@@ -151,6 +151,8 @@ Um die Daten und Privatsphäre unserer Kunden zu schützen, wird bei allen Aufru
 Das Zertifikat validiert die Domain(Domain Validated). Das bedeutet, dass zur Ausstellung des Zertifikates eine Email an den Besitzer der Domain geschickt wird. Wenn der Besitzer der Domain der Zertifizierung zustimmt, wird diese durchgeführt. 
 
 Um das Zertifikat nun verwenden zu können, muss es mit dem Intermediate Zertifikat der Zertifizierungsstelle verbunden werden. Dadurch ist ein eindeutiger Zertifizierungsfluss hergestellt. Danach kann es auf den Webserver deployed werden. Es sind viele unsichere Verschlüsselungsarten deaktiviert, um die Sicherheit zu erhöhen. Dadurch funktioniert SSL aber nicht auf älteren Geräten.
+
+\newpage
 
 \begin{lstlisting}[caption = Nginx SSL Konfiguration, label = fail2ban1, language=bash]
 server_name digitalschoolnotes.com;
@@ -171,6 +173,8 @@ Der dynamische Teil - das Backend - stellt der Django Server dar. Hier werden di
 \insertpicture{images/infrastruktur/deployment.png}{Deployment Struktur}{(selfmade)}{itm:deployment-chart}{0.8}
 
 Die Grafik zeigt die Deployment Struktur im Produktivbetrieb. Wenn die URL das entsprechende Schlüsselwort enthält weiß Nginx wo die entsprechenden Dateien am Server liegen bzw. ob die Anfrage an Django weitergeleitet werden muss.
+
+\newpage
 
 Der Django Server läuft mittels gunicorn. Gunicorn ist ein \gls{WSGI} HTTP Server und somit die Schnittstelle zwischen dem Webserver und Django. Gunicorn startet für Django mehrere Worker Prozesse, wodurch die Anfragen theoretisch auf mehrere CPU Kerne aufgeteilt werden können. Des Weiteren startet es die einzelnen Prozesse automatisch neu, falls diese abstürzen. \cite{GUNICORN}
 
@@ -197,6 +201,8 @@ server {
 \end{lstlisting}
 
 Hat diese Person nun eine Änderung am Code in seiner IDE vorgenommen, wird das entsprechende File automatisch über \gls{SFTP} auf den Server hochgeladen. Nun kann innerhalb der IDE der Django Server gestartet und beendet werden. Dies ist wichtig, da dadurch auch die Fehlermeldungen von Django innerhalb der \gls{IDE} sichtbar sind. Für den statischen Teil ist auch hier Nginx zuständig.
+
+\newpage
 
 \paragraph{Verfügbarkeit}
 Um die Verfügbarkeit zu verbessern, gibt es viele Möglichkeiten. Um die Wahrscheinlichkeit eines kritischen Serverausfalles zu reduzieren könnten, mehrere Server angemietet werden. Eine andere Möglichkeit wäre es, das Hosting in eine Cloud auszulagern(Amazon Web Services, Google, Azure...). 
