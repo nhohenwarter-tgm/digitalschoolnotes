@@ -26,7 +26,7 @@ plainheadsepline]{scrpage2}
 \renewcommand{\thesection}{\arabic{section}}
 
 \clearscrheadfoot
-\pagestyle{scrheadings}
+\pagestyle{empty}
 \usepackage[inner=3.5cm,outer=2cm,bottom=3.5cm,top=3.5cm]{geometry}
 \setcounter{secnumdepth}{4}
 \title{Diplomarbeit}
@@ -119,6 +119,7 @@ Datum: \today \hfill \hfill übernommen von:\rule[-0.2cm]{3cm}{0pt}
 %\noindent 
 
 %\vfill
+\afterpage{\blankpage}
 
 \end{center}
 \end{titlepage}
@@ -127,8 +128,9 @@ Datum: \today \hfill \hfill übernommen von:\rule[-0.2cm]{3cm}{0pt}
 %HEADER AND FOOTER
 \pagenumbering{Roman}
 
-\thispagestyle{empty}
-\null\newpage  %----------------------------------------------------------------------------------------------
+%\thispagestyle{empty}
+%\null\newpage 
+%----------------------------------------------------------------------------------------------
 % Erklärung
 %\afterpage{\blankpage}
 %\null\newpage
@@ -199,7 +201,7 @@ Ich erkläre an Eides statt, dass ich die vorliegende Diplomarbeit selbstständi
 \input{sections/abstractEN}
 \input{sections/abstractDE}
 
-\thispagestyle{empty}
+%\thispagestyle{empty}
 \newpage
 %----------------------------------------------------------------------------------------------
 
@@ -209,7 +211,7 @@ Ich erkläre an Eides statt, dass ich die vorliegende Diplomarbeit selbstständi
 \tableofcontents
 
 \newpage %----------------------------------------------------------------------------------------------
-
+\pagestyle{scrheadings}
 \pagenumbering{arabic}
 % HEADER AND FOOTER
 \ihead{DigitalSchoolNotes}
