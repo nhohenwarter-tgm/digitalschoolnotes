@@ -1,4 +1,4 @@
-\documentclass[12pt]{article}
+\documentclass[a4paper,12pt,twoside,openany]{book}
 
 \usepackage[ngerman]{babel}
 \usepackage[utf8x]{inputenc}
@@ -6,26 +6,28 @@
 \usepackage{graphicx}
 \usepackage[colorinlistoftodos]{todonotes}
 \usepackage{listings}
-\usepackage{glossaries}
+\usepackage[section=subsection]{glossaries}
 \usepackage{placeins}
 \usepackage{fixltx2e}
 \usepackage{pdfpages}
 \usepackage{lastpage}
 \usepackage{enumitem}
 \usepackage{xcolor}
-\usepackage{scrpage2}
+\usepackage[nouppercase,headsepline,footsepline,plainfootsepline,
+plainheadsepline]{scrpage2}
 \usepackage{scrtime}
 \usepackage{parskip}
 \usepackage{hyperref}
 \usepackage{titlesec}
+\usepackage{multirow}
+\usepackage{afterpage}
+\usepackage[none]{hyphenat}
+
+\renewcommand{\thesection}{\arabic{section}}
 
 \clearscrheadfoot
-\pagestyle{scrheadings}
-\usepackage[
-top    = 2.5cm,
-bottom = 3cm,
-left   = 3cm,
-right  = 3cm]{geometry}
+\pagestyle{empty}
+\usepackage[inner=3.5cm,outer=2cm,bottom=3.5cm,top=3.5cm]{geometry}
 \setcounter{secnumdepth}{4}
 \title{Diplomarbeit}
 
@@ -39,77 +41,194 @@ right  = 3cm]{geometry}
 \titlespacing*{\paragraph}
 {0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
 
+%Hyphenation
+\sloppy
+
 %Includes
 \input{preamble}
 \input{glossaries}
 
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage}
+
 
 \begin{document}
-
 
 \begin{titlepage}
 \begin{center}
 
 % Deckblatt
-\includegraphics[width=0.25\textwidth]{images/dsn_logo}\\
+\setlength{\arrayrulewidth}{0.3mm}
+\begin{table}[]
+\centering
+\begin{tabular}{lcl}
+\multirow{4}{*}{
+\includegraphics[width=0.15\textwidth]{images/tgm_logo}} & \textbf{\Large Technologisches Gewerbemuseum}                  & \multirow{4}{*}{\includegraphics[width=0.12\textwidth]{images/htl_logo}} \\
+                           & &\\ & \textbf{Höhere Lehranstalt für Informationstechnologie} &                   \\
+                           & Ausbildungsschwerpunkt Systemtechnik                    &                  \\\hline
+\end{tabular}
+\end{table}
+
+\textbf{\LARGE DIPLOMARBEIT}
+
 \vspace{5mm}
 
-\LARGE TGM - HTBLuVA Wien XX \\ IT Abteilung  \\[1.5cm]
+Gesamtprojekt
 
-% Titel
-\rule{1.0\textwidth}{1mm}
-{ \huge \bfseries \\[0.4cm]  \huge Diplomarbeit \\ \LARGE DigitalSchoolNotes \\[0.4cm] }
+\textbf{\Large DigitalSchoolNotes}
 
-\rule{1.0\textwidth}{1mm}
+\vspace{15mm}
 
-
-
-\noindent 
-
-
-\vfill
-
-% Fusszeile
-{\small Version: \today ~um  \thistime    }
 \end{center}
 
-%\end{center}
+\textbf{User- und Rollenmanagement}\\
+Philipp Adler \rule[-0.2cm]{1.3cm}{0pt} 5BHIT \hfill Betreuer: Michael Borko, Bakk. techn. \rule[-0.2cm]{0.4cm}{0pt}\\
+\rule[-0.2cm]{9.8cm}{0pt} Mag. DI.(FH) Christoph Brein
+
+\textbf{Datenmanagement}\\
+Selina Brinnich \rule[-0.2cm]{1cm}{0pt} 5BHIT \hfill Betreuer: Michael Borko, Bakk. techn. \rule[-0.2cm]{0.4cm}{0pt}\\
+\rule[-0.2cm]{9.8cm}{0pt} Mag. DI.(FH) Christoph Brein
+
+\textbf{Infrastruktur und Testing}\\
+Niklas Hohenwarter \rule[-0.2cm]{0.2cm}{0pt} 5BHIT \hfill Betreuer: Michael Borko, Bakk. techn. \rule[-0.2cm]{0.4cm}{0pt}\\
+\rule[-0.2cm]{9.8cm}{0pt} Mag. DI.(FH) Christoph Brein
+
+\textbf{Optical Character Recognition}\\
+Adin Karic \rule[-0.2cm]{1.8cm}{0pt} 5BHIT \hfill Betreuer: Michael Borko, Bakk. techn. \rule[-0.2cm]{0.4cm}{0pt}\\
+\rule[-0.2cm]{9.8cm}{0pt} Mag. DI.(FH) Christoph Brein
+
+\textbf{Parallel Working System}\\
+Thomas Stedronsky \rule[-0.2cm]{0.2cm}{0pt} 5BHIT \hfill Betreuer: Michael Borko, Bakk. techn. \rule[-0.2cm]{0.4cm}{0pt}\\
+\rule[-0.2cm]{9.8cm}{0pt} Mag. DI.(FH) Christoph Brein
+
+\vspace{15mm}
+
+ausgeführt im Schuljahr 2015/16
+
+\rule{1.0\textwidth}{0.3mm}\\
+Abgabevermerk: 
+
+Datum: \today \hfill \hfill übernommen von:\rule[-0.2cm]{3cm}{0pt}
+
+\begin{center}
+
+%\noindent 
+
+%\vfill
+\afterpage{\blankpage}
+
+\end{center}
 \end{titlepage}
 
 
 %HEADER AND FOOTER
 \pagenumbering{Roman}
-\ohead{\headmark}
-\ifoot{© DigitalSchoolNotes - 2015/16}
-\ofoot{\pagemark}
 
-\newpage %----------------------------------------------------------------------------------------------
+%\thispagestyle{empty}
+%\null\newpage 
+%----------------------------------------------------------------------------------------------
+% Erklärung
+%\afterpage{\blankpage}
+%\null\newpage
+\thispagestyle{empty}
+%\includepdf[scale=1.1,pages=-]{documents/erklaerung}
+\section*{Eidesstattliche Erklärung}
+Ich erkläre an Eides statt, dass ich die vorliegende Diplomarbeit selbstständig und ohne fremde Hilfe verfasst, andere als die angegbenen Quellen nicht benutzt und die benutzten Quellen wörtlich und inhaltlich entnommenen Stellen als solche erkenntlich gemacht habe. \\
+
+\rule[-0.2cm]{1cm}{0pt} Wien, am 31.03.2016 \\ \\
+
+\hfill \hfill \rule[-0.2cm]{6cm}{0.5pt} \rule[-0.2cm]{2cm}{0pt}
+
+\hfill \hfill Philipp Adler \rule[-0.2cm]{5.5cm}{0pt}\\ \\
+
+\hfill \hfill \rule[-0.2cm]{6cm}{0.5pt} \rule[-0.2cm]{2cm}{0pt}
+
+\hfill \hfill Selina Brinnich \rule[-0.2cm]{5.2cm}{0pt}\\ \\
+
+\hfill \hfill \rule[-0.2cm]{6cm}{0.5pt} \rule[-0.2cm]{2cm}{0pt}
+
+\hfill \hfill Niklas Hohenwarter \rule[-0.2cm]{4.4cm}{0pt}\\ \\
+
+\hfill \hfill \rule[-0.2cm]{6cm}{0.5pt} \rule[-0.2cm]{2cm}{0pt}
+
+\hfill \hfill Adin Karic \rule[-0.2cm]{6.0cm}{0pt}\\ \\
+
+\hfill \hfill \rule[-0.2cm]{6cm}{0.5pt} \rule[-0.2cm]{2cm}{0pt}
+
+\hfill \hfill Thomas Stedronsky \rule[-0.2cm]{4.4cm}{0pt}
+
+\newpage
+\thispagestyle{empty}
+\null\newpage
+
+\thispagestyle{empty}
+\vspace*{\fill} 
+\input{sections/danksagungen}
+\label{danksagung}
+\vspace*{\fill} 
+
+\newpage
+
+\thispagestyle{empty}
+\null\newpage
+
+\thispagestyle{empty}
+\vspace*{\fill} 
+\input{sections/zitat}
+\label{zitat}
+\vspace*{\fill} 
+
+\newpage
+\thispagestyle{empty}
+\null\newpage
+
+\thispagestyle{empty}
+\vspace*{\fill} 
+\input{sections/gender}
+\label{gender}
+\vspace*{\fill}
+
+\newpage
+\thispagestyle{empty}
+\null\newpage
+
+\thispagestyle{empty}
+
+\input{sections/abstractEN}
+\input{sections/abstractDE}
+
+%\thispagestyle{empty}
+\newpage
+%----------------------------------------------------------------------------------------------
+
 {\small\color{white}.}
 \vspace{-0.7cm}
 \renewcommand*\contentsname{Inhalt}
 \tableofcontents
 
 \newpage %----------------------------------------------------------------------------------------------
-% Erklärung
-\includepdf[scale=1.2,pages=-]{documents/erklaerung}
-\newpage
-\input{sections/abstractEN}
-\input{sections/abstractDE}
-\newpage
-\input{sections/danksagungen}
-\label{pageRomanEnd}
-
-\newpage %----------------------------------------------------------------------------------------------
-
+\pagestyle{scrheadings}
 \pagenumbering{arabic}
+% HEADER AND FOOTER
+\ihead{DigitalSchoolNotes}
+\ohead{2015/2016}
 \ofoot{\pagemark}
+\cfoot{}
 
 \section{Einleitung}
 \label{sec:einleitung}
 \input{sections/einleitung}
 
+\newpage
+
 \section{Problembeschreibung}
 \label{sec:problembeschreibung}
+\input{sections/problembeschreibung}
+
+\newpage
 
 \subsection{Umfeldanalyse}
 \label{subsec:umfeldanalyse}
@@ -130,6 +249,7 @@ right  = 3cm]{geometry}
 
 \section{Stand der Technik}
 \label{sec:standdertechnik}
+\input{sections/standdertechnik}
 
 \subsection{Frameworks}
 \label{subsec:frameworks}
@@ -137,14 +257,28 @@ right  = 3cm]{geometry}
 
 \newpage
 
+\subsection{Datenverwaltung}
+\label{subsec:sota_daten}
+\input{sections/sota_daten}
+
+\newpage
+
 \subsection{Technologien}
 \label{subsec:technologien}
 \input{sections/technologien}
+\subsubsection{Optical Character Recognition}
+\label{subsubsec:sota_ocr}
+\input{sections/sota_ocr}
+\newpage
+\subsubsection{Collaboration Systeme}
+\label{subsubsec:sota_pws}
+\input{sections/sota_pws}
 
 \newpage %----------------------------------------------------------------------------------------------
 
 \section{Design}
 \label{sec:design}
+\input{sections/design}
 
 \subsection{Software-Architektur}
 \label{subsec:softwarearchitektur}
@@ -158,7 +292,7 @@ right  = 3cm]{geometry}
 
 \newpage
 
-\subsection{Javascript Optimierung}
+\subsection{JavaScript Optimierung}
 \label{subsec:javascriptoptimierung}
 \input{sections/jsoptimierung}
 
@@ -166,6 +300,7 @@ right  = 3cm]{geometry}
 
 \section{Implementierung}
 \label{sec:implementierung}
+\input{sections/implementierung}
 
 \subsection{Infrastruktur und Testing}
 \label{subsec:infrastrukturtesting}
@@ -185,6 +320,28 @@ right  = 3cm]{geometry}
 
 \newpage
 
+\subsection{Heftelemente}
+\label{subsec:heftelement}
+\input{sections/heftelemente}
+
+\subsubsection{Textelement}
+\label{subsubsec:textelement}
+\input{sections/textelement}
+
+\newpage
+
+\subsubsection{Codeelement}
+\label{subsubsec:codeelement}
+\input{sections/codeelement}
+
+\newpage
+
+\subsubsection{Bildelement}
+\label{subsubsec:bildelement}
+\input{sections/bildelement}
+
+\newpage
+
 \subsection{Parallel Working System}
 \label{subsec:parallelws}
 \input{sections/parallelws}
@@ -197,9 +354,13 @@ right  = 3cm]{geometry}
 
 \newpage %----------------------------------------------------------------------------------------------
 
-\section{Auswertung und Benchmarks}
+\section{Auswertung}
 \label{sec:auswertung}
 \input{sections/auswertung}
+
+\newpage
+
+\input{sections/statistiken}
 
 \newpage %----------------------------------------------------------------------------------------------
 
@@ -217,39 +378,61 @@ right  = 3cm]{geometry}
 
 \cfoot{}
 \pagenumbering{roman}
-\section{Anhang}
+\section*{Anhang}
 \label{sec:anhang}
 
-\subsection{Glossar}
-\label{subsec:glossar}
+%\subsection*{Glossar}
+%\label{subsec:glossar}
 \begingroup
-\renewcommand{\section}[2]{}
-\printglossary[style=tree]
+\renewcommand{\chapter}[2]{}
+\printglossary[style=tree,title=Glossar]
 \endgroup
 \newpage
 
-{\small\color{white}.}
-\vspace{-2cm}
-\subsection{Abbildungen}
-\label{subsec:abbildungen}
-\begingroup
-\renewcommand{\section}[2]{}
-\listoffigures
-\endgroup
-
-\subsection{Listings}
+\subsection*{Listings}
 \label{subsec:listings}
 \begingroup
-\renewcommand{\section}[2]{}
+\renewcommand{\chapter}[2]{}
 \lstlistoflistings
 \endgroup
+\newpage
 
-\subsection{Quellen}
+\subsection*{Tabellen}
+\label{subsec:tabellen}
+\begingroup
+\renewcommand{\chapter}[2]{}
+\listoftables
+\endgroup
+\newpage
+
+\subsection*{Quellen}
 \label{subsec:quellen}
 \begingroup
-\renewcommand{\section}[2]{}
+\renewcommand{\chapter}[2]{}
 \bibliographystyle{alpha}
 \bibliography{sources}
+\endgroup
+\newpage
+
+\subsection*{Zeitaufzeichnung}
+\label{subsec:zeitaufzeichnung}
+\begingroup
+\renewcommand{\chapter}[2]{}
+Die Aufzeichnung der Arbeitszeit wurde online in einem Google-Spreadsheet durchgeführt. Jedes Teammitglied war selbst für das Eintragen seiner Arbeitszeit verantwortlich. Die folgende Tabelle zeigt die Summe der Arbeitsstunden pro Teammitglied. Das komplette Spreadsheet kann unter \textit{https://goo.gl/SuY1RF} eingesehen werden.
+\begin{table}[htb]
+\centering
+\def\arraystretch{1.3}
+\begin{tabular}{|l|r|lll}
+\cline{1-2}
+ & \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Anzahl der \\ Arbeitsstunden\end{tabular}}} &  &  &  \\ \cline{1-2}
+Philipp Adler & 229 &  &  &  \\ \cline{1-2}
+Selina Brinnich & 278 &  &  &  \\ \cline{1-2}
+Niklas Hohenwarter & 275 &  &  &  \\ \cline{1-2}
+Adin Karic & 224 &  &  &  \\ \cline{1-2}
+Thomas Stedronsky & 229 &  &  &  \\ \cline{1-2}
+\multicolumn{1}{|r|}{\textbf{Summe}} & 1235 &  &  &  \\ \cline{1-2}
+\end{tabular}
+\end{table}
 \endgroup
 
 \end{document}

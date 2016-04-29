@@ -1,4 +1,140 @@
 %\section*{Optical Character Recognition}
 \cfoot{Adin Karic}
+In den folgenden Kapiteln ist die Implementierung des OCR-Moduls beschrieben.
+\paragraph{Tesseract OCR und pytesseract-Modul}
+Der erste Schritt zur Implementierung war die Evaluation der geeigneten OCR-Software. Es wurden drei Softwarepakete evaluiert: Tesseract OCR (pytesseract), OCRopus und OmniPage Ultimate. Nach dem Vergleich dieser Lösungen hinsichtlich mehrerer Kriterien (Komplexität, Dokumentation, Lizenzkosten, Erkennungsgenauigkeit) fiel die Entscheidung auf die tesseract-Engine und das dazugehörige Python-Modul pytesseract.
 
-%Text...
+Um Tesseract-OCR (engine) zu installieren, installiert man die folgenden Pakete auf dem Server:
+\begin{itemize}
+\item tesseract-ocr
+\item tesseract-ocr-deu
+\end{itemize}
+
+\begin{lstlisting}[caption={tesseract-Installation}, language=bash]
+apt-get install tesseract-ocr tesseract-ocr-deu
+\end{lstlisting}
+
+Zum Testen der Analyse wird tesseract mit folgendem Befehl in der Commandline ausgeführt \cite{TESS1, TESS2}:
+\begin{lstlisting}[caption={tesseract-Ausführung}, language=bash]
+tesseract test3.jpg out3
+\end{lstlisting}
+
+\newpage
+
+Anschließend folgt das analysierte Bild, sowie der Output der tesseract-Engine.
+
+\insertpicture{images/ocr/fresh.jpg}{Beispielbild für OCR-Analyse}{(selfmade)}{itm:fresh}{0.8}
+
+Output:
+
+THE\_FRESH\_STEP
+
+Adamski, Coric, Schwertberger
+
+Entwicklung einer neuen Webseite.
+
+die alle Abteilungen. Werlstatten und A / m
+
+Für die Installation der Python-Anbindung pytesseract sind folgende Befehle notwendig. \cite{PYTES, PYTES2, PYTES3}
+
+\begin{lstlisting}[caption={pytesseract-Installation}, language=bash]
+apt-get install python3
+apt-get install python3-pip
+pip3 install pytesseract
+apt-get install python3-pil
+\end{lstlisting}
+
+Mit einem Testscript in Python kann die optische Zeichenanalyse ausgeführt werden.
+
+\begin{lstlisting}[caption={pytesseract-Code}, language=Python]
+import pytesseract
+from PIL import Image
+print (pytesseract.image_to_string(Image.open('test3.jpg')))
+\end{lstlisting}
+
+\paragraph{Umsetzung des OCR-Moduls}
+Um Bilder hochladen zu können und eine Bild-zu-Text-Analyse zu ermöglichen, wurde ein OCR-Modul implementiert. Die Idee dahinter ist, dass die Benutzer möglichst einfach Bilder auswählen und einer Zeichenanalyse (OCR) unterziehen können. Die Größe der Bilddateien ist mit fünf Megabyte begrenzt. Dabei werden prinzipiell die Dateiformate .jpeg .png und .gif akzeptiert.
+
+Bei der optischen Zeichenanalyse (OCR) wird der am Bild vorhandene Text durch eine OCR-Engine analysiert und in ein Textformat umgewandelt. Für die Lösung wurde das python-Framework pytesseract mit der OCR-Engine tesseract benutzt.
+
+Um ein Bild zu analysieren, klickt der User zunächst auf folgenden Button im Heft:
+
+\insertpicture{images/ocr/bu.png}{OCR-Button}{(selfmade)}{itm:but}{0.6}
+
+Darauf öffnet sich ein Dialog mit einem Dateieingabefeld:
+
+\insertpicture{images/ocr/di.png}{OCR-Dialog}{(selfmade)}{itm:di}{0.8}
+
+Nachdem auf den Button ,,Analysieren" geklickt wurde, wird das Bild auf den Server geladen und mittels OCR analysiert. Das Ergebnis ist ein neu erstelltes Textelement im Heft mit dem textuellen Inhalt des angegebenen Bildes.
+
+\newpage
+
+Bei Klick auf den Button ,,Analysieren" wird folgende Subroutine aufgerufen:
+
+\begin{lstlisting}[caption={Upload OCR-File}, language=Python]
+$scope.uploadOCRFile = function(){
+        var file = $scope.ocrFile;
+        if((file.type == "image/jpeg" || file.type == "image/png" ||
+        	file.type == "image/gif") && file.size < maxFileSize) {
+            $scope.errormessage = "";
+            var uploadUrl = "/api/analyseOCR";
+            var message = fileUpload.uploadFileToUrl(file, uploadUrl);
+            message.then(function(data) {
+                data_data = "{\"data\":\""+data['ocrt']+"\"}";
+                $scope.addelement('textarea', data_data);
+                $window.location.reload();
+                $window.location.reload();
+            });
+            ngDialog.close({
+                template: 'ocrFileDialog',
+                controller: 'notebookEditCtrl',
+                className: 'ngdialog-theme-default',
+                scope: $scope
+            });
+        }else{
+            if(file.size > maxFileSize) {
+                $scope.errormessage = "file size is more than 5MB";
+            }else{
+                $scope.errormessage = "filetyp is not supported";
+            }
+        }
+    };
+\end{lstlisting}
+
+Hier ist zu sehen, dass zunächst der Dateityp und die Dateigröße überprüft wird. Wenn alles den Kriterien entspricht wird die Methode \textit{uploadFileToUrl()} aufgerufen. Unter der URL \textit{url(r'\^{}api/analyseOCR', 'dsn.views.notebook\_views.view\_analyseOCR', name=,,analyseOCR")} findet sich die Python-Methode \textit{view\_analyseOCR()}.
+
+In dieser Methode erhält das File einen neuen, zufällig generierten Namen und wird auf den Server lokal hochgeladen. Dann wird schließlich die Methode, die für das eigentliche Analysieren zuständig ist, aufgerufen:
+
+\begin{lstlisting}[caption={OCR-Analyse}, language=Python]
+ocrtext=analyseOCR(os.getcwd()+"/dsn/static/upload/"+filename+"."+typ)
+\end{lstlisting}
+
+\newpage
+
+Schließlich kommt in der Methode analyseOCR das pytesseract-Framework zum Einsatz:
+
+\begin{lstlisting}[caption={analyseOCR mittels pytesseract}, language=Python]
+def analyseOCR(file):
+	s = str(pytesseract.image_to_string(
+		Image.open(file)).encode(sys.stdout.encoding,
+		errors='replace'))
+    s = s[2:-1]
+    s = s.replace("\\n", "<br />").replace("\\x", "")
+    return s
+\end{lstlisting}
+
+Nach der Analyse wird der erkannte Text als JSONResponse zurückgegeben und das lokal hochgeladene Bild wird wieder vom Server gelöscht.
+
+\begin{lstlisting}[caption={Fileentfernung und Rückgabe des OCR-Textes}, language=Python]
+os.remove(os.getcwd()+"/dsn/static/upload/"+filename+"."+typ)
+return JsonResponse({'ocrt': ocrtext})
+\end{lstlisting}
+
+\newpage
+
+Abschließend wird mit dem daraus analysierten Text ein neues Textelement im Heft erzeugt. Dazu wird die \textit{addelement()} Methode aufgerufen. Aus folgendem Bild ergibt sich dann das folgende Textelement.
+
+\insertpicture{images/ocr/bspbild.jpg}{Beispielbild für OCR-Analyse}{(selfmade)}{itm:bsp}{0.55}
+
+\insertpicture{images/ocr/bsptext.png}{Erzeugtes Textelement}{(selfmade)}{itm:text}{0.35}
+

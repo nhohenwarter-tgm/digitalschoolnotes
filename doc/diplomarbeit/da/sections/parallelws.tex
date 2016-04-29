@@ -1,14 +1,124 @@
 %\section*{Parallel Working System}
 \cfoot{Thomas Stedronsky}
+Mit dem Parallel Working System ist es dem Benutzer möglich, Hefte mit anderen Benutzern zu teilen und diese anschließend gleichzeitig zu bearbeiten. Es kann immer ein Element pro User bearbeitet werden. Während dieses Element bearbeitet wird, können andere Benutzer dieses Element weder löschen, bearbeiten, noch verschieben. 
 
-Bereits bestehende PWS Systeme
+\subsubsection{Umsetzung}
+Das Parallel Working System besteht aus zwei Modulen. Mit dem ersten Modul ist es möglich, Hefte mit anderen Nutzern zu teilen. Das andere Modul ist für die ständige Aktualisierung und Synchronisation des Heftinhaltes verantwortlich. 
+\paragraph{Hefte teilen}
+Jedes Heft hat ein Attribut \textit{collaborator}(siehe Kapitel \ref{sec:datamgmt-notebook}). Dieses Attribut ist die Voraussetzung, um das Heft mit anderen Benutzern zu teilen. 
+Um anderen Nutzern ein bestimmtes Heft freizugeben, gibt es folgende Oberfläche:
+\insertpicture{images/pws/add_collaborator}{Hinzufügen eines weiteren Nutzers}{(selfmade)}{itm:collaborator-chart}{0.70}
+Wie man in Abbildung \ref{itm:collaborator-chart} sehen kann schlägt das System nach Eingabe User vor, diese hinzuzufügen. Durch diese Funktion soll der Komfort beim Hinzufügen eines Collaborators gefördert werden. Bei diesen Suchvorschlägen handelt es sich um die E-Mail Adresse, die gleichzeitig die eindeutige Identifizierung des Users darstellt.
+Ist ein Heft nun für einen User freigegeben, so wird das Heft in dessen Heftkollektion unter 'Für mich freigegebene Hefte' angezeigt. 
 
-Umsetzungsversuch auf unser Projekt angepasst
+\insertpicture{images/pws/show_notebook}{Für mich freigegebene Hefte}{(selfmade)}{itm:showNotebook-chart}{0.50} 
 
-Vorgehensweise
+\newpage
 
-Verbesserungsvorschlöge
+Im Prinzip kann jedes Heft mit beliebig vielen Nutzern geteilt werden. Dabei spielt es keine Rolle, ob es ein privates oder öffentliches Heft ist. 
+Der Benutzer dem ein Heft freigegeben wurde, hat nur die Bearbeitungsrechte, er kann weder den Namen ändern, noch das Heft löschen. Wird das Notebook vom Besitzer gelöscht, dann wird das Heft auch bei allen Mitbesitzern gelöscht. Hefte können nicht übergeben werden.
 
-Ausblick 
+Um die Teilung an einem Heft aufzuheben, gibt es zwei Möglichkeiten. Entweder der Besitzer des Heftes löscht den User als \textit{collaborator} mittels des roten Minus' neben dem Namen (siehe Abbildung \ref{itm:collaborator-chart}), oder der User entfernt ein geteiltes Heft selbst.
+\paragraph{Aktualisierung und Synchronisation}
+Jedes NotebookContent-Element besitzt folgende Attribute:
+\begin{lstlisting}[caption={Parallel Working System Attribute}, language=Python]
+is_active = BooleanField(default=False)
+is_active_by = EmailField()
+\end{lstlisting}
+Mit dieser Struktur kann darauf geschlossen werden, ob ein Element gerade aktiv ist und wer der aktive Nutzer ist. Diese Grundstruktur ist der Baustein, worauf das Gesamte Parallel Working System aufbaut.
 
-%Text...
+Aus diesen Attributen werden alle Anfragen, welche vom Nutzer auftreten, abgefragt und dementsprechend abgehandelt. Es ist wichtig zu wissen, wer dieses Element gerade bearbeitet, um aktive Nutzer nicht durch Aktualisierungen zu behindern.Die Attribute \textit{is\_active} und \textit{is\_active\_by} ändern sich, wenn der Bearbeitungsmodus eines Elements aktiviert oder deaktiviert wird.
+
+\newpage
+
+Bei einer Aktivierung und folgendenen Bearbeitung des Elements, wird das Attribut \textit{is\_active} auf \textit{true} gesetzt.
+\begin{lstlisting}[caption={Bearbeitungsmodus true - PWS}, language=Javascript]
+$scope.editelement(id, art, {"data": $scope.models[art][id][0]},true);
+\end{lstlisting}
+
+Sollte der Bearbeitungsmodus vom Benutzer wieder verlassen werden, so wird das Attribut wieder auf den Default-Wert \textit{false} zurückgesetzt.
+\begin{lstlisting}[caption={Bearbeitungsmodus false - PWS}, language=Javascript]
+$scope.editelement(id, art, {"data": $scope.models[art][id][0]},false);
+\end{lstlisting}
+
+Um die derzeitigen User in einem bestimmten Heft auszumachen, gibt es folgende Funktion:
+\begin{lstlisting}[caption={Abfrage der aktiven Nutzer - PWS}, language=Javascript]
+def view_get_is_active(request):
+    if not request.user.is_authenticated():
+        return JsonResponse({})
+    if request.method == "POST":
+        notebook = Notebook.objects.get(id=request.POST.get('notebook'))
+        findnotebook = None
+        content = notebook.content
+        for item in content:
+            if str(item["id"]) == str(request.POST.get('content_id')) and
+            		item["art"] == request.POST.get('content_art'):
+                findnotebook = item
+                break
+        return JsonResponse({"active":  findnotebook.is_active, 
+        	"active_by": findnotebook.is_active_by})
+\end{lstlisting}
+Mit dieser Funktion kann das System die aktiven Nutzer herausfiltern und anschließend die Daten weiter verwenden, um die Aktualisierung und Synchronisation zu steuern. Diese Daten befinden sich in einem Log in der Datenbank. Dieses Log speichert nur die aktiven Nutzer im Heft, um nachvollziehen zu können wer sich gerade in welchem Heft aufhält.
+
+\newpage
+
+Das Prinzip ist, dass immer nur ein Benutzer des Heftes an einem Element arbeiten kann und in dieser Phase von keinem anderen User irritiert werden kann. Dadurch soll verhindert werden, dass zwei oder mehr Nutzer an einem Element Änderungen vornehmen und dadurch ein Lost-Update verursachen. Durch die Maßnahme, dass nur eine Person ein Element editieren kann sind die Elemente unmittelbar nach der Aktualisierung für alle User aktuell. Dadurch wird dem Lost-Update Problem entgegen gewirkt.\cite{DATENBANKSYSTEME}\\
+Um zu vermeiden, dass ein User ein Element unbegrenzt blockiert, gibt es ein Timeout, welches den Benutzer nach einer bestimmten Zeit vom Element abmeldet, wenn dieser im Element keinen Tastendruck oder Mausklick ausführt. Wenn dieser User vom System abgemeldet wird, ist das Element anschließend wieder für alle User verfügbar.
+
+Um den anderen Benutzern zu signalisieren, dass ein Element gerade aktiv ist, wird allen anderen Usern ein rotes Rufzeichen über dem Element angezeigt. Ist dies der Fall, ist das gesamte Element nicht editierbar. 
+\insertpicture{images/pws/show_rufzeichen}{Element gesperrt - PWS}{(selfmade)}{itm:collaborator-gesperrt}{1.0}
+Dieses Zeichen verschwindet automatisch, sobald das Element für alle User wieder zugänglich ist. Durch diese Methodik sollen Missverständnisse ausgeschlossen werden. Versucht der Benutzer trotzdem das Element zu verschieben, zu löschen oder in den Bearbeitungsmodus zu gelangen, wird eine Meldung angezeigt, dass dies erst geht sobald der aktive Benutzer den Bearbeitungsmodus verlassen hat. 
+
+\newpage
+
+Die Aktualisierung und Synchronisation funktioniert in zwei Schritten.\\
+Zuerst gibt es ein definiertes Aktualisierungsintervall mit diesem Intervall wird gesteuert, in welchen Abständen das System nach neuen Heftinhalten sucht. Die Funktion, die dieses Intervall steuert, sieht wie folgt aus:
+\begin{lstlisting}[caption={Aktualisierung - PWS}, language=Javascript]
+$scope.poll = function(){
+    $timeout(function() {
+        var content = $scope.notebook['content'];
+        $http({
+            method: 'POST',
+            url: '/api/get_notebook',
+            data: {id: $stateParams.id}
+        }).success(function (data) {
+            $scope.notebook = JSON.parse(data['notebook']);
+            $scope.content = $scope.notebook['content'];
+            if(JSON.stringify($scope.content) != JSON.stringify(content)) {
+                $scope.update();
+            }
+            $scope.poll();
+        });
+    }, 10000);
+};
+
+$scope.poll();
+\end{lstlisting}
+
+Die Funktion ist rekursiv. Sie ruft sich selbst in einem vordefinierten Intervall auf. Durch den selbstständigen Funktionsaufruf ist es möglich, die Funktion im Hintergrund des Systems laufen zu lassen. Sobald ein Heft aufgerufen wird, startet diese Funktion und stoppt erst wieder, wenn sich der Benutzer aus dem Heft abmeldet. Somit soll gewährleistet werden, dass der Benutzer gleich nach Eintritt in das Heft auf den aktuellen Stand zurückgreifen kann. Es wird dem User die manuelle Aktualisierung abgenommen. Das System kümmert sich komplett eigenständig darum, dass der User immer den aktuellen Stand der einzelnen Elemente angezeigt bekommt. \\
+Bevor allerdings eine Aktualisierung beim User im Heft ausgeführt wird, muss überprüft werden, ob sich der entsprechende Benutzer nicht gerade im Bearbeitungsmodus befindet. Dies muss gemacht werden, um einen eventuellen Fortschritt des Users nicht durch eine Aktualisierung zu löschen. Mit dieser Sicherheitsvorkehrung wird dieser erst nach Verlassen des Bearbeitungsmodus aktualisiert. Sobald der Bearbeitungsmodus verlassen wird, gibt es immer eine Aktualisierung des Heftinhaltes auf der jeweiligen Seite. Das System erkennt, auf welcher Seite sich der User gerade befindet und aktualisiert genau diese Seite. Sobald der Benutzer die Seite ändert, wird diese automatisch neu geladen. Somit können Ressourcen eingespart werden und das System gewinnt an Performance.
+
+\newpage
+
+Um wirklich nur dann zu aktualisieren, wenn tatsächlich eine Veränderung des Heftinhaltes vorliegt, gibt es in der Aktualisierungsfunktion eine zusätzliche Überprüfung. 
+\begin{lstlisting}[caption={Synchronisation - PWS}, language=Javascript]
+if(JSON.stringify($scope.content) != JSON.stringify(content)) {
+	$scope.update();
+}
+\end{lstlisting}
+Diese Anweisung überprüft, ob sich der Heftinhalt in der Datenbank vom Angezeigten unterscheidet. Dies wird gemacht, um nicht ständig zu aktualisieren, obwohl keine Änderung vorliegt. Dies ist beispielsweise der Fall, wenn sich nur ein Benutzer im Heft befindet. In diesem Fall können Änderungen nur von einem User vorgenommen werden und dadurch ist keine stetige Aktualisierung notwendig. Ist diese if-Anweisung allerdings erfüllt, wird die Oberfläche mit der Funktion \textit{scope.update()} aktualisiert.
+
+Durch diese beiden Schritte ist das System immer auf aktuellem Stand und ermöglicht somit eine Umgebung, in der mehrere User gleichzeitig an einem Heft arbeiten können.
+
+Das Parallel Working System wurde speziell für Gruppenarbeiten entwickelt. Dadurch soll der Komfort für ein gemeinsam geführtes Dokument gesteigert werden. Da das Heft immmer auf dem aktuellen Stand ist, können gemeinsame Projekte optimal mit DigitalSchoolNotes und dem Parallel Working System  durchgeführt werden. 
+ 
+\subsubsection{Probleme}
+Es gibt zahlreiche Collaboration-Frameworks, die eine Echtzeitkommunikation er-\\möglichen. Die erste Überlegung war, so ein Framework zu verwenden, wie beispielsweise APE Project\cite{APE}. Mit diesem Framework ist es möglich, Web-Kommunikation in Echtzeit abzuhandeln. Allerdings gab es einige Probleme, da dieses Framework nur sehr schwer in das bereits bestehende Projekt integriert werden konnte. Daraufhin wurde diese Idee verworfen und es wurde eine eigenständige Echtzeit Lösung angestrebt. Dadurch konnte das Parellel Working System besser auf die Anforderungen von DSN angepasst werden. Dies hat den Implementierungsprozess deutlich vereinfacht.
+
+Ein deutlich größeres Problem trat bei der Implementierung der Sperrung der Elemente auf. Die Problematik war, dass trotz aktiver Bearbeitung eines Elements mehrere Nutzer dieses Element bearbeiten konnten. Dies führte zu Synchronisationsfehlern. Durch eine zusätzliche Abfrage vor Eintritt in den Bearbeitungsmodus, wurde dieses Problem behoben. 
+
+\newpage
+
+Die stetige Aktualisierung der Heftseite zeigte einige Schwierigkeiten auf. Durch das ständige Neuladen der Seite wurde sehr viel an Traffic verschwendet. Dadurch gab es Performanceverluste. Um dieses Problem zu lösen, wurde die bereits erwähnte Zusatzfunktion, mit der nur bei einer Änderung aktualisiert wird, eingebaut, wodurch Ressourcen eingespart werden konnten.
+
+Da die zahlreichen Heftelemente mit verschiedenen JavaScript-Frameworks implementiert wurden, gab es Probleme, diese einheitlich in das Parallel Working System zu integrieren. Dadurch, dass ein einheitliches Datenmodell verwendet wurde, konnte das PWS an die Bedürfnisse der einzelnen Elemente angepasst werden. 

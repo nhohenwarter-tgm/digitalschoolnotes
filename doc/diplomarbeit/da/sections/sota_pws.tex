@@ -1,0 +1,32 @@
+%\subsubsection*{Collaboration Systeme}
+\cfoot{Thomas Stedronsky}
+
+Um einen besseren Überblick über bereits bestehende Collaboration Systeme zu bekommen, wurden anfangs solche analysiert. Im Zuge der Evaluierung wurden deswegen die Systeme von Google Docs und Microsoft Portal unter die Lupe genommen.
+\paragraph{Google Docs}
+Mit Google Docs wurde einer der bekanntesten Vertreter der Realtime Web-\\Kommunikation analysiert. Die Grundidee von Google Docs ist allerdings eine andere, hierbei kann man in Realtime im gesamten Textdokument arbeiten. Bei DSN ist das gleichzeitige Arbeiten auf Elemente beschränkt.
+
+Google Docs verwendet eine eigene Google Realtime API, welche die Collaboration Vorgänge abwickelt. Diese JavaScript Library enthält Events und Methoden, die für die Erstellung einer kollaborativen Software verwendet werden können.
+
+Diese Google Realtime API arbeitet mit einem Aktualisierungsprinzip, das nur dann aktualisiert, wenn eine Änderung am Shared Medium vorgenommen wurde. Im Hintergrund wird dann eine Benachrichtung an die entsprechenden User gesendet, um das Dokument aktuell zu halten. Diese Realtime API arbeit mit einem Daten Modell, das sich ,,eventually consistent'' nennt. Dadurch ist es möglich, dass jeder dieselben Daten sieht.\cite{GOOGLE}
+
+Diese Google Realtime API konnte allerdings nicht beim Parallel Working System verwendet werden, weil die Google API ein eigenes Datenmodell benötigt und nur schwer auf einem bereits bestehendes Datenmodell aufbauen kann. Außerdem kann diese API nicht mit Javascript-Frameworks zusammengefügt werden. Da bei DigitalSchoolNotes eine Reihe von Frameworks verwendet wurden, hätte dies einen großen Aufwand erfordert. Darum wurde diese Google API nicht für die Implementierung des Parallel Working Systems verwendet.
+
+\newpage
+
+\paragraph{Microsoft Portal}
+Mit Microsoft Portal ist es möglich, im Web-Browser Office-Apps zu verwenden, unter anderen Word Online. Diese Online Textverarbeitung ist eine abgeschwächte Version des klassichen Desktop Words.
+
+Allerdings geht durch die eingeschränkte Funktionalität einiges an Nutzerkomfort verloren. Dadurch ist es lediglich möglich, Standardfunktionen zu verwenden die sich im Desktop Word in den Reitern Start, Einfügen, Seitenlayout, Überprüfen und Ansicht befinden. Es sind jedoch nicht alle Funktionen dieser Reiter implementiert.
+
+Bis zu Office 2013 war der Microsoft Portal Dienst nur im Internet Explorer verfügbar. Dies hat zur Folge, dass es in anderen Browsern öfter zu Fehlern kommen kann. In diesem Punkt hat das System noch Aufholbedarf.
+
+Microsoft Portal verwendet, wie Google Docs, ein Pull und Push Prinzip zur Aktualisierung der Dokumente. Allerdings gibt es keine Möglichkeit, die verwendeten APIs zu verwenden, da die verwendeten Bibliotheken nicht öffentlich zugänglich sind. Dadurch könnten lediglich Ideen aus dieser bestehenden Software mitgenommen werden und keine verwendbaren APIs.
+
+\paragraph{Fazit}
+Google Docs und Microsoft Portal verfolgen dasselbe Ziel, beide wollen eine konsistente Echtzeit Kommunikation in Dokumenten schaffen. Wobei man sagen muss, dass dies bei Google Docs mit weniger Fehlern funktioniert.\\
+Bei Microsoft Portal ist lediglich eine Lite-Version von Office in der Online Variante verfügbar, wodurch das Produkt einiges an Funktionen vermissen lässt.
+
+Ein großes Augenmerk liegt auf der Vorgehensweise der einzelnen Systeme. Beide arbeiten mit einem Pull und Push Verfahren. Da Microsoft die verwendeten APIs nicht öffentlich zur Verfügung stellt, war dies keine Hilfe.\\
+Bei Google gibt es mehr Einblick, durch die öffentliche Google Realtime API konnten erste Erkenntnisse daraus gewonnen werden. Dadurch wurde, wie bereits erwähnt, eine eigene Lösung angestrebt.
+
+Im Vergleich schneidet Google Docs besser ab als Microsoft Portal was daran liegt, dass die Technologie bei Google Docs ausgereifter ist und dadurch ohne große Fehler einzusetzen ist.

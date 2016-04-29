@@ -16,6 +16,21 @@
 		T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
 %lslisting
+\lstdefinelanguage{Javascript}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
+}
+
 \lstdefinestyle{customjava}{
   	language=Java,
   	frame=tlrb,
@@ -32,7 +47,10 @@
   	breaklines=true,
   	breakatwhitespace=true
   	tabsize=3,
+  	captionpos=b,
 }
+
+
 
 \lstset{escapechar=@,style=customjava}
 
@@ -48,7 +66,8 @@
 \newcommand{\insertpicture}[5]{{
 	\begin{figure}[!htb]
 		\centering\includegraphics[width=#5\textwidth]{#1}
-		\caption[#2 #3]{#2}
+		\ifthenelse{\equal{\unexpanded{#3}}{(selfmade)}}{\caption[#2]{#2}}{\caption[#2 #3]{#2 #3}}
+		
 		\label{#4}
 	\end{figure}
 	\FloatBarrier

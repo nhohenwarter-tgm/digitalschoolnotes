@@ -1,25 +1,55 @@
 %\section*{Ausblick}
 \cfoot{Thomas Stedronsky}
+Um den stetigen Verbesserungsprozess von DNS zu gewährleisten, gibt es weitere Ideen, um die Software mit mehr Funktionalität auszustatten und diese somit noch attraktiver für die Nutzer zu machen. 
 
-Bezahlsystem
+\subsection{Bezahlsystem}
+Um das System in die Wirtschaft zu bringen, müsste ein Bezahlsystem eingebaut werden, das die Kostenabwicklung übernimmt. Dieses System wäre die Vorrausetzung, um zahlende Kunden für das Produkt zu gewinnen.\\
+Es gibt bereits ein Geschäftmodell und anhand dessen dieses System aufgebaut sein müsste. 
+\insertpicture{images/ausblick/geschaeftsmodell}{Geschäftsmodell}{(selfmade)}{itm:geschaeftsmodell}{1.0}
+Die Bezahlung sollte über bekannte Online-Bezahllösungen wie PayPal, Amazon Payments, etc. abgewickelt werden, um sich rechtlich abzusichern. Durch dieses Bezahlsystem wäre es dann möglich, die 90 Tage Testaccounts auf Pro Accounts upzugraden. Außerdem gibt es extra für Schulen zugeschnittene Lizenzen, mit denen Schulen eine zeitlich unbegrenzte Lizenz erwerben können, wobei die Schule dann das Hosting des Servers selber übernehmen muss. 
 
-PDF Download
+\newpage
 
-LDAP Anbindung
+\subsection{Einblendung von Werbung}
+Durch die Einblendung von Werbung in den 90 Tage Testversionen sollen neue Einnahmequellen geschaffen werden. Dadurch sollten diese Probeaccounts finanziert werden. Durch diese Verbesserung wäre es vorstellbar, dass User, die störungsfrei arbeiten wollen, ihren 90 Tage Probeaccount schneller verlängern und somit dauerhafter Nutzer von DigitalSchoolNotes werden. Diese Werbungen sollen über das Google AdSense Werbenetzwerk bezogen werden. Dies ist eine gängige Methode in Webapplikation, um Werbung einzubinden.
+\subsection{Zeichenelement}
+Um die Palette an Elementen weiter aufzustocken, gibt es die Idee eines Zeichenelements. Mit diesem Element soll es dem User möglich sein, direkt im Heft ein Skizze anzulegen und diese dann nach Belieben in späterer Folge weiter zu editieren. Dadurch würde Einiges an Aufwand wegfallen, um eine Skizze, beziehungweise eine Zeichnung, in einem Heft zu platzieren.\\
+Hierbei soll gefördert werden, dass die Nutzer Gedanken im Sinne von Skizzen, Mindmaps, etc. schnell in einem Heft anlegen können, wie sie es auch in einem handgeschriebenen Heft machen würden. Mit diesem Tool würde man näher an die Idee einer handschriftlichen Mitschrift heranrücken.
+\subsection{Videoeinbindung}
+Um das Heft noch interaktiver zu gestalten könnte man die Elemente um ein Video-Element erweitern. Mit diesem Element wäre es dem User möglich, zum Beispiel Videos, die den Unterricht betreffen, in das interaktive Schulheft einzubinden. Somit könnten Video Tutorials direkt im Schulheft angesehen werden. Um Ressourcen zu sparen, wäre die Idee, diese Videos nicht auf dem DigitalSchoolNotes Server abzuspeichern, sondern lediglich Links in das Heft einzubinden. Somit müssten nur Links aus Videoportalen eingebunden werden und die dann anschließend direkt im Heft abgespielt werden. Durch diese Erweiterung der Elemente könnte man klare Abgrenzungen zu normalen Textdokumenten schaffen, wodurch ein interaktives Notizheft mit vielen verschiedenen Inhalten entstehen würde.
+\subsection{Drag and Drop von Bildern}
+Durch eine zusätzliche Drag and Drop Funktion um Bilder einzufügen, könnte dem User viel Aufwand abgenommen werden. Somit müsste ein Bild nur mehr in das Heft hineingezogen werden und das Bild wäre im Heft platziert. 
+\subsection{PDF Download}
+Durch die Möglichkeit eines PDF-Downloads des Heftes wäre es dem User möglich geschriebenen Inhalt auch offline verfügbar zu haben. Durch diese Methode könnte man das jeweilige Heft zum Beispiel ausdrucken und archivieren. Außerdem würde mit dieser Funktion das Problem der maximalen Heftanzahl aufgelockert werden. Es wäre anschließend möglich, nicht mehr gebrauchte Hefte als PDF herunterzuladen und danach zu löschen. Somit könnte Platz für aktuelle Fächer beziehungsweise Hefte geschaffen werden.
+\subsection{Shortcuts}
+Für eine bessere Bedienbarkeit von DigitalSchoolNotes könnten Shortcuts in das System integriert werden, um so schneller gewünschte Funktionen auszuführen. Somit könnten beispielsweise einfach Elemente mittels einer simplen Tastenkombination in das Heft eingebunden werden. Durch diese geringfügige Verbesserung würde der Userkomfort gesteigert werden. Durch dieses Feature könnte effizienter mit der Web-Applikation DigitalSchoolNotes gearbeitet werden.\\
+Es könnte auch unter anderem eine Suchfunktion innerhalb eines Heftes geben, wie es in den meisten Systemen mit Strg + F üblich ist. Dadurch könnten einzelne Elemente untersucht werden und dann automatisch zu diesen verwiesen werden. Damit wäre es möglich, besser und schneller in z.B. geteilten Heften nach dem passenden Inhalt zu suchen. 
+\subsection{Filehoster-Anbindung}
+Derzeit ist es möglich zum Beispiel Bilder in ein Heft hochzuladen. Diese Bilder werden dann in der Amanzon S3 Cloud(siehe \ref{sec:bildelement}) abgespeichert. Allerdings benötigen diese Bilder trotz Komprimierung eine Menge an Ressourcen. Um dem User zu ermöglichen, beliebig viele Bilder in sein Heft zu importieren, gibt es eine Möglichkeit. Durch die Anbindung an ein Filehosting-System, wie beispielsweise Dropbox, könnten Bilder direkt aus dem Shared Folder in das Heft eingebunden werden. Dadurch könnte jeder User seinen Speicher von außerhalb verwenden und hätte somit alle Dateien auf dem selben Ort abgelegt.\\
+Dies hätte den großen Vorteil, dass schnell und effizient mehrere Systeme gleichzeitig auf diese Medien zugreifen können. Durch die Verbindung mit bereits verwendeter Software könnte der Benutzer einiges an Administrationsaufwand abgenommen werden. Dadurch könnte man DigitalSchoolNotes überall verwenden und hätte alle Dateien, die sich in solchen Shared Foldern befinden, jederzeit zur Verfügung. 
 
-Pro Accounts
+\newpage
 
-Stundenplan Web Untis Import
+\subsection{Web Untis Anbindung}
+Da DigitalSchoolNotes als Zielgruppe Schulen hat, sollte darüber nachgedacht werden, eventuell Stundenplansystem wie WebUntis in die Web-Applikation einzubinden. Somit müsste der Stundenplan auf der DSN Website nicht mehr manuell eingegeben werden, sondern würde direkt nach Verbindung mit dem Web Untis System der Schule synchronisiert werden.\\
+Durch diese Neuerung würde dem User einiges an Aufwand abgenommen werden. Es müssten maximal kleine Anpassungen vorgenommen werden, um den Stundenplan im selben Rahmen zu nutzen, wie ihn Web Untis zur Verfügung stellt. Dadurch müssten lediglich die Hefte mit dem neuen Stundenplan verbunden werden und danach könnte man diesen genau wie einen manuell eingegeben Stundenplan nutzen. 
 
-Zeichentool
+\subsection{LDAP-Anbindung}
+Um bereits bestehende Lösungen, die in einer Schule eingesetzt werden, zu nutzen, gibt es die Idee, bestehende LDAP Systeme einer Schule mit DigitalSchoolNotes zu verbinden. Somit müssten sich die Nutzer nicht mehr extra für DSN anmelden, sondern könnten bereits verwendete Accounts verwenden. Dadurch verringert sich der Administrationsaufwand drastisch.
 
-Video einbindung
+\subsection{Optimierung des PWS}
+Um das Parallel Working System weiter zu verbessern, gibt es Ideen, um dieses System schneller und performanter zu machen.
 
-Filehoster anbindung 
+Um eine höhere Performance zu erlangen, gibt es die Möglichkeit, das Aktualisierungsverfahren zu verändern. Die Aktualisierung in gleichbleibenden Abständen ist nicht die performanteste Lösung. Es gibt ein Pull und Push Prinzip, wie es beispielsweise die Google Realtime API verwendet. Mit diesem Verfahren wird nach jeder Änderung am System eine Push-Benachrichtung an den Server geschickt. Anschließend werden die aktiven Nutzer benachrichtigt und der geänderte Inhalt kann aktualisiert werden.
 
-Shortcuts für schnellere Verwendung
+Um dieses Verfahren in das Parallel Working System zu integrieren, müsste das System an mehreren Stellen angepasst werden, wodurch das System aber effizienter arbeiten würde und somit noch näher an eine Echtzeit-Kommunikation herankommen würde.\\
+Diese Änderung hätte zur Folge das sich keine Differenz zwischen Änderung und Aktualisierung mehr ergäben, wodurch besser gemeinsam an einer Heftseite gearbeitet werden könnte.
+\newpage
+Um weiteren Nutzerkomfort zu schaffen, müsste das Prinzip, dass nur ein Nutzer pro Element arbeiten darf, optimiert werden. Es gäbe die Möglichkeit, diese Regel aufzuheben und ein gleichzeitiges Arbeiten an einem Element zu erlauben. Dies wäre der letzte Schritt zur endgültigen Echtzeit-Kommunikation. Allerdings müsste mit dieser Änderung das ganze Konzept von DigitalSchoolNotes überarbeitet werden, um dies zu ermöglichen. Denn mit der derzeitigen Version wird erst ab Verlassen des Bearbeitungsmodus der aktuelle Stand gespeichert und für alle Nutzer im Heft zur Verfügung gestellt. Mit diesem neuen Prinzip müsste jeder Tastendruck in Echtzeit an die aktiven Nutzer übermittelt werden, um keine Konflikte aufkommen zu lassen. Diese Funktion könnte nur mit einem dementsprechenden Framework durchgeführt werden. Es müsste eine Machbarkeitsstudie durchgeführt werden, um abzuklären, ob eine solch aufwendige Änderung mit dem aktuellen System umsetzbar wäre.
 
-...
+\cfoot{Thomas Stedronsky, Adin Karic, Selina Brinnich}
+\subsection{OCR-Modul Optimierung}
+Eine Optimierung des OCR-Moduls hinsichtlich Erkennungsgenauigkeit und Handschrifterkennung wurde angedacht. In Zukunft könnte man das OCR-Modul durch entsprechendes (automatisiertes) Training in dieser Hinsicht weiterentwickeln. Eine höhere Fehlertoleranz bei Bildern mit schlechter Qualität ist ebenso wünschenswert.
 
-
-%Text...
+\subsection{Verbesserung der Datenbank-Schnittstelle}
+Um den Zugriff auf Daten zu vereinfachen, wäre eine Verbesserung der Datenbank-Schnittstelle sinnvoll. Dafür könnten Interfaces definiert werden, die einen einheitlichen Zugriff auf Daten ermöglichen würden. Innerhalb der Applikation würde dann nicht mehr auf Methoden des Connectors MongoEngine zugegriffen werden, sondern nur mehr auf die eigens definierte Schnittstelle. Das hätte den Vorteil, dass ein einfacherer und einheitlicherer Zugriff auf die Daten in der Datenbank erfolgen würde und zudem auch die Datenbank bei eventuellen zukünftigen Umstrukturierungen einfacher ausgetauscht werden könnte. Bei so einem Austausch müssten dann nur die Methodenaufrufe in den entsprechenden Interfaces verändert werden. In der restlichen Applikation würden die Methodenaufrufe unverändert bleiben. Dadurch würde eine deutliche Verbesserung erzielt werden.

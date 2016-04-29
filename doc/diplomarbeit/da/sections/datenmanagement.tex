@@ -1,4 +1,184 @@
 %\section*{Datenmanagement}
 \cfoot{Selina Brinnich}
 
-%Text...
+Ein gutes Datenmanagement ist eine Grundvoraussetzung für eine
+gut funktionierende Applikation. Alle Daten müssen persistiert werden, um nicht verloren zu gehen. Zudem soll durch ein gut organisiertes Datenmanagement eine einfache und effiziente Verwaltung der Daten gesichert werden.
+
+\subsubsection{Datenmodell}
+Um einen einheitlichen Zugriff auf Daten zu ermöglichen, muss ein Datenmodell entwickelt werden. Ein Datenmodell bezeichnet eine Struktur beziehungsweise den Aufbau der einzelnen Datensätze. Dabei ist zu beachten, dass in der Applikation Daten unterschiedlichster Art gespeichert werden. Das bedeutet, dass diese unterschiedlichen Typen logischerweise auch unterschiedliche Datenmodelle zugrunde haben müssen. Zur Organisation dieser unterschiedlichen Arten von Daten gibt es in MongoDB sogenannte Collections. Diese Collections beinhalten alle Datensätze eines Typs, beispielsweise alle Einträge von Benutzern. In unserer Applikation gibt es folgende Collections:
+\begin{itemize}
+\item \textbf{user}\\ Zur Abspeicherung von Benutzeraccounts
+\item \textbf{notebook}\\ Zur Abspeicherung von Schulheften; beinhaltet auch alle Daten innerhalb des Heftes (Texte, Bilder,...)
+\item \textbf{time\_table}\\ Zur Abspeicherung eines Stundenplans; beinhaltet die einzelnen Stundenzeiten sowie eine Fachbezeichnung, einen Lehrer und einen Raum pro Tag und Stunde
+\end{itemize}
+
+\newpage
+
+\paragraph{User}
+Die Collection \textit{user} beinhaltet alle relevanten Daten zur Abspeicherung von Benutzeraccounts. Folgendes Datenmodell liegt dem zugrunde:
+\begin{itemize}
+\item \textbf{\_id}\\ Eine Object-ID zur eindeutigen Identifizierung eines Eintrags
+\item \textbf{email}\\ Die E-Mail Adresse des jeweiligen Benutzers
+\item \textbf{first\_name}\\ Der Vorname des jeweiligen Benutzers
+\item \textbf{last\_name}\\ Der Nachname des jeweiligen Benutzers
+\item \textbf{password}\\ Ein Hash eines selbst definierten Passwortes des jeweiligen Benutzers, erstellt mit dem \gls{PBKDF2} Verfahren mit 20000 Iterationen
+\item \textbf{is\_prouser}\\ Beschreibt, ob der jeweilige Benutzer einen Pro-Account besitzt
+\item \textbf{is\_active}\\ Beschreibt, ob der jeweilige Benutzer bereits seine E-Mail Adresse bestätigt hat
+\item \textbf{is\_superuser}\\ Beschreibt, ob der jeweilige Benutzer ein Administrator der Applikation ist
+\item \textbf{last\_login}\\ Das Datum, an dem der jeweilige Benutzer sich das letzte Mal erfolgreich an der Applikation angemeldet hat
+\item \textbf{date\_joined}\\ Das Datum, an dem der jeweilige Benutzer sich an der Applikation registriert hat
+\item \textbf{validatetoken}\\ Ein Hash, der als Token zur Bestätigung der E-Mail Adresse des jeweiligen Benutzers dient, sofern dieser die Bestätigung noch nicht durchgeführt hat
+\item \textbf{passwordreset}\\ Eine Liste, die einen Hash sowie ein Datum beinhaltet, welche zur Zurücksetzung des Passwortes des jeweiligen Benutzers dienen, sofern dieser angegeben hat, sein Passwort vergessen zu haben
+\end{itemize}
+Benutzer werden innerhalb der Applikation mithilfe ihrer E-Mail Adresse identifiziert. Das bedeutet, dass die Eigenschaft \textit{email} bei jedem Eintrag in der Datenbank einzigartig sein muss, ebenso wie die ID des Eintrags.
+
+\paragraph{Notebook}
+\label{sec:datamgmt-notebook}
+Die Collection \textit{notebook} beinhaltet die Daten, die ein einzelnes Heft betreffen. Dazu wird folgende Struktur definiert:
+\begin{itemize}
+\item \textbf{\_id}\\ Eine Object-ID zur eindeutigen Identifizierung eines Eintrags
+\item \textbf{name}\\ Der Anzeigename des Heftes, der vom Benutzer festgelegt wurde
+\item \textbf{is\_public}\\ Beschreibt, ob das Heft öffentlich (von allen Benutzern der Applikation) einsehbar ist
+\item \textbf{create\_date}\\ Das Erstellungsdatum des Heftes
+\item \textbf{last\_change}\\ Das Datum, an dem das Heft das letzte Mal bearbeitet wurde
+\item \textbf{email}\\ Die E-Mail Adresse des Besitzers des Heftes
+\item \textbf{numpages}\\ Die Anzahl an Seiten, die das Heft besitzt
+\item \textbf{current\_page}\\ Die Seite, die aufgeschlagen wird, sobald der Benutzer das Heft das nächste Mal öffnet
+\item \textbf{content}\\ Eine Liste, die alle Inhalte des Heftes (Texte, Bilder,...) beinhaltet. Ein Heftelement beinhaltet jeweils folgende Eigenschaften:
+\begin{itemize}
+\item \textbf{id}
+\item \textbf{art}
+\item \textbf{position\_x}
+\item \textbf{position\_y}
+\item \textbf{position\_site}
+\item \textbf{data}
+\item \textbf{is\_active}
+\item \textbf{is\_active\_by}
+\end{itemize}
+\item \textbf{collaborator} Eine Liste an E-Mail Adressen von Benutzern der Applikation, die neben dem Besitzer des Heftes ebenfalls die Inhalte des Heftes bearbeiten dürfen
+\end{itemize}
+Der Name eines Heftes ist pro Benutzer einzigartig zu vergeben, um das Heft identifizieren zu können. Abgesehen von der Eigenschaft \textit{\_id} kann ein Heft also auch mithilfe der beiden Eigenschaften \textit{name} und \textit{email} eindeutig identifiziert werden. Die Eigenschaft \textit{content} besteht aus einer Liste. Diese Liste beinhaltet individuell viele JSON-Objekte, die jeweils ein Objekt innerhalb des Heftes darstellen (Text, Bild,...). Diese JSON-Objekte bestehen wiederum aus einer ID zur Identifizierung, der Art des Elementes (Textelement, Bildelement,...), der genauen Position innerhalb des Heftes (Seitenzahl und x-Koordinate, sowie y-Koordinate auf dieser Seite) und dem eigentlichen Inhalt, beispielsweise dem Text den der Benutzer eingegeben hat, sollte es sich um ein Textelement handeln. Zudem wird zu jedem dieser Elemente gespeichert, ob gerade ein Benutzer dieses Element bearbeitet und wenn ja, welcher Benutzer sich im Bearbeitungsmodus befindet.
+
+\paragraph{Timetable}
+In der Collection \textit{time\_table} werden alle Daten der Stundenpläne von Benutzern gespeichert. Das beinhaltet sowohl die einzelnen Fächer, Lehrer und Räume pro Stunde, als auch die per Benutzer definierten Zeiten für jede Stunde. Zur Persistierung wird folgendes Datenmodell verwendet:
+\begin{itemize}
+\item \textbf{\_id}\\ Eine Object-ID zur eindeutigen Identifizierung eines Eintrags
+\item \textbf{email}\\ Die E-Mail Adresse des Benutzers, dem der Stundenplan zugeordnet ist
+\item \textbf{times}\\ Eine Liste, die die Anfangs- und Endzeiten jeder Stunde im Stundenplan enthält
+\item \textbf{fields}\\ Eine Liste, die alle einzelnen Stunden im Stundenplan mit Fach, Lehrer und Raum enthält
+\end{itemize}
+Der Stundenplan wird einem Benutzer mithilfe der Eigenschaft \textit{email} zugeordnet und damit auch eindeutig identifiziert, da jeder Benutzer nur einen Stundenplan besitzt. 
+
+Die Eigenschaften \textit{times} und \textit{fields} sind jeweils Listen, die mehrere JSON-Objekte enthalten.\\
+Ein JSON-Objekt in der Liste \textit{times} enthält die jeweilige Stunde (1-xx) und die Anfangs- und Endzeit für diese Stunde. Ein JSON-Objekt in der Liste \textit{fields} enthält eine ID zum Identifizieren der jeweiligen Stunde (Zusammengesetzt aus Reihenzahl und Spaltenzahl im Stundenplan), eine Bezeichnung des Faches, das in dieser Stunde unterrichtet wird, dem Namen des Lehrers, der das jeweilige Fach unterrichtet und dem Raum, in dem der Unterricht stattfindet, sowie ein Heftname eines Heftes, das dem jeweiligen Benutzer gehört. Mithilfe des Heftnamens kann ein Heft mit einer Stunde im Stundenplan verknüpft und zugeordnet werden.
+
+\subsubsection{Datenzugriff}
+Der Zugriff auf Daten in der Datenbank kann über zwei Arten erfolgen. Entweder es wird direkt über die Konsole von MongoDB zugegriffen, oder der Datenzugriff erfolgt über die Applikation. \\
+Der Zugriff auf Daten bezeichnet dabei unterschiedliche Operationen. Es können neue Daten erstellt, vorhandene Daten ausgelesen und bestehende Daten bearbeitet oder gelöscht werden. Wie all diese Operationen jeweils auf beide der genannten Arten des Zugriffs durchgeführt werden können, wird im folgenden näher erläutert.
+\paragraph{Direkter Zugriff auf die Datenbank}
+Ein direkter Zugriff auf Daten in der Datenbank kann über die Konsole von MongoDB ausgeführt werden. Die Konsole kann nach der Installation von MongoDB mithilfe des Befehls \textit{mongo} geöffnet werden. Anschließend können weitere Operationen durchgeführt werden.
+
+Um eine Datenbank für den Datenzugriff auszuwählen, wird der Befehl \textit{use dbname} benötigt. Dieser erstellt auch gleichzeitig eine neue Datenbank, sollte noch keine mit dem angegebenen Namen existieren. Nach Auswählen der gewünschten Datenbank können nun Collections angelegt werden, um die Daten später besser zu organisieren. Dies geschieht mittels des Befehls \textit{db.createCollection(collname)}. MongoDB kann allerdings auch automatisch eine neue Collection erstellen, sobald versucht wird einen neuen Datensatz in eine bisher nicht existente Collection einzufügen.
+
+Nachdem eine Datenbank und Collections angelegt wurden, können weitere Operationen durchgeführt werden.
+
+Mithilfe des Befehls \textit{db.collname.insert(document)} kann ein neuer Datensatz in eine gewünschte Collection eingefügt werden. \textit{document} bezeichnet dabei einen JSON-String. Der Befehl kann beispielsweise folgendermaßen aussehen:\\
+\begin{lstlisting}[caption=Einfügen eines neuen Datensatzes, language=Python]
+db.user.insert({"name":"Test", "email":"test@email.com"\})
+\end{lstlisting}
+Der JSON-String kann dabei aus beliebig vielen Key-Value Paaren bestehen.
+
+\newpage
+
+Der Befehl \textit{db.collname.find()} kann dazu verwendet werden, bestehende Datensätze innerhalb einer Collection zu suchen und anzuzeigen. Dabei kann optional ein Parameter angegeben werden, um  Suchkriterien festzulegen. Um beispielsweise Benutzer mit einem bestimmten Namen zu suchen, kann folgendermaßen vorgegangen werden:\\
+\begin{lstlisting}[caption=Suchen nach Datensätzen, language=Python]
+db.user.find({"name":"Test"})
+\end{lstlisting}
+Hierbei würden nun alle Benutzer mit dem Namen "Test'' angezeigt werden. Sollte nur ein Suchergebnis erwartet werden, kann zudem auch der Befehl \textit{.findOne()} verwendet werden.
+
+Mithilfe von \textit{db.collname.update(criteria,updated)} kann ein bestehender Datensatz ver-ändert werden. \textit{criteria} entspricht dabei einem JSON-String, der als Suchkriterium dient. Nur Datensätze, die diesem Kriterium entsprechen, werden verändert. \textit{updated} bezeichnet den neuen JSON-String, durch den der alte Datensatz ersetzt werden soll. Soll nicht der ganze Datensatz ersetzt werden, sondern lediglich ein oder mehrere Eigenschaften des bestehenden Datensatzes, so kann \textit{\$set} folgendermaßen verwendet werden:\\
+\begin{lstlisting}[caption=Bearbeiten eines bestehenden Datensatzes, language=Python]
+db.user.update({"name":"Test"},{$set:{"name":"Test2"}},{multi:true})
+\end{lstlisting}
+Hier werden alle Datensätze in der Collection \textit{user}, die den Namen ''Test'' haben so bearbeitet, dass nun ''Test2'' als Name festgelegt wird. Der zusätzliche Parameter \textit{\{multi:true\}} besagt dabei, dass nicht nur der erste Datensatz, der auf das Suchkriterium zutrifft, bearbeitet werden soll, sondern alle, die dem Muster entsprechen.
+
+Um einen bereits bestehenden Datensatz wieder aus der Collection zu löschen, kann der Befehl \textit{db.collname.remove()} verwendet werden. Sollte hierbei kein Parameter angegeben werden, werden alle Datensätze aus der Collection gelöscht. Mithilfe eines JSON-Strings als Parameter kann das Löschen auf Datensätze beschränkt werden, die einem bestimmten Kriterium entsprechen.
+
+\newpage
+
+\paragraph{Zugriff aus der Applikation}
+\label{sec:applikation}
+Um innerhalb der Applikation auf Daten aus der Datenbank zugreifen zu können, muss Django entsprechend konfiguriert werden. Django unterstützt standardmäßig lediglich relationale DBMS. Da im Projekt jedoch die NoSQL-Datenbank “MongoDB” verwendet wird, muss dies extra konfiguriert werden.
+
+Dazu muss MongoEngine, ein Verbindungsstück zwischen Django und MongoDB, installiert werden. Dabei sollte die Version 0.9.0 verwendet werden, da die neueste Version 0.10.0 aktuell einen Bug hat, durch welchen man sich nicht mehr mit einer Datenbank verbinden kann.\\
+\begin{lstlisting}[caption=Installation von MongoEngine, language=Python]
+pip3 install mongoengine==0.9.0
+\end{lstlisting}
+
+Um Django mitzuteilen, dass MongoDB im Hintergrund verwendet werden soll, müssen im File \textit{prototype/settings.py} folgende Zeilen auskommentiert beziehungsweise hinzugefügt werden:
+
+\begin{lstlisting}[caption=MongoDB Konfiguration in Django, language=Python]
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#    }
+#}
+import mongoengine
+
+DATABASES = {
+    'default': {
+        'ENGINE': '',
+    },
+}
+SESSION_ENGINE = 'mongoengine.django.sessions'
+
+_MONGODB_HOST = 'localhost' #Hostname
+_MONGODB_NAME = 'dsn' #DB-Name
+_MONGODB_DATABASE_HOST = 'mongodb://%s' % (_MONGODB_HOST)
+mongoengine.connect(_MONGODB_NAME, host=_MONGODB_DATABASE_HOST)
+\end{lstlisting}
+
+\newpage
+
+Um von Django aus auf Daten in MongoDB zugreifen beziehungsweise neue Daten hineinspeichern zu können, müssen vorher sogenannte Models erstellt werden. Diese sind im File \textit{models.py} definiert und bilden die Struktur der Daten in der Datenbank ab. Dies kann beispielsweise folgendermaßen aussehen:
+
+\begin{lstlisting}[caption=Beispiel für ein Datenbankmodell in Django, language=Python]
+class Notebook(Document):
+    name = StringField(max_length=30)
+    is_public = BooleanField()
+    create_date = DateTimeField()
+    last_change = DateTimeField()
+    email = EmailField()
+\end{lstlisting}
+
+Der Klassenname (hier: Notebook) entspricht in der Datenbank später dem Collection-Namen. Wichtig bei der Klassendefinition ist, dass von \textit{Document} geerbt wird. \textit{Document} definiert Funktionen zum Auslesen der Daten der entsprechenden Collection aus der Datenbank, zum Erstellen eines neuen Objektes und zum Abspeichern des Objektes in der Datenbank. Die einzelnen Attribute der Klasse werden in der Datenbank als JSON abgebildet, wobei der Key der Name des Attributes ist.
+
+Nachdem MongoEngine innerhalb von Django konfiguriert wurde und alle benötigten Datenbankmodelle aller verwendeten Collections erstellt wurden, können Operationen zum Hinzufügen, Lesen, Bearbeiten und Löschen von Datensätzen in der Datenbank in den entsprechenden Collections ausgeführt werden.
+
+Mittels \textit{collectionName.objects()} können bestehende Datensätze der entsprechenden Collection ausgelesen werden. Dabei liefert MongoEngine alle Objekte aus der angegeben Collection. Wenn nicht alle Objekte einer Collection gefragt sind, sondern nur eine gewisse Anzahl, können diese mit folgendem Befehl abgefragt werden:\\
+\textit{Tabellenname.objects[x:y]}
+
+Um bestimmte Objekte innerhalb einer Collection nach selbst definierten Suchkriterien zu filtern kann folgende Syntax verwendet werden:
+
+\begin{lstlisting}[caption=Syntax für eine Suchanfrage an die Datenbank in Django, language=Python]
+user = User.objects()
+user(
+     Q(email__icontains=suchtext) | 	 
+     Q(first_name__icontains=suchtext) | 
+     Q(last_name__icontains=suchtext)
+     )
+\end{lstlisting}
+
+\newpage
+
+Hierbei wird nach allen Benutzern gesucht, die \textit{suchtext} entweder in der E-Mail Adresse oder im Vor- beziehungsweise Nachnamen angegeben haben. \textit{icontains} gibt dabei an, dass die Groß- und Kleinschreibung bei der Suche nicht relevant ist. Sollte jedoch gewünscht sein, dass auch die Groß- und Kleinschreibung bei der Suche beachtet wird, muss statt \textit{icontains} das Stichwort \textit{contains} verwendet werden.
+
+Objekte können auch nach einer bestimmten Spalte sortiert werden. Um die Objekte aufsteigend zu sortieren, kann folgender Befehl verwendet werden:\\
+\textit{users.order\_by(spaltenname)}\\
+Zum absteigenden Sortieren wird folgende Syntax benötigt:\\
+\textit{users.order\_by('- '+spaltenname)}
+
+Falls ein vorhandenes Objekt aus der Collection gelöscht werden soll, muss dieses zuvor mithilfe einer Suchanfrage abgefragt werden und dann mit der Funktion \textit{.delete()} entfernt werden. 
+
+Nachdem ein Ergebnis auf eine Suchanfrage zurückgeliefert wurde, können einzelne Attribute des erhaltenen Objektes verändert werden. Um diese Änderungen anschließend zu persistieren, muss die Funktion \textit{.save()} auf das entsprechende Objekt ausgeführt werden.
