@@ -491,15 +491,17 @@ msgstr "Digital Notes"
 
 #: ../dsn/static/js/translations.js:106
 msgid "feature_digital_notes_infotext"
-msgstr ""
+msgstr "Nowadays it's really important to have your notes available."
 
 #: ../dsn/static/js/translations.js:107
 msgid "feature_everywhere_accessible"
-msgstr "Everywhere accessible"
+msgstr "Available - always and everywhere"
 
 #: ../dsn/static/js/translations.js:108
 msgid "feature_everywhere_accessible_infotext"
 msgstr ""
+"Owing to our modern infrastructure and our clever concepts we provide a fast access to DSN.\n"
+"Whether you're at home doing your homework or studying at school, you can count on DSN!"
 
 #: ../dsn/static/js/translations.js:109
 msgid "feature_collaborative_working"
@@ -508,6 +510,8 @@ msgstr "Collaborative working"
 #: ../dsn/static/js/translations.js:110
 msgid "feature_collaborative_working_infotext"
 msgstr ""
+"Collaboration is and will always be an important part of our productive work.\n"
+"Through our Collaboration-System we provide a great feature for teams who want to get the job done."
 
 #: ../dsn/static/js/translations.js:111
 msgid "feature_ocr"
@@ -516,6 +520,9 @@ msgstr "Image to text"
 #: ../dsn/static/js/translations.js:112
 msgid "feature_ocr_infotext"
 msgstr ""
+"Optical Character Recognition. Sounds weird? It's super cool!\n"
+"The times of copying notes manually are over. With our OCR-Feature you can simply take a photo of your notes "
+"and import them as text into DSN."
 
 #: ../dsn/static/js/translations.js:113
 msgid "feature_timetable"
@@ -524,6 +531,8 @@ msgstr "Timetable"
 #: ../dsn/static/js/translations.js:114
 msgid "feature_timetable_infotext"
 msgstr ""
+"Our timetable waits for your classes to be filled with!\n"
+"In addition you can easily link your classes to your DSN-notebooks."
 
 #: ../dsn/static/js/translations.js:115
 msgid "feature_elements"
@@ -532,14 +541,16 @@ msgstr "Different elements"
 #: ../dsn/static/js/translations.js:116
 msgid "feature_elements_infotext"
 msgstr ""
+"There are various elements you can add to your notebook."
+"We provide text-, picture- and code- elements."
 
 #: ../dsn/static/js/translations.js:117
 msgid "pricing_free"
-msgstr "FREE"
+msgstr "TEST"
 
 #: ../dsn/static/js/translations.js:118
 msgid "pricing_free_costs"
-msgstr "€0 / forever"
+msgstr "€0 / 90 Days"
 
 #: ../dsn/static/js/translations.js:119
 msgid "pricing_free_features1"
