@@ -172,6 +172,8 @@ LANGUAGES = (
 #STATICFILES_DIRS = (
 #    os.path.join(BASE_DIR, "dsn/static"),
 #)
+
+#INVALID ACCESS DATA
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'mxf92d.netcup.net'
 EMAIL_HOST_USER = 'noreply@digitalschoolnotes.com'
